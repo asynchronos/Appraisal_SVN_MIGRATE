@@ -4,6 +4,7 @@ Imports System.Drawing
 Imports System.IO
 
 
+
 Partial Class MyMenu
     Inherits System.Web.UI.UserControl
 
@@ -198,8 +199,11 @@ Partial Class MyMenu
     Dim myConnection As SqlConnection
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        Session("permission") = 0
-        Session("division") = 1
+        'Session("permission") = 0
+        'Session("division") = 1
+
+
+
         Try
             myConnection = New SqlConnection(strConnection)
             myConnection.Open()
@@ -221,8 +225,9 @@ Partial Class MyMenu
 
         Dim SQLCmdAllMenu As New SqlCommand("sp_CreateMenu", myConnection)
         SQLCmdAllMenu.CommandType = CommandType.StoredProcedure
-        SQLCmdAllMenu.Parameters.Add("Permission", SqlDbType.TinyInt).Value = Session("permission")
-        SQLCmdAllMenu.Parameters.Add("division", SqlDbType.TinyInt).Value = Session("division")
+        'SQLCmdAllMenu.Parameters.Add("permission", SqlDbType.TinyInt).Value = Session("permission")
+        'SQLCmdAllMenu.Parameters.Add("division", SqlDbType.TinyInt).Value = Session("division")
+        SQLCmdAllMenu.Parameters.Add("GroupId", SqlDbType.TinyInt).Value = Session("sGroup_Id")
         myAdapter = New SqlDataAdapter(SQLCmdAllMenu)
 
 

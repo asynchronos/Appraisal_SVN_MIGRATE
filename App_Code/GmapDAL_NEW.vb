@@ -6,9 +6,10 @@ Imports System.Data
 Imports System.Data.SqlClient
 Imports System.Diagnostics
 Imports System.Collections.Generic
+Imports Appraisal_Manager
 
 Public Class GmapDAL_NEW
-    Private Shared className As String = "GmapDAL"
+    Private Shared className As String = "GmapDAL_NEW"
 
     Public Function getGmapByCOLL_ID(ByVal objGmap As Gmap) As Gmap
 
@@ -39,6 +40,48 @@ Public Class GmapDAL_NEW
             End While
 
             reader.close()
+        Catch ex As Exception
+            Throw New Exception(ex.Message & " : " & ex.StackTrace)
+        Finally
+            If (conn.State = ConnectionState.Open) Then
+                conn.Close()
+            End If
+            conn = Nothing
+        End Try
+
+        Return result
+
+    End Function
+
+    Public Function getGmapBy_AID(ByVal objPrice3Master As Price3_Master) As Price3_Master
+
+        'declare connection
+        Dim conn As SqlConnection = Nothing
+        'declare result
+        Dim result As New Price3_Master()
+
+        Try
+            conn = ConnectionUtil.getSqlConnectionFromWebConfig()
+            Dim sql As String = "SELECT " _
+             & "COLL_ID, Lat, Lng, Name, " _
+             & "Detail, Price1, Price2, Price3, " _
+             & "Pic1, Pic2 " _
+             & "FROM Gmap " _
+             & "WHERE COLL_ID=@COLL_ID " _
+             & "ORDER BY COLL_ID"
+
+            Dim sqlCmd As New SqlCommand(sql, conn)
+            sqlCmd.Prepare()
+
+            sqlCmd.Parameters.AddWithValue("@AID", objPrice3Master.AID)
+
+            Dim reader As SqlDataReader = sqlCmd.ExecuteReader()
+
+            While reader.Read()
+                result = binding_Gmap(reader)
+            End While
+
+            reader.Close()
         Catch ex As Exception
             Throw New Exception(ex.Message & " : " & ex.StackTrace)
         Finally
@@ -94,6 +137,60 @@ Public Class GmapDAL_NEW
 
     End Function
 
+    Public Function getGmapBy_AID(ByVal AID As String) As Price3_Master
+
+        'declare connection
+        Dim conn As SqlConnection = Nothing
+        'declare result
+        Dim result As New Price3_Master()
+
+        Try
+            conn = ConnectionUtil.getSqlConnectionFromWebConfig()
+            Dim sql As String = "SELECT " _
+                & " Req_Id, " _
+                & " AID, " _
+                & " Temp_AID, " _
+                & " Cif, " _
+                & " CifName, " _
+                & " Lat, " _
+                & " Cif, " _
+                & " CifName, " _
+                & " Lat, " _
+                & " Lng, " _
+                & " Pricewah, " _
+                & " TotalPrice, " _
+                & " Create_User, " _
+                & " Create_Date " _
+                & "ORDER BY Req_Id" _
+             & "FROM Price3_Master " _
+             & "WHERE AID=@AID " _
+             & "ORDER BY AID"
+
+            Dim sqlCmd As New SqlCommand(sql, conn)
+            sqlCmd.Prepare()
+
+            sqlCmd.Parameters.AddWithValue("@AID", AID)
+
+            Dim reader As SqlDataReader = sqlCmd.ExecuteReader()
+
+            While reader.Read()
+                result = binding_Gmap(reader)
+            End While
+
+            reader.Close()
+        Catch ex As Exception
+            Throw New Exception(ex.Message & " : " & ex.StackTrace)
+        Finally
+            If (conn.State = ConnectionState.Open) Then
+                conn.Close()
+            End If
+            conn = Nothing
+        End Try
+
+        Return result
+
+    End Function
+
     Public Function getAllGmap() As List(Of Gmap)
 
         'declare connection
@@ -120,6 +217,57 @@ Public Class GmapDAL_NEW
             End While
 
             reader.close()
+            conn.Close()
+        Catch ex As Exception
+            Throw New Exception(ex.Message & " : " & ex.StackTrace)
+        Finally
+            If (conn.State = ConnectionState.Open) Then
+                conn.Close()
+            End If
+            conn = Nothing
+        End Try
+
+        Return result
+
+    End Function
+
+    Public Function getAllGmap_Price3Master() As List(Of Price3_Master)
+
+        'declare connection
+        Dim conn As SqlConnection = Nothing
+        'declare result
+        Dim result As New List(Of Price3_Master)
+
+        Try
+            conn = ConnectionUtil.getSqlConnectionFromWebConfig()
+            Dim sql As String = "SELECT " _
+                & " Req_Id, " _
+                & " AID, " _
+                & " Temp_AID, " _
+                & " isnull(Cif,0) as Cif, " _
+                & " Lat, " _
+                & " Lng, " _
+                & " isnull(Pricewah,0) as Pricewah, " _
+                & " isnull(TotalPrice,0) as TotalPrice, " _
+                & " isnull(Approved1,0) as Approved1 , " _
+                & " isnull(Approved2,0) as Approved2, " _
+                & " isnull(Approved3,0) as Approved3, " _
+                & " isnull(Approved,0) as Approved, " _
+                & " Create_User, " _
+                & " isnull(Create_Date,'2008-12-07') as Create_Date " _
+                & " FROM Price3_Master " _
+                & "ORDER BY Req_Id"
+
+            Dim sqlCmd As New SqlCommand(sql, conn)
+            sqlCmd.Prepare()
+
+            Dim reader As SqlDataReader = sqlCmd.ExecuteReader()
+
+            While reader.Read()
+                result.Add(binding_Gmap(reader))
+            End While
+
+            reader.Close()
             conn.Close()
         Catch ex As Exception
             Throw New Exception(ex.Message & " : " & ex.StackTrace)
@@ -167,32 +315,66 @@ Public Class GmapDAL_NEW
 
     End Function
 
-    Public Sub insertGmap(ByVal objGmap As Gmap)
+    Public Function getAllGmapBySQL_Price3Master(ByVal sql As String) As List(Of Price3_Master)
+
+        'declare connection
+        Dim conn As SqlConnection = Nothing
+        'declare result
+        Dim result As New List(Of Price3_Master)
+
+        Try
+            conn = ConnectionUtil.getSqlConnectionFromWebConfig()
+            Dim sqlCmd As New SqlCommand(sql, conn)
+            sqlCmd.Prepare()
+
+            Dim reader As SqlDataReader = sqlCmd.ExecuteReader()
+
+            While reader.Read()
+                result.Add(binding_Gmap(reader))
+            End While
+
+            reader.Close()
+            conn.Close()
+        Catch ex As Exception
+            Throw New Exception(ex.Message & " : " & ex.StackTrace)
+        Finally
+            If (conn.State = ConnectionState.Open) Then
+                conn.Close()
+            End If
+            conn = Nothing
+        End Try
+
+        Return result
+
+    End Function
+
+    Public Sub insertPrice1Master(ByVal objPrice1Master As Price1_Master)
 
         'declare connection
         Dim conn As SqlConnection = Nothing
 
         Try
             conn = ConnectionUtil.getSqlConnectionFromWebConfig()
-            Dim sql As String = "INSERT INTO Gmap " _
-                & " (COLL_ID, Lat, Lng, Name, Detail, Price1, Price2, Price3, Pic1, Pic2) " _
-                & " VALUES(@COLL_ID, @Lat, @Lng, @Name, @Detail, @Price1, @Price2, @Price3, @Pic1, @Pic2) "
+            Dim sql As String = "INSERT INTO Price1_Master " _
+                & " (Req_Id, Hub_Id, Cif, CifName, Lat, Lng, Pricewah, Price, Create_User, Create_Date) " _
+                & " VALUES(@Req_Id, @Hub_Id, @Cif, @CifName, @Lat, @Lng, @Pricewah, @Price, @Create_User, @Create_Date) "
 
             Dim sqlCmd As New SqlCommand(sql, conn)
             sqlCmd.Prepare()
 
-            sqlCmd.Parameters.AddWithValue("@COLL_ID", objGmap.COLL_ID)
-            sqlCmd.Parameters.AddWithValue("@Lat", objGmap.Lat)
-            sqlCmd.Parameters.AddWithValue("@Lng", objGmap.Lng)
-            sqlCmd.Parameters.AddWithValue("@Name", objGmap.Name)
-            sqlCmd.Parameters.AddWithValue("@Detail", objGmap.Detail)
-            sqlCmd.Parameters.AddWithValue("@Price1", objGmap.Price1)
-            sqlCmd.Parameters.AddWithValue("@Price2", objGmap.Price2)
-            sqlCmd.Parameters.AddWithValue("@Price3", objGmap.Price3)
-            sqlCmd.Parameters.AddWithValue("@Pic1", objGmap.Pic1)
-            sqlCmd.Parameters.AddWithValue("@Pic2", objGmap.Pic2)
+            sqlCmd.Parameters.AddWithValue("@Req_Id", objPrice1Master.Req_Id)
+            sqlCmd.Parameters.AddWithValue("@Hub_Id", objPrice1Master.Hub_Id)
+            sqlCmd.Parameters.AddWithValue("@Cif", objPrice1Master.Cif)
+            sqlCmd.Parameters.AddWithValue("@CifName", objPrice1Master.CifName)
+            sqlCmd.Parameters.AddWithValue("@Lat", objPrice1Master.Lat)
+            sqlCmd.Parameters.AddWithValue("@Lng", objPrice1Master.Lng)
+            sqlCmd.Parameters.AddWithValue("@Pricewah", objPrice1Master.Pricewah)
+            sqlCmd.Parameters.AddWithValue("@Price", objPrice1Master.Price)
+            sqlCmd.Parameters.AddWithValue("@Create_User", objPrice1Master.Create_User)
+            sqlCmd.Parameters.AddWithValue("@Create_Date", objPrice1Master.Create_Date)
 
             sqlCmd.ExecuteNonQuery()
+            UPDATE_Status_Appraisal_Request(objPrice1Master.Req_Id, objPrice1Master.Hub_Id, 5)
         Catch ex As Exception
             Throw New Exception(ex.Message & " : " & ex.StackTrace)
         Finally
@@ -249,6 +431,50 @@ Public Class GmapDAL_NEW
 
     End Sub
 
+    Public Sub updatePrice1Master(ByVal objPrice1Master As Price1_Master)
+
+        'declare connection
+        Dim conn As SqlConnection = Nothing
+
+        Try
+            conn = ConnectionUtil.getSqlConnectionFromWebConfig()
+            Dim sql As String = "UPDATE Price1_Master SET " _
+                & " Cif=@Cif, " _
+                & " CifName=@CifName, " _
+                & " Lat=@Lat, " _
+                & " Lng=@Lng, " _
+                & " Pricewah=@Pricewah, " _
+                & " Price=@Price, " _
+                & " Create_User=@Create_User, " _
+                & " Create_Date=@Create_User, " _
+                & " WHERE Req_Id=@Req_Id AND Hub_Id=@Hub_Id"
+
+            Dim sqlCmd As New SqlCommand(sql, conn)
+            sqlCmd.Prepare()
+
+            sqlCmd.Parameters.AddWithValue("@Req_Id", objPrice1Master.Req_Id)
+            sqlCmd.Parameters.AddWithValue("@Hub_Id", objPrice1Master.Hub_Id)
+            sqlCmd.Parameters.AddWithValue("@Cif", objPrice1Master.Cif)
+            sqlCmd.Parameters.AddWithValue("@CifName", objPrice1Master.CifName)
+            sqlCmd.Parameters.AddWithValue("@Lat", objPrice1Master.Lat)
+            sqlCmd.Parameters.AddWithValue("@Lng", objPrice1Master.Lng)
+            sqlCmd.Parameters.AddWithValue("@Pricewah", objPrice1Master.Pricewah)
+            sqlCmd.Parameters.AddWithValue("@Price", objPrice1Master.Price)
+            sqlCmd.Parameters.AddWithValue("@Create_User", objPrice1Master.Create_User)
+            sqlCmd.Parameters.AddWithValue("@Create_Date", objPrice1Master.Create_Date)
+
+            sqlCmd.ExecuteNonQuery()
+        Catch ex As Exception
+            Throw New Exception(ex.Message & " : " & ex.StackTrace)
+        Finally
+            If (conn.State = ConnectionState.Open) Then
+                conn.Close()
+            End If
+            conn = Nothing
+        End Try
+
+    End Sub
+
     Public Sub deleteGmap(ByVal objGmap As Gmap)
 
         'declare connection
@@ -273,6 +499,29 @@ Public Class GmapDAL_NEW
             conn = Nothing
         End Try
 
+    End Sub
+
+    Public Sub Delete_Price1Master(ByVal Obj_Price3Master As Price1_Master)
+        Dim conn As SqlConnection = Nothing
+
+        Try
+            conn = ConnectionUtil.getSqlConnectionFromWebConfig()
+            Dim sql As String = "DELETE FROM Price1_Master WHERE Req_Id=@Req_Id AND Hub_Id=@Hub_Id"
+
+            Dim sqlCmd As New SqlCommand(sql, conn)
+            sqlCmd.Prepare()
+
+            sqlCmd.Parameters.AddWithValue("@Req_Id", Obj_Price3Master.Req_Id)
+            sqlCmd.Parameters.AddWithValue("@Hub_Id", Obj_Price3Master.Hub_id)
+            sqlCmd.ExecuteNonQuery()
+        Catch ex As Exception
+            Throw New Exception(ex.Message & " : " & ex.StackTrace)
+        Finally
+            If (conn.State = ConnectionState.Open) Then
+                conn.Close()
+            End If
+            conn = Nothing
+        End Try
     End Sub
 
     Public Sub deleteGmap(ByVal COLL_ID As String)
@@ -301,6 +550,29 @@ Public Class GmapDAL_NEW
 
     End Sub
 
+    Public Sub Delete_Price1Master(ByVal Req_Id As Integer, ByVal Hub_id As Integer)
+        Dim conn As SqlConnection = Nothing
+
+        Try
+            conn = ConnectionUtil.getSqlConnectionFromWebConfig()
+            Dim sql As String = "DELETE FROM Price1_Master WHERE Req_Id=@Req_Id AND Hub_Id=@Hub_Id"
+
+            Dim sqlCmd As New SqlCommand(sql, conn)
+            sqlCmd.Prepare()
+
+            sqlCmd.Parameters.AddWithValue("@Req_Id", Req_Id)
+            sqlCmd.Parameters.AddWithValue("@Hub_Id", Hub_id)
+            sqlCmd.ExecuteNonQuery()
+        Catch ex As Exception
+            Throw New Exception(ex.Message & " : " & ex.StackTrace)
+        Finally
+            If (conn.State = ConnectionState.Open) Then
+                conn.Close()
+            End If
+            conn = Nothing
+        End Try
+    End Sub
+
     Public Function bindingGmap(ByVal reader As SqlDataReader) As Gmap
 
         Dim objGmap As New Gmap
@@ -318,5 +590,27 @@ Public Class GmapDAL_NEW
 
         Return objGmap
 
+    End Function
+
+    Public Function binding_Gmap(ByVal reader As SqlDataReader) As Price3_Master
+
+        Dim objPrice3_Master As New Price3_Master
+
+        objPrice3_Master.Req_Id = CType(ConvertUtil.getObjectValue(reader("Req_Id"), ConvertUtil.ObjectValueEnum.StringValue), Integer)
+        objPrice3_Master.AID = CType(ConvertUtil.getObjectValue(reader("AID"), ConvertUtil.ObjectValueEnum.StringValue), Integer)
+        objPrice3_Master.Temp_AID = CType(ConvertUtil.getObjectValue(reader("Temp_AID"), ConvertUtil.ObjectValueEnum.StringValue), Integer)
+        objPrice3_Master.Cif = CType(ConvertUtil.getObjectValue(reader("Cif"), ConvertUtil.ObjectValueEnum.StringValue), Integer)
+        objPrice3_Master.Lat = CType(ConvertUtil.getObjectValue(reader("Lat"), ConvertUtil.ObjectValueEnum.DoubleValue), Double)
+        objPrice3_Master.Lng = CType(ConvertUtil.getObjectValue(reader("Lng"), ConvertUtil.ObjectValueEnum.DoubleValue), Double)
+        objPrice3_Master.PriceWah = CType(ConvertUtil.getObjectValue(reader("PriceWah"), ConvertUtil.ObjectValueEnum.DoubleValue), Decimal)
+        objPrice3_Master.TotalPrice = CType(ConvertUtil.getObjectValue(reader("TotalPrice"), ConvertUtil.ObjectValueEnum.DoubleValue), Decimal)
+        objPrice3_Master.Approved1 = CType(ConvertUtil.getObjectValue(reader("Approved1"), ConvertUtil.ObjectValueEnum.StringValue), Integer)
+        objPrice3_Master.Approved2 = CType(ConvertUtil.getObjectValue(reader("Approved2"), ConvertUtil.ObjectValueEnum.StringValue), Integer)
+        objPrice3_Master.Approved3 = CType(ConvertUtil.getObjectValue(reader("Approved3"), ConvertUtil.ObjectValueEnum.StringValue), Integer)
+        objPrice3_Master.Approved = CType(ConvertUtil.getObjectValue(reader("Approved"), ConvertUtil.ObjectValueEnum.StringValue), Integer)
+        objPrice3_Master.Create_User = CType(ConvertUtil.getObjectValue(reader("Create_User"), ConvertUtil.ObjectValueEnum.StringValue), String)
+        objPrice3_Master.Create_Date = CType(ConvertUtil.getObjectValue(reader("Create_Date"), ConvertUtil.ObjectValueEnum.StringValue), Date)
+
+        Return objPrice3_Master
     End Function
 End Class

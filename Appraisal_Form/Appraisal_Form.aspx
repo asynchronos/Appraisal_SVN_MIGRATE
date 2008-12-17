@@ -30,17 +30,9 @@
 		.Fcolor
 		{                color: #FF0000;
 			}
-			.style3
-			{
-				width: 49%;
-			}
 			.style5
 			{
 				width: 437px;
-			}
-			.style6
-			{
-				width: 46px;
 			}
 			.style7
 			{
@@ -240,15 +232,13 @@
 							</td>
 						</tr>
 					</table>
-					QUEUE ID&nbsp; :
-					<asp:Label CssClass="Fcolor" ID="lblQueueID" runat="server" Font-Bold="True" Font-Size="Large"></asp:Label>
 				</td>
 			</tr>
 		</table>
 	</div>
     <table width="100%">
 				<tr>
-					<td class="style5"> 
+					<td class="style5" valign="top"> 
 				<table class="style2" style="border-color:Blue; border-width:15px; width:441px">
 				<tr>
 				<td class="style8">เลขที่คำขอ</td>
@@ -318,17 +308,7 @@
 					</td>
 					<td style="text-align:left;" class="style7">
 	
-						<table class="style3">
-							<tr>
-								<td class="style6">
-					                &nbsp;</td>
-								<td>
-					<asp:ImageButton ID="ImgBtnPrint" runat="server" ImageUrl="~/Images/printer.png" 
-							Height="25px" Width="28px" />
-								</td>
-							</tr>
-						</table>
-					</td>
+						&nbsp;</td>
 				</tr>
 				<tr>
 					<td colspan="2">
@@ -366,7 +346,7 @@
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="HUB NAME" SortExpression="HUB_NAME">
-                                <ItemStyle Width="200px" />
+                                <ItemStyle Width="300px" />
                                 <ItemTemplate>
                                     <asp:Label ID="lblHUB_NAME" runat="server" Text='<%# Bind("HUB_NAME") %>'></asp:Label>
                                 </ItemTemplate>

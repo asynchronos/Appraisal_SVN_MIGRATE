@@ -33,7 +33,7 @@ Partial Class Upload_Form_Upload_Request_Form
 
         REGID = Request.QueryString("req_id")
         HubID = Request.QueryString("hub_id")
-        'MsgBox(REGID & "  " & HubID)
+        MsgBox(REGID & "  " & HubID)
         Dim UpPath As String
         Dim UpName As String
         'UpPath = "C:\UploadedUserFiles"
