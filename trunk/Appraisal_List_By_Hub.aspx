@@ -3,8 +3,9 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+    <asp:HiddenField ID="HiddenField1" runat="server" Value="4" />
     <br />
-<br />
+    <br />
         <table class="style2">
             <tr>
                 <td class="style7">
@@ -104,7 +105,7 @@
                 </asp:TemplateField>--%>
                 <asp:TemplateField HeaderText="">
                     <ItemTemplate>
-                        <asp:Button ID="btnOperation1" runat="server" Text="กำหนดราคาครั้งที่ 1" CommandName="Select"/>
+                        <asp:Button ID="btnOperation1" runat="server" Text="กำหนดราคาประเมินครั้งที่ 1" CommandName="Select"/>
                     </ItemTemplate>
                 </asp:TemplateField>                                                                                   
             </Columns>
@@ -122,6 +123,8 @@
         SelectCommandType="StoredProcedure">
         <SelectParameters>
             <asp:SessionParameter Name="HUB_ID" SessionField="Hub_Id" Type="Int32" />
+            <asp:ControlParameter ControlID="HiddenField1" Name="Status_Id" 
+                PropertyName="Value" Type="Int32" />
         </SelectParameters>
     </asp:SqlDataSource>
     </asp:Content>

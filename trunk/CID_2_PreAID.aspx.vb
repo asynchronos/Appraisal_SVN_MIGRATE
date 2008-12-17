@@ -67,4 +67,12 @@ Partial Class CID_2_PreAID
 
 
     End Sub
+
+    Protected Sub Button1_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles Button1.Click
+        Dim GV As GridView = FindControl("GridView1")
+        Dim gvr_master As GridViewRow
+        For Each gvr_master In GV.Rows
+
+        Next
+    End Sub
 End Class

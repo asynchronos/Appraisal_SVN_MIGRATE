@@ -26,12 +26,12 @@ Partial Class Add_CollType50
 
     Protected Sub imgBtnSave_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs) Handles imgBtnSave.Click
         'ใช้สำหรับ ในการเพิ่ม และ แก้ไข การประเมินของหลักประกัน Type 50
-        AddPRICE2_50(CInt(Request.QueryString("Q_ID")), CInt(Request.QueryString("Cif")), CInt(Request.QueryString("Temp_Aid")), CInt(DDLSubCollType.SelectedValue), vbNull, vbNull, vbNull, vbNull, _
-                                                      vbNull, CInt(txtRai.Text), CInt(txtNgan.Text), CInt(txtMeter.Text), _
-                                                      txtRoad.Text, CInt(ddlRoad_Detail.SelectedValue), CDec(txtMeter.Text), CInt(ddlRoad_Forntoff.SelectedValue), CDec(txtRoadWidth.Text), CInt(ddlSite.SelectedValue), CStr(txtSite_Detail.Text), CInt(ddlLand_State.SelectedValue), _
-                                                      txtLand_State_Detail.Text, CInt(ddlPublic_Utility.SelectedValue), txtPublic_Utility_Detail.Text, CInt(ddlBinifit.SelectedValue), _
-                                                      txtBinifit.Text, CInt(ddlTendency.SelectedValue), CInt(ddlBuySale_State.SelectedValue), _
-                                                      CInt(txtPriceWah.Text), CInt(txtTotal.Text), vbNull, Now())
+        'AddPRICE2_50(CInt(Request.QueryString("Q_ID")), CInt(Request.QueryString("Cif")), CInt(Request.QueryString("Temp_Aid")), CInt(DDLSubCollType.SelectedValue), vbNull, vbNull, vbNull, vbNull, _
+        '                                              vbNull, CInt(txtRai.Text), CInt(txtNgan.Text), CInt(txtMeter.Text), _
+        '                                              txtRoad.Text, CInt(ddlRoad_Detail.SelectedValue), CDec(txtMeter.Text), CInt(ddlRoad_Forntoff.SelectedValue), CDec(txtRoadWidth.Text), CInt(ddlSite.SelectedValue), CStr(txtSite_Detail.Text), CInt(ddlLand_State.SelectedValue), _
+        '                                              txtLand_State_Detail.Text, CInt(ddlPublic_Utility.SelectedValue), txtPublic_Utility_Detail.Text, CInt(ddlBinifit.SelectedValue), _
+        '                                              txtBinifit.Text, CInt(ddlTendency.SelectedValue), CInt(ddlBuySale_State.SelectedValue), _
+        '                                              CInt(txtPriceWah.Text), CInt(txtTotal.Text), vbNull, Now())
 
         'เพิ่มกระบวนการบันทึกขั้นตอนการประเมิน
         Appraisal_Manager.INSERT_PROCESSID(Request.QueryString("Q_ID"), 5)

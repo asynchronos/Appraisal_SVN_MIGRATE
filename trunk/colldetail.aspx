@@ -93,7 +93,7 @@
        
       function loadMark() {
       // Read the data from example.xml
-         var file ="GmapDB.aspx?action=1";
+          var file ="GmapDB.aspx?action=1";
             GDownloadUrl(file, function(doc) {
              var xmlDoc = GXml.parse(doc);
             //alert(doc);
@@ -105,7 +105,8 @@
          // var lng = parseFloat(markers[i].getAttribute("lng"));
          // var point = new GLatLng(lat,lng);
          // var html = markers[i].getAttribute("html");
-         // var label = markers[i].getAttribute("label");
+            // var label = markers[i].getAttribute("label");
+         
           // create the marker
         var cid = markers[i].getElementsByTagName("COLL_ID")[0];  
         var lat = markers[i].getElementsByTagName("Lat")[0];  

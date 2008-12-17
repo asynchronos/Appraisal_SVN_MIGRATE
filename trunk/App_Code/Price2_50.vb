@@ -3,8 +3,9 @@
 Public Class PRICE2_50
 
     Private Const CLSNAME As String = "Class PRICE2_50"
-    Private _Q_ID As Integer
-    Private _Cif As Integer
+    Private _ID As Integer
+    Private _Req_Id As Integer
+    Private _Hub_Id As Integer
     Private _Temp_AID As Integer
     Private _MysubColl_ID As Integer
     Private _Address_No As String
@@ -30,15 +31,6 @@ Public Class PRICE2_50
     Private _Binifit_Detail As String
     Private _Tendency As Integer
     Private _BuySale_State As Integer
-    Private _Build_No As String
-    Private _Build_Character As Integer
-    Private _Floors As String
-    Private _Item As Integer
-    Private _Build_Construct As Integer
-    Private _Roof As Integer
-    Private _Roof_Detail As String
-    Private _Build_State As Integer
-    Private _Build_State_Detail As String
     Private _PriceWah As Decimal
     Private _PriceTotal1 As Decimal
     Private _Create_User As String
@@ -46,8 +38,9 @@ Public Class PRICE2_50
 
 
     Public Sub New( _
-     ByVal Q_ID As Integer, _
-     ByVal Cif As Integer, _
+     ByVal ID As Integer, _
+     ByVal Req_Id As Integer, _
+     ByVal Hub_Id As Integer, _
      ByVal Temp_AID As Integer, _
      ByVal MysubColl_ID As Integer, _
      ByVal Address_No As String, _
@@ -73,22 +66,14 @@ Public Class PRICE2_50
      ByVal Binifit_Detail As String, _
      ByVal Tendency As Integer, _
      ByVal BuySale_State As Integer, _
-     ByVal Build_No As String, _
-     ByVal Build_Character As Integer, _
-     ByVal Floors As String, _
-     ByVal Item As Integer, _
-     ByVal Build_Construct As Integer, _
-     ByVal Roof As Integer, _
-     ByVal Roof_Detail As String, _
-     ByVal Build_State As Integer, _
-     ByVal Build_State_Detail As String, _
      ByVal PriceWah As Decimal, _
      ByVal PriceTotal1 As Decimal, _
      ByVal Create_User As String, _
      ByVal Create_Date As Date)
         MyBase.New()
-        _Q_ID = Q_ID
-        _Cif = Cif
+        _ID = ID
+        _Req_Id = Req_Id
+        _Hub_Id = Hub_Id
         _Temp_AID = Temp_AID
         _MysubColl_ID = MysubColl_ID
         _Address_No = Address_No
@@ -120,21 +105,30 @@ Public Class PRICE2_50
         _Create_Date = Create_Date
     End Sub
 
-    Public Property Q_ID() As Integer
+    Public Property ID() As Integer
         Get
-            Return _Q_ID
+            Return _ID
         End Get
         Set(ByVal Value As Integer)
-            _Q_ID = Value
+            _ID = Value
         End Set
     End Property
 
-    Public Property Cif() As Integer
+    Public Property Req_Id() As Integer
         Get
-            Return _Cif
+            Return _Req_Id
         End Get
         Set(ByVal Value As Integer)
-            _Cif = Value
+            _Req_Id = Value
+        End Set
+    End Property
+
+    Public Property Hub_Id() As Integer
+        Get
+            Return _Hub_Id
+        End Get
+        Set(ByVal Value As Integer)
+            _Hub_Id = Value
         End Set
     End Property
 
@@ -398,4 +392,5 @@ Public Class PRICE2_50
             _Create_Date = Value
         End Set
     End Property
+
 End Class

@@ -41,9 +41,7 @@
                         style="color: #6600FF; font-weight: 700"></asp:Label>
                 </td>
                 <td>
-                    <asp:DropDownList ID="DropDownList1" runat="server" style="margin-left: 0px" 
-                        DataSourceID="SDSUserAppraisal" DataTextField="UserAppraisal" 
-                        DataValueField="Emp_id">
+                    <asp:DropDownList ID="DropDownList1" runat="server" style="margin-left: 0px">
                     </asp:DropDownList>
                 </td>
             </tr> 
@@ -77,44 +75,41 @@
         </table>
     
         <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" 
-            CellPadding="2" DataKeyNames="Q_ID,coll_id" DataSourceID="SqlDataSource1" 
+            CellPadding="2" DataSourceID="SqlDataSource1" 
             ForeColor="Black" GridLines="None" BackColor="LightGoldenrodYellow" 
             BorderColor="Tan" BorderWidth="1px" Width="100%">
-            <FooterStyle BackColor="Tan" />
             <Columns>
-                            <asp:TemplateField>
-                    <HeaderTemplate>
-                        <asp:CheckBox runat="server" ID="cb1" AutoPostBack="true" OnCheckedChanged="cb1_Checked"/> 
-                    </HeaderTemplate>
-                   <ItemTemplate>
-                     <asp:CheckBox runat="server" ID="cb2" />  
-                   </ItemTemplate> 
-                <ItemStyle HorizontalAlign="Center" />
-                <HeaderStyle HorizontalAlign="Center" />
-             </asp:TemplateField> 
-                            <asp:TemplateField HeaderText="Q_ID" SortExpression="Q_ID">
-                                <ItemTemplate>
-                                    <asp:Label ID="lblQ_ID" runat="server" Text='<%# Bind("Q_ID") %>'></asp:Label>
-                                </ItemTemplate>
-                                <EditItemTemplate>
-                                    <asp:Label ID="Label1" runat="server" Text='<%# Eval("Q_ID") %>'></asp:Label>
-                                </EditItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="COLL ID" SortExpression="coll_id">
-                                <ItemTemplate>
-                                    <asp:Label ID="lblColl_ID" runat="server" Text='<%# Bind("coll_id") %>'></asp:Label>
-                                </ItemTemplate>
-                                <EditItemTemplate>
-                                    <asp:Label ID="Label2" runat="server" Text='<%# Eval("coll_id") %>'></asp:Label>
-                                </EditItemTemplate>
-                            </asp:TemplateField>
-                            <asp:BoundField DataField="Detail1" HeaderText="Detail1" 
-                                SortExpression="Detail1" />
-                <asp:BoundField DataField="Prov_Name" HeaderText="จังหวัด" 
+                <asp:BoundField DataField="ID" HeaderText="ID" ReadOnly="True" 
+                    SortExpression="ID" />
+                <asp:BoundField DataField="Req_Id" HeaderText="Req_Id" ReadOnly="True" 
+                    SortExpression="Req_Id" />
+                <asp:BoundField DataField="CIF" HeaderText="CIF" SortExpression="CIF" />
+                <asp:BoundField DataField="CIFNAME" HeaderText="CIFNAME" ReadOnly="True" 
+                    SortExpression="CIFNAME" />
+                <asp:BoundField DataField="Hub_Id" HeaderText="Hub_Id" ReadOnly="True" 
+                    SortExpression="Hub_Id" />
+                <asp:BoundField DataField="HUB_NAME" HeaderText="HUB_NAME" 
+                    SortExpression="HUB_NAME" />
+                <asp:BoundField DataField="Temp_AID" HeaderText="Temp_AID" ReadOnly="True" 
+                    SortExpression="Temp_AID" />
+                <asp:BoundField DataField="COLLTYPE_ID" HeaderText="COLLTYPE_ID" 
+                    SortExpression="COLLTYPE_ID" />
+                <asp:BoundField DataField="MysubColl_ID" HeaderText="MysubColl_ID" 
+                    ReadOnly="True" SortExpression="MysubColl_ID" />
+                <asp:BoundField DataField="SUBCOLLTYPE_NAME" HeaderText="SUBCOLLTYPE_NAME" 
+                    SortExpression="SUBCOLLTYPE_NAME" />
+                <asp:BoundField DataField="Address_No" HeaderText="Address_No" ReadOnly="True" 
+                    SortExpression="Address_No" />
+                <asp:BoundField DataField="Tumbon" HeaderText="Tumbon" ReadOnly="True" 
+                    SortExpression="Tumbon" />
+                <asp:BoundField DataField="Amphur" HeaderText="Amphur" ReadOnly="True" 
+                    SortExpression="Amphur" />
+                <asp:BoundField DataField="Province" HeaderText="Province" ReadOnly="True" 
+                    SortExpression="Province" />
+                <asp:BoundField DataField="Prov_Name" HeaderText="Prov_Name" 
                     SortExpression="Prov_Name" />
-                <asp:BoundField DataField="Detail2" HeaderText="Detail2" ReadOnly="True" 
-                    SortExpression="Detail2" />
             </Columns>
+            <FooterStyle BackColor="Tan" />
             <PagerStyle BackColor="PaleGoldenrod" ForeColor="DarkSlateBlue" 
                 HorizontalAlign="Center" />
             <SelectedRowStyle BackColor="DarkSlateBlue" ForeColor="GhostWhite" />
@@ -122,17 +117,16 @@
             <AlternatingRowStyle BackColor="PaleGoldenrod" />
         </asp:GridView>
         <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
-            ConnectionString="<%$ ConnectionStrings:AppraisalConn %>" SelectCommand="SELECT D.Q_ID,D.coll_id,isnull(cd.detail1,'-') Detail1,cd.Prov_Name,isnull(cd.detail2,'-')Detail2 From Sent_Appraisal_Detail D INNER JOIN Sent_Appraisal_Master M ON  D.Q_ID = M.Q_ID INNER JOIN Bay01.dbo.COLL_ID_DISTINCT CD ON d.coll_Id = Cd.Coll_ID AND M.Cif = CD.CIF
-WHERE D.Q_ID = @QID AND D.Appraisal_ID  IS NULL">
-            <SelectParameters>
-                <asp:QueryStringParameter Name="QID" QueryStringField="Qid" />
-            </SelectParameters>
+            ConnectionString="<%$ ConnectionStrings:AppraisalConn %>" 
+            SelectCommand="GET_PRICE2_LISTGROUP" SelectCommandType="StoredProcedure">
         </asp:SqlDataSource>
     
     <asp:SqlDataSource ID="SDSUserAppraisal" runat="server" 
         ConnectionString="<%$ ConnectionStrings:AppraisalConn %>" 
-        SelectCommand="SELECT Emp_id, Title + Name + '  ' + Lastname AS UserAppraisal FROM Tb_UserAppraisal">
+        SelectCommand="GET_PRICE2_LISTGROUP" SelectCommandType="StoredProcedure">
     </asp:SqlDataSource>
+    
+        <asp:Button ID="Button1" runat="server" Text="Button" />
     
     </div>
     </form>
