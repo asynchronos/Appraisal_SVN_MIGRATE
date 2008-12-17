@@ -1,0 +1,119 @@
+﻿Imports Appraisal_Manager
+Imports System.Data
+Imports System.Data.SqlClient
+
+Partial Class Appraisal_Price3_Conform
+    Inherits System.Web.UI.Page
+
+    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        If Not Page.IsPostBack Then
+            'lblCif.Text = Context.Items("Temp_AID").Text
+            'MsgBox(Context.Items("Req_Id").ToString, Context.Items("Hub_Id").ToString, Context.Items("Temp_AID").ToString)
+            Show_Price3_50()
+            Show_Price3_70_GROUP()
+            lblGrantotal.Text = Format(CDec(lblLandTotal.Text) + CDec(lblBuildingPrice.Text), "#,##0.00")
+        End If
+    End Sub
+
+    Private Sub Show_Price3_50()
+        Dim Obj_GetP50 As List(Of Price3_50) = GET_PRICE3_CONFORM(Context.Items("Req_Id").Text, Context.Items("Hub_Id").Text, Context.Items("Temp_AID").Text)
+        If Obj_GetP50.Count > 0 Then
+            'lblId.Text = Obj_GetP50.Item(0).Id
+            'lblReq_Id.Text = Obj_GetP50.Item(0).Req_Id
+            'lblHub_Id.Text = Obj_GetP50.Item(0).Hub_Id
+            'DDLSubCollType.SelectedValue = Obj_GetP50.Item(0).MysubColl_ID
+            lblChanode_No.Text = Obj_GetP50.Item(0).Address_No
+            lblRai.Text = Obj_GetP50.Item(0).Rai
+            lblNgan.Text = Obj_GetP50.Item(0).Ngan
+            lblWah.Text = Obj_GetP50.Item(0).Wah
+            lblRoad.Text = Obj_GetP50.Item(0).Road
+            Dim Obj_RoadAccess_Detail As List(Of Cls_Road_Detail) = GET_ROAD_DETAIL_INFO(Obj_GetP50.Item(0).Road_Detail)
+            lblRoadAccess_Detail.Text = Obj_RoadAccess_Detail.Item(0).Road_Detail_Name
+            lblMeter_Access.Text = Obj_GetP50.Item(0).Road_Access
+            lblTumbon.Text = Obj_GetP50.Item(0).Tumbon
+            lblAmphur.Text = Obj_GetP50.Item(0).Amphur
+            Dim Obj_Provinceas As List(Of Cls_PROVINCE) = GET_PROVINCE_INFO(Obj_GetP50.Item(0).Land_State)
+            lblProvince.Text = Obj_Provinceas.Item(0).PROV_NAME
+            Dim Obj_Land_State As List(Of Cls_LandState) = GET_LANDSTATE_INFO(Obj_GetP50.Item(0).Province)
+            lblLandState.Text = Obj_Land_State.Item(0).Land_State_Name
+            lblLandStateDetail.Text = Obj_GetP50.Item(0).Land_State_Detail
+            'ddlRoad_Forntoff.SelectedValue = Obj_GetP50.Item(0).Road_Frontoff
+            lblRoadWidth.Text = Obj_GetP50.Item(0).RoadWidth
+            Dim Obj_Site As List(Of Cls_SITE) = GET_SITE_INFO(Obj_GetP50.Item(0).Sited)
+            lblSiteName.Text = Obj_Site.Item(0).Site_Name
+            'txtSite_Detail.Text = Obj_GetP50.Item(0).Site_Detail
+            Dim Obj_Public_Utility As List(Of Cls_Public_Utility) = GET_PUBLIC_UTILITY_INFO(Obj_GetP50.Item(0).Public_Utility)
+            lblPublic_Utility.Text = Obj_Public_Utility.Item(0).Public_Utility_Name
+            'txtBinifit.Text = Obj_GetP50.Item(0).Binifit_Detail
+            Dim Obj_TENDENCY As List(Of Cls_TENDENCY) = GET_TENDENCY_INFO(Obj_GetP50.Item(0).Tendency)
+            lblTendency_Name.Text = Obj_TENDENCY.Item(0).Tendency_Name
+            Dim Obj_BuySale_State As List(Of Cls_Buy_Sale_State) = GET_BUYSALE_STATE_INFO(Obj_GetP50.Item(0).BuySale_State)
+            lblBuySale_StateName.Text = Obj_BuySale_State.Item(0).BuySale_State_Name
+            lblPriceWah.Text = Format(Obj_GetP50.Item(0).PriceWah, "#,##0.00")
+            lblLandTotal.Text = Format(Obj_GetP50.Item(0).PriceTotal1, "#,##0.00")
+            lblRaWang.Text = Obj_GetP50.Item(0).Rawang
+            lblLandNumber.Text = Obj_GetP50.Item(0).LandNumber
+            lblSurway.Text = Obj_GetP50.Item(0).Surway
+            lblDocNo.Text = Obj_GetP50.Item(0).DocNo
+            lblPage.Text = Obj_GetP50.Item(0).PageNo
+            lblLandOwnerShip.Text = Obj_GetP50.Item(0).Ownership
+            lblObligation.Text = Obj_GetP50.Item(0).Obligation
+            lblDeepWidth.Text = Obj_GetP50.Item(0).DeepWidth
+            lblBehindWidth.Text = Obj_GetP50.Item(0).BehindWidth
+            Dim Obj_AreaColour As List(Of Cls_Area_Colour) = GET_AREA_COLOUR_INFO(Obj_GetP50.Item(0).AreaColour_No)
+            lblArea_Colour.Text = Obj_AreaColour.Item(0).AreaColour_Name
+        End If
+    End Sub
+
+    Private Sub Show_Price3_70_GROUP()
+        Dim Obj_GetP70G As DataSet = GET_PRICE3_70_GROUP(Context.Items("Req_Id").Text, Context.Items("Hub_Id").Text, Context.Items("Temp_AID").Text)
+        lblBuilding_No.Text = Obj_GetP70G.Tables(0).Rows(0).Item("Build_No").ToString()
+        lblTotal2.Text = Format(CDec(Obj_GetP70G.Tables(0).Rows(0).Item("UnitPrice").ToString), "#,##0.00")
+        lblItem.Text = Obj_GetP70G.Tables(0).Rows(0).Item("Item").ToString()
+        lblBuildingPrice.Text = Format(CDec(Obj_GetP70G.Tables(0).Rows(0).Item("Buildingprice").ToString), "#,##0.00")
+
+        'Dim Obj_GetP70 As List(Of Price3_70) = GET_PRICE3_70(lblId.Text, lblReq_Id.Text, lblHub_Id.Text, lblTemp_AID.Text)
+        'If Obj_GetP70.Count > 0 Then
+        '    lblId.Text = Obj_GetP70.Item(0).ID
+        '    lblReq_Id.Text = Obj_GetP70.Item(0).Req_Id
+        '    lblHub_Id.Text = Obj_GetP70.Item(0).Hub_Id
+        '    DDLSubCollType.SelectedValue = Obj_GetP70.Item(0).MysubColl_ID
+        '    txtChanodeNo.Text = Obj_GetP70.Item(0).Put_On_Chanode
+        '    lbBuildinObligation.Text = Obj_GetP70.Item(0).Ownership
+        '    txtBuild_No.Text = Obj_GetP70.Item(0).Build_No
+        '    txtTumbon.Text = Obj_GetP70.Item(0).Tumbon
+        '    txtAmphur.Text = Obj_GetP70.Item(0).Amphur
+        '    ddlProvince.SelectedValue = Obj_GetP70.Item(0).Province
+        '    ddlBuild_Character.SelectedValue = Obj_GetP70.Item(0).Build_Character
+        '    txtFloor.Text = Obj_GetP70.Item(0).Floors
+        '    txtItem.Text = Obj_GetP70.Item(0).Item
+        '    ddlBuild_Construct.SelectedValue = Obj_GetP70.Item(0).Build_Construct
+        '    ddlRoof.SelectedValue = Obj_GetP70.Item(0).Roof
+        '    txtRoof_Detail.Text = Obj_GetP70.Item(0).Roof_Detail
+        '    ddlBuild_State.SelectedValue = Obj_GetP70.Item(0).Build_State
+        '    txtBuild_State_Detail.Text = Obj_GetP70.Item(0).Build_State_Detail
+        '    txtBuilding_Detail.Text = Obj_GetP70.Item(0).Building_Detail
+        '    txtPriceTotal1.Text = Obj_GetP70.Item(0).PriceTotal1
+        '    chkDoc1.Checked = Obj_GetP70.Item(0).Doc1
+        '    chkDoc2.Checked = Obj_GetP70.Item(0).Doc2
+        '    txtDoc_Detail.Text = Obj_GetP70.Item(0).Doc_Detail
+        '    txtBuildingArea.Text = Obj_GetP70.Item(0).BuildingArea
+        '    txtBuildingUnitPrice.Text = Obj_GetP70.Item(0).BuildingUintPrice
+        '    txtBuildingPrice.Text = Obj_GetP70.Item(0).BuildingPrice
+        '    txtBuildingAge.Text = Obj_GetP70.Item(0).BuildingAge
+        '    txtBuildingPersent1.Text = Obj_GetP70.Item(0).BuildingPersent1
+        '    txtBuildingPersent2.Text = Obj_GetP70.Item(0).BuildingPersent2
+        '    txtBuildingPersent3.Text = Obj_GetP70.Item(0).BuildingPersent3
+        '    txtBuildingTotalDeteriorate.Text = Obj_GetP70.Item(0).BuildingPriceTotalDeteriorate
+        '    txtBuildAddArea.Text = Obj_GetP70.Item(0).BuildAddArea
+        '    txtBuildAddUnitPrice.Text = Obj_GetP70.Item(0).BuildAddUintPrice
+        '    txtBuildAddPrice.Text = Obj_GetP70.Item(0).BuildAddPrice
+        '    txtBuildAddAge.Text = Obj_GetP70.Item(0).BuildAddAge
+        '    txtBuildAddPersent1.Text = Obj_GetP70.Item(0).BuildAddPersent1
+        '    txtBuildAddPersent2.Text = Obj_GetP70.Item(0).BuildAddPersent2
+        '    txtBuildAddPersent3.Text = Obj_GetP70.Item(0).BuildAddPersent3
+        '    txtBuildAddTotalDeteriorate.Text = Obj_GetP70.Item(0).BuildAddPriceTotalDeteriorate
+        '    txtBuildingDetail.Text = Obj_GetP70.Item(0).BuildingDetail
+        'End If
+    End Sub
+End Class
