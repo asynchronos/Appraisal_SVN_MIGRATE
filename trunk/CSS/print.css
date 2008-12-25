@@ -12,8 +12,6 @@
         height: auto;
         display: none;
     } 
-}
-
 #txtDoPrint
 
     .NoPrint
@@ -33,7 +31,10 @@
         {
             border-style:none;
             border:0px;
-        }   
+        }      
+}
+
+ 
 
 
 
