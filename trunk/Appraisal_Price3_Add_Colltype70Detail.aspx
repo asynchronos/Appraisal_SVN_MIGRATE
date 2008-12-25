@@ -4,6 +4,8 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
+
+    <script src="Js/CustomDialog.js" type="text/javascript"></script>
     <title>รายละเอียดโครงสร้างหลักของอาคาร</title>
     <style type="text/css">
         .style1
@@ -12,9 +14,41 @@
             font-weight: bold;
         }
     </style>
+    <script type="text/javascript">
+    <!--
+            function ConfirmMessage()
+            {
+                     var r = confirm('บันทึกเสร็จสมบูรณ์ คุณต้องการเพิ่มข้อมูลอีกหรือไม่?');
+                     if(r==true)
+                        event.returnValue=true;
+                     else
+                        event.returnValue=false;
+                }
+
+                function ShowMessage() {
+                    SetText('Yes', 'No');
+
+                    DisplayConfirmMessage('are you sure', 180, 90)
+
+                    SetDefaultButton('btnConfOK');
+                    return false;
+                }
+    //-->
+    </script>
+
     </head>
 <body>
     <form id="form1" runat="server">
+    			<div id="divConfMessage" runat="server" style="BORDER-RIGHT:black thin solid; BORDER-TOP:black thin solid; DISPLAY:none; Z-INDEX:200; BORDER-LEFT:black thin solid; BORDER-BOTTOM:black thin solid">
+				<div style="BACKGROUND-COLOR: #6699cc;TEXT-ALIGN: center" id="confirmText">
+				</div>
+				<div style="Z-INDEX: 105;HEIGHT: 2%;BACKGROUND-COLOR: white;TEXT-ALIGN: center">
+				</div>
+				<div style="Z-INDEX: 105;BACKGROUND-COLOR: white;TEXT-ALIGN: center">
+					<asp:Button ID="btnConfOK" Runat="server" Text="OK"></asp:Button>
+					<asp:Button ID="btnConfCancel" Runat="server" Text="Cancel"></asp:Button>
+				</div>
+			</div>
     <div>
         <table>
             <tr>
