@@ -8,6 +8,8 @@ Imports System.Collections
 Imports System.Collections.Generic
 Imports System.Xml.Serialization
 Imports System.Xml
+Imports System.Web
+Imports System.Web.Services
 
 
 Public Class Appraisal_Manager
@@ -257,6 +259,44 @@ Public Class Appraisal_Manager
             End Using
         End Using
     End Sub
+
+#Region "PRICE1"
+    Public Shared Function GetPrice1_Master(ByVal Req_Id As Integer, ByVal Hub_Id As Integer) As Generic.List(Of ClsPrice1_Master)
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("GET_PRICE1_MASTER", connection)
+                command.CommandType = CommandType.StoredProcedure
+                command.Parameters.Add(New SqlParameter("@Req_Id", Req_Id))
+                command.Parameters.Add(New SqlParameter("@Hub_Id", Hub_Id))
+                connection.Open()
+                Dim list As New Generic.List(Of ClsPrice1_Master)
+                Using reader As SqlDataReader = command.ExecuteReader()
+                    Do While (reader.Read())
+                        'Get field in Store Procedure
+                        Dim temp As New ClsPrice1_Master(CInt(reader("Req_Id")), _
+                                                      CInt(reader("Hub_Id")), _
+                                                        CInt(reader("cif")), _
+                                                        CStr(reader("CifName")), _
+                                                        CStr(reader("Lat")), _
+                                                        CStr(reader("Lng")), _
+                                                        CStr(reader("Pricewah")), _
+                                                        CStr(reader("Price")), _
+                                                        CStr(reader("Create_User")), _
+                                                        CDate(reader("Create_Date")))
+                        list.Add(temp)
+                    Loop
+                End Using
+                'If list.Count > 0 Then
+                Return list
+                'Else
+                '    Dim temp As New ClsPrice1_Master(0, 0, 0, "", "", "", "", "", "", Date.Now)
+                '    list.Add(temp)
+                '    Return list
+                'End If
+
+            End Using
+        End Using
+    End Function
+#End Region
 
 #Region "PRICE2"
 
@@ -1145,6 +1185,122 @@ Public Class Appraisal_Manager
 
     End Function
 
+    Public Shared Sub AddPRICE3_Master(ByVal Req_Id As Integer, _
+    ByVal AID As Integer, _
+    ByVal Temp_AID As Integer, _
+    ByVal Cif As Integer, _
+    ByVal Lat As Double, _
+    ByVal Lng As Double, _
+    ByVal Pricewah As Double, _
+    ByVal TotalPrice As Double, _
+    ByVal Approved1 As String, _
+    ByVal Approved2 As String, _
+    ByVal Approved3 As String, _
+    ByVal Approved As Integer, _
+    ByVal Env_Effect As Integer, _
+    ByVal Env_Effect_Detail As String, _
+    ByVal Appraisal_Detail As String, _
+    ByVal Appraisal_Type_ID As Integer, _
+    ByVal Comment_ID As Integer, _
+    ByVal Warning_ID As Integer, _
+    ByVal Warning_Detail As String, _
+    ByVal Create_User As String, _
+    ByVal Create_Date As Date)
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("AddPRICE3_Master", connection)
+                connection.Open()
+                command.Connection = connection
+                Dim myTrans As SqlTransaction
+                myTrans = connection.BeginTransaction()
+                command.Transaction = myTrans
+                Try
+                    command.CommandType = CommandType.StoredProcedure
+                    command.Parameters.Add(New SqlParameter("@Req_Id", Req_Id))
+                    command.Parameters.Add(New SqlParameter("@AID", AID))
+                    command.Parameters.Add(New SqlParameter("@Temp_AID", Temp_AID))
+                    command.Parameters.Add(New SqlParameter("@Cif", Cif))
+                    command.Parameters.Add(New SqlParameter("@Lat", Lat))
+                    command.Parameters.Add(New SqlParameter("@Lng", Lng))
+                    command.Parameters.Add(New SqlParameter("@Pricewah", Pricewah))
+                    command.Parameters.Add(New SqlParameter("@TotalPrice", TotalPrice))
+                    command.Parameters.Add(New SqlParameter("@Approved1", Approved1))
+                    command.Parameters.Add(New SqlParameter("@Approved2", Approved2))
+                    command.Parameters.Add(New SqlParameter("@Approved3", Approved3))
+                    command.Parameters.Add(New SqlParameter("@Approved", Approved))
+                    command.Parameters.Add(New SqlParameter("@Env_Effect", Env_Effect))
+                    command.Parameters.Add(New SqlParameter("@Env_Effect_Detail", Env_Effect_Detail))
+                    command.Parameters.Add(New SqlParameter("@Appraisal_Detail", Appraisal_Detail))
+                    command.Parameters.Add(New SqlParameter("@Appraisal_Type_ID", Appraisal_Type_ID))
+                    command.Parameters.Add(New SqlParameter("@Comment_ID", Comment_ID))
+                    command.Parameters.Add(New SqlParameter("@Warning_ID", Warning_ID))
+                    command.Parameters.Add(New SqlParameter("@Warning_Detail", Warning_Detail))
+                    command.Parameters.Add(New SqlParameter("@Create_User", Create_User))
+                    command.Parameters.Add(New SqlParameter("@Create_Date", Create_Date))
+                    command.ExecuteNonQuery()
+                    myTrans.Commit()
+                Catch ex As Exception
+                    myTrans.Rollback()
+                    Dim msg As String
+                    Dim title As String
+                    Dim style As MsgBoxStyle
+                    Dim response1 As MsgBoxResult
+                    'msg = "การบันทึกผิดพลาด"   ' Define message.
+                    msg = ex.Message
+                    style = MsgBoxStyle.DefaultButton2 Or _
+                       MsgBoxStyle.Critical Or MsgBoxStyle.YesNo
+                    title = "ผลการบันทึก"   ' Define title.
+                    ' Display message.
+                    response1 = MsgBox(msg, style, title)
+                Finally
+                    connection.Close()
+                End Try
+            End Using
+        End Using
+    End Sub
+
+    Public Shared Function GET_PRICE3_MASTER(ByVal Req_Id As Integer, ByVal Temp_AID As Integer) As Generic.List(Of clsPrice3_Master)
+
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("GET_PRICE3_MASTER", connection)
+                command.CommandType = CommandType.StoredProcedure
+                command.CommandTimeout = 60
+                command.Parameters.Add(New SqlParameter("@Req_Id", Req_Id))
+                command.Parameters.Add(New SqlParameter("@Temp_AID", Temp_AID))
+                connection.Open()
+                Dim list As New Generic.List(Of clsPrice3_Master)()
+                Using reader As SqlDataReader = command.ExecuteReader()
+
+                    Do While (reader.Read())
+                        Dim temp As New clsPrice3_Master(CInt(reader("Req_Id")), _
+                                                CInt(reader("AID")), _
+                                                CInt(reader("Temp_AID")), _
+                                                CInt(reader("Cif")), _
+                                                CDec(reader("Lat")), _
+                                                CDec(reader("Lng")), _
+                                                CDec(reader("Pricewah")), _
+                                                CDec(reader("TotalPrice")), _
+                                                CStr(reader("Approved1")), _
+                                                CStr(reader("Approved2")), _
+                                                CStr(reader("Approved3")), _
+                                                CInt(reader("Approved")), _
+                                                CInt(reader("Env_Effect")), _
+                                                CStr(reader("Env_Effect_Detail")), _
+                                                CStr(reader("Appraisal_Detail")), _
+                                                CDec(reader("Appraisal_Type_ID")), _
+                                                CInt(reader("Comment_ID")), _
+                                                CDec(reader("Warning_ID")), _
+                                                CStr(reader("Warning_Detail")), _
+                                                CStr(reader("Create_User")), _
+                                                CDate(reader("Create_Date")))
+                        list.Add(temp)
+                    Loop
+                End Using
+                Return list
+            End Using
+        End Using
+
+    End Function
+
     Public Shared Sub AddPRICE3_50(ByVal Id As Integer, _
      ByVal Req_Id As Integer, _
      ByVal Hub_Id As Integer, _
@@ -1182,6 +1338,7 @@ Public Class Appraisal_Manager
      ByVal PageNo As String, _
      ByVal Ownership As String, _
      ByVal Obligation As String, _
+     ByVal Land_Closeto_RoadWidth As Double, _
      ByVal DeepWidth As Double, _
      ByVal BehindWidth As Double, _
      ByVal AreaColour_No As Integer, _
@@ -1234,6 +1391,7 @@ Public Class Appraisal_Manager
                     command.Parameters.Add(New SqlParameter("@PageNo", PageNo))
                     command.Parameters.Add(New SqlParameter("@Ownership", Ownership))
                     command.Parameters.Add(New SqlParameter("@Obligation", Obligation))
+                    command.Parameters.Add(New SqlParameter("@Land_Closeto_RoadWidth", Land_Closeto_RoadWidth))
                     command.Parameters.Add(New SqlParameter("@DeepWidth", DeepWidth))
                     command.Parameters.Add(New SqlParameter("@BehindWidth", BehindWidth))
                     command.Parameters.Add(New SqlParameter("@AreaColour_No", AreaColour_No))
@@ -1286,6 +1444,7 @@ Public Class Appraisal_Manager
      ByVal PageNo As String, _
      ByVal Ownership As String, _
      ByVal Obligation As String, _
+     ByVal Land_Closeto_RoadWidth As Double, _
      ByVal DeepWidth As Double, _
      ByVal BehindWidth As Double, _
      ByVal AreaColour_No As Integer, _
@@ -1337,7 +1496,8 @@ Public Class Appraisal_Manager
                     command.Parameters.Add(New SqlParameter("@PageNo", PageNo))
                     command.Parameters.Add(New SqlParameter("@Ownership", Ownership))
                     command.Parameters.Add(New SqlParameter("@Obligation", Obligation))
-                    command.Parameters.Add(New SqlParameter("@DeepWidth", DeepWidth))
+                    command.Parameters.Add(New SqlParameter("@Obligation", Obligation))
+                    command.Parameters.Add(New SqlParameter("@Land_Closeto_RoadWidth", Land_Closeto_RoadWidth))
                     command.Parameters.Add(New SqlParameter("@BehindWidth", BehindWidth))
                     command.Parameters.Add(New SqlParameter("@AreaColour_No", AreaColour_No))
                     command.Parameters.Add(New SqlParameter("@Create_User", Create_User))
@@ -1405,6 +1565,7 @@ Public Class Appraisal_Manager
                                                 CStr(reader("PageNo")), _
                                                 CStr(reader("Ownership")), _
                                                 CStr(reader("Obligation")), _
+                                                CDec(reader("Land_Closeto_RoadWidth")), _
                                                 CDec(reader("DeepWidth")), _
                                                 CDec(reader("BehindWidth")), _
                                                 CInt(reader("AreaColour_No")), _
@@ -1521,13 +1682,252 @@ Public Class Appraisal_Manager
                     myTrans.Commit()
                 Catch ex As Exception
                     myTrans.Rollback()
-                    MsgBox(ex.Message)
+                    'MsgBox(ex.Message)
                 Finally
                     connection.Close()
                 End Try
             End Using
         End Using
     End Sub
+
+    Public Shared Sub AddPRICE3_70_DETAIL(ByVal Id As Integer, _
+     ByVal Req_Id As Integer, _
+     ByVal Hub_Id As Integer, _
+     ByVal Temp_AID As Integer, _
+     ByVal Floor As String, _
+     ByVal Main_Construction As String, _
+     ByVal Concrete As Integer, _
+     ByVal Granite As Integer, _
+     ByVal Parquet As Integer, _
+     ByVal Ceramic As Integer, _
+     ByVal Wood As Integer, _
+     ByVal Other As Integer, _
+     ByVal Other_Detail As String, _
+     ByVal BrickWall As Integer, _
+     ByVal BlockBrickWall As Integer, _
+     ByVal WoodWall As Integer, _
+     ByVal OtherWall As Integer, _
+     ByVal OtherWall_Detail As String, _
+     ByVal Create_User As String, _
+     ByVal Create_Date As Date)
+
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("AddPRICE3_70_DETAIL", connection)
+                connection.Open()
+                command.Connection = connection
+                Dim myTrans As SqlTransaction
+                myTrans = connection.BeginTransaction()
+                command.Transaction = myTrans
+                Try
+                    command.CommandType = CommandType.StoredProcedure
+                    command.Parameters.Add(New SqlParameter("@Id", Id))
+                    command.Parameters.Add(New SqlParameter("@Req_Id", Req_Id))
+                    command.Parameters.Add(New SqlParameter("@Hub_Id", Hub_Id))
+                    command.Parameters.Add(New SqlParameter("@Temp_AID", Temp_AID))
+                    command.Parameters.Add(New SqlParameter("@Floors", Floor))
+                    command.Parameters.Add(New SqlParameter("@Main_Construction", Main_Construction))
+                    command.Parameters.Add(New SqlParameter("@Concrete", Concrete))
+                    command.Parameters.Add(New SqlParameter("@Granite", Granite))
+                    command.Parameters.Add(New SqlParameter("@Parquet", Parquet))
+                    command.Parameters.Add(New SqlParameter("@Ceramic", Ceramic))
+                    command.Parameters.Add(New SqlParameter("@Wood", Wood))
+                    command.Parameters.Add(New SqlParameter("@Other", Other))
+                    command.Parameters.Add(New SqlParameter("@Other_Detail", Other_Detail))
+                    command.Parameters.Add(New SqlParameter("@BrickWall", BrickWall))
+                    command.Parameters.Add(New SqlParameter("@BlockBrickWall", BlockBrickWall))
+                    command.Parameters.Add(New SqlParameter("@WoodWall", WoodWall))
+                    command.Parameters.Add(New SqlParameter("@OtherWall", OtherWall))
+                    command.Parameters.Add(New SqlParameter("@OtherWall_Detail", OtherWall_Detail))
+                    command.Parameters.Add(New SqlParameter("@Create_User", Create_User))
+                    command.Parameters.Add(New SqlParameter("@Create_Date", Create_Date))
+                    command.ExecuteNonQuery()
+                    myTrans.Commit()
+                Catch ex As Exception
+                    myTrans.Rollback()
+                Finally
+                    connection.Close()
+                End Try
+            End Using
+        End Using
+    End Sub
+
+    Public Shared Sub UpdatePRICE3_70_DETAIL(ByVal Id As String, _
+     ByVal Req_Id As Integer, _
+     ByVal Hub_Id As Integer, _
+     ByVal Temp_AID As Integer, _
+     ByVal Floor As String, _
+     ByVal Main_Construction As String, _
+     ByVal Concrete As Integer, _
+     ByVal Granite As Integer, _
+     ByVal Parquet As Integer, _
+     ByVal Ceramic As Integer, _
+     ByVal Wood As Integer, _
+     ByVal Other As Integer, _
+     ByVal Other_Detail As String, _
+     ByVal BrickWall As Integer, _
+     ByVal BlockBrickWall As Integer, _
+     ByVal WoodWall As Integer, _
+     ByVal OtherWall As Integer, _
+     ByVal OtherWall_Detail As String, _
+     ByVal Create_User As String, _
+     ByVal Create_Date As Date)
+
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("UPDATE_PRICE3_70_DETAIL", connection)
+                connection.Open()
+                command.Connection = connection
+                Dim myTrans As SqlTransaction
+                myTrans = connection.BeginTransaction()
+                command.Transaction = myTrans
+                Try
+                    command.CommandType = CommandType.StoredProcedure
+                    command.Parameters.Add(New SqlParameter("@Id", Id))
+                    command.Parameters.Add(New SqlParameter("@Req_Id", Req_Id))
+                    command.Parameters.Add(New SqlParameter("@Hub_Id", Hub_Id))
+                    command.Parameters.Add(New SqlParameter("@Temp_AID", Temp_AID))
+                    command.Parameters.Add(New SqlParameter("@Floors", Floor))
+                    command.Parameters.Add(New SqlParameter("@Main_Construction", Main_Construction))
+                    command.Parameters.Add(New SqlParameter("@Concrete", Concrete))
+                    command.Parameters.Add(New SqlParameter("@Granite", Granite))
+                    command.Parameters.Add(New SqlParameter("@Parquet", Parquet))
+                    command.Parameters.Add(New SqlParameter("@Ceramic", Ceramic))
+                    command.Parameters.Add(New SqlParameter("@Wood", Wood))
+                    command.Parameters.Add(New SqlParameter("@Other", Other))
+                    command.Parameters.Add(New SqlParameter("@Other_Detail", Other_Detail))
+                    command.Parameters.Add(New SqlParameter("@BrickWall", BrickWall))
+                    command.Parameters.Add(New SqlParameter("@BlockBrickWall", BlockBrickWall))
+                    command.Parameters.Add(New SqlParameter("@WoodWall", WoodWall))
+                    command.Parameters.Add(New SqlParameter("@OtherWall", OtherWall))
+                    command.Parameters.Add(New SqlParameter("@OtherWall_Detail", OtherWall_Detail))
+                    command.Parameters.Add(New SqlParameter("@Create_User", Create_User))
+                    command.Parameters.Add(New SqlParameter("@Create_Date", Create_Date))
+                    command.ExecuteNonQuery()
+                    myTrans.Commit()
+                Catch ex As Exception
+                    myTrans.Rollback()
+                    Dim msg As String
+                    Dim title As String
+                    Dim style As MsgBoxStyle
+                    Dim response1 As MsgBoxResult
+                    'msg = "การบันทึกผิดพลาด"   ' Define message.
+                    msg = ex.Message
+                    style = MsgBoxStyle.DefaultButton2 Or _
+                       MsgBoxStyle.Critical Or MsgBoxStyle.YesNo
+                    title = "ผลการบันทึก"   ' Define title.
+                    ' Display message.
+                    response1 = MsgBox(msg, style, title)
+                Finally
+                    connection.Close()
+                End Try
+            End Using
+        End Using
+    End Sub
+
+    Public Shared Sub DeletePRICE3_70_DETAIL(ByVal Id As String, _
+     ByVal Req_Id As Integer, _
+     ByVal Hub_Id As Integer, _
+     ByVal Temp_AID As Integer, _
+     ByVal Floor As String, _
+     ByVal Main_Construction As String, _
+     ByVal Concrete As Integer, _
+     ByVal Granite As Integer, _
+     ByVal Parquet As Integer, _
+     ByVal Ceramic As Integer, _
+     ByVal Wood As Integer, _
+     ByVal Other As Integer, _
+     ByVal Other_Detail As String, _
+     ByVal BrickWall As Integer, _
+     ByVal BlockBrickWall As Integer, _
+     ByVal WoodWall As Integer, _
+     ByVal OtherWall As Integer, _
+     ByVal OtherWall_Detail As String, _
+     ByVal Create_User As String, _
+     ByVal Create_Date As Date)
+
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("UpdatePRICE3_70_DETAIL", connection)
+                connection.Open()
+                command.Connection = connection
+                Dim myTrans As SqlTransaction
+                myTrans = connection.BeginTransaction()
+                command.Transaction = myTrans
+                Try
+                    command.CommandType = CommandType.StoredProcedure
+                    command.Parameters.Add(New SqlParameter("@Id", Id))
+                    command.Parameters.Add(New SqlParameter("@Req_Id", Req_Id))
+                    command.Parameters.Add(New SqlParameter("@Hub_Id", Hub_Id))
+                    command.Parameters.Add(New SqlParameter("@Temp_AID", Temp_AID))
+                    command.Parameters.Add(New SqlParameter("@Floors", Floor))
+                    command.Parameters.Add(New SqlParameter("@Main_Construction", Main_Construction))
+                    command.Parameters.Add(New SqlParameter("@Concrete", Concrete))
+                    command.Parameters.Add(New SqlParameter("@Granite", Granite))
+                    command.Parameters.Add(New SqlParameter("@Parquet", Parquet))
+                    command.Parameters.Add(New SqlParameter("@Ceramic", Ceramic))
+                    command.Parameters.Add(New SqlParameter("@Wood", Wood))
+                    command.Parameters.Add(New SqlParameter("@Other", Other))
+                    command.Parameters.Add(New SqlParameter("@Other_Detail", Other_Detail))
+                    command.Parameters.Add(New SqlParameter("@BrickWall", BrickWall))
+                    command.Parameters.Add(New SqlParameter("@BlockBrickWall", BlockBrickWall))
+                    command.Parameters.Add(New SqlParameter("@WoodWall", WoodWall))
+                    command.Parameters.Add(New SqlParameter("@OtherWall", OtherWall))
+                    command.Parameters.Add(New SqlParameter("@OtherWall_Detail", OtherWall_Detail))
+                    command.Parameters.Add(New SqlParameter("@Create_User", Create_User))
+                    command.Parameters.Add(New SqlParameter("@Create_Date", Create_Date))
+                    command.ExecuteNonQuery()
+                    myTrans.Commit()
+                Catch ex As Exception
+                    myTrans.Rollback()
+                Finally
+                    connection.Close()
+                End Try
+            End Using
+        End Using
+    End Sub
+
+    Public Shared Function GET_PRICE3_70_DETAIL(ByVal ID As Integer, ByVal Req_Id As Integer, ByVal Hub_Id As Integer, ByVal Temp_AID As Integer, ByVal Floors As String) As Generic.List(Of ClsPrice3_70_Detail)
+
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("GET_PRICE3_70_DETAIL_BYID", connection)
+                command.CommandType = CommandType.StoredProcedure
+                command.CommandTimeout = 60
+                command.Parameters.Add(New SqlParameter("@ID", ID))
+                command.Parameters.Add(New SqlParameter("@Req_Id", Req_Id))
+                command.Parameters.Add(New SqlParameter("@Hub_Id", Hub_Id))
+                command.Parameters.Add(New SqlParameter("@Temp_AID", Temp_AID))
+                command.Parameters.Add(New SqlParameter("@Floors", Floors))
+                connection.Open()
+                Dim list As New Generic.List(Of ClsPrice3_70_Detail)()
+                Using reader As SqlDataReader = command.ExecuteReader()
+
+                    Do While (reader.Read())
+                        Dim temp As New ClsPrice3_70_Detail(CInt(reader("Id")), _
+                                                CInt(reader("Req_Id")), _
+                                                CInt(reader("Hub_Id")), _
+                                                CInt(reader("Temp_AID")), _
+                                                CStr(reader("Floors")), _
+                                                CStr(reader("Main_Construction")), _
+                                                CInt(reader("Concrete")), _
+                                                CInt(reader("Granite")), _
+                                                CInt(reader("Parquet")), _
+                                                CInt(reader("Ceramic")), _
+                                                CInt(reader("Wood")), _
+                                                CInt(reader("Other")), _
+                                                CStr(reader("Other_Detail")), _
+                                                CInt(reader("BrickWall")), _
+                                                CInt(reader("BlockBrickWall")), _
+                                                CInt(reader("WoodWall")), _
+                                                CInt(reader("OtherWall")), _
+                                                CStr(reader("OtherWall_Detail")), _
+                                                CStr(reader("Create_User")), _
+                                                CDate(reader("Create_Date")))
+                        list.Add(temp)
+                    Loop
+                End Using
+                Return list
+            End Using
+        End Using
+
+    End Function
 
     Public Shared Sub UpdatePRICE3_70(ByVal Req_Id As Integer, _
      ByVal Hub_Id As Integer, _
@@ -1755,6 +2155,7 @@ Public Class Appraisal_Manager
                                                 CStr(reader("PageNo")), _
                                                 CStr(reader("Ownership")), _
                                                 CStr(reader("Obligation")), _
+                                                CDec(reader("Land_Closeto_RoadWidth")), _
                                                 CDec(reader("DeepWidth")), _
                                                 CDec(reader("BehindWidth")), _
                                                 CInt(reader("AreaColour_No")), _
@@ -1783,7 +2184,7 @@ Public Class Appraisal_Manager
                 Dim ds As New DataSet
                 list.Fill(ds)
                 Return ds
-        End Using
+            End Using
         End Using
 
     End Function
@@ -2352,6 +2753,30 @@ Public Class Appraisal_Manager
                     Do While (reader.Read())
                         Dim temp As New Cls_Buy_Sale_State(CInt(reader("BUYSALE_STATE_ID")), _
                                                 CStr(reader("BUYSALE_STATE_NAME")))
+                        list.Add(temp)
+                    Loop
+                End Using
+                Return list
+            End Using
+        End Using
+
+    End Function
+
+    Public Shared Function GET_ROADFRONTOFF_INFO(ByVal Road_Frontoff_ID As Integer) As Generic.List(Of Cls_RoadFrontOff)
+
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("GET_ROAD_FRONTOFF_INFO", connection)
+                command.CommandType = CommandType.StoredProcedure
+                command.CommandTimeout = 60
+
+                command.Parameters.Add(New SqlParameter("@Road_Frontoff_ID", Road_Frontoff_ID))
+                connection.Open()
+                Dim list As New Generic.List(Of Cls_RoadFrontOff)()
+                Using reader As SqlDataReader = command.ExecuteReader()
+
+                    Do While (reader.Read())
+                        Dim temp As New Cls_RoadFrontOff(CInt(reader("Road_Frontoff_ID")), _
+                                                CStr(reader("Road_Frontoff_Name")))
                         list.Add(temp)
                     Loop
                 End Using

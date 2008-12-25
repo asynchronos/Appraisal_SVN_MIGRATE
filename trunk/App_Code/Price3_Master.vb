@@ -17,60 +17,20 @@ Public Class Price3_Master
     Private vLng As Double
     Private vPriceWah As Decimal
     Private vTotalPrice As Decimal
-    Private vApproved1 As Integer
-    Private vApproved2 As Integer
-    Private vApproved3 As Integer
+    Private vApproved1 As String
+    Private vApproved2 As String
+    Private vApproved3 As String
     Private vApproved As Integer
+    Private vEnv_Effect As Integer
+    Private vEnv_Effect_Detail As String
+    Private vAppraisal_Detail As String
+    Private vAppraisal_Type_Id As Integer
+    Private vComment_ID As Integer
+    Private vWarning_ID As Integer
+    Private vWarning_Detail As String
     Private vCreate_User As String
     Private vCreate_Date As Date
 
-    'Private _Req_Id As Integer
-    'Private _AID As Integer
-    'Private _Temp_AID As Integer
-    'Private _Cif As Integer
-    'Private _Lat As Double
-    'Private _Lng As Double
-    'Private _PriceWah As Decimal
-    'Private _TotalPrice As Decimal
-    'Private _Approved1 As Integer
-    'Private _Approved2 As Integer
-    'Private _Approved3 As Integer
-    'Private _Approved As Integer
-    'Private _Create_User As String
-    'Private _Create_Date As Date
-
-
-    'Public Sub New( _
-    ' ByVal Req_Id As Integer, _
-    ' ByVal AID As Integer, _
-    ' ByVal Temp_AID As Integer, _
-    ' ByVal Cif As Integer, _
-    ' ByVal Lat As Double, _
-    ' ByVal Lng As Double, _
-    ' ByVal PriceWah As Decimal, _
-    ' ByVal TotalPrice As Decimal, _
-    ' ByVal Approved1 As Integer, _
-    ' ByVal Approved2 As Integer, _
-    ' ByVal Approved3 As Integer, _
-    ' ByVal Approved As Integer, _
-    ' ByVal Create_User As String, _
-    ' ByVal Create_Date As Date)
-    '    MyBase.New()
-    '    _Req_Id = Req_Id
-    '    _AID = AID
-    '    _Temp_AID = Temp_AID
-    '    _Cif = Cif
-    '    _Lat = Lat
-    '    _Lng = Lng
-    '    _PriceWah = PriceWah
-    '    _TotalPrice = TotalPrice
-    '    _Approved1 = Approved1
-    '    _Approved2 = Approved2
-    '    _Approved3 = Approved3
-    '    _Approved = Approved
-    '    _Create_User = Create_User
-    '    _Create_Date = Create_Date
-    'End Sub
 
     <XmlElement(ElementName:="Req_Id")> _
     Public Property Req_Id() As Integer
@@ -153,31 +113,31 @@ Public Class Price3_Master
     End Property
 
     <XmlElement(ElementName:="Approve1")> _
-Public Property Approved1() As Integer
+Public Property Approved1() As String
         Get
             Return vApproved1
         End Get
-        Set(ByVal Value As Integer)
+        Set(ByVal Value As String)
             vApproved1 = Value
         End Set
     End Property
 
     <XmlElement(ElementName:="Approve2")> _
-Public Property Approved2() As Integer
+Public Property Approved2() As String
         Get
             Return vApproved2
         End Get
-        Set(ByVal Value As Integer)
+        Set(ByVal Value As String)
             vApproved2 = Value
         End Set
     End Property
 
     <XmlElement(ElementName:="Approve3")> _
-Public Property Approved3() As Integer
+Public Property Approved3() As String
         Get
             Return vApproved3
         End Get
-        Set(ByVal Value As Integer)
+        Set(ByVal Value As String)
             vApproved3 = Value
         End Set
     End Property
@@ -189,6 +149,76 @@ Public Property Approved() As Integer
         End Get
         Set(ByVal Value As Integer)
             vApproved = Value
+        End Set
+    End Property
+
+    <XmlElement(ElementName:="Env_Effect")> _
+Public Property Env_Effect() As Integer
+        Get
+            Return vEnv_Effect
+        End Get
+        Set(ByVal Value As Integer)
+            vEnv_Effect = Value
+        End Set
+    End Property
+
+    <XmlElement(ElementName:="Env_Effect_Detail")> _
+Public Property Env_Effect_Detail() As String
+        Get
+            Return vEnv_Effect_Detail
+        End Get
+        Set(ByVal Value As String)
+            vEnv_Effect_Detail = Value
+        End Set
+    End Property
+
+    <XmlElement(ElementName:="Appraisal_Detail")> _
+Public Property Appraisal_Detail() As String
+        Get
+            Return vAppraisal_Detail
+        End Get
+        Set(ByVal Value As String)
+            vAppraisal_Detail = Value
+        End Set
+    End Property
+
+    <XmlElement(ElementName:="Appraisal_Type_ID")> _
+Public Property Appraisal_Type_ID() As Integer
+        Get
+            Return vAppraisal_Type_Id
+        End Get
+        Set(ByVal Value As Integer)
+            vAppraisal_Type_Id = Value
+        End Set
+    End Property
+
+    <XmlElement(ElementName:="Comment_ID")> _
+Public Property Comment_ID() As Integer
+        Get
+            Return vComment_ID
+        End Get
+        Set(ByVal Value As Integer)
+            vComment_ID = Value
+        End Set
+    End Property
+
+    <XmlElement(ElementName:="Warning_ID")> _
+Public Property Warning_ID() As Integer
+        Get
+            Return vWarning_ID
+        End Get
+        Set(ByVal Value As Integer)
+            vWarning_ID = Value
+        End Set
+    End Property
+
+    <XmlElement(ElementName:="Warning_Detail")> _
+Public Property Warning_Detail() As String
+        Get
+            Return vWarning_Detail
+        End Get
+        Set(ByVal Value As String)
+            vWarning_Detail = Value
         End Set
     End Property
 
