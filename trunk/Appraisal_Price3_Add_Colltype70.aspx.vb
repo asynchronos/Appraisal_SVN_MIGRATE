@@ -4,12 +4,18 @@ Partial Class Appraisal_Price3_Add_Colltype70
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not Page.IsPostBack Then
-            lblReq_Id.Text = Request.QueryString("Req_Id")
-            lblHub_Id.Text = Request.QueryString("Hub_Id")
-            lblTemp_AID.Text = Request.QueryString("Temp_AID")
-            Dim lblCollType_Id As String = Request.QueryString("Coll_Type")
-            lblId.Text = Request.QueryString("ID")
-            If CHECK_BEFORE_ADD_PRICE3(lblReq_Id.Text, lblTemp_AID.Text, lblHub_Id.Text, lblCollType_Id, lblId.Text) = 0 Then
+            'lblReq_Id.Text = Request.QueryString("Req_Id")
+            'lblHub_Id.Text = Request.QueryString("Hub_Id")
+            'lblTemp_AID.Text = Request.QueryString("Temp_AID")
+            'Dim lblCollType_Id As String = Request.QueryString("Coll_Type")
+            'lblId.Text = Request.QueryString("ID")
+
+            lblReq_Id.Text = Context.Items("Req_Id")
+            lblHub_Id.Text = Context.Items("Hub_Id")
+            lblTemp_AID.Text = Context.Items("Temp_AID")
+            hhhfSubCollType.Value = Context.Items("Coll_Type")
+            lblId.Text = Context.Items("ID")
+            If CHECK_BEFORE_ADD_PRICE3(lblReq_Id.Text, lblTemp_AID.Text, lblHub_Id.Text, hhhfSubCollType.Value, lblId.Text) = 0 Then
                 Show_Price2_70()
             Else
                 Show_Price3_70()
@@ -106,5 +112,15 @@ Partial Class Appraisal_Price3_Add_Colltype70
                 txtBuildAddAge.Text, txtBuildAddPersent1.Text, txtBuildAddPersent2.Text, txtBuildAddPersent3.Text, txtBuildAddPriceTotalDeteriorate.Text, _
                 txtBuildingDetail.Text, lbluserid.Text, Now())
         Response.Redirect("Appraisal_Price3_List.aspx")
+    End Sub
+
+    Protected Sub btnAddDetail_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnAddDetail.Click
+        Dim lbluserid As Label = TryCast(Me.Form.FindControl("lblUserID"), Label)
+        Context.Items("Req_Id") = lblReq_Id.Text
+        Context.Items("Hub_Id") = lblHub_Id.Text
+        Context.Items("Temp_AID") = lblTemp_AID.Text
+        Context.Items("ID") = lblId.Text
+        Context.Items("User_ID") = lbluserid.Text
+        Server.Transfer("Appraisal_Price3_Add_Colltype70Detail.aspx")
     End Sub
 End Class

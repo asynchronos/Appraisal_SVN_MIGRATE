@@ -92,6 +92,7 @@ Partial Class Appraisal_Price3_Add_Colltype50
             txtPage.Text = Obj_GetP50.Item(0).PageNo
             txtOwnerShip.Text = Obj_GetP50.Item(0).Ownership
             txtObligation.Text = Obj_GetP50.Item(0).Obligation
+            txtLand_Closeto_RoadWidth.Text = Obj_GetP50.Item(0).Land_Closeto_RoadWidth
             txtDeepWidth.Text = Obj_GetP50.Item(0).DeepWidth
             txtBehindWidth.Text = Obj_GetP50.Item(0).BehindWidth
             ddlAreaColur.SelectedValue = Obj_GetP50.Item(0).AreaColour_No
@@ -108,7 +109,7 @@ Partial Class Appraisal_Price3_Add_Colltype50
                                                               txtLand_State_Detail.Text, CInt(ddlPublic_Utility.SelectedValue), txtPublic_Utility_Detail.Text, CInt(ddlBinifit.SelectedValue), _
                                                               txtBinifit.Text, CInt(ddlTendency.SelectedValue), CInt(ddlBuySale_State.SelectedValue), _
                                                               CInt(txtPriceWah.Text), CInt(txtTotal.Text), txtRaWang.Text, txtLandNumber.Text, txtSurway.Text, txtDocNo.Text, txtPage.Text, txtOwnerShip.Text, _
-                                                              txtObligation.Text, txtDeepWidth.Text, txtBehindWidth.Text, ddlAreaColur.SelectedValue, lbluserid.Text, Now())
+                                                              txtObligation.Text, txtLand_Closeto_RoadWidth.Text, txtDeepWidth.Text, txtBehindWidth.Text, ddlAreaColur.SelectedValue, lbluserid.Text, Now())
         Response.Redirect("Appraisal_Price3_List.aspx")
     End Sub
 End Class

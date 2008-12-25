@@ -111,9 +111,6 @@ function wopen(url, name, w, h) {
     win.moveTo(wleft, wtop);
     win.focus();
 }
-function AddDetail70_onclick() {
-
-}
 
 // -->
         </script>
@@ -163,6 +160,7 @@ function AddDetail70_onclick() {
                             DataSourceID="sdsSubCollType" DataTextField="SubCollType_Name"
                             DataValueField="MysubColl_ID">
                         </asp:DropDownList>
+                        <asp:HiddenField ID="hhhfSubCollType" runat="server" />
                     </td>
               </tr>
               <tr>
@@ -340,9 +338,10 @@ function AddDetail70_onclick() {
                 </td>
                 <td class="style5">
                     <input id="AddDetail70" onclick="wopen('Appraisal_Price3_Add_Colltype70Detail.aspx', 'popup', 800, 300); return false;"
-                        type="button" value="รายละเอียดเพิ่มเติม" onclick="return AddDetail70_onclick()" /></td>
+                        type="button" value="รายละเอียดเพิ่มเติม"/></td>
                 <td class="style19">
-                    &nbsp;</td>
+                    <asp:Button ID="btnAddDetail" runat="server" Text="Button" />
+                </td>
                 <td class="style14">
                     &nbsp;</td>
                 <td>
@@ -442,7 +441,9 @@ function AddDetail70_onclick() {
                         EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66">0</cc1:mytext>
                     %</td>
                 <td class="style14">
-                    ค่าเสื่อมตามสภาพปรับปรุง     <td>
+                    ค่าเสื่อมตามสภาพปรับปรุง 
+                </td>
+                <td>
                     <cc1:mytext ID="txtBuildAddPersent2" runat="server" AllowUserKey="num_Numeric" 
                         EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66">0</cc1:mytext>
                     %</td>
@@ -492,8 +493,8 @@ function AddDetail70_onclick() {
         
         SelectCommand="SELECT [SubCollType_Name], [MysubColl_ID] FROM [CollType_All] WHERE ([CollType_ID] = @CollType_ID)">
         <SelectParameters>
-            <asp:QueryStringParameter Name="CollType_ID" QueryStringField="Coll_Type" 
-                Type="Int32" />
+            <asp:ControlParameter ControlID="hhhfSubCollType" Name="CollType_ID" 
+                PropertyName="Value" Type="Int32" />
         </SelectParameters>
     </asp:SqlDataSource>
     <asp:SqlDataSource ID="SDSlBuild_Character" runat="server" ConnectionString="<%$ ConnectionStrings:AppraisalConn %>"
