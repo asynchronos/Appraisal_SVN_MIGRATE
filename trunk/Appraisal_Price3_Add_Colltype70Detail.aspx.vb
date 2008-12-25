@@ -26,8 +26,9 @@ Partial Class Appraisal_Price3_Add_Colltype70Detail
                                 ChkBrickWall.Checked, CheckBlockbrickWall.Checked, ChkWoodWall.Checked, ChkOtherWall.Checked, txtOtherWall.Text, HiddenField5.Value, Now())
         End If
 
-        Dim Imgsave As New ImageButton
-        Imgsave.Attributes.Add("onclick", "ConfirmMessage()")
+        'Dim Imgsave As New ImageButton
+        'Imgsave.Attributes.Add("onclick", "ConfirmMessage()")
+
         GridView1.DataBind()
 
         'lblMessage.Text = MessageBox.MSB_Confirm("การบันทึกเสร็จสมบูรณ์คุณต้องการบันทึกรายละเอียดอีกหรือไม่? ")
@@ -70,6 +71,7 @@ Partial Class Appraisal_Price3_Add_Colltype70Detail
             HiddenField4.Value = CInt(Context.Items("ID"))
             HiddenField5.Value = CStr(Context.Items("User_ID"))
         End If
+        ImageSave.Attributes.Add("onclick", "return ShowMessage()")
     End Sub
 
     Protected Sub GridView1_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles GridView1.SelectedIndexChanged
