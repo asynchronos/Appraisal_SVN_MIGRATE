@@ -6,6 +6,64 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <link href="CSS/print.css" rel="stylesheet" type="text/css" media="print" />
+    <style type="text/css" media="print">
+        .style1
+        {
+            width: 205px;
+        }
+        .style2
+        {
+            width: 472px;
+        }
+        .style3
+        {
+            width: 259px;
+        }
+        .style4
+        {
+            width: 164px;
+        }
+        .style5
+        {
+            width: 97px;
+        }
+        .style6
+        {
+            width: 144px;
+        }
+        .style7
+        {
+            width: 153px;
+        }
+        .style8
+        {
+            width: 57px;
+        }
+        .style9
+        {
+            width: 230px;
+        }
+        .style10
+        {
+            width: 215px;
+        }
+        .style13
+        {
+            width: 141px;
+        }
+        .style16
+        {
+            width: 239px;
+        }
+        .style17
+        {
+            width: 374px;
+        }
+        .NotshowOnPrint
+        {
+            display:none;
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <asp:ScriptManager ID="ScriptManager1" runat="server">
@@ -20,24 +78,28 @@
             <td class="txtDoPrint">
                 <asp:TextBox ID="TextBox1" runat="server" Width="350px"></asp:TextBox>
             </td>
+            <td>AID</td>
+            <td>
+                <asp:TextBox ID="txtAID" runat="server"></asp:TextBox>
+            </td>
         </tr>
     </table>
     <table width="100%">
         <tr>
-            <td>
+            <td class="style17">
                 <asp:Label ID="Label3" runat="server" Text="ผู้ขอสินเชื่อ"></asp:Label>
             </td>
-            <td>
+            <td class="style16">
                 <span style="color: Red">
                     <asp:Label ID="lblCifName" runat="server"></asp:Label></span>&#160;
             </td>
-            <td>
+            <td class="style13">
                 <asp:Label ID="Label2" runat="server" Text="Cif"></asp:Label>
             </td>
-            <td>
+            <td class="style9">
                 <asp:TextBox ID="txtCif" runat="server"></asp:TextBox>
             </td>
-            <td>
+            <td class="style10">
                 <asp:Label ID="Label4" runat="server" Text="วันที่รับเรื่อง"></asp:Label>
             </td>
             <td>
@@ -48,27 +110,27 @@
             </td>
         </tr>
         <tr>
-            <td>
+            <td class="style17">
                 <asp:Label ID="Label5" runat="server" Font-Bold="True" Text="หลักประกันที่ดิน"></asp:Label>
             </td>
-            <td>
+            <td class="style16">
                 &#160;&#160;
             </td>
         </tr>
         <tr>
-            <td>
+            <td class="style17">
                 <asp:Label ID="Label6" runat="server" Text="โฉนดที่ดิน เลขที่"></asp:Label>
             </td>
-            <td>
+            <td class="style16">
                 <asp:Label ID="lblChanode_No" runat="server" Style="color: #FF0000"></asp:Label>
             </td>
-            <td>
+            <td class="style13">
                 <asp:Label ID="Label7" runat="server" Text="ระวาง"></asp:Label>
             </td>
-            <td>
+            <td class="style9">
                 <asp:Label ID="lblRaWang" runat="server" Style="color: #FF0000"></asp:Label>
             </td>
-            <td>
+            <td class="style10">
                 <asp:Label ID="Label8" runat="server" Text="เลขที่ดิน"></asp:Label>
             </td>
             <td>
@@ -76,19 +138,19 @@
             </td>
         </tr>
         <tr>
-            <td>
+            <td class="style17">
                 <asp:Label ID="Label9" runat="server" Text="หน้าสำรวจ"></asp:Label>
             </td>
-            <td>
+            <td class="style16">
                 <asp:Label ID="lblSurway" runat="server" Style="color: #FF0000"></asp:Label>
             </td>
-            <td>
+            <td class="style13">
                 <asp:Label ID="Label10" runat="server" Text="สารบัญเล่มที่"></asp:Label>
             </td>
-            <td>
+            <td class="style9">
                 <asp:Label ID="lblDocNo" runat="server" Style="color: #FF0000"></asp:Label>
             </td>
-            <td>
+            <td class="style10">
                 <asp:Label ID="Label11" runat="server" Text="หน้า"></asp:Label>
             </td>
             <td>
@@ -96,19 +158,19 @@
             </td>
         </tr>
         <tr>
-            <td>
+            <td class="style17">
                 <asp:Label ID="Label12" runat="server" Text="ตำบล"></asp:Label>
             </td>
-            <td>
+            <td class="style16">
                 <asp:Label ID="lblTumbon" runat="server" Style="color: #FF0000"></asp:Label>
             </td>
-            <td>
+            <td class="style13">
                 <asp:Label ID="Label13" runat="server" Text="อำเภอ"></asp:Label>
             </td>
-            <td>
+            <td class="style9">
                 <asp:Label ID="lblAmphur" runat="server" Style="color: #FF0000"></asp:Label>
             </td>
-            <td>
+            <td class="style10">
                 <asp:Label ID="Label14" runat="server" Text="จังหวัด"></asp:Label>
             </td>
             <td>
@@ -116,19 +178,19 @@
             </td>
         </tr>
         <tr>
-            <td>
+            <td class="style17">
                 <asp:Label ID="Label16" runat="server" Text="เนื่อที่จำนวนไร่"></asp:Label>
             </td>
-            <td>
+            <td class="style16">
                 <asp:Label ID="lblRai" runat="server" Style="color: #FF0000"></asp:Label>
             </td>
-            <td>
+            <td class="style13">
                 <asp:Label ID="Label17" runat="server" Text="จำนวนงาน"></asp:Label>
             </td>
-            <td>
+            <td class="style9">
                 <asp:Label ID="lblNgan" runat="server" Style="color: #FF0000"></asp:Label>
             </td>
-            <td>
+            <td class="style10">
                 <asp:Label ID="Label18" runat="server" Text="จำนวนตารางวา"></asp:Label>
             </td>
             <td>
@@ -136,19 +198,19 @@
             </td>
         </tr>
         <tr>
-            <td>
+            <td class="style17">
                 <asp:Label ID="Label19" runat="server" Text="ผู้ถือกรรมสิทธิ์ที่ดิน"></asp:Label>
             </td>
-            <td>
+            <td class="style16">
                 <asp:Label ID="lblLandOwnerShip" runat="server" Style="color: #FF0000"></asp:Label>
             </td>
-            <td>
+            <td class="style13">
                 <asp:Label ID="Label20" runat="server" Text="สิ่งปลูกสร้างของ"></asp:Label>
             </td>
-            <td>
+            <td class="style9">
                 <asp:Label ID="lbBuildinObligation" runat="server" Style="color: #FF0000"></asp:Label>
             </td>
-            <td>
+            <td class="style10">
                 <asp:Label ID="Label21" runat="server" Text="ภาระผูกพัน"></asp:Label>
             </td>
             <td>
@@ -156,23 +218,23 @@
             </td>
         </tr>
         <tr>
-            <td>
+            <td class="style17">
                 <asp:Label ID="Label22" runat="server" Text="ที่ตั้งและสภาพที่ดิน" Font-Bold="True"></asp:Label>
             </td>
         </tr>
         <tr>
-            <td>
+            <td class="style17">
                 <asp:Label ID="Label15" runat="server" Text="ตั้งอยู่ที่ถนน"></asp:Label>
             </td>
-            <td>
+            <td class="style16">
                 <asp:Label ID="lblRoad" runat="server" Style="color: #FF0000"></asp:Label>
             </td>
-            <td>
+            <td class="style13">
                 การตั้งอยู่</td>
-            <td>
+            <td class="style9">
                 <asp:Label ID="lblRoadAccess_Detail" runat="server" Style="color: #FF0000"></asp:Label>
             </td>
-            <td>
+            <td class="style10">
                 <asp:Label ID="Label24" runat="server" Text="ระยะประมาณ"></asp:Label>
             </td>
             <td>
@@ -180,56 +242,56 @@
             </td>
         </tr>
         <tr>
-            <td>
+            <td class="style17">
                 <asp:Label ID="Label25" runat="server" Text="ถนนหน้าหลักประกัน"></asp:Label>
             </td>
-            <td>
-                <asp:Label ID="lblRoadState" runat="server" Style="color: #FF0000"></asp:Label>
-            </td>
-            <td>
-                <asp:Label ID="Label26" runat="server" Text="กว้าง"></asp:Label>
-            </td>
-            <td>
+            <td class="style16">
                 <asp:Label ID="lblRoad_Forntoff" runat="server" Style="color: #FF0000"></asp:Label>
             </td>
-            <td>
+            <td class="style13">
+                <asp:Label ID="Label26" runat="server" Text="กว้าง"></asp:Label>
+            </td>
+            <td class="style9">
+                <asp:Label ID="lblRoad_Forntoff_Width" runat="server" Style="color: #FF0000"></asp:Label>
+            </td>
+            <td class="style10">
             </td>
             <td>
                 <asp:Label ID="Label27" runat="server" Text="(รายละเอียดตามแผนที่สังเขป)"></asp:Label>
             </td>
         </tr>
         <tr>
-            <td>
+            <td class="style17">
                 <asp:Label ID="Label28" runat="server" Text="สภาพลักษณะที่ดิน"></asp:Label>
             </td>
-            <td>
+            <td class="style16">
                 <asp:CheckBox ID="ChkLandState1" runat="server" Text="สี่เหลี่ยมผืนผ้า" />
             </td>
-            <td>
+            <td class="style13">
                 <asp:Label ID="Label29" runat="server" Text="อื่น ๆ"></asp:Label>
             </td>
-            <td>
+            <td class="style9">
                 <asp:Label ID="lblLandStateDetail" runat="server" Style="color: #FF0000"></asp:Label>
             </td>
-            <td>
+            <td class="style10">
             </td>
             <td>
             </td>
         </tr>
         <tr>
-            <td>
+            <td class="style17">
                 <asp:Label ID="Label30" runat="server" Text="ขนาดที่ดิน  กว้างติดถนน"></asp:Label>
             </td>
-            <td>
+            <td class="style16">
                 <asp:Label ID="lblRoadWidth" runat="server" Style="color: #FF0000"></asp:Label>
             </td>
-            <td>
+            <td class="style13">
                 <asp:Label ID="Label31" runat="server" Text="ลึก"></asp:Label>
             </td>
-            <td>
+            <td class="style9">
                 <asp:Label ID="lblDeepWidth" runat="server" Style="color: #FF0000"></asp:Label>
             </td>
-            <td>
+            <td class="style10">
                 <asp:Label ID="Label32" runat="server" Text="ด้านหลัง"></asp:Label>
             </td>
             <td>
@@ -237,16 +299,16 @@
             </td>
         </tr>
         <tr>
-            <td>
+            <td class="style17">
             </td>
-            <td>
+            <td class="style16">
             </td>
-            <td>
+            <td class="style13">
                 <asp:Label ID="Label33" runat="server" Text="อื่น ๆ"></asp:Label>
             </td>
-            <td>
+            <td class="style9">
                 &nbsp;</td>
-            <td>
+            <td class="style10">
                 <asp:Label ID="Label68" runat="server" Text="ทำเล"></asp:Label>
             </td>
             <td>
@@ -254,19 +316,19 @@
             </td>
         </tr>
         <tr>
-            <td>
+            <td class="style17">
                 <asp:Label ID="Label34" runat="server" Text="สภาพและการปรับปรุงที่ดินของที่ดินกับถนน"></asp:Label>
             </td>
-            <td>
+            <td class="style16">
                 <asp:Label ID="lblLandState" runat="server" Style="color: #FF0000"></asp:Label>
             </td>
-            <td>
+            <td class="style13">
                 <asp:Label ID="Label35" runat="server" Text="รายละเอียดที่ดิน"></asp:Label>
             </td>
-            <td>
+            <td class="style9">
                 <asp:Label ID="lblLandState_Detail" runat="server" Style="color: #FF0000"></asp:Label>
             </td>
-            <td>
+            <td class="style10">
                 <asp:Label ID="Label36" runat="server" Text="อื่น ๆ"></asp:Label>
             </td>
             <td>
@@ -274,7 +336,7 @@
             </td>
         </tr>
         <tr>
-            <td>
+            <td class="style17">
                 <asp:Label ID="Label37" runat="server" Text="ผังเมืองรวม"></asp:Label>&#160;<asp:Label
                     ID="Label38" runat="server" Text="ที่ดินอยู่ในเขตพื้นที่สี"></asp:Label>
             </td>
@@ -285,19 +347,19 @@
             </td>
         </tr>
         <tr>
-            <td>
+            <td class="style17">
                 <asp:Label ID="Label39" runat="server" Text="สาธารณูปโภค"></asp:Label>
             </td>
-            <td>
+            <td class="style16">
                 <asp:Label ID="lblPublic_Utility" runat="server" Style="color: #FF0000"></asp:Label>
             </td>
-            <td>
+            <td class="style13">
                 <asp:Label ID="Label40" runat="server" Text="แนวโน้มคามเจริญ"></asp:Label>
             </td>
-            <td>
+            <td class="style9">
                 <asp:Label ID="lblTendency_Name" runat="server" Style="color: #FF0000"></asp:Label>
             </td>
-            <td>
+            <td class="style10">
                 <asp:Label ID="Label41" runat="server" Text="สภาพคล่องการซื้อ-ขาย"></asp:Label>
             </td>
             <td>
@@ -305,21 +367,21 @@
             </td>
         </tr>
         <tr>
-            <td>
+            <td class="style17">
                 <asp:Label ID="Label42" runat="server" Font-Bold="True" Text="สิ่งปลูกสร้าง"></asp:Label>&#160;<asp:Label
                     ID="Label43" runat="server" Text="บ้านเลขที่"></asp:Label>
             </td>
-            <td>
+            <td class="style16">
                 <asp:Label ID="lblBuilding_No" runat="server" Style="color: #FF0000"></asp:Label>
             </td>
-            <td>
+            <td class="style13">
                 <asp:Label ID="Label44" runat="server" Text="จำนวนหลัง"></asp:Label>
             </td>
-            <td>
+            <td class="style9">
                 <asp:Label ID="lblItem" runat="server" Style="color: #FF0000"></asp:Label>
             </td>
-            <td>
-                <asp:Label ID="Label45" runat="server" Text="(รายละเอียดตามสิ่งปลูกสร้าง แนบ)"></asp:Label>
+            <td class="style10">
+                <asp:Label ID="Label45" runat="server" Text="(รายละเอียดตามเอกสาร แนบ)"></asp:Label>
             </td>
             <td>
             </td>
@@ -334,9 +396,11 @@
         </tr>
         <tr>
             <td>
-                <asp:CheckBox ID="ChkProblem" runat="server" Text="ไม่มีปัญหา" />&#160;<asp:Label
+                <asp:CheckBox ID="ChkProblem" runat="server" Text="ไม่มีปัญหา" 
+                    BackColor="#FFFF66" />&#160;<asp:Label
                     ID="Label49" runat="server" Text="(ถ้ามีอธิบายเพิ่มเติม) "></asp:Label>
-                      <asp:TextBox  ID="txtProblem_Detail" runat="server" Width="450px"></asp:TextBox>                  
+                      <asp:TextBox  ID="txtProblem_Detail" runat="server" Width="450px" 
+                    BackColor="#FFFF66"></asp:TextBox>                  
             </td>
         </tr>
         <tr>
@@ -344,44 +408,44 @@
                 <asp:Label ID="Label50" runat="server" Font-Bold="True" Text="การประเมินราคา"></asp:Label>&#160;<asp:Label
                     ID="Label51" runat="server" Text="ข้อมูลการซื้อขาย"></asp:Label><br />
                 <asp:TextBox ID="txtBuy_Sale_Comment" runat="server" Height="80px" TextMode="MultiLine"
-                    Width="800px"></asp:TextBox>
+                    Width="800px" BackColor="#FFFF66"></asp:TextBox>
             </td>
         </tr>
     </table>
     <table width="100%">
         <tr>
-            <td>
+            <td class="style1">
                 <asp:Label ID="Label52" runat="server" Font-Bold="True" Text="วิธีการประเมินราคา"></asp:Label>
             </td>
-            <td class="ms-sbcell">
-                <asp:DropDownList ID="DropDownList1" runat="server" CssClass="txtDoPrint" 
+            <td class="style3">
+                <asp:DropDownList ID="ddlAppraisal_Type" runat="server" CssClass="txtDoPrint" 
                     DataSourceID="SDSAppraisal_Type" DataTextField="App_Type_Name" 
-                    DataValueField="App_Type_ID">
+                    DataValueField="App_Type_ID" BackColor="#FFFF66">
                 </asp:DropDownList>
             </td>
-            <td>
+            <td class="style5">
             </td>
-            <td>
+            <td class="style6">
                 &nbsp;</td>
-            <td>
+            <td class="style7">
             </td>
             <td>
                 &nbsp;</td>
         </tr>
         <tr>
-            <td>
+            <td class="style1">
                 <asp:Label ID="Label53" runat="server" Text="ที่ดิน เนื้อที่"></asp:Label>
             </td>
-            <td>
+            <td class="style3">
                 <asp:Label ID="lblSize" runat="server" Style="color: #FF0000"></asp:Label>
             </td>
-            <td>
+            <td class="style5">
                 <asp:Label ID="Label54" runat="server" Text="ตรว. ละ"></asp:Label>&#160;&#160;
             </td>
-            <td>
+            <td class="style6">
                 <asp:Label ID="lblPriceWah" runat="server" Style="color: #FF0000"></asp:Label>
             </td>
-            <td>
+            <td class="style7">
                 <asp:Label ID="Label55" runat="server" Text="เป็นเงิน"></asp:Label>
             </td>
             <td>
@@ -389,18 +453,18 @@
             </td>
         </tr>
         <tr>
-            <td class="style3">
+            <td class="style1">
                 <asp:Label ID="Label56" runat="server" Text="สิ่งปลูกสร้าง"></asp:Label>
             </td>
-            <td>
+            <td class="style3">
                 <asp:Label ID="lblBuilding_Detail" runat="server" Style="color: #FF0000"></asp:Label>
             </td>
-            <td>
+            <td class="style5">
             </td>
-            <td>
+            <td class="style6">
                 <asp:Label ID="lblTotal2" runat="server" Style="color: #FF0000"></asp:Label>
             </td>
-            <td>
+            <td class="style7">
                 <asp:Label ID="Label57" runat="server" Text="เป็นเงิน"></asp:Label>
             </td>
             <td>
@@ -408,18 +472,18 @@
             </td>
         </tr>
         <tr>
-            <td class="style3">
+            <td class="style1">
                 <asp:Label ID="Label48" runat="server" Text="ที่ดินพร้อมสิ่งปลูกสร้าง"></asp:Label>
             </td>
-            <td>
+            <td class="style3">
                 <asp:Label ID="lblLand_Build" runat="server" Style="color: #FF0000"></asp:Label>
             </td>
-            <td>
+            <td class="style5">
             </td>
-            <td>
+            <td class="style6">
                 <asp:Label ID="lblTotal3" runat="server" Style="color: #FF0000"></asp:Label>
             </td>
-            <td>
+            <td class="style7">
                 <asp:Label ID="Label60" runat="server" Text="รวมเป็นเงิน"></asp:Label>
             </td>
             <td>
@@ -427,15 +491,15 @@
             </td>
         </tr>
         <tr>
+            <td class="style1">
+            </td>
             <td class="style3">
             </td>
-            <td>
+            <td class="style5">
             </td>
-            <td>
-            </td>
-            <td>
+            <td class="style6">
                 &nbsp;</td>
-            <td>
+            <td class="style7">
                 &nbsp;</td>
             <td>
                 &nbsp;</td>
@@ -447,8 +511,9 @@
                 <asp:Label ID="Label61" runat="server" Text="COMMENT"></asp:Label>
             </td>
             <td>
-                <asp:DropDownList ID="DropDownList2" runat="server" DataSourceID="SDSComment" 
-                    DataTextField="Comment_Name" DataValueField="Comment_ID">
+                <asp:DropDownList ID="ddlComment" runat="server" DataSourceID="SDSComment" 
+                    DataTextField="Comment_Name" DataValueField="Comment_ID" 
+                    BackColor="#FFFF66">
                 </asp:DropDownList>
             </td>
         </tr>
@@ -457,8 +522,9 @@
                 <asp:Label ID="Label62" runat="server" Text="WARNING"></asp:Label>
             </td>
             <td>
-                <asp:DropDownList ID="DropDownList3" runat="server" DataSourceID="SDSWarning" 
-                    DataTextField="Warning_Name" DataValueField="Warning_ID">
+                <asp:DropDownList ID="ddlWarning" runat="server" DataSourceID="SDSWarning" 
+                    DataTextField="Warning_Name" DataValueField="Warning_ID" 
+                    BackColor="#FFFF66">
                 </asp:DropDownList>
             </td>
         </tr>
@@ -466,13 +532,13 @@
     <table>
         <tr>
             <td valign="top">
-                <asp:TextBox ID="txtBuy_Sale_Comment0" runat="server" Height="50px" TextMode="MultiLine"
-                    Width="400px"></asp:TextBox>
+                <asp:TextBox ID="txtWarning_Detail" runat="server" Height="50px" TextMode="MultiLine"
+                    Width="400px" BackColor="#FFFF66"></asp:TextBox>
             </td>
             <td>
                 <table class="style2">
                     <tr>
-                        <td>
+                        <td class="style8">
                             &#160;&#160;
                         </td>
                         <td class="style4">
@@ -483,18 +549,17 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>
+                        <td class="style8">
                             <asp:Label ID="Label63" runat="server" Text="ลงชื่อ"></asp:Label>
                         </td>
-                        <td class="style4" align="center">
-                            <asp:Label ID="lblAppraisalName" runat="server" Width="200px"></asp:Label>
-                        </td>
+                        <td >
+                            &nbsp;</td>
                         <td>
                             <asp:Label ID="Label65" runat="server" Text="ผู้ตรวจสอบประเมินราคา"></asp:Label>
                         </td>
                     </tr>
                     <tr>
-                        <td>
+                        <td class="style8">
                             &#160;&#160;
                         </td>
                         <td class="style4">
@@ -505,21 +570,22 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>
+                        <td class="style8">
                             &#160;&#160;
                         </td>
-                        <td class="style4">
-                            <asp:Label ID="Label66" runat="server" Text="(.............................................)"></asp:Label>
+                        <td class="style4" align="center">
+                            <asp:Label ID="lblAppraisalName" runat="server" Width="200px"></asp:Label>
                         </td>
                         <td>
                         </td>
                     </tr>
                     <tr>
-                        <td>
+                        <td class="style8">
                             &#160;&#160;
                         </td>
                         <td class="style4">
-                            <asp:Label ID="Label59" runat="server" Text="............................................."></asp:Label>
+                            <asp:Label ID="Label59" runat="server" 
+                                Text="..............................................."></asp:Label>
                         </td>
                         <td>
                             &#160;&#160;<asp:Label ID="Label67" runat="server" Text="วัน / เดือน / ปี"></asp:Label>
@@ -559,42 +625,59 @@
                     </tr>
                     <tr>
                         <td>
-                            &#160;&#160;
+                        
                         </td>
+                        <td>
+                        
+                        </td>
+                        <td>
+                        
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+
+                        </td>
+                    </tr>                    
+                    <tr>
                         <td>
                             &#160;&#160;
                         </td>
                         <td>
-                            &#160;&#160;
-                        </td>
+                            &nbsp;</td>
                         <td>
                             &#160;&#160;
                         </td>
                         <td>
-                            &#160;&#160;
-                        </td>
+                            &nbsp;</td>
                         <td>
                             &#160;&#160;
                         </td>
+                        <td>
+                            &nbsp;</td>
                     </tr>
                     <tr>
                         <td>
                             &#160;&#160;
                         </td>
                         <td align="center">
-                            <asp:Label ID="Label73" runat="server" Text="(.......................................)"></asp:Label>
+                            <asp:TextBox ID="txtApprove1" runat="server" BackColor="#FFFF66" Width="170px"></asp:TextBox>
                         </td>
                         <td>
                             &#160;&#160;
                         </td>
                         <td align="center">
-                            <asp:Label ID="Label74" runat="server" Text="(.......................................)"></asp:Label>
+                            <asp:TextBox ID="txtApprove2" runat="server" BackColor="#FFFF66" 
+                                Width="170px"></asp:TextBox>
                         </td>
                         <td>
                             &#160;&#160;
                         </td>
                         <td align="center">
-                            <asp:Label ID="Label75" runat="server" Text="(.......................................)"></asp:Label>
+                            <asp:TextBox ID="txtApprove3" runat="server" BackColor="#FFFF66" 
+                                Width="170px"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
@@ -619,29 +702,36 @@
                     </tr>
                     <tr>
                         <td>
-                            &#160;&#160;
+                        
                         </td>
                         <td>
-                            &#160;&#160;
+                        
                         </td>
                         <td>
-                            &#160;&#160;
+                        
                         </td>
                         <td>
-                            &#160;&#160;
                         </td>
                         <td>
-                            &#160;&#160;
                         </td>
                         <td>
-                            &#160;&#160;
+
                         </td>
                     </tr>
                 </table>
             </td>
         </tr>
     </table>
-
+                <table class="NotshowOnPrint">
+                    <tr>
+                        <td>
+                            <asp:ImageButton ID="ImageSave" runat="server" ImageUrl="~/Images/Save.jpg" Width="35px" Height="35px"/>
+                        </td>
+                        <td>
+                            SAVE
+                        </td>
+                    </tr>
+               </table>
     <asp:SqlDataSource ID="SDSWarning" runat="server" ConnectionString="<%$ ConnectionStrings:AppraisalConn %>"
         SelectCommand="SELECT [Warning_ID], [Warning_Name] FROM [Warning]"></asp:SqlDataSource>
     <asp:SqlDataSource ID="SDSComment" runat="server" ConnectionString="<%$ ConnectionStrings:AppraisalConn %>"
@@ -650,4 +740,7 @@
         SelectCommand="SELECT [App_Type_ID], [App_Type_Name] FROM [Appraisal_Type]">
     </asp:SqlDataSource>
     
+    <asp:HiddenField ID="HiddenField1" runat="server" />
+    <asp:HiddenField ID="HiddenField2" runat="server" />
+    <asp:HiddenField ID="HiddenField3" runat="server" />   
 </asp:Content>

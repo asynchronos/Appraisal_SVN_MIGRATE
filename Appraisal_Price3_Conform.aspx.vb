@@ -4,14 +4,41 @@ Imports System.Data.SqlClient
 
 Partial Class Appraisal_Price3_Conform
     Inherits System.Web.UI.Page
-
+    'Private t1, t2 As Integer
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+
         If Not Page.IsPostBack Then
+            HiddenField1.Value = CInt(Context.Items("Req_Id").Text)
+            HiddenField2.Value = CInt(Context.Items("Hub_Id").Text)
+            HiddenField3.Value = CInt(Context.Items("Temp_AID").Text)
             'lblCif.Text = Context.Items("Temp_AID").Text
             'MsgBox(Context.Items("Req_Id").ToString, Context.Items("Hub_Id").ToString, Context.Items("Temp_AID").ToString)
+
+            Show_Price3_Master()
             Show_Price3_50()
             Show_Price3_70_GROUP()
             lblGrantotal.Text = Format(CDec(lblLandTotal.Text) + CDec(lblBuildingPrice.Text), "#,##0.00")
+
+
+        End If
+    End Sub
+
+    Private Sub Show_Price3_Master()
+        Dim Obj_P3M As List(Of clsPrice3_Master) = GET_PRICE3_MASTER(HiddenField1.Value, HiddenField3.Value)
+        If Obj_P3M.Count > 0 Then
+            txtAID.Text = Obj_P3M.Item(0).AID
+            txtCif.Text = Obj_P3M.Item(0).Cif
+            ChkProblem.Checked = Obj_P3M.Item(0).Env_Effect
+            txtProblem_Detail.Text = Obj_P3M.Item(0).Env_Effect_Detail
+            txtBuy_Sale_Comment.Text = Obj_P3M.Item(0).Appraisal_Detail
+            ddlAppraisal_Type.SelectedValue = Obj_P3M.Item(0).Appraisal_Type_ID
+            ddlComment.SelectedValue = Obj_P3M.Item(0).Comment_ID
+            ddlWarning.SelectedValue = Obj_P3M.Item(0).Warning_ID
+            txtWarning_Detail.Text = Obj_P3M.Item(0).Warning_Detail
+            txtApprove1.Text = Obj_P3M.Item(0).Approved1
+            txtApprove2.Text = Obj_P3M.Item(0).Approved2
+            txtApprove3.Text = Obj_P3M.Item(0).Approved3
+        Else
         End If
     End Sub
 
@@ -37,8 +64,10 @@ Partial Class Appraisal_Price3_Conform
             Dim Obj_Land_State As List(Of Cls_LandState) = GET_LANDSTATE_INFO(Obj_GetP50.Item(0).Province)
             lblLandState.Text = Obj_Land_State.Item(0).Land_State_Name
             lblLandStateDetail.Text = Obj_GetP50.Item(0).Land_State_Detail
-            'ddlRoad_Forntoff.SelectedValue = Obj_GetP50.Item(0).Road_Frontoff
-            lblRoadWidth.Text = Obj_GetP50.Item(0).RoadWidth
+            Dim Obj_Road_Forntoff As List(Of Cls_RoadFrontOff) = GET_ROADFRONTOFF_INFO(Obj_GetP50.Item(0).Road_Frontoff)
+            lblRoad_Forntoff.Text = Obj_Road_Forntoff.Item(0).Road_Frontoff_Name
+            lblRoad_Forntoff_Width.Text = Obj_GetP50.Item(0).RoadWidth
+            lblRoadWidth.Text = Obj_GetP50.Item(0).Land_Closeto_RoadWidth
             Dim Obj_Site As List(Of Cls_SITE) = GET_SITE_INFO(Obj_GetP50.Item(0).Sited)
             lblSiteName.Text = Obj_Site.Item(0).Site_Name
             'txtSite_Detail.Text = Obj_GetP50.Item(0).Site_Detail
@@ -67,10 +96,14 @@ Partial Class Appraisal_Price3_Conform
 
     Private Sub Show_Price3_70_GROUP()
         Dim Obj_GetP70G As DataSet = GET_PRICE3_70_GROUP(Context.Items("Req_Id").Text, Context.Items("Hub_Id").Text, Context.Items("Temp_AID").Text)
-        lblBuilding_No.Text = Obj_GetP70G.Tables(0).Rows(0).Item("Build_No").ToString()
-        lblTotal2.Text = Format(CDec(Obj_GetP70G.Tables(0).Rows(0).Item("UnitPrice").ToString), "#,##0.00")
-        lblItem.Text = Obj_GetP70G.Tables(0).Rows(0).Item("Item").ToString()
-        lblBuildingPrice.Text = Format(CDec(Obj_GetP70G.Tables(0).Rows(0).Item("Buildingprice").ToString), "#,##0.00")
+        If Obj_GetP70G.Tables(0).Rows.Count > 0 Then
+            lblBuilding_No.Text = Obj_GetP70G.Tables(0).Rows(0).Item("Build_No").ToString()
+            lblTotal2.Text = Format(CDec(Obj_GetP70G.Tables(0).Rows(0).Item("UnitPrice").ToString), "#,##0.00")
+            lblItem.Text = Obj_GetP70G.Tables(0).Rows(0).Item("Item").ToString()
+            lblBuildingPrice.Text = Format(CDec(Obj_GetP70G.Tables(0).Rows(0).Item("Buildingprice").ToString), "#,##0.00")
+        Else
+        End If
+
 
         'Dim Obj_GetP70 As List(Of Price3_70) = GET_PRICE3_70(lblId.Text, lblReq_Id.Text, lblHub_Id.Text, lblTemp_AID.Text)
         'If Obj_GetP70.Count > 0 Then
@@ -115,5 +148,45 @@ Partial Class Appraisal_Price3_Conform
         '    txtBuildAddTotalDeteriorate.Text = Obj_GetP70.Item(0).BuildAddPriceTotalDeteriorate
         '    txtBuildingDetail.Text = Obj_GetP70.Item(0).BuildingDetail
         'End If
+    End Sub
+
+    Protected Sub ImageSave_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs) Handles ImageSave.Click
+        Dim lbluserid As Label = TryCast(Me.Form.FindControl("lblUserID"), Label) 'หา Control จาก Master Page ที่ control ไม่อยู่ใน  ContentPlaceHolder1 ของ Master Page
+        Dim s As String
+        Dim cif As Integer = 0
+        Dim Lat As Double
+        Dim Lng As Double
+        If txtCif.Text <> String.Empty Then
+            cif = txtCif.Text
+        End If
+        Dim Obj_GetP1Master As List(Of ClsPrice1_Master) = GetPrice1_Master(HiddenField1.Value, HiddenField2.Value)
+        If Obj_GetP1Master.Count > 0 Then
+            Lat = Obj_GetP1Master.Item(0).Lat
+            Lng = Obj_GetP1Master.Item(0).Lat
+            AddPRICE3_Master(HiddenField1.Value, _
+                             txtAID.Text, _
+                             HiddenField3.Value, _
+                             cif, _
+                             Lat, _
+                             Lat, _
+                             CDec(lblPriceWah.Text), _
+                             CDec(lblLandTotal.Text), _
+                             txtApprove1.Text, _
+                             txtApprove2.Text, _
+                             txtApprove3.Text, _
+                             0, _
+                             ChkProblem.Checked, _
+                             txtProblem_Detail.Text, _
+                             txtBuy_Sale_Comment.Text, _
+                             ddlAppraisal_Type.SelectedValue, _
+                             ddlComment.SelectedValue, _
+                             ddlWarning.SelectedValue, _
+                             txtWarning_Detail.Text, _
+                             lbluserid.Text, _
+                             Now())
+        Else
+            s = "<script language=""javascript"">alert('ไม่มีเลขที่คำขอนี้ และ หมายเลข Hub นี้อยู่ในระบบ');</script>"
+            Page.ClientScript.RegisterStartupScript(Me.GetType, "ผิดพลาด", s)
+        End If
     End Sub
 End Class

@@ -292,8 +292,7 @@
                 </asp:DropDownList>
             </td>
             <td class="style19">
-                    ผิวจราจรกว้าง
-                </td>
+                    ผิวจราจรกว้าง</td>
             <td class="style28">
                 <cc1:mytext id="txtRoadWidth" runat="server" AllowUserKey="num_Numeric" MaxLength="2"
                         Width="50px" EnableTextAlignRight="True">0</cc1:mytext>
@@ -306,18 +305,22 @@
         </tr>
         <tr>
             <td class="style17">
-                    ที่ดินลึก</td>
+                    ขนาดที่ดินกว้างติดถนน</td>
             <td class="style23">
+                <cc1:mytext id="txtLand_Closeto_RoadWidth" runat="server" 
+                    AllowUserKey="num_Numeric" MaxLength="2"
+                        Width="50px" EnableTextAlignRight="True" BackColor="#FFFF66">0</cc1:mytext>
+                    &nbsp;เมตร
+                    ที่ดินลึก
                 <cc1:mytext id="txtDeepWidth" runat="server" AllowUserKey="num_Numeric" MaxLength="2"
                         Width="50px" EnableTextAlignRight="True" BackColor="#FFFF66">0</cc1:mytext>
-                    เมตร</td>
+                    &nbsp;เมตร</td>
             <td class="style19">
                     ิที่ดินด้านหลังกว้าง</td>
             <td class="style28">
                 <cc1:mytext id="txtBehindWidth" runat="server" AllowUserKey="num_Numeric" MaxLength="2"
                         Width="50px" EnableTextAlignRight="True" BackColor="#FFFF66">0</cc1:mytext>
-                    &nbsp;เมตร
-                </td>
+                    &nbsp;เมตร</td>
             <td class="style30">
             </td>
             <td class="style20">
