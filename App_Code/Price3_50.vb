@@ -41,6 +41,7 @@ Public Class Price3_50
     Private _PageNo As String
     Private _Ownership As String
     Private _Obligation As String
+    Private _Land_Closeto_RoadWidth As Double
     Private _DeepWidth As Double
     Private _BehindWidth As Double
     Private _AreaColour_No As Integer
@@ -86,13 +87,14 @@ Public Class Price3_50
      ByVal PageNo As String, _
      ByVal Ownership As String, _
      ByVal Obligation As String, _
+     ByVal Land_Closeto_RoadWidth As Double, _
      ByVal DeepWidth As Double, _
      ByVal BehindWidth As Double, _
      ByVal AreaColour_No As Integer, _
      ByVal Create_User As String, _
      ByVal Create_Date As Date)
         MyBase.New()
-        _Id = Id
+        _ID = Id
         _Req_Id = Req_Id
         _Hub_Id = Hub_Id
         _Temp_AID = Temp_AID
@@ -129,6 +131,7 @@ Public Class Price3_50
         _PageNo = PageNo
         _Ownership = Ownership
         _Obligation = Obligation
+        _Land_Closeto_RoadWidth = Land_Closeto_RoadWidth
         _DeepWidth = DeepWidth
         _BehindWidth = BehindWidth
         _AreaColour_No = AreaColour_No
@@ -466,6 +469,15 @@ Public Class Price3_50
         End Get
         Set(ByVal Value As String)
             _Obligation = Value
+        End Set
+    End Property
+
+    Public Property Land_Closeto_RoadWidth() As Double
+        Get
+            Return _Land_Closeto_RoadWidth
+        End Get
+        Set(ByVal Value As Double)
+            _Land_Closeto_RoadWidth = Value
         End Set
     End Property
 
