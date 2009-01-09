@@ -38,6 +38,9 @@ Partial Class Appraisal_Price2
         Dim Cif As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblCif"), Label)
 
         Dim ddlOperation As DropDownList = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("ddlOperation"), DropDownList)
+        Context.Items("Req_Id") = Req_Id
+        Context.Items("Hub_Id") = Hub_Id
+        Context.Items("Coll_Type") = ddlOperation.SelectedValue
 
         If ddlOperation.SelectedValue = 50 Then
             Response.Redirect("Appraisal_Price2_Add_By_Colltype.aspx?Req_id=" & Req_Id.Text & "&Hub_Id=" & Hub_Id.Text & "&Coll_Type=" & ddlOperation.SelectedValue)
@@ -45,6 +48,8 @@ Partial Class Appraisal_Price2
             Response.Redirect("Appraisal_Price2_Add_By_Colltype70.aspx?Req_id=" & Req_Id.Text & "&Hub_Id=" & Hub_Id.Text & "&Coll_Type=" & ddlOperation.SelectedValue)
         ElseIf ddlOperation.SelectedValue = 15 Then
         ElseIf ddlOperation.SelectedValue = 18 Then
+            'Response.Redirect("Appraisal_Price2_Add_By_Colltype18.aspx?Req_id=" & Req_Id.Text & "&Hub_Id=" & Hub_Id.Text & "&Coll_Type=" & ddlOperation.SelectedValue)
+            Server.Transfer("Appraisal_Price2_Add_By_Colltype18.aspx")
         End If
     End Sub
 

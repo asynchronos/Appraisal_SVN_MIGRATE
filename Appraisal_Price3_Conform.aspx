@@ -76,7 +76,7 @@
                 <asp:Label ID="Label1" runat="server" Text="เรียน"></asp:Label>
             </td>
             <td class="txtDoPrint">
-                <asp:TextBox ID="TextBox1" runat="server" Width="350px"></asp:TextBox>
+                <asp:TextBox ID="txtInform_To" runat="server" Width="350px"></asp:TextBox>
             </td>
             <td>AID</td>
             <td>

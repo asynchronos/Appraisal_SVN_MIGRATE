@@ -23,6 +23,7 @@ Partial Class Appraisal_Price2_Add_By_Colltype70
                         ddlRoof.SelectedValue, txtRoof_Detail.Text, ddlBuild_State.SelectedValue, _
                         txtBuild_State_Detail.Text, txtBuilding_Detail.Text, txtPriceTotal1.Text, _
                         chkDoc1.Checked, chkDoc2.Checked, txtDoc_Detail.Text, String.Empty, lbluserid.Text, Now())
+        Response.Redirect("Appraisal_Price2.aspx")
     End Sub
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load

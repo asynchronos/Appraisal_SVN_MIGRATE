@@ -110,6 +110,6 @@ Partial Class Appraisal_Price3_Add_Colltype50
                                                               txtBinifit.Text, CInt(ddlTendency.SelectedValue), CInt(ddlBuySale_State.SelectedValue), _
                                                               CInt(txtPriceWah.Text), CInt(txtTotal.Text), txtRaWang.Text, txtLandNumber.Text, txtSurway.Text, txtDocNo.Text, txtPage.Text, txtOwnerShip.Text, _
                                                               txtObligation.Text, txtLand_Closeto_RoadWidth.Text, txtDeepWidth.Text, txtBehindWidth.Text, ddlAreaColur.SelectedValue, lbluserid.Text, Now())
-        Response.Redirect("Appraisal_Price3_List.aspx")
+        Response.Redirect("Appraisal_Price2.aspx")
     End Sub
 End Class

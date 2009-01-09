@@ -337,11 +337,10 @@ function wopen(url, name, w, h) {
                     <asp:CheckBox ID="chkDetail" runat="server" Text="รายละเอียดเพิ่มเติม" />
                 </td>
                 <td class="style5">
-                    <input id="AddDetail70" onclick="wopen('Appraisal_Price3_Add_Colltype70Detail.aspx', 'popup', 800, 300); return false;"
-                        type="button" value="รายละเอียดเพิ่มเติม"/></td>
-                <td class="style19">
-                    <asp:Button ID="btnAddDetail" runat="server" Text="Button" />
+                    <asp:Button ID="btnAddDetail" runat="server" Text="รายละเอียดเพิ่มเติม" />
                 </td>
+                <td class="style19">
+                    &nbsp;</td>
                 <td class="style14">
                     &nbsp;</td>
                 <td>
@@ -483,7 +482,15 @@ function wopen(url, name, w, h) {
                                 <td>
                                     <asp:ImageButton ID="ImageSave" runat="server" ImageUrl="~/Images/Save.jpg" Width="35px" Height="35px" />
                                 </td>
-                                   <td>SAVE</td>
+                                <td>
+                                    SAVE
+                                </td>
+                                <td>
+                                    <asp:ImageButton ID="ImagePrint" runat="server" ImageUrl="~/Images/Printer.png" Width="35px" Height="35px" />
+                                </td>
+                                <td>
+                                    Print
+                                    Preview                                 </td>                                
                             </tr>
                         </table>
                     </td>

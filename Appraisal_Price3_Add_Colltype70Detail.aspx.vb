@@ -3,64 +3,30 @@ Partial Class Appraisal_Price3_Add_Colltype70Detail
     Inherits System.Web.UI.Page
     Dim s As String
     Dim lblMessage As Label
+
     Protected Sub ImageSave_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs) Handles ImageSave.Click
-        'Dim msg As String
-        'Dim title As String
-        'Dim style As MsgBoxStyle
-        'Dim response1 As MsgBoxResult
         If LblDescription.Text = "SAVE" Then  'Save Data
+            If txtBuilding_Struc.Text = String.Empty Or txtBuildFloor.Text = String.Empty Then
+                Exit Sub
+            End If
             Dim ObjP3_Detail As List(Of ClsPrice3_70_Detail) = GET_PRICE3_70_DETAIL(HiddenField4.Value, HiddenField1.Value, HiddenField2.Value, HiddenField3.Value, txtBuildFloor.Text)
             'ตรวจสอบว่ามีการให้ข้อมูลของชั้นดังกล่าวแล้วหรือไม่
             If ObjP3_Detail.Count = 0 Then  'ถ้ายังไม่มี
                 AddPRICE3_70_DETAIL(HiddenField4.Value, HiddenField1.Value, HiddenField2.Value, HiddenField3.Value, txtBuildFloor.Text, txtBuilding_Struc.Text, _
                                     chkConcrete.Checked, chkGranite.Checked, chkParquet.Checked, chkCeramic.Checked, chkWood.Checked, ChkOther.Checked, txtOtherFloor.Text, _
                                     ChkBrickWall.Checked, CheckBlockbrickWall.Checked, ChkWoodWall.Checked, ChkOtherWall.Checked, txtOtherWall.Text, HiddenField5.Value, Now())
-                GridView1.DataBind()
+                'GridView1.DataBind()
             Else  'ถ้ามีแล้วแจ้งเตือน
                 s = "<script language=""javascript"">alert('มีข้อมูลของรายละเอียดชั้นดังกล่าวแล้ว');</script>"
                 Page.ClientScript.RegisterStartupScript(Me.GetType, "แจ้งเตือน", s)
             End If
+
+
         Else  'Update data
             UpdatePRICE3_70_DETAIL(HiddenField4.Value, HiddenField1.Value, HiddenField2.Value, HiddenField3.Value, txtBuildFloor.Text, txtBuilding_Struc.Text, _
                                 chkConcrete.Checked, chkGranite.Checked, chkParquet.Checked, chkCeramic.Checked, chkWood.Checked, ChkOther.Checked, txtOtherFloor.Text, _
                                 ChkBrickWall.Checked, CheckBlockbrickWall.Checked, ChkWoodWall.Checked, ChkOtherWall.Checked, txtOtherWall.Text, HiddenField5.Value, Now())
         End If
-
-        'Dim Imgsave As New ImageButton
-        'Imgsave.Attributes.Add("onclick", "ConfirmMessage()")
-
-        GridView1.DataBind()
-
-        'lblMessage.Text = MessageBox.MSB_Confirm("การบันทึกเสร็จสมบูรณ์คุณต้องการบันทึกรายละเอียดอีกหรือไม่? ")
-        'Page.Controls.Add(lblMessage)
-
-        'msg = "การบันทึกเสร็จสมบูรณ์คุณต้องการบันทึกรายละเอียดอีกหรือไม่"   ' Define message.
-        'style = MsgBoxStyle.DefaultButton2 Or _
-        '   MsgBoxStyle.Information Or MsgBoxStyle.YesNo
-        'title = "ผลการบันทึก"   ' Define title.
-        '' Display message.
-        'response1 = MsgBox(msg, style, title)
-        'If response1 = MsgBoxResult.Yes Then
-        '    LblDescription.Text = "SAVE"
-        '    txtBuilding_Struc.Text = ""
-        '    txtBuildFloor.Text = ""
-        '    chkConcrete.Checked = False
-        '    chkGranite.Checked = False
-        '    chkParquet.Checked = False
-        '    chkCeramic.Checked = False
-        '    chkWood.Checked = False
-        '    ChkOther.Checked = False
-        '    txtOtherFloor.Text = ""
-        '    ChkBrickWall.Checked = False
-        '    CheckBlockbrickWall.Checked = False
-        '    ChkWoodWall.Checked = False
-        '    ChkOtherWall.Checked = False
-        '    txtOtherWall.Text = ""
-        '    GridView1.DataBind()
-        'Else
-        '    Response.Redirect("Appraisal_Price3_List.aspx")
-        'End If
-
     End Sub
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
@@ -71,7 +37,6 @@ Partial Class Appraisal_Price3_Add_Colltype70Detail
             HiddenField4.Value = CInt(Context.Items("ID"))
             HiddenField5.Value = CStr(Context.Items("User_ID"))
         End If
-        ImageSave.Attributes.Add("onclick", "return ShowMessage()")
     End Sub
 
     Protected Sub GridView1_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles GridView1.SelectedIndexChanged
@@ -98,5 +63,30 @@ Partial Class Appraisal_Price3_Add_Colltype70Detail
         End If
 
 
+    End Sub
+
+    Protected Sub btnConfOK_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnConfOK.Click
+        ImageSave_Click(ImageSave, Nothing)
+        LblDescription.Text = "SAVE"
+        txtBuilding_Struc.Text = ""
+        txtBuildFloor.Text = ""
+        chkConcrete.Checked = False
+        chkGranite.Checked = False
+        chkParquet.Checked = False
+        chkCeramic.Checked = False
+        chkWood.Checked = False
+        ChkOther.Checked = False
+        txtOtherFloor.Text = ""
+        ChkBrickWall.Checked = False
+        CheckBlockbrickWall.Checked = False
+        ChkWoodWall.Checked = False
+        ChkOtherWall.Checked = False
+        txtOtherWall.Text = ""
+        GridView1.DataBind()
+    End Sub
+
+    Protected Sub btnConfCancel_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnConfCancel.Click
+        ImageSave_Click(ImageSave, Nothing)
+        Response.Redirect("Appraisal_Price3_List.aspx")
     End Sub
 End Class

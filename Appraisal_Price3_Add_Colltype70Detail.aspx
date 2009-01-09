@@ -16,9 +16,9 @@
     </style>
     <script type="text/javascript">
     <!--
-            function ConfirmMessage()
+            function AlertMessage()
             {
-                     var r = confirm('บันทึกเสร็จสมบูรณ์ คุณต้องการเพิ่มข้อมูลอีกหรือไม่?');
+                     var r = confirm('คุณมีข้อมูลไม่ครบตามที่ระบบต้องการ?');
                      if(r==true)
                         event.returnValue=true;
                      else
@@ -27,11 +27,15 @@
 
                 function ShowMessage() {
                     SetText('Yes', 'No');
-
-                    DisplayConfirmMessage('are you sure', 180, 90)
-
-                    SetDefaultButton('btnConfOK');
-                    return false;
+                    if (document.getElementById('txtBuilding_Struc').value == '' || document.getElementById('txtBuildFloor').value == '') 
+                    {
+                        window.alert('คุณมีข้อมูลไม่ครบตามที่ระบบต้องการ');
+                    }
+                    else {
+                        DisplayConfirmMessage('บันทึกเสร็จสมบูรณ์ คุณต้องการเพิ่มข้อมูลอีกหรือไม่?', 240, 120)
+                        SetDefaultButton('btnConfOK');
+                        return false;
+                    }
                 }
     //-->
     </script>
@@ -64,7 +68,7 @@
                 <td>
                     <asp:TextBox ID="txtBuildFloor" runat="server" Width="60px"></asp:TextBox>
                 </td>
-                <td>
+                <td class="style1">
                     พื้น</td>
                 <td>
                     <asp:CheckBox ID="chkConcrete" runat="server" Text="คอนกรีต" />
@@ -119,7 +123,8 @@
                 <td>                <table>
                     <tr>
                         <td>
-                            <asp:ImageButton ID="ImageSave" runat="server" ImageUrl="~/Images/Save.jpg" Width="35px" Height="35px" />
+                            <asp:ImageButton ID="ImageSave" runat="server" ImageUrl="~/Images/Save.jpg" 
+                                Width="35px" Height="35px" onclientclick="return ShowMessage()"/>
                         </td>
                         <td>
                             <asp:Label ID="LblDescription" runat="server" Text="SAVE"></asp:Label>
@@ -314,6 +319,16 @@
     <asp:SqlDataSource ID="DdsPrice3_70_Detail" runat="server" 
         ConnectionString="<%$ ConnectionStrings:AppraisalConn %>" 
         SelectCommand="GET_PRICE3_70_DETAIL" SelectCommandType="StoredProcedure">
+        <SelectParameters>
+            <asp:ControlParameter ControlID="HiddenField4" Name="ID" PropertyName="Value" 
+                Type="Int32" />
+            <asp:ControlParameter ControlID="HiddenField1" Name="Req_Id" 
+                PropertyName="Value" Type="Int32" />
+            <asp:ControlParameter ControlID="HiddenField2" Name="Hub_Id" 
+                PropertyName="Value" Type="Int32" />
+            <asp:ControlParameter ControlID="HiddenField3" Name="Temp_AID" 
+                PropertyName="Value" Type="Int32" />
+        </SelectParameters>
     </asp:SqlDataSource>
     
     </form>
