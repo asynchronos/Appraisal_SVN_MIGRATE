@@ -12,10 +12,22 @@ Partial Class Index
             Session("sHub_Id") = Obj_systemUser.Item(0).Hub_Id
             Session("sGroup_Id") = Obj_systemUser.Item(0).SGroup_Id
             Response.Redirect("Default.aspx")
+
         Else
             s = "<script language=""javascript"">alert('User ID หรือ Password  ไม่ถูกต้อง');</script>"
             Page.ClientScript.RegisterStartupScript(Me.GetType, "Notice", s)
         End If
+
+    End Sub
+
+    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+
+        Session.Clear()
+        Session("sUserId") = Nothing
+        Session("sPwd") = Nothing
+        Session("sEmpId") = Nothing
+        Session("sHub_Id") = Nothing
+        Session("sGroup_Id") = Nothing
 
     End Sub
 End Class
