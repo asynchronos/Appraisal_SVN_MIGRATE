@@ -5,8 +5,8 @@ Partial Class MasterPage_MasterPage
 
     Protected Sub form1_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles form1.Load
         'If Not Page.IsPostBack Then
-        'MsgBox(Session("sEmpId"))
-        If Session("sEmpId") <> Nothing Then
+        'MsgBox(Session("sEmpId").ToString)
+        If Not Session("sEmpId") Is Nothing Then
             Dim Emp_class As Employee_Info
             Dim SV As New SME_SERVICE.Service
 

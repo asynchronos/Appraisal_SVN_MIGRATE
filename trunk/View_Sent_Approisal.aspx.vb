@@ -61,19 +61,6 @@ Partial Class View_Sent_Approisal
         Return dsTemp
     End Function
 
-    '#Region "Custom Event Handlers"
-    '    Protected Sub btnOperation1_Click(ByVal sender As Object, ByVal e As System.EventArgs)
-    '        Dim ddlOperation As DropDownList = DirectCast(gvTemp.Rows.Item(gvTemp.SelectedRow.RowIndex).FindControl("ddlOperation"), DropDownList)
-    '        If ddlOperation.SelectedValue = 1 Then
-    '            Response.Redirect("colldetail.aspx")
-    '        ElseIf ddlOperation.SelectedValue = 2 Then
-    '            Response.Redirect("Price2.aspx?Qid=" & Qid.Text & "&Cif=" & Cif.Text)
-    '        Else
-    '            Response.Redirect("Price3.aspx")
-    '        End If
-    '    End Sub
-    '#End Region
-
 #Region "GridView1 Event Handlers"
 
     'Protected Sub GridView1_RowCommand(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.GridViewCommandEventArgs) Handles GridView1.RowCommand
