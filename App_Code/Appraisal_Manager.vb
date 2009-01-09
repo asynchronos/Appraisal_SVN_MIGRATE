@@ -1188,6 +1188,7 @@ Public Class Appraisal_Manager
     Public Shared Sub AddPRICE3_Master(ByVal Req_Id As Integer, _
     ByVal AID As Integer, _
     ByVal Temp_AID As Integer, _
+    ByVal Inform_To As String, _
     ByVal Cif As Integer, _
     ByVal Lat As Double, _
     ByVal Lng As Double, _
@@ -1218,6 +1219,7 @@ Public Class Appraisal_Manager
                     command.Parameters.Add(New SqlParameter("@Req_Id", Req_Id))
                     command.Parameters.Add(New SqlParameter("@AID", AID))
                     command.Parameters.Add(New SqlParameter("@Temp_AID", Temp_AID))
+                    command.Parameters.Add(New SqlParameter("@Inform_To", Inform_To))
                     command.Parameters.Add(New SqlParameter("@Cif", Cif))
                     command.Parameters.Add(New SqlParameter("@Lat", Lat))
                     command.Parameters.Add(New SqlParameter("@Lng", Lng))
@@ -1274,6 +1276,7 @@ Public Class Appraisal_Manager
                         Dim temp As New clsPrice3_Master(CInt(reader("Req_Id")), _
                                                 CInt(reader("AID")), _
                                                 CInt(reader("Temp_AID")), _
+                                                CStr(reader("Inform_To")), _
                                                 CInt(reader("Cif")), _
                                                 CDec(reader("Lat")), _
                                                 CDec(reader("Lng")), _
@@ -2443,6 +2446,39 @@ Public Class Appraisal_Manager
                     title = "ผลการบันทึก"   ' Define title.
                     ' Display message.
                     response1 = MsgBox(msg, style, title)
+                Finally
+                    connection.Close()
+                End Try
+            End Using
+        End Using
+    End Sub
+
+    Public Shared Sub AddAppraisal_Price2_PicturePath(ByVal Req_ID As Integer, _
+    ByVal Hub_ID As Integer, _
+    ByVal Temp_AID As Integer, _
+    ByVal Picture_Path As String, _
+    ByVal Done As Integer, _
+    ByVal User_ID As String)
+
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("AddAppraisal_Price2_PicturePath", connection)
+                connection.Open()
+                command.Connection = connection
+                Dim myTrans As SqlTransaction
+                myTrans = connection.BeginTransaction()
+                command.Transaction = myTrans
+                Try
+                    command.CommandType = CommandType.StoredProcedure
+                    command.Parameters.Add(New SqlParameter("@Req_ID", Req_ID))
+                    command.Parameters.Add(New SqlParameter("@Hub_ID", Hub_ID))
+                    command.Parameters.Add(New SqlParameter("@Temp_AID", Temp_AID))
+                    command.Parameters.Add(New SqlParameter("@Picture_Path", Picture_Path))
+                    command.Parameters.Add(New SqlParameter("@Done", Done))
+                    command.Parameters.Add(New SqlParameter("@Create_User", User_ID))
+                    command.ExecuteNonQuery()
+                    myTrans.Commit()
+                Catch ex As Exception
+                    myTrans.Rollback()
                 Finally
                     connection.Close()
                 End Try
