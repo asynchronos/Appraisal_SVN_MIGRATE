@@ -54,6 +54,7 @@ Partial Class Appraisal_Price2_Add_By_Colltype
     End Sub
 
     Protected Sub ImageSave_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs) Handles ImageSave.Click
+        Dim lbluserid As Label = TryCast(Me.Form.FindControl("lblUserID"), Label) 'หา Control จาก Master Page ที่ control ไม่อยู่ใน  ContentPlaceHolder1 ของ Master Page
         Dim Id As Integer
         If lblId.Text = String.Empty Then
             Id = "0"
@@ -66,7 +67,10 @@ Partial Class Appraisal_Price2_Add_By_Colltype
                                                               CDec(txtRoadWidth.Text), CInt(ddlSite.SelectedValue), CStr(txtSite_Detail.Text), CInt(ddlLand_State.SelectedValue), _
                                                               txtLand_State_Detail.Text, CInt(ddlPublic_Utility.SelectedValue), txtPublic_Utility_Detail.Text, CInt(ddlBinifit.SelectedValue), _
                                                               txtBinifit.Text, CInt(ddlTendency.SelectedValue), CInt(ddlBuySale_State.SelectedValue), _
-                                                              CInt(txtPriceWah.Text), CInt(txtTotal.Text), "Admin", Now())
+                                                              CInt(txtPriceWah.Text), CInt(txtTotal.Text), lbluserid.Text, Now())
+
+        Response.Redirect("Appraisal_Price2.aspx")
+
         'เพิ่มกระบวนการบันทึกขั้นตอนการประเมิน
         'INSERT_PROCESSID(Request.QueryString("Q_ID"), 5)
 

@@ -29,47 +29,52 @@ Partial Class Appraisal_Price2_Group
         Dim s As String
         Dim gvr_master As GridViewRow
 
+        If GV.Rows.Count > 0 Then
+            Dim TEMPAID As Integer = Appraisal_Manager.GET_TEMP_AID()
+            UPDATE_TEMP_AID()
 
-        Dim TEMPAID As Integer = Appraisal_Manager.GET_TEMP_AID()
-        UPDATE_TEMP_AID()
-
-        For Each gvr_master In GV.Rows
-            Dim chk2 As CheckBox = gvr_master.FindControl("cb2")
-            If chk2.Checked = True Then
-                Cnt = Cnt + 1
-            End If
-        Next
-
-        If Cnt > 0 Then
-            txtTemp_AID.Text = Str(TEMPAID)
-            'วนลูปเพื่อหาข้อมูลที่ Check จัดให้กลุ่ม
             For Each gvr_master In GV.Rows
                 Dim chk2 As CheckBox = gvr_master.FindControl("cb2")
-                Dim Req_id As Label = gvr_master.FindControl("lblReq_Id")
-                Dim Hub_id As Label = gvr_master.FindControl("lblHub_Id")
-                Dim Cif As Label = gvr_master.FindControl("lblCif")
-                If Cif.Text = String.Empty Then
-                    Cif.Text = "0"
-                Else
-
-                End If
-                Dim Id As Label = gvr_master.FindControl("lblID")
-                Dim CollType As Label = gvr_master.FindControl("lblCollType")
-
                 If chk2.Checked = True Then
-                    AddPRICE2_Master(txtTemp_AID.Text, Req_id.Text, Hub_id.Text, Id.Text, Cif.Text, ddlUserAppraisal.SelectedValue, CollType.Text, lbluserid.Text, Now())
+                    Cnt = Cnt + 1
                 End If
-
             Next
-            'UPDATE_TEMP_AID()
-            s = "<script language=""javascript"">alert('บันทึกเสร็จสมบูรณ์ ระบบจะปิดหน้าต่างนี้'); </script>"
-            Page.ClientScript.RegisterStartupScript(Me.GetType, "รับเรื่องประเมิน", s)
-            GridView1.DataBind()
+
+            If Cnt > 0 Then
+                txtTemp_AID.Text = Str(TEMPAID)
+                'วนลูปเพื่อหาข้อมูลที่ Check จัดให้กลุ่ม
+                For Each gvr_master In GV.Rows
+                    Dim chk2 As CheckBox = gvr_master.FindControl("cb2")
+                    Dim Req_id As Label = gvr_master.FindControl("lblReq_Id")
+                    Dim Hub_id As Label = gvr_master.FindControl("lblHub_Id")
+                    Dim Cif As Label = gvr_master.FindControl("lblCif")
+                    If Cif.Text = String.Empty Then
+                        Cif.Text = "0"
+                    Else
+
+                    End If
+                    Dim Id As Label = gvr_master.FindControl("lblID")
+                    Dim CollType As Label = gvr_master.FindControl("lblCollType")
+
+                    If chk2.Checked = True Then
+                        AddPRICE2_Master(txtTemp_AID.Text, Req_id.Text, Hub_id.Text, Id.Text, Cif.Text, ddlUserAppraisal.SelectedValue, CollType.Text, lbluserid.Text, Now())
+                    End If
+
+                Next
+                'UPDATE_TEMP_AID()
+                s = "<script language=""javascript"">alert('บันทึกเสร็จสมบูรณ์ ระบบจะปิดหน้าต่างนี้'); </script>"
+                Page.ClientScript.RegisterStartupScript(Me.GetType, "รับเรื่องประเมิน", s)
+                GridView1.DataBind()
+            Else
+                'Alert แจ้งเตือนว่ายังไม่ได้เลือกหลักประกันที่ยังไม่ได้จัดกลุ่ม
+                s = "<script language=""javascript"">alert('คุณยังไม่ได้เลือกหลักประกันที่จะจัดกลุ่ม');</script>"
+                Page.ClientScript.RegisterStartupScript(Me.GetType, "ข้อความเตือน", s)
+            End If
         Else
-            'Alert แจ้งเตือนว่ายังไม่ได้เลือกหลักประกันที่ยังไม่ได้จัดกลุ่ม
-            s = "<script language=""javascript"">alert('คุณยังไม่ได้เลือกหลักประกันที่จะจัดกลุ่ม');</script>"
+            s = "<script language=""javascript"">alert('ไม่พบหลักประกันที่จะจัดกลุ่ม');</script>"
             Page.ClientScript.RegisterStartupScript(Me.GetType, "ข้อความเตือน", s)
         End If
+
 
     End Sub
 
@@ -83,7 +88,7 @@ Partial Class Appraisal_Price2_Group
         Dim Cif As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblCif"), Label)
         Dim CollType As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblCollType"), Label)
 
-        If Temp_AID.Text = String.Empty Then
+        If Temp_AID.Text = String.Empty Or Temp_AID.Text = "0" Then
             If CollType.Text = 50 Then
                 Response.Redirect("Appraisal_Price2_Add_By_Colltype.aspx?Req_id=" & Req_Id.Text & "&Hub_Id=" & Hub_Id.Text & "&Coll_Type=" & CollType.Text & "&Id=" & Id.Text)
             ElseIf CollType.Text = 70 Then

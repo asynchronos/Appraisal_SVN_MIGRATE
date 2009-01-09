@@ -95,6 +95,10 @@ Partial Class Appraisal_Price3_Add_Colltype70
             txtBuildAddPersent3.Text = Obj_GetP70.Item(0).BuildAddPersent3
             txtBuildAddTotalDeteriorate.Text = Obj_GetP70.Item(0).BuildAddPriceTotalDeteriorate
             txtBuildingDetail.Text = Obj_GetP70.Item(0).BuildingDetail
+            Dim Obj_P3_70D As List(Of ClsPrice3_70_Detail) = GET_PRICE3_70_DETAIL(lblId.Text, lblReq_Id.Text, lblHub_Id.Text, lblTemp_AID.Text, 0)
+            If Obj_P3_70D.Count > 0 Then
+                chkDetail.Checked = True
+            End If
         End If
     End Sub
 
@@ -122,5 +126,13 @@ Partial Class Appraisal_Price3_Add_Colltype70
         Context.Items("ID") = lblId.Text
         Context.Items("User_ID") = lbluserid.Text
         Server.Transfer("Appraisal_Price3_Add_Colltype70Detail.aspx")
+    End Sub
+
+    Protected Sub ImagePrint_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs) Handles ImagePrint.Click
+        Context.Items("ID") = lblId.Text
+        Context.Items("Req_Id") = lblReq_Id.Text
+        Context.Items("Hub_Id") = lblHub_Id.Text
+        Context.Items("Temp_AID") = lblTemp_AID.Text
+        Server.Transfer("Appraisal_Price3_Print_CollType70.aspx")
     End Sub
 End Class
