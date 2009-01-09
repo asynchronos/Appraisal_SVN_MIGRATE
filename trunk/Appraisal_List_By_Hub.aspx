@@ -6,18 +6,18 @@
     <asp:HiddenField ID="HiddenField1" runat="server" Value="4" />
     <br />
     <br />
-        <table class="style2">
+        <table>
             <tr>
-                <td class="style7">
+                <td>
                     CIF</td>
-                <td class="style8">
+                <td>
                     <asp:TextBox ID="txtCif" runat="server" Width="102px"></asp:TextBox>
                 &nbsp;<asp:Button ID="btnSeachCif" runat="server" Text="Search" />
                     <asp:RangeValidator ID="RangeValidator1" runat="server" 
                         ControlToValidate="txtCif" ErrorMessage="ใส่ฉพาะตัวเลขเท่านั้น" 
                         MaximumValue="999999999" MinimumValue="0"></asp:RangeValidator>
                 </td>
-                <td class="style9">
+                <td>
                     ชื่อสกุล</td>
                 <td class="style10">
                     <asp:Label ID="lblCifName" runat="server" Width="250px"></asp:Label>
