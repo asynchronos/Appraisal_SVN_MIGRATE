@@ -17,7 +17,12 @@ Partial Class Appraisal_Price3_Conform
             Show_Price3_Master()
             Show_Price3_50()
             Show_Price3_70_GROUP()
-            lblGrantotal.Text = Format(CDec(lblLandTotal.Text) + CDec(lblBuildingPrice.Text), "#,##0.00")
+            Try
+                lblGrantotal.Text = Format(CDec(lblLandTotal.Text) + CDec(lblBuildingPrice.Text), "#,##0.00")
+            Catch ex As Exception
+
+            End Try
+
 
 
         End If
@@ -27,6 +32,7 @@ Partial Class Appraisal_Price3_Conform
         Dim Obj_P3M As List(Of clsPrice3_Master) = GET_PRICE3_MASTER(HiddenField1.Value, HiddenField3.Value)
         If Obj_P3M.Count > 0 Then
             txtAID.Text = Obj_P3M.Item(0).AID
+            txtInform_To.Text = Obj_P3M.Item(0).Inform_To
             txtCif.Text = Obj_P3M.Item(0).Cif
             ChkProblem.Checked = Obj_P3M.Item(0).Env_Effect
             txtProblem_Detail.Text = Obj_P3M.Item(0).Env_Effect_Detail
@@ -154,21 +160,26 @@ Partial Class Appraisal_Price3_Conform
         Dim lbluserid As Label = TryCast(Me.Form.FindControl("lblUserID"), Label) 'หา Control จาก Master Page ที่ control ไม่อยู่ใน  ContentPlaceHolder1 ของ Master Page
         Dim s As String
         Dim cif As Integer = 0
+        Dim AID As Integer = 0
         Dim Lat As Double
         Dim Lng As Double
         If txtCif.Text <> String.Empty Then
             cif = txtCif.Text
         End If
+        If txtAID.Text <> String.Empty Then
+            AID = txtAID.Text
+        End If
         Dim Obj_GetP1Master As List(Of ClsPrice1_Master) = GetPrice1_Master(HiddenField1.Value, HiddenField2.Value)
         If Obj_GetP1Master.Count > 0 Then
             Lat = Obj_GetP1Master.Item(0).Lat
-            Lng = Obj_GetP1Master.Item(0).Lat
+            Lng = Obj_GetP1Master.Item(0).Lng
             AddPRICE3_Master(HiddenField1.Value, _
                              txtAID.Text, _
                              HiddenField3.Value, _
+                             txtInform_To.Text, _
                              cif, _
                              Lat, _
-                             Lat, _
+                             Lng, _
                              CDec(lblPriceWah.Text), _
                              CDec(lblLandTotal.Text), _
                              txtApprove1.Text, _
@@ -184,6 +195,7 @@ Partial Class Appraisal_Price3_Conform
                              txtWarning_Detail.Text, _
                              lbluserid.Text, _
                              Now())
+            Server.Transfer("Appraisal_Price3_List.aspx")
         Else
             s = "<script language=""javascript"">alert('ไม่มีเลขที่คำขอนี้ และ หมายเลข Hub นี้อยู่ในระบบ');</script>"
             Page.ClientScript.RegisterStartupScript(Me.GetType, "ผิดพลาด", s)
