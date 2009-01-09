@@ -35,7 +35,7 @@
                  <div id="map" style="width: 800px; height: 600px" ></div>
                      </td>
            <td valign="top"> <div id="formMark">
-                <div id="side_bar"></div></div>
+                <div id="side_bar" style="display:none";></div></div>
            </td>
        </tr>
    </table>
@@ -137,8 +137,8 @@
           html+="<tr><td>Lat :</td><td><input type='text' value='" + nlat +"' id='txtLat' name='txtLat'></td><tr>";
           html+="<tr><td>Lng :</td><td><input type='text' value='" + nlng +"' id='txtLng' name='txtLng'></td><tr>";
           html += "<tr><td>ตรว.ละ:</td><td> <input type='text' id='txtPricewah' value='" + npricewah + "' name='txtPricewah'></td><tr>"
-          html += "<tr><td>Price:</td><td> <input type='text' id='txtPrice' value='" + ntotalprice + "' name='txtPrice'></td><tr>"       
-          html+="<tr><td colspan=2><input type='button' onclick='updateName("+ nlat +","+ nlng +")' value='Update Marker'> ";
+          html += "<tr><td>Price:</td><td> <input type='text' id='txtPrice' value='" + ntotalprice + "' name='txtPrice'></td><tr>"
+          html += "<tr><td colspan=2><input type='button' onclick='updateName(" + nlat + "," + nlng + ")' value='Update Marker' style=display:none> ";
           html+="<input type='button' onclick='cancelUpdate()' value='Cancel'></td><tr>";
            
           var marker = createMarker(point,name,html);
@@ -267,6 +267,7 @@
         map.openInfoWindow(new GLatLng(lat, lng), document.createTextNode("Add complete."));
 
         //window.opener.location.href = window.opener.location.href + "";
+        //window.opener.location.href = window.opener.location;
         window.opener.location.reload("Appraisal_List_By_Hub.aspx");
         window.close();
     
