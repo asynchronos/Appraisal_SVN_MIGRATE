@@ -62,13 +62,13 @@ Public Class GmapDAL
 
 		Try
 			conn = ConnectionUtil.getSqlConnectionFromWebConfig()
-			Dim sql As String = "SELECT " _
-				& "COLL_ID, Lat, Lng, Name, " _
-				& "Detail, Price1, Price2, Price3, " _
-				& "Pic1, Pic2 " _
-				& "FROM Gmap " _
-				& "WHERE COLL_ID=@COLL_ID " _
-				& "ORDER BY COLL_ID"
+            Dim sql As String = "SELECT " _
+             & "COLL_ID, Lat, Lng, Name, " _
+             & "Detail, Price1, Price2, Price3, " _
+             & "Pic1, Pic2 " _
+             & "FROM Price3_Master " _
+             & "WHERE COLL_ID=@COLL_ID " _
+             & "ORDER BY COLL_ID"
 
 			Dim sqlCmd As New SqlCommand(sql, conn)
 			sqlCmd.Prepare()
@@ -104,12 +104,12 @@ Public Class GmapDAL
 
 		Try
 			conn = ConnectionUtil.getSqlConnectionFromWebConfig()
-			Dim sql As String = "SELECT " _
-				& "COLL_ID, Lat, Lng, Name, " _
-				& "Detail, Price1, Price2, Price3, " _
-				& "Pic1, Pic2 " _
-				& "FROM Gmap " _
-				& "ORDER BY COLL_ID"
+            Dim sql As String = "SELECT " _
+             & "COLL_ID, Lat, Lng, Name, " _
+             & "Detail, Price1, Price2, Price3, " _
+             & "Pic1, Pic2 " _
+             & "FROM Price3_Master " _
+             & "ORDER BY COLL_ID"
 
 			Dim sqlCmd As New SqlCommand(sql, conn)
 			sqlCmd.Prepare()

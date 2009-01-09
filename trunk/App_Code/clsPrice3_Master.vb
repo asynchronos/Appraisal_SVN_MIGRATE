@@ -7,6 +7,7 @@ Public Class clsPrice3_Master
     Private _Req_Id As Integer
     Private _AID As Integer
     Private _Temp_AID As Integer
+    Private _Inform_To As String
     Private _Cif As Integer
     Private _Lat As Double
     Private _Lng As Double
@@ -31,6 +32,7 @@ Public Class clsPrice3_Master
      ByVal Req_Id As Integer, _
      ByVal AID As Integer, _
      ByVal Temp_AID As Integer, _
+     ByVal Inform_To As String, _
      ByVal Cif As Integer, _
      ByVal Lat As Double, _
      ByVal Lng As Double, _
@@ -53,6 +55,7 @@ Public Class clsPrice3_Master
         _Req_Id = Req_Id
         _AID = AID
         _Temp_AID = Temp_AID
+        _Inform_To = Inform_To
         _Cif = Cif
         _Lat = Lat
         _Lng = Lng
@@ -97,6 +100,15 @@ Public Class clsPrice3_Master
         End Get
         Set(ByVal Value As Integer)
             _Temp_AID = Value
+        End Set
+    End Property
+
+    Public Property Inform_To() As String
+        Get
+            Return _Inform_To
+        End Get
+        Set(ByVal Value As String)
+            _Inform_To = Value
         End Set
     End Property
 

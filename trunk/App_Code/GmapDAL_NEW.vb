@@ -66,7 +66,7 @@ Public Class GmapDAL_NEW
              & "COLL_ID, Lat, Lng, Name, " _
              & "Detail, Price1, Price2, Price3, " _
              & "Pic1, Pic2 " _
-             & "FROM Gmap " _
+             & "FROM Price3_Master " _
              & "WHERE COLL_ID=@COLL_ID " _
              & "ORDER BY COLL_ID"
 
@@ -150,6 +150,7 @@ Public Class GmapDAL_NEW
                 & " Req_Id, " _
                 & " AID, " _
                 & " Temp_AID, " _
+                & " Inform_To, " _
                 & " Cif, " _
                 & " CifName, " _
                 & " Lat, " _
@@ -244,6 +245,7 @@ Public Class GmapDAL_NEW
                 & " Req_Id, " _
                 & " AID, " _
                 & " Temp_AID, " _
+                & " isnull(Inform_To,'') as Inform_To, " _
                 & " isnull(Cif,0) as Cif, " _
                 & " Lat, " _
                 & " Lng, " _
@@ -605,6 +607,7 @@ Public Class GmapDAL_NEW
         objPrice3_Master.Req_Id = CType(ConvertUtil.getObjectValue(reader("Req_Id"), ConvertUtil.ObjectValueEnum.StringValue), Integer)
         objPrice3_Master.AID = CType(ConvertUtil.getObjectValue(reader("AID"), ConvertUtil.ObjectValueEnum.StringValue), Integer)
         objPrice3_Master.Temp_AID = CType(ConvertUtil.getObjectValue(reader("Temp_AID"), ConvertUtil.ObjectValueEnum.StringValue), Integer)
+        'objPrice3_Master. = CType(ConvertUtil.getObjectValue(reader("Cif"), ConvertUtil.ObjectValueEnum.StringValue), Integer)
         objPrice3_Master.Cif = CType(ConvertUtil.getObjectValue(reader("Cif"), ConvertUtil.ObjectValueEnum.StringValue), Integer)
         objPrice3_Master.Lat = CType(ConvertUtil.getObjectValue(reader("Lat"), ConvertUtil.ObjectValueEnum.DoubleValue), Double)
         objPrice3_Master.Lng = CType(ConvertUtil.getObjectValue(reader("Lng"), ConvertUtil.ObjectValueEnum.DoubleValue), Double)

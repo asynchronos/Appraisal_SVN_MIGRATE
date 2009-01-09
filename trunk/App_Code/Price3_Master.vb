@@ -12,6 +12,7 @@ Public Class Price3_Master
     Private vReq_Id As Integer
     Private vAID As Integer
     Private vTemp_AID As Integer
+    Private vInform_To As String
     Private vCif As Integer
     Private vLat As Double
     Private vLng As Double
@@ -59,6 +60,16 @@ Public Class Price3_Master
         End Get
         Set(ByVal Value As Integer)
             vTemp_AID = Value
+        End Set
+    End Property
+
+    <XmlElement(ElementName:="Inform_To")> _
+Public Property Inform_To() As String
+        Get
+            Return vInform_To
+        End Get
+        Set(ByVal Value As String)
+            vInform_To = Value
         End Set
     End Property
 
