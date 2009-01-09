@@ -99,28 +99,6 @@ Partial Class Appraisal_Price3_List
 
     End Sub
 
-    Protected Sub GridView1_SelectedIndexChanging(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.GridViewSelectEventArgs) Handles GridView1.SelectedIndexChanging
-        'Dim content As String = ""
-        'Dim gvTemp As GridView = DirectCast(sender, GridView)
-        'Dim Req_Id As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblReq_Id"), Label)
-        'Dim Hub_Id As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblHub_Id"), Label)
-        'Dim Cif As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblCif"), Label)
-        'Dim lblTemp_AID As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblTemp_AID"), Label)
-
-        'Dim ImgPrintPreview As ImageButton = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("imgPrintPreview"), ImageButton)
-        ''Dim ImgPlus As ImageButton = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("imgaddplus"), ImageButton)
-
-        'If ImgPrintPreview.ID = "imgaddplus" Then
-        '    '        'Context.Items("Temp_AID") = lblTemp_AID  'กำหนดเพื่อส่งค่าให้กับฟอร์มที่จะส่งค่าได้ด้านล่าง
-        '    '        Server.Transfer("Appraisal_Price3_Conform.aspx")
-
-        'ElseIf ImgPrintPreview.ID = "imgPrintPreview" Then
-        '    Context.Items("Temp_AID") = lblTemp_AID.Text   'กำหนดเพื่อส่งค่าให้กับฟอร์มที่จะส่งค่าได้ด้านล่าง
-        '    Server.Transfer("Appraisal_Price3_Conform.aspx")
-        'End If
-
-    End Sub
-
     Protected Sub GridView1_RowDataBound(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.GridViewRowEventArgs) Handles GridView1.RowDataBound
         Dim row As GridViewRow = e.Row
         Dim strSort As String = String.Empty
@@ -241,6 +219,25 @@ Partial Class Appraisal_Price3_List
         Dim Hub_Id As Label = ImgBtAdd.Parent.FindControl("lblHub_Id")
         Dim lblTemp_AID As Label = ImgBtAdd.Parent.FindControl("lblTemp_AID")
         Dim lblCollType_Id As Label = ImgBtAdd.Parent.FindControl("lblColltype")
-        MsgBox("Add Data " & lblTemp_AID.Text)
+        Dim lblUser_Id As Label = TryCast(Me.Form.FindControl("lblUserID"), Label)
+        'Context.Items("Req_Id") = Req_Id
+        'Context.Items("Hub_Id") = Hub_Id
+        'Context.Items("Temp_AID") = lblTemp_AID
+        'Context.Items("CollType_Id") = lblCollType_Id
+        Dim str As String
+        'str = "Server.Transfer" & ("FileUpload_Price2.aspx")
+
+        str = "FileUpload_Price2.aspx?Req_Id=" & Req_Id.Text & "&Hub_Id=" & Hub_Id.Text & "&Temp_AID=" & lblTemp_AID.Text & "&User_Id=" & lblUser_Id.Text
+        s = "<script language=""javascript"">window.open('" + str + "','window','toolbar=no, menubar=no, scrollbars=yes, resizable=no,location=no, copyhistory=no, directories=no, status=yes,height=350px,width=550px');</script>"
+        Page.ClientScript.RegisterStartupScript(Me.GetType, "จัดกลุ่ม", s)
+
+        'Server.Transfer("FileUpload_Price2.aspx")
+
+        'MsgBox("Add Data " & lblTemp_AID.Text)
+    End Sub
+
+    Protected Sub Page_PreRender(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.PreRender
+        Dim lblHub_Id As Label = TryCast(Me.Form.FindControl("lblHub_Id"), Label)
+        hhfHub_Id.Value = lblHub_Id.Text
     End Sub
 End Class

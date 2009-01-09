@@ -76,7 +76,6 @@
             EmptyDataText="There are no data records to display." Width='100%' 
             BackColor="LightGoldenrodYellow" 
             OnRowCommand = "GridView1_RowCommand"
-            OnSelectedIndexChanging="GridView1_SelectedIndexChanging"
             BorderColor="Tan" BorderWidth="1px" CellPadding="2" ForeColor="Black" 
             GridLines="None" ShowFooter="True" PageSize="15" Font-Size="Small">
         <FooterStyle BackColor="Tan" />
@@ -138,7 +137,7 @@
                 <ItemTemplate>
                     <asp:ImageButton ID="imgaddplus" runat="server" 
                         ImageUrl="~/Images/add_plus2.jpg" Height="22px" Width="22px" 
-                        ToolTip="à¾ÔèÁªÔé¹·ÃÑ¾Âì" CommandName="View" onclick="imgaddplus_Click"/>
+                        ToolTip="á¹ºä¿Åì" CommandName="View" onclick="imgaddplus_Click"/>
                 </ItemTemplate>
             </asp:TemplateField> 
             <asp:TemplateField HeaderText="">
@@ -231,7 +230,7 @@
                                         <asp:TemplateField HeaderText="">
                                             <ItemStyle VerticalAlign="Middle" Width="30px" />
                                             <ItemTemplate>
-                                                <asp:ImageButton ID="ImageButton2" runat="server" ImageUrl="~/Images/add_plus2.jpg" ToolTip="Select" Width="22px" Height="22px" CommandName="Select"  />              
+                                                <asp:ImageButton ID="ImageButton2" runat="server" ImageUrl="~/Images/edit.gif" ToolTip="Select" Width="22px" Height="22px" CommandName="Select"  />              
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="">
@@ -257,6 +256,11 @@
     <asp:SqlDataSource ID="REQUEST_APPRAISAL_PRICE3_LIST" runat="server" 
         ConnectionString="<%$ ConnectionStrings:AppraisalConn %>" 
         SelectCommand="GET_PRICE3_LIST" SelectCommandType="StoredProcedure">
+        <SelectParameters>
+            <asp:ControlParameter ControlID="hhfHub_Id" Name="HUB_ID" PropertyName="Value" 
+                Type="Int32" />
+        </SelectParameters>
     </asp:SqlDataSource>
+    <asp:HiddenField ID="hhfHub_Id" runat="server" />
     </asp:Content>
 

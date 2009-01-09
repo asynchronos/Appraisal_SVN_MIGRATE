@@ -204,8 +204,7 @@
         </tr>
         <tr>
             <td class="style17">
-                    ถนนหน้าหลักประกัน
-                </td>
+                    ถนนหน้าหลักประกันเป็น</td>
             <td class="style23">
                 <asp:DropDownList ID="ddlRoad_Forntoff" runat="server" 
                         DataSourceID="SDSRoad_Forntoff" DataTextField="Road_Frontoff_Name" 
