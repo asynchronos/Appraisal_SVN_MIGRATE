@@ -36,16 +36,20 @@ Partial Class Appraisal_Price2
         Dim Req_Id As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblReq_Id"), Label)
         Dim Hub_Id As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblHub_Id"), Label)
         Dim Cif As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblCif"), Label)
+        Dim AID As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblAID"), Label)
 
         Dim ddlOperation As DropDownList = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("ddlOperation"), DropDownList)
-        Context.Items("Req_Id") = Req_Id
-        Context.Items("Hub_Id") = Hub_Id
+        Context.Items("Req_Id") = Req_Id.Text
+        Context.Items("Hub_Id") = Hub_Id.Text
         Context.Items("Coll_Type") = ddlOperation.SelectedValue
+        Context.Items("AID") = AID.Text
+        Context.Items("Cif") = Cif.Text
 
         If ddlOperation.SelectedValue = 50 Then
-            Response.Redirect("Appraisal_Price2_Add_By_Colltype.aspx?Req_id=" & Req_Id.Text & "&Hub_Id=" & Hub_Id.Text & "&Coll_Type=" & ddlOperation.SelectedValue)
+            'Response.Redirect("Appraisal_Price2_Add_By_Colltype.aspx?Req_id=" & Req_Id.Text & "&Hub_Id=" & Hub_Id.Text & "&Coll_Type=" & ddlOperation.SelectedValue & "&Cif=" & Cif.Text & "&AID=" & AID.Text)
+            Server.Transfer("Appraisal_Price2_Add_By_Colltype.aspx")
         ElseIf ddlOperation.SelectedValue = 70 Then
-            Response.Redirect("Appraisal_Price2_Add_By_Colltype70.aspx?Req_id=" & Req_Id.Text & "&Hub_Id=" & Hub_Id.Text & "&Coll_Type=" & ddlOperation.SelectedValue)
+            Response.Redirect("Appraisal_Price2_Add_By_Colltype70.aspx?Req_id=" & Req_Id.Text & "&Hub_Id=" & Hub_Id.Text & "&Coll_Type=" & ddlOperation.SelectedValue & "&Cif=" & Cif.Text & "&AID=" & AID.Text)
         ElseIf ddlOperation.SelectedValue = 15 Then
         ElseIf ddlOperation.SelectedValue = 18 Then
             'Response.Redirect("Appraisal_Price2_Add_By_Colltype18.aspx?Req_id=" & Req_Id.Text & "&Hub_Id=" & Hub_Id.Text & "&Coll_Type=" & ddlOperation.SelectedValue)

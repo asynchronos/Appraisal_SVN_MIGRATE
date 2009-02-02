@@ -113,8 +113,8 @@
             <td class="style17">
                 <asp:Label ID="Label5" runat="server" Font-Bold="True" Text="หลักประกันที่ดิน"></asp:Label>
             </td>
-            <td class="style16">
-                &#160;&#160;
+            <td class="style16" class="NotshowOnPrint">
+                <asp:Button ID="btnEditPosition" runat="server" Text="แก้ไขพิกัด" />
             </td>
         </tr>
         <tr>

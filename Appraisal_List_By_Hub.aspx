@@ -87,7 +87,17 @@
                     <ItemTemplate>
                         <asp:Label ID="LabelEmp_Name" runat="server" Text='<%# Bind("Emp_Name") %>'></asp:Label>
                     </ItemTemplate>
-                </asp:TemplateField>  
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="รหัสวิธีส่งประเมิน">
+                    <ItemTemplate>
+                        <asp:Label ID="lblReq_Type" runat="server" Text='<%# Bind("Req_Type") %>'></asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField> 
+                <asp:TemplateField HeaderText="วิธีส่งประเมิน">
+                    <ItemTemplate>
+                        <asp:Label ID="lblAppraisal_Method_Name" runat="server" Text='<%# Bind("Method_Name") %>'></asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>                                   
                 <asp:TemplateField HeaderText="สถานะการประเมิน">
                     <ItemTemplate>
                         <asp:Label ID="LabelStatus_Name" runat="server" Text='<%# Bind("Status_Name") %>'></asp:Label>

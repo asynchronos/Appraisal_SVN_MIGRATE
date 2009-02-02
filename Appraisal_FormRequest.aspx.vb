@@ -4,6 +4,7 @@ Imports System.Xml
 Imports System.IO
 Imports System.Data
 Imports System.Data.SqlClient
+Imports System.Data.OracleClient
 Imports Microsoft.Win32
 Imports System.Web.UI.HtmlControls
 Imports System.Web.UI.WebControls
@@ -13,6 +14,7 @@ Imports System.Web.UI.WebControls.WebParts
 Imports System.Collections.Generic
 Imports System.Globalization
 Imports System.Globalization.CultureInfo
+Imports SME_SERVICE
 Partial Class Appraisal_Form_Appraisal_FormRequest
     Inherits System.Web.UI.Page
 
@@ -187,32 +189,42 @@ Partial Class Appraisal_Form_Appraisal_FormRequest
                 Page.ClientScript.RegisterStartupScript(Me.GetType, "Notice", s)
                 Exit Sub
             End If
+            If ddlAID.SelectedValue = String.Empty Then
+                s = "<script language=""javascript"">alert('คุณไม่มีรหัส AID กรุณากรอกรหัส AID ก่อน');</script>"
+                Page.ClientScript.RegisterStartupScript(Me.GetType, "Notice", s)
+                Exit Sub
+            End If
         End If
 
         If lblRequestID.Text <> String.Empty Then
             Dim dg As GridView = DirectCast(cph.FindControl("GridView_HubList"), GridView) 'FindControl("GridView_HubList")
             Dim gvr_master As GridViewRow
-            Appraisal_Manager.AddAppraisal_Request_Master(lblRequestID.Text, TxtCif.Text, ddlTitle.SelectedValue, TxtCifName.Text, TxtCifLastName.Text, RadioButtonList1.SelectedValue, 0, lbluserid.Text, Now)
+            Appraisal_Manager.AddAppraisal_Request_Master(lblRequestID.Text, TxtCif.Text, ddlTitle.SelectedValue, TxtCifName.Text, TxtCifLastName.Text, ddlAppraisal_Method.SelectedValue, ddlAID.SelectedValue, 0, lbluserid.Text, Now)
 
             For Each gvr_master In dg.Rows
                 Dim chk1 As CheckBox = gvr_master.FindControl("cb2")
                 Dim lblHubID As Label = gvr_master.FindControl("lblHUB_ID")
                 If chk1.Checked = True Then
-                    Appraisal_Manager.AddAppraisal_Request(lblRequestID.Text, lblHubID.Text, TxtCif.Text, ddlTitle.SelectedValue, TxtCifName.Text, TxtCifLastName.Text, RadioButtonList1.SelectedValue, 0, lbluserid.Text, Now)
+                    Appraisal_Manager.AddAppraisal_Request(lblRequestID.Text, lblHubID.Text, TxtCif.Text, ddlTitle.SelectedValue, TxtCifName.Text, TxtCifLastName.Text, ddlAppraisal_Method.SelectedValue, 0, lbluserid.Text, Now)
                 End If
             Next
             Dim btnRequestId As Button = DirectCast(cph.FindControl("bntRequest_ID"), Button)
             btnRequestId.Enabled = True
             Dim imgBtnSave As ImageButton = DirectCast(cph.FindControl("imgBtnSave"), ImageButton)
             imgBtnSave.Enabled = False
-
-            'bntRequest_ID.Enabled = True
-            'imgBtnSave.Enabled = False
         Else
             lblMessage.Text = "ยังไม่มีเลขที่คำขอประเมิน"
         End If
         GridView1.DataBind()
 
+        'กำหนดให้ไปเพิ่มหลักประกันในกรณีเป็นการทบทวนการประเมิน
+        If ddlAppraisal_Method.SelectedValue >= 2 Then
+            Context.Items("Req_Id") = lblRequestID.Text  'Request.QueryString("Req_Id")
+            'Context.Items("Hub_Id") = lblHub_Id.Text 'Request.QueryString("Hub_Id")
+            Context.Items("Cif") = TxtCif.Text  'Request.QueryString("Cif")
+            Context.Items("AID") = ddlAID.SelectedValue   'Request.QueryString("Aid")
+            Server.Transfer("Appraisal_GetData_DWS.aspx")
+        End If
 
     End Sub
 
@@ -249,5 +261,85 @@ Partial Class Appraisal_Form_Appraisal_FormRequest
             Dim imgBtnSave As ImageButton = DirectCast(cph.FindControl("imgBtnSave"), ImageButton)
             imgBtnSave.Enabled = True
         End If
+    End Sub
+
+    Protected Sub ImgBtFindCif_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs) Handles ImgBtFindCif.Click
+        If TxtCif.Text = String.Empty Then
+            'Notice Message 
+        Else
+            Dim cus_class As Customer_Class
+            Dim SV As New SME_SERVICE.Service
+            'Dim cif As Integer
+
+            cus_class = SV.GetCifInfo(TxtCif.Text)(0)
+            'ถ้า cif ที่ส่งมาไม่เท่ากับ 0 ให้ใส่ข้อมูลลูกค้าใส่ในคอนโทรลที่กำหนดให้
+            If cus_class.Cif.ToString <> 0 Then
+                TxtCifName.Text = cus_class.cus_first
+                TxtCifLastName.Text = cus_class.cus_last
+                Get_AID_BY_CIF()
+            Else
+                'ถ้า cif ที่ส่งมาเท่ากับ 0 ให้ Clear ค่า  ในคอนโทรล
+                Dim l As New Label
+                'MessageBox("Format Exception: " & ex.Message)
+                l.Text = SV.MSb("ค้นหาข้อมูลลูกค้าไม่พบ ")
+                Page.Controls.Add(l)
+
+                TxtCifName.Text = ""
+                TxtCifLastName.Text = ""
+            End If
+
+        End If
+    End Sub
+
+    Private Sub Get_AID_BY_CIF()
+
+        ' Create the connection object
+        Dim con As OracleConnection = New OracleConnection()
+
+        ' Specify the connect string
+        con.ConnectionString = "User Id=cpr214361;Password=newyear2009;Data Source=edw;"
+        ' Open the connection
+        Try
+            con.Open()
+        Catch ex As Exception
+
+        End Try
+        Dim cmdQuery As String = "SELECT MAX(DWHADMIN.CUS_PLED.CIF_NO) AS CIF, DWHADMIN.APPRAISAL_MASTER.APPRAISAL_ID" _
+                      & " FROM DWHADMIN.APPRAISAL_MASTER INNER JOIN " _
+                      & " DWHADMIN.COLLATERAL_APPRAISAL ON " _
+                      & " DWHADMIN.APPRAISAL_MASTER.APPRAISAL_KEY = DWHADMIN.COLLATERAL_APPRAISAL.APPRAISAL_KEY INNER JOIN " _
+                      & " DWHADMIN.COLLATERAL_PLEDGE ON " _
+                      & " DWHADMIN.COLLATERAL_APPRAISAL.COLLATERAL_KEY = DWHADMIN.COLLATERAL_PLEDGE.COLLATERAL_KEY INNER JOIN " _
+                      & " DWHADMIN.PLEDGE_MASTER ON DWHADMIN.COLLATERAL_PLEDGE.PLEDGE_KEY = DWHADMIN.PLEDGE_MASTER.PLEDGE_KEY INNER JOIN " _
+                      & " DWHADMIN.CUS_PLED ON DWHADMIN.PLEDGE_MASTER.PLEDGE_KEY = DWHADMIN.CUS_PLED.PLEDGE_KEY LEFT OUTER JOIN " _
+                      & " DWHADMIN.COLLATERAL_MASTER ON " _
+                      & " DWHADMIN.COLLATERAL_PLEDGE.COLLATERAL_KEY = DWHADMIN.COLLATERAL_MASTER.COLLATERAL_KEY " _
+                      & " WHERE (DWHADMIN.CUS_PLED.CIF_NO =" & TxtCif.Text & ") " _
+                      & " GROUP BY DWHADMIN.APPRAISAL_MASTER.APPRAISAL_ID"
+
+        ' Create the OracleCommand object
+        Dim cmd As OracleCommand = New OracleCommand(cmdQuery)
+        cmd.Connection = con
+        cmd.CommandType = CommandType.Text
+
+        Try
+            ' Execute command, create OracleDataReader object
+            Dim reader As OracleDataReader = cmd.ExecuteReader()
+            While (reader.Read())
+                ' Output Employee Name and Number
+                ddlAID.Items.Add(reader.Item("APPRAISAL_ID"))
+            End While
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        Finally
+
+            ' Dispose OracleCommand object
+            cmd.Dispose()
+
+            ' Close and Dispose OracleConnection object
+            con.Close()
+            con.Dispose()
+        End Try
     End Sub
 End Class

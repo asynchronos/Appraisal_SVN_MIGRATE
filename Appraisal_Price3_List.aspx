@@ -70,7 +70,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <br />
-<br />
+    <br />
     <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" 
             DataKeyNames="Temp_AID" DataSourceID="REQUEST_APPRAISAL_PRICE3_LIST" 
             EmptyDataText="There are no data records to display." Width='100%' 
@@ -121,6 +121,16 @@
                     <asp:Label ID="lblCifname" runat="server" Text='<%# Bind("CifName") %>'></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
+            <asp:TemplateField HeaderText="รหัสวิธี">
+                <ItemTemplate>
+                    <asp:Label ID="lblMethodNo" runat="server" Text='<%# Bind("Req_Type") %>'></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="ชื่อวิธีส่งประเมิน">
+                <ItemTemplate>
+                    <asp:Label ID="lblMethodName" runat="server" Text='<%# Bind("Method_Name") %>'></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>            
             <asp:TemplateField HeaderText="รหัสผู้ประเมิน">
                 <ItemStyle Width="100px" />
                 <ItemTemplate>
@@ -253,6 +263,7 @@
         <HeaderStyle BackColor="Tan" Font-Bold="True" />
         <AlternatingRowStyle BackColor="PaleGoldenrod" />
     </asp:GridView>
+<br />
     <asp:SqlDataSource ID="REQUEST_APPRAISAL_PRICE3_LIST" runat="server" 
         ConnectionString="<%$ ConnectionStrings:AppraisalConn %>" 
         SelectCommand="GET_PRICE3_LIST" SelectCommandType="StoredProcedure">

@@ -72,16 +72,19 @@
         // blueIcon.transparent = "http://www.google.com/intl/en_ALL/mapfiles/markerTransparent.png";
         // blueIcon.printImage = "coldmarkerie.gif";
         // blueIcon.mozPrintImage = "coldmarkerff.gif";
-       var icons = blueIcon;  
-        var  marker = new GMarker(point,icons); 
+
+        var icons = blueIcon;
+        var marker = new GMarker(point, icons);
+        marker.setPoint(point);
          GEvent.addListener(marker, "click", function() {
           //marker.openInfoWindowHtml(html);
           var label1="Information";
           var label2="Picture";
           var html2="<a href='images/maps_results_logo.gif' target='_blank'><img src='images/maps_results_logo.gif'border='0'></a>";
           marker.openInfoWindowTabsHtml([new GInfoWindowTab(label1,html), new GInfoWindowTab(label2,html2)]);
-           
-        });
+      //marker.setPoint(point);
+      });
+
         // save the info we need to use later for the side_bar
         gmarkers.push(marker);
         // add a line to the side_bar html
@@ -107,46 +110,49 @@
       // Read the data from example.xml
           //var file ="GmapDB.aspx?action=1";
           var file = "Price3DB.aspx?action=1";
-            GDownloadUrl(file, function(doc) {
-             var xmlDoc = GXml.parse(doc);
-            //alert(doc);
-             var markers = xmlDoc.documentElement.getElementsByTagName("Price3_Master");
-            //alert(markers.length);  
-        for (var i = 0; i < markers.length; i++) {
-          // obtain the attribues of each marker        
-          // create the marker
-        var AID = markers[i].getElementsByTagName("AID")[0];  
-        var lat = markers[i].getElementsByTagName("Lat")[0];  
-        var lng = markers[i].getElementsByTagName("Lng")[0];
-        var totalprice = markers[i].getElementsByTagName("TotalPrice")[0];
-        var pricewah = markers[i].getElementsByTagName("PriceWah")[0];        
-        var cif = markers[i].getElementsByTagName("Cif")[0];
-        var nAID = AID.firstChild.nodeValue;
-        var nlat = lat.firstChild.nodeValue;
-        var nlng = lng.firstChild.nodeValue;
-        var ntotalprice = totalprice.firstChild.nodeValue;
-        var npricewah = pricewah.firstChild.nodeValue;
-        var ncif = cif.firstChild.nodeValue;
+          GDownloadUrl(file, function(doc) {
+              var xmlDoc = GXml.parse(doc);
+              //alert(doc);
+              var markers = xmlDoc.documentElement.getElementsByTagName("Price3_Master");
+              //alert(markers.length);  
+              for (var i = 0; i < markers.length; i++) {
+                  // obtain the attribues of each marker        
+                  // create the marker
+                  var AID = markers[i].getElementsByTagName("AID")[0];
+                  var lat = markers[i].getElementsByTagName("Lat")[0];
+                  var lng = markers[i].getElementsByTagName("Lng")[0];
+                  var totalprice = markers[i].getElementsByTagName("TotalPrice")[0];
+                  var pricewah = markers[i].getElementsByTagName("PriceWah")[0];
+                  var create_date = markers[i].getElementsByTagName("Create_Date")[0];
+                  var cif = markers[i].getElementsByTagName("Cif")[0];
+                  var nAID = AID.firstChild.nodeValue;
+                  var nlat = lat.firstChild.nodeValue;
+                  var nlng = lng.firstChild.nodeValue;
+                  var ntotalprice = totalprice.firstChild.nodeValue;
+                  var npricewah = pricewah.firstChild.nodeValue;
+                  var ncif = cif.firstChild.nodeValue;
+                  var ncreate_date = create_date.firstChild.nodeValue;
+                  var point = new GLatLng(nlat, nlng);
 
-        var point = new GLatLng(nlat,nlng);
-         
-          var html ="<b>Marker information</b><br>" 
-          html+="<table>";
-          html += "<tr><td>AID :</td><td><b>" + nAID + "</b><input type='hidden' value='" + nAID + "' id='txtCidMark' name='txtCid'></td><tr>"
-          html += "<tr><td>Cif :</td><td><input type='text' value='" + ncif + "' id='txtNameMark' name='txtName'></td><tr>"
-          html+="<tr><td>Lat :</td><td><input type='text' value='" + nlat +"' id='txtLat' name='txtLat'></td><tr>";
-          html+="<tr><td>Lng :</td><td><input type='text' value='" + nlng +"' id='txtLng' name='txtLng'></td><tr>";
-          html += "<tr><td>ตรว.ละ:</td><td> <input type='text' id='txtPricewah' value='" + npricewah + "' name='txtPricewah'></td><tr>"
-          html += "<tr><td>Price:</td><td> <input type='text' id='txtPrice' value='" + ntotalprice + "' name='txtPrice'></td><tr>"
-          html += "<tr><td colspan=2><input type='button' onclick='updateName(" + nlat + "," + nlng + ")' value='Update Marker' style=display:none> ";
-          html+="<input type='button' onclick='cancelUpdate()' value='Cancel'></td><tr>";
-           
-          var marker = createMarker(point,name,html);
-          map.addOverlay(marker);
-          gmarkers.push(marker);
-            }
+                  var html = "<b>Marker information</b><br>"
+                  html += "<table>";
+                  html += "<tr><td>AID :</td><td><b>" + nAID + "</b><input type='hidden' value='" + nAID + "' id='txtCidMark' name='txtCid'></td><tr>"
+                  html += "<tr><td>Cif :</td><td><input type='text' value='" + ncif + "' id='txtNameMark' name='txtName'></td><tr>"
+                  html += "<tr><td>Lat :</td><td><input type='text' value='" + nlat + "' id='txtLat' name='txtLat'></td><tr>";
+                  html += "<tr><td>Lng :</td><td><input type='text' value='" + nlng + "' id='txtLng' name='txtLng'></td><tr>";
+                  html += "<tr><td>ตรว.ละ:</td><td> <input type='text' id='txtPricewah' value='" + npricewah + "' name='txtPricewah'></td><tr>"
+                  html += "<tr><td>Price:</td><td> <input type='text' id='txtPrice' value='" + ntotalprice + "' name='txtPrice'></td><tr>"
+                  html += "<tr><td>วันที่ประเมิน:</td><td> <input type='text' id='txtCreate_Date' value='" + ncreate_date + "' name='txtCreate_Date'></td><tr>"
+                  html += "<tr><td colspan=2><input type='button' onclick='updateName(" + nlat + "," + nlng + ")' value='Update Marker' style=display:none> ";
+                  html += "<input type='button' onclick='cancelUpdate()' value='Cancel'></td><tr>";
+                  var marker = createMarker(point, name, html);
+                  //alert(marker);
+                  map.addOverlay(marker);
+                  gmarkers.push(marker);
+              }
               // put the assembled side_bar_html contents into the side_bar div
-             document.getElementById("side_bar").innerHTML = side_bar_html;  });
+              document.getElementById("side_bar").innerHTML = side_bar_html;
+          });
          }
         }
 
@@ -267,8 +273,8 @@
         map.openInfoWindow(new GLatLng(lat, lng), document.createTextNode("Add complete."));
 
         //window.opener.location.href = window.opener.location.href + "";
-        //window.opener.location.href = window.opener.location;
-        window.opener.location.reload("Appraisal_List_By_Hub.aspx");
+        window.opener.location.href = window.opener.location;
+        //window.opener.location.reload("Appraisal_List_By_Hub.aspx");
         window.close();
     
        }

@@ -16,7 +16,7 @@ Partial Class Appraisal_Price2_Add_By_Colltype70
             Id = lblId.Text
         End If
 
-        AddPRICE2_70(Id, CInt(lblReq_Id.Text), CInt(lblHub_Id.Text), 0, _
+        AddPRICE2_70(Id, CInt(lblReq_Id.Text), CInt(lblHub_Id.Text), txtAID.Text, txtCID.Text, 0, _
                         CInt(DDLSubCollType.SelectedValue), txtBuild_No.Text, txtTumbon.Text, txtAmphur.Text, _
                         ddlProvince.SelectedValue, ddlBuild_Character.SelectedValue, _
                         txtFloor.Text, txtItem.Text, ddlBuild_Construct.SelectedValue, _
@@ -31,7 +31,7 @@ Partial Class Appraisal_Price2_Add_By_Colltype70
             lblReq_Id.Text = Request.QueryString("Req_Id")
             lblHub_Id.Text = Request.QueryString("Hub_Id")
             lblId.Text = Request.QueryString("Id")
-
+            hdfCif.Value = Request.QueryString("Cif").PadLeft(16, "0")
             If Request.QueryString("Id") Is Nothing Then
                 'Do Someting
             Else
@@ -40,6 +40,8 @@ Partial Class Appraisal_Price2_Add_By_Colltype70
                     lblId.Text = Obj_Price_70.Item(0).ID
                     lblReq_Id.Text = Obj_Price_70.Item(0).Req_Id
                     lblHub_Id.Text = Obj_Price_70.Item(0).Hub_Id
+                    txtAID.Text = Obj_Price_70.Item(0).AID
+                    txtCID.Text = Obj_Price_70.Item(0).CID
                     DDLSubCollType.SelectedValue = Obj_Price_70.Item(0).MysubColl_ID
                     txtBuild_No.Text = Obj_Price_70.Item(0).Build_No
                     txtTumbon.Text = Obj_Price_70.Item(0).Tumbon
@@ -59,8 +61,23 @@ Partial Class Appraisal_Price2_Add_By_Colltype70
                     chkDoc2.Checked = Obj_Price_70.Item(0).Doc2
                     txtDoc_Detail.Text = Obj_Price_70.Item(0).Doc_Detail
                 End If
-
             End If
         End If
+        Dim CollType As String = "070"
+        Dim s1 As String = Nothing
+        s1 += "window.open('AID_CID_List.aspx"
+        s1 += "?cif=" & hdfCif.Value
+        s1 += "&CollType=" & CollType
+        s1 += "&txtAID=" & txtAID.ClientID
+        s1 += "&txtCID=" & txtCID.ClientID
+        s1 += "&txtSubCollType=" & DDLSubCollType.ClientID
+        s1 += "&txtBuilding_No=" & txtBuild_No.ClientID
+        s1 += "&txtDistrict=" & txtTumbon.ClientID
+        s1 += "&txtAmphur=" & txtAmphur.ClientID
+        s1 += "&txtProvince=" & ddlProvince.ClientID
+        imSearchAID.Attributes.Add("onclick", s1 & "','pop', 'width=800, height=500');")
+        txtAID.Attributes.Add("onfocus", "this.blur();")  ' set textbox to readonly 
+        txtCID.Attributes.Add("onfocus", "this.blur();")  ' set textbox to readonly 
     End Sub
+
 End Class

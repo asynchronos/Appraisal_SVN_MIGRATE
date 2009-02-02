@@ -717,7 +717,7 @@ Public Class Appraisal_Manager
                     myTrans.Commit()
                 Catch ex As Exception
                     myTrans.Rollback()
-                    MsgBox(ex.Message)
+                    'MsgBox(ex.Message)
                 Finally
                     connection.Close()
                 End Try
@@ -732,6 +732,8 @@ Public Class Appraisal_Manager
     Public Shared Sub AddPRICE2_50(ByVal ID As Integer, _
      ByVal Req_Id As Integer, _
      ByVal Hub_Id As Integer, _
+     ByVal AID As String, _
+     ByVal CID As String, _
      ByVal Temp_AID As Integer, _
      ByVal MysubColl_ID As Integer, _
      ByVal Address_No As String, _
@@ -762,6 +764,11 @@ Public Class Appraisal_Manager
      ByVal Create_User As String, _
      ByVal Create_Date As Date)
 
+        Dim msg As String
+        Dim title As String
+        Dim style As MsgBoxStyle
+        Dim response1 As MsgBoxResult
+
         Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
             Using command As New SqlCommand("AddPRICE2_50", connection)
                 connection.Open()
@@ -771,9 +778,11 @@ Public Class Appraisal_Manager
                 command.Transaction = myTrans
                 Try
                     command.CommandType = CommandType.StoredProcedure
-                    command.Parameters.Add(New SqlParameter("@Id", ID))
+                    command.Parameters.Add(New SqlParameter("@Id", ID))  'ID เกิดจากเลข Running จากระบบเอง
                     command.Parameters.Add(New SqlParameter("@Req_Id", Req_Id))
                     command.Parameters.Add(New SqlParameter("@Hub_Id", Hub_Id))
+                    command.Parameters.Add(New SqlParameter("@AID", AID))
+                    command.Parameters.Add(New SqlParameter("@CID", CID))
                     command.Parameters.Add(New SqlParameter("@Temp_AID", Temp_AID))
                     command.Parameters.Add(New SqlParameter("@MysubColl_ID", MysubColl_ID))
                     command.Parameters.Add(New SqlParameter("@Address_No", Address_No))
@@ -807,8 +816,22 @@ Public Class Appraisal_Manager
                     myTrans.Commit()
                 Catch ex As SqlException
                     myTrans.Rollback()
+                    'msg = "การบันทึกผิดพลาด"   ' Define message.
+                    msg = ex.Message
+                    style = MsgBoxStyle.DefaultButton2 Or _
+                       MsgBoxStyle.Critical Or MsgBoxStyle.YesNo
+                    title = "ผลการบันทึก"   ' Define title.
+                    ' Display message.
+                    response1 = MsgBox(msg, style, title)
                 Catch ex As Exception
                     myTrans.Rollback()
+
+                    msg = ex.Message
+                    style = MsgBoxStyle.DefaultButton2 Or _
+                       MsgBoxStyle.Critical Or MsgBoxStyle.YesNo
+                    title = "ผลการบันทึก"   ' Define title.
+                    ' Display message.
+                    response1 = MsgBox(msg, style, title)
                 Finally
                     connection.Close()
                 End Try
@@ -819,6 +842,8 @@ Public Class Appraisal_Manager
     Public Shared Sub UpdatePRICE2_50(ByVal ID As Integer, _
      ByVal Req_Id As Integer, _
      ByVal Hub_Id As Integer, _
+     ByVal AID As String, _
+     ByVal CID As String, _
      ByVal Temp_AID As Integer, _
      ByVal MysubColl_ID As Integer, _
      ByVal Address_No As String, _
@@ -861,6 +886,8 @@ Public Class Appraisal_Manager
                     command.Parameters.Add(New SqlParameter("@ID", ID))
                     command.Parameters.Add(New SqlParameter("@Req_Id", Req_Id))
                     command.Parameters.Add(New SqlParameter("@Hub_Id", Hub_Id))
+                    command.Parameters.Add(New SqlParameter("@AID", AID))
+                    command.Parameters.Add(New SqlParameter("@CID", CID))
                     command.Parameters.Add(New SqlParameter("@Temp_AID", Temp_AID))
                     command.Parameters.Add(New SqlParameter("@MysubColl_ID", MysubColl_ID))
                     command.Parameters.Add(New SqlParameter("@Address_No", Address_No))
@@ -921,6 +948,8 @@ Public Class Appraisal_Manager
                         Dim temp As New PRICE2_50(CInt(reader("ID")), _
                                                 CInt(reader("Req_Id")), _
                                                 CInt(reader("Hub_Id")), _
+                                                CStr(reader("AID")), _
+                                                CStr(reader("CID")), _
                                                 CInt(reader("Temp_AID")), _
                                                 CInt(reader("MysubColl_ID")), _
                                                 CStr(reader("Address_No")), _
@@ -966,6 +995,8 @@ Public Class Appraisal_Manager
     Public Shared Sub AddPRICE2_70(ByVal ID As Integer, _
      ByVal Req_Id As Integer, _
      ByVal Hub_Id As Integer, _
+     ByVal AID As String, _
+     ByVal CID As String, _
      ByVal Temp_AID As Integer, _
      ByVal MysubColl_ID As Integer, _
      ByVal Build_No As String, _
@@ -1001,6 +1032,8 @@ Public Class Appraisal_Manager
                     command.Parameters.Add(New SqlParameter("@ID", ID))
                     command.Parameters.Add(New SqlParameter("@Req_Id", Req_Id))
                     command.Parameters.Add(New SqlParameter("@Hub_Id", Hub_Id))
+                    command.Parameters.Add(New SqlParameter("@AID", AID))
+                    command.Parameters.Add(New SqlParameter("@CID", CID))
                     command.Parameters.Add(New SqlParameter("@Temp_AID", Temp_AID))
                     command.Parameters.Add(New SqlParameter("@MysubColl_ID", MysubColl_ID))
                     command.Parameters.Add(New SqlParameter("@Build_No", Build_No))
@@ -1037,6 +1070,8 @@ Public Class Appraisal_Manager
     Public Shared Sub UpdatePRICE2_70(ByVal ID As Integer, _
      ByVal Req_Id As Integer, _
      ByVal Hub_Id As Integer, _
+     ByVal AID As String, _
+     ByVal CID As String, _
      ByVal Temp_AID As Integer, _
      ByVal MysubColl_ID As Integer, _
      ByVal Build_No As String, _
@@ -1072,6 +1107,8 @@ Public Class Appraisal_Manager
                     command.Parameters.Add(New SqlParameter("@ID", ID))
                     command.Parameters.Add(New SqlParameter("@Req_Id", Req_Id))
                     command.Parameters.Add(New SqlParameter("@Hub_Id", Hub_Id))
+                    command.Parameters.Add(New SqlParameter("@AID", AID))
+                    command.Parameters.Add(New SqlParameter("@CID", CID))
                     command.Parameters.Add(New SqlParameter("@Temp_AID", Temp_AID))
                     command.Parameters.Add(New SqlParameter("@MysubColl_ID", MysubColl_ID))
                     command.Parameters.Add(New SqlParameter("@Build_No", Build_No))
@@ -1123,6 +1160,8 @@ Public Class Appraisal_Manager
                         Dim temp As New PRICE2_70(CInt(reader("ID")), _
                                                 CInt(reader("Req_Id")), _
                                                 CInt(reader("Hub_Id")), _
+                                                CStr(reader("AID")), _
+                                                CStr(reader("CID")), _
                                                 CInt(reader("Temp_AID")), _
                                                 CInt(reader("MysubColl_ID")), _
                                                 CStr(reader("Build_No")), _
@@ -2314,6 +2353,7 @@ Public Class Appraisal_Manager
      ByVal Name As String, _
      ByVal Lastname As String, _
      ByVal Req_Type As Integer, _
+     ByVal AID As String, _
      ByVal Status_ID As Integer, _
      ByVal Create_User As String, _
      ByVal Create_Date As Date)
@@ -2333,6 +2373,7 @@ Public Class Appraisal_Manager
                     command.Parameters.Add(New SqlParameter("@Name", Name))
                     command.Parameters.Add(New SqlParameter("@Lastname", Lastname))
                     command.Parameters.Add(New SqlParameter("@Req_Type", Req_Type))
+                    command.Parameters.Add(New SqlParameter("@AID", AID))
                     command.Parameters.Add(New SqlParameter("@Status_ID", Status_ID))
                     command.Parameters.Add(New SqlParameter("@Create_User", Create_User))
                     command.Parameters.Add(New SqlParameter("@Create_Date", Create_Date))

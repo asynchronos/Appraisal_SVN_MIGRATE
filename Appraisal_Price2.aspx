@@ -61,20 +61,27 @@
                             <asp:Label ID="lblHUB_NAME" runat="server" Text='<%# Bind("HUB_NAME") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Reg_Type" SortExpression="Reg_Type">
-                        <EditItemTemplate>
-                            <asp:Label ID="Label3" runat="server" Text='<%# Eval("Reg_Type") %>'></asp:Label>
-                        </EditItemTemplate>
-                        <ItemTemplate>
-                            <asp:Label ID="Label4" runat="server" Text='<%# Bind("Reg_Type") %>'></asp:Label>
-                        </ItemTemplate>
-                    </asp:TemplateField>
+                <asp:TemplateField HeaderText="รหัสวิธีส่งประเมิน">
+                    <ItemTemplate>
+                        <asp:Label ID="lblReq_Type" runat="server" Text='<%# Bind("Req_Type") %>'></asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField> 
+                <asp:TemplateField HeaderText="วิธีส่งประเมิน">
+                    <ItemTemplate>
+                        <asp:Label ID="lblAppraisal_Method_Name" runat="server" Text='<%# Bind("Method_Name") %>'></asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="AID">
+                    <ItemTemplate>
+                        <asp:Label ID="lblAID" runat="server" Text='<%# Bind("AID") %>'></asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>                                        
                     <asp:TemplateField HeaderText="Cif" SortExpression="Cif">
                         <EditItemTemplate>
                             <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("Cif") %>'></asp:TextBox>
                         </EditItemTemplate>
                         <ItemTemplate>
-                            <asp:Label ID="Label5" runat="server" Text='<%# Bind("Cif") %>'></asp:Label>
+                            <asp:Label ID="lblCif" runat="server" Text='<%# Bind("Cif") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Cifname" SortExpression="Cifname">

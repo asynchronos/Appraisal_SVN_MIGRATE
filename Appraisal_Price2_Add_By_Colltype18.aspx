@@ -95,6 +95,25 @@
         </tr>    
         <tr>
             <td class="style26">
+                AID</td>
+            <td>
+                    <asp:TextBox ID="txtAID" runat="server"></asp:TextBox>
+            </td>
+            <td>
+                CID</td>
+            <td class="style27">
+                    <asp:TextBox ID="txtCID" runat="server"></asp:TextBox>
+                <asp:ImageButton ID="imSearchAID" runat="server" 
+                        ImageUrl="~/Images/find1.jpg" Height="22px" Width="22px" 
+                        ToolTip="ดูผลก่อนพิมพ์"/>
+            </td>
+            <td class="style29">
+                &nbsp;</td>
+            <td>
+                &nbsp;</td>
+        </tr>    
+        <tr>
+            <td class="style26">
                 ชนิดหลักประกัน</td>
             <td>
                 <asp:DropDownList ID="DDLSubCollType" runat="server" 

@@ -5,11 +5,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-		<style type="text/css">
-		.style1
-		{
-			width: 914px;
-		}
+        <style type="text/css">
 		.style2
 		{
 			width: 95%;
@@ -39,8 +35,8 @@
 			}
 			.style8
 			{
-				width: 113px;
-			}
+        width: 150px;
+    }
 		    .style31
         {
             width: 100%;
@@ -205,11 +201,10 @@
 					<td style="text-align:left;" class="style8">
 						ประเภทคำขอ</td>
 					<td style="text-align:left;" class="style7">
-					<asp:RadioButtonList ID="RadioButtonList1" runat="server" 
-						RepeatDirection="Horizontal" AutoPostBack="True">
-						<asp:ListItem Selected="True" Value="1">ประเมินใหม่</asp:ListItem>
-						<asp:ListItem Value="2">ทบทวนการประเมิน</asp:ListItem>
-					</asp:RadioButtonList>
+					    <asp:DropDownList ID="ddlAppraisal_Method" runat="server" 
+                            DataSourceID="sdsAppraisal_Method" DataTextField="Method_Name" 
+                            DataValueField="Method_ID">
+                        </asp:DropDownList>
 					</td>
 				</tr>                
 				<tr>
@@ -217,7 +212,9 @@
 					CIF</td>
 					<td style="text-align:left;" class="style7">
 						<asp:TextBox ID="TxtCif" runat="server" MaxLength="9" Width="90px"></asp:TextBox>
-					&nbsp;</td>
+					&nbsp;<asp:ImageButton ID="ImgBtFindCif" runat="server" ImageUrl="~/Images/book_blue_view.png" 
+							Height="25px" Width="28px" />
+								</td>
 				</tr>
 				<tr>
 					<td style="text-align:left;" class="style8">
@@ -244,15 +241,24 @@
 				</tr>
 				<tr>
 					<td style="text-align:left;" class="style8">
-						&nbsp;</td>
+						ชื่อ-สกุลผู้ให้ประเมิน</td>
 					<td style="text-align:left;" class="style7">
 	
-						&nbsp;</td>
+						<asp:TextBox ID="TxtAppraisalName" runat="server" Width="240px" Height="21px"></asp:TextBox>
+					</td>
 				</tr>
 				<tr>
 					<td style="text-align:left;" class="style8">
-					&nbsp;
-					</td>
+					    AID</td>
+					<td style="text-align:left;" class="style7">
+	
+						<asp:DropDownList ID="ddlAID" runat="server">
+                        </asp:DropDownList>
+                    </td>
+				</tr>
+				<tr>
+					<td style="text-align:left;" class="style8">
+					    &nbsp;</td>
 					<td style="text-align:left;" class="style7">
 	
 						&nbsp;</td>
@@ -324,6 +330,12 @@
 					</td>
 				</tr>
 			</table>
+					<asp:RadioButtonList ID="RadioButtonList1" runat="server" 
+						RepeatDirection="Horizontal" AutoPostBack="True">
+						<asp:ListItem Selected="True" Value="1">ประเมินใหม่</asp:ListItem>
+						<asp:ListItem Value="2">ทบทวนประเมินตาม AID</asp:ListItem>
+					    <asp:ListItem Value="ทบทวนประเมินแยก AID">ทบทวนประเมินตาม AID</asp:ListItem>
+					</asp:RadioButtonList>
 	<br />
 	
 	<table class="style31">
@@ -465,5 +477,9 @@
 	<asp:SqlDataSource ID="sdsRequest_Appraisal_List" runat="server" 
         ConnectionString="<%$ ConnectionStrings:AppraisalConn %>" 
         SelectCommand="GET_REQUEST_APPRAISAL_LIST" SelectCommandType="StoredProcedure"></asp:SqlDataSource>
+        <asp:SqlDataSource ID="sdsAppraisal_Method" runat="server" 
+            ConnectionString="<%$ ConnectionStrings:AppraisalConn %>" 
+            SelectCommand="SELECT [Method_ID], [Method_Name] FROM [Appraisal_Method]">
+        </asp:SqlDataSource>
 </asp:Content>
 

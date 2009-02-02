@@ -8,7 +8,9 @@ Partial Class Index
         If Obj_systemUser.Count > 0 Then
             Session("sUserId") = Trim(Txtusername.Text)
             Session("sPwd") = Trim(txtPassword.Text)
+            'MsgBox(Obj_systemUser.Item(0).Emp_Id)
             Session("sEmpId") = Obj_systemUser.Item(0).Emp_Id
+            'MsgBox(Session("sEmpId"))
             Session("sHub_Id") = Obj_systemUser.Item(0).Hub_Id
             Session("sGroup_Id") = Obj_systemUser.Item(0).SGroup_Id
             Response.Redirect("Default.aspx")
