@@ -41,6 +41,8 @@
           <s:element minOccurs="1" maxOccurs="1" name="Busi_Type" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="Busi_Name" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="departName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="cus_first" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="cus_last" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="MSb">
