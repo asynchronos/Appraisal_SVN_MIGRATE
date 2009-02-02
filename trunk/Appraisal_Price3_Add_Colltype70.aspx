@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="" Language="VB" MasterPageFile="~/MasterPage.master" AutoEventWireup="false" CodeFile="Appraisal_Price3_Add_Colltype70.aspx.vb" Inherits="Appraisal_Price3_Add_Colltype70" %>
-
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <%@ Register assembly="Mytextbox" namespace="Mytextbox" tagprefix="cc1" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
@@ -116,6 +116,8 @@ function wopen(url, name, w, h) {
         </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+    <asp:ScriptManager ID="ScriptManager1" runat="server">
+    </asp:ScriptManager>
 <br />
 <br />
               <table width="100%" 
@@ -149,8 +151,12 @@ function wopen(url, name, w, h) {
                 <asp:Label ID="lblHub_Id" runat="server" style="font-weight: 700"></asp:Label>
             </td>
             <td class="style17">
-                </td>
+                วันที่ประเมิน</td>
             <td class="style17">
+               <asp:TextBox ID="txtReceive_Date" runat="server" Width="112px"></asp:TextBox>
+               <ajaxToolkit:CalendarExtender
+                    ID="CalendarExtender1" runat="server" Enabled="True" Format="dd/MM/yyyy" TargetControlID="txtReceive_Date">
+                    </ajaxToolkit:CalendarExtender>
             </td>
         </tr>                  
               <tr>

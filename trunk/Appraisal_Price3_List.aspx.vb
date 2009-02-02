@@ -179,16 +179,28 @@ Partial Class Appraisal_Price3_List
         Dim lblCollType_Id As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblColltype"), Label)
         Dim Hid_ID As HiddenField = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("H_ID"), HiddenField)
         Dim lblColl_type As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblColltype"), Label)
+        'Dim lblMethodNo As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).Parent.Parent.Parent.FindControl("lblMethodNo"), Label)
+        'Dim lblMethodName As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).Parent.Parent.Parent.FindControl("lblMethodName"), Label)
 
+
+        Context.Items("Req_Id") = Req_Id.Text
+        Context.Items("Hub_Id") = Hub_Id.Text
+        Context.Items("Temp_AID") = lblTemp_AID.Text
+        Context.Items("ID") = Hid_ID.Value
+        Context.Items("Coll_Type") = lblColl_type.Text
+        'Context.Items("MethodNo") = lblMethodNo.Text
+        'Context.Items("MethodName") = lblMethodName.Text
+        Context.Items("SpecialAdd") = "เพิ่มกรณีปกติ"
         If lblColl_type.Text = 50 Then
-            Response.Redirect("Appraisal_Price3_Add_Colltype50.aspx?Req_id=" & Req_Id.Text & "&Hub_Id=" & Hub_Id.Text & "&Coll_Type=" & lblColl_type.Text & "&Temp_AID=" & lblTemp_AID.Text & "&ID=" & Hid_ID.Value)
+            'Response.Redirect("Appraisal_Price3_Add_Colltype50.aspx?Req_id=" & Req_Id.Text & "&Hub_Id=" & Hub_Id.Text & "&Coll_Type=" & lblColl_type.Text & "&Temp_AID=" & lblTemp_AID.Text & "&ID=" & Hid_ID.Value)
+            Server.Transfer("Appraisal_Price3_Add_Colltype50.aspx")
         ElseIf lblColl_type.Text = 70 Then
             'Response.Redirect("Appraisal_Price3_Add_Colltype70.aspx?Req_id=" & Req_Id.Text & "&Hub_Id=" & Hub_Id.Text & "&Coll_Type=" & lblColl_type.Text & "&Temp_AID=" & lblTemp_AID.Text & "&ID=" & Hid_ID.Value)
-            Context.Items("Req_Id") = Req_Id.Text
-            Context.Items("Hub_Id") = Hub_Id.Text
-            Context.Items("Temp_AID") = lblTemp_AID.Text
-            Context.Items("ID") = Hid_ID.Value
-            Context.Items("Coll_Type") = lblColl_type.Text
+            'Context.Items("Req_Id") = Req_Id.Text
+            'Context.Items("Hub_Id") = Hub_Id.Text
+            'Context.Items("Temp_AID") = lblTemp_AID.Text
+            'Context.Items("ID") = Hid_ID.Value
+            'Context.Items("Coll_Type") = lblColl_type.Text
             Server.Transfer("Appraisal_Price3_Add_Colltype70.aspx")
         ElseIf lblColl_type.Text = 15 Then
 
@@ -209,8 +221,8 @@ Partial Class Appraisal_Price3_List
         Context.Items("Hub_Id") = Hub_Id
         Context.Items("Temp_AID") = Temp_AID
         Context.Items("CollType_Id") = CollType_Id
+
         Server.Transfer("Appraisal_Price3_Conform.aspx")
-        'Response.Redirect("Appraisal_Price3_Conform.aspx?Req_Id=" & Req_Id.Text & "Hub_Id=" & Hub_Id.Text)
     End Sub
 
     Protected Sub imgaddplus_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs)
@@ -240,4 +252,5 @@ Partial Class Appraisal_Price3_List
         Dim lblHub_Id As Label = TryCast(Me.Form.FindControl("lblHub_Id"), Label)
         hhfHub_Id.Value = lblHub_Id.Text
     End Sub
+
 End Class

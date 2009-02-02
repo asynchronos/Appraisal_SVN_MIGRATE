@@ -300,7 +300,8 @@
                     </td>
 					<td style="text-align:left;" class="style7">
 	
-						&nbsp;</td>
+						<asp:TextBox ID="txtAID" runat="server"></asp:TextBox>
+                    </td>
 				</tr>
 				<tr>
 					<td style="text-align:left;" class="style8">

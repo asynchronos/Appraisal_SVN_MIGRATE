@@ -60,8 +60,10 @@
             </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+    <br />
 <br />
-<br />
+    <asp:HiddenField ID="hdfColltype" runat="server" />
+    <asp:HiddenField ID="hdfCif" runat="server" />
     <table style="background-color: #B5C7DE;" width="100%">
         <tr>
             <td class="style26">
@@ -72,11 +74,11 @@
             <td>
                 &nbsp;</td>
             <td class="style27">
-                &nbsp;</td>
+                    &nbsp;</td>
             <td class="style29">
-                &nbsp;</td>
+                    &nbsp;</td>
             <td>
-            </td>
+                    &nbsp;</td>
         </tr>     
         <tr>
             <td class="style26">
@@ -90,10 +92,31 @@
                 <asp:Label ID="lblHub_Id" runat="server" style="font-weight: 700"></asp:Label>
             </td>
             <td class="style29">
+                    <asp:DropDownList ID="ddlAID" runat="server" Visible="False">
+                    </asp:DropDownList>
+                </td>
+            <td>
+                &nbsp;</td>
+        </tr>    
+        <tr>
+            <td class="style26">
+                AID</td>
+            <td>
+                    <asp:TextBox ID="txtAID" runat="server"></asp:TextBox>
+            </td>
+            <td>
+                CID</td>
+            <td class="style27">
+                    <asp:TextBox ID="txtCID" runat="server"></asp:TextBox>
+                <asp:ImageButton ID="imSearchAID" runat="server" 
+                        ImageUrl="~/Images/find1.jpg" Height="22px" Width="22px" 
+                        ToolTip="ดูผลก่อนพิมพ์"/>
+            </td>
+            <td class="style29">
                 &nbsp;</td>
             <td>
-            </td>
-        </tr>    
+                &nbsp;</td>
+        </tr>
         <tr>
             <td class="style26">
                 ชนิดหลักประกัน</td>
@@ -359,8 +382,8 @@
         
         SelectCommand="SELECT [SubCollType_Name], [MysubColl_ID] FROM [CollType_All] WHERE ([CollType_ID] = @CollType_ID)">
         <SelectParameters>
-            <asp:QueryStringParameter Name="CollType_ID" QueryStringField="Coll_Type" 
-                Type="Int32" />
+            <asp:ControlParameter ControlID="hdfColltype" Name="CollType_ID" 
+                PropertyName="Value" Type="Int32" />
         </SelectParameters>
     </asp:SqlDataSource>
     <asp:SqlDataSource ID="SDSRoad_Detail" runat="server" ConnectionString="<%$ ConnectionStrings:AppraisalConn %>"
@@ -390,6 +413,8 @@
         SelectCommand="SELECT PROV_CODE, PROV_NAME FROM Bay01.dbo.TB_PROVINCE
 Order by prov_code">
     </asp:SqlDataSource>
+    
+    <asp:SqlDataSource ID="SqlDataSource1" runat="server"></asp:SqlDataSource>
     
 </asp:Content>
 

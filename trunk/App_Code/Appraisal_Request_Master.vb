@@ -9,6 +9,7 @@ Public Class Appraisal_Request_Master
     Private _Name As String
     Private _Lastname As String
     Private _Req_Type As Integer
+    Private _AID As String
     Private _Status_ID As Integer
     Private _Create_User As String
     Private _Create_Date As Date
@@ -21,6 +22,7 @@ Public Class Appraisal_Request_Master
      ByVal Name As String, _
      ByVal Lastname As String, _
      ByVal Req_Type As Integer, _
+     ByVal AID As String, _
      ByVal Status_ID As Integer, _
      ByVal Create_User As String, _
      ByVal Create_Date As Date)
@@ -31,6 +33,7 @@ Public Class Appraisal_Request_Master
         _Name = Name
         _Lastname = Lastname
         _Req_Type = Req_Type
+        _AID = AID
         _Status_ID = Status_ID
         _Create_User = Create_User
         _Create_Date = Create_Date
@@ -87,6 +90,15 @@ Public Class Appraisal_Request_Master
         End Get
         Set(ByVal Value As Integer)
             _Req_Type = Value
+        End Set
+    End Property
+
+    Public Property AID() As String
+        Get
+            Return _AID
+        End Get
+        Set(ByVal Value As String)
+            _AID = Value
         End Set
     End Property
 

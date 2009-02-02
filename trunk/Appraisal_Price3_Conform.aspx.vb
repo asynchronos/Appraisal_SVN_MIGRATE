@@ -23,9 +23,16 @@ Partial Class Appraisal_Price3_Conform
 
             End Try
 
-
-
         End If
+        Dim s1 As String = Nothing
+        Dim CollType As String = "050"
+
+        s1 += "window.open('CollDetail_Edit_Position.aspx"
+        s1 += "?Req_Id=" & HiddenField1.Value
+        s1 += "&Hub_Id=" & HiddenField2.Value
+        btnEditPosition.Attributes.Add("onclick", s1 & "','pop', 'width=820, height=680');")
+        'txtAID.Attributes.Add("onfocus", "this.blur();")  ' set textbox to readonly 
+        'txtCID.Attributes.Add("onfocus", "this.blur();")  ' set textbox to readonly 
     End Sub
 
     Private Sub Show_Price3_Master()
@@ -49,12 +56,8 @@ Partial Class Appraisal_Price3_Conform
     End Sub
 
     Private Sub Show_Price3_50()
-        Dim Obj_GetP50 As List(Of Price3_50) = GET_PRICE3_CONFORM(Context.Items("Req_Id").Text, Context.Items("Hub_Id").Text, Context.Items("Temp_AID").Text)
+        Dim Obj_GetP50 As List(Of Price3_50) = GET_PRICE3_CONFORM(HiddenField1.Value, HiddenField2.Value, HiddenField3.Value)
         If Obj_GetP50.Count > 0 Then
-            'lblId.Text = Obj_GetP50.Item(0).Id
-            'lblReq_Id.Text = Obj_GetP50.Item(0).Req_Id
-            'lblHub_Id.Text = Obj_GetP50.Item(0).Hub_Id
-            'DDLSubCollType.SelectedValue = Obj_GetP50.Item(0).MysubColl_ID
             lblChanode_No.Text = Obj_GetP50.Item(0).Address_No
             lblRai.Text = Obj_GetP50.Item(0).Rai
             lblNgan.Text = Obj_GetP50.Item(0).Ngan
@@ -65,9 +68,9 @@ Partial Class Appraisal_Price3_Conform
             lblMeter_Access.Text = Obj_GetP50.Item(0).Road_Access
             lblTumbon.Text = Obj_GetP50.Item(0).Tumbon
             lblAmphur.Text = Obj_GetP50.Item(0).Amphur
-            Dim Obj_Provinceas As List(Of Cls_PROVINCE) = GET_PROVINCE_INFO(Obj_GetP50.Item(0).Land_State)
+            Dim Obj_Provinceas As List(Of Cls_PROVINCE) = GET_PROVINCE_INFO(Obj_GetP50.Item(0).Province)
             lblProvince.Text = Obj_Provinceas.Item(0).PROV_NAME
-            Dim Obj_Land_State As List(Of Cls_LandState) = GET_LANDSTATE_INFO(Obj_GetP50.Item(0).Province)
+            Dim Obj_Land_State As List(Of Cls_LandState) = GET_LANDSTATE_INFO(Obj_GetP50.Item(0).Land_State)
             lblLandState.Text = Obj_Land_State.Item(0).Land_State_Name
             lblLandStateDetail.Text = Obj_GetP50.Item(0).Land_State_Detail
             Dim Obj_Road_Forntoff As List(Of Cls_RoadFrontOff) = GET_ROADFRONTOFF_INFO(Obj_GetP50.Item(0).Road_Frontoff)
@@ -108,6 +111,8 @@ Partial Class Appraisal_Price3_Conform
             lblItem.Text = Obj_GetP70G.Tables(0).Rows(0).Item("Item").ToString()
             lblBuildingPrice.Text = Format(CDec(Obj_GetP70G.Tables(0).Rows(0).Item("Buildingprice").ToString), "#,##0.00")
         Else
+            lblTotal2.Text = "0.00"
+            lblBuildingPrice.Text = "0.00"
         End If
 
 
@@ -174,7 +179,7 @@ Partial Class Appraisal_Price3_Conform
             Lat = Obj_GetP1Master.Item(0).Lat
             Lng = Obj_GetP1Master.Item(0).Lng
             AddPRICE3_Master(HiddenField1.Value, _
-                             txtAID.Text, _
+                             AID, _
                              HiddenField3.Value, _
                              txtInform_To.Text, _
                              cif, _
@@ -201,4 +206,5 @@ Partial Class Appraisal_Price3_Conform
             Page.ClientScript.RegisterStartupScript(Me.GetType, "ผิดพลาด", s)
         End If
     End Sub
+
 End Class

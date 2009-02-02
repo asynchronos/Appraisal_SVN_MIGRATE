@@ -8,6 +8,8 @@ Public Class PRICE2_70
     Private _ID As Integer
     Private _Req_Id As Integer
     Private _Hub_Id As Integer
+    Private _AID As String
+    Private _CID As String
     Private _Temp_AID As Integer
     Private _MysubColl_ID As Integer
     Private _Build_No As String
@@ -36,6 +38,8 @@ Public Class PRICE2_70
      ByVal ID As Integer, _
      ByVal Req_Id As Integer, _
      ByVal Hub_Id As Integer, _
+     ByVal AID As String, _
+     ByVal CID As String, _
      ByVal Temp_AID As Integer, _
      ByVal MysubColl_ID As Integer, _
      ByVal Build_No As String, _
@@ -62,6 +66,8 @@ Public Class PRICE2_70
         _ID = ID
         _Req_Id = Req_Id
         _Hub_Id = Hub_Id
+        _AID = AID
+        _CID = CID
         _Temp_AID = Temp_AID
         _MysubColl_ID = MysubColl_ID
         _Build_No = Build_No
@@ -110,6 +116,24 @@ Public Class PRICE2_70
         End Get
         Set(ByVal Value As Integer)
             _Hub_Id = Value
+        End Set
+    End Property
+
+    Public Property AID() As String
+        Get
+            Return _AID
+        End Get
+        Set(ByVal Value As String)
+            _AID = Value
+        End Set
+    End Property
+
+    Public Property CID() As String
+        Get
+            Return _CID
+        End Get
+        Set(ByVal Value As String)
+            _CID = Value
         End Set
     End Property
 

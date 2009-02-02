@@ -16,7 +16,4 @@ Partial Class Appraisal_Price2_Add_By_Colltype18
         End If
     End Sub
 
-    Protected Sub ImageSave_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs) Handles ImageSave.Click
-
-    End Sub
 End Class

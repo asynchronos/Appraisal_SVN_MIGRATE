@@ -88,11 +88,19 @@ Partial Class Appraisal_Price2_Group
         Dim Cif As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblCif"), Label)
         Dim CollType As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblCollType"), Label)
 
+        Context.Items("Id") = Id.Text
+        Context.Items("Req_Id") = Req_Id.Text
+        Context.Items("Hub_Id") = Hub_Id.Text
+        Context.Items("Coll_Type") = CollType.Text
+        Context.Items("AID") = ""
+        Context.Items("Cif") = Cif.Text
+
         If Temp_AID.Text = String.Empty Or Temp_AID.Text = "0" Then
             If CollType.Text = 50 Then
-                Response.Redirect("Appraisal_Price2_Add_By_Colltype.aspx?Req_id=" & Req_Id.Text & "&Hub_Id=" & Hub_Id.Text & "&Coll_Type=" & CollType.Text & "&Id=" & Id.Text)
+                Server.Transfer("Appraisal_Price2_Add_By_Colltype.aspx")
+                'Response.Redirect("Appraisal_Price2_Add_By_Colltype.aspx?Req_id=" & Req_Id.Text & "&Hub_Id=" & Hub_Id.Text & "&Coll_Type=" & CollType.Text & "&Id=" & Id.Text & "&Cif=" & Cif.Text)
             ElseIf CollType.Text = 70 Then
-                Response.Redirect("Appraisal_Price2_Add_By_Colltype70.aspx?Req_id=" & Req_Id.Text & "&Hub_Id=" & Hub_Id.Text & "&Coll_Type=" & CollType.Text & "&Id=" & Id.Text)
+                Response.Redirect("Appraisal_Price2_Add_By_Colltype70.aspx?Req_id=" & Req_Id.Text & "&Hub_Id=" & Hub_Id.Text & "&Coll_Type=" & CollType.Text & "&Id=" & Id.Text & "&Cif=" & Cif.Text)
             ElseIf CollType.Text = 15 Then
             ElseIf CollType.Text = 18 Then
             End If

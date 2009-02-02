@@ -3,11 +3,21 @@ Imports System.IO
 Imports System.Collections.Generic
 Imports System.Xml
 Imports System.Xml.Serialization
+Imports Appraisal_Manager
 
 Partial Class Price3DB
     Inherits System.Web.UI.Page
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+
+
+        'If Not Page.IsPostBack Then
+        'Dim a, b As Integer
+        'a = Request.QueryString("Req_Id")
+        'b = Request.QueryString("Hub_Id")
+        'MsgBox(a)
+        'MsgBox(b)
+        'End If
         Select Case Request("action")
             Case "1"
                 showAll()
@@ -17,6 +27,9 @@ Partial Class Price3DB
                 insertMark()
             Case "4"
                 updateMark()
+            Case "5"
+                ShowMarkByReq_Id()
+
         End Select
     End Sub
     Public Function FormatXMLToHTML(ByVal sXML As String) As String
@@ -76,6 +89,9 @@ Partial Class Price3DB
         obj.Create_User = Request("userid")
         obj.Create_Date = Now()
         dal.insertPrice1Master(obj)
+
+        'MsgBox(Request("Req_Id") & "  " & Request("Hub_Id"))
+        'UPDATE_Status_Appraisal_Request(Request("Req_Id"), Request("Hub_Id"), 5)
         'Response.Redirect("Appraisal_List_By_Hub.aspx")
     End Sub
 
@@ -84,14 +100,34 @@ Partial Class Price3DB
         Dim obj As New Price1_Master
         obj.Req_Id = Request("Req_Id")
         obj.Hub_Id = Request("Hub_Id")
-        obj.Cif = Request("Cif")
-        obj.CifName = Request("CifName")
         obj.Lat = Request("lat")
         obj.Lng = Request("lng")
-        obj.Pricewah = Request("Pricewah")
-        obj.Price = Request("Price")
+        'MsgBox(Session("sEmpId"))
+        If Session("sEmpId") Is Nothing Then
+            Session("sEmpId") = "Admin"
+        End If
         obj.Create_User = Session("sEmpId")
         obj.Create_Date = Now()
         dal.updatePrice1Master(obj)
+    End Sub
+
+    Private Sub ShowMarkByReq_Id()
+        Dim oStrW As New StringWriter()
+        Dim sXML As String
+        Dim dalmap As New GmapDAL_NEW
+        Dim lmap As New List(Of Price1_Master)
+
+        lmap = dalmap.getGmapBy_Req_ID(Request("Req_Id"), Request("Hub_Id"))
+
+        Dim oXS As XmlSerializer = New XmlSerializer(lmap.GetType)
+        oXS.Serialize(oStrW, lmap)
+        sXML = oStrW.ToString()
+        oStrW.Close()
+        Response.Clear()
+        Response.Expires = -1
+        Response.CacheControl = "no-cache"
+        Response.ContentType = "text/xml"
+        Response.Write(sXML)
+        Response.End()
     End Sub
 End Class

@@ -1,11 +1,9 @@
 ﻿<%@ Page Title="" Language="VB" MasterPageFile="~/MasterPage.master" AutoEventWireup="false" CodeFile="Appraisal_Price3_Add_Colltype50.aspx.vb" Inherits="Appraisal_Price3_Add_Colltype50" %>
-
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <%@ Register assembly="Mytextbox" namespace="Mytextbox" tagprefix="cc1" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
     <style type="text/css">
-
-
             .style26
         {
             width: 204px;
@@ -59,9 +57,28 @@
             </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+    <asp:ScriptManager ID="ScriptManager1" runat="server">
+    </asp:ScriptManager>
 <br />
 <br />
+    <asp:HiddenField ID="hdfColl_Type" runat="server" />
     <table style="background-color: #B5C7DE;" width="100%">
+        <tr>
+            <td class="style26">
+                รายละเอียดการเพิ่ม</td>
+            <td>
+                <asp:Label ID="lblMethodDesc" runat="server" 
+                    style="font-weight: 700; color: #FF0000;"></asp:Label>
+            </td>
+            <td>
+                &nbsp;</td>
+            <td class="style27">
+                &nbsp;</td>
+            <td class="style29">
+                &nbsp;</td>
+            <td>
+                &nbsp;</td>
+        </tr>
         <tr>
             <td class="style26">
                 เลขลำดับ</td>
@@ -443,9 +460,13 @@
                 </asp:DropDownList>
             </td>
             <td>
-            </td>
+                วันที่ประเมิน</td>
             <td>
-                &nbsp;</td>
+            <asp:TextBox ID="txtReceive_Date" runat="server" Width="112px"></asp:TextBox>
+               <ajaxToolkit:CalendarExtender
+                    ID="CalendarExtender1" runat="server" Enabled="True" Format="dd/MM/yyyy" TargetControlID="txtReceive_Date">
+                    </ajaxToolkit:CalendarExtender>            
+            </td>
             <td>
             </td>
             <td>
@@ -475,11 +496,11 @@
     </asp:SqlDataSource>
     <asp:SqlDataSource ID="sdsSubCollType" runat="server" ConnectionString="<%$ ConnectionStrings:AppraisalConn %>"
         
-        SelectCommand="SELECT [SubCollType_Name], [MysubColl_ID] FROM [CollType_All] WHERE ([CollType_ID] = @CollType_ID)">
-        <SelectParameters>
+        SelectCommand="SELECT [SubCollType_Name], [MysubColl_ID] FROM [CollType_All]">
+<%--        <SelectParameters>
             <asp:QueryStringParameter Name="CollType_ID" QueryStringField="Coll_Type" 
                 Type="Int32" />
-        </SelectParameters>
+        </SelectParameters>--%>
     </asp:SqlDataSource>
     <asp:SqlDataSource ID="SDSRoad_Detail" runat="server" ConnectionString="<%$ ConnectionStrings:AppraisalConn %>"
         SelectCommand="SELECT [Road_Detail_ID], [Road_Detail_Name] FROM [Road_Detail]">

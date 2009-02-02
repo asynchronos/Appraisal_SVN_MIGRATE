@@ -56,6 +56,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 <br />
 <br />
+    <asp:HiddenField ID="hdfCif" runat="server" />
               <table width="100%" style="background-color: #B5C7DE;">
         <tr>
             <td class="style17">
@@ -98,15 +99,19 @@
                     </td>
               </tr>
               <tr>
-                <td>ปลูกสร้างบนโฉนดเลขที่</td>
+                <td>AID</td>
                     <td>
-                    <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="txtAID" runat="server"></asp:TextBox>
                     </td>
-                    <td>&nbsp;</td>
+                    <td>CID</td>
                     <td>
-                        &nbsp;</td>
+                    <asp:TextBox ID="txtCID" runat="server"></asp:TextBox>
+                <asp:ImageButton ID="imSearchAID" runat="server" 
+                        ImageUrl="~/Images/find1.jpg" Height="22px" Width="22px" 
+                        ToolTip="ดูผลก่อนพิมพ์"/>
+                  </td>
                   <td>&nbsp;</td>
-                  <td></td>
+                  <td>&nbsp;</td>
               </tr>              
             <tr>
                 <td class="style11">
