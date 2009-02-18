@@ -109,8 +109,13 @@ Partial Class Appraisal_GetData_DWS
                 lblArea.Text = rdr("Area") & "ตรม."
             End If
 
+            If Not IsDBNull(rdr("Road")) Then
+                lblRoad.Text = rdr("Road")
+            Else
+                lblRoad.Text = ""
+            End If
 
-            lblRoad.Text = rdr("Road")
+            'lblRoad.Text = rdr("Road")
             lblDistrict.Text = rdr("District")
             lblAmphur.Text = rdr("Amphur")
             lblProvince_Code.Text = rdr("Province")
@@ -263,7 +268,12 @@ Partial Class Appraisal_GetData_DWS
                 Rai = Ds.Tables(0).Rows(0).Item("Area_Rai")
                 Ngan = Ds.Tables(0).Rows(0).Item("Area_Ngan")
                 Wah = Ds.Tables(0).Rows(0).Item("Area_Wah")
-                Road = Ds.Tables(0).Rows(0).Item("Road")
+                If Not IsDBNull(Ds.Tables(0).Rows(0).Item("Road")) Then
+                    Road = Ds.Tables(0).Rows(0).Item("Road")
+                Else
+                    Road = ""
+                End If
+                'Road = Ds.Tables(0).Rows(0).Item("Road")
                 If Not IsDBNull(Ds.Tables(0).Rows(0).Item("Collateral_Reg_No_3")) Then
                     Floors = Ds.Tables(0).Rows(0).Item("Collateral_Reg_No_3")
                 Else
@@ -385,4 +395,5 @@ Partial Class Appraisal_GetData_DWS
 
         'End If
     End Function
+
 End Class

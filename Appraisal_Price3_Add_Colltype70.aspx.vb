@@ -114,7 +114,7 @@ Partial Class Appraisal_Price3_Add_Colltype70
                 txtBuildingPrice.Text, txtBuildingAge.Text, txtBuildingPersent1.Text, txtBuildingPersent2.Text, txtBuildingPersent3.Text, _
                 txtBuildingPriceTotalDeteriorate.Text, txtBuildAddArea.Text, txtBuildAddUnitPrice.Text, txtBuildAddPrice.Text, _
                 txtBuildAddAge.Text, txtBuildAddPersent1.Text, txtBuildAddPersent2.Text, txtBuildAddPersent3.Text, txtBuildAddPriceTotalDeteriorate.Text, _
-                txtBuildingDetail.Text, lbluserid.Text, Now())
+                txtBuildingDetail.Text, ddlInteriorState.SelectedValue, lbluserid.Text, Now())
         Response.Redirect("Appraisal_Price3_List.aspx")
     End Sub
 
@@ -134,5 +134,13 @@ Partial Class Appraisal_Price3_Add_Colltype70
         Context.Items("Hub_Id") = lblHub_Id.Text
         Context.Items("Temp_AID") = lblTemp_AID.Text
         Server.Transfer("Appraisal_Price3_Print_CollType70.aspx")
+    End Sub
+
+    Protected Sub btnAdPartake_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnAdPartake.Click
+        Context.Items("Id") = lblId.Text
+        Context.Items("Temp_AID") = lblTemp_AID.Text
+        Context.Items("Req_Id") = lblReq_Id.Text
+        Context.Items("Hub_Id") = lblHub_Id.Text
+        Server.Transfer("Appraisal_Price3_70_Partake.aspx")
     End Sub
 End Class

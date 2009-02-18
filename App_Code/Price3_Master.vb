@@ -10,7 +10,7 @@ Imports System.Xml.Serialization
 Public Class Price3_Master
     Private Const CLSNAME As String = "Class Price3_Master"
     Private vReq_Id As Integer
-    Private vAID As Integer
+    Private vAID As String
     Private vTemp_AID As Integer
     Private vInform_To As String
     Private vCif As Integer
@@ -44,11 +44,11 @@ Public Class Price3_Master
     End Property
 
     <XmlElement(ElementName:="AID")> _
-    Public Property AID() As Integer
+    Public Property AID() As String
         Get
             Return vAID
         End Get
-        Set(ByVal Value As Integer)
+        Set(ByVal Value As String)
             vAID = Value
         End Set
     End Property

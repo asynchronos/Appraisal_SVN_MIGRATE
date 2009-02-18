@@ -2,6 +2,7 @@
 Imports System.Data.SqlClient
 Imports System.IO
 Imports System.Collections.Generic
+Imports Appraisal_Manager
 
 Partial Class Appraisal_Price3_List_AID
     Inherits System.Web.UI.Page
@@ -36,14 +37,14 @@ Partial Class Appraisal_Price3_List_AID
         Return gvSortDir
     End Function
 
-    Private Function ChildDataSource(ByVal strAID As Integer, ByVal strSort As String) As SqlDataSource
+    Private Function ChildDataSource(ByVal strAID As Integer, ByVal ReqId As Integer, ByVal strSort As String) As SqlDataSource
         Dim strQRY As String = ""
         Dim dsTemp As New SqlDataSource
 
         Dim conn As String = "server=172.19.54.2;Database=Appraisal;User ID=sa;Password=sa0123"
         dsTemp.ConnectionString = conn
         strQRY = "SELECT Id,Temp_AID, Req_Id, Cif, CIFNAME, Hub_Id, HUB_NAME, Temp_AID, CollType_ID, MysubColl_ID, SubCollType_Name, Address_No, Tumbon, Amphur, Province,PROV_NAME, AID" _
-                 & " FROM View_Appraisal_Price3_Review WHERE AID = " & strAID & ""
+                 & " FROM View_Appraisal_Price3_Review WHERE AID = " & strAID & " AND Req_Id = " & ReqId & ""
         dsTemp.SelectCommand = strQRY
         Return dsTemp
     End Function
@@ -77,7 +78,7 @@ Partial Class Appraisal_Price3_List_AID
         End If
 
         'Prepare the query for Child GridView by passing the Customer ID of the parent row 
-        gv.DataSource = ChildDataSource(DirectCast(e.Row.DataItem, DataRowView)("AID"), strSort)
+        gv.DataSource = ChildDataSource(DirectCast(e.Row.DataItem, DataRowView)("AID"), DirectCast(e.Row.DataItem, DataRowView)("Req_Id"), strSort)
         'gv.DataSource = GET_PRICE3_DETAIL_LIST(DirectCast(e.Row.DataItem, DataRowView)("Temp_AID").ToString())
         gv.DataBind()
 
@@ -115,7 +116,7 @@ Partial Class Appraisal_Price3_List_AID
         Dim gvTemp As GridView = DirectCast(sender, GridView)
         Dim gvRow As GridViewRow
         Dim lblcollid As Label = DirectCast(gvTemp.Rows.Item(0).FindControl("lblcoll_id"), Label)
-
+        Dim lblUserid As Label = TryCast(Me.Form.FindControl("lblUserID"), Label)
         If e.CommandName = "ViewPicture" Then
             gvUniqueID = gvTemp.UniqueID
             Response.Redirect("View_Picture_Appraisal.aspx")
@@ -128,10 +129,16 @@ Partial Class Appraisal_Price3_List_AID
                     Dim Id As Label = gvRow.FindControl("lblID")
                     Dim Temp_AID As Label = gvRow.FindControl("lblTemp_AID")
                     Dim Hub_Id As Label = gvRow.FindControl("lblHub_Id")
-                    Dim s As String = Req_Id.Text & " " & Id.Text & " " & Temp_AID.Text & " " & Hub_Id.Text
-                    MsgBox(s)
-                End If
+                    Dim CollType_Id As Label = gvRow.FindControl("lblColltype")
+                    Try
+                        'ADD_PRICE3_MASTER_REVIEW()
+                        ADD_PRICE3_REVIEW_ALL_TYPE(Id.Text, Req_Id.Text, Hub_Id.Text, Temp_AID.Text, CollType_Id.Text, lblUserid.Text)
+                    Catch ex As Exception
+                        s = "<script language=""javascript"">alert('บันทึกผิดพลาด');</script>"
+                        Page.ClientScript.RegisterStartupScript(Me.GetType, "Notice", s)
+                    End Try
 
+                End If
             Next
         End If
     End Sub
@@ -193,23 +200,15 @@ Partial Class Appraisal_Price3_List_AID
 
     Protected Sub imgPrintPreview_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs)
 
-        'Dim ImgBtAdd As ImageButton = DirectCast(sender, ImageButton)
-        'Dim Req_Id As Label = ImgBtAdd.Parent.FindControl("lblReq_Id")
-        'Dim Hub_Id As Label = ImgBtAdd.Parent.FindControl("lblHub_Id")
-        'Dim CollType_Id As Label = ImgBtAdd.Parent.FindControl("lblColltype")
-        'Dim Temp_AID As Label = ImgBtAdd.Parent.FindControl("lblTemp_AID")
-        'If Temp_AID.Text = String.Empty Then
-        '    s = "<script language=""javascript"">alert('ไม่พบข้อมูลทรัพย์การประเมินของ AID นี้บนระบบ');</script>"
-        '    Page.ClientScript.RegisterStartupScript(Me.GetType, "Notice", s)
-        'Else
-        '    Context.Items("Req_Id") = Req_Id
-        '    Context.Items("Hub_Id") = Hub_Id
-        '    Context.Items("Temp_AID") = Temp_AID
-        '    Context.Items("CollType_Id") = CollType_Id
-        '    Server.Transfer("Appraisal_Price3_Conform.aspx")
-        'End If
-
-
+        Dim ImgBtAdd As ImageButton = DirectCast(sender, ImageButton)
+        Dim Req_Id As Label = ImgBtAdd.Parent.FindControl("lblReq_Id")
+        Dim Hub_Id As Label = ImgBtAdd.Parent.FindControl("lblHub_Id")
+        Dim AID As Label = ImgBtAdd.Parent.FindControl("lblAID")
+        Dim Cif As Label = ImgBtAdd.Parent.FindControl("lblCif")
+        Context.Items("Req_Id") = Req_Id.Text
+        Context.Items("Hub_Id") = Hub_Id.Text
+        Context.Items("AID") = AID.Text
+        Context.Items("Cif") = Cif.Text
         Server.Transfer("Appraisal_Price3_Form_Review.aspx")
     End Sub
 

@@ -5,12 +5,14 @@ Public Class clsPrice3_Master
     Private Const CLSNAME As String = "Class Price3_Master"
 
     Private _Req_Id As Integer
-    Private _AID As Integer
+    Private _AID As String
     Private _Temp_AID As Integer
     Private _Inform_To As String
     Private _Cif As Integer
     Private _Lat As Double
     Private _Lng As Double
+    Private _Appraisal_Date As Date
+    Private _Receive_Date As Date
     Private _PriceWah As Decimal
     Private _TotalPrice As Decimal
     Private _Approved1 As String
@@ -24,18 +26,22 @@ Public Class clsPrice3_Master
     Private _Comment_ID As Integer
     Private _Warning_ID As Integer
     Private _Warning_Detail As String
+    Private _Req_Dept As Integer
+    Private _Appraisal_ID As String
     Private _Create_User As String
     Private _Create_Date As Date
 
 
     Public Sub New( _
      ByVal Req_Id As Integer, _
-     ByVal AID As Integer, _
+     ByVal AID As String, _
      ByVal Temp_AID As Integer, _
      ByVal Inform_To As String, _
      ByVal Cif As Integer, _
      ByVal Lat As Double, _
      ByVal Lng As Double, _
+     ByVal Appraisal_Date As Date, _
+     ByVal Receive_Date As Date, _
      ByVal PriceWah As Decimal, _
      ByVal TotalPrice As Decimal, _
      ByVal Approved1 As String, _
@@ -49,6 +55,8 @@ Public Class clsPrice3_Master
      ByVal Comment_ID As Integer, _
      ByVal Warning_ID As Integer, _
      ByVal Warning_Detail As String, _
+     ByVal Req_Dept As Integer, _
+     ByVal Appraisal_ID As String, _
      ByVal Create_User As String, _
      ByVal Create_Date As Date)
         MyBase.New()
@@ -59,6 +67,8 @@ Public Class clsPrice3_Master
         _Cif = Cif
         _Lat = Lat
         _Lng = Lng
+        _Appraisal_Date = Appraisal_Date
+        _Receive_Date = Receive_Date
         _PriceWah = PriceWah
         _TotalPrice = TotalPrice
         _Approved1 = Approved1
@@ -72,6 +82,8 @@ Public Class clsPrice3_Master
         _Comment_ID = Comment_ID
         _Warning_ID = Warning_ID
         _Warning_Detail = Warning_Detail
+        _Req_Dept = Req_Dept
+        _Appraisal_ID = Appraisal_ID
         _Create_User = Create_User
         _Create_Date = Create_Date
     End Sub
@@ -85,11 +97,11 @@ Public Class clsPrice3_Master
         End Set
     End Property
 
-    Public Property AID() As Integer
+    Public Property AID() As String
         Get
             Return _AID
         End Get
-        Set(ByVal Value As Integer)
+        Set(ByVal Value As String)
             _AID = Value
         End Set
     End Property
@@ -136,6 +148,24 @@ Public Class clsPrice3_Master
         End Get
         Set(ByVal Value As Double)
             _Lng = Value
+        End Set
+    End Property
+
+    Public Property Appraisal_Date() As Date
+        Get
+            Return _Appraisal_Date
+        End Get
+        Set(ByVal Value As Date)
+            _Appraisal_Date = Value
+        End Set
+    End Property
+
+    Public Property Receive_Date() As Date
+        Get
+            Return _Receive_Date
+        End Get
+        Set(ByVal Value As Date)
+            _Receive_Date = Value
         End Set
     End Property
 
@@ -253,6 +283,24 @@ Public Class clsPrice3_Master
         End Get
         Set(ByVal Value As String)
             _Warning_Detail = Value
+        End Set
+    End Property
+
+    Public Property Req_Dept() As Integer
+        Get
+            Return _Req_Dept
+        End Get
+        Set(ByVal Value As Integer)
+            _Req_Dept = Value
+        End Set
+    End Property
+
+    Public Property Appraisal_ID() As String
+        Get
+            Return _Appraisal_ID
+        End Get
+        Set(ByVal Value As String)
+            _Appraisal_ID = Value
         End Set
     End Property
 

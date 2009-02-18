@@ -89,4 +89,5 @@ Partial Class Appraisal_Price3_Add_Colltype70Detail
         ImageSave_Click(ImageSave, Nothing)
         Response.Redirect("Appraisal_Price3_List.aspx")
     End Sub
+
 End Class

@@ -41,6 +41,8 @@ Partial Class Appraisal_Price3_Conform
             txtAID.Text = Obj_P3M.Item(0).AID
             txtInform_To.Text = Obj_P3M.Item(0).Inform_To
             txtCif.Text = Obj_P3M.Item(0).Cif
+            txtReceive_Date.Text = Obj_P3M.Item(0).Receive_Date
+            txtAppraisal_Date.Text = Obj_P3M.Item(0).Appraisal_Date
             ChkProblem.Checked = Obj_P3M.Item(0).Env_Effect
             txtProblem_Detail.Text = Obj_P3M.Item(0).Env_Effect_Detail
             txtBuy_Sale_Comment.Text = Obj_P3M.Item(0).Appraisal_Detail
@@ -51,6 +53,12 @@ Partial Class Appraisal_Price3_Conform
             txtApprove1.Text = Obj_P3M.Item(0).Approved1
             txtApprove2.Text = Obj_P3M.Item(0).Approved2
             txtApprove3.Text = Obj_P3M.Item(0).Approved3
+            ddlUserAppraisal.SelectedValue = Obj_P3M.Item(0).Appraisal_ID
+            If Obj_P3M.Item(0).Req_Dept <> 0 Then
+                ddlBranch.SelectedValue = Obj_P3M.Item(0).Req_Dept
+            Else
+            End If
+
         Else
         End If
     End Sub
@@ -162,6 +170,11 @@ Partial Class Appraisal_Price3_Conform
     End Sub
 
     Protected Sub ImageSave_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs) Handles ImageSave.Click
+        Dim ReceiveDate As Date = CDate(txtReceive_Date.Text)
+        Dim AppraisalDate As Date = CDate(txtAppraisal_Date.Text)
+        'MsgBox("Receive Date" & myDate)
+        'MsgBox("Appraisal Date" & myDate2)
+
         Dim lbluserid As Label = TryCast(Me.Form.FindControl("lblUserID"), Label) 'หา Control จาก Master Page ที่ control ไม่อยู่ใน  ContentPlaceHolder1 ของ Master Page
         Dim s As String
         Dim cif As Integer = 0
@@ -178,6 +191,7 @@ Partial Class Appraisal_Price3_Conform
         If Obj_GetP1Master.Count > 0 Then
             Lat = Obj_GetP1Master.Item(0).Lat
             Lng = Obj_GetP1Master.Item(0).Lng
+
             AddPRICE3_Master(HiddenField1.Value, _
                              AID, _
                              HiddenField3.Value, _
@@ -185,6 +199,8 @@ Partial Class Appraisal_Price3_Conform
                              cif, _
                              Lat, _
                              Lng, _
+                             AppraisalDate, _
+                             ReceiveDate, _
                              CDec(lblPriceWah.Text), _
                              CDec(lblLandTotal.Text), _
                              txtApprove1.Text, _
@@ -198,13 +214,17 @@ Partial Class Appraisal_Price3_Conform
                              ddlComment.SelectedValue, _
                              ddlWarning.SelectedValue, _
                              txtWarning_Detail.Text, _
+                             ddlBranch.SelectedValue, _
+                             ddlUserAppraisal.SelectedValue, _
                              lbluserid.Text, _
                              Now())
             Server.Transfer("Appraisal_Price3_List.aspx")
         Else
-            s = "<script language=""javascript"">alert('ไม่มีเลขที่คำขอนี้ และ หมายเลข Hub นี้อยู่ในระบบ');</script>"
+            s = "<script language=""javascript"">alert('ไม่มีเลขที่คำขอนี้ หรือ ไม่มีการกำหนด Lat Lng อยู่ในระบบ');</script>"
             Page.ClientScript.RegisterStartupScript(Me.GetType, "ผิดพลาด", s)
         End If
+
     End Sub
+
 
 End Class
