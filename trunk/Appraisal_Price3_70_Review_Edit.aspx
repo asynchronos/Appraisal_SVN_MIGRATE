@@ -1,22 +1,19 @@
-<%@ Page Title="" Language="VB" MasterPageFile="~/MasterPage.master" AutoEventWireup="false" CodeFile="Appraisal_Price3_Add_Colltype70.aspx.vb" Inherits="Appraisal_Price3_Add_Colltype70" %>
+Ôªø<%@ Page Title="" Language="VB" MasterPageFile="~/MasterPage.master" AutoEventWireup="false" CodeFile="Appraisal_Price3_70_Review_Edit.aspx.vb" Inherits="Appraisal_Price3_70_Review_Edit" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <%@ Register assembly="Mytextbox" namespace="Mytextbox" tagprefix="cc1" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
     <style type="text/css">
 
-            .style17
-        {
-            height: 24px;
-        }
-            
 
 
         .style8
         {
+            width: 180px;
         }
         .style5
         {
+            width: 187px;
         }
         .style14
         {
@@ -41,90 +38,25 @@
             height: 15px;
             width: 193px;
         }
-            .style18
+            .style17
         {
             height: 24px;
-            width: 240px;
         }
-        .style19
-        {
-        }
-        .style20
-        {
-            height: 15px;
-            width: 240px;
-        }
-        .style21
-        {
-            height: 24px;
-            width: 211px;
-        }
-        .style22
-        {
-            width: 211px;
-        }
-        .style23
-        {
-            height: 15px;
-            width: 211px;
-        }
-        .style24
-        {
-            width: 211px;
-            color: #6600FF;
-            font-weight: bold;
-        }
-    </style>
-    
-        <script type="text/javascript">
-<!--
-var updated="";
-
-// http://www.boutell.com/newfaq/creating/windowcenter.html
-function wopen(url, name, w, h) {
-    // Fudge factors for window decoration space.
-    // In my tests these work well on all platforms & browsers.
-    w += 32;
-    h += 96;
-    wleft = (screen.width - w) / 2;
-    wtop = (screen.height - h) / 2;
-    // IE5 and other old browsers might allow a window that is
-    // partially offscreen or wider than the screen. Fix that.
-    // (Newer browsers fix this for us, but let's be thorough.)
-    if (wleft < 0) {
-        w = screen.width;
-        wleft = 0;
-    }
-    if (wtop < 0) {
-        h = screen.height;
-        wtop = 0;
-    }
-    var win = window.open(url,
-    name,
-    'width=' + w + ', height=' + h + ', ' +
-    'left=' + wleft + ', top=' + wtop + ', ' +
-    'location=no, menubar=no, modal=yes' +
-    'status=no, toolbar=no, scrollbars=no, resizable=no', 'tite=no', 'resizable=no', 'directories=no', 'status=no');
-    // Just in case width and height are ignored
-    win.resizeTo(w, h);
-    // Just in case left and top are ignored
-    win.moveTo(wleft, wtop);
-    win.focus();
-}
-
-// -->
-        </script>
+            </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <asp:ScriptManager ID="ScriptManager1" runat="server">
     </asp:ScriptManager>
+    <asp:HiddenField ID="hdfColl_Type" runat="server" />
+    <asp:HiddenField ID="hdfAID" runat="server" />
+    <asp:HiddenField ID="hdfCif" runat="server" />
 <br />
 <br />
               <table width="100%" 
         style="background-color: #B5C7DE; font-size: small;">
         <tr>
             <td class="style21">
-                ‡≈¢≈”¥—∫</td>
+                ‡πÄ‡∏•‡∏Ç‡∏•‡∏≥‡∏î‡∏±‡∏ö</td>
             <td>
                 <asp:Label ID="lblId" runat="server" style="font-weight: 700; color: #FF0000;"></asp:Label>
             </td>
@@ -141,37 +73,40 @@ function wopen(url, name, w, h) {
         </tr>             
         <tr>
             <td class="style21">
-                ‡≈¢§”¢Õª√–‡¡‘π</td>
+                ‡πÄ‡∏•‡∏Ç‡∏Ñ‡∏≥‡∏Ç‡∏≠‡∏õ‡∏£‡∏∞‡πÄ‡∏°‡∏¥‡∏ô</td>
             <td class="style17">
                 <asp:Label ID="lblReq_Id" runat="server" style="font-weight: 700"></asp:Label>
             </td>
             <td class="style17">
-                √À—  Hub</td>
+                ‡∏£‡∏´‡∏±‡∏™ Hub</td>
             <td class="style18">
                 <asp:Label ID="lblHub_Id" runat="server" style="font-weight: 700"></asp:Label>
             </td>
             <td class="style17">
-            </td>
+                ‡∏ß‡∏±‡∏ô‡∏ó‡∏µ‡πà‡∏õ‡∏£‡∏∞‡πÄ‡∏°‡∏¥‡∏ô</td>
             <td class="style17">
-
+               <asp:TextBox ID="txtReceive_Date" runat="server" Width="112px"></asp:TextBox>
+               <ajaxToolkit:CalendarExtender
+                    ID="CalendarExtender1" runat="server" Enabled="True" Format="dd/MM/yyyy" TargetControlID="txtReceive_Date">
+                    </ajaxToolkit:CalendarExtender>
             </td>
         </tr>                  
               <tr>
-                <td class="style22">™π‘¥À≈—°ª√–°—π</td>
+                <td class="style22">‡∏ä‡∏ô‡∏¥‡∏î‡∏´‡∏•‡∏±‡∏Å‡∏õ‡∏£‡∏∞‡∏Å‡∏±‡∏ô</td>
                     <td colspan="5">
                         <asp:DropDownList ID="DDLSubCollType" runat="server" 
                             DataSourceID="sdsSubCollType" DataTextField="SubCollType_Name"
                             DataValueField="MysubColl_ID">
                         </asp:DropDownList>
-                        <asp:HiddenField ID="hhhfSubCollType" runat="server" />
+                        <asp:HiddenField ID="hdfSubCollType" runat="server" />
                     </td>
               </tr>
               <tr>
-                <td class="style22">ª≈Ÿ° √È“ß∫π‚©π¥‡≈¢∑’Ë</td>
+                <td class="style22">‡∏õ‡∏•‡∏π‡∏Å‡∏™‡∏£‡πâ‡∏≤‡∏á‡∏ö‡∏ô‡πÇ‡∏â‡∏ô‡∏î‡πÄ‡∏•‡∏Ç‡∏ó‡∏µ‡πà</td>
                     <td>
                     <asp:TextBox ID="txtChanodeNo" runat="server" BackColor="#FFFF66"></asp:TextBox>
                     </td>
-                    <td>‘ ‘Ëßª≈Ÿ° √È“ß°√√¡ ‘∑∏‘Ï¢Õß</td>
+                    <td>‡∏¥‡∏™‡∏¥‡πà‡∏á‡∏õ‡∏•‡∏π‡∏Å‡∏™‡∏£‡πâ‡∏≤‡∏á‡∏Å‡∏£‡∏£‡∏°‡∏™‡∏¥‡∏ó‡∏ò‡∏¥‡πå‡∏Ç‡∏≠‡∏á</td>
                     <td class="style19">
                     <asp:TextBox ID="txtOwnership" runat="server" Width="222px" BackColor="#FFFF66"></asp:TextBox>
                     </td>
@@ -180,32 +115,32 @@ function wopen(url, name, w, h) {
               </tr>              
             <tr>
                 <td class="style22">
-                     ‘Ëßª≈Ÿ° √È“ß ∫È“π‡≈¢∑’Ë
+                    ‡∏™‡∏¥‡πà‡∏á‡∏õ‡∏•‡∏π‡∏Å‡∏™‡∏£‡πâ‡∏≤‡∏á ‡∏ö‡πâ‡∏≤‡∏ô‡πÄ‡∏•‡∏Ç‡∏ó‡∏µ‡πà
                 </td>
                 <td class="style8">
                     <asp:TextBox ID="txtBuild_No" runat="server"></asp:TextBox>
                 </td>
                 <td class="style5">
-                    µ”∫≈</td>
+                    ‡∏ï‡∏≥‡∏ö‡∏•</td>
                 <td class="style19">
                 <asp:TextBox ID="txtTumbon" runat="server"></asp:TextBox>
                 </td>
                 <td class="style14">
-                    Õ”‡¿Õ</td>
+                    ‡∏≠‡∏≥‡πÄ‡∏†‡∏≠</td>
                 <td>
                 <asp:TextBox ID="txtAmphur" runat="server"></asp:TextBox>
                 </td>
             </tr>
         <tr>
             <td class="style21">
-                ®—ßÀ«—¥</td>
+                ‡∏à‡∏±‡∏á‡∏´‡∏ß‡∏±‡∏î</td>
             <td class="style17">
                 <asp:DropDownList ID="ddlProvince" runat="server" DataSourceID="SDSProvince" 
                     DataTextField="PROV_NAME" DataValueField="PROV_CODE">
                 </asp:DropDownList>
             </td>
             <td class="style17">
-                    ≈—°…≥–Õ“§“√</td>
+                    ‡∏•‡∏±‡∏Å‡∏©‡∏ì‡∏∞‡∏≠‡∏≤‡∏Ñ‡∏≤‡∏£</td>
             <td class="style18">
                     <asp:DropDownList ID="ddlBuild_Character" runat="server" 
                         DataSourceID="SDSlBuild_Character" DataTextField="Build_Character_Name" 
@@ -213,17 +148,17 @@ function wopen(url, name, w, h) {
                     </asp:DropDownList>
             </td>
             <td class="style17">
-                    ®”π«π</td>
+                    ‡∏à‡∏≥‡∏ô‡∏ß‡∏ô</td>
             <td class="style17">
                     <cc1:mytext ID="txtFloor" runat="server" AllowUserKey="num_Numeric" 
                         Width="35px"></cc1:mytext>
-                    &nbsp;™—Èπ
+                    &nbsp;‡∏ä‡∏±‡πâ‡∏ô
                     <asp:TextBox ID="txtItem" runat="server" Width="35px">0</asp:TextBox>
-                    &nbsp;À≈—ß</td>
+                    &nbsp;‡∏´‡∏•‡∏±‡∏á</td>
         </tr>             
             <tr>
                 <td class="style23">
-                    ‚§√ß √È“ßÕ“§“√
+                    ‡πÇ‡∏Ñ‡∏£‡∏á‡∏™‡∏£‡πâ‡∏≤‡∏á‡∏≠‡∏≤‡∏Ñ‡∏≤‡∏£
                 </td>
                 <td class="style10">
                     <asp:DropDownList ID="ddlBuild_Construct" runat="server" 
@@ -232,7 +167,7 @@ function wopen(url, name, w, h) {
                     </asp:DropDownList>
                 </td>
                 <td class="style7">
-                    À≈—ß§“
+                    ‡∏´‡∏•‡∏±‡∏á‡∏Ñ‡∏≤
                 </td>
                 <td class="style20">
                     <asp:DropDownList ID="ddlRoof" runat="server" DataSourceID="SDSRoof" 
@@ -240,7 +175,7 @@ function wopen(url, name, w, h) {
                     </asp:DropDownList>
                 </td>
                 <td class="style16">
-                    √“¬≈–‡Õ’¬¥‡æ‘Ë¡‡µ‘¡(∂È“¡’)
+                    ‡∏£‡∏≤‡∏¢‡∏•‡∏∞‡πÄ‡∏≠‡∏µ‡∏¢‡∏î‡πÄ‡∏û‡∏¥‡πà‡∏°‡πÄ‡∏ï‡∏¥‡∏°(‡∏ñ‡πâ‡∏≤‡∏°‡∏µ)
                 </td>
                 <td class="style4">
                     <asp:TextBox ID="txtRoof_Detail" runat="server"></asp:TextBox>
@@ -249,7 +184,7 @@ function wopen(url, name, w, h) {
             </tr>
             <tr>
                 <td class="style22">
-                     ¿“æÕ“§“√
+                    ‡∏™‡∏†‡∏≤‡∏û‡∏≠‡∏≤‡∏Ñ‡∏≤‡∏£
                 </td>
                 <td class="style8">
                     <asp:DropDownList ID="ddlBuild_State" runat="server" 
@@ -258,20 +193,20 @@ function wopen(url, name, w, h) {
                     </asp:DropDownList>
                 </td>
                 <td class="style5">
-                    √“¬≈–‡Õ’¬¥ ¿“æÕ◊Ëπ Ê
+                    ‡∏£‡∏≤‡∏¢‡∏•‡∏∞‡πÄ‡∏≠‡∏µ‡∏¢‡∏î‡∏™‡∏†‡∏≤‡∏û‡∏≠‡∏∑‡πà‡∏ô ‡πÜ
                 </td>
                 <td class="style19">
                     <asp:TextBox ID="txtBuild_State_Detail" runat="server"></asp:TextBox>
                 </td>
                 <td class="style14">
-                     ‘Ëßª≈Ÿ° √È“ß</td>
+                    ‡∏™‡∏¥‡πà‡∏á‡∏õ‡∏•‡∏π‡∏Å‡∏™‡∏£‡πâ‡∏≤‡∏á</td>
                 <td>
                     <asp:TextBox ID="txtBuilding_Detail" runat="server"></asp:TextBox>
                 </td>
             </tr>
             <tr>
                 <td class="style22">
-                    ‚§√ß √È“ßÀ≈—ß§“</td>
+                    ‡πÇ‡∏Ñ‡∏£‡∏á‡∏™‡∏£‡πâ‡∏≤‡∏á‡∏´‡∏•‡∏±‡∏á‡∏Ñ‡∏≤</td>
                 <td class="style8">
                     <asp:DropDownList ID="ddlRoofConstructure" runat="server" 
                         DataSourceID="SDSRoofStructure" DataTextField="RoofStructure_Name" 
@@ -279,14 +214,14 @@ function wopen(url, name, w, h) {
                     </asp:DropDownList>
                 </td>
                 <td class="style5">
-                     ¿“æÀ≈—ß§“</td>
+                    ‡∏™‡∏†‡∏≤‡∏û‡∏´‡∏•‡∏±‡∏á‡∏Ñ‡∏≤</td>
                 <td class="style19">
                     <asp:DropDownList ID="ddlRoofState" runat="server" DataSourceID="SDSRoof_State" 
                         DataTextField="RoofState_Name" DataValueField="RoofState_Id">
                     </asp:DropDownList>
                 </td>
                 <td class="style14">
-                     ¿“æ°“√µ°·µËß</td>
+                    ‡∏™‡∏†‡∏≤‡∏û‡∏Å‡∏≤‡∏£‡∏ï‡∏Å‡πÅ‡∏ï‡πà‡∏á</td>
                 <td>
                     <asp:DropDownList ID="ddlInteriorState" runat="server" 
                         DataSourceID="SDSInterior_State" DataTextField="InteriorState_Name" 
@@ -296,7 +231,7 @@ function wopen(url, name, w, h) {
             </tr>              
             <tr>
                 <td class="style22">
-                    ‡ªÁπ‡ß‘π
+                    ‡πÄ‡∏õ‡πá‡∏ô‡πÄ‡∏á‡∏¥‡∏ô
                 </td>
                 <td class="style8">
                     <cc1:mytext ID="txtPriceTotal1" runat="server" AllowUserKey="num_Numeric" AutoCurrencyFormatOnKeyUp="True"
@@ -315,19 +250,19 @@ function wopen(url, name, w, h) {
             </tr>
             <tr>
                 <td class="style22">
-                    &nbsp;‡Õ° “√ª√–°Õ∫‡æ‘Ë¡‡µ‘¡
+                    &nbsp;‡πÄ‡∏≠‡∏Å‡∏™‡∏≤‡∏£‡∏õ‡∏£‡∏∞‡∏Å‡∏≠‡∏ö‡πÄ‡∏û‡∏¥‡πà‡∏°‡πÄ‡∏ï‡∏¥‡∏°
                 </td>
                 <td class="style8">
-                    <asp:CheckBox ID="chkDoc1" runat="server" Text="„∫Õπÿ≠“µ‘ª≈Ÿ° √È“ß" />
+                    <asp:CheckBox ID="chkDoc1" runat="server" Text="‡πÉ‡∏ö‡∏≠‡∏ô‡∏∏‡∏ç‡∏≤‡∏ï‡∏¥‡∏õ‡∏•‡∏π‡∏Å‡∏™‡∏£‡πâ‡∏≤‡∏á" />
                 </td>
                 <td class="style5">
-                    <asp:CheckBox ID="chkDoc2" runat="server" Text="‡√◊ËÕß∑“ß¿“√®”¬Õ¡" />
+                    <asp:CheckBox ID="chkDoc2" runat="server" Text="‡πÄ‡∏£‡∏∑‡πà‡∏≠‡∏á‡∏ó‡∏≤‡∏á‡∏†‡∏≤‡∏£‡∏à‡∏≥‡∏¢‡∏≠‡∏°" />
                 </td>
                 <td class="style19">
                     &nbsp;
                 </td>
                 <td class="style14">
-                    √–∫ÿ‡Õ° “√Õ◊Ëπ
+                    ‡∏£‡∏∞‡∏ö‡∏∏‡πÄ‡∏≠‡∏Å‡∏™‡∏≤‡∏£‡∏≠‡∏∑‡πà‡∏ô
                 </td>
                 <td>
                     <asp:TextBox ID="txtDoc_Detail" runat="server"></asp:TextBox>
@@ -337,10 +272,10 @@ function wopen(url, name, w, h) {
                 <td class="style22">
                     &nbsp;</td>
                 <td class="style8">
-                    <asp:CheckBox ID="chkDetail" runat="server" Text="√“¬≈–‡Õ’¬¥‡æ‘Ë¡‡µ‘¡" />
+                    <asp:CheckBox ID="chkDetail" runat="server" Text="‡∏£‡∏≤‡∏¢‡∏•‡∏∞‡πÄ‡∏≠‡∏µ‡∏¢‡∏î‡πÄ‡∏û‡∏¥‡πà‡∏°‡πÄ‡∏ï‡∏¥‡∏°" />
                 </td>
                 <td class="style5">
-                    <asp:Button ID="btnAddDetail" runat="server" Text="√“¬≈–‡Õ’¬¥‡æ‘Ë¡‡µ‘¡" />
+                    <asp:Button ID="btnAddDetail" runat="server" Text="‡∏£‡∏≤‡∏¢‡∏•‡∏∞‡πÄ‡∏≠‡∏µ‡∏¢‡∏î‡πÄ‡∏û‡∏¥‡πà‡∏°‡πÄ‡∏ï‡∏¥‡∏°" />
                 </td>
                 <td class="style19">
                     &nbsp;</td>
@@ -351,39 +286,39 @@ function wopen(url, name, w, h) {
             </tr>              
             <tr>
                 <td class="style24">
-                    æ◊Èπ∑’Ë ‘Ëßª≈Ÿ° √È“ß∑—ÈßÀ¡¥</td>
+                    ‡∏û‡∏∑‡πâ‡∏ô‡∏ó‡∏µ‡πà‡∏™‡∏¥‡πà‡∏á‡∏õ‡∏•‡∏π‡∏Å‡∏™‡∏£‡πâ‡∏≤‡∏á‡∏ó‡∏±‡πâ‡∏á‡∏´‡∏°‡∏î</td>
                 <td class="style8">
                     <cc1:mytext ID="txtBuildingArea" runat="server" AllowUserKey="num_Numeric" 
                         EnableTextAlignRight="True" MaxLength="4" Width="35px" BackColor="#FFFF66">0</cc1:mytext>
-                    µ√¡.</td>
+                    ‡∏ï‡∏£‡∏°.</td>
                 <td class="style5">
-                    √“§“µËÕÀπË«¬</td>
+                    ‡∏£‡∏≤‡∏Ñ‡∏≤‡∏ï‡πà‡∏≠‡∏´‡∏ô‡πà‡∏ß‡∏¢</td>
                 <td class="style19">
                     <cc1:mytext ID="txtBuildingUnitPrice" runat="server" AllowUserKey="num_Numeric" 
                         EnableTextAlignRight="True" Width="110px" BackColor="#FFFF66">0.00</cc1:mytext>
-                    ∫“∑</td>
+                    ‡∏ö‡∏≤‡∏ó</td>
                 <td class="style14">
-                    ¡Ÿ≈§Ë“</td>
+                    ‡∏°‡∏π‡∏•‡∏Ñ‡πà‡∏≤</td>
                 <td>
                     <cc1:mytext ID="txtBuildingPrice" runat="server" AllowUserKey="num_Numeric" 
                         EnableTextAlignRight="True" Width="110px" BackColor="#FFFF66">0.00</cc1:mytext>
-                    ∫“∑</td>
+                    ‡∏ö‡∏≤‡∏ó</td>
             </tr>
             <tr>
                 <td class="style22">
-                    Õ“¬ÿ°“√„™Èß“π</td>
+                    ‡∏≠‡∏≤‡∏¢‡∏∏‡∏Å‡∏≤‡∏£‡πÉ‡∏ä‡πâ‡∏á‡∏≤‡∏ô</td>
                 <td class="style8">
                     <cc1:mytext ID="txtBuildingAge" runat="server" AllowUserKey="num_Numeric" 
                         EnableTextAlignRight="True" MaxLength="2" Width="35px" BackColor="#FFFF66">0</cc1:mytext>
-                    ª’</td>
+                    ‡∏õ‡∏µ</td>
                 <td class="style5">
-                                        §Ë“‡ ◊ËÕ¡µËÕª’</td>
+                                        ‡∏Ñ‡πà‡∏≤‡πÄ‡∏™‡∏∑‡πà‡∏≠‡∏°‡∏ï‡πà‡∏≠‡∏õ‡∏µ</td>
                 <td class="style19">
                     <cc1:mytext ID="txtBuildingPersent1" runat="server" AllowUserKey="num_Numeric" 
                         EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66">0</cc1:mytext>
                     %</td>
                 <td class="style14">
-                                        §Ë“‡ ◊ËÕ¡µ“¡ ¿“æª√—∫ª√ÿß</td>
+                                        ‡∏Ñ‡πà‡∏≤‡πÄ‡∏™‡∏∑‡πà‡∏≠‡∏°‡∏ï‡∏≤‡∏°‡∏™‡∏†‡∏≤‡∏û‡∏õ‡∏£‡∏±‡∏ö‡∏õ‡∏£‡∏∏‡∏á</td>
                 <td>
                     <cc1:mytext ID="txtBuildingPersent2" runat="server" AllowUserKey="num_Numeric" 
                         EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66">0</cc1:mytext>
@@ -391,59 +326,59 @@ function wopen(url, name, w, h) {
             </tr>
             <tr>
                 <td class="style22">
-                                        §Ë“‡ ◊ËÕ¡µ“¡ ¿“æ‡ ◊ËÕ¡‚∑√¡</td>
+                                        ‡∏Ñ‡πà‡∏≤‡πÄ‡∏™‡∏∑‡πà‡∏≠‡∏°‡∏ï‡∏≤‡∏°‡∏™‡∏†‡∏≤‡∏û‡πÄ‡∏™‡∏∑‡πà‡∏≠‡∏°‡πÇ‡∏ó‡∏£‡∏°</td>
                 <td class="style8">
                     <cc1:mytext ID="txtBuildingPersent3" runat="server" AllowUserKey="num_Numeric" 
                         EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66">0</cc1:mytext>
                     %</td>
                 <td class="style5">
-                    √«¡§Ë“‡ ◊ËÕ¡</td>
+                    ‡∏£‡∏ß‡∏°‡∏Ñ‡πà‡∏≤‡πÄ‡∏™‡∏∑‡πà‡∏≠‡∏°</td>
                 <td class="style19">
                     <cc1:mytext ID="txtBuildingTotalDeteriorate" runat="server" AllowUserKey="num_Numeric" 
                         EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66">0</cc1:mytext>
                     %</td>
                 <td class="style14">
-                    √«¡§Ë“‡ ◊ËÕ¡√“§“</td>
+                    ‡∏£‡∏ß‡∏°‡∏Ñ‡πà‡∏≤‡πÄ‡∏™‡∏∑‡πà‡∏≠‡∏°‡∏£‡∏≤‡∏Ñ‡∏≤</td>
                 <td>
                     <cc1:mytext ID="txtBuildingPriceTotalDeteriorate" runat="server" AllowUserKey="num_Numeric" 
                         EnableTextAlignRight="True" Width="110px" BackColor="#FFFF66">0.00</cc1:mytext>
-                    ∫“∑</td>
+                    ‡∏ö‡∏≤‡∏ó</td>
             </tr>
             <tr>
                 <td class="style24">
-                     Ë«πµËÕ‡µ‘¡</td>
+                    ‡∏™‡πà‡∏ß‡∏ô‡∏ï‡πà‡∏≠‡πÄ‡∏ï‡∏¥‡∏°</td>
                 <td class="style8">
                     <cc1:mytext ID="txtBuildAddArea" runat="server" AllowUserKey="num_Numeric" 
                         EnableTextAlignRight="True" MaxLength="4" Width="35px" BackColor="#FFFF66">0</cc1:mytext>
-                    µ√¡.</td>
+                    ‡∏ï‡∏£‡∏°.</td>
                 <td class="style5">
-                    √“§“µËÕÀπË«¬</td>
+                    ‡∏£‡∏≤‡∏Ñ‡∏≤‡∏ï‡πà‡∏≠‡∏´‡∏ô‡πà‡∏ß‡∏¢</td>
                 <td class="style19">
                     <cc1:mytext ID="txtBuildAddUnitPrice" runat="server" AllowUserKey="num_Numeric" 
                         EnableTextAlignRight="True" Width="110px" BackColor="#FFFF66">0.00</cc1:mytext>
-                    ∫“∑</td>
+                    ‡∏ö‡∏≤‡∏ó</td>
                 <td class="style14">
-                    ¡Ÿ≈§Ë“</td>
+                    ‡∏°‡∏π‡∏•‡∏Ñ‡πà‡∏≤</td>
                 <td>
                     <cc1:mytext ID="txtBuildAddPrice" runat="server" AllowUserKey="num_Numeric" 
                         EnableTextAlignRight="True" Width="110px" BackColor="#FFFF66">0.00</cc1:mytext>
-                    ∫“∑</td>
+                    ‡∏ö‡∏≤‡∏ó</td>
             </tr>
             <tr>
                 <td class="style22">
-                    Õ“¬ÿ°“√„™Èß“π</td>
+                    ‡∏≠‡∏≤‡∏¢‡∏∏‡∏Å‡∏≤‡∏£‡πÉ‡∏ä‡πâ‡∏á‡∏≤‡∏ô</td>
                 <td class="style8">
                     <cc1:mytext ID="txtBuildAddAge" runat="server" AllowUserKey="num_Numeric" 
                         EnableTextAlignRight="True" MaxLength="2" Width="35px" BackColor="#FFFF66">0</cc1:mytext>
-                    ª’</td>
+                    ‡∏õ‡∏µ</td>
                 <td class="style5">
-                                        §Ë“‡ ◊ËÕ¡µËÕª’</td>
+                                        ‡∏Ñ‡πà‡∏≤‡πÄ‡∏™‡∏∑‡πà‡∏≠‡∏°‡∏ï‡πà‡∏≠‡∏õ‡∏µ</td>
                 <td class="style19">
                     <cc1:mytext ID="txtBuildAddPersent1" runat="server" AllowUserKey="num_Numeric" 
                         EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66">0</cc1:mytext>
                     %</td>
                 <td class="style14">
-                    §Ë“‡ ◊ËÕ¡µ“¡ ¿“æª√—∫ª√ÿß 
+                    ‡∏Ñ‡πà‡∏≤‡πÄ‡∏™‡∏∑‡πà‡∏≠‡∏°‡∏ï‡∏≤‡∏°‡∏™‡∏†‡∏≤‡∏û‡∏õ‡∏£‡∏±‡∏ö‡∏õ‡∏£‡∏∏‡∏á 
                 </td>
                 <td>
                     <cc1:mytext ID="txtBuildAddPersent2" runat="server" AllowUserKey="num_Numeric" 
@@ -452,29 +387,29 @@ function wopen(url, name, w, h) {
             </tr>
             <tr>
                 <td class="style22">
-                                        §Ë“‡ ◊ËÕ¡µ“¡ ¿“æ‡ ◊ËÕ¡‚∑√¡</td>
+                                        ‡∏Ñ‡πà‡∏≤‡πÄ‡∏™‡∏∑‡πà‡∏≠‡∏°‡∏ï‡∏≤‡∏°‡∏™‡∏†‡∏≤‡∏û‡πÄ‡∏™‡∏∑‡πà‡∏≠‡∏°‡πÇ‡∏ó‡∏£‡∏°</td>
                 <td class="style8">
                     <cc1:mytext ID="txtBuildAddPersent3" runat="server" AllowUserKey="num_Numeric" 
                         EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66">0</cc1:mytext>
                     %</td>
                 <td class="style5">
-                                        √«¡§Ë“‡ ◊ËÕ¡</td>
+                                        ‡∏£‡∏ß‡∏°‡∏Ñ‡πà‡∏≤‡πÄ‡∏™‡∏∑‡πà‡∏≠‡∏°</td>
                 <td class="style19">
                     <cc1:mytext ID="txtBuildAddTotalDeteriorate" runat="server" AllowUserKey="num_Numeric" 
                         EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66">0</cc1:mytext>
                     %</td>
                 <td class="style14">
-                    √«¡§Ë“‡ ◊ËÕ¡√“§“</td>
+                    ‡∏£‡∏ß‡∏°‡∏Ñ‡πà‡∏≤‡πÄ‡∏™‡∏∑‡πà‡∏≠‡∏°‡∏£‡∏≤‡∏Ñ‡∏≤</td>
                 <td>
                     <cc1:mytext ID="txtBuildAddPriceTotalDeteriorate" runat="server" AllowUserKey="num_Numeric" 
                         EnableTextAlignRight="True" Width="110px" BackColor="#FFFF66">0.00</cc1:mytext>
-                    ∫“∑</td>
+                    ‡∏ö‡∏≤‡∏ó</td>
             </tr>
             <tr>
                 <td class="style22">
                                         &nbsp;</td>
                 <td class="style8">
-                    <asp:Button ID="btnAdPartake" runat="server" Text="‡æ‘Ë¡ Ë«π§«∫" />
+                    <asp:Button ID="btnAddPartTake" runat="server" Text="‡πÄ‡∏û‡∏¥‡πà‡∏°‡∏™‡πà‡∏ß‡∏ô‡∏Ñ‡∏ß‡∏ö" />
                 </td>
                 <td class="style5">
                                         &nbsp;</td>
@@ -487,7 +422,7 @@ function wopen(url, name, w, h) {
             </tr>
             <tr>
                 <td class="style22">
-                    √“¬≈–‡Õ’¬¥&nbsp;</td>
+                    ‡∏£‡∏≤‡∏¢‡∏•‡∏∞‡πÄ‡∏≠‡∏µ‡∏¢‡∏î&nbsp;</td>
                 <td class="style8" colspan="5">
                     <asp:TextBox ID="txtBuildingDetail" runat="server" Height="70px" 
                         TextMode="MultiLine" Width="600px" BackColor="#FFFF66"></asp:TextBox>
@@ -508,7 +443,13 @@ function wopen(url, name, w, h) {
                                 </td>
                                 <td>
                                     Print
-                                    Preview                                 </td>                                
+                                    Preview                                 </td>     
+                                                        <td>
+                            <asp:ImageButton ID="ImgBtnClose" runat="server" ImageUrl="~/Images/Cancel1.jpg" Width="35px" Height="35px" />
+                        </td>
+                        <td>
+                            CLOSE
+                        </td>                                
                             </tr>
                         </table>
                     </td>
@@ -518,7 +459,7 @@ function wopen(url, name, w, h) {
         
         SelectCommand="SELECT [SubCollType_Name], [MysubColl_ID] FROM [CollType_All] WHERE ([CollType_ID] = @CollType_ID)">
         <SelectParameters>
-            <asp:ControlParameter ControlID="hhhfSubCollType" Name="CollType_ID" 
+            <asp:ControlParameter ControlID="hdfColl_Type" Name="CollType_ID" 
                 PropertyName="Value" Type="Int32" />
         </SelectParameters>
     </asp:SqlDataSource>
@@ -556,6 +497,5 @@ Order by prov_code">
         
         SelectCommand="SELECT [InteriorState_Id], [InteriorState_Name] FROM [Interior_State]">
     </asp:SqlDataSource>
-    
-    </asp:Content>
+</asp:Content>
 

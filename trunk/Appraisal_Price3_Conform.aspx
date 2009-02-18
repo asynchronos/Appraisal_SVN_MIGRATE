@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="" Language="VB" MasterPageFile="~/MasterPage.master" AutoEventWireup="false"
-    CodeFile="Appraisal_Price3_Conform.aspx.vb" Inherits="Appraisal_Price3_Conform" %>
+    CodeFile="Appraisal_Price3_Conform.aspx.vb" Inherits="Appraisal_Price3_Conform" UICulture="th-TH" Culture="th-TH" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <%@ Register Assembly="Mytextbox" Namespace="Mytextbox" TagPrefix="cc1" %>
@@ -64,9 +64,56 @@
             display:none;
         }
     </style>
+    <style type="text/css">
+        .style1
+        {
+            width: 39px;
+        }
+        .style2
+        {
+            width: 473px;
+        }
+        .style3
+        {
+            width: 62px;
+        }
+        .style4
+        {
+            width: 75px;
+        }
+        .style5
+        {
+            width: 80px;
+        }
+        .style6
+        {
+            width: 84px;
+        }
+        .style7
+        {
+            width: 89px;
+        }
+        .style8
+        {
+            width: 92px;
+        }
+        .style9
+        {
+            width: 214px;
+        }
+        .style10
+        {
+            width: 103px;
+        }
+        .style11
+        {
+            width: 319px;
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    <asp:ScriptManager ID="ScriptManager1" runat="server">
+    <asp:ScriptManager ID="ScriptManager1" runat="server" 
+        EnableScriptGlobalization="True">
     </asp:ScriptManager>
     <br />
     <br />
@@ -95,25 +142,53 @@
             </td>
             <td class="style13">
                 <asp:Label ID="Label2" runat="server" Text="Cif"></asp:Label>
+                &nbsp;<asp:TextBox ID="txtCif" runat="server" Width="100px"></asp:TextBox>
             </td>
             <td class="style9">
-                <asp:TextBox ID="txtCif" runat="server"></asp:TextBox>
-            </td>
-            <td class="style10">
                 <asp:Label ID="Label4" runat="server" Text="วันที่รับเรื่อง"></asp:Label>
-            </td>
-            <td>
-                <asp:TextBox ID="txtReceive_Date" runat="server" Width="112px"></asp:TextBox><ajaxToolkit:CalendarExtender
+                <span style="color: Red">
+                <asp:TextBox ID="txtReceive_Date" runat="server" Width="100px"></asp:TextBox><ajaxToolkit:CalendarExtender
                     ID="CalendarExtender1" runat="server" Enabled="True" Format="dd/MM/yyyy" TargetControlID="txtReceive_Date">
+                </ajaxToolkit:CalendarExtender>
+                *</span></td>
+            <td class="style10">
+
+                <asp:Label ID="Label79" runat="server" Text="วันที่ประเมิน"></asp:Label>
+
+                </td>
+            <td>
+                <asp:TextBox ID="txtAppraisal_Date" runat="server" Width="100px"></asp:TextBox>
+                <ajaxToolkit:CalendarExtender
+                    ID="CalendarExtender3" runat="server" Enabled="True" Format="dd/MM/yyyy" TargetControlID="txtAppraisal_Date">
                 </ajaxToolkit:CalendarExtender>
                 <span style="color: Red">*</span>
             </td>
         </tr>
         <tr>
             <td class="style17">
+    <asp:Label ID="Label80" runat="server" Text="สาขา/ฝ่ายงาน"></asp:Label>
+    
+            </td>
+            <td class="style16">
+                <asp:DropDownList ID="ddlBranch" runat="server" DataSourceID="sdsBranch" 
+                    DataTextField="BRANCH_T" DataValueField="ID_BRANCH" style="margin-left: 0px">
+                </asp:DropDownList>
+            </td>
+            <td class="style13">
+                &nbsp;</td>
+            <td class="style9">
+                &nbsp;</td>
+            <td class="style10">
+
+                &nbsp;</td>
+            <td>
+                &nbsp;</td>
+        </tr>
+        <tr>
+            <td class="style17">
                 <asp:Label ID="Label5" runat="server" Font-Bold="True" Text="หลักประกันที่ดิน"></asp:Label>
             </td>
-            <td class="style16" class="NotshowOnPrint">
+            <td class="style16">
                 <asp:Button ID="btnEditPosition" runat="server" Text="แก้ไขพิกัด" />
             </td>
         </tr>
@@ -414,7 +489,7 @@
     </table>
     <table width="100%">
         <tr>
-            <td class="style1">
+            <td class="style11">
                 <asp:Label ID="Label52" runat="server" Font-Bold="True" Text="วิธีการประเมินราคา"></asp:Label>
             </td>
             <td class="style3">
@@ -433,7 +508,7 @@
                 &nbsp;</td>
         </tr>
         <tr>
-            <td class="style1">
+            <td class="style11">
                 <asp:Label ID="Label53" runat="server" Text="ที่ดิน เนื้อที่"></asp:Label>
             </td>
             <td class="style3">
@@ -453,7 +528,7 @@
             </td>
         </tr>
         <tr>
-            <td class="style1">
+            <td class="style11">
                 <asp:Label ID="Label56" runat="server" Text="สิ่งปลูกสร้าง"></asp:Label>
             </td>
             <td class="style3">
@@ -472,7 +547,7 @@
             </td>
         </tr>
         <tr>
-            <td class="style1">
+            <td class="style11">
                 <asp:Label ID="Label48" runat="server" Text="ที่ดินพร้อมสิ่งปลูกสร้าง"></asp:Label>
             </td>
             <td class="style3">
@@ -491,7 +566,7 @@
             </td>
         </tr>
         <tr>
-            <td class="style1">
+            <td class="style11">
             </td>
             <td class="style3">
             </td>
@@ -529,14 +604,14 @@
             </td>
         </tr>
     </table>
-    <table>
+    <table width="100%">
         <tr>
             <td valign="top">
                 <asp:TextBox ID="txtWarning_Detail" runat="server" Height="50px" TextMode="MultiLine"
                     Width="400px" BackColor="#FFFF66"></asp:TextBox>
             </td>
-            <td>
-                <table class="style2">
+            <td align="right">
+                <table class="style2" width="100%">
                     <tr>
                         <td class="style8">
                             &#160;&#160;
@@ -574,7 +649,9 @@
                             &#160;&#160;
                         </td>
                         <td class="style4" align="center">
-                            <asp:Label ID="lblAppraisalName" runat="server" Width="200px"></asp:Label>
+                    <asp:DropDownList ID="ddlUserAppraisal" runat="server" DataSourceID="SDSUserAppraisal"
+                        DataTextField="UserAppraisal" DataValueField="Emp_id" Width="200px">
+                    </asp:DropDownList>
                         </td>
                         <td>
                         </td>
@@ -602,7 +679,7 @@
         </tr>
         <tr>
             <td colspan="2">
-                <table class="style2">
+                <table width="100%">
                     <tr>
                         <td>
                             <asp:Label ID="Label70" runat="server" Text="1.)"></asp:Label>
@@ -621,6 +698,7 @@
                         </td>
                         <td>
                             &#160;&#160;
+                            <asp:Label ID="lblAppraisalName" runat="server" Width="200px"></asp:Label>
                         </td>
                     </tr>
                     <tr>
@@ -727,9 +805,9 @@
                         <td>
                             <asp:ImageButton ID="ImageSave" runat="server" ImageUrl="~/Images/Save.jpg" Width="35px" Height="35px"/>
                         </td>
-                        <td>
+                        <td class="style1">
                             SAVE
-                        </td>
+                            </td>
                     </tr>
                </table>
     <asp:SqlDataSource ID="SDSWarning" runat="server" ConnectionString="<%$ ConnectionStrings:AppraisalConn %>"
@@ -743,4 +821,13 @@
     <asp:HiddenField ID="HiddenField1" runat="server" />
     <asp:HiddenField ID="HiddenField2" runat="server" />
     <asp:HiddenField ID="HiddenField3" runat="server" />   
+    
+    <asp:SqlDataSource ID="sdsBranch" runat="server" 
+        ConnectionString="<%$ ConnectionStrings:AppraisalConn %>" 
+        SelectCommand="GET_BRANCH" SelectCommandType="StoredProcedure"></asp:SqlDataSource>
+    
+    <asp:SqlDataSource ID="SDSUserAppraisal" runat="server" ConnectionString="<%$ ConnectionStrings:AppraisalConn %>"
+        SelectCommand="SELECT Emp_id, Title + Name + '  ' + Lastname AS UserAppraisal FROM Tb_UserAppraisal">
+    </asp:SqlDataSource>
+        
 </asp:Content>

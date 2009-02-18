@@ -1,7 +1,7 @@
 ﻿Imports Microsoft.VisualBasic
 
-Public Class Price3_70
-    Private Const CLSNAME As String = "Class PRICE3_70"
+Public Class Price3_70_Review
+    Private Const CLSNAME As String = "Class PRICE3_70_REVIEW"
     Private _ID As Integer
     Private _Req_Id As Integer
     Private _Hub_Id As Integer

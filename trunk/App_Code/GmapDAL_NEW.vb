@@ -685,7 +685,7 @@ Public Class GmapDAL_NEW
 
         Dim objPrice3_Master As New Price3_Master
         objPrice3_Master.Req_Id = CType(ConvertUtil.getObjectValue(reader("Req_Id"), ConvertUtil.ObjectValueEnum.StringValue), Integer)
-        objPrice3_Master.AID = CType(ConvertUtil.getObjectValue(reader("AID"), ConvertUtil.ObjectValueEnum.StringValue), Integer)
+        objPrice3_Master.AID = CType(ConvertUtil.getObjectValue(reader("AID"), ConvertUtil.ObjectValueEnum.StringValue), String)
         objPrice3_Master.Temp_AID = CType(ConvertUtil.getObjectValue(reader("Temp_AID"), ConvertUtil.ObjectValueEnum.StringValue), Integer)
         'objPrice3_Master. = CType(ConvertUtil.getObjectValue(reader("Cif"), ConvertUtil.ObjectValueEnum.StringValue), Integer)
         objPrice3_Master.Cif = CType(ConvertUtil.getObjectValue(reader("Cif"), ConvertUtil.ObjectValueEnum.StringValue), Integer)

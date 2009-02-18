@@ -74,7 +74,7 @@
     <br />
     <asp:HiddenField ID="hdfHub_ID" runat="server" />
     <asp:HiddenField ID="hdfAppraisal_Method" runat="server" />
-    <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="AID"
+    <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="AID,Req_ID"
         DataSourceID="sdsPriceList3_Review" EmptyDataText="There are no data records to display."
         Width='100%' BackColor="LightGoldenrodYellow" BorderColor="Tan" BorderWidth="1px"
         CellPadding="2" ForeColor="Black" GridLines="None" ShowFooter="True" PageSize="15"
@@ -83,8 +83,8 @@
         <Columns>
             <asp:TemplateField>
                 <ItemTemplate>
-                    <a href="javascript:expandcollapse('div<%# Eval("AID") %>', 'one');">
-                        <img id="imgdiv<%# Eval("AID") %>" alt="Click to show/hide Queue for Appraisal <%# Eval("AID") %>"
+                    <a href="javascript:expandcollapse('div<%# Eval("Req_ID") %>', 'one');">
+                        <img id="imgdiv<%# Eval("Req_ID") %>" alt="Click to show/hide Queue for Appraisal <%# Eval("Req_ID") %>"
                             width="9px" src="Images/plus.gif" />
                     </a>
                 </ItemTemplate>
@@ -109,11 +109,11 @@
                     <asp:Label ID="lblAID" runat="server" Text='<%# Bind("AID") %>'></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
-            <asp:TemplateField HeaderText="TEMP AID">
+<%--            <asp:TemplateField HeaderText="TEMP AID">
                 <ItemTemplate>
                     <asp:Label ID="lblTemp_AID" runat="server" Text='<%# Bind("Temp_AID") %>'></asp:Label>
                 </ItemTemplate>
-            </asp:TemplateField>
+            </asp:TemplateField>--%>
             <asp:TemplateField HeaderText="Cif">
                 <ItemTemplate>
                     <asp:Label ID="lblCif" runat="server" Text='<%# Bind("Cif") %>'></asp:Label>
@@ -162,11 +162,11 @@
                 <ItemTemplate>
                     <tr>
                         <td colspan="100%">
-                            <div id="div<%# Eval("AID") %>" style="display: none; position: relative; left: 15px;
+                            <div id="div<%# Eval("Req_ID") %>" style="display: none; position: relative; left: 15px;
                                 overflow: auto; width: 97%">
                                 <asp:GridView ID="GridView2" runat="server" AllowPaging="True" AllowSorting="True"
                                     AutoGenerateColumns="False" BackColor="#EEEEDD" BorderColor="#0083C1" BorderStyle="Double"
-                                    DataKeyNames="AID" Font-Names="Verdana" Font-Size="Small" GridLines="None" OnPageIndexChanging="GridView2_PageIndexChanging"
+                                    DataKeyNames="AID,Req_ID" Font-Names="Verdana" Font-Size="Small" GridLines="None" OnPageIndexChanging="GridView2_PageIndexChanging"
                                     OnSelectedIndexChanging="GridView2_SelectedIndexChanging" OnSorting="GridView2_Sorting"
                                     OnRowCommand="GridView2_RowCommand" ShowFooter="True" Width="100%" FooterStyle-BorderStyle="NotSet">
                                     <HeaderStyle BackColor="#0083C1" ForeColor="White" />
