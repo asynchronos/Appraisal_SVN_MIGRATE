@@ -141,6 +141,7 @@ Partial Class Appraisal_Price3_Add_Colltype70
         Context.Items("Temp_AID") = lblTemp_AID.Text
         Context.Items("Req_Id") = lblReq_Id.Text
         Context.Items("Hub_Id") = lblHub_Id.Text
+        Context.Items("Building_No") = txtBuild_No.Text
         Server.Transfer("Appraisal_Price3_70_Partake.aspx")
     End Sub
 End Class

@@ -7,6 +7,7 @@
     </asp:ScriptManager>
 <br />
 <br />
+<h4>เพิ่มส่วนควบ (ทบทวนการประเมิน)</h4>
               <asp:HiddenField ID="hdfColl_Type" runat="server" />
     <asp:HiddenField ID="hdfAID" runat="server" />
     <asp:HiddenField ID="hdfCif" runat="server" />
@@ -59,9 +60,10 @@
                                   </asp:DropDownList>
                               </td>
                               <td class="style5">
-                                  &nbsp;</td>
+                                  เลขที่</td>
                               <td class="style19">
-                                  &nbsp;</td>
+                                  <asp:TextBox ID="txtBuilding_No" runat="server" ReadOnly="True"></asp:TextBox>
+                              </td>
                               <td class="style14">
                                   &nbsp;</td>
                               <td>

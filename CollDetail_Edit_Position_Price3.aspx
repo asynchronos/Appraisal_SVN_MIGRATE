@@ -1,10 +1,11 @@
-﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="CollDetail_Edit_Position.aspx.vb" Inherits="CollDetail_Edit_Position" %>
+﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="CollDetail_Edit_Position_Price3.aspx.vb" Inherits="CollDetail_Edit_Position_Price3" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
     <script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;key=ABQIAAAAzr2EBOXUKnm_jVnk0OJI7xSosDVG8KKPE1-m51RBrvYughuyMxQ-                   i1QfUnH94QxWIa6N4U6MouMmBA" type="text/javascript">
     </script>
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
+<head id="Head1" runat="server">
     <title>แก้ไขจุด Lat และ Lng</title>
         <style type="text/css">
         .style1
@@ -19,9 +20,11 @@
    <table>
        <tr>
            <td class="style1">
-               <input type="button" id="btnAddMark" value="Create New Marker" onclick="btnAddMark_onclick()" /><asp:HiddenField 
+               <input type="button" id="btnAddMark" value="Create New Marker" onclick="btnAddMark_onclick()" style="display:none;" />
+               <asp:HiddenField 
                    ID="hdfReq_Id" runat="server" />
-               <asp:HiddenField ID="hdfHub_Id" runat="server" />
+               <asp:HiddenField ID="hdfTemp_AID" runat="server" />
+               <asp:HiddenField ID="hdfUserId" runat="server" />
              </td>
            <td>
                </td>
@@ -56,7 +59,7 @@
             // A function to create the marker and set up the event window
 
 
-            function createMarker(point, name, nReq_id, nHub_id, ncif, nlat, nlng, ncreate_date) {
+            function createMarker(point, nReq_id, nTemp_AID, ncif, nlat, nlng, userid, ncreate_date) {
                 var blueIcon = new GIcon();
                 blueIcon.image = "images/colour086.png";
                 blueIcon.shadow = "images/fingershadow.png";
@@ -83,14 +86,12 @@
                     var html = "<b>Marker information</b><br>"
                     html += "<table>";
                     html += "<tr><td>REQ ID :</td><td><b>" + nReq_id + "</b><input type='hidden' value='" + nReq_id + "' id='txtReq_Id' name='txtReq_Id'></td><tr>"
-                    html += "<tr><td>HUB ID :</td><td><b>" + nHub_id + "</b><input type='hidden' value='" + nHub_id + "' id='txtHub_Id' name='txtHub_Id'></td><tr>"
+                    html += "<tr><td>Temp AID :</td><td><b>" + nTemp_AID + "</b><input type='hidden' value='" + nTemp_AID + "' id='txtHub_Id' name='txtHub_Id'></td><tr>"
                     html += "<tr><td>CIF :</td><td><b>" + ncif + "</b><input type='hidden' value='" + ncif + "' id='txtCif' name='txtCif'></td><tr>"
-                    html += "<tr><td>Lat :</td><td><b>" + nlat + "</b><input type='hidden' value='" + nlat + "' id='txtLat' name='txtLat'></td><tr>";
-                    html += "<tr><td>Lng :</td><td><b>" + nlng + "</b><input type='hidden' value='" + nlng + "' id='txtLng' name='txtLng'></td><tr>";
                     html += "<tr><td>Lat New :</td><td><input type='text' value='" + newlatlong.lat() + "' id='txtLatnew' name='txtLatnew'></td><tr>";
                     html += "<tr><td>Lng New :</td><td><input type='text' value='" + newlatlong.lng() + "' id='txtLngnew' name='txtLngnew'></td><tr>";
                     html += "<tr><td>วันที่ประเมิน:</td><td> <input type='text' id='txtCreate_Date' value='" + ncreate_date + "' name='txtCreate_Date'></td><tr>"
-                    html += "<tr><td colspan=2><input type='button' onclick='updateName(" + nReq_id + "," + nHub_id + "," + newlatlong.lat() + "," + newlatlong.lng() + ")' value='Update Marker'> ";
+                    html += "<tr><td colspan=2><input type='button' onclick='updateName(" + nReq_id + "," + nTemp_AID + "," + newlatlong.lat() + "," + newlatlong.lng() + "," + userid + ")' value='Update Marker'> ";
                     html += "<input type='button' onclick='cancelUpdate()' value='Cancel'></td><tr>";
                     //alert(newlatlong.lat());
                     //alert(newlatlong.lng());
@@ -131,12 +132,14 @@
 
                 
                 var reqid = document.getElementById("hdfReq_Id").value;
-                var hubid = document.getElementById("hdfHub_Id").value;
-                var file = "Price3DB.aspx?action=5&Req_Id=" + reqid + "&Hub_Id=" + hubid;
+                var temp_aid = document.getElementById("hdfTemp_AID").value;
+                var userid = document.getElementById("hdfUserId").value;
+                //alert(userid);
+                var file = "Price3DB.aspx?action=6&Req_Id=" + reqid + "&Temp_AID=" + temp_aid;
                 GDownloadUrl(file, function(doc) {
                     var xmlDoc = GXml.parse(doc);
                     //alert(doc);
-                    var markers = xmlDoc.documentElement.getElementsByTagName("Price1_Master");
+                    var markers = xmlDoc.documentElement.getElementsByTagName("Price3_Master");
                     //alert(markers.length);
                     if ((markers.length) > 0) {
                         for (var i = 0; i < markers.length; i++) {
@@ -144,22 +147,19 @@
                             // create the marker
                             //ert('loop');                     
                             var req_id = markers[i].getElementsByTagName("Req_Id")[0];
-                            var hub_id = markers[i].getElementsByTagName("Hub_Id")[0];
+                            var temp_aid = markers[i].getElementsByTagName("Temp_AID")[0];
                             var cif = markers[i].getElementsByTagName("Cif")[0];
-                            var cifname = markers[i].getElementsByTagName("CifName")[0];
                             var lat = markers[i].getElementsByTagName("Lat")[0];
                             var lng = markers[i].getElementsByTagName("Lng")[0];
                             var pricewah = markers[i].getElementsByTagName("PriceWah")[0];
                             var totalprice = markers[i].getElementsByTagName("Price")[0];
                             var create_date = markers[i].getElementsByTagName("Create_Date")[0];
                             var nReq_id = req_id.firstChild.nodeValue;
-                            var nHub_id = hub_id.firstChild.nodeValue;
+                            var nTemp_AID = temp_aid.firstChild.nodeValue;
                             //alert(nReq_id);
                             //alert(nHub_id);
                             var ncif = cif.firstChild.nodeValue;
                             //alert(ncif);
-                            var nCifName = cifname.firstChild.nodeValue;
-                            //alert(nCifName);
                             var nlat = lat.firstChild.nodeValue;
                             //alert(nlat);
                             var nlng = lng.firstChild.nodeValue;
@@ -170,7 +170,7 @@
                             //alert(point);
 
                             map.setCenter(new GLatLng(nlat, nlng), 13);
-                            var marker = createMarker(point, nCifName, nReq_id, nHub_id, ncif, nlat, nlng, ncreate_date);
+                            var marker = createMarker(point, nReq_id, nTemp_AID, ncif, nlat, nlng,userid, ncreate_date);
                             //alert(marker);
 
                             map.addOverlay(marker);
@@ -210,14 +210,14 @@
             GEvent.addListener(marker, "dragend", function() {
                 var latlong = marker.getLatLng();
                 var reqid = document.getElementById("HiddenField1");
-                var hubid = document.getElementById("HiddenField2");
+                var temp_aid = document.getElementById("hdfTemp_AID");
                 var cif = document.getElementById("HiddenField4");
-                var userid = document.getElementById("HiddenField3");
+                var userid = document.getElementById("hdfUserId");
 
                 var html = "<b>Please Insert Detail </b><br>"
                 html += "<table>";
                 html += "<tr><td>Req Id :</td><td> <input type='text' value='" + reqid.value + "' id='txtReqId' name='txtCid'></td><tr>"
-                html += "<tr><td>Hub Id :</td><td> <input type='text' value='" + hubid.value + "' id='txtHubId' name='txtHubId'></td><tr>"
+                html += "<tr><td>Temp AID :</td><td> <input type='text' value='" + temp_aid.value + "' id='txtHubId' name='txtHubId'></td><tr>"
                 html += "<tr><td>Cif :</td><td> <input type='text' value='" + cif.value + "' id='txtCif' name='txtCif'></td><tr>"
                 html += "<tr><td>Lat :</td><td><input type='text' value='" + latlong.lat() + "' id='txtLat' name='txtLat'></td><tr>";
                 html += "<tr><td>Lng :</td><td><input type='text' value='" + latlong.lng() + "' id='txtLng' name='txtLng'></td><tr>";
@@ -241,7 +241,7 @@
             // qmarkers.pop();
         }
 
-        function updateName(nReq_Id,nHub_Id,lat, lng) {
+        function updateName(nReq_Id, nTemp_AID, lat, lng, userid) {
             //
             var err = false;
 //            var req_id = document.getElementById("txtReq_Id").value;
@@ -250,13 +250,13 @@
 //            var lng = document.getElementById("txtLngnew").value;
             if (lat == '') { err = true; }
             if (lng == '') { err = true; }
-
+            //alert(userid);
             if (err) {
                 alert("Please insert completed data.");
             } else {
                 var file = "Price3DB.aspx"
-                var req = "action=4&req_id=" + nReq_Id + "&hub_id=" + nHub_Id + "&lat=" + lat + "&lng=" + lng
-                // alert(file);
+                var req = "action=7&req_id=" + nReq_Id + "&temp_aid=" + nTemp_AID + "&lat=" + lat + "&lng=" + lng + "&userid=" + userid
+                 //alert(file);
                 //btnCancel_onlick();
 
                 document.getElementById("btnAddMark").style.display = "inline";
@@ -264,8 +264,11 @@
                 map.clearOverlays();
 
                 GDownloadUrl(file, function a() { }, req);
-                loadMark()               
+                loadMark()
                 map.openInfoWindow(new GLatLng(lat, lng), document.createTextNode("Update complete."));
+                
+                window.opener.location.href = window.opener.location;
+                window.close();
 
             }
         }

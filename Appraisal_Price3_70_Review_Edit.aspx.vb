@@ -106,6 +106,7 @@ Partial Class Appraisal_Price3_70_Review_Edit
         Context.Items("Req_Id") = lblReq_Id.Text
         Context.Items("Hub_Id") = lblHub_Id.Text
         Context.Items("AID") = hdfAID.Value
+        Context.Items("Building_No") = txtBuild_No.Text
         Server.Transfer("Appraisal_Price3_70_Review_Partake.aspx")
 
     End Sub

@@ -8,9 +8,9 @@ Partial Class Appraisal_Price3_Conform
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         If Not Page.IsPostBack Then
-            HiddenField1.Value = CInt(Context.Items("Req_Id").Text)
-            HiddenField2.Value = CInt(Context.Items("Hub_Id").Text)
-            HiddenField3.Value = CInt(Context.Items("Temp_AID").Text)
+            HiddenField1.Value = Context.Items("Req_Id")
+            HiddenField2.Value = Context.Items("Hub_Id")
+            HiddenField3.Value = Context.Items("Temp_AID")
             'lblCif.Text = Context.Items("Temp_AID").Text
             'MsgBox(Context.Items("Req_Id").ToString, Context.Items("Hub_Id").ToString, Context.Items("Temp_AID").ToString)
 
@@ -112,7 +112,7 @@ Partial Class Appraisal_Price3_Conform
     End Sub
 
     Private Sub Show_Price3_70_GROUP()
-        Dim Obj_GetP70G As DataSet = GET_PRICE3_70_GROUP(Context.Items("Req_Id").Text, Context.Items("Hub_Id").Text, Context.Items("Temp_AID").Text)
+        Dim Obj_GetP70G As DataSet = GET_PRICE3_70_GROUP(Context.Items("Req_Id"), Context.Items("Hub_Id"), Context.Items("Temp_AID"))
         If Obj_GetP70G.Tables(0).Rows.Count > 0 Then
             lblBuilding_No.Text = Obj_GetP70G.Tables(0).Rows(0).Item("Build_No").ToString()
             lblTotal2.Text = Format(CDec(Obj_GetP70G.Tables(0).Rows(0).Item("UnitPrice").ToString), "#,##0.00")
@@ -225,6 +225,5 @@ Partial Class Appraisal_Price3_Conform
         End If
 
     End Sub
-
 
 End Class

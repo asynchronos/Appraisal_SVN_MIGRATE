@@ -216,11 +216,11 @@ Partial Class Appraisal_Price3_List
         Dim Req_Id As Label = ImgBtAdd.Parent.FindControl("lblReq_Id")
         Dim Hub_Id As Label = ImgBtAdd.Parent.FindControl("lblHub_Id")
         Dim Temp_AID As Label = ImgBtAdd.Parent.FindControl("lblTemp_AID")
-        Dim CollType_Id As Label = ImgBtAdd.Parent.FindControl("lblColltype")
-        Context.Items("Req_Id") = Req_Id
-        Context.Items("Hub_Id") = Hub_Id
-        Context.Items("Temp_AID") = Temp_AID
-        Context.Items("CollType_Id") = CollType_Id
+        'Dim CollType_Id As Label = ImgBtAdd.Parent.FindControl("lblColltype")
+        Context.Items("Req_Id") = Req_Id.Text
+        Context.Items("Hub_Id") = Hub_Id.Text
+        Context.Items("Temp_AID") = Temp_AID.Text
+        'Context.Items("CollType_Id") = CollType_Id.Text
 
         Server.Transfer("Appraisal_Price3_Conform.aspx")
     End Sub

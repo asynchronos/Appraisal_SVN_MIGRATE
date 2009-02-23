@@ -8,11 +8,12 @@ Partial Class Appraisal_Price3_70_Partake
             lblReq_Id.Text = Context.Items("Req_Id")
             lblHub_Id.Text = Context.Items("Hub_Id")
             lblTemp_AID.Text = Context.Items("Temp_AID")
+            txtBuilding_No.Text = Context.Items("Building_No")
         End If
     End Sub
 
     Protected Sub ImageSave_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs) Handles ImageSave.Click
-        Dim StrNotice As String
+        'Dim StrNotice As String
         If txtPartakePrice.Text = "0.00" Or txtPartakePrice.Text = String.Empty Then
             lblMessage.Text = "ข้อมูลไม่ครบถ้วน"
             'StrNotice = "<script language=""javascript"">alert('ข้อมูลไม่ครบถ้วน');</script>"
