@@ -49,7 +49,7 @@
             height: 124px;
         }
         .style12
-        {
+        {            font-size: small;
         }
         .style13
         {
@@ -74,6 +74,15 @@
         .style18
         {
             height: 49px;
+        }
+        .style19
+        {
+            font-size: small;
+            height: 45px;
+        }
+        .style20
+        {
+            width: 175px;
         }
     </style>
         <link href="CSS/print.css" rel="stylesheet" type="text/css" media="print"/>
@@ -110,9 +119,8 @@
     <asp:HiddenField ID="hdfTemp_AID" runat="server" />
             </td>
             <td>
-                ทบทวนตามบันทึก</td>
+                ทบทวนตามบันทึกลงวันที่</td>
             <td>                
-                ลงวันที่
                 <asp:TextBox ID="txtMemo_Date" runat="server" Width="112px"></asp:TextBox>
                 <ajaxToolkit:CalendarExtender ID="CEMemodate" runat="server" 
                     Enabled="True" Format="dd/MM/yyyy" TargetControlID="txtMemo_Date">
@@ -335,8 +343,10 @@
             </td>
         </tr>
         <tr>
-            <td colspan="6">
-                <table class="style1" border="1px" style="font-size:small;">
+            <td colspan="6" style="font-size: small">
+                <asp:Repeater ID="Repeater1" runat="server" DataSourceID="sdsBuilding_Partake_List">
+                <HeaderTemplate>
+                    <table border="1px" width="100%">
                     <tr class="bgTable">
                         <td rowspan="2" valign="top">
                             รายการสิ่งปลูกสร้าง</td>
@@ -344,7 +354,8 @@
                             พื้นที่<br />
                             (ตรม.)</td>
                         <td colspan="2">
-                            ราคาต้นทุนทดแทนใหม่</td>
+                            ราคาต้นทุนทดแทนใหม่
+                        </td>
                         <td rowspan="2" valign="top">
                             อายุการ<br />
                             ใช้งาน(ปี)</td>
@@ -371,160 +382,96 @@
                             ปรับปรุง</td>
                         <td class="style3" valign="top">
                             เสื่อมโทรม</td>
-                    </tr>
-                    <tr>
+                    </tr> 
+                                        
+                </HeaderTemplate>   
+                <ItemTemplate>
+                     <tr>
                         <td>
-                            1.<asp:Label ID="lblBuildingFloors" runat="server"></asp:Label>
-                        &nbsp;ชั้น</td>
+                            <%#DataBinder.Eval(Container.DataItem, "CollName")%>
+                        </td>
                         <td align="center">
-                            <asp:Label ID="lblArea" runat="server"></asp:Label>
+                            <%#Eval("Area")%>
                         </td>
                         <td align="right">
-                            <asp:Label ID="lblUnitPrice" runat="server"></asp:Label>
+                            <%#String.Format("{0:N2}", Eval("UintPrice"))%>
                         </td>
                         <td align="right">
-                            <asp:Label ID="lblCostPrice" runat="server"></asp:Label>
+                            <%#String.Format("{0:N2}", Eval("Price"))%>
                         </td>
                         <td align="center">
-                            <asp:Label ID="lblAge" runat="server"></asp:Label>
-                        </td>
-                        <td align="center" class="style4">
-                            <asp:Label ID="lblYearDamage" runat="server"></asp:Label>
+                            <%#Eval("Age")%>
                         </td>
                         <td align="center">
-                            <asp:Label ID="lblAdap" runat="server"></asp:Label>
+                            <%#Eval("Persent1")%>
                         </td>
                         <td align="center">
-                            <asp:Label ID="lblDecadent" runat="server"></asp:Label>
+                            <%#Eval("Persent2")%>
                         </td>
                         <td align="center">
-                            <asp:Label ID="lblP_Damage" runat="server"></asp:Label>
+                            <%#Eval("Persent3")%>
+                        </td>
+                        <td align="center">                     
+                            <%# Get_Amount( eval("Age"), eval("Persent1"), eval("Persent2"), eval("Persent3")) %>
                         </td>
                         <td align="right">
-                            <asp:Label ID="lblDamageBth" runat="server"></asp:Label>
+                            <%# Get_Amount_Bht( eval("Price") ,eval("Age"), eval("Persent1"), eval("Persent2"), eval("Persent3")) %>
                         </td>
                         <td align="right">
-                            <asp:Label ID="lbltotalPrice" runat="server"></asp:Label>
+                            <%# Get_Balance( eval("Price") ,eval("Age"), eval("Persent1"), eval("Persent2"), eval("Persent3")) %>
                         </td>
-                    </tr>
-                    <tr>
+                    </tr>                    
+                </ItemTemplate>
+                <AlternatingItemTemplate>
+                    <tr style=" background-color:#ccff99">
                         <td>
-                            2.ส่วนต่อเติม</td>
+                            <%#DataBinder.Eval(Container.DataItem, "CollName")%>
+                        </td>
                         <td align="center">
-                            <asp:Label ID="lblArea1" runat="server"></asp:Label>
+                            <%#Eval("Area")%>
                         </td>
                         <td align="right">
-                            <asp:Label ID="lblUnitPrice1" runat="server"></asp:Label>
+                            <%#String.Format("{0:N2}", Eval("UintPrice"))%>
                         </td>
                         <td align="right">
-                            <asp:Label ID="lblCostPrice1" runat="server"></asp:Label>
+                            <%#String.Format("{0:N2}", Eval("Price"))%>
                         </td>
                         <td align="center">
-                            <asp:Label ID="lblAge1" runat="server"></asp:Label>
-                        </td>
-                        <td class="style4" align="center">
-                            <asp:Label ID="lblYearDamage1" runat="server"></asp:Label>
+                            <%#Eval("Age")%>
                         </td>
                         <td align="center">
-                            <asp:Label ID="lblAdap1" runat="server"></asp:Label>
+                            <%#Eval("Persent1")%>
                         </td>
                         <td align="center">
-                            <asp:Label ID="lblDecadent1" runat="server"></asp:Label>
+                            <%#Eval("Persent2")%>
                         </td>
                         <td align="center">
-                            <asp:Label ID="lblP_Damage1" runat="server"></asp:Label>
+                            <%#Eval("Persent3")%>
+                        </td>
+                        <td align="center">                     
+                            <%# Get_Amount( eval("Age"), eval("Persent1"), eval("Persent2"), eval("Persent3")) %>
                         </td>
                         <td align="right">
-                            <asp:Label ID="lblDamageBth1" runat="server"></asp:Label>
+                            <%# Get_Amount_Bht( eval("Price") ,eval("Age"), eval("Persent1"), eval("Persent2"), eval("Persent3")) %>
                         </td>
                         <td align="right">
-                            <asp:Label ID="lbltotalPrice1" runat="server"></asp:Label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            3.ส่วนควบ</td>
-                        <td align="center">
-                            <asp:Label ID="lblArea2" runat="server"></asp:Label>
-                        </td>
-                        <td align="right">
-                            <asp:Label ID="lblUnitPrice2" runat="server"></asp:Label>
-                        </td>
-                        <td align="right">
-                            <asp:Label ID="lblCostPrice2" runat="server"></asp:Label>
-                        </td>
-                        <td align="center">
-                            <asp:Label ID="lblAge2" runat="server"></asp:Label>
-                        </td>
-                        <td class="style4" align="center">
-                            <asp:Label ID="lblYearDamage2" runat="server"></asp:Label>
-                        </td>
-                        <td align="center">
-                            <asp:Label ID="lblAdap2" runat="server"></asp:Label>
-                        </td>
-                        <td align="center">
-                            <asp:Label ID="lblDecadent2" runat="server"></asp:Label>
-                        </td>
-                        <td align="center">
-                            <asp:Label ID="lblP_Damage2" runat="server"></asp:Label>
-                        </td>
-                        <td align="right">
-                            <asp:Label ID="lblDamageBth2" runat="server"></asp:Label>
-                        </td>
-                        <td align="right">
-                            <asp:Label ID="lbltotalPrice2" runat="server"></asp:Label>
+                            <%# Get_Balance( eval("Price") ,eval("Age"), eval("Persent1"), eval("Persent2"), eval("Persent3")) %>
                         </td>
                     </tr>
-                    <tr>
-                        <td>
-                            &nbsp;</td>
-                        <td>
-                            &nbsp;</td>
-                        <td>
-                            &nbsp;</td>
-                        <td>
-                            &nbsp;</td>
-                        <td>
-                            &nbsp;</td>
-                        <td class="style4">
-                            &nbsp;</td>
-                        <td>
-                            &nbsp;</td>
-                        <td>
-                            &nbsp;</td>
-                        <td>
-                            &nbsp;</td>
-                        <td>
-                            &nbsp;</td>
+                </AlternatingItemTemplate>
+               <FooterTemplate>
+                    <tr style ="background-color:Gray">
+                        <td colspan="10" style="font-size:10pt; font-style:italic">
+                            ราคาประเมินค่าก่อสร้างถือตามมาตรฐานของสมาคมประเมินค่าทรัพย์สินแห่งประเทศไทย พ.ศ.2550
+                        </td>
                         <td align="right">
-                            <asp:Label ID="lblGrandTotal" runat="server"></asp:Label>
+                            <%#String.Format("{0:N2}", (Get_Total()))%>
                         </td>
                     </tr>
-                    <tr>
-                        <td>
-                            &nbsp;</td>
-                        <td>
-                            &nbsp;</td>
-                        <td>
-                            &nbsp;</td>
-                        <td>
-                            &nbsp;</td>
-                        <td>
-                            &nbsp;</td>
-                        <td class="style4">
-                            &nbsp;</td>
-                        <td>
-                            &nbsp;</td>
-                        <td>
-                            &nbsp;</td>
-                        <td>
-                            &nbsp;</td>
-                        <td>
-                            &nbsp;</td>
-                        <td>
-                            &nbsp;</td>
-                    </tr>
-                </table>
+	               </table>
+               </FooterTemplate>
+
+                </asp:Repeater>
             </td>
         </tr>
         <tr>
@@ -532,9 +479,9 @@
     <asp:Label ID="Label15" runat="server" Text="ภาวะแวดล้อมกับผลกระทบ" 
                     style="font-weight: 700"></asp:Label>
     &nbsp;
-    <asp:Label ID="Label16" runat="server" 
+                (<asp:Label ID="Label16" runat="server" 
                     Text="การตรวจสอบปัญหาภาวะแวดล้อมใกล้เคียงเท่าที่สามารถตรวจสอบได้ ณ วันสำรวจ"></asp:Label>
-            </td>
+                )</td>
         </tr>
         <tr>
             <td class="style5" colspan="6">
@@ -584,10 +531,11 @@
             <td class="style7">
                 <asp:Label ID="Label55" runat="server" Text="เป็นเงิน"></asp:Label>
             </td>
-            <td>
+            <td style="text-align:right; " class="style20" >
                 <asp:Label ID="lblLandTotal" runat="server" Style="color: #FF0000" 
                     Width="150px"></asp:Label>
             </td>
+            <td></td>
         </tr>
         <tr>
             <td class="style16">
@@ -604,10 +552,11 @@
             <td class="style7">
                 <asp:Label ID="Label57" runat="server" Text="เป็นเงิน"></asp:Label>
             </td>
-            <td>
+            <td style=" text-align:right; " class="style20">
                 <asp:Label ID="lblBuildingPrice" runat="server" Style="color: #FF0000" 
                     Width="150px"></asp:Label>
             </td>
+            <td></td>
         </tr>
         <tr>
             <td class="style16">
@@ -624,10 +573,11 @@
             <td class="style7">
                 <asp:Label ID="Label60" runat="server" Text="รวมเป็นเงิน"></asp:Label>
             </td>
-            <td>
+            <td style=" text-align:right; " class="style20">
                 <asp:Label ID="lblGrantotal" runat="server" Style="color: #FF0000" 
                     Width="150px"></asp:Label>
             </td>
+            <td></td>
         </tr>
         <tr>
             <td class="style16">
@@ -642,10 +592,11 @@
                 &nbsp;</td>
             <td class="style7">
                 &nbsp;</td>
-            <td>
+            <td style=" text-align:right; " class="style20">
                 <asp:Label ID="lblGrantotalAll" runat="server" Style="color: #FF0000" 
                     Width="150px"></asp:Label>
             </td>
+            <td></td>
         </tr>
     </table>
             </td>
@@ -828,16 +779,24 @@
             </td>
         </tr>
         <tr>
-            <td class="style12" align="center" colspan="6">
+            <td class="style19" align="center" colspan="6">
                 <table>
                     <tr>
                         <td>
                             <asp:ImageButton ID="ImageSave" runat="server" Height="35px" 
-                                ImageUrl="~/Images/Save.jpg" Width="35px" />
+                                ImageUrl="~/Images/Save.jpg" Width="35px" ToolTip="Save Data" />
                         </td>
                         <td>
                             SAVE                         </td>
-                    </tr>
+                        <td>
+                            <asp:ImageButton ID="ImageAttach" runat="server" Height="35px" 
+                                ImageUrl="~/Images/ico_attachments.gif" Width="35px" 
+                                ToolTip="Attach File" />
+                        </td>
+                        <td>
+                            แนบไฟล์
+                        </td>                            
+                    </tr>                  
                 </table>
             </td>
         </tr>
@@ -853,6 +812,10 @@
             <td>
                 &nbsp;</td>
             <td>
+                &nbsp;</td>
+        </tr>
+        <tr>
+            <td class="style12" colspan="6">
                 &nbsp;</td>
         </tr>
     </table>
@@ -889,6 +852,20 @@
     
     <asp:SqlDataSource ID="SDSUserAppraisal" runat="server" ConnectionString="<%$ ConnectionStrings:AppraisalConn %>"
         SelectCommand="SELECT Emp_id, Title + Name + '  ' + Lastname AS UserAppraisal FROM Tb_UserAppraisal">
+    </asp:SqlDataSource>
+        
+    <asp:SqlDataSource ID="sdsBuilding_Partake_List" runat="server" 
+        ConnectionString="<%$ ConnectionStrings:AppraisalConn %>" 
+        SelectCommand="GET_PRICE3_70_REVIEW_BUILDING_PARTAKE_ALL" 
+        SelectCommandType="StoredProcedure">
+        <SelectParameters>
+            <asp:ControlParameter ControlID="hdfReq_Id" Name="Req_Id" PropertyName="Value" 
+                Type="Int32" />
+            <asp:ControlParameter ControlID="hdfHub_Id" Name="Hub_Id" PropertyName="Value" 
+                Type="Int32" />
+            <asp:ControlParameter ControlID="hdfTemp_AID" Name="TEMP_AID" 
+                PropertyName="Value" Type="Int32" />
+        </SelectParameters>
     </asp:SqlDataSource>
         
 </asp:Content>

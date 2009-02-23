@@ -7,6 +7,7 @@ Public Class Price3_70_Partake
     Private _Temp_AID As Integer
     Private _AID As String
     Private _Partake_Id As Integer
+    Private _Building_No As String
     Private _PartakeArea As Double
     Private _PartakeUintPrice As Double
     Private _PartakePrice As Double
@@ -27,6 +28,7 @@ Public Class Price3_70_Partake
      ByVal Temp_AID As Integer, _
      ByVal AID As String, _
      ByVal Partake_Id As Integer, _
+     ByVal Building_No As String, _
      ByVal PartakeArea As Double, _
      ByVal PartakeUintPrice As Double, _
      ByVal PartakePrice As Double, _
@@ -45,6 +47,7 @@ Public Class Price3_70_Partake
         _Temp_AID = Temp_AID
         _AID = AID
         _Partake_Id = Partake_Id
+        _Building_No = Building_No
         _PartakeArea = PartakeArea
         _PartakeUintPrice = PartakeUintPrice
         _PartakePrice = PartakePrice
@@ -100,6 +103,15 @@ Public Class Price3_70_Partake
         End Get
         Set(ByVal Value As Integer)
             _Partake_Id = Value
+        End Set
+    End Property
+
+    Public Property Building_No() As String
+        Get
+            Return _Building_No
+        End Get
+        Set(ByVal Value As String)
+            _Building_No = Value
         End Set
     End Property
 

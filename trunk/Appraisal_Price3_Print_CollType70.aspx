@@ -11,7 +11,7 @@
             width: 100%;
         }
         .style2
-        {
+        {            font-size: small;
         }
         .style3
         {
@@ -27,8 +27,7 @@
             width: 97px;
         }
         .style5
-        {
-            width: 226px;
+        {            font-size: small;
         }
     </style>
 </head>
@@ -369,7 +368,9 @@
         </tr> 
         <tr>
             <td class="style2" colspan="5" rowspan="5" valign="top">
-                <table class="style1" border="1px" style="font-size:small;">
+                <asp:Repeater ID="Repeater1" runat="server" DataSourceID="sdsBuilding_Partake_List">
+                <HeaderTemplate>
+                    <table border="1px" width="100%">
                     <tr class="bgTable">
                         <td rowspan="2" valign="top">
                             รายการสิ่งปลูกสร้าง</td>
@@ -377,7 +378,8 @@
                             พื้นที่<br />
                             (ตรม.)</td>
                         <td colspan="2">
-                            ราคาต้นทุนทดแทนใหม่</td>
+                            ราคาต้นทุนทดแทนใหม่
+                        </td>
                         <td rowspan="2" valign="top">
                             อายุการ<br />
                             ใช้งาน(ปี)</td>
@@ -404,150 +406,103 @@
                             ปรับปรุง</td>
                         <td class="style3" valign="top">
                             เสื่อมโทรม</td>
-                    </tr>
-                    <tr>
+                    </tr> 
+                                        
+                </HeaderTemplate>   
+                <ItemTemplate>
+                     <tr>
                         <td>
-                            1.<asp:Label ID="lblBuildingFloors" runat="server"></asp:Label>
-                        &nbsp;ชั้น</td>
+                            <%#DataBinder.Eval(Container.DataItem, "CollName")%>
+                        </td>
                         <td align="center">
-                            <asp:Label ID="lblArea" runat="server"></asp:Label>
+                            <%#Eval("Area")%>
                         </td>
                         <td align="right">
-                            <asp:Label ID="lblUnitPrice" runat="server"></asp:Label>
+                            <%#String.Format("{0:N2}", Eval("UintPrice"))%>
                         </td>
                         <td align="right">
-                            <asp:Label ID="lblCostPrice" runat="server"></asp:Label>
+                            <%#String.Format("{0:N2}", Eval("Price"))%>
                         </td>
                         <td align="center">
-                            <asp:Label ID="lblAge" runat="server"></asp:Label>
-                        </td>
-                        <td align="center" class="style4">
-                            <asp:Label ID="lblYearDamage" runat="server"></asp:Label>
+                            <%#Eval("Age")%>
                         </td>
                         <td align="center">
-                            <asp:Label ID="lblAdap" runat="server"></asp:Label>
+                            <%#Eval("Persent1")%>
                         </td>
                         <td align="center">
-                            <asp:Label ID="lblDecadent" runat="server"></asp:Label>
+                            <%#Eval("Persent2")%>
                         </td>
                         <td align="center">
-                            <asp:Label ID="lblP_Damage" runat="server"></asp:Label>
+                            <%#Eval("Persent3")%>
+                        </td>
+                        <td align="center">                     
+                            <%# Get_Amount( eval("Age"), eval("Persent1"), eval("Persent2"), eval("Persent3")) %>
                         </td>
                         <td align="right">
-                            <asp:Label ID="lblDamageBth" runat="server"></asp:Label>
+                            <%# Get_Amount_Bht( eval("Price") ,eval("Age"), eval("Persent1"), eval("Persent2"), eval("Persent3")) %>
                         </td>
                         <td align="right">
-                            <asp:Label ID="lbltotalPrice" runat="server"></asp:Label>
+                            <%# Get_Balance( eval("Price") ,eval("Age"), eval("Persent1"), eval("Persent2"), eval("Persent3")) %>
                         </td>
-                    </tr>
-                    <tr>
+                    </tr>                    
+                </ItemTemplate>
+                <AlternatingItemTemplate>
+                    <tr style=" background-color:#ccff99">
                         <td>
-                            &nbsp;</td>
-                        <td>
-                            &nbsp;</td>
-                        <td>
-                            &nbsp;</td>
-                        <td>
-                            &nbsp;</td>
-                        <td>
-                            &nbsp;</td>
-                        <td class="style4">
-                            &nbsp;</td>
-                        <td>
-                            &nbsp;</td>
-                        <td>
-                            &nbsp;</td>
-                        <td>
-                            &nbsp;</td>
-                        <td>
-                            &nbsp;</td>
-                        <td>
-                            &nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            2.ส่วนต่อเติม</td>
+                            <%#DataBinder.Eval(Container.DataItem, "CollName")%>
+                        </td>
                         <td align="center">
-                            <asp:Label ID="lblArea1" runat="server"></asp:Label>
+                            <%#Eval("Area")%>
                         </td>
                         <td align="right">
-                            <asp:Label ID="lblUnitPrice1" runat="server"></asp:Label>
+                            <%#String.Format("{0:N2}", Eval("UintPrice"))%>
                         </td>
                         <td align="right">
-                            <asp:Label ID="lblCostPrice1" runat="server"></asp:Label>
+                            <%#String.Format("{0:N2}", Eval("Price"))%>
                         </td>
                         <td align="center">
-                            <asp:Label ID="lblAge1" runat="server"></asp:Label>
-                        </td>
-                        <td class="style4" align="center">
-                            <asp:Label ID="lblYearDamage1" runat="server"></asp:Label>
+                            <%#Eval("Age")%>
                         </td>
                         <td align="center">
-                            <asp:Label ID="lblAdap1" runat="server"></asp:Label>
+                            <%#Eval("Persent1")%>
                         </td>
                         <td align="center">
-                            <asp:Label ID="lblDecadent1" runat="server"></asp:Label>
+                            <%#Eval("Persent2")%>
                         </td>
                         <td align="center">
-                            <asp:Label ID="lblP_Damage1" runat="server"></asp:Label>
+                            <%#Eval("Persent3")%>
+                        </td>
+                        <td align="center">                     
+                            <%# Get_Amount( eval("Age"), eval("Persent1"), eval("Persent2"), eval("Persent3")) %>
                         </td>
                         <td align="right">
-                            <asp:Label ID="lblDamageBth1" runat="server"></asp:Label>
+                            <%# Get_Amount_Bht( eval("Price") ,eval("Age"), eval("Persent1"), eval("Persent2"), eval("Persent3")) %>
                         </td>
                         <td align="right">
-                            <asp:Label ID="lbltotalPrice1" runat="server"></asp:Label>
+                            <%# Get_Balance( eval("Price") ,eval("Age"), eval("Persent1"), eval("Persent2"), eval("Persent3")) %>
                         </td>
                     </tr>
-                    <tr>
-                        <td>
-                            &nbsp;</td>
-                        <td>
-                            &nbsp;</td>
-                        <td>
-                            &nbsp;</td>
-                        <td>
-                            &nbsp;</td>
-                        <td>
-                            &nbsp;</td>
-                        <td class="style4">
-                            &nbsp;</td>
-                        <td>
-                            &nbsp;</td>
-                        <td>
-                            &nbsp;</td>
-                        <td>
-                            &nbsp;</td>
-                        <td>
-                            &nbsp;</td>
+                </AlternatingItemTemplate>
+               <FooterTemplate>
+                    <tr style ="background-color:Gray">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                         <td align="right">
-                            <asp:Label ID="lblGrandTotal" runat="server"></asp:Label>
+                            <%#String.Format("{0:N2}", (Get_Total()))%>
                         </td>
                     </tr>
-                    <tr>
-                        <td>
-                            &nbsp;</td>
-                        <td>
-                            &nbsp;</td>
-                        <td>
-                            &nbsp;</td>
-                        <td>
-                            &nbsp;</td>
-                        <td>
-                            &nbsp;</td>
-                        <td class="style4">
-                            &nbsp;</td>
-                        <td>
-                            &nbsp;</td>
-                        <td>
-                            &nbsp;</td>
-                        <td>
-                            &nbsp;</td>
-                        <td>
-                            &nbsp;</td>
-                        <td>
-                            &nbsp;</td>
-                    </tr>
-                </table>
+	               </table>
+               </FooterTemplate>
+
+                </asp:Repeater>
                 </td>
             <td class="style2">
                 </td>
@@ -582,7 +537,7 @@
             <td>
                 &nbsp;</td>
         </tr>                                                                                                                                                  
-    </table>
+        </table>
     <br />
     - มูลค่าสิ่งปลูกสร้าง ณ ปัจจุบัน<br />
     - 
@@ -611,6 +566,20 @@
         <asp:HiddenField ID="HiddenField4" runat="server" />
         <asp:HiddenField ID="HiddenField5" runat="server" />
 
+    <asp:SqlDataSource ID="sdsBuilding_Partake_List" runat="server" 
+        ConnectionString="<%$ ConnectionStrings:AppraisalConn %>" 
+        SelectCommand="GET_PRICE3_70_BUILDING_PARTAKE_ALL" 
+        SelectCommandType="StoredProcedure">
+        <SelectParameters>
+            <asp:ControlParameter ControlID="HiddenField2" Name="Req_Id" PropertyName="Value" 
+                Type="Int32" />
+            <asp:ControlParameter ControlID="HiddenField3" Name="Hub_Id" PropertyName="Value" 
+                Type="Int32" />
+            <asp:ControlParameter ControlID="HiddenField4" Name="TEMP_AID" 
+                PropertyName="Value" Type="Int32" />
+        </SelectParameters>
+    </asp:SqlDataSource>
+        
         </form>
 </body>
 </html>

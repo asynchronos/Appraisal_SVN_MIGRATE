@@ -6,6 +6,7 @@ Imports System.Data.SqlClient
 Partial Class Appraisal_Price3_Form_Review
     Inherits System.Web.UI.Page
     Dim s As String
+    Dim total As Decimal
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         Dim cus_class As Customer_Class
@@ -233,25 +234,25 @@ Partial Class Appraisal_Price3_Form_Review
                 lblAmphur.Text = DS.Tables(0).Rows.Item(0).Item("Amphur")
                 Dim Obj_province As List(Of Cls_PROVINCE) = GET_PROVINCE_INFO(DS.Tables(0).Rows.Item(0).Item("Province"))
                 lblProvinceName.Text = Obj_province.Item(0).PROV_NAME
-                lblArea.Text = DS.Tables(0).Rows.Item(0).Item("BuildingArea")
-                lblUnitPrice.Text = Format(DS.Tables(0).Rows.Item(0).Item("BuildingUintPrice"), "#,##0.00")
-                lblCostPrice.Text = Format(DS.Tables(0).Rows.Item(0).Item("BuildingPrice"), "#,##0.00")
-                lblAge.Text = DS.Tables(0).Rows.Item(0).Item("BuildingAge")
-                lblYearDamage.Text = DS.Tables(0).Rows.Item(0).Item("BuildingPersent1")
-                lblAdap.Text = DS.Tables(0).Rows.Item(0).Item("BuildingPersent2")
-                lblDecadent.Text = DS.Tables(0).Rows.Item(0).Item("BuildingPersent3")
-                lblP_Damage.Text = (DS.Tables(0).Rows.Item(0).Item("BuildingPersent1") + DS.Tables(0).Rows.Item(0).Item("BuildingPersent2") + DS.Tables(0).Rows.Item(0).Item("BuildingPersent3")) * DS.Tables(0).Rows.Item(0).Item("BuildingAge")
-                lblDamageBth.Text = DS.Tables(0).Rows.Item(0).Item("BuildingPriceTotalDeteriorate")
+                'lblArea.Text = DS.Tables(0).Rows.Item(0).Item("BuildingArea")
+                'lblUnitPrice.Text = Format(DS.Tables(0).Rows.Item(0).Item("BuildingUintPrice"), "#,##0.00")
+                'lblCostPrice.Text = Format(DS.Tables(0).Rows.Item(0).Item("BuildingPrice"), "#,##0.00")
+                'lblAge.Text = DS.Tables(0).Rows.Item(0).Item("BuildingAge")
+                'lblYearDamage.Text = DS.Tables(0).Rows.Item(0).Item("BuildingPersent1")
+                'lblAdap.Text = DS.Tables(0).Rows.Item(0).Item("BuildingPersent2")
+                'lblDecadent.Text = DS.Tables(0).Rows.Item(0).Item("BuildingPersent3")
+                'lblP_Damage.Text = (DS.Tables(0).Rows.Item(0).Item("BuildingPersent1") + DS.Tables(0).Rows.Item(0).Item("BuildingPersent2") + DS.Tables(0).Rows.Item(0).Item("BuildingPersent3")) * DS.Tables(0).Rows.Item(0).Item("BuildingAge")
+                'lblDamageBth.Text = DS.Tables(0).Rows.Item(0).Item("BuildingPriceTotalDeteriorate")
                 'Dim obj_Decoration As List(Of cls_
                 ddlInteriorState.SelectedValue = DS.Tables(0).Rows.Item(0).Item("Decoration")
                 'lblDecoration.Text = DS.Tables(0).Rows.Item(0).Item("Decoration")
-                If CDec(lblCostPrice.Text) <> 0 Then
-                    lblDamageBth.Text = Format(CDec(lblCostPrice.Text) * (CDbl(lblP_Damage.Text) / 100), "#,##0.00")
-                    lbltotalPrice.Text = Format(CDbl(lblCostPrice.Text) - CDbl(lblDamageBth.Text), "#,##0.00")
-                Else
-                    lblDamageBth.Text = "0.00"
-                    lbltotalPrice.Text = "0.00"
-                End If
+                'If CDec(lblCostPrice.Text) <> 0 Then
+                '    lblDamageBth.Text = Format(CDec(lblCostPrice.Text) * (CDbl(lblP_Damage.Text) / 100), "#,##0.00")
+                '    lbltotalPrice.Text = Format(CDbl(lblCostPrice.Text) - CDbl(lblDamageBth.Text), "#,##0.00")
+                'Else
+                '    lblDamageBth.Text = "0.00"
+                '    lbltotalPrice.Text = "0.00"
+                'End If
 
                 'หา PRICE3_MASTER_REVIEW หากมีจะดึงข้อมูลเดิมมาให้
                 Dim Obj_P3M_Reveiw As List(Of Price3_Master_Review) = GET_PRICE3_MASTER_REVIEW(lblCif.Text, txtAID.Text, lblCif.Text)
@@ -282,9 +283,9 @@ Partial Class Appraisal_Price3_Form_Review
                     RadioButtonList4.SelectedValue = Obj_P3M_Reveiw.Item(0).Progress_Chg
                     RadioButtonList5.SelectedValue = Obj_P3M_Reveiw.Item(0).Building_Chg
                     If Obj_P3M_Reveiw.Item(0).Building_Chg = 0 Then
-                        txtBuilding.Enabled = True
-                    Else
                         txtBuilding.Enabled = False
+                    Else
+                        txtBuilding.Enabled = True
                     End If
                     txtBuilding.Text = Obj_P3M_Reveiw.Item(0).Building_Chg_Detail
                     txtLast_Appraisal_Detail.Text = Obj_P3M_Reveiw.Item(0).Appraisal_Last_Detail
@@ -304,44 +305,45 @@ Partial Class Appraisal_Price3_Form_Review
                     txtApprove1.Text = Obj_P3M.Item(0).Approved1
                     txtApprove2.Text = Obj_P3M.Item(0).Approved2
                     txtApprove3.Text = Obj_P3M.Item(0).Approved3
+
                 Else
                     txtSequence.Text = 1
                 End If
 
                 'รายละเอียดส่วนต่อเติม
-                lblArea1.Text = DS.Tables(0).Rows.Item(0).Item("BuildAddArea")
-                lblUnitPrice1.Text = Format(DS.Tables(0).Rows.Item(0).Item("BuildAddUintPrice"), "#,##0.00")
-                lblCostPrice1.Text = Format(DS.Tables(0).Rows.Item(0).Item("BuildAddPrice"), "#,##0.00")
-                lblAge1.Text = DS.Tables(0).Rows.Item(0).Item("BuildAddAge")
-                lblYearDamage1.Text = DS.Tables(0).Rows.Item(0).Item("BuildAddPersent1")
-                lblAdap1.Text = DS.Tables(0).Rows.Item(0).Item("BuildAddPersent2")
-                lblDecadent1.Text = DS.Tables(0).Rows.Item(0).Item("BuildAddPersent3")
-                lblP_Damage1.Text = (DS.Tables(0).Rows.Item(0).Item("BuildAddPersent1") + DS.Tables(0).Rows.Item(0).Item("BuildAddPersent2") + DS.Tables(0).Rows.Item(0).Item("BuildAddPersent3")) * DS.Tables(0).Rows.Item(0).Item("BuildAddAge")
-                lblDamageBth1.Text = DS.Tables(0).Rows.Item(0).Item("BuildingPriceTotalDeteriorate")
-                If CDec(lblCostPrice.Text) <> 0 Then
-                    lblDamageBth1.Text = Format(CDec(lblCostPrice1.Text) * (CDbl(lblP_Damage1.Text) / 100), "#,##0.00")
-                    lbltotalPrice1.Text = Format(CDbl(lblCostPrice1.Text) - CDbl(lblDamageBth1.Text), "#,##0.00")
-                    lblGrandTotal.Text = Format(CDbl(lbltotalPrice.Text) + CDbl(lbltotalPrice1.Text), "#,##0.00")
-                    lblBuilding_Detail.Text = DS.Tables(0).Rows.Item(0).Item("CntID") 'CntID
-                    lblBuildingPrice.Text = Format(CDbl(lbltotalPrice.Text) + CDbl(lbltotalPrice1.Text), "#,##0.00")
-                    lblGrantotal.Text = Format(CDbl(lbltotalPrice.Text) + CDbl(lbltotalPrice1.Text) + (CDbl(lbltotalPrice.Text) + CDbl(lbltotalPrice1.Text)), "#,##0.00")
-                Else
-                    lblDamageBth1.Text = "0.00"
-                    lbltotalPrice1.Text = "0.00"
-                End If
+                'lblArea1.Text = DS.Tables(0).Rows.Item(0).Item("BuildAddArea")
+                'lblUnitPrice1.Text = Format(DS.Tables(0).Rows.Item(0).Item("BuildAddUintPrice"), "#,##0.00")
+                'lblCostPrice1.Text = Format(DS.Tables(0).Rows.Item(0).Item("BuildAddPrice"), "#,##0.00")
+                'lblAge1.Text = DS.Tables(0).Rows.Item(0).Item("BuildAddAge")
+                'lblYearDamage1.Text = DS.Tables(0).Rows.Item(0).Item("BuildAddPersent1")
+                'lblAdap1.Text = DS.Tables(0).Rows.Item(0).Item("BuildAddPersent2")
+                'lblDecadent1.Text = DS.Tables(0).Rows.Item(0).Item("BuildAddPersent3")
+                'lblP_Damage1.Text = (DS.Tables(0).Rows.Item(0).Item("BuildAddPersent1") + DS.Tables(0).Rows.Item(0).Item("BuildAddPersent2") + DS.Tables(0).Rows.Item(0).Item("BuildAddPersent3")) * DS.Tables(0).Rows.Item(0).Item("BuildAddAge")
+                'lblDamageBth1.Text = DS.Tables(0).Rows.Item(0).Item("BuildingPriceTotalDeteriorate")
+                'If CDec(lblCostPrice.Text) <> 0 Then
+                '    lblDamageBth1.Text = Format(CDec(lblCostPrice1.Text) * (CDbl(lblP_Damage1.Text) / 100), "#,##0.00")
+                '    lbltotalPrice1.Text = Format(CDbl(lblCostPrice1.Text) - CDbl(lblDamageBth1.Text), "#,##0.00")
+                '    lblGrandTotal.Text = Format(CDbl(lbltotalPrice.Text) + CDbl(lbltotalPrice1.Text), "#,##0.00")
+                '    lblBuilding_Detail.Text = DS.Tables(0).Rows.Item(0).Item("CntID") 'CntID
+                '    lblBuildingPrice.Text = Format(CDbl(lbltotalPrice.Text) + CDbl(lbltotalPrice1.Text), "#,##0.00")
+                '    lblGrantotal.Text = Format(CDbl(lbltotalPrice.Text) + CDbl(lbltotalPrice1.Text) + (CDbl(lbltotalPrice.Text) + CDbl(lbltotalPrice1.Text)), "#,##0.00")
+                'Else
+                '    lblDamageBth1.Text = "0.00"
+                '    lbltotalPrice1.Text = "0.00"
+                'End If
 
                 'รายละเอียดส่วนควบ
                 'ต้องดึงรายละเอียดของส่วนควบมาแสดงก่อน(On Progress)
-                Dim Obj_Partake_Reveiw As List(Of Price3_70_Review_Partake) = GET_PRICE3_70_REVIEW_PARTAKE_SUM(hdfReq_Id.Value, hdfHub_Id.Value, txtAID.Text, hdfTemp_AID.Value)
-                lblArea2.Text = Obj_Partake_Reveiw.Item(0).PartakeArea
-                lblUnitPrice2.Text = Obj_Partake_Reveiw.Item(0).PartakeUintPrice
-                lblCostPrice2.Text = Obj_Partake_Reveiw.Item(0).PartakePrice
-                lblAge2.Text = Obj_Partake_Reveiw.Item(0).PartakeAge
-                lblYearDamage2.Text = Obj_Partake_Reveiw.Item(0).PartakePersent1
-                lblAdap2.Text = Obj_Partake_Reveiw.Item(0).PartakePersent2
-                lblDecadent2.Text = Obj_Partake_Reveiw.Item(0).PartakePersent2
-                lblP_Damage2.Text = Format((Obj_Partake_Reveiw.Item(0).PartakePersent1 + Obj_Partake_Reveiw.Item(0).PartakePersent2 + Obj_Partake_Reveiw.Item(0).PartakePersent3) * (Obj_Partake_Reveiw.Item(0).PartakeAge), "#,##0.00")
-                lblDamageBth2.Text = Obj_Partake_Reveiw.Item(0).PartakePriceTotalDeteriorate
+                'Dim Obj_Partake_Reveiw As List(Of Price3_70_Review_Partake) = GET_PRICE3_70_REVIEW_PARTAKE_SUM(hdfReq_Id.Value, hdfHub_Id.Value, txtAID.Text, hdfTemp_AID.Value)
+                'lblArea2.Text = Obj_Partake_Reveiw.Item(0).PartakeArea
+                'lblUnitPrice2.Text = Obj_Partake_Reveiw.Item(0).PartakeUintPrice
+                'lblCostPrice2.Text = Obj_Partake_Reveiw.Item(0).PartakePrice
+                'lblAge2.Text = Obj_Partake_Reveiw.Item(0).PartakeAge
+                'lblYearDamage2.Text = Obj_Partake_Reveiw.Item(0).PartakePersent1
+                'lblAdap2.Text = Obj_Partake_Reveiw.Item(0).PartakePersent2
+                'lblDecadent2.Text = Obj_Partake_Reveiw.Item(0).PartakePersent2
+                'lblP_Damage2.Text = Format((Obj_Partake_Reveiw.Item(0).PartakePersent1 + Obj_Partake_Reveiw.Item(0).PartakePersent2 + Obj_Partake_Reveiw.Item(0).PartakePersent3) * (Obj_Partake_Reveiw.Item(0).PartakeAge), "#,##0.00")
+                'lblDamageBth2.Text = Obj_Partake_Reveiw.Item(0).PartakePriceTotalDeteriorate
                 'If CDec(lblCostPrice.Text) <> 0 Then
                 '    lblDamageBth2.Text = Format(CDec(lblCostPrice2.Text) * (CDbl(lblP_Damage2.Text) / 100), "#,##0.00")
                 '    lbltotalPrice2.Text = Format(CDbl(lblCostPrice2.Text) - CDbl(lblDamageBth2.Text), "#,##0.00")
@@ -349,39 +351,39 @@ Partial Class Appraisal_Price3_Form_Review
                 '    lblDamageBth2.Text = "0.00"
                 '    lbltotalPrice2.Text = "0.00"
                 'End If
-            Else
-                lblArea.Text = "0"
-                lblUnitPrice.Text = "0.00"
-                lblCostPrice.Text = "0.00"
-                lblAge.Text = "0"
-                lblYearDamage.Text = "0.00"
-                lblAdap.Text = "0.00"
-                lblDecadent.Text = "0.00"
-                lblP_Damage.Text = "0.00"
-                lblDamageBth.Text = "0.00"
-                lbltotalPrice.Text = "0.00"
+                'Else
+                '    lblArea.Text = "0"
+                '    lblUnitPrice.Text = "0.00"
+                '    lblCostPrice.Text = "0.00"
+                '    lblAge.Text = "0"
+                '    lblYearDamage.Text = "0.00"
+                '    lblAdap.Text = "0.00"
+                '    lblDecadent.Text = "0.00"
+                '    lblP_Damage.Text = "0.00"
+                '    lblDamageBth.Text = "0.00"
+                '    lbltotalPrice.Text = "0.00"
 
-                lblArea1.Text = "0"
-                lblUnitPrice1.Text = "0.00"
-                lblCostPrice1.Text = "0.00"
-                lblAge1.Text = "0"
-                lblYearDamage1.Text = "0.00"
-                lblAdap1.Text = "0.00"
-                lblDecadent1.Text = "0.00"
-                lblP_Damage1.Text = "0.00"
-                lblDamageBth1.Text = "0.00"
-                lbltotalPrice1.Text = "0.00"
+                '    lblArea1.Text = "0"
+                '    lblUnitPrice1.Text = "0.00"
+                '    lblCostPrice1.Text = "0.00"
+                '    lblAge1.Text = "0"
+                '    lblYearDamage1.Text = "0.00"
+                '    lblAdap1.Text = "0.00"
+                '    lblDecadent1.Text = "0.00"
+                '    lblP_Damage1.Text = "0.00"
+                '    lblDamageBth1.Text = "0.00"
+                '    lbltotalPrice1.Text = "0.00"
 
-                lblArea2.Text = "0"
-                lblUnitPrice2.Text = "0.00"
-                lblCostPrice2.Text = "0.00"
-                lblAge2.Text = "0"
-                lblYearDamage2.Text = "0.00"
-                lblAdap2.Text = "0.00"
-                lblDecadent2.Text = "0.00"
-                lblP_Damage2.Text = "0.00"
-                lblDamageBth2.Text = "0.00"
-                lbltotalPrice2.Text = "0.00"
+                '    lblArea2.Text = "0"
+                '    lblUnitPrice2.Text = "0.00"
+                '    lblCostPrice2.Text = "0.00"
+                '    lblAge2.Text = "0"
+                '    lblYearDamage2.Text = "0.00"
+                '    lblAdap2.Text = "0.00"
+                '    lblDecadent2.Text = "0.00"
+                '    lblP_Damage2.Text = "0.00"
+                '    lblDamageBth2.Text = "0.00"
+                '    lbltotalPrice2.Text = "0.00"
             End If
         End If
 
@@ -419,4 +421,35 @@ Partial Class Appraisal_Price3_Form_Review
             txtBuilding.Enabled = False
         End If
     End Sub
+
+    Function Get_Amount(ByVal Age As Decimal, ByVal P1 As Decimal, ByVal P2 As Decimal, ByVal P3 As Decimal) As String
+
+        Dim Amount As Decimal = Age * (P1 + P2 + P3)
+        Return String.Format("{0:N2}", Amount)
+
+    End Function
+
+    Function Get_Amount_Bht(ByVal Price As Decimal, ByVal Age As Decimal, ByVal P1 As Decimal, ByVal P2 As Decimal, ByVal P3 As Decimal) As String
+
+        Dim Amount_Price As Decimal = Price * (((P1 + P2 + P3) * Age) / 100)
+        Return String.Format("{0:N2}", Amount_Price)
+
+    End Function
+
+    Function Get_Balance(ByVal Price As Decimal, ByVal Age As Decimal, ByVal P1 As Decimal, ByVal P2 As Decimal, ByVal P3 As Decimal) As String
+
+        Dim Amount_Price As Decimal = Price - (Price * (((P1 + P2 + P3) * Age) / 100))
+        total += Amount_Price
+        Return String.Format("{0:N2}", Amount_Price)
+        MsgBox(total)
+    End Function
+
+    Function Get_Total() As String
+        lblBuildingPrice.Text = String.Format("{0:N2}", total)
+        lblGrantotal.Text = String.Format("{0:N2}", CDec(lblLandTotal.Text) + CDec(lblBuildingPrice.Text))
+        lblGrantotalAll.Text = String.Format("{0:N2}", CDec(lblLandTotal.Text) + CDec(lblBuildingPrice.Text))
+        Return String.Format("{0:N2}", total)
+
+    End Function
+
 End Class

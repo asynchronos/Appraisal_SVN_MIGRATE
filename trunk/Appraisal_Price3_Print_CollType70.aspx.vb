@@ -1,7 +1,7 @@
 ﻿Imports Appraisal_Manager
 Partial Class Appraisal_Price3_Print_CollType70
     Inherits System.Web.UI.Page
-
+    Dim total As Decimal
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not Page.IsPostBack Then
             '********* Data Test **************
@@ -53,40 +53,40 @@ Partial Class Appraisal_Price3_Print_CollType70
         Dim Obj_P3_70 As List(Of Price3_70) = GET_PRICE3_70(HiddenField1.Value, HiddenField2.Value, HiddenField3.Value, HiddenField4.Value)
         If Obj_P3_70.Count > 0 Then
             Literal1.Text = Obj_P3_70.Item(0).BuildingDetail
-            lblArea.Text = Obj_P3_70.Item(0).BuildingArea
+            'lblArea.Text = Obj_P3_70.Item(0).BuildingArea
             If CheckBox1.Checked = True Then
                 lblFloors1.Text = Obj_P3_70.Item(0).Floors
-                lblBuildingFloors.Text = CheckBox1.Text & " " & lblFloors1.Text
+                'lblBuildingFloors.Text = CheckBox1.Text & " " & lblFloors1.Text
             ElseIf CheckBox2.Checked = True Then
                 lblFloors0.Text = Obj_P3_70.Item(0).Floors
-                lblBuildingFloors.Text = CheckBox2.Text & " " & lblFloors0.Text
+                'lblBuildingFloors.Text = CheckBox2.Text & " " & lblFloors0.Text
             ElseIf CheckBox3.Checked = True Then
                 lblFloors.Text = Obj_P3_70.Item(0).Floors
-                lblBuildingFloors.Text = CheckBox3.Text & " " & lblFloors.Text
+                'lblBuildingFloors.Text = CheckBox3.Text & " " & lblFloors.Text
             ElseIf CheckBox4.Checked = True Then
 
             End If
-            lblUnitPrice.Text = Format(Obj_P3_70.Item(0).BuildingUintPrice, "#,##0.00")
-            lblCostPrice.Text = Format(Obj_P3_70.Item(0).PriceTotal1, "#,##0.00")
-            lblAge.Text = Obj_P3_70.Item(0).BuildingAge
-            lblYearDamage.Text = Obj_P3_70.Item(0).BuildingPersent1
-            lblAdap.Text = Obj_P3_70.Item(0).BuildingPersent2
-            lblDecadent.Text = Obj_P3_70.Item(0).BuildingPersent3
-            lblP_Damage.Text = CInt(Obj_P3_70.Item(0).BuildingPersent1) + CInt(Obj_P3_70.Item(0).BuildingPersent2) + CInt(Obj_P3_70.Item(0).BuildingPersent3)
-            lblDamageBth.Text = Obj_P3_70.Item(0).BuildingPriceTotalDeteriorate
-            lbltotalPrice.Text = Format(CDec(Obj_P3_70.Item(0).PriceTotal1), "#,##0.00")
-            lblAge1.Text = Obj_P3_70.Item(0).BuildAddAge
-            lblArea1.Text = Obj_P3_70.Item(0).BuildAddArea
-            lblUnitPrice1.Text = Format(Obj_P3_70.Item(0).BuildAddUintPrice, "#,##0.00")
-            lblCostPrice1.Text = Format(Obj_P3_70.Item(0).BuildAddPrice, "#,##0.00")
-            lblYearDamage1.Text = Obj_P3_70.Item(0).BuildAddPersent1
-            lblAdap1.Text = Obj_P3_70.Item(0).BuildAddPersent2
-            lblDecadent1.Text = Obj_P3_70.Item(0).BuildAddPersent3
-            lblP_Damage1.Text = CInt(Obj_P3_70.Item(0).BuildAddPersent1) + CInt(Obj_P3_70.Item(0).BuildAddPersent2) + CInt(Obj_P3_70.Item(0).BuildAddPersent3)
-            lblDamageBth1.Text = Obj_P3_70.Item(0).BuildAddPriceTotalDeteriorate
-            lbltotalPrice1.Text = Format(CDec(Obj_P3_70.Item(0).BuildAddPrice), "#,##0.00")
-            lblGrandTotal.Text = Format(CDec(lbltotalPrice.Text) + CDec(lbltotalPrice1.Text), "#,##0.00")
-            lblGrandTotal0.Text = Format(CDec(lbltotalPrice.Text) + CDec(lbltotalPrice1.Text), "#,##0.00")
+            'lblUnitPrice.Text = Format(Obj_P3_70.Item(0).BuildingUintPrice, "#,##0.00")
+            'lblCostPrice.Text = Format(Obj_P3_70.Item(0).PriceTotal1, "#,##0.00")
+            'lblAge.Text = Obj_P3_70.Item(0).BuildingAge
+            'lblYearDamage.Text = Obj_P3_70.Item(0).BuildingPersent1
+            'lblAdap.Text = Obj_P3_70.Item(0).BuildingPersent2
+            'lblDecadent.Text = Obj_P3_70.Item(0).BuildingPersent3
+            'lblP_Damage.Text = CInt(Obj_P3_70.Item(0).BuildingPersent1) + CInt(Obj_P3_70.Item(0).BuildingPersent2) + CInt(Obj_P3_70.Item(0).BuildingPersent3)
+            'lblDamageBth.Text = Obj_P3_70.Item(0).BuildingPriceTotalDeteriorate
+            'lbltotalPrice.Text = Format(CDec(Obj_P3_70.Item(0).PriceTotal1), "#,##0.00")
+            'lblAge1.Text = Obj_P3_70.Item(0).BuildAddAge
+            'lblArea1.Text = Obj_P3_70.Item(0).BuildAddArea
+            'lblUnitPrice1.Text = Format(Obj_P3_70.Item(0).BuildAddUintPrice, "#,##0.00")
+            'lblCostPrice1.Text = Format(Obj_P3_70.Item(0).BuildAddPrice, "#,##0.00")
+            'lblYearDamage1.Text = Obj_P3_70.Item(0).BuildAddPersent1
+            'lblAdap1.Text = Obj_P3_70.Item(0).BuildAddPersent2
+            'lblDecadent1.Text = Obj_P3_70.Item(0).BuildAddPersent3
+            'lblP_Damage1.Text = CInt(Obj_P3_70.Item(0).BuildAddPersent1) + CInt(Obj_P3_70.Item(0).BuildAddPersent2) + CInt(Obj_P3_70.Item(0).BuildAddPersent3)
+            'lblDamageBth1.Text = Obj_P3_70.Item(0).BuildAddPriceTotalDeteriorate
+            'lbltotalPrice1.Text = Format(CDec(Obj_P3_70.Item(0).BuildAddPrice), "#,##0.00")
+            'lblGrandTotal.Text = Format(CDec(lbltotalPrice.Text) + CDec(lbltotalPrice1.Text), "#,##0.00")
+            'lblGrandTotal0.Text = Format(CDec(lbltotalPrice.Text) + CDec(lbltotalPrice1.Text), "#,##0.00")
             lblItems.Text = Obj_P3_70.Count
         End If
 
@@ -100,4 +100,33 @@ Partial Class Appraisal_Price3_Print_CollType70
 
     End Sub
 
+    Function Get_Amount(ByVal Age As Decimal, ByVal P1 As Decimal, ByVal P2 As Decimal, ByVal P3 As Decimal) As String
+
+        Dim Amount As Decimal = Age * (P1 + P2 + P3)
+        Return String.Format("{0:N2}", Amount)
+
+    End Function
+
+    Function Get_Amount_Bht(ByVal Price As Decimal, ByVal Age As Decimal, ByVal P1 As Decimal, ByVal P2 As Decimal, ByVal P3 As Decimal) As String
+
+        Dim Amount_Price As Decimal = Price * (((P1 + P2 + P3) * Age) / 100)
+        Return String.Format("{0:N2}", Amount_Price)
+
+    End Function
+
+    Function Get_Balance(ByVal Price As Decimal, ByVal Age As Decimal, ByVal P1 As Decimal, ByVal P2 As Decimal, ByVal P3 As Decimal) As String
+
+        Dim Amount_Price As Decimal = Price - (Price * (((P1 + P2 + P3) * Age) / 100))
+        total += Amount_Price
+        Return String.Format("{0:N2}", Amount_Price)
+        MsgBox(total)
+    End Function
+
+    Function Get_Total() As String
+        lblGrandTotal0.Text = String.Format("{0:N2}", total)
+        'lblGrantotal.Text = String.Format("{0:N2}", CDec(lblLandTotal.Text) + CDec(lblBuildingPrice.Text))
+        'lblGrandTotal0.Text = String.Format("{0:N2}", CDec(lblLandTotal.Text) + CDec(lblBuildingPrice.Text))
+        Return String.Format("{0:N2}", total)
+
+    End Function
 End Class
