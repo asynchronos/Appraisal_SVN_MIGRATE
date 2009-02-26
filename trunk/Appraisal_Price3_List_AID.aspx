@@ -78,7 +78,7 @@
         DataSourceID="sdsPriceList3_Review" EmptyDataText="There are no data records to display."
         Width='100%' BackColor="LightGoldenrodYellow" BorderColor="Tan" BorderWidth="1px"
         CellPadding="2" ForeColor="Black" GridLines="None" ShowFooter="True" PageSize="15"
-        Font-Size="Medium">
+        Font-Size="Medium" style="font-size: small">
         <FooterStyle BackColor="Tan" />
         <Columns>
             <asp:TemplateField>

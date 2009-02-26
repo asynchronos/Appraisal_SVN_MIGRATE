@@ -52,7 +52,7 @@
                     SortExpression="Temp_AID" />
                 <asp:TemplateField HeaderText="File upload">
                     <ItemTemplate>
-                     <asp:HyperLink ID="linkPath" runat="server"  target='_blank'  text='<%#EVAL("Picture_Path") %>' NavigateUrl='<%#  "UploadedFiles/Pic_Price2/" &  EVAL("Picture_Path") %>'>HyperLink</asp:HyperLink>
+                     <asp:HyperLink ID="linkPath" runat="server"  target='_blank'  text='<%#EVAL("Picture_Path") %>' NavigateUrl='<%#  "UploadedFiles/Pic_Price3/" &  EVAL("Picture_Path") %>'>HyperLink</asp:HyperLink>
                     </ItemTemplate>
                 </asp:TemplateField>
                
@@ -70,12 +70,12 @@
             <SelectParameters>
                 <asp:ControlParameter ControlID="lblReq_Id" Name="Req_Id" PropertyName="Text" />
                 <asp:ControlParameter ControlID="lblHub_Id" Name="Hub_Id" PropertyName="Text" />
-                <asp:ControlParameter ControlID="lblAID" Name="AID" 
-                    PropertyName="Text" Type="String" />
             </SelectParameters>
         </asp:SqlDataSource>
         <br />
         <asp:Label ID="lblReq_Id" runat="server" Visible="False"></asp:Label>
+                    <br />
+        <asp:Label ID="lblHub_Id" runat="server" Visible="False"></asp:Label>
         <br />
         <asp:Label ID="lblUserId" runat="server" Visible="False"></asp:Label>
     

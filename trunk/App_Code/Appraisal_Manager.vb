@@ -1225,7 +1225,7 @@ Public Class Appraisal_Manager
     End Function
 
     Public Shared Sub AddPRICE3_Master(ByVal Req_Id As Integer, _
-      ByVal AID As Integer, _
+      ByVal AID As String, _
       ByVal Temp_AID As Integer, _
       ByVal Inform_To As String, _
       ByVal Cif As Integer, _
@@ -1235,6 +1235,8 @@ Public Class Appraisal_Manager
       ByVal Receive_Date As Date, _
       ByVal PriceWah As Decimal, _
       ByVal TotalPrice As Decimal, _
+      ByVal BuildingPrice As Decimal, _
+      ByVal Land_Building_Price As Decimal, _
       ByVal Approved1 As String, _
       ByVal Approved2 As String, _
       ByVal Approved3 As String, _
@@ -1270,6 +1272,95 @@ Public Class Appraisal_Manager
                     command.Parameters.Add(New SqlParameter("@Receive_Date", Receive_Date))
                     command.Parameters.Add(New SqlParameter("@PriceWah", PriceWah))
                     command.Parameters.Add(New SqlParameter("@TotalPrice", TotalPrice))
+                    command.Parameters.Add(New SqlParameter("@BuildingPrice", BuildingPrice))
+                    command.Parameters.Add(New SqlParameter("@Land_Building_Price", Land_Building_Price))
+                    command.Parameters.Add(New SqlParameter("@Approved1", Approved1))
+                    command.Parameters.Add(New SqlParameter("@Approved2", Approved2))
+                    command.Parameters.Add(New SqlParameter("@Approved3", Approved3))
+                    command.Parameters.Add(New SqlParameter("@Approved", Approved))
+                    command.Parameters.Add(New SqlParameter("@Env_Effect", Env_Effect))
+                    command.Parameters.Add(New SqlParameter("@Env_Effect_Detail", Env_Effect_Detail))
+                    command.Parameters.Add(New SqlParameter("@Appraisal_Detail", Appraisal_Detail))
+                    command.Parameters.Add(New SqlParameter("@Appraisal_Type_ID", Appraisal_Type_ID))
+                    command.Parameters.Add(New SqlParameter("@Comment_ID", Comment_ID))
+                    command.Parameters.Add(New SqlParameter("@Warning_ID", Warning_ID))
+                    command.Parameters.Add(New SqlParameter("@Warning_Detail", Warning_Detail))
+                    command.Parameters.Add(New SqlParameter("@Req_Dept", Req_Dept))
+                    command.Parameters.Add(New SqlParameter("@Appraisal_ID", Appraisal_ID))
+                    command.Parameters.Add(New SqlParameter("@Create_User", Create_User))
+                    command.Parameters.Add(New SqlParameter("@Create_Date", Create_Date))
+                    command.ExecuteNonQuery()
+                    myTrans.Commit()
+                Catch ex As Exception
+                    myTrans.Rollback()
+                    Dim msg As String
+                    Dim title As String
+                    Dim style As MsgBoxStyle
+                    Dim response1 As MsgBoxResult
+                    'msg = "การบันทึกผิดพลาด"   ' Define message.
+                    msg = ex.Message
+                    style = MsgBoxStyle.DefaultButton2 Or _
+                       MsgBoxStyle.Critical Or MsgBoxStyle.YesNo
+                    title = "ผลการบันทึก"   ' Define title.
+                    ' Display message.
+                    response1 = MsgBox(msg, style, title)
+                Finally
+                    connection.Close()
+                End Try
+            End Using
+        End Using
+    End Sub
+
+    Public Shared Sub UPDATE_PRICE3_MASTER(ByVal Req_Id As Integer, _
+  ByVal AID As String, _
+  ByVal Temp_AID As Integer, _
+  ByVal Inform_To As String, _
+  ByVal Cif As Integer, _
+  ByVal Lat As Double, _
+  ByVal Lng As Double, _
+  ByVal Appraisal_Date As Date, _
+  ByVal Receive_Date As Date, _
+  ByVal PriceWah As Decimal, _
+  ByVal TotalPrice As Decimal, _
+  ByVal BuildingPrice As Decimal, _
+  ByVal Land_Building_Price As Decimal, _
+  ByVal Approved1 As String, _
+  ByVal Approved2 As String, _
+  ByVal Approved3 As String, _
+  ByVal Approved As Integer, _
+  ByVal Env_Effect As Integer, _
+  ByVal Env_Effect_Detail As String, _
+  ByVal Appraisal_Detail As String, _
+  ByVal Appraisal_Type_ID As Integer, _
+  ByVal Comment_ID As Integer, _
+  ByVal Warning_ID As Integer, _
+  ByVal Warning_Detail As String, _
+  ByVal Req_Dept As Integer, _
+  ByVal Appraisal_ID As String, _
+  ByVal Create_User As String, _
+  ByVal Create_Date As Date)
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("UPDATE_PRICE3_MASTER", connection)
+                connection.Open()
+                command.Connection = connection
+                Dim myTrans As SqlTransaction
+                myTrans = connection.BeginTransaction()
+                command.Transaction = myTrans
+                Try
+                    command.CommandType = CommandType.StoredProcedure
+                    command.Parameters.Add(New SqlParameter("@Req_Id", Req_Id))
+                    command.Parameters.Add(New SqlParameter("@AID", AID))
+                    command.Parameters.Add(New SqlParameter("@Temp_AID", Temp_AID))
+                    command.Parameters.Add(New SqlParameter("@Inform_To", Inform_To))
+                    command.Parameters.Add(New SqlParameter("@Cif", Cif))
+                    command.Parameters.Add(New SqlParameter("@Lat", Lat))
+                    command.Parameters.Add(New SqlParameter("@Lng", Lng))
+                    command.Parameters.Add(New SqlParameter("@Appraisal_Date", Appraisal_Date))
+                    command.Parameters.Add(New SqlParameter("@Receive_Date", Receive_Date))
+                    command.Parameters.Add(New SqlParameter("@PriceWah", PriceWah))
+                    command.Parameters.Add(New SqlParameter("@TotalPrice", TotalPrice))
+                    command.Parameters.Add(New SqlParameter("@BuildingPrice", BuildingPrice))
+                    command.Parameters.Add(New SqlParameter("@Land_Building_Price", Land_Building_Price))
                     command.Parameters.Add(New SqlParameter("@Approved1", Approved1))
                     command.Parameters.Add(New SqlParameter("@Approved2", Approved2))
                     command.Parameters.Add(New SqlParameter("@Approved3", Approved3))
@@ -1331,6 +1422,8 @@ Public Class Appraisal_Manager
                                                 CDate(reader("Receive_Date")), _
                                                 CDec(reader("Pricewah")), _
                                                 CDec(reader("TotalPrice")), _
+                                                CDec(reader("BuildingPrice")), _
+                                                CDec(reader("Land_Building_Price")), _
                                                 CStr(reader("Approved1")), _
                                                 CStr(reader("Approved2")), _
                                                 CStr(reader("Approved3")), _
@@ -1455,6 +1548,7 @@ Public Class Appraisal_Manager
                     myTrans.Commit()
                 Catch ex As Exception
                     myTrans.Rollback()
+                    MsgBox(ex.Message)
                 Finally
                     connection.Close()
                 End Try
@@ -2167,6 +2261,7 @@ Public Class Appraisal_Manager
      ByVal Temp_AID As Integer, _
      ByVal AID As String, _
      ByVal Partake_Id As Integer, _
+     ByVal Building_No As String, _
      ByVal PartakeArea As Double, _
      ByVal PartakeUintPrice As Double, _
      ByVal PartakePrice As Double, _
@@ -2194,6 +2289,7 @@ Public Class Appraisal_Manager
                     command.Parameters.Add(New SqlParameter("@Temp_AID", Temp_AID))
                     command.Parameters.Add(New SqlParameter("@AID", AID))
                     command.Parameters.Add(New SqlParameter("@Partake_Id", Partake_Id))
+                    command.Parameters.Add(New SqlParameter("@Building_No", Building_No))
                     command.Parameters.Add(New SqlParameter("@PartakeArea", PartakeArea))
                     command.Parameters.Add(New SqlParameter("@PartakeUintPrice", PartakeUintPrice))
                     command.Parameters.Add(New SqlParameter("@PartakePrice", PartakePrice))
@@ -2569,6 +2665,73 @@ Public Class Appraisal_Manager
 
     End Function
 
+    Public Shared Function GET_PRICE3_70_REVIEW_BY_REQ_ID(ByVal Req_Id As Integer, ByVal Hub_Id As Integer) As Generic.List(Of Price3_70_Review)
+
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("GET_PRICE3_70_REVIEW_BY_REQ_ID", connection)
+                command.CommandType = CommandType.StoredProcedure
+                command.CommandTimeout = 60
+                command.Parameters.Add(New SqlParameter("@Req_Id", Req_Id))
+                command.Parameters.Add(New SqlParameter("@Hub_Id", Hub_Id))
+                connection.Open()
+                Dim list As New Generic.List(Of Price3_70_Review)()
+                Using reader As SqlDataReader = command.ExecuteReader()
+
+                    Do While (reader.Read())
+                        Dim temp As New Price3_70_Review(CInt(reader("ID")), _
+                                                CInt(reader("Req_Id")), _
+                                                CInt(reader("Hub_Id")), _
+                                                CInt(reader("Temp_AID")), _
+                                                CInt(reader("MysubColl_ID")), _
+                                                CStr(reader("Build_No")), _
+                                                CStr(reader("Tumbon")), _
+                                                CStr(reader("Amphur")), _
+                                                CInt(reader("Province")), _
+                                                CInt(reader("Build_Character")), _
+                                                CStr(reader("Floors")), _
+                                                CInt(reader("Item")), _
+                                                CInt(reader("Build_Construct")), _
+                                                CInt(reader("Roof")), _
+                                                CStr(reader("Roof_Detail")), _
+                                                CInt(reader("Build_State")), _
+                                                CStr(reader("Build_State_Detail")), _
+                                                CStr(reader("Building_Detail")), _
+                                                CDec(reader("PriceTotal1")), _
+                                                CInt(reader("Doc1")), _
+                                                CInt(reader("Doc2")), _
+                                                CStr(reader("Doc_Detail")), _
+                                                CStr(reader("Pic_path")), _
+                                                CStr(reader("Put_On_Chanode")), _
+                                                CStr(reader("Ownership")), _
+                                                CDec(reader("BuildingArea")), _
+                                                CDec(reader("BuildingUintPrice")), _
+                                                CDec(reader("BuildingPrice")), _
+                                                CInt(reader("BuildingAge")), _
+                                                CDec(reader("BuildingPersent1")), _
+                                                CDec(reader("BuildingPersent2")), _
+                                                CDec(reader("BuildingPersent3")), _
+                                                CDec(reader("BuildingPriceTotalDeteriorate")), _
+                                                CDec(reader("BuildAddArea")), _
+                                                CDec(reader("BuildAddUintPrice")), _
+                                                CDec(reader("BuildAddPrice")), _
+                                                CDec(reader("BuildAddAge")), _
+                                                CDec(reader("BuildAddPersent1")), _
+                                                CDec(reader("BuildAddPersent2")), _
+                                                CDec(reader("BuildAddPersent3")), _
+                                                CDec(reader("BuildAddPriceTotalDeteriorate")), _
+                                                CStr(reader("BuildingDetail")), _
+                                                CInt(reader("Decoration")), _
+                                                CStr(reader("Create_User")), _
+                                                CDate(reader("Create_Date")))
+                        list.Add(temp)
+                    Loop
+                End Using
+                Return list
+            End Using
+        End Using
+
+    End Function
+
     Public Shared Sub UPDATE_PRICE3_50_REVIEW(ByVal Id As Integer, _
      ByVal Req_Id As Integer, _
      ByVal Hub_Id As Integer, _
@@ -2789,7 +2952,7 @@ Public Class Appraisal_Manager
     End Sub
 
     Public Shared Sub ADD_PRICE3_MASTER_REVIEW(ByVal Req_Id As Integer, _
-  ByVal AID As Integer, _
+  ByVal AID As String, _
   ByVal Temp_AID As Integer, _
   ByVal Cif As Integer, _
   ByVal Memo_Date As Date, _
@@ -2838,6 +3001,7 @@ Public Class Appraisal_Manager
                     myTrans.Commit()
                 Catch ex As Exception
                     myTrans.Rollback()
+                    MsgBox(ex.Message)
                 Finally
                     connection.Close()
                 End Try
@@ -2846,7 +3010,7 @@ Public Class Appraisal_Manager
     End Sub
 
     Public Shared Sub UPDATE_PRICE3_MASTER_REVIEW(ByVal Req_Id As Integer, _
-  ByVal AID As Integer, _
+  ByVal AID As String, _
   ByVal Temp_AID As Integer, _
   ByVal Cif As Integer, _
   ByVal Memo_Date As Date, _
@@ -2903,7 +3067,7 @@ Public Class Appraisal_Manager
         End Using
     End Sub
 
-    Public Shared Function GET_PRICE3_MASTER_REVIEW(ByVal CIF As Integer, ByVal AID As Integer, ByVal REQ_ID As Integer) As Generic.List(Of Price3_Master_Review)
+    Public Shared Function GET_PRICE3_MASTER_REVIEW(ByVal CIF As Integer, ByVal AID As String, ByVal REQ_ID As Integer) As Generic.List(Of Price3_Master_Review)
 
         Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
             Using command As New SqlCommand("GET_PRICE3_MASTER_REVIEW", connection)
@@ -2918,7 +3082,7 @@ Public Class Appraisal_Manager
 
                     Do While (reader.Read())
                         Dim temp As New Price3_Master_Review(CInt(reader("Req_Id")), _
-                                                CInt(reader("AID")), _
+                                                CStr(reader("AID")), _
                                                 CInt(reader("Temp_AID")), _
                                                 CInt(reader("Cif")), _
                                                 CDate(reader("Memo_Date")), _
@@ -3133,6 +3297,215 @@ Public Class Appraisal_Manager
                                                 CDec(reader("PartakePersent3")), _
                                                 CDec(reader("PartakePriceTotalDeteriorate")), _
                                                 CStr(reader("PartakeDetail")), _
+                                                CStr(reader("Create_User")), _
+                                                CDate(reader("Create_Date")))
+                        list.Add(temp)
+                    Loop
+                End Using
+                Return list
+            End Using
+        End Using
+
+    End Function
+
+    Public Shared Sub ADD_PRICE3_70_DETAIL_REVIEW(ByVal Id As Integer, _
+ ByVal Req_Id As Integer, _
+ ByVal Hub_Id As Integer, _
+ ByVal Temp_AID As Integer, _
+ ByVal Floor As String, _
+ ByVal Main_Construction As String, _
+ ByVal Concrete As Integer, _
+ ByVal Granite As Integer, _
+ ByVal Parquet As Integer, _
+ ByVal Ceramic As Integer, _
+ ByVal Wood As Integer, _
+ ByVal Other As Integer, _
+ ByVal Other_Detail As String, _
+ ByVal BrickWall As Integer, _
+ ByVal BlockBrickWall As Integer, _
+ ByVal WoodWall As Integer, _
+ ByVal OtherWall As Integer, _
+ ByVal OtherWall_Detail As String, _
+ ByVal Create_User As String, _
+ ByVal Create_Date As Date)
+
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("ADD_PRICE3_70_DETAIL_REVIEW", connection)
+                connection.Open()
+                command.Connection = connection
+                Dim myTrans As SqlTransaction
+                myTrans = connection.BeginTransaction()
+                command.Transaction = myTrans
+                Try
+                    command.CommandType = CommandType.StoredProcedure
+                    command.Parameters.Add(New SqlParameter("@Id", Id))
+                    command.Parameters.Add(New SqlParameter("@Req_Id", Req_Id))
+                    command.Parameters.Add(New SqlParameter("@Hub_Id", Hub_Id))
+                    command.Parameters.Add(New SqlParameter("@Temp_AID", Temp_AID))
+                    command.Parameters.Add(New SqlParameter("@Floors", Floor))
+                    command.Parameters.Add(New SqlParameter("@Main_Construction", Main_Construction))
+                    command.Parameters.Add(New SqlParameter("@Concrete", Concrete))
+                    command.Parameters.Add(New SqlParameter("@Granite", Granite))
+                    command.Parameters.Add(New SqlParameter("@Parquet", Parquet))
+                    command.Parameters.Add(New SqlParameter("@Ceramic", Ceramic))
+                    command.Parameters.Add(New SqlParameter("@Wood", Wood))
+                    command.Parameters.Add(New SqlParameter("@Other", Other))
+                    command.Parameters.Add(New SqlParameter("@Other_Detail", Other_Detail))
+                    command.Parameters.Add(New SqlParameter("@BrickWall", BrickWall))
+                    command.Parameters.Add(New SqlParameter("@BlockBrickWall", BlockBrickWall))
+                    command.Parameters.Add(New SqlParameter("@WoodWall", WoodWall))
+                    command.Parameters.Add(New SqlParameter("@OtherWall", OtherWall))
+                    command.Parameters.Add(New SqlParameter("@OtherWall_Detail", OtherWall_Detail))
+                    command.Parameters.Add(New SqlParameter("@Create_User", Create_User))
+                    command.Parameters.Add(New SqlParameter("@Create_Date", Create_Date))
+                    command.ExecuteNonQuery()
+                    myTrans.Commit()
+                Catch ex As Exception
+                    myTrans.Rollback()
+                Finally
+                    connection.Close()
+                End Try
+            End Using
+        End Using
+    End Sub
+
+    Public Shared Sub UPDATE_PRICE3_70_DETAIL_REVIEW(ByVal Id As String, _
+     ByVal Req_Id As Integer, _
+     ByVal Hub_Id As Integer, _
+     ByVal Temp_AID As Integer, _
+     ByVal Floor As String, _
+     ByVal Main_Construction As String, _
+     ByVal Concrete As Integer, _
+     ByVal Granite As Integer, _
+     ByVal Parquet As Integer, _
+     ByVal Ceramic As Integer, _
+     ByVal Wood As Integer, _
+     ByVal Other As Integer, _
+     ByVal Other_Detail As String, _
+     ByVal BrickWall As Integer, _
+     ByVal BlockBrickWall As Integer, _
+     ByVal WoodWall As Integer, _
+     ByVal OtherWall As Integer, _
+     ByVal OtherWall_Detail As String, _
+     ByVal Create_User As String, _
+     ByVal Create_Date As Date)
+
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("UPDATE_PRICE3_70_DETAIL_REVIEW", connection)
+                connection.Open()
+                command.Connection = connection
+                Dim myTrans As SqlTransaction
+                myTrans = connection.BeginTransaction()
+                command.Transaction = myTrans
+                Try
+                    command.CommandType = CommandType.StoredProcedure
+                    command.Parameters.Add(New SqlParameter("@Id", Id))
+                    command.Parameters.Add(New SqlParameter("@Req_Id", Req_Id))
+                    command.Parameters.Add(New SqlParameter("@Hub_Id", Hub_Id))
+                    command.Parameters.Add(New SqlParameter("@Temp_AID", Temp_AID))
+                    command.Parameters.Add(New SqlParameter("@Floors", Floor))
+                    command.Parameters.Add(New SqlParameter("@Main_Construction", Main_Construction))
+                    command.Parameters.Add(New SqlParameter("@Concrete", Concrete))
+                    command.Parameters.Add(New SqlParameter("@Granite", Granite))
+                    command.Parameters.Add(New SqlParameter("@Parquet", Parquet))
+                    command.Parameters.Add(New SqlParameter("@Ceramic", Ceramic))
+                    command.Parameters.Add(New SqlParameter("@Wood", Wood))
+                    command.Parameters.Add(New SqlParameter("@Other", Other))
+                    command.Parameters.Add(New SqlParameter("@Other_Detail", Other_Detail))
+                    command.Parameters.Add(New SqlParameter("@BrickWall", BrickWall))
+                    command.Parameters.Add(New SqlParameter("@BlockBrickWall", BlockBrickWall))
+                    command.Parameters.Add(New SqlParameter("@WoodWall", WoodWall))
+                    command.Parameters.Add(New SqlParameter("@OtherWall", OtherWall))
+                    command.Parameters.Add(New SqlParameter("@OtherWall_Detail", OtherWall_Detail))
+                    command.Parameters.Add(New SqlParameter("@Create_User", Create_User))
+                    command.Parameters.Add(New SqlParameter("@Create_Date", Create_Date))
+                    command.ExecuteNonQuery()
+                    myTrans.Commit()
+                Catch ex As Exception
+                    myTrans.Rollback()
+                    Dim msg As String
+                    Dim title As String
+                    Dim style As MsgBoxStyle
+                    Dim response1 As MsgBoxResult
+                    'msg = "การบันทึกผิดพลาด"   ' Define message.
+                    msg = ex.Message
+                    style = MsgBoxStyle.DefaultButton2 Or _
+                       MsgBoxStyle.Critical Or MsgBoxStyle.YesNo
+                    title = "ผลการบันทึก"   ' Define title.
+                    ' Display message.
+                    response1 = MsgBox(msg, style, title)
+                Finally
+                    connection.Close()
+                End Try
+            End Using
+        End Using
+    End Sub
+
+    Public Shared Sub DELETE_PRICE3_70_DETAIL_REVIEW(ByVal Id As String, _
+     ByVal Req_Id As Integer, _
+     ByVal Hub_Id As Integer, _
+     ByVal Temp_AID As Integer, _
+     ByVal Floor As String)
+
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("DELETE_PRICE3_70_DETAIL_REVIEW", connection)
+                connection.Open()
+                command.Connection = connection
+                Dim myTrans As SqlTransaction
+                myTrans = connection.BeginTransaction()
+                command.Transaction = myTrans
+                Try
+                    command.CommandType = CommandType.StoredProcedure
+                    command.Parameters.Add(New SqlParameter("@Id", Id))
+                    command.Parameters.Add(New SqlParameter("@Req_Id", Req_Id))
+                    command.Parameters.Add(New SqlParameter("@Hub_Id", Hub_Id))
+                    command.Parameters.Add(New SqlParameter("@Temp_AID", Temp_AID))
+                    command.Parameters.Add(New SqlParameter("@Floors", Floor))
+                    command.ExecuteNonQuery()
+                    myTrans.Commit()
+                Catch ex As Exception
+                    myTrans.Rollback()
+                Finally
+                    connection.Close()
+                End Try
+            End Using
+        End Using
+    End Sub
+
+    Public Shared Function GET_PRICE3_70_DETAIL_REVIEW(ByVal ID As Integer, ByVal Req_Id As Integer, ByVal Hub_Id As Integer, ByVal Temp_AID As Integer, ByVal Floors As String) As Generic.List(Of ClsPrice3_70_Detail)
+
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("GET_PRICE3_70_DETAIL_REVIEW_BYID", connection)
+                command.CommandType = CommandType.StoredProcedure
+                command.CommandTimeout = 60
+                command.Parameters.Add(New SqlParameter("@ID", ID))
+                command.Parameters.Add(New SqlParameter("@Req_Id", Req_Id))
+                command.Parameters.Add(New SqlParameter("@Hub_Id", Hub_Id))
+                command.Parameters.Add(New SqlParameter("@Temp_AID", Temp_AID))
+                command.Parameters.Add(New SqlParameter("@Floors", Floors))
+                connection.Open()
+                Dim list As New Generic.List(Of ClsPrice3_70_Detail)()
+                Using reader As SqlDataReader = command.ExecuteReader()
+
+                    Do While (reader.Read())
+                        Dim temp As New ClsPrice3_70_Detail(CInt(reader("Id")), _
+                                                CInt(reader("Req_Id")), _
+                                                CInt(reader("Hub_Id")), _
+                                                CInt(reader("Temp_AID")), _
+                                                CStr(reader("Floors")), _
+                                                CStr(reader("Main_Construction")), _
+                                                CInt(reader("Concrete")), _
+                                                CInt(reader("Granite")), _
+                                                CInt(reader("Parquet")), _
+                                                CInt(reader("Ceramic")), _
+                                                CInt(reader("Wood")), _
+                                                CInt(reader("Other")), _
+                                                CStr(reader("Other_Detail")), _
+                                                CInt(reader("BrickWall")), _
+                                                CInt(reader("BlockBrickWall")), _
+                                                CInt(reader("WoodWall")), _
+                                                CInt(reader("OtherWall")), _
+                                                CStr(reader("OtherWall_Detail")), _
                                                 CStr(reader("Create_User")), _
                                                 CDate(reader("Create_Date")))
                         list.Add(temp)
@@ -3462,7 +3835,6 @@ Public Class Appraisal_Manager
                     command.Parameters.Add(New SqlParameter("@AID", AID))
                     command.Parameters.Add(New SqlParameter("@Temp_AID", Temp_AID))
                     command.Parameters.Add(New SqlParameter("@Picture_Path", Picture_Path))
-                    command.Parameters.Add(New SqlParameter("@Temp_AID", Temp_AID))
                     command.Parameters.Add(New SqlParameter("@CID", CID))
                     command.Parameters.Add(New SqlParameter("@done", done))
                     command.Parameters.Add(New SqlParameter("@Create_User", Create_User))
@@ -3470,6 +3842,7 @@ Public Class Appraisal_Manager
                     myTrans.Commit()
                 Catch ex As Exception
                     myTrans.Rollback()
+                    MsgBox(ex.Message)
                 Finally
                     connection.Close()
                 End Try
@@ -3559,435 +3932,435 @@ Public Class Appraisal_Manager
 #End Region
 
 #Region "Total Size"
-Public Shared Function Totolsize(ByVal Qid As Integer, ByVal TempAID As Integer, ByVal CollType As Integer) As DataSet
+    Public Shared Function Totolsize(ByVal Qid As Integer, ByVal TempAID As Integer, ByVal CollType As Integer) As DataSet
 
-    'For Print Data Out
-    Dim DS As DataSet
-    Dim MyConnection As SqlConnection
-    Dim MyDataAdapter As SqlDataAdapter
+        'For Print Data Out
+        Dim DS As DataSet
+        Dim MyConnection As SqlConnection
+        Dim MyDataAdapter As SqlDataAdapter
 
-    MyConnection = New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+        MyConnection = New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
 
-    MyDataAdapter = New SqlDataAdapter("GET_TOTAL_COLLTYPE", MyConnection)
-    MyDataAdapter.SelectCommand.CommandType = CommandType.StoredProcedure
-    MyDataAdapter.SelectCommand.Parameters.Add(New SqlParameter("@Q_ID", SqlDbType.Int))
-    MyDataAdapter.SelectCommand.Parameters.Add(New SqlParameter("@PreAID", SqlDbType.Int))
-    MyDataAdapter.SelectCommand.Parameters.Add(New SqlParameter("@CollType", SqlDbType.Int))
-    MyDataAdapter.SelectCommand.Parameters("@Q_ID").Value = Qid
-    MyDataAdapter.SelectCommand.Parameters("@PreAID").Value = TempAID
-    MyDataAdapter.SelectCommand.Parameters("@CollType").Value = CollType
-    DS = New DataSet() 'Create a new DataSet to hold the records.
-    MyDataAdapter.Fill(DS, "GET_TOTAL_COLLTYPE") 'Fill the DataSet with the rows returned.
-    Return DS
+        MyDataAdapter = New SqlDataAdapter("GET_TOTAL_COLLTYPE", MyConnection)
+        MyDataAdapter.SelectCommand.CommandType = CommandType.StoredProcedure
+        MyDataAdapter.SelectCommand.Parameters.Add(New SqlParameter("@Q_ID", SqlDbType.Int))
+        MyDataAdapter.SelectCommand.Parameters.Add(New SqlParameter("@PreAID", SqlDbType.Int))
+        MyDataAdapter.SelectCommand.Parameters.Add(New SqlParameter("@CollType", SqlDbType.Int))
+        MyDataAdapter.SelectCommand.Parameters("@Q_ID").Value = Qid
+        MyDataAdapter.SelectCommand.Parameters("@PreAID").Value = TempAID
+        MyDataAdapter.SelectCommand.Parameters("@CollType").Value = CollType
+        DS = New DataSet() 'Create a new DataSet to hold the records.
+        MyDataAdapter.Fill(DS, "GET_TOTAL_COLLTYPE") 'Fill the DataSet with the rows returned.
+        Return DS
 
-End Function
+    End Function
 #End Region
 
 #Region "SYSTEM USER"
 
-Public Shared Function GET_SYSTEM_USER(ByVal sUser As String, ByVal sPwd As String) As Generic.List(Of SystemUser)
-    Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
-        Using command As New SqlCommand("GET_SYSTEM_USER", connection)
-            command.CommandType = CommandType.StoredProcedure
-            command.Parameters.Add(New SqlParameter("@UserID", sUser))
-            command.Parameters.Add(New SqlParameter("@Pwd", sPwd))
-            connection.Open()
-            Dim list As New Generic.List(Of SystemUser)()
-            Using reader As SqlDataReader = command.ExecuteReader()
-                Do While (reader.Read())
-                    Dim temp As New SystemUser(CStr(reader("UserId")), _
-                                            CStr(reader("Pwd")), _
-                                            CInt(reader("Emp_Id")), _
-                                            CInt(reader("Hub_Id")), _
-                                            CInt(reader("SGroup_Id")), _
-                                            CStr(reader("Create_User")), _
-                                            CDate(reader("Create_Date")))
-                    list.Add(temp)
-                Loop
-            End Using
-
-            Return list
-        End Using
-    End Using
-End Function
-
-Public Shared Sub AddTb_SystemUser(ByVal User_Id As String, _
- ByVal Pwd As String, _
- ByVal Emp_Id As Integer, _
- ByVal Hub_Id As Integer, _
- ByVal Create_User As String, _
- ByVal Create_Date As Date)
-
-    Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
-        Using command As New SqlCommand("Add_SystemUser", connection)
-            connection.Open()
-            command.Connection = connection
-            Dim myTrans As SqlTransaction
-            myTrans = connection.BeginTransaction()
-            command.Transaction = myTrans
-            Try
+    Public Shared Function GET_SYSTEM_USER(ByVal sUser As String, ByVal sPwd As String) As Generic.List(Of SystemUser)
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("GET_SYSTEM_USER", connection)
                 command.CommandType = CommandType.StoredProcedure
-                command.Parameters.Add(New SqlParameter("@UserID", User_Id))
-                command.Parameters.Add(New SqlParameter("@Pwd", Pwd))
-                command.Parameters.Add(New SqlParameter("@Emp_Id", Emp_Id))
-                command.Parameters.Add(New SqlParameter("@Hub_Id", Hub_Id))
-                command.Parameters.Add(New SqlParameter("@Create_User", Create_User))
-                command.Parameters.Add(New SqlParameter("@Create_Date", Create_Date))
-                command.ExecuteNonQuery()
-                myTrans.Commit()
-            Catch ex As Exception
-                myTrans.Rollback()
-            Finally
-                connection.Close()
-            End Try
+                command.Parameters.Add(New SqlParameter("@UserID", sUser))
+                command.Parameters.Add(New SqlParameter("@Pwd", sPwd))
+                connection.Open()
+                Dim list As New Generic.List(Of SystemUser)()
+                Using reader As SqlDataReader = command.ExecuteReader()
+                    Do While (reader.Read())
+                        Dim temp As New SystemUser(CStr(reader("UserId")), _
+                                                CStr(reader("Pwd")), _
+                                                CInt(reader("Emp_Id")), _
+                                                CInt(reader("Hub_Id")), _
+                                                CInt(reader("SGroup_Id")), _
+                                                CStr(reader("Create_User")), _
+                                                CDate(reader("Create_Date")))
+                        list.Add(temp)
+                    Loop
+                End Using
+
+                Return list
+            End Using
         End Using
-    End Using
-End Sub
+    End Function
+
+    Public Shared Sub AddTb_SystemUser(ByVal User_Id As String, _
+     ByVal Pwd As String, _
+     ByVal Emp_Id As Integer, _
+     ByVal Hub_Id As Integer, _
+     ByVal Create_User As String, _
+     ByVal Create_Date As Date)
+
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("Add_SystemUser", connection)
+                connection.Open()
+                command.Connection = connection
+                Dim myTrans As SqlTransaction
+                myTrans = connection.BeginTransaction()
+                command.Transaction = myTrans
+                Try
+                    command.CommandType = CommandType.StoredProcedure
+                    command.Parameters.Add(New SqlParameter("@UserID", User_Id))
+                    command.Parameters.Add(New SqlParameter("@Pwd", Pwd))
+                    command.Parameters.Add(New SqlParameter("@Emp_Id", Emp_Id))
+                    command.Parameters.Add(New SqlParameter("@Hub_Id", Hub_Id))
+                    command.Parameters.Add(New SqlParameter("@Create_User", Create_User))
+                    command.Parameters.Add(New SqlParameter("@Create_Date", Create_Date))
+                    command.ExecuteNonQuery()
+                    myTrans.Commit()
+                Catch ex As Exception
+                    myTrans.Rollback()
+                Finally
+                    connection.Close()
+                End Try
+            End Using
+        End Using
+    End Sub
 
 #End Region
 
 #Region "PROVINCE"
-Public Shared Function GET_PROVINCE_INFO(ByVal PROV_CODE As Integer) As Generic.List(Of Cls_PROVINCE)
+    Public Shared Function GET_PROVINCE_INFO(ByVal PROV_CODE As Integer) As Generic.List(Of Cls_PROVINCE)
 
-    Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
-        Using command As New SqlCommand("GET_PROVINCE_INFO", connection)
-            command.CommandType = CommandType.StoredProcedure
-            command.CommandTimeout = 60
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("GET_PROVINCE_INFO", connection)
+                command.CommandType = CommandType.StoredProcedure
+                command.CommandTimeout = 60
 
-            command.Parameters.Add(New SqlParameter("@PROV_CODE", PROV_CODE))
-            connection.Open()
-            Dim list As New Generic.List(Of Cls_PROVINCE)()
-            Using reader As SqlDataReader = command.ExecuteReader()
+                command.Parameters.Add(New SqlParameter("@PROV_CODE", PROV_CODE))
+                connection.Open()
+                Dim list As New Generic.List(Of Cls_PROVINCE)()
+                Using reader As SqlDataReader = command.ExecuteReader()
 
-                Do While (reader.Read())
-                    Dim temp As New Cls_PROVINCE(CInt(reader("PROV_CODE")), _
-                                            CStr(reader("PROV_NAME")), _
-                                            CStr(reader("PROV_NAME_E")), _
-                                            CStr(reader("ZONE_CODE")), _
-                                            CStr(reader("AREA_CODE")))
-                    list.Add(temp)
-                Loop
+                    Do While (reader.Read())
+                        Dim temp As New Cls_PROVINCE(CInt(reader("PROV_CODE")), _
+                                                CStr(reader("PROV_NAME")), _
+                                                CStr(reader("PROV_NAME_E")), _
+                                                CStr(reader("ZONE_CODE")), _
+                                                CStr(reader("AREA_CODE")))
+                        list.Add(temp)
+                    Loop
+                End Using
+                Return list
             End Using
-            Return list
         End Using
-    End Using
 
-End Function
+    End Function
 #End Region
 
 #Region "Other Info"
-Public Shared Function GET_SITE_INFO(ByVal SITE_ID As Integer) As Generic.List(Of Cls_SITE)
+    Public Shared Function GET_SITE_INFO(ByVal SITE_ID As Integer) As Generic.List(Of Cls_SITE)
 
-    Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
-        Using command As New SqlCommand("GET_SITE_INFO", connection)
-            command.CommandType = CommandType.StoredProcedure
-            command.CommandTimeout = 60
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("GET_SITE_INFO", connection)
+                command.CommandType = CommandType.StoredProcedure
+                command.CommandTimeout = 60
 
-            command.Parameters.Add(New SqlParameter("@Site_ID", SITE_ID))
-            connection.Open()
-            Dim list As New Generic.List(Of Cls_SITE)()
-            Using reader As SqlDataReader = command.ExecuteReader()
+                command.Parameters.Add(New SqlParameter("@Site_ID", SITE_ID))
+                connection.Open()
+                Dim list As New Generic.List(Of Cls_SITE)()
+                Using reader As SqlDataReader = command.ExecuteReader()
 
-                Do While (reader.Read())
-                    Dim temp As New Cls_SITE(CInt(reader("Site_ID")), _
-                                            CStr(reader("Site_Name")))
-                    list.Add(temp)
-                Loop
+                    Do While (reader.Read())
+                        Dim temp As New Cls_SITE(CInt(reader("Site_ID")), _
+                                                CStr(reader("Site_Name")))
+                        list.Add(temp)
+                    Loop
+                End Using
+                Return list
             End Using
-            Return list
         End Using
-    End Using
 
-End Function
+    End Function
 
-Public Shared Function GET_AREA_COLOUR_INFO(ByVal AreaColour_No As Integer) As Generic.List(Of Cls_Area_Colour)
+    Public Shared Function GET_AREA_COLOUR_INFO(ByVal AreaColour_No As Integer) As Generic.List(Of Cls_Area_Colour)
 
-    Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
-        Using command As New SqlCommand("GET_AREA_COLOUR_INFO", connection)
-            command.CommandType = CommandType.StoredProcedure
-            command.CommandTimeout = 60
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("GET_AREA_COLOUR_INFO", connection)
+                command.CommandType = CommandType.StoredProcedure
+                command.CommandTimeout = 60
 
-            command.Parameters.Add(New SqlParameter("@AreaColour_No", AreaColour_No))
-            connection.Open()
-            Dim list As New Generic.List(Of Cls_Area_Colour)()
-            Using reader As SqlDataReader = command.ExecuteReader()
+                command.Parameters.Add(New SqlParameter("@AreaColour_No", AreaColour_No))
+                connection.Open()
+                Dim list As New Generic.List(Of Cls_Area_Colour)()
+                Using reader As SqlDataReader = command.ExecuteReader()
 
-                Do While (reader.Read())
-                    Dim temp As New Cls_Area_Colour(CInt(reader("AreaColour_No")), _
-                                            CStr(reader("AreaColour_Name")))
-                    list.Add(temp)
-                Loop
+                    Do While (reader.Read())
+                        Dim temp As New Cls_Area_Colour(CInt(reader("AreaColour_No")), _
+                                                CStr(reader("AreaColour_Name")))
+                        list.Add(temp)
+                    Loop
+                End Using
+                Return list
             End Using
-            Return list
         End Using
-    End Using
 
-End Function
+    End Function
 
-Public Shared Function GET_TENDENCY_INFO(ByVal TENDENCY_ID As Integer) As Generic.List(Of Cls_TENDENCY)
+    Public Shared Function GET_TENDENCY_INFO(ByVal TENDENCY_ID As Integer) As Generic.List(Of Cls_TENDENCY)
 
-    Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
-        Using command As New SqlCommand("GET_TENDENCY_INFO", connection)
-            command.CommandType = CommandType.StoredProcedure
-            command.CommandTimeout = 60
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("GET_TENDENCY_INFO", connection)
+                command.CommandType = CommandType.StoredProcedure
+                command.CommandTimeout = 60
 
-            command.Parameters.Add(New SqlParameter("@TENDENCY_ID", TENDENCY_ID))
-            connection.Open()
-            Dim list As New Generic.List(Of Cls_TENDENCY)()
-            Using reader As SqlDataReader = command.ExecuteReader()
+                command.Parameters.Add(New SqlParameter("@TENDENCY_ID", TENDENCY_ID))
+                connection.Open()
+                Dim list As New Generic.List(Of Cls_TENDENCY)()
+                Using reader As SqlDataReader = command.ExecuteReader()
 
-                Do While (reader.Read())
-                    Dim temp As New Cls_TENDENCY(CInt(reader("TENDENCY_ID")), _
-                                            CStr(reader("TENDENCY_NAME")))
-                    list.Add(temp)
-                Loop
+                    Do While (reader.Read())
+                        Dim temp As New Cls_TENDENCY(CInt(reader("TENDENCY_ID")), _
+                                                CStr(reader("TENDENCY_NAME")))
+                        list.Add(temp)
+                    Loop
+                End Using
+                Return list
             End Using
-            Return list
         End Using
-    End Using
 
-End Function
+    End Function
 
-Public Shared Function GET_BINIFIT_INFO(ByVal BINIFIT_ID As Integer) As Generic.List(Of Cls_BINIFIT)
+    Public Shared Function GET_BINIFIT_INFO(ByVal BINIFIT_ID As Integer) As Generic.List(Of Cls_BINIFIT)
 
-    Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
-        Using command As New SqlCommand("GET_BINIFIT_INFO", connection)
-            command.CommandType = CommandType.StoredProcedure
-            command.CommandTimeout = 60
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("GET_BINIFIT_INFO", connection)
+                command.CommandType = CommandType.StoredProcedure
+                command.CommandTimeout = 60
 
-            command.Parameters.Add(New SqlParameter("@BINIFIT_ID", BINIFIT_ID))
-            connection.Open()
-            Dim list As New Generic.List(Of Cls_BINIFIT)()
-            Using reader As SqlDataReader = command.ExecuteReader()
+                command.Parameters.Add(New SqlParameter("@BINIFIT_ID", BINIFIT_ID))
+                connection.Open()
+                Dim list As New Generic.List(Of Cls_BINIFIT)()
+                Using reader As SqlDataReader = command.ExecuteReader()
 
-                Do While (reader.Read())
-                    Dim temp As New Cls_BINIFIT(CInt(reader("BINIFIT_ID")), _
-                                            CStr(reader("BINIFIT_NAME")))
-                    list.Add(temp)
-                Loop
+                    Do While (reader.Read())
+                        Dim temp As New Cls_BINIFIT(CInt(reader("BINIFIT_ID")), _
+                                                CStr(reader("BINIFIT_NAME")))
+                        list.Add(temp)
+                    Loop
+                End Using
+                Return list
             End Using
-            Return list
         End Using
-    End Using
 
-End Function
+    End Function
 
-Public Shared Function GET_PUBLIC_UTILITY_INFO(ByVal PUBLIC_UTILITY_ID As Integer) As Generic.List(Of Cls_Public_Utility)
+    Public Shared Function GET_PUBLIC_UTILITY_INFO(ByVal PUBLIC_UTILITY_ID As Integer) As Generic.List(Of Cls_Public_Utility)
 
-    Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
-        Using command As New SqlCommand("GET_PUBLIC_UTILITY_INFO", connection)
-            command.CommandType = CommandType.StoredProcedure
-            command.CommandTimeout = 60
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("GET_PUBLIC_UTILITY_INFO", connection)
+                command.CommandType = CommandType.StoredProcedure
+                command.CommandTimeout = 60
 
-            command.Parameters.Add(New SqlParameter("@PUBLIC_UTILITY_ID", PUBLIC_UTILITY_ID))
-            connection.Open()
-            Dim list As New Generic.List(Of Cls_Public_Utility)()
-            Using reader As SqlDataReader = command.ExecuteReader()
+                command.Parameters.Add(New SqlParameter("@PUBLIC_UTILITY_ID", PUBLIC_UTILITY_ID))
+                connection.Open()
+                Dim list As New Generic.List(Of Cls_Public_Utility)()
+                Using reader As SqlDataReader = command.ExecuteReader()
 
-                Do While (reader.Read())
-                    Dim temp As New Cls_Public_Utility(CInt(reader("PUBLIC_UTILITY_ID")), _
-                                            CStr(reader("PUBLIC_UTILITY_NAME")))
-                    list.Add(temp)
-                Loop
+                    Do While (reader.Read())
+                        Dim temp As New Cls_Public_Utility(CInt(reader("PUBLIC_UTILITY_ID")), _
+                                                CStr(reader("PUBLIC_UTILITY_NAME")))
+                        list.Add(temp)
+                    Loop
+                End Using
+                Return list
             End Using
-            Return list
         End Using
-    End Using
 
-End Function
+    End Function
 
-Public Shared Function GET_LANDSTATE_INFO(ByVal LAND_STATE_ID As Integer) As Generic.List(Of Cls_LandState)
+    Public Shared Function GET_LANDSTATE_INFO(ByVal LAND_STATE_ID As Integer) As Generic.List(Of Cls_LandState)
 
-    Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
-        Using command As New SqlCommand("GET_LANDSTATE_INFO", connection)
-            command.CommandType = CommandType.StoredProcedure
-            command.CommandTimeout = 60
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("GET_LANDSTATE_INFO", connection)
+                command.CommandType = CommandType.StoredProcedure
+                command.CommandTimeout = 60
 
-            command.Parameters.Add(New SqlParameter("@LAND_STATE_ID", LAND_STATE_ID))
-            connection.Open()
-            Dim list As New Generic.List(Of Cls_LandState)()
-            Using reader As SqlDataReader = command.ExecuteReader()
+                command.Parameters.Add(New SqlParameter("@LAND_STATE_ID", LAND_STATE_ID))
+                connection.Open()
+                Dim list As New Generic.List(Of Cls_LandState)()
+                Using reader As SqlDataReader = command.ExecuteReader()
 
-                Do While (reader.Read())
-                    Dim temp As New Cls_LandState(CInt(reader("LAND_STATE_ID")), _
-                                            CStr(reader("LAND_STATE_NAME")))
-                    list.Add(temp)
-                Loop
+                    Do While (reader.Read())
+                        Dim temp As New Cls_LandState(CInt(reader("LAND_STATE_ID")), _
+                                                CStr(reader("LAND_STATE_NAME")))
+                        list.Add(temp)
+                    Loop
+                End Using
+                Return list
             End Using
-            Return list
         End Using
-    End Using
 
-End Function
+    End Function
 
-Public Shared Function GET_ROAD_DETAIL_INFO(ByVal LAND_STATE_ID As Integer) As Generic.List(Of Cls_Road_Detail)
+    Public Shared Function GET_ROAD_DETAIL_INFO(ByVal LAND_STATE_ID As Integer) As Generic.List(Of Cls_Road_Detail)
 
-    Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
-        Using command As New SqlCommand("GET_ROAD_DETAIL_INFO", connection)
-            command.CommandType = CommandType.StoredProcedure
-            command.CommandTimeout = 60
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("GET_ROAD_DETAIL_INFO", connection)
+                command.CommandType = CommandType.StoredProcedure
+                command.CommandTimeout = 60
 
-            command.Parameters.Add(New SqlParameter("@ROAD_DETAIL_ID", LAND_STATE_ID))
-            connection.Open()
-            Dim list As New Generic.List(Of Cls_Road_Detail)()
-            Using reader As SqlDataReader = command.ExecuteReader()
+                command.Parameters.Add(New SqlParameter("@ROAD_DETAIL_ID", LAND_STATE_ID))
+                connection.Open()
+                Dim list As New Generic.List(Of Cls_Road_Detail)()
+                Using reader As SqlDataReader = command.ExecuteReader()
 
-                Do While (reader.Read())
-                    Dim temp As New Cls_Road_Detail(CInt(reader("ROAD_DETAIL_ID")), _
-                                            CStr(reader("ROAD_DETAIL_NAME")))
-                    list.Add(temp)
-                Loop
+                    Do While (reader.Read())
+                        Dim temp As New Cls_Road_Detail(CInt(reader("ROAD_DETAIL_ID")), _
+                                                CStr(reader("ROAD_DETAIL_NAME")))
+                        list.Add(temp)
+                    Loop
+                End Using
+                Return list
             End Using
-            Return list
         End Using
-    End Using
 
-End Function
+    End Function
 
-Public Shared Function GET_BUYSALE_STATE_INFO(ByVal LAND_STATE_ID As Integer) As Generic.List(Of Cls_Buy_Sale_State)
+    Public Shared Function GET_BUYSALE_STATE_INFO(ByVal LAND_STATE_ID As Integer) As Generic.List(Of Cls_Buy_Sale_State)
 
-    Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
-        Using command As New SqlCommand("GET_BUYSALE_STATE_INFO", connection)
-            command.CommandType = CommandType.StoredProcedure
-            command.CommandTimeout = 60
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("GET_BUYSALE_STATE_INFO", connection)
+                command.CommandType = CommandType.StoredProcedure
+                command.CommandTimeout = 60
 
-            command.Parameters.Add(New SqlParameter("@BUYSALE_STATE_ID", LAND_STATE_ID))
-            connection.Open()
-            Dim list As New Generic.List(Of Cls_Buy_Sale_State)()
-            Using reader As SqlDataReader = command.ExecuteReader()
+                command.Parameters.Add(New SqlParameter("@BUYSALE_STATE_ID", LAND_STATE_ID))
+                connection.Open()
+                Dim list As New Generic.List(Of Cls_Buy_Sale_State)()
+                Using reader As SqlDataReader = command.ExecuteReader()
 
-                Do While (reader.Read())
-                    Dim temp As New Cls_Buy_Sale_State(CInt(reader("BUYSALE_STATE_ID")), _
-                                            CStr(reader("BUYSALE_STATE_NAME")))
-                    list.Add(temp)
-                Loop
+                    Do While (reader.Read())
+                        Dim temp As New Cls_Buy_Sale_State(CInt(reader("BUYSALE_STATE_ID")), _
+                                                CStr(reader("BUYSALE_STATE_NAME")))
+                        list.Add(temp)
+                    Loop
+                End Using
+                Return list
             End Using
-            Return list
         End Using
-    End Using
 
-End Function
+    End Function
 
-Public Shared Function GET_ROADFRONTOFF_INFO(ByVal Road_Frontoff_ID As Integer) As Generic.List(Of Cls_RoadFrontOff)
+    Public Shared Function GET_ROADFRONTOFF_INFO(ByVal Road_Frontoff_ID As Integer) As Generic.List(Of Cls_RoadFrontOff)
 
-    Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
-        Using command As New SqlCommand("GET_ROAD_FRONTOFF_INFO", connection)
-            command.CommandType = CommandType.StoredProcedure
-            command.CommandTimeout = 60
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("GET_ROAD_FRONTOFF_INFO", connection)
+                command.CommandType = CommandType.StoredProcedure
+                command.CommandTimeout = 60
 
-            command.Parameters.Add(New SqlParameter("@Road_Frontoff_ID", Road_Frontoff_ID))
-            connection.Open()
-            Dim list As New Generic.List(Of Cls_RoadFrontOff)()
-            Using reader As SqlDataReader = command.ExecuteReader()
+                command.Parameters.Add(New SqlParameter("@Road_Frontoff_ID", Road_Frontoff_ID))
+                connection.Open()
+                Dim list As New Generic.List(Of Cls_RoadFrontOff)()
+                Using reader As SqlDataReader = command.ExecuteReader()
 
-                Do While (reader.Read())
-                    Dim temp As New Cls_RoadFrontOff(CInt(reader("Road_Frontoff_ID")), _
-                                            CStr(reader("Road_Frontoff_Name")))
-                    list.Add(temp)
-                Loop
+                    Do While (reader.Read())
+                        Dim temp As New Cls_RoadFrontOff(CInt(reader("Road_Frontoff_ID")), _
+                                                CStr(reader("Road_Frontoff_Name")))
+                        list.Add(temp)
+                    Loop
+                End Using
+                Return list
             End Using
-            Return list
         End Using
-    End Using
 
-End Function
+    End Function
 
-Public Shared Function GET_SUBCOLLTYPE(ByVal SUBCOLLTYPE_ID As Integer) As Generic.List(Of Cls_SubCollType)
+    Public Shared Function GET_SUBCOLLTYPE(ByVal SUBCOLLTYPE_ID As Integer) As Generic.List(Of Cls_SubCollType)
 
-    Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
-        Using command As New SqlCommand("GET_SUBCOLLTYPE_INFO", connection)
-            command.CommandType = CommandType.StoredProcedure
-            command.CommandTimeout = 60
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("GET_SUBCOLLTYPE_INFO", connection)
+                command.CommandType = CommandType.StoredProcedure
+                command.CommandTimeout = 60
 
-            command.Parameters.Add(New SqlParameter("@SUBCOLLTYPE_ID", SUBCOLLTYPE_ID))
-            connection.Open()
-            Dim list As New Generic.List(Of Cls_SubCollType)()
-            Using reader As SqlDataReader = command.ExecuteReader()
+                command.Parameters.Add(New SqlParameter("@SUBCOLLTYPE_ID", SUBCOLLTYPE_ID))
+                connection.Open()
+                Dim list As New Generic.List(Of Cls_SubCollType)()
+                Using reader As SqlDataReader = command.ExecuteReader()
 
-                Do While (reader.Read())
-                    Dim temp As New Cls_SubCollType(CInt(reader("CollType_ID")), _
-                                            CInt(reader("SubCollType_ID")), _
-                                            CInt(reader("MysubColl_ID")), _
-                                            CStr(reader("SubCollType_Name")))
-                    list.Add(temp)
-                Loop
+                    Do While (reader.Read())
+                        Dim temp As New Cls_SubCollType(CInt(reader("CollType_ID")), _
+                                                CInt(reader("SubCollType_ID")), _
+                                                CInt(reader("MysubColl_ID")), _
+                                                CStr(reader("SubCollType_Name")))
+                        list.Add(temp)
+                    Loop
+                End Using
+                Return list
             End Using
-            Return list
         End Using
-    End Using
 
-End Function
+    End Function
 
-Public Shared Function GET_Build_Construct(ByVal Build_Construct_ID As Integer) As Generic.List(Of Cls_Build_Construct)
+    Public Shared Function GET_Build_Construct(ByVal Build_Construct_ID As Integer) As Generic.List(Of Cls_Build_Construct)
 
-    Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
-        Using command As New SqlCommand("GET_Build_Construct_INFO", connection)
-            command.CommandType = CommandType.StoredProcedure
-            command.CommandTimeout = 60
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("GET_Build_Construct_INFO", connection)
+                command.CommandType = CommandType.StoredProcedure
+                command.CommandTimeout = 60
 
-            command.Parameters.Add(New SqlParameter("@Build_Construct_ID", Build_Construct_ID))
-            connection.Open()
-            Dim list As New Generic.List(Of Cls_Build_Construct)()
-            Using reader As SqlDataReader = command.ExecuteReader()
+                command.Parameters.Add(New SqlParameter("@Build_Construct_ID", Build_Construct_ID))
+                connection.Open()
+                Dim list As New Generic.List(Of Cls_Build_Construct)()
+                Using reader As SqlDataReader = command.ExecuteReader()
 
-                Do While (reader.Read())
-                    Dim temp As New Cls_Build_Construct(CInt(reader("Build_Construct_ID")), _
-                                                   CStr(reader("Build_Construct_Name")))
-                    list.Add(temp)
-                Loop
+                    Do While (reader.Read())
+                        Dim temp As New Cls_Build_Construct(CInt(reader("Build_Construct_ID")), _
+                                                       CStr(reader("Build_Construct_Name")))
+                        list.Add(temp)
+                    Loop
+                End Using
+                Return list
             End Using
-            Return list
         End Using
-    End Using
 
-End Function
+    End Function
 
-Public Shared Function GET_Roof(ByVal Roof_ID As Integer) As Generic.List(Of Cls_Roof)
+    Public Shared Function GET_Roof(ByVal Roof_ID As Integer) As Generic.List(Of Cls_Roof)
 
-    Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
-        Using command As New SqlCommand("GET_Roof_INFO", connection)
-            command.CommandType = CommandType.StoredProcedure
-            command.CommandTimeout = 60
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("GET_Roof_INFO", connection)
+                command.CommandType = CommandType.StoredProcedure
+                command.CommandTimeout = 60
 
-            command.Parameters.Add(New SqlParameter("@Roof_ID", Roof_ID))
-            connection.Open()
-            Dim list As New Generic.List(Of Cls_Roof)()
-            Using reader As SqlDataReader = command.ExecuteReader()
+                command.Parameters.Add(New SqlParameter("@Roof_ID", Roof_ID))
+                connection.Open()
+                Dim list As New Generic.List(Of Cls_Roof)()
+                Using reader As SqlDataReader = command.ExecuteReader()
 
-                Do While (reader.Read())
-                    Dim temp As New Cls_Roof(CInt(reader("Roof_ID")), _
-                                                   CStr(reader("Roof_Name")))
-                    list.Add(temp)
-                Loop
+                    Do While (reader.Read())
+                        Dim temp As New Cls_Roof(CInt(reader("Roof_ID")), _
+                                                       CStr(reader("Roof_Name")))
+                        list.Add(temp)
+                    Loop
+                End Using
+                Return list
             End Using
-            Return list
         End Using
-    End Using
 
-End Function
+    End Function
 
-Public Shared Function GET_Build_State(ByVal Build_State_ID As Integer) As Generic.List(Of Cls_Build_State)
+    Public Shared Function GET_Build_State(ByVal Build_State_ID As Integer) As Generic.List(Of Cls_Build_State)
 
-    Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
-        Using command As New SqlCommand("GET_Build_State_INFO", connection)
-            command.CommandType = CommandType.StoredProcedure
-            command.CommandTimeout = 60
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("GET_Build_State_INFO", connection)
+                command.CommandType = CommandType.StoredProcedure
+                command.CommandTimeout = 60
 
-            command.Parameters.Add(New SqlParameter("@Build_State_ID", Build_State_ID))
-            connection.Open()
-            Dim list As New Generic.List(Of Cls_Build_State)()
-            Using reader As SqlDataReader = command.ExecuteReader()
+                command.Parameters.Add(New SqlParameter("@Build_State_ID", Build_State_ID))
+                connection.Open()
+                Dim list As New Generic.List(Of Cls_Build_State)()
+                Using reader As SqlDataReader = command.ExecuteReader()
 
-                Do While (reader.Read())
-                    Dim temp As New Cls_Build_State(CInt(reader("Build_State_ID")), _
-                                                   CStr(reader("Build_State_Name")))
-                    list.Add(temp)
-                Loop
+                    Do While (reader.Read())
+                        Dim temp As New Cls_Build_State(CInt(reader("Build_State_ID")), _
+                                                       CStr(reader("Build_State_Name")))
+                        list.Add(temp)
+                    Loop
+                End Using
+                Return list
             End Using
-            Return list
         End Using
-    End Using
 
-End Function
+    End Function
 #End Region
 End Class

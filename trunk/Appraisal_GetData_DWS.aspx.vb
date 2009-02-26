@@ -255,7 +255,7 @@ Partial Class Appraisal_GetData_DWS
                 Else
                     SubCollType = ""
                 End If
-                SubCollType = Ds.Tables(0).Rows(0).Item("Asset_Type_code_1")
+                'SubCollType = Ds.Tables(0).Rows(0).Item("Asset_Type_code_1")
                 If IsDBNull(Ds.Tables(0).Rows(0).Item("Collateral_Reg_No_1")) Then
                     AddNo = ""
                 Else

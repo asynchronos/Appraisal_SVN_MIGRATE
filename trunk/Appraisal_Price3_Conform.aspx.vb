@@ -18,7 +18,7 @@ Partial Class Appraisal_Price3_Conform
             Show_Price3_50()
             Show_Price3_70_GROUP()
             Try
-                lblGrantotal.Text = Format(CDec(lblLandTotal.Text) + CDec(lblBuildingPrice.Text), "#,##0.00")
+                txtSubTotal.Text = Format(CDec(txtLandTotal.Text) + CDec(txtBuildingPrice.Text), "#,##0.00")
             Catch ex As Exception
 
             End Try
@@ -96,7 +96,7 @@ Partial Class Appraisal_Price3_Conform
             Dim Obj_BuySale_State As List(Of Cls_Buy_Sale_State) = GET_BUYSALE_STATE_INFO(Obj_GetP50.Item(0).BuySale_State)
             lblBuySale_StateName.Text = Obj_BuySale_State.Item(0).BuySale_State_Name
             lblPriceWah.Text = Format(Obj_GetP50.Item(0).PriceWah, "#,##0.00")
-            lblLandTotal.Text = Format(Obj_GetP50.Item(0).PriceTotal1, "#,##0.00")
+            txtLandTotal.Text = Format(Obj_GetP50.Item(0).PriceTotal1, "#,##0.00")
             lblRaWang.Text = Obj_GetP50.Item(0).Rawang
             lblLandNumber.Text = Obj_GetP50.Item(0).LandNumber
             lblSurway.Text = Obj_GetP50.Item(0).Surway
@@ -117,10 +117,10 @@ Partial Class Appraisal_Price3_Conform
             lblBuilding_No.Text = Obj_GetP70G.Tables(0).Rows(0).Item("Build_No").ToString()
             lblTotal2.Text = Format(CDec(Obj_GetP70G.Tables(0).Rows(0).Item("UnitPrice").ToString), "#,##0.00")
             lblItem.Text = Obj_GetP70G.Tables(0).Rows(0).Item("Item").ToString()
-            lblBuildingPrice.Text = Format(CDec(Obj_GetP70G.Tables(0).Rows(0).Item("Buildingprice").ToString), "#,##0.00")
+            txtBuildingPrice.Text = Format(CDec(Obj_GetP70G.Tables(0).Rows(0).Item("Buildingprice").ToString), "#,##0.00")
         Else
             lblTotal2.Text = "0.00"
-            lblBuildingPrice.Text = "0.00"
+            txtBuildingPrice.Text = "0.00"
         End If
 
 
@@ -191,33 +191,71 @@ Partial Class Appraisal_Price3_Conform
         If Obj_GetP1Master.Count > 0 Then
             Lat = Obj_GetP1Master.Item(0).Lat
             Lng = Obj_GetP1Master.Item(0).Lng
+            Dim Obj_P3M As List(Of clsPrice3_Master) = GET_PRICE3_MASTER(HiddenField1.Value, HiddenField3.Value)
+            If Obj_P3M.Count = 0 Then
+                AddPRICE3_Master(HiddenField1.Value, _
+                 AID, _
+                 HiddenField3.Value, _
+                 txtInform_To.Text, _
+                 cif, _
+                 Lat, _
+                 Lng, _
+                 AppraisalDate, _
+                 ReceiveDate, _
+                 CDec(lblPriceWah.Text), _
+                 CDec(txtLandTotal.Text), _
+                 CDec(txtBuildingPrice.Text), _
+                 CDec(txtSubTotal.Text), _
+                 txtApprove1.Text, _
+                 txtApprove2.Text, _
+                 txtApprove3.Text, _
+                 0, _
+                 ChkProblem.Checked, _
+                 txtProblem_Detail.Text, _
+                 txtBuy_Sale_Comment.Text, _
+                 ddlAppraisal_Type.SelectedValue, _
+                 ddlComment.SelectedValue, _
+                 ddlWarning.SelectedValue, _
+                 txtWarning_Detail.Text, _
+                 ddlBranch.SelectedValue, _
+                 ddlUserAppraisal.SelectedValue, _
+                 lbluserid.Text, _
+                 Now())
+                s = "<script language=""javascript"">alert('บันทึกเสร็จสมบูรณ์');</script>"
+                Page.ClientScript.RegisterStartupScript(Me.GetType, "ผิดพลาด", s)
+            Else
+                UPDATE_PRICE3_MASTER(HiddenField1.Value, _
+                 AID, _
+                 HiddenField3.Value, _
+                 txtInform_To.Text, _
+                 cif, _
+                 Lat, _
+                 Lng, _
+                 AppraisalDate, _
+                 ReceiveDate, _
+                 CDec(lblPriceWah.Text), _
+                 CDec(txtLandTotal.Text), _
+                 CDec(txtBuildingPrice.Text), _
+                 CDec(txtSubTotal.Text), _
+                 txtApprove1.Text, _
+                 txtApprove2.Text, _
+                 txtApprove3.Text, _
+                 0, _
+                 ChkProblem.Checked, _
+                 txtProblem_Detail.Text, _
+                 txtBuy_Sale_Comment.Text, _
+                 ddlAppraisal_Type.SelectedValue, _
+                 ddlComment.SelectedValue, _
+                 ddlWarning.SelectedValue, _
+                 txtWarning_Detail.Text, _
+                 ddlBranch.SelectedValue, _
+                 ddlUserAppraisal.SelectedValue, _
+                 lbluserid.Text, _
+                 Now())
+                s = "<script language=""javascript"">alert('บันทึกเสร็จสมบูรณ์');</script>"
+                Page.ClientScript.RegisterStartupScript(Me.GetType, "ผิดพลาด", s)
+            End If
 
-            AddPRICE3_Master(HiddenField1.Value, _
-                             AID, _
-                             HiddenField3.Value, _
-                             txtInform_To.Text, _
-                             cif, _
-                             Lat, _
-                             Lng, _
-                             AppraisalDate, _
-                             ReceiveDate, _
-                             CDec(lblPriceWah.Text), _
-                             CDec(lblLandTotal.Text), _
-                             txtApprove1.Text, _
-                             txtApprove2.Text, _
-                             txtApprove3.Text, _
-                             0, _
-                             ChkProblem.Checked, _
-                             txtProblem_Detail.Text, _
-                             txtBuy_Sale_Comment.Text, _
-                             ddlAppraisal_Type.SelectedValue, _
-                             ddlComment.SelectedValue, _
-                             ddlWarning.SelectedValue, _
-                             txtWarning_Detail.Text, _
-                             ddlBranch.SelectedValue, _
-                             ddlUserAppraisal.SelectedValue, _
-                             lbluserid.Text, _
-                             Now())
             Server.Transfer("Appraisal_Price3_List.aspx")
         Else
             s = "<script language=""javascript"">alert('ไม่มีเลขที่คำขอนี้ หรือ ไม่มีการกำหนด Lat Lng อยู่ในระบบ');</script>"

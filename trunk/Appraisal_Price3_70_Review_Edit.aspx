@@ -83,12 +83,8 @@
                 <asp:Label ID="lblHub_Id" runat="server" style="font-weight: 700"></asp:Label>
             </td>
             <td class="style17">
-                วันที่ประเมิน</td>
+                &nbsp;</td>
             <td class="style17">
-               <asp:TextBox ID="txtReceive_Date" runat="server" Width="112px"></asp:TextBox>
-               <ajaxToolkit:CalendarExtender
-                    ID="CalendarExtender1" runat="server" Enabled="True" Format="dd/MM/yyyy" TargetControlID="txtReceive_Date">
-                    </ajaxToolkit:CalendarExtender>
             </td>
         </tr>                  
               <tr>

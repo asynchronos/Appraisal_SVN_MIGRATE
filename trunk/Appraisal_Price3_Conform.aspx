@@ -524,7 +524,9 @@
                 <asp:Label ID="Label55" runat="server" Text="เป็นเงิน"></asp:Label>
             </td>
             <td>
-                <asp:Label ID="lblLandTotal" runat="server" Style="color: #FF0000"></asp:Label>
+                                  <cc1:mytext ID="txtLandTotal" runat="server" AllowUserKey="num_Numeric" 
+                        EnableTextAlignRight="True" Width="120px" BackColor="#FFFF66" AutoPostBack="True" 
+                                      AutoCurrencyFormatOnKeyUp="True">0.00</cc1:mytext>
             </td>
         </tr>
         <tr>
@@ -543,7 +545,9 @@
                 <asp:Label ID="Label57" runat="server" Text="เป็นเงิน"></asp:Label>
             </td>
             <td>
-                <asp:Label ID="lblBuildingPrice" runat="server" Style="color: #FF0000"></asp:Label>
+                                  <cc1:mytext ID="txtBuildingPrice" runat="server" AllowUserKey="num_Numeric" 
+                        EnableTextAlignRight="True" Width="120px" BackColor="#FFFF66" AutoPostBack="True" 
+                                      AutoCurrencyFormatOnKeyUp="True">0.00</cc1:mytext>
             </td>
         </tr>
         <tr>
@@ -562,7 +566,9 @@
                 <asp:Label ID="Label60" runat="server" Text="รวมเป็นเงิน"></asp:Label>
             </td>
             <td>
-                <asp:Label ID="lblGrantotal" runat="server" Style="color: #FF0000"></asp:Label>
+                                  <cc1:mytext ID="txtSubTotal" runat="server" AllowUserKey="num_Numeric" 
+                        EnableTextAlignRight="True" Width="120px" BackColor="#FFFF66" AutoPostBack="True" 
+                                      AutoCurrencyFormatOnKeyUp="True">0.00</cc1:mytext>
             </td>
         </tr>
         <tr>
@@ -796,10 +802,9 @@
 
                         </td>
                     </tr>
-                </table>
-            </td>
-        </tr>
-    </table>
+                    <tr>
+                        <td colspan="6"  align="center">
+                        
                 <table class="NotshowOnPrint">
                     <tr>
                         <td>
@@ -810,6 +815,13 @@
                             </td>
                     </tr>
                </table>
+                        
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
     <asp:SqlDataSource ID="SDSWarning" runat="server" ConnectionString="<%$ ConnectionStrings:AppraisalConn %>"
         SelectCommand="SELECT [Warning_ID], [Warning_Name] FROM [Warning]"></asp:SqlDataSource>
     <asp:SqlDataSource ID="SDSComment" runat="server" ConnectionString="<%$ ConnectionStrings:AppraisalConn %>"

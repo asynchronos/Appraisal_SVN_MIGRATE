@@ -23,6 +23,7 @@ Partial Class Appraisal_Price3_Print_CollType70
         End If
 
     End Sub
+
     Private Sub Show_Price3_70()
         Dim Obj_GetP70 As List(Of Price3_70) = GET_PRICE3_70(HiddenField1.Value, HiddenField2.Value, HiddenField3.Value, HiddenField4.Value)
         If Obj_GetP70.Count > 0 Then

@@ -371,7 +371,8 @@ function wopen(url, name, w, h) {
             </tr>
             <tr>
                 <td class="style22">
-                    อายุการใช้งาน</td>
+                    อายุการใช้งาน<a 
+                        href="http://www.civicfdthailand.com/ipb_forum/index.php?showtopic=49833">ถ้าจะเลือกเปลี่ยนอย่างใดอย่างหนึ่ง</a></td>
                 <td class="style8">
                     <cc1:mytext ID="txtBuildingAge" runat="server" AllowUserKey="num_Numeric" 
                         EnableTextAlignRight="True" MaxLength="2" Width="35px" BackColor="#FFFF66">0</cc1:mytext>

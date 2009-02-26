@@ -2,6 +2,7 @@
 Imports Appraisal_Manager
 Imports System.Data
 Imports System.Data.SqlClient
+Imports System.Math
 
 Partial Class Appraisal_Price3_Form_Review
     Inherits System.Web.UI.Page
@@ -45,8 +46,8 @@ Partial Class Appraisal_Price3_Form_Review
             End If
             'แสดงรายละเอียดข้อมูล
             Form_Information()
-
         End If
+
     End Sub
 
     Protected Sub btnChangeLand_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnChangeLand.Click
@@ -131,7 +132,7 @@ Partial Class Appraisal_Price3_Form_Review
         '    Lng = Obj_GetP1Master.Item(0).Lng
 
         'ตรวจสอบการบันทึกข้อมูลว่ามีอยู่แล้วหรือไม่
-        Dim Obj_P3M_Reveiw As List(Of Price3_Master_Review) = GET_PRICE3_MASTER_REVIEW(lblCif.Text, txtAID.Text, lblCif.Text)
+        Dim Obj_P3M_Reveiw As List(Of Price3_Master_Review) = GET_PRICE3_MASTER_REVIEW(lblCif.Text, txtAID.Text, hdfReq_Id.Value)
         Dim Obj_P3M As List(Of clsPrice3_Master) = GET_PRICE3_MASTER(hdfReq_Id.Value, hdfTemp_AID.Value)
         'มีข้อมูลแล้วให้ Update
         If Obj_P3M_Reveiw.Count > 0 And Obj_P3M.Count > 0 Then
@@ -146,7 +147,9 @@ Partial Class Appraisal_Price3_Form_Review
                  AppraisalDate, _
                  ReceiveDate, _
                  CDec(lblPriceWah.Text), _
-                 CDec(lblLandTotal.Text), _
+                 CDec(txtLandTotal.Text), _
+                 CDec(txtBuildingPrice.Text), _
+                 CDec(txtSubTotal.Text), _
                  txtApprove1.Text, _
                  txtApprove2.Text, _
                  txtApprove3.Text, _
@@ -170,7 +173,7 @@ Partial Class Appraisal_Price3_Form_Review
         Else 'ยังไม่มีข้อมูลให้ Insert
             Lat = 0
             Lng = 0
-            AddPRICE3_Master(hdfReq_Id.Value, _
+            UPDATE_PRICE3_MASTER(hdfReq_Id.Value, _
                              txtAID.Text, _
                              hdfTemp_AID.Value, _
                              txtInform_To.Text, _
@@ -180,7 +183,9 @@ Partial Class Appraisal_Price3_Form_Review
                              AppraisalDate, _
                              ReceiveDate, _
                              CDec(lblPriceWah.Text), _
-                             CDec(lblLandTotal.Text), _
+                             CDec(txtLandTotal.Text), _
+                             CDec(txtBuildingPrice.Text), _
+                             CDec(txtSubTotal.Text), _
                              txtApprove1.Text, _
                              txtApprove2.Text, _
                              txtApprove3.Text, _
@@ -220,7 +225,7 @@ Partial Class Appraisal_Price3_Form_Review
             lblLandArea.Text = DS.Tables(0).Rows.Item(0).Item("Rai") & "-" & DS.Tables(0).Rows.Item(0).Item("Ngan") & "-" & DS.Tables(0).Rows.Item(0).Item("Wah")
             lblSize.Text = DS.Tables(0).Rows.Item(0).Item("Rai") & "-" & DS.Tables(0).Rows.Item(0).Item("Ngan") & "-" & DS.Tables(0).Rows.Item(0).Item("Wah") & "ไร่"
             lblPriceWah.Text = Format(DS.Tables(0).Rows.Item(0).Item("PriceTotal1") / DS.Tables(0).Rows.Item(0).Item("Totalwah"), "#,##0.00")  'Format(DS.Tables(0).Rows.Item(0).Item("PriceWah"), "#,##0.00") & " บาท"
-            lblLandTotal.Text = Format(DS.Tables(0).Rows.Item(0).Item("PriceTotal1"), "#,##0.00")
+            txtLandTotal.Text = Format(DS.Tables(0).Rows.Item(0).Item("PriceTotal1"), "#,##0.00")
             Dim OjbColour As List(Of Cls_Area_Colour) = GET_AREA_COLOUR_INFO(DS.Tables(0).Rows.Item(0).Item("AreaColour_No"))
             lblAreaColour.Text = OjbColour.Item(0).AreaColour_Name
             Dim Obj_BuysaleState As List(Of Cls_Buy_Sale_State) = GET_BUYSALE_STATE_INFO(DS.Tables(0).Rows.Item(0).Item("AreaColour_No"))
@@ -229,6 +234,9 @@ Partial Class Appraisal_Price3_Form_Review
         'หาเนื้อที่รวมสิ่งปลูกสร้าง
         DS = CreateDataset(70, "PRICE3_70_REVIEW")
         If DS.Tables(0).Rows.Item(0).Item("CntID") > 0 Then
+            If hdfTemp_AID.Value = String.Empty Then
+                hdfTemp_AID.Value = DS.Tables(0).Rows.Item(0).Item("Temp_AID")
+            End If
             If Not IsDBNull(DS.Tables(0).Rows.Item(0).Item("BuildingArea")) Then
                 lblDistrict.Text = DS.Tables(0).Rows.Item(0).Item("District")
                 lblAmphur.Text = DS.Tables(0).Rows.Item(0).Item("Amphur")
@@ -243,7 +251,6 @@ Partial Class Appraisal_Price3_Form_Review
                 'lblDecadent.Text = DS.Tables(0).Rows.Item(0).Item("BuildingPersent3")
                 'lblP_Damage.Text = (DS.Tables(0).Rows.Item(0).Item("BuildingPersent1") + DS.Tables(0).Rows.Item(0).Item("BuildingPersent2") + DS.Tables(0).Rows.Item(0).Item("BuildingPersent3")) * DS.Tables(0).Rows.Item(0).Item("BuildingAge")
                 'lblDamageBth.Text = DS.Tables(0).Rows.Item(0).Item("BuildingPriceTotalDeteriorate")
-                'Dim obj_Decoration As List(Of cls_
                 ddlInteriorState.SelectedValue = DS.Tables(0).Rows.Item(0).Item("Decoration")
                 'lblDecoration.Text = DS.Tables(0).Rows.Item(0).Item("Decoration")
                 'If CDec(lblCostPrice.Text) <> 0 Then
@@ -254,42 +261,9 @@ Partial Class Appraisal_Price3_Form_Review
                 '    lbltotalPrice.Text = "0.00"
                 'End If
 
-                'หา PRICE3_MASTER_REVIEW หากมีจะดึงข้อมูลเดิมมาให้
-                Dim Obj_P3M_Reveiw As List(Of Price3_Master_Review) = GET_PRICE3_MASTER_REVIEW(lblCif.Text, txtAID.Text, lblCif.Text)
-                If Obj_P3M_Reveiw.Count > 0 Then
-                    txtMemo_Date.Text = Obj_P3M_Reveiw.Item(0).Memo_Date
-                    txtSequence.Text = Obj_P3M_Reveiw.Item(0).Sequence + 1
-                    RadioButtonList1.SelectedValue = Obj_P3M_Reveiw.Item(0).Land_Chg
-                    If Obj_P3M_Reveiw.Item(0).Land_Chg = 0 Then
-                        txtLandDetail.Enabled = False
-                    Else
-                        txtLandDetail.Enabled = True
-                    End If
-                    txtLandDetail.Text = Obj_P3M_Reveiw.Item(0).Land_Chg_Detail
-                    RadioButtonList2.SelectedValue = Obj_P3M_Reveiw.Item(0).Obligation_Chg
-                    If Obj_P3M_Reveiw.Item(0).Obligation_Chg = 0 Then
-                        txtObligation.Enabled = False
-                    Else
-                        txtObligation.Enabled = True
-                    End If
-                    txtObligation.Text = Obj_P3M_Reveiw.Item(0).Obligation_Chg_Detail
-                    RadioButtonList3.SelectedValue = Obj_P3M_Reveiw.Item(0).Site_Chg
-                    If Obj_P3M_Reveiw.Item(0).Site_Chg = 0 Then
-                        txtLandAddress.Enabled = False
-                    Else
-                        txtLandAddress.Enabled = True
-                    End If
-                    txtLandAddress.Text = Obj_P3M_Reveiw.Item(0).Site_Chg_Detail
-                    RadioButtonList4.SelectedValue = Obj_P3M_Reveiw.Item(0).Progress_Chg
-                    RadioButtonList5.SelectedValue = Obj_P3M_Reveiw.Item(0).Building_Chg
-                    If Obj_P3M_Reveiw.Item(0).Building_Chg = 0 Then
-                        txtBuilding.Enabled = False
-                    Else
-                        txtBuilding.Enabled = True
-                    End If
-                    txtBuilding.Text = Obj_P3M_Reveiw.Item(0).Building_Chg_Detail
-                    txtLast_Appraisal_Detail.Text = Obj_P3M_Reveiw.Item(0).Appraisal_Last_Detail
-                    Dim Obj_P3M As List(Of clsPrice3_Master) = GET_PRICE3_MASTER(hdfReq_Id.Value, hdfTemp_AID.Value)
+                'หา PRICE3_MASTER หากมีจะดึงข้อมูลเดิมมาให้
+                Dim Obj_P3M As List(Of clsPrice3_Master) = GET_PRICE3_MASTER(hdfReq_Id.Value, hdfTemp_AID.Value)
+                If Obj_P3M.Count > 0 Then
                     txtInform_To.Text = Obj_P3M.Item(0).Inform_To
                     txtReceive_Date.Text = Obj_P3M.Item(0).Receive_Date
                     txtAppraisal_Date.Text = Obj_P3M.Item(0).Appraisal_Date
@@ -305,89 +279,58 @@ Partial Class Appraisal_Price3_Form_Review
                     txtApprove1.Text = Obj_P3M.Item(0).Approved1
                     txtApprove2.Text = Obj_P3M.Item(0).Approved2
                     txtApprove3.Text = Obj_P3M.Item(0).Approved3
-
-                Else
-                    txtSequence.Text = 1
                 End If
 
-                'รายละเอียดส่วนต่อเติม
-                'lblArea1.Text = DS.Tables(0).Rows.Item(0).Item("BuildAddArea")
-                'lblUnitPrice1.Text = Format(DS.Tables(0).Rows.Item(0).Item("BuildAddUintPrice"), "#,##0.00")
-                'lblCostPrice1.Text = Format(DS.Tables(0).Rows.Item(0).Item("BuildAddPrice"), "#,##0.00")
-                'lblAge1.Text = DS.Tables(0).Rows.Item(0).Item("BuildAddAge")
-                'lblYearDamage1.Text = DS.Tables(0).Rows.Item(0).Item("BuildAddPersent1")
-                'lblAdap1.Text = DS.Tables(0).Rows.Item(0).Item("BuildAddPersent2")
-                'lblDecadent1.Text = DS.Tables(0).Rows.Item(0).Item("BuildAddPersent3")
-                'lblP_Damage1.Text = (DS.Tables(0).Rows.Item(0).Item("BuildAddPersent1") + DS.Tables(0).Rows.Item(0).Item("BuildAddPersent2") + DS.Tables(0).Rows.Item(0).Item("BuildAddPersent3")) * DS.Tables(0).Rows.Item(0).Item("BuildAddAge")
-                'lblDamageBth1.Text = DS.Tables(0).Rows.Item(0).Item("BuildingPriceTotalDeteriorate")
-                'If CDec(lblCostPrice.Text) <> 0 Then
-                '    lblDamageBth1.Text = Format(CDec(lblCostPrice1.Text) * (CDbl(lblP_Damage1.Text) / 100), "#,##0.00")
-                '    lbltotalPrice1.Text = Format(CDbl(lblCostPrice1.Text) - CDbl(lblDamageBth1.Text), "#,##0.00")
-                '    lblGrandTotal.Text = Format(CDbl(lbltotalPrice.Text) + CDbl(lbltotalPrice1.Text), "#,##0.00")
-                '    lblBuilding_Detail.Text = DS.Tables(0).Rows.Item(0).Item("CntID") 'CntID
-                '    lblBuildingPrice.Text = Format(CDbl(lbltotalPrice.Text) + CDbl(lbltotalPrice1.Text), "#,##0.00")
-                '    lblGrantotal.Text = Format(CDbl(lbltotalPrice.Text) + CDbl(lbltotalPrice1.Text) + (CDbl(lbltotalPrice.Text) + CDbl(lbltotalPrice1.Text)), "#,##0.00")
-                'Else
-                '    lblDamageBth1.Text = "0.00"
-                '    lbltotalPrice1.Text = "0.00"
-                'End If
+                If Obj_P3M.Count > 0 Then
+                    'หา PRICE3_MASTER_REVIEW หากมีจะดึงข้อมูลเดิมมาให้
+                    Dim Obj_P3M_Reveiw As List(Of Price3_Master_Review) = GET_PRICE3_MASTER_REVIEW(lblCif.Text, txtAID.Text, hdfReq_Id.Value)
+                    If Obj_P3M_Reveiw.Count > 0 Then
+                        txtMemo_Date.Text = Obj_P3M_Reveiw.Item(0).Memo_Date
+                        If Obj_P3M.Item(0).Approved > 0 Then
+                            txtSequence.Text = Obj_P3M_Reveiw.Item(0).Sequence + 1
+                        Else
+                            txtSequence.Text = Obj_P3M_Reveiw.Item(0).Sequence
+                        End If
 
-                'รายละเอียดส่วนควบ
-                'ต้องดึงรายละเอียดของส่วนควบมาแสดงก่อน(On Progress)
-                'Dim Obj_Partake_Reveiw As List(Of Price3_70_Review_Partake) = GET_PRICE3_70_REVIEW_PARTAKE_SUM(hdfReq_Id.Value, hdfHub_Id.Value, txtAID.Text, hdfTemp_AID.Value)
-                'lblArea2.Text = Obj_Partake_Reveiw.Item(0).PartakeArea
-                'lblUnitPrice2.Text = Obj_Partake_Reveiw.Item(0).PartakeUintPrice
-                'lblCostPrice2.Text = Obj_Partake_Reveiw.Item(0).PartakePrice
-                'lblAge2.Text = Obj_Partake_Reveiw.Item(0).PartakeAge
-                'lblYearDamage2.Text = Obj_Partake_Reveiw.Item(0).PartakePersent1
-                'lblAdap2.Text = Obj_Partake_Reveiw.Item(0).PartakePersent2
-                'lblDecadent2.Text = Obj_Partake_Reveiw.Item(0).PartakePersent2
-                'lblP_Damage2.Text = Format((Obj_Partake_Reveiw.Item(0).PartakePersent1 + Obj_Partake_Reveiw.Item(0).PartakePersent2 + Obj_Partake_Reveiw.Item(0).PartakePersent3) * (Obj_Partake_Reveiw.Item(0).PartakeAge), "#,##0.00")
-                'lblDamageBth2.Text = Obj_Partake_Reveiw.Item(0).PartakePriceTotalDeteriorate
-                'If CDec(lblCostPrice.Text) <> 0 Then
-                '    lblDamageBth2.Text = Format(CDec(lblCostPrice2.Text) * (CDbl(lblP_Damage2.Text) / 100), "#,##0.00")
-                '    lbltotalPrice2.Text = Format(CDbl(lblCostPrice2.Text) - CDbl(lblDamageBth2.Text), "#,##0.00")
-                'Else
-                '    lblDamageBth2.Text = "0.00"
-                '    lbltotalPrice2.Text = "0.00"
-                'End If
-                'Else
-                '    lblArea.Text = "0"
-                '    lblUnitPrice.Text = "0.00"
-                '    lblCostPrice.Text = "0.00"
-                '    lblAge.Text = "0"
-                '    lblYearDamage.Text = "0.00"
-                '    lblAdap.Text = "0.00"
-                '    lblDecadent.Text = "0.00"
-                '    lblP_Damage.Text = "0.00"
-                '    lblDamageBth.Text = "0.00"
-                '    lbltotalPrice.Text = "0.00"
+                        RadioButtonList1.SelectedValue = Obj_P3M_Reveiw.Item(0).Land_Chg
+                        If Obj_P3M_Reveiw.Item(0).Land_Chg = 0 Then
+                            txtLandDetail.Enabled = False
+                        Else
+                            txtLandDetail.Enabled = True
+                        End If
+                        txtLandDetail.Text = Obj_P3M_Reveiw.Item(0).Land_Chg_Detail
+                        RadioButtonList2.SelectedValue = Obj_P3M_Reveiw.Item(0).Obligation_Chg
+                        If Obj_P3M_Reveiw.Item(0).Obligation_Chg = 0 Then
+                            txtObligation.Enabled = False
+                        Else
+                            txtObligation.Enabled = True
+                        End If
+                        txtObligation.Text = Obj_P3M_Reveiw.Item(0).Obligation_Chg_Detail
+                        RadioButtonList3.SelectedValue = Obj_P3M_Reveiw.Item(0).Site_Chg
+                        If Obj_P3M_Reveiw.Item(0).Site_Chg = 0 Then
+                            txtLandAddress.Enabled = False
+                        Else
+                            txtLandAddress.Enabled = True
+                        End If
+                        txtLandAddress.Text = Obj_P3M_Reveiw.Item(0).Site_Chg_Detail
+                        RadioButtonList4.SelectedValue = Obj_P3M_Reveiw.Item(0).Progress_Chg
+                        RadioButtonList5.SelectedValue = Obj_P3M_Reveiw.Item(0).Building_Chg
+                        If Obj_P3M_Reveiw.Item(0).Building_Chg = 0 Then
+                            txtBuilding.Enabled = False
+                        Else
+                            txtBuilding.Enabled = True
+                        End If
+                        txtBuilding.Text = Obj_P3M_Reveiw.Item(0).Building_Chg_Detail
+                        txtLast_Appraisal_Detail.Text = Obj_P3M_Reveiw.Item(0).Appraisal_Last_Detail
 
-                '    lblArea1.Text = "0"
-                '    lblUnitPrice1.Text = "0.00"
-                '    lblCostPrice1.Text = "0.00"
-                '    lblAge1.Text = "0"
-                '    lblYearDamage1.Text = "0.00"
-                '    lblAdap1.Text = "0.00"
-                '    lblDecadent1.Text = "0.00"
-                '    lblP_Damage1.Text = "0.00"
-                '    lblDamageBth1.Text = "0.00"
-                '    lbltotalPrice1.Text = "0.00"
 
-                '    lblArea2.Text = "0"
-                '    lblUnitPrice2.Text = "0.00"
-                '    lblCostPrice2.Text = "0.00"
-                '    lblAge2.Text = "0"
-                '    lblYearDamage2.Text = "0.00"
-                '    lblAdap2.Text = "0.00"
-                '    lblDecadent2.Text = "0.00"
-                '    lblP_Damage2.Text = "0.00"
-                '    lblDamageBth2.Text = "0.00"
-                '    lbltotalPrice2.Text = "0.00"
+                    Else
+                        txtSequence.Text = 1
+                    End If
+                End If
+
             End If
         End If
-
-
     End Sub
 
     Protected Sub RadioButtonList1_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles RadioButtonList1.SelectedIndexChanged
@@ -445,11 +388,31 @@ Partial Class Appraisal_Price3_Form_Review
     End Function
 
     Function Get_Total() As String
-        lblBuildingPrice.Text = String.Format("{0:N2}", total)
-        lblGrantotal.Text = String.Format("{0:N2}", CDec(lblLandTotal.Text) + CDec(lblBuildingPrice.Text))
-        lblGrantotalAll.Text = String.Format("{0:N2}", CDec(lblLandTotal.Text) + CDec(lblBuildingPrice.Text))
+        'txtBuildingPrice.Text = String.Format("{0:N2}", total)
+        txtBuildingPrice.Text = String.Format("{0:N2}", Round(((total) / 1000), 0) * 1000)
+        txtSubTotal.Text = String.Format("{0:N2}", CDec(txtLandTotal.Text) + CDec(txtBuildingPrice.Text))
+        txtGrandTotal.Text = String.Format("{0:N2}", CDec(txtLandTotal.Text) + CDec(txtBuildingPrice.Text))
+        'txtGrandTotal_Round.Text = String.Format("{0:N2}", Round(((CDec(txtLandTotal.Text) + CDec(txtBuildingPrice.Text)) / 1000), 0) * 1000)
+        'txtGrandTotal_Round.Text = String.Format("{0:N2}", Round(CDec(txtLandTotal.Text) + CDec(txtBuildingPrice.Text), -3, MidpointRounding.AwayFromZero))
+
+
+
         Return String.Format("{0:N2}", total)
 
+    End Function
+
+    Function Get_RoundTotal() As String
+        'txtGrandTotal_Round.Text = String.Format("{0:N2}", Round(((total) / 1000), 0) * 1000)
+        'ตรวจสอบว่ามีาส่งปลูกสร้างมากกว่า 1 ชิ้นหรือไม่
+        Dim P370_Re As List(Of Price3_70_Review) = GET_PRICE3_70_REVIEW_BY_REQ_ID(hdfReq_Id.Value, hdfHub_Id.Value)
+        If P370_Re.Count > 1 Then
+            Repeater1.Visible = False
+            lblMessage.Visible = True
+        Else
+            Repeater1.Visible = True
+            lblMessage.Visible = False
+        End If
+        Return String.Format("{0:N2}", Round(((total) / 1000), 0) * 1000)
     End Function
 
 End Class
