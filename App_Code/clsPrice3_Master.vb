@@ -15,6 +15,8 @@ Public Class clsPrice3_Master
     Private _Receive_Date As Date
     Private _PriceWah As Decimal
     Private _TotalPrice As Decimal
+    Private _BuildingPrice As Decimal
+    Private _Land_Building_Price As Decimal
     Private _Approved1 As String
     Private _Approved2 As String
     Private _Approved3 As String
@@ -44,6 +46,8 @@ Public Class clsPrice3_Master
      ByVal Receive_Date As Date, _
      ByVal PriceWah As Decimal, _
      ByVal TotalPrice As Decimal, _
+     ByVal BuildingPrice As Decimal, _
+     ByVal Land_Building_Price As Decimal, _
      ByVal Approved1 As String, _
      ByVal Approved2 As String, _
      ByVal Approved3 As String, _
@@ -70,6 +74,8 @@ Public Class clsPrice3_Master
         _Appraisal_Date = Appraisal_Date
         _Receive_Date = Receive_Date
         _PriceWah = PriceWah
+        _BuildingPrice = BuildingPrice
+        _Land_Building_Price = Land_Building_Price
         _TotalPrice = TotalPrice
         _Approved1 = Approved1
         _Approved2 = Approved2
@@ -166,6 +172,24 @@ Public Class clsPrice3_Master
         End Get
         Set(ByVal Value As Date)
             _Receive_Date = Value
+        End Set
+    End Property
+
+    Public Property BuildingPrice() As Decimal
+        Get
+            Return _BuildingPrice
+        End Get
+        Set(ByVal Value As Decimal)
+            _BuildingPrice = Value
+        End Set
+    End Property
+
+    Public Property Land_Building_Price() As Decimal
+        Get
+            Return _Land_Building_Price
+        End Get
+        Set(ByVal Value As Decimal)
+            _Land_Building_Price = Value
         End Set
     End Property
 

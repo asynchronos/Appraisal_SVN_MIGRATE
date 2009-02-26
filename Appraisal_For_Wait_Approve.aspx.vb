@@ -17,7 +17,7 @@ Partial Class Appraisal_For_Wait_Approve
         'Dim CID As Label = ImgAttach.Parent.FindControl("lblCID")
 
 
-        StrPath = Request.ApplicationPath & "/FileUpload_Price3.aspx?Req_Id=" & Req_Id.Text & "&AID=" & AID.Text & "&Temp_AID=" & Temp_AID.Text & "&UserId=" & lbluserid.Text
+        StrPath = Request.ApplicationPath & "/FileUpload_Price3.aspx?Req_Id=" & Req_Id.Text & "&Hub_Id=" & Hub_Id.Text & "&AID=" & AID.Text & "&Temp_AID=" & Temp_AID.Text & "&UserId=" & lbluserid.Text
         s1 = "<script language=""javascript"">window.open('" + StrPath + "','window','toolbar=no, menubar=no, scrollbars=yes, resizable=no,location=no, directories=no, status=yes,height=700px,width=830px');</script>"
         Page.ClientScript.RegisterStartupScript(Me.GetType, "แนบไฟล์", s1)
     End Sub

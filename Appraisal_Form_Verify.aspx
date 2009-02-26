@@ -121,14 +121,8 @@
                                                 <ItemTemplate>
                                                     <asp:Label ID="lblHub_Name" runat="server" Text='<%# Eval("Hub_Name") %>'  ></asp:Label>
                                                 </ItemTemplate>
-                                            </asp:TemplateField>   
-                                            <asp:TemplateField HeaderText="Picture">
-                                                <ItemStyle VerticalAlign="Middle" Width="250px" />
-                                                <ItemTemplate>
-                                                    <asp:Label ID="lblPicture_Name" runat="server" Text='<%# Eval("Picture_Path") %>'  ></asp:Label>
-                                                </ItemTemplate>
                                             </asp:TemplateField>                                              
-                                           <asp:TemplateField HeaderText="แสดงรูปภาพ ที่แนบมา">
+                                           <asp:TemplateField HeaderText="แสดงรูปภาพ หรือ ไฟล์ ที่แนบมา">
                                             <ItemTemplate>
                                                 <asp:HyperLink ID="linkPath" runat="server"  target='_blank'  text='<%#EVAL("Picture_Path") %>' NavigateUrl='<%#  ".../../UploadedFiles/Pic_RegID/" &  EVAL("Picture_Path") %>'>HyperLink</asp:HyperLink>
                                             </ItemTemplate>

@@ -15,28 +15,31 @@ Partial Class Appraisal_Price3_70_Review_Pastake
 
     Protected Sub ImageSave_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs) Handles ImageSave.Click
         Dim lbluserid As Label = TryCast(Me.Form.FindControl("lblUserID"), Label)
-
-        Dim Obj_P3_Partake_Review As List(Of Price3_70_Review_Partake) = GET_PRICE3_70_REVIEW_PARTAKE(lblId.Text, lblReq_Id.Text, lblHub_Id.Text, lblAID.Text, lblTemp_AID.Text, ddlPartaked.SelectedValue)
-        If Obj_P3_Partake_Review.Count = 0 Then
-            'Insert
-            Add_Price3_70_Review_Partake(lblId.Text, lblReq_Id.Text, lblHub_Id.Text, lblTemp_AID.Text, lblAID.Text, ddlPartaked.SelectedValue, txtBuilding_No.Text, _
-                                         txtPartakeArea.Text, txtPartakeUnitPrice.Text, txtPartakePrice.Text, txtPartakeAge.Text, _
-                                         txtPartakePersent1.Text, txtPartakePersent2.Text, txtPartakePersent3.Text, txtPartakePriceTotalDeteriorate.Text, _
-                                         txtPartake_Detail.Text, lbluserid.Text, Now())
-            StrNotice = "<script language=""javascript"">alert('บันทึกเสร็จสมบูรณ์');</script>"
-            Page.ClientScript.RegisterStartupScript(Me.GetType, "Notice", StrNotice)
-            GridView1.DataBind()
+        If txtBuilding_No.Text <> String.Empty Then
+            Dim Obj_P3_Partake_Review As List(Of Price3_70_Review_Partake) = GET_PRICE3_70_REVIEW_PARTAKE(lblId.Text, lblReq_Id.Text, lblHub_Id.Text, lblAID.Text, lblTemp_AID.Text, ddlPartaked.SelectedValue)
+            If Obj_P3_Partake_Review.Count = 0 Then
+                'Insert
+                Add_Price3_70_Review_Partake(lblId.Text, lblReq_Id.Text, lblHub_Id.Text, lblTemp_AID.Text, lblAID.Text, ddlPartaked.SelectedValue, txtBuilding_No.Text, _
+                                             txtPartakeArea.Text, txtPartakeUnitPrice.Text, txtPartakePrice.Text, txtPartakeAge.Text, _
+                                             txtPartakePersent1.Text, txtPartakePersent2.Text, txtPartakePersent3.Text, txtPartakePriceTotalDeteriorate.Text, _
+                                             txtPartake_Detail.Text, lbluserid.Text, Now())
+                StrNotice = "<script language=""javascript"">alert('บันทึกเสร็จสมบูรณ์');</script>"
+                Page.ClientScript.RegisterStartupScript(Me.GetType, "Notice", StrNotice)
+                GridView1.DataBind()
+            Else
+                'Update
+                Update_Price3_70_Review_Partake(lblId.Text, lblReq_Id.Text, lblHub_Id.Text, lblTemp_AID.Text, lblAID.Text, ddlPartaked.SelectedValue, _
+                                             txtPartakeArea.Text, txtPartakeUnitPrice.Text, txtPartakePrice.Text, txtPartakeAge.Text, _
+                                             txtPartakePersent1.Text, txtPartakePersent2.Text, txtPartakePersent3.Text, txtPartakePriceTotalDeteriorate.Text, _
+                                             txtPartake_Detail.Text, lbluserid.Text, Now())
+                StrNotice = "<script language=""javascript"">alert('บันทึกเสร็จสมบูรณ์');</script>"
+                Page.ClientScript.RegisterStartupScript(Me.GetType, "Notice", StrNotice)
+                GridView1.DataBind()
+            End If
         Else
-            'Update
-            Update_Price3_70_Review_Partake(lblId.Text, lblReq_Id.Text, lblHub_Id.Text, lblTemp_AID.Text, lblAID.Text, ddlPartaked.SelectedValue, _
-                                         txtPartakeArea.Text, txtPartakeUnitPrice.Text, txtPartakePrice.Text, txtPartakeAge.Text, _
-                                         txtPartakePersent1.Text, txtPartakePersent2.Text, txtPartakePersent3.Text, txtPartakePriceTotalDeteriorate.Text, _
-                                         txtPartake_Detail.Text, lbluserid.Text, Now())
-            StrNotice = "<script language=""javascript"">alert('บันทึกเสร็จสมบูรณ์');</script>"
+            StrNotice = "<script language=""javascript"">alert('คุณไม่ได้ใส่เลขที่สิ่งปลูกสร้าง');</script>"
             Page.ClientScript.RegisterStartupScript(Me.GetType, "Notice", StrNotice)
-            GridView1.DataBind()
         End If
-
     End Sub
 
     Protected Sub txtPartakeUnitPrice_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtPartakeUnitPrice.TextChanged

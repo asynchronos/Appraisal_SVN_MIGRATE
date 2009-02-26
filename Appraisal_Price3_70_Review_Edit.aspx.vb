@@ -2,7 +2,6 @@
 Partial Class Appraisal_Price3_70_Review_Edit
     Inherits System.Web.UI.Page
 
-
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not Page.IsPostBack Then
             lblId.Text = Context.Items("Id")
@@ -64,10 +63,10 @@ Partial Class Appraisal_Price3_70_Review_Edit
             txtBuildingDetail.Text = Obj_GetP70_Review.Item(0).BuildingDetail
             ddlInteriorState.SelectedValue = Obj_GetP70_Review.Item(0).Decoration
 
-            'Dim Obj_P3_70D As List(Of ClsPrice3_70_Detail) = GET_PRICE3_70_DETAIL(lblId.Text, lblReq_Id.Text, lblHub_Id.Text, lblTemp_AID.Text, 0)
-            'If Obj_P3_70D.Count > 0 Then
-            '    chkDetail.Checked = True
-            'End If
+            Dim Obj_P3_70DR As List(Of ClsPrice3_70_Detail) = GET_PRICE3_70_DETAIL_REVIEW(lblId.Text, lblReq_Id.Text, lblHub_Id.Text, lblTemp_AID.Text, 0)
+            If Obj_P3_70DR.Count > 0 Then
+                chkDetail.Checked = True
+            End If
         End If
     End Sub
 
@@ -112,6 +111,22 @@ Partial Class Appraisal_Price3_70_Review_Edit
     End Sub
 
     Protected Sub btnAddDetail_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnAddDetail.Click
+        Dim lbluserid As Label = TryCast(Me.Form.FindControl("lblUserID"), Label)
+        Context.Items("Req_Id") = lblReq_Id.Text
+        Context.Items("Hub_Id") = lblHub_Id.Text
+        Context.Items("Temp_AID") = lblTemp_AID.Text
+        Context.Items("ID") = lblId.Text
+        Context.Items("User_ID") = lbluserid.Text
+        Server.Transfer("Appraisal_Price3_70_Detail_Review.aspx")
+    End Sub
 
+    Protected Sub ImagePrint_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs) Handles ImagePrint.Click
+        Dim lbluserid As Label = TryCast(Me.Form.FindControl("lblUserID"), Label)
+        Context.Items("ID") = lblId.Text
+        Context.Items("Req_Id") = lblReq_Id.Text
+        Context.Items("Hub_Id") = lblHub_Id.Text
+        Context.Items("Temp_AID") = lblTemp_AID.Text
+        Context.Items("User_ID") = lbluserid.Text
+        Server.Transfer("Appraisal_Price3_70_Review_Print.aspx")
     End Sub
 End Class

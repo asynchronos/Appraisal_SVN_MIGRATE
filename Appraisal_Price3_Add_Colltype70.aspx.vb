@@ -4,12 +4,6 @@ Partial Class Appraisal_Price3_Add_Colltype70
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not Page.IsPostBack Then
-            'lblReq_Id.Text = Request.QueryString("Req_Id")
-            'lblHub_Id.Text = Request.QueryString("Hub_Id")
-            'lblTemp_AID.Text = Request.QueryString("Temp_AID")
-            'Dim lblCollType_Id As String = Request.QueryString("Coll_Type")
-            'lblId.Text = Request.QueryString("ID")
-
             lblReq_Id.Text = Context.Items("Req_Id")
             lblHub_Id.Text = Context.Items("Hub_Id")
             lblTemp_AID.Text = Context.Items("Temp_AID")
@@ -31,7 +25,6 @@ Partial Class Appraisal_Price3_Add_Colltype70
             lblReq_Id.Text = Obj_GetP70.Item(0).Req_Id
             lblHub_Id.Text = Obj_GetP70.Item(0).Hub_Id
             DDLSubCollType.SelectedValue = Obj_GetP70.Item(0).MysubColl_ID
-            'txtChanodeNo.Text = Obj_GetP70.Item(0)
             txtBuild_No.Text = Obj_GetP70.Item(0).Build_No
             txtTumbon.Text = Obj_GetP70.Item(0).Tumbon
             txtAmphur.Text = Obj_GetP70.Item(0).Amphur
@@ -71,6 +64,9 @@ Partial Class Appraisal_Price3_Add_Colltype70
             ddlBuild_Construct.SelectedValue = Obj_GetP70.Item(0).Build_Construct
             ddlRoof.SelectedValue = Obj_GetP70.Item(0).Roof
             txtRoof_Detail.Text = Obj_GetP70.Item(0).Roof_Detail
+            '***************ยังไม่ได้เพิ่ม field นี้*********************
+            ddlRoofState.SelectedValue = Obj_GetP70.Item(0).Roof
+            '****************************************************
             ddlBuild_State.SelectedValue = Obj_GetP70.Item(0).Build_State
             txtBuild_State_Detail.Text = Obj_GetP70.Item(0).Build_State_Detail
             txtBuilding_Detail.Text = Obj_GetP70.Item(0).Building_Detail
@@ -95,6 +91,7 @@ Partial Class Appraisal_Price3_Add_Colltype70
             txtBuildAddPersent3.Text = Obj_GetP70.Item(0).BuildAddPersent3
             txtBuildAddTotalDeteriorate.Text = Obj_GetP70.Item(0).BuildAddPriceTotalDeteriorate
             txtBuildingDetail.Text = Obj_GetP70.Item(0).BuildingDetail
+            ddlInteriorState.SelectedValue = Obj_GetP70.Item(0).Decoration
             Dim Obj_P3_70D As List(Of ClsPrice3_70_Detail) = GET_PRICE3_70_DETAIL(lblId.Text, lblReq_Id.Text, lblHub_Id.Text, lblTemp_AID.Text, 0)
             If Obj_P3_70D.Count > 0 Then
                 chkDetail.Checked = True

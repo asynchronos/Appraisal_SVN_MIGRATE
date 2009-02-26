@@ -331,7 +331,7 @@
 				</tr>
 			</table>
 					<asp:RadioButtonList ID="RadioButtonList1" runat="server" 
-						RepeatDirection="Horizontal" AutoPostBack="True">
+						RepeatDirection="Horizontal" AutoPostBack="True" Visible="False">
 						<asp:ListItem Selected="True" Value="1">ประเมินใหม่</asp:ListItem>
 						<asp:ListItem Value="2">ทบทวนประเมินตาม AID</asp:ListItem>
 					    <asp:ListItem Value="ทบทวนประเมินแยก AID">ทบทวนประเมินตาม AID</asp:ListItem>

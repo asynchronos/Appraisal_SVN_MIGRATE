@@ -2,6 +2,8 @@
 
 <%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="ajaxToolkit" %>
 
+<%@ Register assembly="Mytextbox" namespace="Mytextbox" tagprefix="cc1" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
     <style type="text/css">
         .style1
@@ -83,6 +85,40 @@
         .style20
         {
             width: 175px;
+        }
+        .style21
+        {
+            width: 226px;
+            height: 13px;
+        }
+        .style22
+        {
+            height: 13px;
+            width: 179px;
+        }
+        .style23
+        {
+            width: 86px;
+            height: 13px;
+        }
+        .style24
+        {
+            width: 176px;
+            height: 13px;
+        }
+        .style25
+        {
+            width: 107px;
+            height: 13px;
+        }
+        .style26
+        {
+            width: 175px;
+            height: 13px;
+        }
+        .style27
+        {
+            height: 13px;
         }
     </style>
         <link href="CSS/print.css" rel="stylesheet" type="text/css" media="print"/>
@@ -461,17 +497,30 @@
                 </AlternatingItemTemplate>
                <FooterTemplate>
                     <tr style ="background-color:Gray">
-                        <td colspan="10" style="font-size:10pt; font-style:italic">
+                        <td colspan="9" style="font-size:10pt; font-style:italic">
                             ราคาประเมินค่าก่อสร้างถือตามมาตรฐานของสมาคมประเมินค่าทรัพย์สินแห่งประเทศไทย พ.ศ.2550
+                        </td>
+                        <td align="right">
+                            รวมราคา
                         </td>
                         <td align="right">
                             <%#String.Format("{0:N2}", (Get_Total()))%>
                         </td>
                     </tr>
+                    <tr>
+                        <td colspan="10" style="font-size:10pt;" align="right">
+                            รวมเป็นเงิน(ปัดเศษ)
+                        </td>
+                        <td align="right">
+                            <%#String.Format("{0:N2}", (Get_RoundTotal()))%>
+                        </td>
+                    </tr>                    
 	               </table>
                </FooterTemplate>
 
                 </asp:Repeater>
+                <asp:Label ID="lblMessage" runat="server" 
+                    style="font-weight: 700; color: #FF0000; font-size: large;">รายการสิ่งปลูกสร้างตามเอกสารแนบ</asp:Label>
             </td>
         </tr>
         <tr>
@@ -526,16 +575,17 @@
                 <asp:Label ID="Label54" runat="server" Text="ตรว. ละ"></asp:Label>&#160;&#160;
             </td>
             <td class="style15">
-                <asp:Label ID="lblPriceWah" runat="server" Style="color: #FF0000"></asp:Label>
+                <asp:Label ID="lblPriceWah" runat="server" Style="color: #FF0000" Width="120px">0.00</asp:Label>
             </td>
             <td class="style7">
                 <asp:Label ID="Label55" runat="server" Text="เป็นเงิน"></asp:Label>
             </td>
             <td style="text-align:right; " class="style20" >
-                <asp:Label ID="lblLandTotal" runat="server" Style="color: #FF0000" 
-                    Width="150px"></asp:Label>
+                                  <cc1:mytext ID="txtLandTotal" runat="server" AllowUserKey="num_Numeric" 
+                        EnableTextAlignRight="True" Width="120px" BackColor="#FFFF66" AutoPostBack="True" 
+                                      AutoCurrencyFormatOnKeyUp="True">0.00</cc1:mytext>
             </td>
-            <td></td>
+            <td>&nbsp;</td>
         </tr>
         <tr>
             <td class="style16">
@@ -553,10 +603,11 @@
                 <asp:Label ID="Label57" runat="server" Text="เป็นเงิน"></asp:Label>
             </td>
             <td style=" text-align:right; " class="style20">
-                <asp:Label ID="lblBuildingPrice" runat="server" Style="color: #FF0000" 
-                    Width="150px"></asp:Label>
+                                  <cc1:mytext ID="txtBuildingPrice" runat="server" AllowUserKey="num_Numeric" 
+                        EnableTextAlignRight="True" Width="120px" BackColor="#FFFF66" AutoPostBack="True" 
+                                      AutoCurrencyFormatOnKeyUp="True">0.00</cc1:mytext>
             </td>
-            <td></td>
+            <td>&nbsp;</td>
         </tr>
         <tr>
             <td class="style16">
@@ -571,13 +622,14 @@
                 <asp:Label ID="lblTotal3" runat="server" Style="color: #FF0000"></asp:Label>
             </td>
             <td class="style7">
-                <asp:Label ID="Label60" runat="server" Text="รวมเป็นเงิน"></asp:Label>
+                <asp:Label ID="Label84" runat="server" Text="เป็นเงิน"></asp:Label>
             </td>
             <td style=" text-align:right; " class="style20">
-                <asp:Label ID="lblGrantotal" runat="server" Style="color: #FF0000" 
-                    Width="150px"></asp:Label>
+                                  <cc1:mytext ID="txtSubTotal" runat="server" AllowUserKey="num_Numeric" 
+                        EnableTextAlignRight="True" Width="120px" BackColor="#FFFF66" AutoPostBack="True" 
+                                      AutoCurrencyFormatOnKeyUp="True">0.00</cc1:mytext>
             </td>
-            <td></td>
+            <td>&nbsp;</td>
         </tr>
         <tr>
             <td class="style16">
@@ -591,12 +643,29 @@
             <td class="style15">
                 &nbsp;</td>
             <td class="style7">
-                &nbsp;</td>
-            <td style=" text-align:right; " class="style20">
-                <asp:Label ID="lblGrantotalAll" runat="server" Style="color: #FF0000" 
-                    Width="150px"></asp:Label>
+                <asp:Label ID="Label60" runat="server" Text="รวมเป็นเงิน"></asp:Label>
             </td>
-            <td></td>
+            <td style=" text-align:right; " class="style20">
+                                  <cc1:mytext ID="txtGrandTotal" runat="server" AllowUserKey="num_Numeric" 
+                        EnableTextAlignRight="True" Width="120px" BackColor="#FFFF66" AutoPostBack="True" 
+                                      AutoCurrencyFormatOnKeyUp="True">0.00</cc1:mytext>
+            </td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td class="style21">
+                &nbsp;</td>
+            <td class="style22">
+                </td>
+            <td class="style23">
+                </td>
+            <td class="style24">
+                </td>
+            <td class="style25">
+                &nbsp;</td>
+            <td style=" text-align:right; " class="style26">
+                                  &nbsp;</td>
+            <td class="style27"></td>
         </tr>
     </table>
             </td>
@@ -789,13 +858,12 @@
                         <td>
                             SAVE                         </td>
                         <td>
-                            <asp:ImageButton ID="ImageAttach" runat="server" Height="35px" 
-                                ImageUrl="~/Images/ico_attachments.gif" Width="35px" 
-                                ToolTip="Attach File" />
+                            <asp:ImageButton ID="ImageCancel" runat="server" Height="35px" 
+                                ImageUrl="~/Images/cancel1.jpg" Width="35px" 
+                                ToolTip="Cancel" />
                         </td>
                         <td>
-                            แนบไฟล์
-                        </td>                            
+                            ยกเลิก                         </td>                            
                     </tr>                  
                 </table>
             </td>
@@ -847,7 +915,8 @@
     <asp:SqlDataSource ID="SDSInterior_State" runat="server" ConnectionString="<%$ ConnectionStrings:AppraisalConn %>"
         
         
-        SelectCommand="SELECT [InteriorState_Id], [InteriorState_Name] FROM [Interior_State]">
+        
+        SelectCommand="SELECT [InteriorState_Id], [InteriorState_Name] FROM [Interior_State] ORDER BY [InteriorState_Id]">
     </asp:SqlDataSource>
     
     <asp:SqlDataSource ID="SDSUserAppraisal" runat="server" ConnectionString="<%$ ConnectionStrings:AppraisalConn %>"

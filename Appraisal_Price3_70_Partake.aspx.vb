@@ -31,7 +31,7 @@ Partial Class Appraisal_Price3_70_Partake
         Dim lbluserid As Label = TryCast(Me.Form.FindControl("lblUserID"), Label)
         Dim Obj_P3_70_Partake As List(Of Price3_70_Partake) = GET_PRICE3_70_PARTAKE(lblId.Text, lblReq_Id.Text, lblHub_Id.Text, lblTemp_AID.Text, ddlPartaked.SelectedValue)
         If Obj_P3_70_Partake.Count = 0 Then
-            ADD_PRICE3_70_PARTAKE(lblId.Text, lblReq_Id.Text, lblHub_Id.Text, lblTemp_AID.Text, "", ddlPartaked.SelectedValue, _
+            ADD_PRICE3_70_PARTAKE(lblId.Text, lblReq_Id.Text, lblHub_Id.Text, lblTemp_AID.Text, "", ddlPartaked.SelectedValue, txtBuilding_No.Text, _
                                          txtPartakeArea.Text, txtPartakeUnitPrice.Text, txtPartakePrice.Text, txtPartakeAge.Text, _
                                          txtPartakePersent1.Text, txtPartakePersent2.Text, txtPartakePersent3.Text, txtPartakePriceTotalDeteriorate.Text, _
                                          txtPartake_Detail.Text, lbluserid.Text, Now())

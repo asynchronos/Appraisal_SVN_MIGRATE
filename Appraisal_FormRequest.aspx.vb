@@ -182,6 +182,7 @@ Partial Class Appraisal_Form_Appraisal_FormRequest
         Dim s As String
         Dim cph As ContentPlaceHolder = TryCast(Me.Form.FindControl("ContentPlaceHolder1"), ContentPlaceHolder)
         Dim lbluserid As Label = TryCast(Me.Form.FindControl("lblUserID"), Label) 'หา Control จาก Master Page ที่ control ไม่อยู่ใน  ContentPlaceHolder1
+        Dim lblHub_id As Label = TryCast(Me.Form.FindControl("lblHub_Id"), Label)
         If RadioButtonList1.SelectedValue = 1 Then
         Else
             If TxtCif.Text = "" Then
@@ -220,7 +221,7 @@ Partial Class Appraisal_Form_Appraisal_FormRequest
         'กำหนดให้ไปเพิ่มหลักประกันในกรณีเป็นการทบทวนการประเมิน
         If ddlAppraisal_Method.SelectedValue >= 2 Then
             Context.Items("Req_Id") = lblRequestID.Text  'Request.QueryString("Req_Id")
-            'Context.Items("Hub_Id") = lblHub_Id.Text 'Request.QueryString("Hub_Id")
+            Context.Items("Hub_Id") = lblHub_Id.Text 'Request.QueryString("Hub_Id")
             Context.Items("Cif") = TxtCif.Text  'Request.QueryString("Cif")
             Context.Items("AID") = ddlAID.SelectedValue   'Request.QueryString("Aid")
             Server.Transfer("Appraisal_GetData_DWS.aspx")
