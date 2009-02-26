@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="colldetail_new.aspx.vb" Inherits="colldetail_new" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-    <script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;key=ABQIAAAAzr2EBOXUKnm_jVnk0OJI7xSosDVG8KKPE1-m51RBrvYughuyMxQ-i1QfUnH94QxWIa6N4U6MouMmBA" 
+    <script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;key=ABQIAAAA2pTpsfNw5p2cqy7r1ODOYhQ8tiLEqIyOFitEP16Hz4nJoYb9TRQ86f7bOrH9e2vS_KPstvn2ELik-Q" 
             type="text/javascript"></script>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
