@@ -1,0 +1,40 @@
+﻿@media print {
+
+#links
+    {
+        background-position: #eee;
+        font: 11px Verdana, Arial, Helvetica, sans-serif;
+        color: #000000;
+        background: #eee;
+        border-style: none;
+        border: 0px solid #666666;
+        padding: 5px;
+        height: auto;
+        display: none;
+    } 
+#txtDoPrint
+
+    .NoPrint
+    {
+    	display: none; 
+    }
+    .txtDoPrint
+    {
+        border: 0px;
+    	border-style:none;
+    }
+     td.ms-sbcell 
+     {
+        border: 0px;
+     }
+     textarea, input[type="text"]
+        {
+            border-style:none;
+            border:0px;
+        }      
+}
+
+ 
+
+
+
