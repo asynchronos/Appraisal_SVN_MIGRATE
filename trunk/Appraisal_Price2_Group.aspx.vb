@@ -103,6 +103,7 @@ Partial Class Appraisal_Price2_Group
                 Response.Redirect("Appraisal_Price2_Add_By_Colltype70.aspx?Req_id=" & Req_Id.Text & "&Hub_Id=" & Hub_Id.Text & "&Coll_Type=" & CollType.Text & "&Id=" & Id.Text & "&Cif=" & Cif.Text)
             ElseIf CollType.Text = 15 Then
             ElseIf CollType.Text = 18 Then
+                Server.Transfer("Appraisal_Price2_Add_By_Colltype18.aspx")
             End If
         Else
             Dim s As String
@@ -110,10 +111,6 @@ Partial Class Appraisal_Price2_Group
             Page.ClientScript.RegisterStartupScript(Me.GetType, "ข้อความเตือน", s)
 
         End If
-
-    End Sub
-
-    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
     End Sub
 

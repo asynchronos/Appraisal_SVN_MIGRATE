@@ -223,7 +223,14 @@ Partial Class MyMenu
         Dim myAdapter As SqlDataAdapter
         Dim myTable As DataTable
 
+        '*****Production Stroprocedure ON Create Menu********
+        'Dim SQLCmdAllMenu As New SqlCommand("sp_CreateMenu_Svr", myConnection)
+        '*****************************************************************
+
+        '***** Testing Stroprocedure ON Create Menu **********************
         Dim SQLCmdAllMenu As New SqlCommand("sp_CreateMenu", myConnection)
+        '*****************************************************************
+
         SQLCmdAllMenu.CommandType = CommandType.StoredProcedure
         'SQLCmdAllMenu.Parameters.Add("permission", SqlDbType.TinyInt).Value = Session("permission")
         'SQLCmdAllMenu.Parameters.Add("division", SqlDbType.TinyInt).Value = Session("division")

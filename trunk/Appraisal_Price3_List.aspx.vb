@@ -196,15 +196,11 @@ Partial Class Appraisal_Price3_List
             Server.Transfer("Appraisal_Price3_Add_Colltype50.aspx")
         ElseIf lblColl_type.Text = 70 Then
             'Response.Redirect("Appraisal_Price3_Add_Colltype70.aspx?Req_id=" & Req_Id.Text & "&Hub_Id=" & Hub_Id.Text & "&Coll_Type=" & lblColl_type.Text & "&Temp_AID=" & lblTemp_AID.Text & "&ID=" & Hid_ID.Value)
-            'Context.Items("Req_Id") = Req_Id.Text
-            'Context.Items("Hub_Id") = Hub_Id.Text
-            'Context.Items("Temp_AID") = lblTemp_AID.Text
-            'Context.Items("ID") = Hid_ID.Value
-            'Context.Items("Coll_Type") = lblColl_type.Text
             Server.Transfer("Appraisal_Price3_Add_Colltype70.aspx")
         ElseIf lblColl_type.Text = 15 Then
 
         ElseIf lblColl_type.Text = 18 Then
+            Server.Transfer("Appraisal_Price3_18.aspx")
         End If
 
         'MsgBox("Select Index Changing")

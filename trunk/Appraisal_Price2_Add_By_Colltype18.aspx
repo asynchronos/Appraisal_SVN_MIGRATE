@@ -120,16 +120,18 @@
                         DataSourceID="sdsSubCollType" DataTextField="SubCollType_Name"
                         DataValueField="MysubColl_ID">
                 </asp:DropDownList>
-            &nbsp;จำนวนชั้น
+            &nbsp;จำนวนชั้นทั้งหมด
 
                     <cc1:mytext ID="txtFloors" runat="server" AllowUserKey="int_Integer" AutoCurrencyFormatOnKeyUp="True"
                         EnableTextAlignRight="True" Width="50px"></cc1:mytext>
                     &nbsp;ชั้น</td>
             <td>
-                ประกอบด้วยเลขที่</td>
+                    จำนวนลิฟท์</td>
             <td class="style27">
-                <asp:TextBox ID="txtChanode" runat="server" Width="222px"></asp:TextBox>
-            </td>
+
+                    <cc1:mytext ID="txtelevator_No" runat="server" AllowUserKey="int_Integer" AutoCurrencyFormatOnKeyUp="True"
+                        EnableTextAlignRight="True" Width="50px"></cc1:mytext>
+                ชุด</td>
             <td class="style29">
                 &nbsp;</td>
             <td>
@@ -155,6 +157,22 @@
         </tr>
         <tr>
             <td class="style26">
+                ประกอบด้วยเลขที่</td>
+            <td>
+                <asp:TextBox ID="txtAddressNo" runat="server" Width="222px"></asp:TextBox>
+            </td>
+            <td>
+                &nbsp;</td>
+            <td class="style27">
+
+                    &nbsp;</td>
+            <td class="style29">
+                &nbsp;</td>
+            <td>
+                &nbsp;</td>
+        </tr>
+        <tr>
+            <td class="style26">
                     ึอาคารเลขที่</td>
             <td class="style22">
 
@@ -165,8 +183,8 @@
                                         ทะเบียนอาคารชุดเลขที่</td>
             <td class="style27">
 
-                    <cc1:mytext ID="txtRegister_No" runat="server" AllowUserKey="int_Integer" AutoCurrencyFormatOnKeyUp="True"
-                        EnableTextAlignRight="True" Width="50px"></cc1:mytext>
+                    <cc1:mytext ID="txtRegister_No" runat="server" AllowUserKey="txt_Text" 
+                        Width="130px"></cc1:mytext>
                 </td>
             <td class="style29">
                 &nbsp;</td>
@@ -183,7 +201,7 @@
                         EnableTextAlignRight="True" Width="50px" AutoPostBack="True">0</cc1:mytext>
                     &nbsp;ตรม.&nbsp; สูง
                     <cc1:mytext ID="txtHeight" runat="server" AllowUserKey="num_Numeric" EnableTextAlignRight="True"
-                        MaxLength="1" Width="50px">0</cc1:mytext>
+                        MaxLength="5" Width="50px">0</cc1:mytext>
                     &nbsp;เมตร</td>
             <td class="style5">
                                         ที่ตั้งหลักประกัน ตั้งอยู่ถนน</td>
@@ -197,26 +215,6 @@
         </tr>
         <tr>
             <td class="style26">
-                    ลักษณะอาคารมีความสูง</td>
-            <td class="style22">
-
-                    <cc1:mytext ID="txtFloorAll" runat="server" AllowUserKey="int_Integer" AutoCurrencyFormatOnKeyUp="True"
-                        EnableTextAlignRight="True" Width="50px"></cc1:mytext>
-            &nbsp;ชั้น</td>
-            <td class="style5">
-                    จำนวนลิฟท์</td>
-            <td class="style27">
-
-                    <cc1:mytext ID="txtelevator_No" runat="server" AllowUserKey="int_Integer" AutoCurrencyFormatOnKeyUp="True"
-                        EnableTextAlignRight="True" Width="50px"></cc1:mytext>
-            &nbsp;ชุด</td>
-            <td class="style29">
-                &nbsp;</td>
-            <td>
-                    &nbsp;</td>
-        </tr>
-        <tr>
-            <td class="style26">
                     ตั้งอยู่
                 </td>
             <td class="style22">
@@ -224,7 +222,7 @@
                         DataSourceID="SDSRoad_Detail" DataTextField="Road_Detail_Name" 
                         DataValueField="Road_Detail_ID">
                 </asp:DropDownList>
-                   <cc1:mytext ID="txtMeter" runat="server" AllowUserKey="num_Numeric" EnableTextAlignRight="True"
+                   <cc1:mytext ID="txtRoadAccress" runat="server" AllowUserKey="num_Numeric" EnableTextAlignRight="True"
                         MaxLength="3" Width="50px">0</cc1:mytext>
                     เมตร</td>
             <td class="style5">
@@ -270,7 +268,7 @@
                     ผิวจราจรกว้าง
                 </td>
             <td class="style28">
-                <cc1:mytext id="txtRoadWidth" runat="server" AllowUserKey="num_Numeric" MaxLength="2"
+                <cc1:mytext id="txtRoadWidth" runat="server" AllowUserKey="num_Numeric" MaxLength="5"
                         Width="50px" EnableTextAlignRight="True">0</cc1:mytext>
                     &nbsp;เมตร
                 </td>
@@ -392,14 +390,16 @@
             <td class="style26">
                     สภาพและลักษณะห้องชุด</td>
             <td class="style22">
-                <asp:DropDownList ID="DropDownList1" runat="server">
+                <asp:DropDownList ID="ddlCharacter_Room" runat="server" 
+                    DataSourceID="SDSCharacter_Room" DataTextField="Character_Room_Name" 
+                    DataValueField="Character_Room_ID">
                 </asp:DropDownList>
             </td>
             <td class="style5">
                     ขนาดห้องกว้างติดทางเดิน</td>
             <td class="style27">
 
-                    <cc1:mytext ID="txtWalkArea0" runat="server" AllowUserKey="num_Numeric" AutoCurrencyFormatOnKeyUp="True"
+                    <cc1:mytext ID="txtRoomWidth_BehideSiteWalk" runat="server" AllowUserKey="num_Numeric"
                         EnableTextAlignRight="True" Width="50px"></cc1:mytext>
             </td>
             <td class="style29">
@@ -411,14 +411,14 @@
                     ขนาดห้องลึกติดทางเดิน</td>
             <td class="style22">
 
-                    <cc1:mytext ID="txtWalkArea2" runat="server" AllowUserKey="num_Numeric" AutoCurrencyFormatOnKeyUp="True"
+                    <cc1:mytext ID="txtRoomdeep" runat="server" AllowUserKey="num_Numeric" AutoCurrencyFormatOnKeyUp="True"
                         EnableTextAlignRight="True" Width="50px"></cc1:mytext>
             </td>
             <td class="style5">
                     ขนาดห้องด้านหลังกว้าง</td>
             <td class="style27">
 
-                    <cc1:mytext ID="txtWalkArea1" runat="server" AllowUserKey="num_Numeric" AutoCurrencyFormatOnKeyUp="True"
+                    <cc1:mytext ID="txtBackside_Width" runat="server" AllowUserKey="num_Numeric"
                         EnableTextAlignRight="True" Width="50px"></cc1:mytext>
             </td>
             <td class="style29">
@@ -429,14 +429,15 @@
             <td class="style26">
                     สภาพทางเดินในอาคารชุดเป็น</td>
             <td class="style22">
-                <asp:DropDownList ID="DropDownList2" runat="server">
+                <asp:DropDownList ID="ddlFloors" runat="server" DataSourceID="SDSFloors" 
+                    DataTextField="Floor_Name" DataValueField="Floor_Id">
                 </asp:DropDownList>
             </td>
             <td class="style5">
                     ทางเดินกว้าง</td>
             <td class="style27">
 
-                    <cc1:mytext ID="txtWalkArea" runat="server" AllowUserKey="num_Numeric" AutoCurrencyFormatOnKeyUp="True"
+                    <cc1:mytext ID="txtSideWalk_Width" runat="server" AllowUserKey="num_Numeric"
                         EnableTextAlignRight="True" Width="50px"></cc1:mytext>
             &nbsp;เมตร</td>
             <td class="style29">
@@ -447,7 +448,7 @@
             <td class="style26">
                     ตรม. ละ</td>
             <td class="style22">
-                <cc1:mytext id="txtPriceWah" runat="server" allowuserkey="num_Numeric" width="120px"
+                <cc1:mytext id="txtUnitPrice" runat="server" allowuserkey="num_Numeric" width="120px"
                         autocurrencyformatonkeyup="True" EnableTextAlignRight="True" 
                     AutoPostBack="True">0</cc1:mytext>
             </td>
@@ -532,5 +533,10 @@ Order by prov_code">
         
         SelectCommand="SELECT [InteriorState_Id], [InteriorState_Name] FROM [Interior_State]">
     </asp:SqlDataSource>
-</asp:Content>
+    <asp:SqlDataSource ID="SDSFloors" runat="server" ConnectionString="<%$ ConnectionStrings:AppraisalConn %>"
+        SelectCommand="SELECT [Floor_Id], [Floor_Name] FROM [Floor]"></asp:SqlDataSource>
+    <asp:SqlDataSource ID="SDSCharacter_Room" runat="server" ConnectionString="<%$ ConnectionStrings:AppraisalConn %>"
+        
+        SelectCommand="SELECT [Character_Room_ID], [Character_Room_Name] FROM [Character_Room]"></asp:SqlDataSource>
+    </asp:Content>
 
