@@ -727,6 +727,295 @@ Public Class Appraisal_Manager
 
 #End Region
 
+#Region "PRICE2-18"
+
+    Public Shared Sub ADD_PRICE2_18(ByVal ID As Integer, _
+     ByVal Req_Id As Integer, _
+     ByVal Hub_Id As Integer, _
+     ByVal AID As String, _
+     ByVal CID As String, _
+     ByVal Temp_AID As Integer, _
+     ByVal MysubColl_ID As Integer, _
+     ByVal Floors_All As Integer, _
+     ByVal Elevator As Integer, _
+     ByVal Address_No As String, _
+     ByVal Room_Area As Decimal, _
+     ByVal Room_Height As Decimal, _
+     ByVal Building_Name As String, _
+     ByVal Floors As Integer, _
+     ByVal Building_No As String, _
+     ByVal Building_Reg_No As String, _
+     ByVal Tumbon As String, _
+     ByVal Amphur As String, _
+     ByVal Province As Integer, _
+     ByVal Road As String, _
+     ByVal Road_Detail As Integer, _
+     ByVal Road_Access As Decimal, _
+     ByVal Road_Frontoff As Integer, _
+     ByVal RoadWidth As Decimal, _
+     ByVal Site As Integer, _
+     ByVal Site_Detail As String, _
+     ByVal Public_Utility As Integer, _
+     ByVal Public_Utility_Detail As String, _
+     ByVal Binifit As Integer, _
+     ByVal Binifit_Detail As String, _
+     ByVal Tendency As Integer, _
+     ByVal BuySale_State As Integer, _
+     ByVal Building_Construc As Integer, _
+     ByVal InteriorState_Id As Integer, _
+     ByVal Character_Room_Id As Integer, _
+     ByVal RoomWidth_BehideSiteWalk As Decimal, _
+     ByVal Roomdeep As Decimal, _
+     ByVal Backside_Width As Decimal, _
+     ByVal SideWalk_Is As Integer, _
+     ByVal SideWalk_Width As Decimal, _
+     ByVal Unit_Price As Decimal, _
+     ByVal PriceTotal As Decimal, _
+     ByVal Create_User As String, _
+     ByVal Create_Date As Date)
+
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("ADD_PRICE2_18", connection)
+                connection.Open()
+                command.Connection = connection
+                Dim myTrans As SqlTransaction
+                myTrans = connection.BeginTransaction()
+                command.Transaction = myTrans
+                Try
+                    command.CommandType = CommandType.StoredProcedure
+                    command.Parameters.Add(New SqlParameter("@ID", ID))
+                    command.Parameters.Add(New SqlParameter("@Req_Id", Req_Id))
+                    command.Parameters.Add(New SqlParameter("@Hub_Id", Hub_Id))
+                    command.Parameters.Add(New SqlParameter("@AID", AID))
+                    command.Parameters.Add(New SqlParameter("@CID", CID))
+                    command.Parameters.Add(New SqlParameter("@Temp_AID", Temp_AID))
+                    command.Parameters.Add(New SqlParameter("@MysubColl_ID", MysubColl_ID))
+                    command.Parameters.Add(New SqlParameter("@Floors_All", Floors_All))
+                    command.Parameters.Add(New SqlParameter("@Elevator", Elevator))
+                    command.Parameters.Add(New SqlParameter("@Address_No", Address_No))
+                    command.Parameters.Add(New SqlParameter("@Room_Area", Room_Area))
+                    command.Parameters.Add(New SqlParameter("@Room_Height", Room_Height))
+                    command.Parameters.Add(New SqlParameter("@Building_Name", Building_Name))
+                    command.Parameters.Add(New SqlParameter("@Floors", Floors))
+                    command.Parameters.Add(New SqlParameter("@Building_No", Building_No))
+                    command.Parameters.Add(New SqlParameter("@Building_Reg_No", Building_Reg_No))
+                    command.Parameters.Add(New SqlParameter("@Tumbon", Tumbon))
+                    command.Parameters.Add(New SqlParameter("@Amphur", Amphur))
+                    command.Parameters.Add(New SqlParameter("@Province", Province))
+                    command.Parameters.Add(New SqlParameter("@Road", Road))
+                    command.Parameters.Add(New SqlParameter("@Road_Detail", Road_Detail))
+                    command.Parameters.Add(New SqlParameter("@Road_Access", Road_Access))
+                    command.Parameters.Add(New SqlParameter("@Road_Frontoff", Road_Frontoff))
+                    command.Parameters.Add(New SqlParameter("@RoadWidth", RoadWidth))
+                    command.Parameters.Add(New SqlParameter("@Site", Site))
+                    command.Parameters.Add(New SqlParameter("@Site_Detail", Site_Detail))
+                    command.Parameters.Add(New SqlParameter("@Public_Utility", Public_Utility))
+                    command.Parameters.Add(New SqlParameter("@Public_Utility_Detail", Public_Utility_Detail))
+                    command.Parameters.Add(New SqlParameter("@Binifit", Binifit))
+                    command.Parameters.Add(New SqlParameter("@Binifit_Detail", Binifit_Detail))
+                    command.Parameters.Add(New SqlParameter("@Tendency", Tendency))
+                    command.Parameters.Add(New SqlParameter("@BuySale_State", BuySale_State))
+                    command.Parameters.Add(New SqlParameter("@Building_Construc", Building_Construc))
+                    command.Parameters.Add(New SqlParameter("@InteriorState_Id", InteriorState_Id))
+                    command.Parameters.Add(New SqlParameter("@Character_Room_Id", Character_Room_Id))
+                    command.Parameters.Add(New SqlParameter("@RoomWidth_BehideSiteWalk", RoomWidth_BehideSiteWalk))
+                    command.Parameters.Add(New SqlParameter("@Roomdeep", Roomdeep))
+                    command.Parameters.Add(New SqlParameter("@Backside_Width", Backside_Width))
+                    command.Parameters.Add(New SqlParameter("@SideWalk_Is", SideWalk_Is))
+                    command.Parameters.Add(New SqlParameter("@SideWalk_Width", SideWalk_Width))
+                    command.Parameters.Add(New SqlParameter("@Unit_Price", Unit_Price))
+                    command.Parameters.Add(New SqlParameter("@PriceTotal", PriceTotal))
+                    command.Parameters.Add(New SqlParameter("@Create_User", Create_User))
+                    command.Parameters.Add(New SqlParameter("@Create_Date", Create_Date))
+                    command.ExecuteNonQuery()
+                    myTrans.Commit()
+                Catch ex As Exception
+                    myTrans.Rollback()
+                Finally
+                    connection.Close()
+                End Try
+            End Using
+        End Using
+    End Sub
+
+    Public Shared Sub UPDATE_PRICE2_18(ByVal ID As Integer, _
+     ByVal Req_Id As Integer, _
+     ByVal Hub_Id As Integer, _
+     ByVal AID As String, _
+     ByVal CID As String, _
+     ByVal Temp_AID As Integer, _
+     ByVal MysubColl_ID As Integer, _
+     ByVal Floors_All As Integer, _
+     ByVal Elevator As Integer, _
+     ByVal Address_No As String, _
+     ByVal Room_Area As Decimal, _
+     ByVal Room_Height As Decimal, _
+     ByVal Building_Name As String, _
+     ByVal Floors As Integer, _
+     ByVal Building_No As String, _
+     ByVal Building_Reg_No As String, _
+     ByVal Tumbon As String, _
+     ByVal Amphur As String, _
+     ByVal Province As Integer, _
+     ByVal Road As String, _
+     ByVal Road_Detail As Integer, _
+     ByVal Road_Access As Decimal, _
+     ByVal Road_Frontoff As Integer, _
+     ByVal RoadWidth As Decimal, _
+     ByVal Site As Integer, _
+     ByVal Site_Detail As String, _
+     ByVal Public_Utility As Integer, _
+     ByVal Public_Utility_Detail As String, _
+     ByVal Binifit As Integer, _
+     ByVal Binifit_Detail As String, _
+     ByVal Tendency As Integer, _
+     ByVal BuySale_State As Integer, _
+     ByVal Building_Construc As Integer, _
+     ByVal InteriorState_Id As Integer, _
+     ByVal Character_Room_Id As Integer, _
+     ByVal RoomWidth_BehideSiteWalk As Decimal, _
+     ByVal Roomdeep As Decimal, _
+     ByVal Backside_Width As Decimal, _
+     ByVal SideWalk_Is As Integer, _
+     ByVal SideWalk_Width As Decimal, _
+     ByVal Unit_Price As Decimal, _
+     ByVal PriceTotal As Decimal, _
+     ByVal Create_User As String, _
+     ByVal Create_Date As Date)
+
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("UPDATE_PRICE2_18", connection)
+                connection.Open()
+                command.Connection = connection
+                Dim myTrans As SqlTransaction
+                myTrans = connection.BeginTransaction()
+                command.Transaction = myTrans
+                Try
+                    command.CommandType = CommandType.StoredProcedure
+                    command.Parameters.Add(New SqlParameter("@ID", ID))
+                    command.Parameters.Add(New SqlParameter("@Req_Id", Req_Id))
+                    command.Parameters.Add(New SqlParameter("@Hub_Id", Hub_Id))
+                    command.Parameters.Add(New SqlParameter("@AID", AID))
+                    command.Parameters.Add(New SqlParameter("@CID", CID))
+                    command.Parameters.Add(New SqlParameter("@Temp_AID", Temp_AID))
+                    command.Parameters.Add(New SqlParameter("@MysubColl_ID", MysubColl_ID))
+                    command.Parameters.Add(New SqlParameter("@Floors_All", Floors_All))
+                    command.Parameters.Add(New SqlParameter("@Elevator", Elevator))
+                    command.Parameters.Add(New SqlParameter("@Address_No", Address_No))
+                    command.Parameters.Add(New SqlParameter("@Room_Area", Room_Area))
+                    command.Parameters.Add(New SqlParameter("@Room_Height", Room_Height))
+                    command.Parameters.Add(New SqlParameter("@Building_Name", Building_Name))
+                    command.Parameters.Add(New SqlParameter("@Floors", Floors))
+                    command.Parameters.Add(New SqlParameter("@Building_No", Building_No))
+                    command.Parameters.Add(New SqlParameter("@Building_Reg_No", Building_Reg_No))
+                    command.Parameters.Add(New SqlParameter("@Tumbon", Tumbon))
+                    command.Parameters.Add(New SqlParameter("@Amphur", Amphur))
+                    command.Parameters.Add(New SqlParameter("@Province", Province))
+                    command.Parameters.Add(New SqlParameter("@Road", Road))
+                    command.Parameters.Add(New SqlParameter("@Road_Detail", Road_Detail))
+                    command.Parameters.Add(New SqlParameter("@Road_Access", Road_Access))
+                    command.Parameters.Add(New SqlParameter("@Road_Frontoff", Road_Frontoff))
+                    command.Parameters.Add(New SqlParameter("@RoadWidth", RoadWidth))
+                    command.Parameters.Add(New SqlParameter("@Site", Site))
+                    command.Parameters.Add(New SqlParameter("@Site_Detail", Site_Detail))
+                    command.Parameters.Add(New SqlParameter("@Public_Utility", Public_Utility))
+                    command.Parameters.Add(New SqlParameter("@Public_Utility_Detail", Public_Utility_Detail))
+                    command.Parameters.Add(New SqlParameter("@Binifit", Binifit))
+                    command.Parameters.Add(New SqlParameter("@Binifit_Detail", Binifit_Detail))
+                    command.Parameters.Add(New SqlParameter("@Tendency", Tendency))
+                    command.Parameters.Add(New SqlParameter("@BuySale_State", BuySale_State))
+                    command.Parameters.Add(New SqlParameter("@Building_Construc", Building_Construc))
+                    command.Parameters.Add(New SqlParameter("@InteriorState_Id", InteriorState_Id))
+                    command.Parameters.Add(New SqlParameter("@Character_Room_Id", Character_Room_Id))
+                    command.Parameters.Add(New SqlParameter("@RoomWidth_BehideSiteWalk", RoomWidth_BehideSiteWalk))
+                    command.Parameters.Add(New SqlParameter("@Roomdeep", Roomdeep))
+                    command.Parameters.Add(New SqlParameter("@Backside_Width", Backside_Width))
+                    command.Parameters.Add(New SqlParameter("@SideWalk_Is", SideWalk_Is))
+                    command.Parameters.Add(New SqlParameter("@SideWalk_Width", SideWalk_Width))
+                    command.Parameters.Add(New SqlParameter("@Unit_Price", Unit_Price))
+                    command.Parameters.Add(New SqlParameter("@PriceTotal", PriceTotal))
+                    command.Parameters.Add(New SqlParameter("@Create_User", Create_User))
+                    command.Parameters.Add(New SqlParameter("@Create_Date", Create_Date))
+                    command.ExecuteNonQuery()
+                    myTrans.Commit()
+                Catch ex As Exception
+                    myTrans.Rollback()
+                Finally
+                    connection.Close()
+                End Try
+            End Using
+        End Using
+    End Sub
+
+    Public Shared Function GET_PRICE2_18(ByVal ID As Integer, ByVal Req_Id As Integer, ByVal Hub_Id As Integer) As Generic.List(Of PRICE2_18)
+
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("GET_PRICE2_18", connection)
+                command.CommandType = CommandType.StoredProcedure
+                command.CommandTimeout = 60
+                command.Parameters.Add(New SqlParameter("@ID", ID))
+                command.Parameters.Add(New SqlParameter("@Req_Id", Req_Id))
+                command.Parameters.Add(New SqlParameter("@Hub_Id", Hub_Id))
+                connection.Open()
+                Dim list As New Generic.List(Of PRICE2_18)()
+                Using reader As SqlDataReader = command.ExecuteReader()
+
+                    Do While (reader.Read())
+                        Dim temp As New PRICE2_18(CInt(reader("ID")), _
+                                                CInt(reader("Req_Id")), _
+                                                CInt(reader("Hub_Id")), _
+                                                CStr(reader("AID")), _
+                                                CStr(reader("CID")), _
+                                                CInt(reader("Temp_AID")), _
+                                                CInt(reader("MysubColl_ID")), _
+                                                CInt(reader("Floors_All")), _
+                                                CInt(reader("Elevator")), _
+                                                CStr(reader("Address_No")), _
+                                                CDec(reader("Room_Area")), _
+                                                CDec(reader("Room_Height")), _
+                                                CStr(reader("Building_Name")), _
+                                                CInt(reader("Floors")), _
+                                                CStr(reader("Building_No")), _
+                                                CStr(reader("Building_Reg_No")), _
+                                                CStr(reader("Tumbon")), _
+                                                CStr(reader("Amphur")), _
+                                                CInt(reader("Province")), _
+                                                CStr(reader("Road")), _
+                                                CInt(reader("Road_Detail")), _
+                                                CDec(reader("Road_Access")), _
+                                                CInt(reader("Road_Frontoff")), _
+                                                CDec(reader("Roadwidth")), _
+                                                CInt(reader("Sited")), _
+                                                CStr(reader("Site_Detail")), _
+                                                CInt(reader("Public_Utility")), _
+                                                CStr(reader("Public_Utility_Detail")), _
+                                                CInt(reader("Binifit")), _
+                                                CStr(reader("Binifit_Detail")), _
+                                                CInt(reader("Tendency")), _
+                                                CInt(reader("BuySale_State")), _
+                                                CInt(reader("Building_Construc")), _
+                                                CInt(reader("InteriorState_Id")), _
+                                                CInt(reader("Character_Room_Id")), _
+                                                CDec(reader("RoomWidth_BehideSiteWalk")), _
+                                                CDec(reader("Roomdeep")), _
+                                                CDec(reader("Backside_Width")), _
+                                                CInt(reader("SideWalk_Is")), _
+                                                CDec(reader("SideWalk_Width")), _
+                                                CDec(reader("Unit_Price")), _
+                                                CDec(reader("PriceTotal")), _
+                                                CStr(reader("Create_User")), _
+                                                CDate(reader("Create_Date")))
+                        list.Add(temp)
+                    Loop
+                End Using
+                Return list
+            End Using
+        End Using
+
+    End Function
+
+#End Region
+
 #Region "PRICE2-50"
 
     Public Shared Sub AddPRICE2_50(ByVal ID As Integer, _
@@ -1437,6 +1726,307 @@ Public Class Appraisal_Manager
                                                 CStr(reader("Warning_Detail")), _
                                                 CInt(reader("Req_Dept")), _
                                                 CStr(reader("Appraisal_ID")), _
+                                                CStr(reader("Create_User")), _
+                                                CDate(reader("Create_Date")))
+                        list.Add(temp)
+                    Loop
+                End Using
+                Return list
+            End Using
+        End Using
+
+    End Function
+
+    Public Shared Sub ADD_PRICE3_18(ByVal ID As Integer, _
+     ByVal Req_Id As Integer, _
+     ByVal Hub_Id As Integer, _
+     ByVal AID As String, _
+     ByVal CID As String, _
+     ByVal Temp_AID As Integer, _
+     ByVal MysubColl_ID As Integer, _
+     ByVal Floors_All As Integer, _
+     ByVal Elevator As Integer, _
+     ByVal Address_No As String, _
+     ByVal Room_Area As Decimal, _
+     ByVal Room_Height As Decimal, _
+     ByVal Building_Name As String, _
+     ByVal Floors As Integer, _
+     ByVal Building_No As String, _
+     ByVal Building_Reg_No As String, _
+     ByVal Tumbon As String, _
+     ByVal Amphur As String, _
+     ByVal Province As Integer, _
+     ByVal Road As String, _
+     ByVal Road_Detail As Integer, _
+     ByVal Road_Access As Decimal, _
+     ByVal Road_Frontoff As Integer, _
+     ByVal RoadWidth As Decimal, _
+     ByVal Site As Integer, _
+     ByVal Site_Detail As String, _
+     ByVal Public_Utility As Integer, _
+     ByVal Public_Utility_Detail As String, _
+     ByVal Binifit As Integer, _
+     ByVal Binifit_Detail As String, _
+     ByVal Tendency As Integer, _
+     ByVal BuySale_State As Integer, _
+     ByVal Building_Construc As Integer, _
+     ByVal InteriorState_Id As Integer, _
+     ByVal Character_Room_Id As Integer, _
+     ByVal RoomWidth_BehideSiteWalk As Decimal, _
+     ByVal Roomdeep As Decimal, _
+     ByVal Backside_Width As Decimal, _
+     ByVal SideWalk_Is As Integer, _
+     ByVal SideWalk_Width As Decimal, _
+     ByVal Partake_Detail As String, _
+     ByVal Ownership As String, _
+     ByVal Obligation As String, _
+     ByVal Unit_Price As Decimal, _
+     ByVal PriceTotal As Decimal, _
+     ByVal Create_User As String, _
+     ByVal Create_Date As Date)
+
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("ADD_PRICE3_18", connection)
+                connection.Open()
+                command.Connection = connection
+                Dim myTrans As SqlTransaction
+                myTrans = connection.BeginTransaction()
+                command.Transaction = myTrans
+                Try
+                    command.CommandType = CommandType.StoredProcedure
+                    command.Parameters.Add(New SqlParameter("@ID", ID))
+                    command.Parameters.Add(New SqlParameter("@Req_Id", Req_Id))
+                    command.Parameters.Add(New SqlParameter("@Hub_Id", Hub_Id))
+                    command.Parameters.Add(New SqlParameter("@AID", AID))
+                    command.Parameters.Add(New SqlParameter("@CID", CID))
+                    command.Parameters.Add(New SqlParameter("@Temp_AID", Temp_AID))
+                    command.Parameters.Add(New SqlParameter("@MysubColl_ID", MysubColl_ID))
+                    command.Parameters.Add(New SqlParameter("@Floors_All", Floors_All))
+                    command.Parameters.Add(New SqlParameter("@Elevator", Elevator))
+                    command.Parameters.Add(New SqlParameter("@Address_No", Address_No))
+                    command.Parameters.Add(New SqlParameter("@Room_Area", Room_Area))
+                    command.Parameters.Add(New SqlParameter("@Room_Height", Room_Height))
+                    command.Parameters.Add(New SqlParameter("@Building_Name", Building_Name))
+                    command.Parameters.Add(New SqlParameter("@Floors", Floors))
+                    command.Parameters.Add(New SqlParameter("@Building_No", Building_No))
+                    command.Parameters.Add(New SqlParameter("@Building_Reg_No", Building_Reg_No))
+                    command.Parameters.Add(New SqlParameter("@Tumbon", Tumbon))
+                    command.Parameters.Add(New SqlParameter("@Amphur", Amphur))
+                    command.Parameters.Add(New SqlParameter("@Province", Province))
+                    command.Parameters.Add(New SqlParameter("@Road", Road))
+                    command.Parameters.Add(New SqlParameter("@Road_Detail", Road_Detail))
+                    command.Parameters.Add(New SqlParameter("@Road_Access", Road_Access))
+                    command.Parameters.Add(New SqlParameter("@Road_Frontoff", Road_Frontoff))
+                    command.Parameters.Add(New SqlParameter("@RoadWidth", RoadWidth))
+                    command.Parameters.Add(New SqlParameter("@Site", Site))
+                    command.Parameters.Add(New SqlParameter("@Site_Detail", Site_Detail))
+                    command.Parameters.Add(New SqlParameter("@Public_Utility", Public_Utility))
+                    command.Parameters.Add(New SqlParameter("@Public_Utility_Detail", Public_Utility_Detail))
+                    command.Parameters.Add(New SqlParameter("@Binifit", Binifit))
+                    command.Parameters.Add(New SqlParameter("@Binifit_Detail", Binifit_Detail))
+                    command.Parameters.Add(New SqlParameter("@Tendency", Tendency))
+                    command.Parameters.Add(New SqlParameter("@BuySale_State", BuySale_State))
+                    command.Parameters.Add(New SqlParameter("@Building_Construc", Building_Construc))
+                    command.Parameters.Add(New SqlParameter("@InteriorState_Id", InteriorState_Id))
+                    command.Parameters.Add(New SqlParameter("@Character_Room_Id", Character_Room_Id))
+                    command.Parameters.Add(New SqlParameter("@RoomWidth_BehideSiteWalk", RoomWidth_BehideSiteWalk))
+                    command.Parameters.Add(New SqlParameter("@Roomdeep", Roomdeep))
+                    command.Parameters.Add(New SqlParameter("@Backside_Width", Backside_Width))
+                    command.Parameters.Add(New SqlParameter("@SideWalk_Is", SideWalk_Is))
+                    command.Parameters.Add(New SqlParameter("@SideWalk_Width", SideWalk_Width))
+                    command.Parameters.Add(New SqlParameter("@Partake_Detail", Partake_Detail))
+                    command.Parameters.Add(New SqlParameter("@Ownership", Ownership))
+                    command.Parameters.Add(New SqlParameter("@Obligation", Obligation))
+                    command.Parameters.Add(New SqlParameter("@Unit_Price", Unit_Price))
+                    command.Parameters.Add(New SqlParameter("@PriceTotal", PriceTotal))
+                    command.Parameters.Add(New SqlParameter("@Create_User", Create_User))
+                    command.Parameters.Add(New SqlParameter("@Create_Date", Create_Date))
+                    command.ExecuteNonQuery()
+                    myTrans.Commit()
+                Catch ex As Exception
+                    myTrans.Rollback()
+                    'MsgBox(ex.Message)
+                Finally
+                    connection.Close()
+                End Try
+            End Using
+        End Using
+    End Sub
+
+    Public Shared Sub UPDATE_PRICE3_18(ByVal ID As Integer, _
+     ByVal Req_Id As Integer, _
+     ByVal Hub_Id As Integer, _
+     ByVal AID As String, _
+     ByVal CID As String, _
+     ByVal Temp_AID As Integer, _
+     ByVal MysubColl_ID As Integer, _
+     ByVal Floors_All As Integer, _
+     ByVal Elevator As Integer, _
+     ByVal Address_No As String, _
+     ByVal Room_Area As Decimal, _
+     ByVal Room_Height As Decimal, _
+     ByVal Building_Name As String, _
+     ByVal Floors As Integer, _
+     ByVal Building_No As String, _
+     ByVal Building_Reg_No As String, _
+     ByVal Tumbon As String, _
+     ByVal Amphur As String, _
+     ByVal Province As Integer, _
+     ByVal Road As String, _
+     ByVal Road_Detail As Integer, _
+     ByVal Road_Access As Decimal, _
+     ByVal Road_Frontoff As Integer, _
+     ByVal RoadWidth As Decimal, _
+     ByVal Site As Integer, _
+     ByVal Site_Detail As String, _
+     ByVal Public_Utility As Integer, _
+     ByVal Public_Utility_Detail As String, _
+     ByVal Binifit As Integer, _
+     ByVal Binifit_Detail As String, _
+     ByVal Tendency As Integer, _
+     ByVal BuySale_State As Integer, _
+     ByVal Building_Construc As Integer, _
+     ByVal InteriorState_Id As Integer, _
+     ByVal Character_Room_Id As Integer, _
+     ByVal RoomWidth_BehideSiteWalk As Decimal, _
+     ByVal Roomdeep As Decimal, _
+     ByVal Backside_Width As Decimal, _
+     ByVal SideWalk_Is As Integer, _
+     ByVal SideWalk_Width As Decimal, _
+     ByVal Partake_Detail As String, _
+     ByVal Ownership As String, _
+     ByVal Obligation As String, _
+     ByVal Unit_Price As Decimal, _
+     ByVal PriceTotal As Decimal, _
+     ByVal Create_User As String, _
+     ByVal Create_Date As Date)
+
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("UPDATE_PRICE3_18", connection)
+                connection.Open()
+                command.Connection = connection
+                Dim myTrans As SqlTransaction
+                myTrans = connection.BeginTransaction()
+                command.Transaction = myTrans
+                Try
+                    command.CommandType = CommandType.StoredProcedure
+                    command.Parameters.Add(New SqlParameter("@ID", ID))
+                    command.Parameters.Add(New SqlParameter("@Req_Id", Req_Id))
+                    command.Parameters.Add(New SqlParameter("@Hub_Id", Hub_Id))
+                    command.Parameters.Add(New SqlParameter("@AID", AID))
+                    command.Parameters.Add(New SqlParameter("@CID", CID))
+                    command.Parameters.Add(New SqlParameter("@Temp_AID", Temp_AID))
+                    command.Parameters.Add(New SqlParameter("@MysubColl_ID", MysubColl_ID))
+                    command.Parameters.Add(New SqlParameter("@Floors_All", Floors_All))
+                    command.Parameters.Add(New SqlParameter("@Elevator", Elevator))
+                    command.Parameters.Add(New SqlParameter("@Address_No", Address_No))
+                    command.Parameters.Add(New SqlParameter("@Room_Area", Room_Area))
+                    command.Parameters.Add(New SqlParameter("@Room_Height", Room_Height))
+                    command.Parameters.Add(New SqlParameter("@Building_Name", Building_Name))
+                    command.Parameters.Add(New SqlParameter("@Floors", Floors))
+                    command.Parameters.Add(New SqlParameter("@Building_No", Building_No))
+                    command.Parameters.Add(New SqlParameter("@Building_Reg_No", Building_Reg_No))
+                    command.Parameters.Add(New SqlParameter("@Tumbon", Tumbon))
+                    command.Parameters.Add(New SqlParameter("@Amphur", Amphur))
+                    command.Parameters.Add(New SqlParameter("@Province", Province))
+                    command.Parameters.Add(New SqlParameter("@Road", Road))
+                    command.Parameters.Add(New SqlParameter("@Road_Detail", Road_Detail))
+                    command.Parameters.Add(New SqlParameter("@Road_Access", Road_Access))
+                    command.Parameters.Add(New SqlParameter("@Road_Frontoff", Road_Frontoff))
+                    command.Parameters.Add(New SqlParameter("@RoadWidth", RoadWidth))
+                    command.Parameters.Add(New SqlParameter("@Site", Site))
+                    command.Parameters.Add(New SqlParameter("@Site_Detail", Site_Detail))
+                    command.Parameters.Add(New SqlParameter("@Public_Utility", Public_Utility))
+                    command.Parameters.Add(New SqlParameter("@Public_Utility_Detail", Public_Utility_Detail))
+                    command.Parameters.Add(New SqlParameter("@Binifit", Binifit))
+                    command.Parameters.Add(New SqlParameter("@Binifit_Detail", Binifit_Detail))
+                    command.Parameters.Add(New SqlParameter("@Tendency", Tendency))
+                    command.Parameters.Add(New SqlParameter("@BuySale_State", BuySale_State))
+                    command.Parameters.Add(New SqlParameter("@Building_Construc", Building_Construc))
+                    command.Parameters.Add(New SqlParameter("@InteriorState_Id", InteriorState_Id))
+                    command.Parameters.Add(New SqlParameter("@Character_Room_Id", Character_Room_Id))
+                    command.Parameters.Add(New SqlParameter("@RoomWidth_BehideSiteWalk", RoomWidth_BehideSiteWalk))
+                    command.Parameters.Add(New SqlParameter("@Roomdeep", Roomdeep))
+                    command.Parameters.Add(New SqlParameter("@Backside_Width", Backside_Width))
+                    command.Parameters.Add(New SqlParameter("@SideWalk_Is", SideWalk_Is))
+                    command.Parameters.Add(New SqlParameter("@SideWalk_Width", SideWalk_Width))
+                    command.Parameters.Add(New SqlParameter("@Partake_Detail", Partake_Detail))
+                    command.Parameters.Add(New SqlParameter("@Ownership", Ownership))
+                    command.Parameters.Add(New SqlParameter("@Obligation", Obligation))
+                    command.Parameters.Add(New SqlParameter("@Unit_Price", Unit_Price))
+                    command.Parameters.Add(New SqlParameter("@PriceTotal", PriceTotal))
+                    command.Parameters.Add(New SqlParameter("@Create_User", Create_User))
+                    command.Parameters.Add(New SqlParameter("@Create_Date", Create_Date))
+                    command.ExecuteNonQuery()
+                    myTrans.Commit()
+                Catch ex As Exception
+                    myTrans.Rollback()
+                Finally
+                    connection.Close()
+                End Try
+            End Using
+        End Using
+    End Sub
+
+    Public Shared Function GET_PRICE3_18(ByVal ID As Integer, ByVal Req_Id As Integer, ByVal Hub_Id As Integer) As Generic.List(Of Price3_18)
+
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("GET_PRICE3_18", connection)
+                command.CommandType = CommandType.StoredProcedure
+                command.CommandTimeout = 60
+                command.Parameters.Add(New SqlParameter("@ID", ID))
+                command.Parameters.Add(New SqlParameter("@Req_Id", Req_Id))
+                command.Parameters.Add(New SqlParameter("@Hub_Id", Hub_Id))
+                connection.Open()
+                Dim list As New Generic.List(Of Price3_18)()
+                Using reader As SqlDataReader = command.ExecuteReader()
+
+                    Do While (reader.Read())
+                        Dim temp As New Price3_18(CInt(reader("ID")), _
+                                                CInt(reader("Req_Id")), _
+                                                CInt(reader("Hub_Id")), _
+                                                CStr(reader("AID")), _
+                                                CStr(reader("CID")), _
+                                                CInt(reader("Temp_AID")), _
+                                                CInt(reader("MysubColl_ID")), _
+                                                CInt(reader("Floors_All")), _
+                                                CInt(reader("Elevator")), _
+                                                CStr(reader("Address_No")), _
+                                                CDec(reader("Room_Area")), _
+                                                CDec(reader("Room_Height")), _
+                                                CStr(reader("Building_Name")), _
+                                                CInt(reader("Floors")), _
+                                                CStr(reader("Building_No")), _
+                                                CStr(reader("Building_Reg_No")), _
+                                                CStr(reader("Tumbon")), _
+                                                CStr(reader("Amphur")), _
+                                                CInt(reader("Province")), _
+                                                CStr(reader("Road")), _
+                                                CInt(reader("Road_Detail")), _
+                                                CDec(reader("Road_Access")), _
+                                                CInt(reader("Road_Frontoff")), _
+                                                CDec(reader("Roadwidth")), _
+                                                CInt(reader("Sited")), _
+                                                CStr(reader("Site_Detail")), _
+                                                CInt(reader("Public_Utility")), _
+                                                CStr(reader("Public_Utility_Detail")), _
+                                                CInt(reader("Binifit")), _
+                                                CStr(reader("Binifit_Detail")), _
+                                                CInt(reader("Tendency")), _
+                                                CInt(reader("BuySale_State")), _
+                                                CInt(reader("Building_Construc")), _
+                                                CInt(reader("InteriorState_Id")), _
+                                                CInt(reader("Character_Room_Id")), _
+                                                CDec(reader("RoomWidth_BehideSiteWalk")), _
+                                                CDec(reader("Roomdeep")), _
+                                                CDec(reader("Backside_Width")), _
+                                                CInt(reader("SideWalk_Is")), _
+                                                CDec(reader("SideWalk_Width")), _
+                                                CStr(reader("Partake_Detail")), _
+                                                CStr(reader("Ownership")), _
+                                                CStr(reader("Obligation")), _
+                                                CDec(reader("Unit_Price")), _
+                                                CDec(reader("PriceTotal")), _
                                                 CStr(reader("Create_User")), _
                                                 CDate(reader("Create_Date")))
                         list.Add(temp)
@@ -3059,7 +3649,7 @@ Public Class Appraisal_Manager
                     myTrans.Commit()
                 Catch ex As Exception
                     myTrans.Rollback()
-                    MsgBox(ex.Message)
+                    'MsgBox(ex.Message)
                 Finally
                     connection.Close()
                 End Try

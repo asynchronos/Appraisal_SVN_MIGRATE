@@ -158,7 +158,6 @@ Partial Class Appraisal_GetData_DWS
         GET_CID_DETAIL_BYKEY(CID_KEY.Text, CID.Text, COLLTYPE.Text)
     End Sub
 
-
     Protected Sub btnOk_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnOk.Click
         'Dim Gv As GridView = DirectCast(Me.FindControl("Gridview1"), GridView)
         'Dim Gv_Row As GridViewRow
@@ -325,75 +324,6 @@ Partial Class Appraisal_GetData_DWS
         Dim CollAdapter As New OracleDataAdapter(command)
         CollAdapter.Fill(DsColl)
         Return DsColl
-
-        'If rdr.HasRows Then
-        '    'read the first row
-        '    rdr.Read()
-        '    'extract the details 
-
-        '    If Not IsDBNull(rdr("Asset_Type_Desc_1")) Then
-        '        lblSubCollType.Text = rdr("Asset_Type_Desc_1")
-        '    Else
-        '        lblSubCollType.Text = ""
-        '    End If
-        '    If COLLTYPE = "050" Then
-        '        If Not IsDBNull(rdr("Asset_Type_code_1")) Then
-        '            lblSubCollTypeNo.Text = CInt(rdr("Asset_Type_code_1"))
-        '        Else
-        '            lblSubCollTypeNo.Text = ""
-        '        End If
-
-        '        If Not IsDBNull(rdr("Collateral_Reg_No_1")) Then
-        '            lblChanode.Text = rdr("Collateral_Reg_No_1")
-        '        Else
-        '            lblChanode.Text = ""
-        '        End If
-        '        lblArea.Text = rdr("Area_Rai") & "-" & rdr("Area_Ngan") & "-" & rdr("Area_Wah") & "ไร่"
-        '    ElseIf COLLTYPE = "070" Then
-        '        If Not IsDBNull(rdr("Asset_Type_code_1")) Then
-        '            'บวก 5 เพราะว่าในฐานข้อมูลไม่ได้แยกชนิดของแต่ละประเภทหลักประกัน ถ้าเป็นสิ่งปลูกสร้างเริ่มที่ 6 จึงต้องเอาค่าที่ได้ + 5
-        '            lblSubCollTypeNo.Text = CInt(rdr("Asset_Type_code_1")) + 5
-        '        Else
-        '            lblSubCollTypeNo.Text = ""
-        '        End If
-        '        If Not IsDBNull(rdr("Address_no")) Then
-        '            lblChanode.Text = rdr("Address_no")
-        '        Else
-        '            lblChanode.Text = ""
-        '        End If
-        '        lblArea.Text = rdr("Area") & "ตรม."
-        '    End If
-
-
-        '    lblRoad.Text = rdr("Road")
-        '    lblDistrict.Text = rdr("District")
-        '    lblAmphur.Text = rdr("Amphur")
-        '    lblProvince_Code.Text = rdr("Province")
-        '    lblProvince.Text = rdr("Province_DESC")
-        '    If Not IsDBNull(rdr("Area_Rai")) Then
-        '        lblRai.Text = rdr("Area_Rai")
-        '    Else
-        '        lblRai.Text = ""
-        '    End If
-
-        '    If Not IsDBNull(rdr("Area_Ngan")) Then
-        '        lblNgan.Text = rdr("Area_Ngan")
-        '    Else
-        '        lblNgan.Text = ""
-        '    End If
-
-        '    If Not IsDBNull(rdr("Area_Wah")) Then
-        '        lblWah.Text = rdr("Area_Wah")
-        '    Else
-        '        lblWah.Text = ""
-        '    End If
-        '    'lblArea.Text = rdr("Area_Rai") & "-" & rdr("Area_Ngan") & "-" & rdr("Area_Wah")
-
-        'Else
-        '    'display message if no rows found 
-        '    MsgBox("Not found")
-
-        'End If
     End Function
 
 End Class

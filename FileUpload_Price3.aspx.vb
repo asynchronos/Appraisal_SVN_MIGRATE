@@ -109,9 +109,9 @@ Partial Class FileUpload_Price3
         Dim UpName As String
         If Not Page.IsPostBack Then
             lblReq_Id.Text = Request.QueryString("Req_Id")
-            MsgBox(lblReq_Id.Text)
+            'MsgBox(lblReq_Id.Text)
             lblHub_Id.Text = Request.QueryString("Hub_Id")
-            MsgBox(lblHub_Id.Text)
+            'MsgBox(lblHub_Id.Text)
             lblUserId.Text = Request.QueryString("UserId")
             lblAID.Text = Request.QueryString("AID")
             lblTemp_AID.Text = Request.QueryString("Temp_AID")
