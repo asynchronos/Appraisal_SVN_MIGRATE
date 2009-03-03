@@ -1,0 +1,73 @@
+﻿<%@ Master Language="VB" CodeFile="MasterPage.master.vb" Inherits="MasterPage_MasterPage" %>
+
+<%@ Register Src="MyMenu.ascx" TagName="MyMenu" TagPrefix="uc1" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <link href="CSS/print.css" rel="stylesheet" type="text/css" media="print" />
+    
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body style="margin-top: 0px; margin-left: 0px; margin-right: 0px;">
+    <form id="form1" runat="server">
+    <div id="links">
+     <table border="0" cellspacing="0" cellpadding="0" width="100%" style="height: 80px">
+        <tr>
+            <td align="left" style="background-color: #FFCE40">
+                <img alt="" src="Images/logo_bay.gif" />
+            </td>
+            <td style="height: 50px; background-color: #FFCE40;" valign="top">
+                <table>
+                    <tr>
+                        <td>
+                            User ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :
+                        </td>
+                        <td>
+                            <asp:Label ID="lblUserID" runat="server"></asp:Label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            User Name&nbsp;&nbsp; :
+                        </td>
+                        <td>
+                            <asp:Label ID="lblUserName" runat="server"></asp:Label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Department&nbsp;&nbsp; :
+                        </td>
+                        <td>
+                            <asp:Label ID="lblPostion" runat="server"></asp:Label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Hub ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:
+                        </td>
+                        <td>
+                            <asp:Label ID="lblHub_Id" runat="server"></asp:Label>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <uc1:MyMenu ID="MyMenu1" runat="server" FollowScroll="false" CenterMenu="false" DefaultHeight="35"
+                    DefaultWidth="35" Vertical="false" DiffWidth="true" CSSFile="vertical.css" />
+            </td>
+        </tr>
+    </table>   
+    </div>
+
+    <div>
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+        </asp:ContentPlaceHolder>
+    </div>
+    </form>
+</body>
+</html>
