@@ -189,4 +189,27 @@ Partial Class Appraisal_Price2_Add_By_Colltype
     '    Dim s As String = "<script language=""javascript"">window.open('" + str + "','window','toolbar=no, menubar=no, scrollbars=yes, resizable=no,location=no, directories=no, status=yes,height=500px,width=800px');</script>"
     '    Page.ClientScript.RegisterStartupScript(Me.GetType, "popup", s)
     'End Sub
+
+    Protected Sub txtPriceWah_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtPriceWah.TextChanged
+        Dim TotalWah As Double = 0
+        If txtRai.Text = String.Empty Then
+            txtRai.Text = "0"
+        End If
+        If txtNgan.Text = String.Empty Then
+            txtNgan.Text = "0"
+        End If
+        If txtWah.Text = String.Empty Then
+            txtWah.Text = "0"
+        End If
+
+        If txtRai.Text = "0" Or txtNgan.Text = "0" Or txtWah.Text = "0" Then
+            s = "<script language=""javascript"">alert('ไม่มีพื้นที่ให้คำนวณราคา');</script>"
+            Page.ClientScript.RegisterStartupScript(Me.GetType, "รับเรื่องประเมิน", s)
+        Else
+            TotalWah = (CDec(txtRai.Text) * 400) + (CDec(txtNgan.Text) * 100) + CDec(txtWah.Text)
+            txtTotal.Text = TotalWah * CDec(txtPriceWah.Text)
+        End If
+
+
+    End Sub
 End Class
