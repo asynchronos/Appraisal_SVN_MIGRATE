@@ -340,7 +340,8 @@
                     ตรว. ละ</td>
             <td class="style22">
                 <cc1:mytext id="txtPriceWah" runat="server" allowuserkey="num_Numeric" width="120px"
-                        autocurrencyformatonkeyup="True" EnableTextAlignRight="True">0</cc1:mytext>
+                        autocurrencyformatonkeyup="True" EnableTextAlignRight="True" 
+                    AutoPostBack="True">0</cc1:mytext>
             </td>
             <td class="style5">
                     เป็นเงิน</td>
