@@ -17,7 +17,7 @@ Imports System.Globalization.CultureInfo
 Imports SME_SERVICE
 Partial Class Appraisal_Form_Appraisal_FormRequest
     Inherits System.Web.UI.Page
-
+    Dim s As String
 #Region "Variables"
     Dim gvUniqueID As String = String.Empty
     Dim gvNewPageIndex As Integer = 0
@@ -179,7 +179,7 @@ Partial Class Appraisal_Form_Appraisal_FormRequest
 
     Protected Sub imgBtnSave_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs) Handles imgBtnSave.Click
         'Code Save
-        Dim s As String
+
         Dim cph As ContentPlaceHolder = TryCast(Me.Form.FindControl("ContentPlaceHolder1"), ContentPlaceHolder)
         Dim lbluserid As Label = TryCast(Me.Form.FindControl("lblUserID"), Label) 'หา Control จาก Master Page ที่ control ไม่อยู่ใน  ContentPlaceHolder1
         Dim lblHub_id As Label = TryCast(Me.Form.FindControl("lblHub_Id"), Label)
@@ -332,7 +332,9 @@ Partial Class Appraisal_Form_Appraisal_FormRequest
             End While
 
         Catch ex As Exception
-            MsgBox(ex.Message)
+            s = "<script language=""javascript"">alert('มีข้อผิดพลาด ค้นหาไม่พบ');</script>"
+            Page.ClientScript.RegisterStartupScript(Me.GetType, "Notice", s)
+            'MsgBox(ex.Message)
         Finally
 
             ' Dispose OracleCommand object
