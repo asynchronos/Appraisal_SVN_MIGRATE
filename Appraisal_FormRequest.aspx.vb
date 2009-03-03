@@ -332,8 +332,8 @@ Partial Class Appraisal_Form_Appraisal_FormRequest
             End While
 
         Catch ex As Exception
-            's = "<script language=""javascript"">alert('มีข้อผิดพลาด ค้นหาไม่พบ');</script>"
-            'Page.ClientScript.RegisterStartupScript(Me.GetType, "Notice", s)
+            s = "<script language=""javascript"">alert('มีข้อผิดพลาด ค้นหาไม่พบ');</script>"
+            Page.ClientScript.RegisterStartupScript(Me.GetType, "Notice", s)
             'MsgBox(ex.Message)
         Finally
 
