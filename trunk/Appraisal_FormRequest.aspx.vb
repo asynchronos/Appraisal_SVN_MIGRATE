@@ -4,7 +4,8 @@ Imports System.Xml
 Imports System.IO
 Imports System.Data
 Imports System.Data.SqlClient
-Imports System.Data.OracleClient
+'Imports System.Data.OracleClient
+Imports Oracle.DataAccess.Client
 Imports Microsoft.Win32
 Imports System.Web.UI.HtmlControls
 Imports System.Web.UI.WebControls
@@ -277,7 +278,8 @@ Partial Class Appraisal_Form_Appraisal_FormRequest
             If cus_class.Cif.ToString <> 0 Then
                 TxtCifName.Text = cus_class.cus_first
                 TxtCifLastName.Text = cus_class.cus_last
-                Get_AID_BY_CIF()
+                'Get_AID_BY_CIF()
+                GET_AID_BY_CIFNEW()
             Else
                 'ถ้า cif ที่ส่งมาเท่ากับ 0 ให้ Clear ค่า  ในคอนโทรล
                 Dim l As New Label
@@ -300,11 +302,9 @@ Partial Class Appraisal_Form_Appraisal_FormRequest
         ' Specify the connect string
         con.ConnectionString = "User Id=cpr214361;Password=newyear2009;Data Source=edw;"
         ' Open the connection
-        Try
-            con.Open()
-        Catch ex As Exception
 
-        End Try
+        con.Open()
+
         Dim cmdQuery As String = "SELECT MAX(DWHADMIN.CUS_PLED.CIF_NO) AS CIF, DWHADMIN.APPRAISAL_MASTER.APPRAISAL_ID" _
                       & " FROM DWHADMIN.APPRAISAL_MASTER INNER JOIN " _
                       & " DWHADMIN.COLLATERAL_APPRAISAL ON " _
@@ -335,6 +335,7 @@ Partial Class Appraisal_Form_Appraisal_FormRequest
             's = "<script language=""javascript"">alert('มีข้อผิดพลาด ค้นหาไม่พบ');</script>"
             'Page.ClientScript.RegisterStartupScript(Me.GetType, "Notice", s)
             'MsgBox(ex.Message)
+            Throw New Exception(ex.Message & " : " & ex.StackTrace)
         Finally
 
             ' Dispose OracleCommand object
@@ -343,6 +344,53 @@ Partial Class Appraisal_Form_Appraisal_FormRequest
             ' Close and Dispose OracleConnection object
             con.Close()
             con.Dispose()
+        End Try
+    End Sub
+
+    Private Sub GET_AID_BY_CIFNEW()
+        Dim oradb As String = "Data Source=(DESCRIPTION=" _
+            + "(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.32.52)(PORT=1521)))" _
+            + "(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=edw)));" _
+            + "User Id=cpr214361;Password=newyear2009;"
+        Dim conn As New OracleConnection(oradb)
+        conn.Open()
+
+        Dim cmdQuery As String = "SELECT MAX(DWHADMIN.CUS_PLED.CIF_NO) AS CIF, DWHADMIN.APPRAISAL_MASTER.APPRAISAL_ID" _
+              & " FROM DWHADMIN.APPRAISAL_MASTER INNER JOIN " _
+              & " DWHADMIN.COLLATERAL_APPRAISAL ON " _
+              & " DWHADMIN.APPRAISAL_MASTER.APPRAISAL_KEY = DWHADMIN.COLLATERAL_APPRAISAL.APPRAISAL_KEY INNER JOIN " _
+              & " DWHADMIN.COLLATERAL_PLEDGE ON " _
+              & " DWHADMIN.COLLATERAL_APPRAISAL.COLLATERAL_KEY = DWHADMIN.COLLATERAL_PLEDGE.COLLATERAL_KEY INNER JOIN " _
+              & " DWHADMIN.PLEDGE_MASTER ON DWHADMIN.COLLATERAL_PLEDGE.PLEDGE_KEY = DWHADMIN.PLEDGE_MASTER.PLEDGE_KEY INNER JOIN " _
+              & " DWHADMIN.CUS_PLED ON DWHADMIN.PLEDGE_MASTER.PLEDGE_KEY = DWHADMIN.CUS_PLED.PLEDGE_KEY LEFT OUTER JOIN " _
+              & " DWHADMIN.COLLATERAL_MASTER ON " _
+              & " DWHADMIN.COLLATERAL_PLEDGE.COLLATERAL_KEY = DWHADMIN.COLLATERAL_MASTER.COLLATERAL_KEY " _
+              & " WHERE (DWHADMIN.CUS_PLED.CIF_NO =" & TxtCif.Text & ") " _
+              & " GROUP BY DWHADMIN.APPRAISAL_MASTER.APPRAISAL_ID"
+
+        Dim cmd As OracleCommand = New OracleCommand(cmdQuery)
+        cmd.Connection = conn
+        cmd.CommandType = CommandType.Text
+
+        Try
+            ' Execute command, create OracleDataReader object
+            ddlAID.Items.Clear()
+            Dim reader As OracleDataReader = cmd.ExecuteReader()
+            While (reader.Read())
+                ' Output Employee Name and Number
+                ddlAID.Items.Add(reader.Item("APPRAISAL_ID"))
+            End While
+            reader.Dispose()
+        Catch ex As Exception
+            Throw New Exception(ex.Message & " : " & ex.StackTrace)
+        Finally
+
+            ' Dispose OracleCommand object
+            cmd.Dispose()
+
+            ' Close and Dispose OracleConnection object
+            conn.Close()
+            conn.Dispose()
         End Try
     End Sub
 End Class
