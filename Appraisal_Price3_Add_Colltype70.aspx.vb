@@ -141,4 +141,9 @@ Partial Class Appraisal_Price3_Add_Colltype70
         Context.Items("Building_No") = txtBuild_No.Text
         Server.Transfer("Appraisal_Price3_70_Partake.aspx")
     End Sub
+
+    Protected Sub txtBuildingTotalDeteriorate_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtBuildingTotalDeteriorate.TextChanged
+        Dim TotPersent As Decimal
+        TotPersent = CInt(txtBuildingAge.Text) * (CDec(txtBuildingPersent1.Text) + CDec(txtBuildingPersent2.Text) + CDec(txtBuildingPersent1.Text))
+    End Sub
 End Class

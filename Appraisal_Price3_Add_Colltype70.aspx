@@ -18,10 +18,6 @@
         .style5
         {
         }
-        .style14
-        {
-            width: 193px;
-        }
         .style10
         {
             height: 15px;
@@ -39,20 +35,16 @@
         .style16
         {
             height: 15px;
-            width: 193px;
+            width: 168px;
         }
-            .style18
+            .style19
         {
-            height: 24px;
-            width: 240px;
-        }
-        .style19
-        {
+            width: 222px;
         }
         .style20
         {
             height: 15px;
-            width: 240px;
+            width: 222px;
         }
         .style21
         {
@@ -73,6 +65,20 @@
             width: 211px;
             color: #6600FF;
             font-weight: bold;
+        }
+        .style25
+        {
+            height: 24px;
+            width: 168px;
+        }
+        .style26
+        {
+            width: 168px;
+        }
+        .style27
+        {
+            height: 24px;
+            width: 222px;
         }
     </style>
     
@@ -130,11 +136,11 @@ function wopen(url, name, w, h) {
             </td>
             <td>
                 Temp AID</td>
-            <td class="style17">
+            <td class="style27">
                 <asp:Label ID="lblTemp_AID" runat="server" 
                     style="font-weight: 700; color: #FF0000;"></asp:Label>
             </td>
-            <td class="style17">
+            <td class="style25">
                 &nbsp;</td>
             <td>
             </td>
@@ -147,10 +153,10 @@ function wopen(url, name, w, h) {
             </td>
             <td class="style17">
                 รหัส Hub</td>
-            <td class="style18">
+            <td class="style27">
                 <asp:Label ID="lblHub_Id" runat="server" style="font-weight: 700"></asp:Label>
             </td>
-            <td class="style17">
+            <td class="style25">
             </td>
             <td class="style17">
 
@@ -175,7 +181,7 @@ function wopen(url, name, w, h) {
                     <td class="style19">
                     <asp:TextBox ID="txtOwnership" runat="server" Width="222px" BackColor="#FFFF66"></asp:TextBox>
                     </td>
-                  <td>&nbsp;</td>
+                  <td class="style26">&nbsp;</td>
                   <td></td>
               </tr>              
             <tr>
@@ -190,7 +196,7 @@ function wopen(url, name, w, h) {
                 <td class="style19">
                 <asp:TextBox ID="txtTumbon" runat="server"></asp:TextBox>
                 </td>
-                <td class="style14">
+                <td class="style26">
                     อำเภอ</td>
                 <td>
                 <asp:TextBox ID="txtAmphur" runat="server"></asp:TextBox>
@@ -206,13 +212,13 @@ function wopen(url, name, w, h) {
             </td>
             <td class="style17">
                     ลักษณะอาคาร</td>
-            <td class="style18">
+            <td class="style27">
                     <asp:DropDownList ID="ddlBuild_Character" runat="server" 
                         DataSourceID="SDSlBuild_Character" DataTextField="Build_Character_Name" 
                         DataValueField="Build_Character_ID">
                     </asp:DropDownList>
             </td>
-            <td class="style17">
+            <td class="style25">
                     จำนวน</td>
             <td class="style17">
                     <cc1:mytext ID="txtFloor" runat="server" AllowUserKey="num_Numeric" 
@@ -263,7 +269,7 @@ function wopen(url, name, w, h) {
                 <td class="style19">
                     <asp:TextBox ID="txtBuild_State_Detail" runat="server"></asp:TextBox>
                 </td>
-                <td class="style14">
+                <td class="style26">
                     สิ่งปลูกสร้าง</td>
                 <td>
                     <asp:TextBox ID="txtBuilding_Detail" runat="server"></asp:TextBox>
@@ -285,7 +291,7 @@ function wopen(url, name, w, h) {
                         DataTextField="RoofState_Name" DataValueField="RoofState_Id">
                     </asp:DropDownList>
                 </td>
-                <td class="style14">
+                <td class="style26">
                     สภาพการตกแต่ง</td>
                 <td>
                     <asp:DropDownList ID="ddlInteriorState" runat="server" 
@@ -308,7 +314,7 @@ function wopen(url, name, w, h) {
                 <td class="style19">
                     &nbsp;
                 </td>
-                <td class="style14">
+                <td class="style26">
                     &nbsp;</td>
                 <td>
                     &nbsp;</td>
@@ -326,7 +332,7 @@ function wopen(url, name, w, h) {
                 <td class="style19">
                     &nbsp;
                 </td>
-                <td class="style14">
+                <td class="style26">
                     ระบุเอกสารอื่น
                 </td>
                 <td>
@@ -344,7 +350,7 @@ function wopen(url, name, w, h) {
                 </td>
                 <td class="style19">
                     &nbsp;</td>
-                <td class="style14">
+                <td class="style26">
                     &nbsp;</td>
                 <td>
                     &nbsp;</td>
@@ -354,25 +360,27 @@ function wopen(url, name, w, h) {
                     พื้นที่สิ่งปลูกสร้างทั้งหมด</td>
                 <td class="style8">
                     <cc1:mytext ID="txtBuildingArea" runat="server" AllowUserKey="num_Numeric" 
-                        EnableTextAlignRight="True" MaxLength="4" Width="35px" BackColor="#FFFF66">0</cc1:mytext>
+                        EnableTextAlignRight="True" MaxLength="4" Width="35px" BackColor="#FFFF66" 
+                        AutoPostBack="True">0</cc1:mytext>
                     ตรม.</td>
                 <td class="style5">
                     ราคาต่อหน่วย</td>
                 <td class="style19">
                     <cc1:mytext ID="txtBuildingUnitPrice" runat="server" AllowUserKey="num_Numeric" 
-                        EnableTextAlignRight="True" Width="110px" BackColor="#FFFF66">0.00</cc1:mytext>
+                        EnableTextAlignRight="True" Width="110px" BackColor="#FFFF66" 
+                        AutoPostBack="True">0.00</cc1:mytext>
                     บาท</td>
-                <td class="style14">
+                <td class="style26">
                     มูลค่า</td>
                 <td>
                     <cc1:mytext ID="txtBuildingPrice" runat="server" AllowUserKey="num_Numeric" 
-                        EnableTextAlignRight="True" Width="110px" BackColor="#FFFF66">0.00</cc1:mytext>
+                        EnableTextAlignRight="True" Width="110px" BackColor="#FFFF66" 
+                        AutoPostBack="True">0.00</cc1:mytext>
                     บาท</td>
             </tr>
             <tr>
                 <td class="style22">
-                    อายุการใช้งาน<a 
-                        href="http://www.civicfdthailand.com/ipb_forum/index.php?showtopic=49833">ถ้าจะเลือกเปลี่ยนอย่างใดอย่างหนึ่ง</a></td>
+                    อายุการใช้งาน</td>
                 <td class="style8">
                     <cc1:mytext ID="txtBuildingAge" runat="server" AllowUserKey="num_Numeric" 
                         EnableTextAlignRight="True" MaxLength="2" Width="35px" BackColor="#FFFF66">0</cc1:mytext>
@@ -381,13 +389,15 @@ function wopen(url, name, w, h) {
                                         ค่าเสื่อมต่อปี</td>
                 <td class="style19">
                     <cc1:mytext ID="txtBuildingPersent1" runat="server" AllowUserKey="num_Numeric" 
-                        EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66">0</cc1:mytext>
+                        EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66" 
+                        AutoPostBack="True">0</cc1:mytext>
                     %</td>
-                <td class="style14">
+                <td class="style26">
                                         ค่าเสื่อมตามสภาพปรับปรุง</td>
                 <td>
                     <cc1:mytext ID="txtBuildingPersent2" runat="server" AllowUserKey="num_Numeric" 
-                        EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66">0</cc1:mytext>
+                        EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66" 
+                        AutoPostBack="True">0</cc1:mytext>
                     %</td>
             </tr>
             <tr>
@@ -395,15 +405,17 @@ function wopen(url, name, w, h) {
                                         ค่าเสื่อมตามสภาพเสื่อมโทรม</td>
                 <td class="style8">
                     <cc1:mytext ID="txtBuildingPersent3" runat="server" AllowUserKey="num_Numeric" 
-                        EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66">0</cc1:mytext>
+                        EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66" 
+                        AutoPostBack="True">0</cc1:mytext>
                     %</td>
                 <td class="style5">
                     รวมค่าเสื่อม</td>
                 <td class="style19">
                     <cc1:mytext ID="txtBuildingTotalDeteriorate" runat="server" AllowUserKey="num_Numeric" 
-                        EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66">0</cc1:mytext>
+                        EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66" 
+                        ReadOnly="True">0</cc1:mytext>
                     %</td>
-                <td class="style14">
+                <td class="style26">
                     รวมค่าเสื่อมราคา</td>
                 <td>
                     <cc1:mytext ID="txtBuildingPriceTotalDeteriorate" runat="server" AllowUserKey="num_Numeric" 
@@ -415,19 +427,22 @@ function wopen(url, name, w, h) {
                     ส่วนต่อเติม</td>
                 <td class="style8">
                     <cc1:mytext ID="txtBuildAddArea" runat="server" AllowUserKey="num_Numeric" 
-                        EnableTextAlignRight="True" MaxLength="4" Width="35px" BackColor="#FFFF66">0</cc1:mytext>
+                        EnableTextAlignRight="True" MaxLength="4" Width="35px" BackColor="#FFFF66" 
+                        AutoPostBack="True">0</cc1:mytext>
                     ตรม.</td>
                 <td class="style5">
                     ราคาต่อหน่วย</td>
                 <td class="style19">
                     <cc1:mytext ID="txtBuildAddUnitPrice" runat="server" AllowUserKey="num_Numeric" 
-                        EnableTextAlignRight="True" Width="110px" BackColor="#FFFF66">0.00</cc1:mytext>
+                        EnableTextAlignRight="True" Width="110px" BackColor="#FFFF66" 
+                        AutoPostBack="True">0.00</cc1:mytext>
                     บาท</td>
-                <td class="style14">
+                <td class="style26">
                     มูลค่า</td>
                 <td>
                     <cc1:mytext ID="txtBuildAddPrice" runat="server" AllowUserKey="num_Numeric" 
-                        EnableTextAlignRight="True" Width="110px" BackColor="#FFFF66">0.00</cc1:mytext>
+                        EnableTextAlignRight="True" Width="110px" BackColor="#FFFF66" 
+                        AutoPostBack="True">0.00</cc1:mytext>
                     บาท</td>
             </tr>
             <tr>
@@ -435,20 +450,23 @@ function wopen(url, name, w, h) {
                     อายุการใช้งาน</td>
                 <td class="style8">
                     <cc1:mytext ID="txtBuildAddAge" runat="server" AllowUserKey="num_Numeric" 
-                        EnableTextAlignRight="True" MaxLength="2" Width="35px" BackColor="#FFFF66">0</cc1:mytext>
+                        EnableTextAlignRight="True" MaxLength="2" Width="35px" BackColor="#FFFF66" 
+                        AutoPostBack="True">0</cc1:mytext>
                     ปี</td>
                 <td class="style5">
                                         ค่าเสื่อมต่อปี</td>
                 <td class="style19">
                     <cc1:mytext ID="txtBuildAddPersent1" runat="server" AllowUserKey="num_Numeric" 
-                        EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66">0</cc1:mytext>
+                        EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66" 
+                        AutoPostBack="True">0</cc1:mytext>
                     %</td>
-                <td class="style14">
+                <td class="style26">
                     ค่าเสื่อมตามสภาพปรับปรุง 
                 </td>
                 <td>
                     <cc1:mytext ID="txtBuildAddPersent2" runat="server" AllowUserKey="num_Numeric" 
-                        EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66">0</cc1:mytext>
+                        EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66" 
+                        AutoPostBack="True">0</cc1:mytext>
                     %</td>
             </tr>
             <tr>
@@ -456,15 +474,17 @@ function wopen(url, name, w, h) {
                                         ค่าเสื่อมตามสภาพเสื่อมโทรม</td>
                 <td class="style8">
                     <cc1:mytext ID="txtBuildAddPersent3" runat="server" AllowUserKey="num_Numeric" 
-                        EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66">0</cc1:mytext>
+                        EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66" 
+                        AutoPostBack="True">0</cc1:mytext>
                     %</td>
                 <td class="style5">
                                         รวมค่าเสื่อม</td>
                 <td class="style19">
                     <cc1:mytext ID="txtBuildAddTotalDeteriorate" runat="server" AllowUserKey="num_Numeric" 
-                        EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66">0</cc1:mytext>
+                        EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66" 
+                        ReadOnly="True">0</cc1:mytext>
                     %</td>
-                <td class="style14">
+                <td class="style26">
                     รวมค่าเสื่อมราคา</td>
                 <td>
                     <cc1:mytext ID="txtBuildAddPriceTotalDeteriorate" runat="server" AllowUserKey="num_Numeric" 
@@ -481,7 +501,7 @@ function wopen(url, name, w, h) {
                                         &nbsp;</td>
                 <td class="style19">
                     &nbsp;</td>
-                <td class="style14">
+                <td class="style26">
                     &nbsp;</td>
                 <td>
                     &nbsp;</td>

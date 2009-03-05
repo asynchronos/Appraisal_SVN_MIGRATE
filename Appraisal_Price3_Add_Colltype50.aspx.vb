@@ -145,12 +145,75 @@ Partial Class Appraisal_Price3_Add_Colltype50
             txtWah.Text = "0"
         End If
 
-        If txtRai.Text = "0" Or txtNgan.Text = "0" Or txtWah.Text = "0" Then
+        If txtRai.Text = "0" And txtNgan.Text = "0" And txtWah.Text = "0" Then
             s = "<script language=""javascript"">alert('ไม่มีพื้นที่ให้คำนวณราคา');</script>"
             Page.ClientScript.RegisterStartupScript(Me.GetType, "รับเรื่องประเมิน", s)
         Else
             TotalWah = (CDec(txtRai.Text) * 400) + (CDec(txtNgan.Text) * 100) + CDec(txtWah.Text)
-            txtTotal.Text = TotalWah * CDec(txtPriceWah.Text)
+            txtTotal.Text = String.Format("{0:N2}", TotalWah * CDec(txtPriceWah.Text))
+        End If
+    End Sub
+
+    Protected Sub txtRai_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtRai.TextChanged
+        Dim TotalWah As Double = 0
+        If txtRai.Text = String.Empty Then
+            txtRai.Text = "0"
+        End If
+        If txtNgan.Text = String.Empty Then
+            txtNgan.Text = "0"
+        End If
+        If txtWah.Text = String.Empty Then
+            txtWah.Text = "0"
+        End If
+
+        If txtRai.Text = "0" And txtNgan.Text = "0" And txtWah.Text = "0" Then
+            s = "<script language=""javascript"">alert('ไม่มีพื้นที่ให้คำนวณราคา');</script>"
+            Page.ClientScript.RegisterStartupScript(Me.GetType, "รับเรื่องประเมิน", s)
+        Else
+            TotalWah = (CDec(txtRai.Text) * 400) + (CDec(txtNgan.Text) * 100) + CDec(txtWah.Text)
+            txtTotal.Text = String.Format("{0:N2}", TotalWah * CDec(txtPriceWah.Text))
+        End If
+    End Sub
+
+    Protected Sub txtNgan_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtNgan.TextChanged
+        Dim TotalWah As Double = 0
+        If txtRai.Text = String.Empty Then
+            txtRai.Text = "0"
+        End If
+        If txtNgan.Text = String.Empty Then
+            txtNgan.Text = "0"
+        End If
+        If txtWah.Text = String.Empty Then
+            txtWah.Text = "0"
+        End If
+
+        If txtRai.Text = "0" And txtNgan.Text = "0" And txtWah.Text = "0" Then
+            s = "<script language=""javascript"">alert('ไม่มีพื้นที่ให้คำนวณราคา');</script>"
+            Page.ClientScript.RegisterStartupScript(Me.GetType, "รับเรื่องประเมิน", s)
+        Else
+            TotalWah = (CDec(txtRai.Text) * 400) + (CDec(txtNgan.Text) * 100) + CDec(txtWah.Text)
+            txtTotal.Text = String.Format("{0:N2}", TotalWah * CDec(txtPriceWah.Text))
+        End If
+    End Sub
+
+    Protected Sub txtWah_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtWah.TextChanged
+        Dim TotalWah As Double = 0
+        If txtRai.Text = String.Empty Then
+            txtRai.Text = "0"
+        End If
+        If txtNgan.Text = String.Empty Then
+            txtNgan.Text = "0"
+        End If
+        If txtWah.Text = String.Empty Then
+            txtWah.Text = "0"
+        End If
+
+        If txtRai.Text = "0" And txtNgan.Text = "0" And txtWah.Text = "0" Then
+            s = "<script language=""javascript"">alert('ไม่มีพื้นที่ให้คำนวณราคา');</script>"
+            Page.ClientScript.RegisterStartupScript(Me.GetType, "รับเรื่องประเมิน", s)
+        Else
+            TotalWah = (CDec(txtRai.Text) * 400) + (CDec(txtNgan.Text) * 100) + CDec(txtWah.Text)
+            txtTotal.Text = String.Format("{0:N2}", TotalWah * CDec(txtPriceWah.Text))
         End If
     End Sub
 End Class

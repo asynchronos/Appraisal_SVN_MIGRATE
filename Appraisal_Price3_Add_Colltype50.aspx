@@ -219,14 +219,14 @@
                     เนื้อที่
                 </td>
             <td class="style22">
-                <cc1:mytext ID="txtRai" runat="server" AllowUserKey="int_Integer" AutoCurrencyFormatOnKeyUp="True"
-                        EnableTextAlignRight="True" Width="50px">0</cc1:mytext>
+                <cc1:mytext ID="txtRai" runat="server" AllowUserKey="int_Integer"
+                        EnableTextAlignRight="True" Width="50px" AutoPostBack="True">0</cc1:mytext>
                     &nbsp;ไร่
                     <cc1:mytext ID="txtNgan" runat="server" AllowUserKey="int_Integer" EnableTextAlignRight="True"
-                        MaxLength="1" Width="50px">0</cc1:mytext>
+                        MaxLength="1" Width="50px" AutoPostBack="True">0</cc1:mytext>
                     &nbsp;งาน
                    <cc1:mytext ID="txtWah" runat="server" AllowUserKey="int_Integer" EnableTextAlignRight="True"
-                        MaxLength="3" Width="50px">0</cc1:mytext>
+                        MaxLength="3" Width="50px" AutoPostBack="True">0</cc1:mytext>
                     &nbsp;ตรว.</td>
             <td class="style5">
                                         &nbsp;</td>
@@ -443,7 +443,8 @@
                     เป็นเงิน</td>
             <td class="style27">
                 <cc1:mytext ID="txtTotal" runat="server" AllowUserKey="num_Numeric" Width="120px"
-                        AutoCurrencyFormatOnKeyUp="True" EnableTextAlignRight="True">0</cc1:mytext>
+                        AutoCurrencyFormatOnKeyUp="True" EnableTextAlignRight="True" 
+                    ReadOnly="True">0</cc1:mytext>
             </td>
             <td class="style29">
                     &nbsp;
