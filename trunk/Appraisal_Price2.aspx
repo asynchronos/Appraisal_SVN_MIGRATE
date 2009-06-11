@@ -100,7 +100,7 @@
                             <asp:Label ID="Label7" runat="server" Text='<%# Bind("Status_Name") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
-                <asp:TemplateField HeaderText="รายละเอียดการดำเนินการ">
+                <asp:TemplateField HeaderText="หลักประกัน">
                     <ItemTemplate>
                         <asp:DropDownList ID="ddlOperation" runat="server" OnPreRender="DDL_Load" 
                             OnTextChanged="DDL_Click" ></asp:DropDownList>

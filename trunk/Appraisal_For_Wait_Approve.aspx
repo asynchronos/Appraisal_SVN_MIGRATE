@@ -46,7 +46,7 @@
                 </ItemTemplate>
             </asp:TemplateField>            
             <asp:TemplateField HeaderText="เรียน" SortExpression="Inform_To">
-                <ItemStyle Width="200px"/>
+                <ItemStyle Width="150px"/>
                 <EditItemTemplate>
                     <asp:Label ID="Label6" runat="server" Text='<%# Eval("Inform_To") %>'></asp:Label>
                 </EditItemTemplate>
@@ -102,26 +102,29 @@
             </asp:TemplateField>
             <asp:TemplateField HeaderText="อนุกรรมการที่1" SortExpression="Approved1">
                 <EditItemTemplate>
-                    <asp:TextBox ID="TextBox4" runat="server" Text='<%# Bind("Approved1") %>'></asp:TextBox>
+                    <asp:TextBox ID="TextBox4" runat="server" Text='<%# Bind("Approve_Name1") %>'></asp:TextBox>
                 </EditItemTemplate>
                 <ItemTemplate>
-                    <asp:Label ID="lblApproved1" runat="server" Text='<%# Bind("Approved1") %>'></asp:Label>
+                    <asp:HiddenField ID="hdfApproved1" runat="server" Value ='<%# Bind("Approved1") %>' />
+                    <asp:Label ID="lblApproved1" runat="server" Text='<%# Bind("Approve_Name1") %>'></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
             <asp:TemplateField HeaderText="อนุกรรมการที่2" SortExpression="Approved2">
                 <EditItemTemplate>
-                    <asp:TextBox ID="TextBox5" runat="server" Text='<%# Bind("Approved2") %>'></asp:TextBox>
+                    <asp:TextBox ID="TextBox5" runat="server" Text='<%# Bind("Approve_Name2") %>'></asp:TextBox>
                 </EditItemTemplate>
                 <ItemTemplate>
-                    <asp:Label ID="lblApproved2" runat="server" Text='<%# Bind("Approved2") %>'></asp:Label>
+                    <asp:HiddenField ID="hdfApproved2" runat="server" Value ='<%# Bind("Approved2") %>' />
+                    <asp:Label ID="lblApproved2" runat="server" Text='<%# Bind("Approve_Name2") %>'></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
             <asp:TemplateField HeaderText="อนุกรรมการที่3" SortExpression="Approved3">
                 <EditItemTemplate>
-                    <asp:TextBox ID="TextBox6" runat="server" Text='<%# Bind("Approved3") %>'></asp:TextBox>
+                    <asp:TextBox ID="TextBox6" runat="server" Text='<%# Bind("Approve_Name3") %>'></asp:TextBox>
                 </EditItemTemplate>
                 <ItemTemplate>
-                    <asp:Label ID="lblApproved3" runat="server" Text='<%# Bind("Approved3") %>'></asp:Label>
+                    <asp:HiddenField ID="hdfApproved3" runat="server" Value ='<%# Bind("Approved3") %>' />
+                    <asp:Label ID="lblApproved3" runat="server" Text='<%# Bind("Approve_Name3") %>'></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
             <asp:TemplateField HeaderText="อนุมัติ" SortExpression="Approved">
@@ -145,7 +148,7 @@
                     <asp:Label ID="Label8" runat="server" Text='<%# Eval("Appraisal_Id") %>'></asp:Label>
                 </EditItemTemplate>
                 <ItemTemplate>
-                    <asp:Label ID="Label15" runat="server" Text='<%# Bind("Appraisal_Id") %>'></asp:Label>
+                    <asp:Label ID="lblAppraisal_Id" runat="server" Text='<%# Bind("Appraisal_Id") %>'></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
             <asp:TemplateField HeaderText="">

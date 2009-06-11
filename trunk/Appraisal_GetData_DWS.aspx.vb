@@ -23,7 +23,7 @@ Partial Class Appraisal_GetData_DWS
         ' Create the connection object
         Dim con As OracleConnection = New OracleConnection(ConfigurationManager.ConnectionStrings("EDW_Connectionstring").ConnectionString)
         Dim Sqlstring As String = "SELECT MAX(DWHADMIN.CUS_PLED.CIF_NO) AS CIF, DWHADMIN.APPRAISAL_MASTER.APPRAISAL_ID, DWHADMIN.COLLATERAL_MASTER.COLLATERAL_ID,MAX(DWHADMIN.COLLATERAL_MASTER.COLLATERAL_KEY) COLLATERAL_KEY , " _
-                      & " MAX(DWHADMIN.APPRAISAL_MASTER.APPRAISAL_DATE) AS APPRAISAL_DATE" _
+                      & " MAX(DWHADMIN.APPRAISAL_MASTER.APPRAISAL_DATE) AS APPRAISAL_DATE,SUM(DWHADMIN.APPRAISAL_MASTER.APPRAISAL_VALUE) APPRAISAL_VALUE" _
                       & " FROM DWHADMIN.APPRAISAL_MASTER INNER JOIN " _
                       & " DWHADMIN.COLLATERAL_APPRAISAL ON " _
                       & " DWHADMIN.APPRAISAL_MASTER.APPRAISAL_KEY = DWHADMIN.COLLATERAL_APPRAISAL.APPRAISAL_KEY INNER JOIN " _
@@ -74,14 +74,14 @@ Partial Class Appraisal_GetData_DWS
             rdr.Read()
             'extract the details 
             'lblAID.Text = AID
-            lblCID.Text = CID
-
+            lblCIDNo.Text = CID
+            'MsgBox(lblCIDNo.Text)
             If Not IsDBNull(rdr("Asset_Type_Desc_1")) Then
                 lblSubCollType.Text = rdr("Asset_Type_Desc_1")
             Else
                 lblSubCollType.Text = ""
             End If
-            If COLLTYPE = "050" Then
+            If Left(COLLTYPE, 3) = "050" Then
                 If Not IsDBNull(rdr("Asset_Type_code_1")) Then
                     lblSubCollTypeNo.Text = CInt(rdr("Asset_Type_code_1"))
                 Else
@@ -93,8 +93,27 @@ Partial Class Appraisal_GetData_DWS
                 Else
                     lblChanode.Text = ""
                 End If
+
+                If Not IsDBNull(rdr("Area_Rai")) Then
+                    lblRai.Text = rdr("Area_Rai")
+                Else
+                    lblRai.Text = ""
+                End If
+
+                If Not IsDBNull(rdr("Area_Ngan")) Then
+                    lblNgan.Text = rdr("Area_Ngan")
+                Else
+                    lblNgan.Text = ""
+                End If
+
+                If Not IsDBNull(rdr("Area_Wah")) Then
+                    lblWah.Text = rdr("Area_Wah")
+                Else
+                    lblWah.Text = ""
+                End If
                 lblArea.Text = rdr("Area_Rai") & "-" & rdr("Area_Ngan") & "-" & rdr("Area_Wah") & "ไร่"
-            ElseIf COLLTYPE = "070" Then
+
+            ElseIf Left(COLLTYPE, 3) = "070" Then
                 If Not IsDBNull(rdr("Asset_Type_code_1")) Then
                     'บวก 5 เพราะว่าในฐานข้อมูลไม่ได้แยกชนิดของแต่ละประเภทหลักประกัน ถ้าเป็นสิ่งปลูกสร้างเริ่มที่ 6 จึงต้องเอาค่าที่ได้ + 5
                     lblSubCollTypeNo.Text = CInt(rdr("Asset_Type_code_1")) + 5
@@ -107,6 +126,27 @@ Partial Class Appraisal_GetData_DWS
                     lblChanode.Text = ""
                 End If
                 lblArea.Text = rdr("Area") & "ตรม."
+            ElseIf Left(COLLTYPE, 3) = "180" Then
+                lblAdd_No.Text = "เลขที่"
+                If Not IsDBNull(rdr("Asset_Type_code_1")) Then
+                    lblSubCollTypeNo.Text = CInt(rdr("Asset_Type_code_1"))
+                Else
+                    lblSubCollTypeNo.Text = "46"
+                    lblSubCollType.Text = "ห้องชุด"
+                End If
+
+                If Not IsDBNull(rdr("Collateral_Reg_No_2")) Then
+                    lblChanode.Text = rdr("Collateral_Reg_No_2")
+                Else
+                    lblChanode.Text = ""
+                End If
+
+                If Not IsDBNull(rdr("Collateral_Reg_No_2")) Then
+                    lblArea.Text = rdr("Area") & "ตรว."
+                Else
+                    lblArea.Text = "0"
+                End If
+
             End If
 
             If Not IsDBNull(rdr("Road")) Then
@@ -114,35 +154,13 @@ Partial Class Appraisal_GetData_DWS
             Else
                 lblRoad.Text = ""
             End If
-
-            'lblRoad.Text = rdr("Road")
             lblDistrict.Text = rdr("District")
             lblAmphur.Text = rdr("Amphur")
             lblProvince_Code.Text = rdr("Province")
             lblProvince.Text = rdr("Province_DESC")
-            If Not IsDBNull(rdr("Area_Rai")) Then
-                lblRai.Text = rdr("Area_Rai")
-            Else
-                lblRai.Text = ""
-            End If
-
-            If Not IsDBNull(rdr("Area_Ngan")) Then
-                lblNgan.Text = rdr("Area_Ngan")
-            Else
-                lblNgan.Text = ""
-            End If
-
-            If Not IsDBNull(rdr("Area_Wah")) Then
-                lblWah.Text = rdr("Area_Wah")
-            Else
-                lblWah.Text = ""
-            End If
-            'lblArea.Text = rdr("Area_Rai") & "-" & rdr("Area_Ngan") & "-" & rdr("Area_Wah")
-
         Else
             'display message if no rows found 
-            MsgBox("Not found")
-
+            'MsgBox("Not found")
         End If
 
 
@@ -152,10 +170,11 @@ Partial Class Appraisal_GetData_DWS
         Dim gvTemp As GridView = DirectCast(sender, GridView)
         Dim CID_KEY As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblCollateral_Key"), Label)
         Dim CID As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblCollateral_Id"), Label)
-        Dim COLLTYPE As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblCollateral_Id"), Label)
-        COLLTYPE.Text = Left(COLLTYPE.Text, 3)
+        'Dim COLLTYPE As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblCollateral_Id"), Label)
+        'MsgBox(COLLTYPE.Text)
+        'COLLTYPE.Text = Left(COLLTYPE.Text, 3)
         'MsgBox(CID_KEY.Text, CID.Text)
-        GET_CID_DETAIL_BYKEY(CID_KEY.Text, CID.Text, COLLTYPE.Text)
+        GET_CID_DETAIL_BYKEY(CID_KEY.Text, CID.Text, CID.Text)
     End Sub
 
     Protected Sub btnOk_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnOk.Click
@@ -172,38 +191,7 @@ Partial Class Appraisal_GetData_DWS
         SaveData()
     End Sub
 
-    Private Sub SaveData() 'ByVal Id As String, _
-        '                     ByVal Req_Id As String, _
-        '                     ByVal Hub_Id As String, _
-        '                     ByVal AID As String, _
-        '                     ByVal CID As String, _
-        '                     ByVal SubCollType As String, _
-        '                     ByVal AddNo As String, _
-        '                     ByVal BuildingName As String, _
-        '                     ByVal District As String, _
-        '                     ByVal Amphur As String, _
-        '                     ByVal ProvinceCode As Integer, _
-        '                     ByVal Rai As Integer, _
-        '                     ByVal Ngan As Integer, _
-        '                     ByVal Wah As Integer, _
-        '                     ByVal Area As Double, _
-        '                     ByVal Road As String, _
-        '                     ByVal RoadDetail As Integer, _
-        '                     ByVal RoadAcress As Double, _
-        '                     ByVal RoadFornoff As Integer, _
-        '                     ByVal RoadWidth As Integer, _
-        '                     ByVal Site As Integer, _
-        '                     ByVal SiteDetail As String, _
-        '                     ByVal LandState As Integer, _
-        '                     ByVal LandStateDetail As String, _
-        '                     ByVal PublicUtility As Integer, _
-        '                     ByVal PublicUtilityDetail As String, _
-        '                     ByVal Binifit As Integer, _
-        '                     ByVal BinifitDetail As String, _
-        '                     ByVal Tendency As Integer, _
-        '                     ByVal BuySaleState As Integer, _
-        '                     ByVal PriceWah As Double, _
-        '                     ByVal Total As Double,)
+    Private Sub SaveData() 
         Dim cph As ContentPlaceHolder = TryCast(Me.Form.FindControl("ContentPlaceHolder1"), ContentPlaceHolder)
         Dim lbluserid As Label = TryCast(Me.Form.FindControl("lblUserID"), Label) 'หา Control จาก Master Page ที่ control ไม่อยู่ใน  ContentPlaceHolder1 ของ Master Page
         Dim Gv As GridView = DirectCast(cph.FindControl("GridView_CID_DETAIL"), GridView)
@@ -221,6 +209,7 @@ Partial Class Appraisal_GetData_DWS
             Dim SubCollType As String = ""
             Dim AddNo As String = ""
             Dim BuildingName As String = ""
+            Dim Soi As String = ""
             Dim District As String = ""
             Dim Amphur As String = ""
             Dim ProvinceCode As Integer = 0
@@ -247,6 +236,7 @@ Partial Class Appraisal_GetData_DWS
             Dim PriceWah As Double = 0
             Dim Total As Double = 0
             Dim Ds As DataSet = GETDATA(CollKey.Text)
+
             If Ds.Tables(0).Rows.Count > 0 Then
                 'MsgBox(Ds.Tables(0).Rows(0).Item("District").ToString())
                 If Not IsDBNull(Ds.Tables(0).Rows(0).Item("Asset_Type_code_1")) Then
@@ -255,11 +245,20 @@ Partial Class Appraisal_GetData_DWS
                     SubCollType = ""
                 End If
                 'SubCollType = Ds.Tables(0).Rows(0).Item("Asset_Type_code_1")
-                If IsDBNull(Ds.Tables(0).Rows(0).Item("Collateral_Reg_No_1")) Then
-                    AddNo = ""
+                If CollType1 <> "180" Then
+                    If Not IsDBNull(Ds.Tables(0).Rows(0).Item("Collateral_Reg_No_1")) Then
+                        AddNo = Ds.Tables(0).Rows(0).Item("Collateral_Reg_No_1")
+                    Else
+                        AddNo = ""
+                    End If
                 Else
-                    AddNo = Ds.Tables(0).Rows(0).Item("Collateral_Reg_No_1")
+                    If Not IsDBNull(Ds.Tables(0).Rows(0).Item("Collateral_Reg_No_2")) Then
+                        AddNo = Ds.Tables(0).Rows(0).Item("Collateral_Reg_No_2")
+                    Else
+                        AddNo = ""
+                    End If
                 End If
+
 
                 District = Ds.Tables(0).Rows(0).Item("District")
                 Amphur = Ds.Tables(0).Rows(0).Item("Amphur")
@@ -267,6 +266,20 @@ Partial Class Appraisal_GetData_DWS
                 Rai = Ds.Tables(0).Rows(0).Item("Area_Rai")
                 Ngan = Ds.Tables(0).Rows(0).Item("Area_Ngan")
                 Wah = Ds.Tables(0).Rows(0).Item("Area_Wah")
+                Area = Ds.Tables(0).Rows(0).Item("Area")
+
+                If Not IsDBNull(Ds.Tables(0).Rows(0).Item("Building_Name")) Then
+                    BuildingName = Ds.Tables(0).Rows(0).Item("Building_Name")
+                Else
+                    BuildingName = ""
+                End If
+
+                If Not IsDBNull(Ds.Tables(0).Rows(0).Item("Soi")) Then
+                    Soi = Ds.Tables(0).Rows(0).Item("Soi")
+                Else
+                    Soi = ""
+                End If
+
                 If Not IsDBNull(Ds.Tables(0).Rows(0).Item("Road")) Then
                     Road = Ds.Tables(0).Rows(0).Item("Road")
                 Else
@@ -297,8 +310,16 @@ Partial Class Appraisal_GetData_DWS
                     AddPRICE2_70(ID, CInt(lblReq_Id.Text), CInt(lblHub_Id.Text), lblAID.Text, CID.Text, 0, CInt(SubCollType), AddNo, District, Amphur, _
                                                                           ProvinceCode, 0, 0, 0, 0, _
                                                                           0, "", 0, "", "", CInt(Total), 0, 0, "", "", lbluserid.Text, Now())
+                ElseIf CollType1 = "180" Then 'ถ้าเป็นCondo
+                    ADD_PRICE2_18(ID, lblReq_Id.Text, lblHub_Id.Text, lblAID.Text, CID.Text, 0, 46, 0, 0, _
+                                  AddNo, Area, 0, BuildingName, Floors, String.Empty, String.Empty, _
+                                  District, Amphur, ProvinceCode, Road, CInt(RoadDetail), CDec(RoadAcress), _
+                                  CInt(RoadFornoff), CDec(RoadWidth), CInt(Site), CStr(SiteDetail), CInt(PublicUtility), _
+                                  PublicUtilityDetail, CInt(Binifit), BinifitDetail, CInt(Tendency), CInt(BuySaleState), _
+                                  0, 0, 0, 0, _
+                                  0, 0, 0, 0, 0, 0, lbluserid.Text, Now())
                 Else
-                    MsgBox("Other")
+                    'MsgBox("Other")
                 End If
             End If
         Next

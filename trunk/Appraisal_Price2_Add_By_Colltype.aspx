@@ -148,8 +148,8 @@
                     <cc1:mytext ID="txtNgan" runat="server" AllowUserKey="int_Integer" EnableTextAlignRight="True"
                         MaxLength="1" Width="50px">0</cc1:mytext>
                     &nbsp;งาน
-                   <cc1:mytext ID="txtWah" runat="server" AllowUserKey="int_Integer" EnableTextAlignRight="True"
-                        MaxLength="3" Width="50px">0</cc1:mytext>
+                   <cc1:mytext ID="txtWah" runat="server" AllowUserKey="num_Numeric" EnableTextAlignRight="True"
+                        MaxLength="4" Width="50px">0</cc1:mytext>
                     &nbsp;ตรว.</td>
             <td class="style5">
                                         ที่ตั้งหลักประกัน ตั้งอยู่ถนน</td>
@@ -171,7 +171,7 @@
                         DataValueField="Road_Detail_ID">
                 </asp:DropDownList>
                    <cc1:mytext ID="txtMeter" runat="server" AllowUserKey="int_Integer" EnableTextAlignRight="True"
-                        MaxLength="3" Width="50px">0</cc1:mytext>
+                        MaxLength="4" Width="50px">0</cc1:mytext>
                     เมตร</td>
             <td class="style5">
                     ตำบล/แขวง</td>
@@ -238,7 +238,7 @@
                     ผิวจราจรกว้าง
                 </td>
             <td class="style28">
-                <cc1:mytext id="txtRoadWidth" runat="server" AllowUserKey="num_Numeric" MaxLength="2"
+                <cc1:mytext id="txtRoadWidth" runat="server" AllowUserKey="num_Numeric" MaxLength="5"
                         Width="50px" EnableTextAlignRight="True">0</cc1:mytext>
                     &nbsp;เมตร
                 </td>

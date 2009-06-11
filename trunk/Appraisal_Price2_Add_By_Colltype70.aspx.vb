@@ -23,6 +23,7 @@ Partial Class Appraisal_Price2_Add_By_Colltype70
                         ddlRoof.SelectedValue, txtRoof_Detail.Text, ddlBuild_State.SelectedValue, _
                         txtBuild_State_Detail.Text, txtBuilding_Detail.Text, txtPriceTotal1.Text, _
                         chkDoc1.Checked, chkDoc2.Checked, txtDoc_Detail.Text, String.Empty, lbluserid.Text, Now())
+        UPDATE_Status_Appraisal_Request(lblReq_Id.Text, lblHub_Id.Text, 5)
         Response.Redirect("Appraisal_Price2.aspx")
     End Sub
 
@@ -33,7 +34,11 @@ Partial Class Appraisal_Price2_Add_By_Colltype70
             lblId.Text = Request.QueryString("Id")
             hdfCif.Value = Request.QueryString("Cif").PadLeft(16, "0")
             If Request.QueryString("Id") Is Nothing Then
-                'Do Someting
+                Dim Objp1 As List(Of ClsPrice1_Master) = GetPrice1_Master(lblReq_Id.Text, lblHub_Id.Text)
+                If Objp1.Count > 0 Then
+                    txtPriceTotal1.Text = String.Format("{0:N2}", Objp1.Item(0).Price)
+                Else
+                End If
             Else
                 Dim Obj_Price_70 As List(Of PRICE2_70) = GET_PRICE2_70(lblId.Text, lblReq_Id.Text, lblHub_Id.Text)
                 If Obj_Price_70.Count > 0 Then
@@ -56,7 +61,7 @@ Partial Class Appraisal_Price2_Add_By_Colltype70
                     ddlBuild_State.SelectedValue = Obj_Price_70.Item(0).Build_State
                     txtBuild_State_Detail.Text = Obj_Price_70.Item(0).Build_State_Detail
                     txtBuilding_Detail.Text = Obj_Price_70.Item(0).Building_Detail
-                    txtPriceTotal1.Text = Obj_Price_70.Item(0).PriceTotal1
+                    txtPriceTotal1.Text = String.Format("{0:N2}", Obj_Price_70.Item(0).PriceTotal1)
                     chkDoc1.Checked = Obj_Price_70.Item(0).Doc1
                     chkDoc2.Checked = Obj_Price_70.Item(0).Doc2
                     txtDoc_Detail.Text = Obj_Price_70.Item(0).Doc_Detail

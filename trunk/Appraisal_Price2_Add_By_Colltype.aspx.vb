@@ -19,7 +19,7 @@ Partial Class Appraisal_Price2_Add_By_Colltype
 
             lblReq_Id.Text = Context.Items("Req_Id")
             lblHub_Id.Text = Context.Items("Hub_Id")
-            lblId.Text = Context.Items("Id")
+            lblId.Text = Context.Items("ID")
             txtAID.Text = Context.Items("AID")
             hdfColltype.Value = Context.Items("Coll_Type")
             If txtAID.Text = String.Empty Then
@@ -38,6 +38,12 @@ Partial Class Appraisal_Price2_Add_By_Colltype
 
             'ตรวจสอบ ID ว่าเป็นการแก้ไข หรือ กำหนดไอดีใหม่
             If lblId.Text Is Nothing Or lblId.Text = String.Empty Then
+                Dim Objp1 As List(Of ClsPrice1_Master) = GetPrice1_Master(lblReq_Id.Text, lblHub_Id.Text)
+                If Objp1.Count > 0 Then
+                    txtPriceWah.Text = String.Format("{0:N2}", Objp1.Item(0).Pricewah)
+                    txtTotal.Text = String.Format("{0:N2}", Objp1.Item(0).Price)
+                Else
+                End If
             Else
                 Dim Obj_GetP50 As List(Of PRICE2_50) = GET_PRICE2_50(lblId.Text, lblReq_Id.Text, lblHub_Id.Text)
                 If Obj_GetP50.Count > 0 Then
@@ -69,19 +75,21 @@ Partial Class Appraisal_Price2_Add_By_Colltype
                     txtBinifit.Text = Obj_GetP50.Item(0).Binifit_Detail
                     ddlTendency.SelectedValue = Obj_GetP50.Item(0).Tendency
                     ddlBuySale_State.SelectedValue = Obj_GetP50.Item(0).BuySale_State
-                    txtPriceWah.Text = Obj_GetP50.Item(0).PriceWah
-                    txtTotal.Text = Obj_GetP50.Item(0).PriceTotal1
+                    txtPriceWah.Text = String.Format("{0:N2}", Obj_GetP50.Item(0).PriceWah)
+                    txtTotal.Text = String.Format("{0:N2}", Obj_GetP50.Item(0).PriceTotal1)
                     If hdfCif.Value <> String.Empty Then
                         Get_AID_BY_CIF()
                     End If
                 Else
 
                 End If
+
             End If
             'If hdfCif.Value <> String.Empty Then
             '    Get_AID_BY_CIF()
             'End If
         End If
+
         Dim s1 As String = Nothing
         Dim CollType As String = "050"
 
@@ -114,13 +122,13 @@ Partial Class Appraisal_Price2_Add_By_Colltype
             Id = lblId.Text
         End If
         AddPRICE2_50(Id, CInt(lblReq_Id.Text), CInt(lblHub_Id.Text), txtAID.Text, txtCID.Text, 0, CInt(DDLSubCollType.SelectedValue), txtChanode.Text, String.Empty, txtTumbon.Text, txtAmphur.Text, _
-                                                              ddlProvince.SelectedValue, CInt(txtRai.Text), CInt(txtNgan.Text), CInt(txtWah.Text), _
+                                                              ddlProvince.SelectedValue, CInt(txtRai.Text), CInt(txtNgan.Text), CDec(txtWah.Text), _
                                                               txtRoad.Text, CInt(ddlRoad_Detail.SelectedValue), CDec(txtMeter.Text), CInt(ddlRoad_Forntoff.SelectedValue), _
                                                               CDec(txtRoadWidth.Text), CInt(ddlSite.SelectedValue), CStr(txtSite_Detail.Text), CInt(ddlLand_State.SelectedValue), _
                                                               txtLand_State_Detail.Text, CInt(ddlPublic_Utility.SelectedValue), txtPublic_Utility_Detail.Text, CInt(ddlBinifit.SelectedValue), _
                                                               txtBinifit.Text, CInt(ddlTendency.SelectedValue), CInt(ddlBuySale_State.SelectedValue), _
                                                               CInt(txtPriceWah.Text), CInt(txtTotal.Text), lbluserid.Text, Now())
-
+        UPDATE_Status_Appraisal_Request(lblReq_Id.Text, lblHub_Id.Text, 5)
         Response.Redirect("Appraisal_Price2.aspx")
 
         'เพิ่มกระบวนการบันทึกขั้นตอนการประเมิน
@@ -133,10 +141,12 @@ Partial Class Appraisal_Price2_Add_By_Colltype
     Private Sub Get_AID_BY_CIF()
 
         ' Create the connection object
-        Dim con As OracleConnection = New OracleConnection()
+        'Dim con As OracleConnection = New OracleConnection()
+        Dim con As OracleConnection = New OracleConnection(ConfigurationManager.ConnectionStrings("EDW_Connectionstring").ConnectionString)
 
         ' Specify the connect string
-        con.ConnectionString = "User Id=cpr214361;Password=newyear2009;Data Source=edw;"
+        'con.ConnectionString = "User Id=cpr214361;Password=newyear2009;Data Source=edw;"
+        con.ConnectionString = con.ConnectionString
         ' Open the connection
         Try
             con.Open()
@@ -202,7 +212,7 @@ Partial Class Appraisal_Price2_Add_By_Colltype
             txtWah.Text = "0"
         End If
 
-        If txtRai.Text = "0" Or txtNgan.Text = "0" Or txtWah.Text = "0" Then
+        If txtRai.Text = "0" And txtNgan.Text = "0" And txtWah.Text = "0" Then
             s = "<script language=""javascript"">alert('ไม่มีพื้นที่ให้คำนวณราคา');</script>"
             Page.ClientScript.RegisterStartupScript(Me.GetType, "รับเรื่องประเมิน", s)
         Else

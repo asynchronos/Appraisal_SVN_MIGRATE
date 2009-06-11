@@ -11,7 +11,12 @@ Partial Class Appraisal_Price2_Add_By_Colltype18
             lblId.Text = Context.Items("ID")
             'ตรวจสอบ ID ว่าเป็นการแก้ไข หรือ กำหนดไอดีใหม่
             If Context.Items("ID") Is Nothing Then
-
+                Dim Objp1 As List(Of ClsPrice1_Master) = GetPrice1_Master(lblReq_Id.Text, lblHub_Id.Text)
+                If Objp1.Count > 0 Then
+                    txtUnitPrice.Text = String.Format("{0:N2}", Objp1.Item(0).Pricewah)
+                    txtCondoPrice.Text = String.Format("{0:N2}", Objp1.Item(0).Price)
+                Else
+                End If
             Else
                 Dim ObjP2_18 As List(Of PRICE2_18) = GET_PRICE2_18(hdfId.Value, lblReq_Id.Text, lblHub_Id.Text)
                 If ObjP2_18.Count > 0 Then
@@ -87,20 +92,22 @@ Partial Class Appraisal_Price2_Add_By_Colltype18
         Dim ObjP2_18 As List(Of PRICE2_18) = GET_PRICE2_18(ID, lblReq_Id.Text, lblHub_Id.Text)
         If ObjP2_18.Count = 0 Then
             ADD_PRICE2_18(ID, lblReq_Id.Text, lblHub_Id.Text, txtAID.Text, txtCID.Text, 0, DDLSubCollType.SelectedValue, txtFloors.Text, txtelevator_No.Text, _
-                          txtArea.Text, txtHeight.Text, txtAddressNo.Text, txtBuildingName.Text, txtFloorsAt.Text, txtBuild_Number.Text, txtRegister_No.Text, _
+                           txtAddressNo.Text, txtArea.Text, txtHeight.Text, txtBuildingName.Text, txtFloorsAt.Text, txtBuild_Number.Text, txtRegister_No.Text, _
                           txtTumbon.Text, txtAmphur.Text, ddlProvince.SelectedValue, txtRoad.Text, ddlRoad_Detail.SelectedValue, txtRoadAccress.Text, _
                           ddlRoad_Forntoff.SelectedValue, txtRoadWidth.Text, ddlSite.SelectedValue, txtSite_Detail.Text, ddlPublic_Utility.SelectedValue, _
                           txtPublic_Utility_Detail.Text, ddlBinifit.SelectedValue, txtBinifit.Text, ddlTendency.SelectedValue, ddlBuySale_State.SelectedValue, _
                           ddlBuild_Construct.SelectedValue, ddlInteriorState.SelectedValue, ddlCharacter_Room.SelectedValue, txtRoomWidth_BehideSiteWalk.Text, _
                           txtRoomdeep.Text, txtBackside_Width.Text, ddlFloors.SelectedValue, txtSideWalk_Width.Text, txtUnitPrice.Text, txtCondoPrice.Text, lbluserid.Text, Now())
+            UPDATE_Status_Appraisal_Request(lblReq_Id.Text, lblHub_Id.Text, 5)
         Else
             UPDATE_PRICE2_18(ID, lblReq_Id.Text, lblHub_Id.Text, txtAID.Text, txtCID.Text, 0, DDLSubCollType.SelectedValue, txtFloors.Text, txtelevator_No.Text, _
-                          txtArea.Text, txtHeight.Text, txtAddressNo.Text, txtBuildingName.Text, txtFloorsAt.Text, txtBuild_Number.Text, txtRegister_No.Text, _
+                           txtAddressNo.Text, txtArea.Text, txtHeight.Text, txtBuildingName.Text, txtFloorsAt.Text, txtBuild_Number.Text, txtRegister_No.Text, _
                           txtTumbon.Text, txtAmphur.Text, ddlProvince.SelectedValue, txtRoad.Text, ddlRoad_Detail.SelectedValue, txtRoadAccress.Text, _
                           ddlRoad_Forntoff.SelectedValue, txtRoadWidth.Text, ddlSite.SelectedValue, txtSite_Detail.Text, ddlPublic_Utility.SelectedValue, _
                           txtPublic_Utility_Detail.Text, ddlBinifit.SelectedValue, txtBinifit.Text, ddlTendency.SelectedValue, ddlBuySale_State.SelectedValue, _
                           ddlBuild_Construct.SelectedValue, ddlInteriorState.SelectedValue, ddlCharacter_Room.SelectedValue, txtRoomWidth_BehideSiteWalk.Text, _
                           txtRoomdeep.Text, txtBackside_Width.Text, ddlFloors.SelectedValue, txtSideWalk_Width.Text, txtUnitPrice.Text, txtCondoPrice.Text, lbluserid.Text, Now())
+            UPDATE_Status_Appraisal_Request(lblReq_Id.Text, lblHub_Id.Text, 5)
         End If
 
     End Sub

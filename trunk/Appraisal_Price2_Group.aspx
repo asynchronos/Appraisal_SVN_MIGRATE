@@ -36,6 +36,13 @@
             win.moveTo(wleft, wtop);
             win.focus();
         }
+
+        function ConfirmOnDelete(item) {
+            if (confirm("คุณยืนยันที่จะลบ: " + item + " ใช่หรือไม่ ?") == true)
+                return true;
+            else
+                return false;
+        }          
 // -->
     </script>
 </asp:Content>
@@ -45,17 +52,20 @@
     
         <asp:HiddenField ID="HiddenHubId" runat="server" />
     
+        <asp:HiddenField ID="HiddenReq_No" runat="server" />
+    
         <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" 
             CellPadding="2" DataSourceID="SqlDataSource1" 
             ForeColor="Black" GridLines="None" BackColor="LightGoldenrodYellow" 
-            BorderColor="Tan" BorderWidth="1px" Width="100%" Font-Size="Small">
+            BorderColor="Tan" BorderWidth="1px" Width="100%" Font-Size="Small" 
+        AllowPaging="True" PageSize="6">
             <Columns>
                 <asp:TemplateField>
                     <HeaderTemplate>
                         <asp:CheckBox runat="server" ID="cb1" AutoPostBack="true" OnCheckedChanged="cb1_Checked"/> 
                     </HeaderTemplate>
                    <ItemTemplate>
-                     <asp:CheckBox runat="server" ID="cb2" />  
+                     <asp:CheckBox runat="server" ID="cb2" AutoPostBack="true" OnCheckedChanged="cb2_Checked"/>  
                    </ItemTemplate> 
                 <ItemStyle HorizontalAlign="Center" Width="40px" />
                 <HeaderStyle HorizontalAlign="Center" />
@@ -178,14 +188,6 @@
                         <asp:Label ID="Label13" runat="server" Text='<%# Bind("Amphur") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
-<%--                <asp:TemplateField HeaderText="Province" SortExpression="Province">
-                    <EditItemTemplate>
-                        <asp:Label ID="Label10" runat="server" Text='<%# Eval("Province") %>'></asp:Label>
-                    </EditItemTemplate>
-                    <ItemTemplate>
-                        <asp:Label ID="Label14" runat="server" Text='<%# Bind("Province") %>'></asp:Label>
-                    </ItemTemplate>
-                </asp:TemplateField>--%>
                 <asp:TemplateField HeaderText="จังหวัด" SortExpression="Prov_Name">
                     <EditItemTemplate>
                         <asp:TextBox ID="TextBox5" runat="server" Text='<%# Bind("Prov_Name") %>'></asp:TextBox>
@@ -194,13 +196,23 @@
                         <asp:Label ID="Label15" runat="server" Text='<%# Bind("Prov_Name") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
-                    
+                <asp:TemplateField HeaderText="ผู้ประเมิน" >
+                    <ItemTemplate>
+                        <asp:Label ID="lblAppraisal_Id" runat="server" Text='<%# Bind("Appraisal_Id") %>'></asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
                 <asp:TemplateField>
                 <ItemStyle HorizontalAlign="Center" />
                     <ItemTemplate>
                         <asp:ImageButton ID="ImgBtFind" runat="server" ImageUrl="~/Images/book_blue_view.png" Height="25px" Width="25px" CommandName="Select" />
                     </ItemTemplate>
                 </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="">
+                                            <ItemStyle VerticalAlign="Middle" Width="30px" />
+                                            <ItemTemplate>
+                                                <asp:ImageButton ID="ImgDelete" runat="server" ImageUrl="~/Images/cancel1.jpg" ToolTip="Delete" Width="22px" Height="22px" CommandName="Delete"  />              
+                                            </ItemTemplate>
+                                        </asp:TemplateField>                  
             </Columns>
             <FooterStyle BackColor="Tan" />
             <PagerStyle BackColor="PaleGoldenrod" ForeColor="DarkSlateBlue" 
@@ -230,6 +242,14 @@
                 <td></td>
             </tr>
             <tr align="left">
+                <td>Comment</td>
+                <td>
+                    <asp:TextBox ID="txtComment" runat="server" Height="94px" TextMode="MultiLine" 
+                        Width="497px"></asp:TextBox>
+                </td>
+                <td></td>
+            </tr>   
+            <tr align="left">
                 <td>ผู้ประเมิน</td>
                 <td>
                     <asp:DropDownList ID="ddlUserAppraisal" runat="server" DataSourceID="SDSUserAppraisal"
@@ -237,26 +257,22 @@
                     </asp:DropDownList>
                 </td>
                 <td></td>
-            </tr>   
-            <tr align="left" style="display:none;">
-                <td>แนบไฟล์</td>
-                <td>
-                    <input id="AddFileButton" onclick="wopen('FileUpload_Price2.aspx', 'popup', 500, 300); return false;"
-                        type="button" value="Add File" /></td>
-                <td></td>
             </tr>
             <tr align="left">
-                <td></td>
-                <td></td>
+                <td>&nbsp;</td>
+                <td>
+                    <input id="AddFileButton" onclick="wopen('FileUpload_Price2.aspx', 'popup', 500, 300); return false;"
+                        type="button" value="Add File" style="display:none;"/></td>
                 <td></td>
             </tr>    
             <tr align="left">
                 <td></td>
-                <td>
+                <td style="text-align:center;">
+                                <asp:ImageButton ID="ImgBtnAttachment" runat="server" ImageUrl="~/Images/add_plus2.jpg" 
+                            Height="30px" Width="30px" CommandName="Select" ToolTip="แนบไฟล์" />
+                    &nbsp;
                                <asp:ImageButton ID="ImageSave" runat="server" 
                         ImageUrl="~/Images/Save.jpg" Height="30px" Width="30px" />
-                                <asp:ImageButton ID="ImgBtnPrint" runat="server" ImageUrl="~/Images/printer.png" 
-                            Height="30px" Width="30px" CommandName="Select" />
                     </td>
                 <td></td>
             </tr>                                              

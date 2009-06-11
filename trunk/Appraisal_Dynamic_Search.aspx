@@ -111,6 +111,7 @@
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="ซอย">
+                    <ItemStyle Width="120px" />
                         <EditItemTemplate>
                             <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("SOI") %>'></asp:TextBox>
                         </EditItemTemplate>
@@ -119,6 +120,7 @@
                         </ItemTemplate>
                     </asp:TemplateField>     
                     <asp:TemplateField HeaderText="ถนน">
+                        <ItemStyle Width="120px" />  
                         <EditItemTemplate>
                             <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("ROAD") %>'></asp:TextBox>
                         </EditItemTemplate>
@@ -127,13 +129,15 @@
                         </ItemTemplate>
                     </asp:TemplateField> 
                     <asp:TemplateField HeaderText="ตำบล">
+                    <ItemStyle Width="100px" />
                         <EditItemTemplate>
                             <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("DISTRICT") %>'></asp:TextBox>
                         </EditItemTemplate>
                         <ItemTemplate>
                             <asp:Label ID="lblDistrict" runat="server" Text='<%# Bind("DISTRICT") %>'></asp:Label>
                         </ItemTemplate>
-                    </asp:TemplateField>                                                                                                                    <asp:TemplateField HeaderText="อำเภอ">
+                    </asp:TemplateField>                                                                                                                  <asp:TemplateField HeaderText="อำเภอ">
+                        <ItemStyle Width="100px" />  
                         <EditItemTemplate>
                             <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("AMPHUR") %>'></asp:TextBox>
                         </EditItemTemplate>
@@ -142,6 +146,7 @@
                         </ItemTemplate>
                     </asp:TemplateField>  
                     <asp:TemplateField HeaderText="จังหวัด">
+                    <ItemStyle Width="100px" />
                         <EditItemTemplate>
                             <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("PROVINCE_DESC") %>'></asp:TextBox>
                         </EditItemTemplate>
@@ -151,7 +156,7 @@
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="ราคาประเมิน">
-                        <ItemStyle HorizontalAlign="Left" />
+                        <ItemStyle HorizontalAlign="Right" Width="140px" />
                         <EditItemTemplate>
                             <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("APPRAISAL_VALUE") %>'></asp:TextBox>
                         </EditItemTemplate>

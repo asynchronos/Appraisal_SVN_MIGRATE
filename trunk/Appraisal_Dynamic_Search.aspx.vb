@@ -32,7 +32,7 @@ Partial Class Appraisal_Dynamic_Search
             StrSQLCertiria += " AND B.APPRAISAL_VALUE >= " & txtPrice.Text
         Else
         End If
-        lblSql.Text = StrSQLCertiria
+        'lblSql.Text = StrSQLCertiria
 
         Dim con As OracleConnection = New OracleConnection(ConfigurationManager.ConnectionStrings("EDW_Connectionstring").ConnectionString)
 

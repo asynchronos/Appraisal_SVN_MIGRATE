@@ -231,7 +231,7 @@
                     <asp:CheckBox ID="chkDoc1" runat="server" Text="ใบอนุญาติปลูกสร้าง" />
                 </td>
                 <td class="style5">
-                    <asp:CheckBox ID="chkDoc2" runat="server" Text="เรื่องทางภารจำยอม" />
+                    <asp:CheckBox ID="chkDoc2" runat="server" Text="เรื่องทางภาระจำยอม" />
                 </td>
                 <td>
                     &nbsp;

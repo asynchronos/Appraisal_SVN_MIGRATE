@@ -125,7 +125,12 @@
                         </td>
                         <td>
                             <asp:Label ID="LblDescription" runat="server" Text="SAVE"></asp:Label>
-&nbsp;</td>
+                        </td>
+                        <td>
+                            <asp:ImageButton ID="ImgBack" runat="server" ImageUrl="~/Images/Button Previous.png" 
+                                Width="35px" Height="35px" onclientclick="return ShowMessage()"/>
+                        </td>
+                        <td>BACK</td>
                     </tr>
                </table></td>
             </tr>           

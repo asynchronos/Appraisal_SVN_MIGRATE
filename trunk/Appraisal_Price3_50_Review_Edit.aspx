@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="VB" MasterPageFile="~/MasterPage.master" AutoEventWireup="false" CodeFile="Appraisal_Price3_50_Review_Edit.aspx.vb" Inherits="Appraisal_Price3_50_Review_Edit" %>
+<%@ Page Title="" Language="VB" MasterPageFile="~/MasterPage.master" AutoEventWireup="false" CodeFile="Appraisal_Price3_50_Review_Edit.aspx.vb" Inherits="Appraisal_Price3_50_Review_Edit" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <%@ Register assembly="Mytextbox" namespace="Mytextbox" tagprefix="cc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
@@ -12,46 +12,46 @@
     <br />
     <table style="background-color: #B5C7DE;" width="100%">
         <tr>
-            <td class="style26">
-                รายละเอียดการเพิ่ม</td>
+            <td>
+                ��������´�������</td>
             <td>
                 <asp:Label ID="lblMethodDesc" runat="server" 
                     style="font-weight: 700; color: #FF0000;"></asp:Label>
             </td>
             <td>
                 &nbsp;</td>
-            <td class="style27">
+            <td>
                 &nbsp;</td>
-            <td class="style29">
+            <td>
                 &nbsp;</td>
             <td>
                 &nbsp;</td>
         </tr>
         <tr>
-            <td class="style26">
-                เลขลำดับ</td>
+            <td>
+                �Ţ�ӴѺ</td>
             <td>
                 <asp:Label ID="lblId" runat="server" style="font-weight: 700; color: #FF0000;"></asp:Label>
             </td>
             <td>
                 Temp AID</td>
-            <td class="style27">
+            <td>
                 <asp:Label ID="lblTemp_AID" runat="server" 
                     style="font-weight: 700; color: #FF0000;"></asp:Label>
             </td>
-            <td class="style29">
+            <td>
                 &nbsp;</td>
             <td>
             </td>
         </tr>
         <tr>
             <td class="style26">
-                เลขคำขอประเมิน</td>
+                �Ţ�Ӣͻ����Թ</td>
             <td>
                 <asp:Label ID="lblReq_Id" runat="server" style="font-weight: 700"></asp:Label>
             </td>
             <td>
-                รหัส Hub</td>
+                ���� Hub</td>
             <td class="style27">
                 <asp:Label ID="lblHub_Id" runat="server" style="font-weight: 700"></asp:Label>
             </td>
@@ -62,7 +62,7 @@
         </tr>
         <tr>
             <td class="style26">
-                ผู้ขอสินเชื่อ</td>
+                �����Թ����</td>
             <td>
                 <asp:Label ID="lblCifName" runat="server" style="font-weight: 700"></asp:Label>
             </td>
@@ -78,7 +78,7 @@
         </tr>        
         <tr>
             <td class="style26">
-                ชนิดหลักประกัน</td>
+                ��Դ��ѡ��Сѹ</td>
             <td>
                 <asp:DropDownList ID="DDLSubCollType" runat="server" 
                         DataSourceID="sdsSubCollType" DataTextField="SubCollType_Name"
@@ -86,7 +86,7 @@
                 </asp:DropDownList>
             </td>
             <td>
-                ประกอบด้วยเลขที่</td>
+                ��Сͺ�����Ţ���</td>
             <td class="style27">
                 <asp:TextBox ID="txtChanode" runat="server" Width="222px"></asp:TextBox>
             </td>
@@ -97,12 +97,12 @@
         </tr>
         <tr>
             <td class="style26">
-                ระวาง</td>
+                ���ҧ</td>
             <td>
                 <asp:TextBox ID="txtRaWang" runat="server" BackColor="#FFFF66" MaxLength="50"></asp:TextBox>
             </td>
             <td>
-                                เลขที่ดิน</td>
+                                �Ţ���Թ</td>
             <td class="style27">
                 <asp:TextBox ID="txtLandNumber" runat="server" BackColor="#FFFF66"></asp:TextBox>
             </td>
@@ -113,12 +113,12 @@
         </tr>  
         <tr>
             <td class="style26">
-                หน้าสำรวจ</td>
+                ˹�����Ǩ</td>
             <td>
                 <asp:TextBox ID="txtSurway" runat="server" BackColor="#FFFF66"></asp:TextBox>
             </td>
             <td>
-                                สารบัญเล่มที่</td>
+                                ��úѭ�������</td>
             <td class="style27">
                 <asp:TextBox ID="txtDocNo" runat="server" BackColor="#FFFF66"></asp:TextBox>
             </td>
@@ -129,12 +129,12 @@
         </tr>       
         <tr>
             <td class="style26">
-                หน้า</td>
+                ˹��</td>
             <td>
                 <asp:TextBox ID="txtPage" runat="server" BackColor="#FFFF66"></asp:TextBox>
             </td>
             <td>
-                    ตำบล/แขวง</td>
+                    �Ӻ�/�ǧ</td>
             <td class="style27">
                 <asp:TextBox ID="txtTumbon" runat="server" Width="222px"></asp:TextBox>
             </td>
@@ -145,12 +145,12 @@
         </tr>
         <tr>
             <td class="style26">
-                    อำเภอ/เขต</td>
+                    �����/ࢵ</td>
             <td class="style22">
                 <asp:TextBox ID="txtAmphur" runat="server" Width="222px"></asp:TextBox>
             </td>
             <td class="style5">
-                    จังหวัด</td>
+                    �ѧ��Ѵ</td>
             <td class="style27">
                 <asp:DropDownList ID="ddlProvince" runat="server" DataSourceID="SDSProvince" 
                     DataTextField="PROV_NAME" DataValueField="PROV_CODE">
@@ -164,18 +164,18 @@
         </tr>        
         <tr>
             <td class="style26">
-                    เนื้อที่
+                    ���ͷ��
                 </td>
             <td class="style22">
                 <cc1:mytext ID="txtRai" runat="server" AllowUserKey="int_Integer" AutoCurrencyFormatOnKeyUp="True"
                         EnableTextAlignRight="True" Width="50px">0</cc1:mytext>
-                    &nbsp;ไร่
+                    &nbsp;���
                     <cc1:mytext ID="txtNgan" runat="server" AllowUserKey="int_Integer" EnableTextAlignRight="True"
                         MaxLength="1" Width="50px">0</cc1:mytext>
-                    &nbsp;งาน
-                   <cc1:mytext ID="txtWah" runat="server" AllowUserKey="int_Integer" EnableTextAlignRight="True"
-                        MaxLength="3" Width="50px">0</cc1:mytext>
-                    &nbsp;ตรว.</td>
+                    &nbsp;�ҹ
+                   <cc1:mytext ID="txtWah" runat="server" AllowUserKey="num_Numeric" EnableTextAlignRight="True"
+                        MaxLength="5" Width="50px">0</cc1:mytext>
+                    &nbsp;���.</td>
             <td class="style5">
                                         &nbsp;</td>
             <td class="style27">
@@ -187,12 +187,12 @@
         </tr>         
         <tr>
             <td class="style26">
-                                ผู้ถือกรรมสิทธิ์ที่ดิน</td>
+                                ����͡����Է�����Թ</td>
             <td>
                 <asp:TextBox ID="txtOwnerShip" runat="server" Width="222px" BackColor="#FFFF66"></asp:TextBox>
             </td>
             <td>
-                ภาระผูกพัน</td>
+                ���м١�ѹ</td>
             <td class="style27">
                 <asp:TextBox ID="txtObligation" runat="server" Width="222px" 
                     BackColor="#FFFF66"></asp:TextBox>
@@ -204,20 +204,20 @@
         </tr>                                       
         <tr>
             <td class="style26">
-                                        ที่ตั้งหลักประกัน ตั้งอยู่ถนน</td>
+                                        �������ѡ��Сѹ ������趹�</td>
             <td class="style22">
                 <asp:TextBox ID="txtRoad" runat="server" Width="222px"></asp:TextBox>
             </td>
             <td class="style5">
-                    การตั้งอยู่ของหลักประกัน</td>
+                    ��õ������ͧ��ѡ��Сѹ</td>
             <td class="style27">
                 <asp:DropDownList ID="ddlRoad_Detail" runat="server" 
                         DataSourceID="SDSRoad_Detail" DataTextField="Road_Detail_Name" 
                         DataValueField="Road_Detail_ID">
                 </asp:DropDownList>
                 <cc1:mytext ID="txtMeter" runat="server" AllowUserKey="int_Integer" EnableTextAlignRight="True"
-                        MaxLength="3" Width="50px">0</cc1:mytext>
-                    เมตร</td>
+                        MaxLength="5" Width="50px">0</cc1:mytext>
+                    ����</td>
             <td class="style29">
                 &nbsp;</td>
             <td>
@@ -226,7 +226,7 @@
         </tr>
         <tr>
             <td class="style26">
-                    สถาพที่ดิน
+                    ʶҾ���Թ
                 </td>
             <td class="style22">
                 <asp:DropDownList ID="ddlLand_State" runat="server" 
@@ -235,7 +235,7 @@
                 </asp:DropDownList>
             </td>
             <td class="style5">
-                    รายละเอียดสภาพที่ดิน
+                    ��������´��Ҿ���Թ
                 </td>
             <td class="style27">
                 <asp:TextBox ID="txtLand_State_Detail" runat="server"></asp:TextBox>
@@ -248,7 +248,7 @@
         </tr>
         <tr>
             <td class="style17">
-                    ถนนหน้าหลักประกัน
+                    ���˹����ѡ��Сѹ
                 </td>
             <td class="style23">
                 <asp:DropDownList ID="ddlRoad_Forntoff" runat="server" 
@@ -257,11 +257,11 @@
                 </asp:DropDownList>
             </td>
             <td class="style19">
-                    ผิวจราจรกว้าง</td>
+                    ��Ǩ�Ҩá��ҧ</td>
             <td class="style28">
                 <cc1:mytext id="txtRoadWidth" runat="server" AllowUserKey="num_Numeric" MaxLength="2"
                         Width="50px" EnableTextAlignRight="True">0</cc1:mytext>
-                    &nbsp;เมตร
+                    &nbsp;����
                 </td>
             <td class="style30">
             </td>
@@ -270,22 +270,22 @@
         </tr>
         <tr>
             <td class="style17">
-                    ขนาดที่ดินกว้างติดถนน</td>
+                    ��Ҵ���Թ���ҧ�Դ���</td>
             <td class="style23">
                 <cc1:mytext id="txtLand_Closeto_RoadWidth" runat="server" 
-                    AllowUserKey="num_Numeric" MaxLength="2"
+                    AllowUserKey="num_Numeric" MaxLength="5"
                         Width="50px" EnableTextAlignRight="True" BackColor="#FFFF66">0</cc1:mytext>
-                    &nbsp;เมตร
-                    ที่ดินลึก
-                <cc1:mytext id="txtDeepWidth" runat="server" AllowUserKey="num_Numeric" MaxLength="2"
+                    &nbsp;����
+                    ���Թ�֡
+                <cc1:mytext id="txtDeepWidth" runat="server" AllowUserKey="num_Numeric" MaxLength="5"
                         Width="50px" EnableTextAlignRight="True" BackColor="#FFFF66">0</cc1:mytext>
-                    &nbsp;เมตร</td>
+                    &nbsp;����</td>
             <td class="style19">
-                    ิที่ดินด้านหลังกว้าง</td>
+                    Է��Թ��ҹ��ѧ���ҧ</td>
             <td class="style28">
-                <cc1:mytext id="txtBehindWidth" runat="server" AllowUserKey="num_Numeric" MaxLength="2"
+                <cc1:mytext id="txtBehindWidth" runat="server" AllowUserKey="num_Numeric" MaxLength="5"
                         Width="50px" EnableTextAlignRight="True" BackColor="#FFFF66">0</cc1:mytext>
-                    &nbsp;เมตร</td>
+                    &nbsp;����</td>
             <td class="style30">
             </td>
             <td class="style20">
@@ -293,7 +293,7 @@
         </tr>        
         <tr>
             <td class="style26">
-                    ทำเล
+                    ����
                 </td>
             <td class="style22">
                 <asp:DropDownList ID="ddlSite" runat="server" DataSourceID="SDSSite" 
@@ -301,7 +301,7 @@
                 </asp:DropDownList>
             </td>
             <td class="style5">
-                    รายละเอียดทำเล
+                    ��������´����
                 </td>
             <td class="style27">
                 <asp:TextBox ID="txtSite_Detail" runat="server" Width="222px"></asp:TextBox>
@@ -314,7 +314,7 @@
         </tr>
         <tr>
             <td class="style26">
-                    สาธารณูปโภค
+                    �Ҹ�óٻ���
                 </td>
             <td class="style22">
                 <asp:DropDownList ID="ddlPublic_Utility" runat="server" 
@@ -323,7 +323,7 @@
                 </asp:DropDownList>
             </td>
             <td class="style5">
-                    รายละเอียดสาธารณูปโภค
+                    ��������´�Ҹ�óٻ���
                 </td>
             <td class="style27">
                 <asp:TextBox ID="txtPublic_Utility_Detail" runat="server" Width="222px"></asp:TextBox>
@@ -336,7 +336,7 @@
         </tr>
         <tr>
             <td class="style26">
-                    การใช้ประโยชน์ในอาคาร
+                    ��������ª����Ҥ��
                 </td>
             <td class="style22">
                 <asp:DropDownList ID="ddlBinifit" runat="server" DataSourceID="SDSBinifit" 
@@ -344,7 +344,7 @@
                 </asp:DropDownList>
             </td>
             <td class="style5">
-                    รายละเอียด
+                    ��������´
                 </td>
             <td class="style27">
                 <asp:TextBox ID="txtBinifit" runat="server" Width="222px"></asp:TextBox>
@@ -357,7 +357,7 @@
         </tr>
         <tr>
             <td class="style26">
-                    แนวโน้มความเจริญ
+                    �����������ԭ
                 </td>
             <td class="style22">
                 <asp:DropDownList ID="ddlTendency" runat="server" DataSourceID="SDSTendency" 
@@ -365,7 +365,7 @@
                 </asp:DropDownList>
             </td>
             <td class="style5">
-                    สภาพคล่องการซื้อขาย
+                    ��Ҿ���ͧ��ë��͢��
                 </td>
             <td class="style27">
                 <asp:DropDownList ID="ddlBuySale_State" runat="server" 
@@ -381,17 +381,20 @@
         </tr>
         <tr>
             <td class="style26">
-                    ตรว. ละ</td>
+                    �Ҥҵ��˹���&nbsp;</td>
             <td class="style22">
-                <cc1:mytext id="txtPriceWah" runat="server" allowuserkey="num_Numeric" width="120px"
+                <asp:DropDownList ID="ddlSubUnit" runat="server" DataSourceID="SDSSubUnit" 
+                        DataTextField="SubUnit_Name" DataValueField="SubUnit_Id">
+                </asp:DropDownList>
+            &nbsp;<cc1:mytext id="txtPriceWah" runat="server" allowuserkey="num_Numeric" width="120px"
                         autocurrencyformatonkeyup="True" EnableTextAlignRight="True">0</cc1:mytext>
-            </td>
+            &nbsp;�ҷ</td>
             <td class="style5">
-                    เป็นเงิน</td>
+                    ���Թ</td>
             <td class="style27">
                 <cc1:mytext ID="txtTotal" runat="server" AllowUserKey="num_Numeric" Width="120px"
                         AutoCurrencyFormatOnKeyUp="True" EnableTextAlignRight="True">0</cc1:mytext>
-            </td>
+            &nbsp;�ҷ</td>
             <td class="style29">
                     &nbsp;
                 </td>
@@ -400,7 +403,7 @@
         </tr>
         <tr>
             <td>
-                ที่ดินอยู่ในเขตพื้นที่สี</td>
+                ���Թ�����ࢵ��鹷����</td>
             <td>
                 <asp:DropDownList ID="ddlAreaColur" runat="server" 
                         DataSourceID="SDSArea_Color" DataTextField="AreaColour_Name" 
@@ -408,13 +411,9 @@
                 </asp:DropDownList>
             </td>
             <td>
-                วันที่ประเมิน</td>
+                &nbsp;</td>
             <td>
-            <asp:TextBox ID="txtReceive_Date" runat="server" Width="112px"></asp:TextBox>
-               <ajaxToolkit:CalendarExtender
-                    ID="CalendarExtender1" runat="server" Enabled="True" Format="dd/MM/yyyy" TargetControlID="txtReceive_Date">
-                    </ajaxToolkit:CalendarExtender> 
-            </td>
+                &nbsp;</td>
             <td>
             </td>
             <td>
@@ -485,9 +484,19 @@ Order by prov_code">
     </asp:SqlDataSource>
     
     <asp:SqlDataSource ID="SDSArea_Color" runat="server" ConnectionString="<%$ ConnectionStrings:AppraisalConn %>"
-        
-        
         SelectCommand="SELECT [AreaColour_No], [AreaColour_Name] FROM [AreaColour]">
     </asp:SqlDataSource>
-</asp:Content>
+    
+    <asp:SqlDataSource ID="SDSSubUnit" runat="server" ConnectionString="<%$ ConnectionStrings:AppraisalConn %>"
+        
+        
+        
+            
+            SelectCommand="SELECT [SubUnit_Id], [SubUnit_Name] FROM [TB_SubUnit] WHERE ([SubUnit_Id] &lt;= @SubUnit_Id)">
+        <SelectParameters>
+            <asp:Parameter DefaultValue="2" Name="SubUnit_Id" Type="Int32" />
+        </SelectParameters>
+    </asp:SqlDataSource>
+        
+    </asp:Content>
 

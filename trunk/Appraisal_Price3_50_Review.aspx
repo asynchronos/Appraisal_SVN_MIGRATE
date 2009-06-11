@@ -385,17 +385,17 @@
         </tr>
         <tr>
             <td class="style26">
-                    ตรว. ละ</td>
+                    ราคาต่อหน่วย</td>
             <td class="style22">
                 <cc1:mytext id="txtPriceWah" runat="server" allowuserkey="num_Numeric" width="120px"
                         autocurrencyformatonkeyup="True" EnableTextAlignRight="True">0</cc1:mytext>
-            </td>
+            &nbsp;บาท</td>
             <td class="style5">
                     เป็นเงิน</td>
             <td class="style27">
                 <cc1:mytext ID="txtTotal" runat="server" AllowUserKey="num_Numeric" Width="120px"
                         AutoCurrencyFormatOnKeyUp="True" EnableTextAlignRight="True">0</cc1:mytext>
-            </td>
+            &nbsp;บาท</td>
             <td class="style29">
                     &nbsp;
                 </td>
@@ -412,13 +412,9 @@
                 </asp:DropDownList>
             </td>
             <td>
-                วันที่ประเมิน</td>
+                &nbsp;</td>
             <td>
-            <asp:TextBox ID="txtReceive_Date" runat="server" Width="112px"></asp:TextBox>
-               <ajaxToolkit:CalendarExtender
-                    ID="CalendarExtender1" runat="server" Enabled="True" Format="dd/MM/yyyy" TargetControlID="txtReceive_Date">
-                    </ajaxToolkit:CalendarExtender> 
-            </td>
+                &nbsp;</td>
             <td>
             </td>
             <td>
@@ -493,6 +489,7 @@ Order by prov_code">
         
         SelectCommand="SELECT [AreaColour_No], [AreaColour_Name] FROM [AreaColour]">
     </asp:SqlDataSource>
+    
     </div>
     </form>
 </body>

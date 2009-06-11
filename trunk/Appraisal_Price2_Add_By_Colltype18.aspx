@@ -176,7 +176,7 @@
                     ึอาคารเลขที่</td>
             <td class="style22">
 
-                    <cc1:mytext ID="txtBuild_Number" runat="server" AllowUserKey="int_Integer" AutoCurrencyFormatOnKeyUp="True"
+                    <cc1:mytext ID="txtBuild_Number" runat="server" AllowUserKey="txt_Text"
                         EnableTextAlignRight="True" Width="50px"></cc1:mytext>
             </td>
             <td class="style5">
@@ -223,7 +223,7 @@
                         DataValueField="Road_Detail_ID">
                 </asp:DropDownList>
                    <cc1:mytext ID="txtRoadAccress" runat="server" AllowUserKey="num_Numeric" EnableTextAlignRight="True"
-                        MaxLength="3" Width="50px">0</cc1:mytext>
+                        MaxLength="4" Width="50px">0</cc1:mytext>
                     เมตร</td>
             <td class="style5">
                     ตำบล/แขวง</td>
@@ -455,7 +455,7 @@
             <td class="style5">
                     เป็นเงิน</td>
             <td class="style27">
-                <cc1:mytext ID="txtCondoPrice" runat="server" AllowUserKey="num_Numeric" Width="120px"
+                <cc1:mytext ID="txtCondoPrice" runat="server" AllowUserKey="txt_Text" Width="120px"
                         AutoCurrencyFormatOnKeyUp="True" EnableTextAlignRight="True" 
                     ReadOnly="True">0</cc1:mytext>
             </td>

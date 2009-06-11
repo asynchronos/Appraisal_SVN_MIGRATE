@@ -1,6 +1,13 @@
 ﻿<%@ Page Title="" Language="VB" MasterPageFile="~/MasterPage.master" AutoEventWireup="false" CodeFile="Appraisal_Price3_70_Partake.aspx.vb" Inherits="Appraisal_Price3_70_Partake" %>
 <%@ Register assembly="Mytextbox" namespace="Mytextbox" tagprefix="cc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+    <style type="text/css">
+
+        .style22
+        {
+            width: 211px;
+        }
+        </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <asp:ScriptManager ID="ScriptManager1" runat="server">
@@ -69,12 +76,12 @@
                           <tr>
                               <td>
                                   พื้นที่ส่วนควบ</td>
-                              <td class="style8">
+                              <td>
                                   <cc1:mytext ID="txtPartakeArea" runat="server" AllowUserKey="num_Numeric" 
                         EnableTextAlignRight="True" MaxLength="6" Width="35px" BackColor="#FFFF66" 
                                       AutoPostBack="True">0</cc1:mytext>
                                   ตรม.</td>
-                              <td class="style5">
+                              <td>
                                   ราคาต่อหน่วย</td>
                               <td class="style19">
                                   <cc1:mytext ID="txtPartakeUnitPrice" runat="server" AllowUserKey="num_Numeric" 
@@ -86,31 +93,52 @@
                               <td>
                                   <cc1:mytext ID="txtPartakePrice" runat="server" AllowUserKey="num_Numeric" 
                         EnableTextAlignRight="True" Width="110px" BackColor="#FFFF66" 
-                                      AutoCurrencyFormatOnKeyUp="True" AutoPostBack="True" ReadOnly="True">0.00</cc1:mytext>
+                                      AutoCurrencyFormatOnKeyUp="True" AutoPostBack="True" ReadOnly="True" 
+                                      Enabled="False">0.00</cc1:mytext>
                                   บาท</td>
                           </tr>
                           <tr>
                               <td class="style22">
-                                  อายุการใช้งาน</td>
-                              <td class="style8">
-                                  <cc1:mytext ID="txtPartakeAge" runat="server" AllowUserKey="num_Numeric" 
-                        EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66" 
-                                      AutoPostBack="True">0</cc1:mytext>
-                                  ปี</td>
-                              <td class="style5">
-                                  ค่าเสื่อมต่อปี</td>
-                              <td class="style19">
-                                  <cc1:mytext ID="txtPartakePersent1" runat="server" AllowUserKey="num_Numeric" 
-                        EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66" 
-                                      AutoPostBack="True">0</cc1:mytext>
+                                  เปอร์เซ็นต์ส่วนควบสร้างเสร็จ</td>
+                              <td class="">
+                                  <cc1:mytext ID="txtFinishPercent" runat="server" AllowUserKey="num_Numeric" 
+                                      AutoPostBack="True" BackColor="#FFFF66" EnableTextAlignRight="True" 
+                                      MaxLength="3" Width="35px">100</cc1:mytext>
                                   %</td>
-                              <td class="style14">
+                              <td class="">
+                                  มูลค่า</td>
+                              <td class="">
+                                  <cc1:mytext ID="txtPriceNotFinish" runat="server" AllowUserKey="num_Numeric" 
+                                      AutoPostBack="True" BackColor="#FFFF66" EnableTextAlignRight="True" 
+                                      ReadOnly="True" Width="110px">0.00</cc1:mytext>
+                                  บาท</td>
+                              <td class="">
+                                  &nbsp;</td>
+                              <td>
+                                  &nbsp;</td>
+                          </tr>
+                          <tr>
+                              <td class="style22">
+                                  อายุการใช้งาน</td>
+                              <td class="">
+                                  <cc1:mytext ID="txtPartakeAge" runat="server" AllowUserKey="num_Numeric" 
+                                      AutoPostBack="True" BackColor="#FFFF66" EnableTextAlignRight="True" 
+                                      MaxLength="5" Width="35px">0</cc1:mytext>
+                                  ปี</td>
+                              <td class="">
+                                  ค่าเสื่อมต่อปี</td>
+                              <td class="">
+                                  <cc1:mytext ID="txtPartakePersent1" runat="server" AllowUserKey="num_Numeric" 
+                                      AutoPostBack="True" BackColor="#FFFF66" EnableTextAlignRight="True" 
+                                      MaxLength="5" Width="35px">0</cc1:mytext>
+                                  %</td>
+                              <td class="">
                                   ค่าเสื่อมตามสภาพปรับปรุง
                               </td>
                               <td>
                                   <cc1:mytext ID="txtPartakePersent2" runat="server" AllowUserKey="num_Numeric" 
-                        EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66" 
-                                      AutoPostBack="True">0</cc1:mytext>
+                                      AutoPostBack="True" BackColor="#FFFF66" EnableTextAlignRight="True" 
+                                      MaxLength="5" Width="35px">0</cc1:mytext>
                                   %</td>
                           </tr>
                           <tr>
@@ -132,7 +160,8 @@
                                   รวมค่าเสื่อมราคา</td>
                               <td>
                                   <cc1:mytext ID="txtPartakePriceTotalDeteriorate" runat="server" AllowUserKey="num_Numeric" 
-                        EnableTextAlignRight="True" Width="110px" BackColor="#FFFF66" ReadOnly="True">0.00</cc1:mytext>
+                        EnableTextAlignRight="True" Width="110px" BackColor="#FFFF66" ReadOnly="True" 
+                                      Enabled="False">0.00</cc1:mytext>
                                   บาท</td>
                           </tr>
                           <tr>
@@ -170,6 +199,13 @@
                                                   <asp:Label ID="lblPartakeArea" runat="server" Text='<%# Bind("PartakeArea") %>'></asp:Label>
                                               </ItemTemplate>
                                           </asp:TemplateField>
+                                          <asp:TemplateField HeaderText="เปอร์เซ็นต์สร้างเสร็จ" 
+                                              SortExpression="PartakeUintPrice">
+                                              <ItemTemplate>
+                                                  <asp:Label ID="lblPercentFinish" runat="server" 
+                                                      Text='<%# Bind("PercentFinish", "{0:N}") %>'></asp:Label>
+                                              </ItemTemplate>
+                                          </asp:TemplateField>                                          
                                           <asp:TemplateField HeaderText="ราคาต่อหน่วย" 
                                               SortExpression="PartakeUintPrice">
                                               <EditItemTemplate>
