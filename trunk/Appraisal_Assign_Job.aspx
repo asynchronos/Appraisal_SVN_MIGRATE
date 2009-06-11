@@ -48,7 +48,7 @@
                 </asp:TemplateField>                                
                 <asp:TemplateField HeaderText="Cif Name">
                     <ItemTemplate>
-                        <asp:Label ID="Label3" runat="server" Text='<%# Bind("CifName") %>'></asp:Label>
+                        <asp:Label ID="lblCifName" runat="server" Text='<%# Bind("CifName") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>  
                 <asp:TemplateField HeaderText="ชื่อผู้ส่งประเมิน">
@@ -56,7 +56,7 @@
                         <asp:Label ID="LabelEmp_Name" runat="server" Text='<%# Bind("Emp_Name") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="รหัสวิธีส่งประเมิน">
+                <asp:TemplateField HeaderText="รหัสวิธี">
                     <ItemTemplate>
                         <asp:Label ID="lblReq_Type" runat="server" Text='<%# Bind("Req_Type") %>'></asp:Label>
                     </ItemTemplate>
@@ -69,6 +69,7 @@
                 </asp:TemplateField>                                   
                 <asp:TemplateField HeaderText="สถานะการประเมิน">
                     <ItemTemplate>
+                        <asp:HiddenField ID="hdfStatus_Id" runat="server" Value='<%# Bind("Status_Id") %>' />
                         <asp:Label ID="LabelStatus_Name" runat="server" 
                             Text='<%# Bind("Status_Name") %>'></asp:Label>
                     </ItemTemplate>
@@ -82,12 +83,27 @@
 <%--                <asp:HyperLinkField DataNavigateUrlFields="Req_Id,Hub_Id" 
                     DataNavigateUrlFormatString="Appraisal_Assign_Update_Job.aspx?Req_Id={0}&amp;Hub_Id={1}" 
                     HeaderText="Edit" Text="Edit" />--%>
-                <asp:TemplateField HeaderText="EDIT">
+                <asp:TemplateField HeaderText="ราคา">
+                <ItemStyle HorizontalAlign="Center" Width="25px" />
                     <ItemTemplate>
-                        <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" 
-                            CommandName="Select" Text="Select"></asp:LinkButton>
+                        <asp:ImageButton ID="imgPrint2View" runat="server" 
+                            ImageUrl="~/Images/dollar.jpg" Height="22px" Width="22px" 
+                            ToolTip="รายละเอียดการกำหนดราคา" OnClick="imgPrint2View_Click" />
                     </ItemTemplate>
                 </asp:TemplateField>
+            <asp:TemplateField HeaderText="Edit">
+            <ItemStyle HorizontalAlign="Center" Width="25px" />
+                <ItemTemplate>
+                    <asp:ImageButton ID="imgEdit" runat="server" ImageUrl="~/Images/pencil.png"
+                        Height="22px" Width="22px" ToolTip="แก้ไขเปลี่ยนแปลง" OnClick="imgEdit_Click" />               
+                </ItemTemplate>
+            </asp:TemplateField>                  
+<%--                <asp:TemplateField HeaderText="EDIT">
+                    <ItemTemplate>
+                        <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" 
+                            CommandName="Select" Text="EDIT"></asp:LinkButton>
+                    </ItemTemplate>
+                </asp:TemplateField>--%>
             </Columns>
             <PagerStyle BackColor="PaleGoldenrod" ForeColor="DarkSlateBlue" 
                 HorizontalAlign="Center" />
@@ -101,7 +117,7 @@
         ConnectionString="<%$ ConnectionStrings:AppraisalConnectionString %>" 
         
         
-        SelectCommand="GET_REQUEST_APPRAISAL_LIST_BY_HUB" 
+        SelectCommand="GET_APPRAISAL_VERIFY_PROCESS_BY_HUB" 
         SelectCommandType="StoredProcedure">
         <SelectParameters>
             <asp:SessionParameter Name="HUB_ID" SessionField="Hub_Id" Type="Int32" />

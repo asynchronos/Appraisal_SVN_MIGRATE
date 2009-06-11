@@ -122,6 +122,18 @@
                     &nbsp;</td>
             </tr>
             <tr>
+                <td class="style2">
+                    ความเห็นการกำหนดราคา</td>
+                <td class="style3">
+                    <asp:RadioButtonList ID="rdbAccept" runat="server" RepeatDirection="Horizontal">
+                        <asp:ListItem Selected="True" Value="8">เห็นชอบ</asp:ListItem>
+                        <asp:ListItem Value="7">ไม่เห็นชอบ</asp:ListItem>
+                    </asp:RadioButtonList>
+                </td>
+                <td>
+                    &nbsp;</td>
+            </tr>
+            <tr>
                 <td colspan="3" style="text-align:Center;">
                                <table class="style1">
                                    <tr>
