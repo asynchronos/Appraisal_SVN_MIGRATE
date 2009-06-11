@@ -2,6 +2,7 @@ Option Explicit On
 Option Strict On
 
 Imports Microsoft.VisualBasic
+Imports System
 Imports System.Data
 Imports System.Data.SqlClient
 Imports System.Diagnostics

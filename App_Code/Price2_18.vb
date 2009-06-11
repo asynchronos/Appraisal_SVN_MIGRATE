@@ -2,52 +2,52 @@
 
     Public Class PRICE2_18
 
-        Private Const CLSNAME As String = "Class PRICE2_18"
+    Private Const CLSNAME As String = "Class PRICE2_18"
 
-        Private _ID As Integer
-        Private _Req_Id As Integer
-        Private _Hub_Id As Integer
-        Private _AID As String
-        Private _CID As String
-        Private _Temp_AID As Integer
-        Private _MysubColl_ID As Integer
-        Private _Floors_All As Integer
+    Private _ID As Integer
+    Private _Req_Id As Integer
+    Private _Hub_Id As Integer
+    Private _AID As String
+    Private _CID As String
+    Private _Temp_AID As Integer
+    Private _MysubColl_ID As Integer
+    Private _Floors_All As Integer
     Private _Elevator As Integer
     Private _Address_No As String
     Private _Room_Area As Decimal
     Private _Room_Height As Decimal
-        Private _Building_Name As String
-        Private _Floors As Integer
-        Private _Building_No As String
-        Private _Building_Reg_No As String
-        Private _Tumbon As String
-        Private _Amphur As String
-        Private _Province As Integer
-        Private _Road As String
-        Private _Road_Detail As Integer
-        Private _Road_Access As Decimal
-        Private _Road_Frontoff As Integer
-        Private _RoadWidth As Decimal
-        Private _Site As Integer
-        Private _Site_Detail As String
-        Private _Public_Utility As Integer
-        Private _Public_Utility_Detail As String
-        Private _Binifit As Integer
-        Private _Binifit_Detail As String
-        Private _Tendency As Integer
-        Private _BuySale_State As Integer
-        Private _Building_Construc As Integer
-        Private _InteriorState_Id As Integer
-        Private _Character_Room_Id As Integer
-        Private _RoomWidth_BehideSiteWalk As Decimal
-        Private _Roomdeep As Decimal
-        Private _Backside_Width As Decimal
-        Private _SideWalk_Is As Integer
+    Private _Building_Name As String
+    Private _Floors As Integer
+    Private _Building_No As String
+    Private _Building_Reg_No As String
+    Private _Tumbon As String
+    Private _Amphur As String
+    Private _Province As Integer
+    Private _Road As String
+    Private _Road_Detail As Integer
+    Private _Road_Access As Decimal
+    Private _Road_Frontoff As Integer
+    Private _RoadWidth As Decimal
+    Private _Site As Integer
+    Private _Site_Detail As String
+    Private _Public_Utility As Integer
+    Private _Public_Utility_Detail As String
+    Private _Binifit As Integer
+    Private _Binifit_Detail As String
+    Private _Tendency As Integer
+    Private _BuySale_State As Integer
+    Private _Building_Construc As Integer
+    Private _InteriorState_Id As Integer
+    Private _Character_Room_Id As Integer
+    Private _RoomWidth_BehideSiteWalk As Decimal
+    Private _Roomdeep As Decimal
+    Private _Backside_Width As Decimal
+    Private _SideWalk_Is As Integer
     Private _SideWalk_Width As Decimal
-        Private _Unit_Price As Decimal
-        Private _PriceTotal As Decimal
-        Private _Create_User As String
-        Private _Create_Date As Date
+    Private _Unit_Price As Decimal
+    Private _PriceTotal As Decimal
+    Private _Create_User As String
+    Private _Create_Date As Date
 
 
     Public Sub New( _

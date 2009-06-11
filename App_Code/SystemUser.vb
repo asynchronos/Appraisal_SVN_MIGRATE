@@ -5,7 +5,7 @@ Public Class SystemUser
 
     Private _UserID As String
     Private _Pwd As String
-    Private _Emp_Id As Integer
+    Private _Emp_Id As String
     Private _Hub_Id As Integer
     Private _SGroup_Id As Integer
     Private _Create_User As String
@@ -15,7 +15,7 @@ Public Class SystemUser
     Public Sub New( _
      ByVal UserID As String, _
      ByVal Pwd As String, _
-     ByVal Emp_Id As Integer, _
+     ByVal Emp_Id As String, _
      ByVal Hub_Id As Integer, _
      ByVal SGroup_Id As Integer, _
      ByVal Create_User As String, _
@@ -48,11 +48,11 @@ Public Class SystemUser
         End Set
     End Property
 
-    Public Property Emp_Id() As Integer
+    Public Property Emp_Id() As String
         Get
             Return _Emp_Id
         End Get
-        Set(ByVal Value As Integer)
+        Set(ByVal Value As String)
             _Emp_Id = Value
         End Set
     End Property

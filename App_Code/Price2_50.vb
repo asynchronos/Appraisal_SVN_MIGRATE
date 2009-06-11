@@ -17,7 +17,7 @@ Public Class PRICE2_50
     Private _Province As Integer
     Private _Rai As Integer
     Private _Ngan As Integer
-    Private _Wah As Integer
+    Private _Wah As Decimal
     Private _Road As String
     Private _Road_Detail As Integer
     Private _Road_Access As Decimal
@@ -54,7 +54,7 @@ Public Class PRICE2_50
      ByVal Province As Integer, _
      ByVal Rai As Integer, _
      ByVal Ngan As Integer, _
-     ByVal Wah As Integer, _
+     ByVal Wah As Decimal, _
      ByVal Road As String, _
      ByVal Road_Detail As Integer, _
      ByVal Road_Access As Decimal, _
@@ -237,11 +237,11 @@ Public Class PRICE2_50
         End Set
     End Property
 
-    Public Property Wah() As Integer
+    Public Property Wah() As Decimal
         Get
             Return _Wah
         End Get
-        Set(ByVal Value As Integer)
+        Set(ByVal Value As Decimal)
             _Wah = Value
         End Set
     End Property

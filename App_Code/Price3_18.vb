@@ -17,6 +17,7 @@ Public Class Price3_18
     Private _Floors As Integer
     Private _Building_No As String
     Private _Building_Reg_No As String
+    Private _Building_Age As Decimal
     Private _Tumbon As String
     Private _Amphur As String
     Private _Province As Integer
@@ -44,6 +45,17 @@ Public Class Price3_18
     Private _Partake_Detail As String
     Private _Ownership As String
     Private _Obligation As String
+    Private _Other_Detail As String
+    Private _Tumbon1 As String
+    Private _Amphur1 As String
+    Private _Province1 As Integer
+    Private _Elevator_Util As Integer
+    Private _Parking_Util As Integer
+    Private _Pool_Util As Integer
+    Private _Fitness_Util As Integer
+    Private _Other_Util As Integer
+    Private _Other_Util_Detail As String
+    Private _Adjust_Condo As String
     Private _Unit_Price As Decimal
     Private _PriceTotal As Decimal
     Private _Create_User As String
@@ -67,6 +79,7 @@ Public Class Price3_18
      ByVal Floors As Integer, _
      ByVal Building_No As String, _
      ByVal Building_Reg_No As String, _
+     ByVal Building_Age As Decimal, _
      ByVal Tumbon As String, _
      ByVal Amphur As String, _
      ByVal Province As Integer, _
@@ -94,6 +107,17 @@ Public Class Price3_18
      ByVal Partake_Detail As String, _
      ByVal Ownership As String, _
      ByVal Obligation As String, _
+     ByVal Other_Detail As String, _
+     ByVal Tumbon1 As String, _
+     ByVal Amphur1 As String, _
+     ByVal Province1 As Integer, _
+     ByVal Elevator_Util As Integer, _
+     ByVal Parking_Util As Integer, _
+     ByVal Pool_Util As Integer, _
+     ByVal Fitness_Util As Integer, _
+     ByVal Other_Util As Integer, _
+     ByVal Other_Util_Detail As String, _
+     ByVal Adjust_Condo As String, _
      ByVal Unit_Price As Decimal, _
      ByVal PriceTotal As Decimal, _
      ByVal Create_User As String, _
@@ -115,6 +139,7 @@ Public Class Price3_18
         _Room_Height = Room_Height
         _Building_No = Building_No
         _Building_Reg_No = Building_Reg_No
+        _Building_Age = Building_Age
         _Tumbon = Tumbon
         _Amphur = Amphur
         _Province = Province
@@ -142,6 +167,17 @@ Public Class Price3_18
         _Partake_Detail = Partake_Detail
         _Ownership = Ownership
         _Obligation = Obligation
+        _Other_Detail = Other_Detail
+        _Tumbon1 = Tumbon1
+        _Amphur1 = Amphur1
+        _Province1 = Province1
+        _Elevator_Util = Elevator_Util
+        _Parking_Util = Parking_Util
+        _Pool_Util = Pool_Util
+        _Fitness_Util = Fitness_Util
+        _Other_Util = Other_Util
+        _Other_Util_Detail = Other_Util_Detail
+        _Adjust_Condo = Adjust_Condo
         _Unit_Price = Unit_Price
         _PriceTotal = PriceTotal
         _Create_User = Create_User
@@ -289,6 +325,15 @@ Public Class Price3_18
         End Get
         Set(ByVal Value As String)
             _Building_Reg_No = Value
+        End Set
+    End Property
+
+    Public Property Building_Age() As Decimal
+        Get
+            Return _Building_Age
+        End Get
+        Set(ByVal value As Decimal)
+            _Building_Age = value
         End Set
     End Property
 
@@ -523,6 +568,105 @@ Public Class Price3_18
         End Get
         Set(ByVal Value As String)
             _Obligation = Value
+        End Set
+    End Property
+
+    Public Property Other_Detail() As String
+        Get
+            Return _Other_Detail
+        End Get
+        Set(ByVal Value As String)
+            _Other_Detail = Value
+        End Set
+    End Property
+
+    Public Property Tumbon1() As String
+        Get
+            Return _Tumbon1
+        End Get
+        Set(ByVal Value As String)
+            _Tumbon1 = Value
+        End Set
+    End Property
+
+    Public Property Amphur1() As String
+        Get
+            Return _Amphur1
+        End Get
+        Set(ByVal Value As String)
+            _Amphur1 = Value
+        End Set
+    End Property
+
+    Public Property Province1() As Integer
+        Get
+            Return _Province1
+        End Get
+        Set(ByVal Value As Integer)
+            _Province1 = Value
+        End Set
+    End Property
+
+    Public Property Elevator_Util() As Integer
+        Get
+            Return _Elevator_Util
+        End Get
+        Set(ByVal Value As Integer)
+            _Elevator_Util = Value
+        End Set
+    End Property
+
+    Public Property Parking_Util() As Integer
+        Get
+            Return _Parking_Util
+        End Get
+        Set(ByVal Value As Integer)
+            _Parking_Util = Value
+        End Set
+    End Property
+
+    Public Property Pool_Util() As Integer
+        Get
+            Return _Pool_Util
+        End Get
+        Set(ByVal Value As Integer)
+            _Pool_Util = Value
+        End Set
+    End Property
+
+    Public Property Fitness_Util() As Integer
+        Get
+            Return _Fitness_Util
+        End Get
+        Set(ByVal Value As Integer)
+            _Fitness_Util = Value
+        End Set
+    End Property
+
+    Public Property Other_Util() As Integer
+        Get
+            Return _Other_Util
+        End Get
+        Set(ByVal Value As Integer)
+            _Other_Util = Value
+        End Set
+    End Property
+
+    Public Property Other_Util_Detail() As String
+        Get
+            Return _Other_Util_Detail
+        End Get
+        Set(ByVal Value As String)
+            _Other_Util_Detail = Value
+        End Set
+    End Property
+
+    Public Property Adjust_Condo() As String
+        Get
+            Return _Adjust_Condo
+        End Get
+        Set(ByVal Value As String)
+            _Adjust_Condo = Value
         End Set
     End Property
 

@@ -3,6 +3,7 @@ Option Strict On
 
 Imports Microsoft.VisualBasic
 Imports System.Data.SqlClient
+Imports System.Configuration
 
 Public Class ConnectionUtil
 

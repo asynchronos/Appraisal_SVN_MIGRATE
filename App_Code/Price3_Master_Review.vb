@@ -6,6 +6,7 @@ Public Class Price3_Master_Review
     Private _AID As Integer
     Private _Temp_AID As Integer
     Private _Cif As Integer
+    Private _Building_Age As Decimal
     Private _Memo_Date As Date
     Private _Sequence As Integer
     Private _Land_Chg As Integer
@@ -27,6 +28,7 @@ Public Class Price3_Master_Review
      ByVal AID As Integer, _
      ByVal Temp_AID As Integer, _
      ByVal Cif As Integer, _
+     ByVal Building_Age As Decimal, _
      ByVal Memo_Date As Date, _
      ByVal Sequence As Integer, _
      ByVal Land_Chg As Integer, _
@@ -46,6 +48,7 @@ Public Class Price3_Master_Review
         _AID = AID
         _Temp_AID = Temp_AID
         _Cif = Cif
+        _Building_Age = Building_Age
         _Memo_Date = Memo_Date
         _Sequence = Sequence
         _Land_Chg = Land_Chg
@@ -86,6 +89,15 @@ Public Class Price3_Master_Review
         End Get
         Set(ByVal Value As Integer)
             _Temp_AID = Value
+        End Set
+    End Property
+
+    Public Property Building_Age() As Decimal
+        Get
+            Return _Building_Age
+        End Get
+        Set(ByVal Value As Decimal)
+            _Building_Age = Value
         End Set
     End Property
 
