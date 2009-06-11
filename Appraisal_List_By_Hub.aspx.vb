@@ -45,4 +45,12 @@ Partial Class Appraisal_List_By_Hub
         'Session("Status_Id") = 4
         Dim ReqId As Label = DirectCast(cph.FindControl("lblRequestID"), Label) 'Me.FindControl("lblRequestID")
     End Sub
+
+    Protected Sub btnSeachCif_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnSeachCif.Click
+
+    End Sub
+
+    Protected Sub imgSearch_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs)
+        Server.Transfer("Appraisal_Dynamic_Search.aspx")
+    End Sub
 End Class

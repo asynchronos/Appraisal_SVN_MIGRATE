@@ -1,10 +1,8 @@
-Ôªø<%@ Page Title="" Language="VB" MasterPageFile="~/MasterPage.master" AutoEventWireup="false" CodeFile="Appraisal_FormRequest.aspx.vb" Inherits="Appraisal_Form_Appraisal_FormRequest" %>
+<%@ Page Title="" Language="VB" MasterPageFile="~/MasterPage.master" AutoEventWireup="false" CodeFile="Appraisal_FormRequest.aspx.vb" Inherits="Appraisal_Form_Appraisal_FormRequest" %>
 
 
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
-</asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
         <style type="text/css">
 		.style2
 		{
@@ -35,8 +33,8 @@
 			}
 			.style8
 			{
-        width: 150px;
-    }
+                width: 212px;
+            }
 		    .style31
         {
             width: 100%;
@@ -59,6 +57,9 @@
                 width: 109px;
             }
 		</style>
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+
     <script type="text/javascript">
 
         function expandcollapse(obj, row) {
@@ -185,21 +186,15 @@
 					<td class="style5" valign="top"> 
 				<table class="style2" style="border-color:Blue; border-width:15px; width:441px">
 				<tr>
-				<td class="style8">‡πÄ‡∏•‡∏Ç‡∏ó‡∏µ‡πà‡∏Ñ‡∏≥‡∏Ç‡∏≠</td>
+				<td class="style8">‡≈¢∑’Ë§”¢Õ</td>
 				<td class="style7">
 					<asp:Label CssClass="Fcolor" ID="lblRequestID" runat="server" Font-Bold="True" 
 						Font-Size="Large" BackColor="#00FFCC"></asp:Label>
 					</td>
 				</tr>
 				<tr>
-				<td class="style8">&nbsp;</td>
-				<td class="style7">
-					<asp:Button ID="bntRequest_ID" runat="server" Text="‡∏≠‡∏≠‡∏Å‡πÄ‡∏•‡∏Ç‡∏Ñ‡∏≥‡∏Ç‡∏≠‡∏õ‡∏£‡∏∞‡πÄ‡∏°‡∏¥‡∏ô" />
-					</td>
-				</tr>				
-				<tr>
 					<td style="text-align:left;" class="style8">
-						‡∏õ‡∏£‡∏∞‡πÄ‡∏†‡∏ó‡∏Ñ‡∏≥‡∏Ç‡∏≠</td>
+						ª√–‡¿∑§”¢Õ</td>
 					<td style="text-align:left;" class="style7">
 					    <asp:DropDownList ID="ddlAppraisal_Method" runat="server" 
                             DataSourceID="sdsAppraisal_Method" DataTextField="Method_Name" 
@@ -213,12 +208,12 @@
 					<td style="text-align:left;" class="style7">
 						<asp:TextBox ID="TxtCif" runat="server" MaxLength="9" Width="90px"></asp:TextBox>
 					&nbsp;<asp:ImageButton ID="ImgBtFindCif" runat="server" ImageUrl="~/Images/book_blue_view.png" 
-							Height="25px" Width="28px" />
+							Height="25px" Width="28px" ToolTip="§ÈπÀ“√À— ≈Ÿ°§È“" />
 								</td>
 				</tr>
 				<tr>
 					<td style="text-align:left;" class="style8">
-						‡∏Ñ‡∏≥‡∏ô‡∏≥‡∏´‡∏ô‡πâ‡∏≤</td>
+						§”π”ÀπÈ“≈Ÿ°§È“</td>
 					<td style="text-align:left;" class="style7">
 						<asp:DropDownList ID="ddlTitle" runat="server" DataSourceID="SDSTitle" 
 							DataTextField="TITLE_NAME" DataValueField="TITLE_CODE">
@@ -227,25 +222,37 @@
 				</tr>
 				<tr>
 					<td style="text-align:left;" class="style8">
-						‡∏ä‡∏∑‡πà‡∏≠‡∏ú‡∏π‡πâ‡∏Ç‡∏≠‡∏õ‡∏£‡∏∞‡πÄ‡∏°‡∏¥‡∏ô</td>
+						™◊ËÕ≈Ÿ°§È“ºŸÈ¢Õª√–‡¡‘π</td>
 					<td style="text-align:left;" class="style7">
 						<asp:TextBox ID="TxtCifName" runat="server" Width="180px"></asp:TextBox>
 					</td>
 				</tr>                
 				<tr>
 					<td style="text-align:left;" class="style8">
-						‡∏ô‡∏≤‡∏°‡∏™‡∏Å‡∏∏‡∏•</td>
+						π“¡ °ÿ≈</td>
 					<td style="text-align:left;" class="style7">
 						<asp:TextBox ID="TxtCifLastName" runat="server" Width="180px"></asp:TextBox>
 					</td>
 				</tr>
 				<tr>
 					<td style="text-align:left;" class="style8">
-						‡∏ä‡∏∑‡πà‡∏≠-‡∏™‡∏Å‡∏∏‡∏•‡∏ú‡∏π‡πâ‡πÉ‡∏´‡πâ‡∏õ‡∏£‡∏∞‡πÄ‡∏°‡∏¥‡∏ô</td>
+						√À— ºŸÈ¢Õ„ÀÈª√–‡¡‘π</td>
+					<td style="text-align:left;" class="style7">
+	
+						<asp:TextBox ID="TxtSender" runat="server" MaxLength="9" Width="90px"></asp:TextBox>
+					    <asp:ImageButton ID="ImgBtFindEmp" runat="server" ImageUrl="~/Images/book_blue_view.png" 
+							Height="25px" Width="28px" ToolTip="§ÈπÀ“ºŸÈ¢Õ„ÀÈª√–‡¡‘π" Visible="False" />
+					    <asp:ImageButton ID="ImgBtSearchEmp" runat="server" ImageUrl="~/Images/book_blue_view.png" 
+							Height="25px" ToolTip="§ÈπÀ“ºŸÈ¢Õ„ÀÈª√–‡¡‘π" />
+					</td>
+				</tr>
+				<tr>
+					<td style="text-align:left;" class="style8">
+						™◊ËÕ- °ÿ≈ºŸÈ¢Õ„ÀÈª√–‡¡‘π</td>
 					<td style="text-align:left;" class="style7">
 	
 						<asp:TextBox ID="TxtAppraisalName" runat="server" Width="240px" Height="21px"></asp:TextBox>
-					</td>
+                    </td>
 				</tr>
 				<tr>
 					<td style="text-align:left;" class="style8">
@@ -257,11 +264,9 @@
                     </td>
 				</tr>
 				<tr>
-					<td style="text-align:left;" class="style8">
-					    &nbsp;</td>
-					<td style="text-align:left;" class="style7">
-	
-						&nbsp;</td>
+					<td colspan="2" align="center">
+					<asp:Button ID="bntRequest_ID" runat="server" Text="ÕÕ°‡≈¢§”¢Õª√–‡¡‘π" />
+					</td>
 				</tr>
 				<tr>
 					<td colspan="2">
@@ -274,12 +279,12 @@
 					
 					<td valign="top" align="left">
 					<asp:Label ID="HeaderHub" runat="server" Text="Label" 
-							style="font-weight: 700; text-decoration: underline; color: #6600FF">‡∏£‡∏≤‡∏¢‡∏ä‡∏∑‡πà‡∏≠ ‡∏®‡∏π‡∏ô‡∏¢‡πå</asp:Label>
+							style="font-weight: 700; text-decoration: underline; color: #6600FF">√“¬™◊ËÕ »Ÿπ¬Ï</asp:Label>
     
         <asp:GridView ID="GridView_HubList" runat="server" AutoGenerateColumns="False" 
             CellPadding="2" DataKeyNames="HUB_ID" DataSourceID="sdsHub" 
             ForeColor="Black" GridLines="Horizontal" BackColor="LightGoldenrodYellow" 
-            BorderColor="Tan" BorderWidth="1px" ShowFooter="True">
+            BorderColor="Tan" BorderWidth="1px" ShowFooter="True" style="font-size: small">
             <FooterStyle BackColor="Tan" />
             <Columns>
                             <asp:TemplateField>
@@ -330,12 +335,6 @@
 					</td>
 				</tr>
 			</table>
-					<asp:RadioButtonList ID="RadioButtonList1" runat="server" 
-						RepeatDirection="Horizontal" AutoPostBack="True" Visible="False">
-						<asp:ListItem Selected="True" Value="1">‡∏õ‡∏£‡∏∞‡πÄ‡∏°‡∏¥‡∏ô‡πÉ‡∏´‡∏°‡πà</asp:ListItem>
-						<asp:ListItem Value="2">‡∏ó‡∏ö‡∏ó‡∏ß‡∏ô‡∏õ‡∏£‡∏∞‡πÄ‡∏°‡∏¥‡∏ô‡∏ï‡∏≤‡∏° AID</asp:ListItem>
-					    <asp:ListItem Value="‡∏ó‡∏ö‡∏ó‡∏ß‡∏ô‡∏õ‡∏£‡∏∞‡πÄ‡∏°‡∏¥‡∏ô‡πÅ‡∏¢‡∏Å AID">‡∏ó‡∏ö‡∏ó‡∏ß‡∏ô‡∏õ‡∏£‡∏∞‡πÄ‡∏°‡∏¥‡∏ô‡∏ï‡∏≤‡∏° AID</asp:ListItem>
-					</asp:RadioButtonList>
 	<br />
 	
 	<table class="style31">
@@ -344,14 +343,14 @@
                 <table class="style31">
                     <tr>
                         <td class="style34">
-                            ‡∏Ñ‡πâ‡∏ô‡∏´‡∏≤</td>
+                            §ÈπÀ“</td>
                         <td class="style35">
 						<asp:TextBox ID="txtSearch" runat="server" MaxLength="9" Width="90px"></asp:TextBox>
 					    </td>
                         <td>
 					<asp:ImageButton ID="ImgBtFind0" runat="server" ImageUrl="~/Images/book_blue_view.png" 
 							Height="25px" Width="28px" />
-								</td>
+								&nbsp;</td>
                     </tr>
                 </table>
             </td>
@@ -363,7 +362,7 @@
             EmptyDataText="There are no data records to display." Width='100%' 
             BackColor="LightGoldenrodYellow" 
             BorderColor="Tan" BorderWidth="1px" CellPadding="2" ForeColor="Black" 
-            GridLines="None" ShowFooter="True" PageSize="15">
+            GridLines="None" ShowFooter="True" PageSize="15" AllowPaging="True">
             <FooterStyle BackColor="Tan" />
             <Columns>
                 <asp:TemplateField>
@@ -374,7 +373,7 @@
                         </a>
                     </ItemTemplate>
                 </asp:TemplateField>  
-                <asp:TemplateField HeaderText="‡πÄ‡∏•‡∏Ç‡∏Ñ‡∏≥‡∏Ç‡∏≠‡∏õ‡∏£‡∏∞‡πÄ‡∏°‡∏¥‡∏ô">
+                <asp:TemplateField HeaderText="‡≈¢§”¢Õª√–‡¡‘π">
                     <ItemStyle Width="150px" />
                     <ItemTemplate>
                         <asp:Label ID="lblReq_Id" runat="server" Text='<%# Bind("Req_ID") %>'></asp:Label>
@@ -392,18 +391,18 @@
                         <asp:Label ID="Label3" runat="server" Text='<%# Bind("CifName") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>  
-                <asp:TemplateField HeaderText="‡∏ä‡∏∑‡πà‡∏≠‡∏ú‡∏π‡πâ‡∏™‡πà‡∏á‡∏õ‡∏£‡∏∞‡πÄ‡∏°‡∏¥‡∏ô">
+                <asp:TemplateField HeaderText="™◊ËÕºŸÈ¢Õ„ÀÈª√–‡¡‘π">
                 <ItemStyle Width="200px" />
                     <ItemTemplate>
                         <asp:Label ID="LabelEmp_Name" runat="server" Text='<%# Bind("Emp_Name") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>  
-                <asp:TemplateField HeaderText="‡∏™‡∏ñ‡∏≤‡∏ô‡∏∞‡∏Å‡∏≤‡∏£‡∏õ‡∏£‡∏∞‡πÄ‡∏°‡∏¥‡∏ô">
+                <asp:TemplateField HeaderText=" ∂“π–°“√ª√–‡¡‘π">
                     <ItemTemplate>
                         <asp:Label ID="LabelStatus_Name" runat="server" Text='<%# Bind("Status_Name") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField> 
-                <asp:TemplateField HeaderText="‡∏ß‡∏±‡∏ô‡∏ó‡∏µ‡πà‡∏™‡πà‡∏á‡∏õ‡∏£‡∏∞‡πÄ‡∏°‡∏¥‡∏ô">
+                <asp:TemplateField HeaderText="«—π∑’Ë Ëßª√–‡¡‘π">
                     <ItemTemplate>
                         <asp:Label ID="LabelCreate_Date" runat="server" Text='<%# Bind("Create_Date") %>'></asp:Label>
                     </ItemTemplate>
@@ -442,7 +441,7 @@
                                                     <asp:Label ID="lblProv_Name" runat="server" Text='<%# Eval("Hub_Name") %>'  ></asp:Label>
                                                 </ItemTemplate>
                                             </asp:TemplateField>   
-                                            <asp:TemplateField HeaderText="‡πÅ‡∏™‡∏î‡∏á‡∏£‡∏π‡∏õ‡∏†‡∏≤‡∏û">
+                                            <asp:TemplateField HeaderText="· ¥ß√Ÿª¿“æ">
                                             <ItemStyle VerticalAlign="Middle" Width="50px" />
                                                 <ItemTemplate>
                                                     <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/Images/view.jpg" ToolTip="Select" OnClientClick='<%# "wopen(""Appraisal_Form/Show_Picture_Request_Appraisal.aspx?Req_Id=" + Eval("Req_ID").toString() + "&Hub_Id=" + Eval("Hub_Id").toString() + """, ""popup"", 500, 300); return false;" %>' />
@@ -472,7 +471,7 @@
 	</asp:SqlDataSource>
 	<asp:SqlDataSource ID="sdsHub" runat="server" 
 		ConnectionString="<%$ ConnectionStrings:AppraisalConn %>" 
-		SelectCommand="SELECT [HUB_ID], [HUB_NAME] FROM [TB_HUB]">
+		SelectCommand="SELECT HUB_ID, HUB_NAME FROM TB_HUB WHERE (HUB_ID &lt;&gt; 999)">
 	</asp:SqlDataSource>
 	<asp:SqlDataSource ID="sdsRequest_Appraisal_List" runat="server" 
         ConnectionString="<%$ ConnectionStrings:AppraisalConn %>" 

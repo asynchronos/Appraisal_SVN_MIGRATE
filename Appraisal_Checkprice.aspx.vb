@@ -16,9 +16,21 @@ Partial Class Appraisal_Checkprice
         Dim Hub_Id As Label = imgEditPosition.Parent.FindControl("lblHub_Id")
         Dim Temp_AID As Label = imgEditPosition.Parent.FindControl("lblTemp_AID")
 
-        StrPath = Request.ApplicationPath & "/CollDetail_Edit_Position_Price3.aspx?Req_Id=" & Req_Id.Text & "&Temp_AID=" & Temp_AID.Text & "&UserId=" & lbluserid.Text
-        s1 = "<script language=""javascript"">window.open('" + StrPath + "','window','toolbar=no, menubar=no, scrollbars=yes, resizable=no,location=no, directories=no, status=yes,height=700px,width=830px');</script>"
-        Page.ClientScript.RegisterStartupScript(Me.GetType, "แก้ไขพิกัด", s1)
+        StrPath = Request.ApplicationPath & "/CollDetail_Show_Position.aspx?Req_Id=" & Req_Id.Text & "&Hub_Id=" & Hub_Id.Text
+        s1 = "<script language=""javascript"">window.open('" + StrPath + "','window','toolbar=no, menubar=no, scrollbars=yes, resizable=no,location=no, directories=no, status=yes height=680px,width=850px');</script>"
+        Page.ClientScript.RegisterStartupScript(Me.GetType, "แสดงพิกัด", s1)
 
+    End Sub
+
+    Protected Sub imgCollPic_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs)
+
+        Dim imgEditPosition As ImageButton = DirectCast(sender, ImageButton)
+        Dim Req_Id As Label = imgEditPosition.Parent.FindControl("lblReq_Id")
+        Dim Hub_Id As Label = imgEditPosition.Parent.FindControl("lblHub_Id")
+        Dim Temp_AID As Label = imgEditPosition.Parent.FindControl("lblTemp_AID")
+
+        StrPath = Request.ApplicationPath & "/Appraisal_Price2_Picture.aspx?Req_Id=" & Req_Id.Text & "&Hub_Id=" & Hub_Id.Text
+        s1 = "<script language=""javascript"">window.open('" + StrPath + "','window','toolbar=no, menubar=no, scrollbars=yes, resizable=no,location=no, directories=no, status=yes height=680px,width=850px');</script>"
+        Page.ClientScript.RegisterStartupScript(Me.GetType, "รูปภาพหลักประกัน", s1)
     End Sub
 End Class

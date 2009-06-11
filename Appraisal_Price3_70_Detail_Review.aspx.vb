@@ -89,4 +89,14 @@ Partial Class Appraisal_Price3_70_Detail_Review
         ImageSave_Click(ImageSave, Nothing)
         Response.Redirect("Appraisal_Price3_List.aspx")
     End Sub
+
+    Protected Sub ImgBack_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs) Handles ImgBack.Click
+        'HiddenField4.Value = Context.Items("Id")
+        'HiddenField1.Value = Context.Items("Req_Id")
+        'HiddenField2.Value = Context.Items("Hub_Id")
+        'hdfAID.Value = Context.Items("AID")
+        'hdfColl_Type.Value = Context.Items("Coll_Type")
+        'lblHub_Id.Text = Context.Items("Hub_Id")
+        'hdfCif.Value = Context.Items("Cif")
+    End Sub
 End Class

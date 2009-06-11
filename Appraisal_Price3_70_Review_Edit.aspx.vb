@@ -39,30 +39,31 @@ Partial Class Appraisal_Price3_70_Review_Edit
             txtRoof_Detail.Text = Obj_GetP70_Review.Item(0).Roof_Detail
             ddlBuild_State.SelectedValue = Obj_GetP70_Review.Item(0).Build_State
             txtBuild_State_Detail.Text = Obj_GetP70_Review.Item(0).Build_State_Detail
-            txtBuilding_Detail.Text = Obj_GetP70_Review.Item(0).Building_Detail
+            txtBuilding_Detail.Text = String.Format("{0:N2}", Obj_GetP70_Review.Item(0).Building_Detail)
             txtPriceTotal1.Text = Obj_GetP70_Review.Item(0).PriceTotal1
             chkDoc1.Checked = Obj_GetP70_Review.Item(0).Doc1
             chkDoc2.Checked = Obj_GetP70_Review.Item(0).Doc2
             txtDoc_Detail.Text = Obj_GetP70_Review.Item(0).Doc_Detail
             txtBuildingArea.Text = Obj_GetP70_Review.Item(0).BuildingArea
-            txtBuildingUnitPrice.Text = Obj_GetP70_Review.Item(0).BuildingUintPrice
-            txtBuildingPrice.Text = Obj_GetP70_Review.Item(0).BuildingPrice
+            txtBuildingUnitPrice.Text = String.Format("{0:N2}", Obj_GetP70_Review.Item(0).BuildingUintPrice)
+            txtBuildingPrice.Text = String.Format("{0:N2}", Obj_GetP70_Review.Item(0).BuildingPrice)
             txtBuildingAge.Text = Obj_GetP70_Review.Item(0).BuildingAge
             txtBuildingPersent1.Text = Obj_GetP70_Review.Item(0).BuildingPersent1
             txtBuildingPersent2.Text = Obj_GetP70_Review.Item(0).BuildingPersent2
             txtBuildingPersent3.Text = Obj_GetP70_Review.Item(0).BuildingPersent3
             txtBuildingTotalDeteriorate.Text = Obj_GetP70_Review.Item(0).BuildingPriceTotalDeteriorate
+            txtBuildingPriceTotalDeteriorate.Text = String.Format("{0:N2}", (CDec(txtBuildingPrice.Text) * CDec(txtBuildingTotalDeteriorate.Text)) / 100)
             txtBuildAddArea.Text = Obj_GetP70_Review.Item(0).BuildAddArea
-            txtBuildAddUnitPrice.Text = Obj_GetP70_Review.Item(0).BuildAddUintPrice
-            txtBuildAddPrice.Text = Obj_GetP70_Review.Item(0).BuildAddPrice
+            txtBuildAddUnitPrice.Text = String.Format("{0:N2}", Obj_GetP70_Review.Item(0).BuildAddUintPrice)
+            txtBuildAddPrice.Text = String.Format("{0:N2}", Obj_GetP70_Review.Item(0).BuildAddPrice)
             txtBuildAddAge.Text = Obj_GetP70_Review.Item(0).BuildAddAge
             txtBuildAddPersent1.Text = Obj_GetP70_Review.Item(0).BuildAddPersent1
             txtBuildAddPersent2.Text = Obj_GetP70_Review.Item(0).BuildAddPersent2
             txtBuildAddPersent3.Text = Obj_GetP70_Review.Item(0).BuildAddPersent3
             txtBuildAddTotalDeteriorate.Text = Obj_GetP70_Review.Item(0).BuildAddPriceTotalDeteriorate
+            txtBuildAddPriceTotalDeteriorate.Text = String.Format("{0:N2}", (CDec(txtBuildAddPrice.Text) * CDec(txtBuildAddTotalDeteriorate.Text)) / 100)
             txtBuildingDetail.Text = Obj_GetP70_Review.Item(0).BuildingDetail
             ddlInteriorState.SelectedValue = Obj_GetP70_Review.Item(0).Decoration
-
             Dim Obj_P3_70DR As List(Of ClsPrice3_70_Detail) = GET_PRICE3_70_DETAIL_REVIEW(lblId.Text, lblReq_Id.Text, lblHub_Id.Text, lblTemp_AID.Text, 0)
             If Obj_P3_70DR.Count > 0 Then
                 chkDetail.Checked = True
@@ -80,8 +81,8 @@ Partial Class Appraisal_Price3_70_Review_Edit
                 txtBuild_State_Detail.Text, txtBuilding_Detail.Text, CDbl(txtPriceTotal1.Text), _
                 chkDoc1.Checked, chkDoc2.Checked, txtDoc_Detail.Text, String.Empty, txtChanodeNo.Text, txtOwnership.Text, CDbl(txtBuildingArea.Text), CDbl(txtBuildingUnitPrice.Text), _
                 CDbl(txtBuildingPrice.Text), CDbl(txtBuildingAge.Text), CDbl(txtBuildingPersent1.Text), CDbl(txtBuildingPersent2.Text), CDbl(txtBuildingPersent3.Text), _
-                CDbl(txtBuildingPriceTotalDeteriorate.Text), CDbl(txtBuildAddArea.Text), CDbl(txtBuildAddUnitPrice.Text), CDbl(txtBuildAddPrice.Text), _
-                CInt(txtBuildAddAge.Text), CDbl(txtBuildAddPersent1.Text), CDbl(txtBuildAddPersent2.Text), CDbl(txtBuildAddPersent3.Text), CDbl(txtBuildAddPriceTotalDeteriorate.Text), _
+                CDbl(txtBuildingTotalDeteriorate.Text), CDbl(txtBuildAddArea.Text), CDbl(txtBuildAddUnitPrice.Text), CDbl(txtBuildAddPrice.Text), _
+                CInt(txtBuildAddAge.Text), CDbl(txtBuildAddPersent1.Text), CDbl(txtBuildAddPersent2.Text), CDbl(txtBuildAddPersent3.Text), CDbl(txtBuildAddTotalDeteriorate.Text), _
                 txtBuildingDetail.Text, ddlInteriorState.SelectedValue, lbluserid.Text, Now())
     End Sub
 
@@ -93,10 +94,6 @@ Partial Class Appraisal_Price3_70_Review_Edit
         Context.Items("AID") = hdfAID.Value
         Context.Items("Cif") = hdfCif.Value
         Server.Transfer("Appraisal_Price3_Form_Review.Aspx")
-    End Sub
-
-    Protected Sub txtBuildingUnitPrice_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtBuildingUnitPrice.TextChanged
-        txtBuildingPrice.Text = CDbl(txtBuildingArea.Text) * CDbl(txtBuildingUnitPrice.Text)
     End Sub
 
     Protected Sub btnAddPartTake_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnAddPartTake.Click
@@ -129,4 +126,80 @@ Partial Class Appraisal_Price3_70_Review_Edit
         Context.Items("User_ID") = lbluserid.Text
         Server.Transfer("Appraisal_Price3_70_Review_Print.aspx")
     End Sub
+
+    Protected Sub txtBuildingTotalDeteriorate_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtBuildingTotalDeteriorate.TextChanged
+        Dim TotPersent As Decimal
+        TotPersent = CInt(txtBuildingAge.Text) * (CDec(txtBuildingPersent1.Text) + CDec(txtBuildingPersent2.Text) + CDec(txtBuildingPersent1.Text))
+    End Sub
+
+    Protected Sub txtBuildingArea_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtBuildingArea.TextChanged
+        If txtBuildingArea.Text = String.Empty Or txtBuildingUnitPrice.Text = String.Empty Then
+            Exit Sub
+        Else
+            txtBuildingPrice.Text = String.Format("{0:N2}", CDec(txtBuildingArea.Text) * CDec(txtBuildingUnitPrice.Text))
+        End If
+    End Sub
+
+    Protected Sub txtBuildingUnitPrice_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtBuildingUnitPrice.TextChanged
+        If txtBuildingArea.Text = String.Empty Or txtBuildingUnitPrice.Text = String.Empty Then
+            Exit Sub
+        Else
+            txtBuildingPrice.Text = String.Format("{0:N2}", CDec(txtBuildingArea.Text) * CDec(txtBuildingUnitPrice.Text))
+        End If
+    End Sub
+
+    Protected Sub txtBuildingAge_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtBuildingAge.TextChanged
+        If txtBuildingAge.Text = String.Empty Or txtBuildingPersent1.Text = String.Empty Or txtBuildingPersent2.Text = String.Empty Or txtBuildingPersent3.Text = String.Empty Then
+            Exit Sub
+        Else
+            txtBuildingTotalDeteriorate.Text = CInt(txtBuildingAge.Text) * (CDec(txtBuildingPersent1.Text) + CDec(txtBuildingPersent2.Text) + CDec(txtBuildingPersent3.Text))
+            txtBuildingPriceTotalDeteriorate.Text = String.Format("{0:N2}", (CDec(txtBuildingPrice.Text) * CDec(txtBuildingTotalDeteriorate.Text)) / 100)
+        End If
+    End Sub
+
+    Protected Sub txtBuildingPersent3_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtBuildingPersent3.TextChanged
+        If txtBuildingAge.Text = String.Empty Or txtBuildingPersent1.Text = String.Empty Or txtBuildingPersent2.Text = String.Empty Or txtBuildingPersent3.Text = String.Empty Then
+            Exit Sub
+        Else
+            txtBuildingTotalDeteriorate.Text = CInt(txtBuildingAge.Text) * (CDec(txtBuildingPersent1.Text) + CDec(txtBuildingPersent2.Text) + CDec(txtBuildingPersent3.Text))
+            txtBuildingPriceTotalDeteriorate.Text = String.Format("{0:N2}", (CDec(txtBuildingPrice.Text) * CDec(txtBuildingTotalDeteriorate.Text)) / 100)
+        End If
+    End Sub
+
+    Protected Sub txtBuildingPersent1_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtBuildingPersent1.TextChanged
+        If txtBuildingAge.Text = String.Empty Or txtBuildingPersent1.Text = String.Empty Or txtBuildingPersent2.Text = String.Empty Or txtBuildingPersent3.Text = String.Empty Then
+            Exit Sub
+        Else
+            txtBuildingTotalDeteriorate.Text = CInt(txtBuildingAge.Text) * (CDec(txtBuildingPersent1.Text) + CDec(txtBuildingPersent2.Text) + CDec(txtBuildingPersent3.Text))
+            txtBuildingPriceTotalDeteriorate.Text = String.Format("{0:N2}", (CDec(txtBuildingPrice.Text) * CDec(txtBuildingTotalDeteriorate.Text)) / 100)
+        End If
+    End Sub
+
+    Protected Sub txtBuildingPersent2_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtBuildingPersent2.TextChanged
+        If txtBuildingAge.Text = String.Empty Or txtBuildingPersent1.Text = String.Empty Or txtBuildingPersent2.Text = String.Empty Or txtBuildingPersent3.Text = String.Empty Then
+            Exit Sub
+        Else
+            txtBuildingTotalDeteriorate.Text = CInt(txtBuildingAge.Text) * (CDec(txtBuildingPersent1.Text) + CDec(txtBuildingPersent2.Text) + CDec(txtBuildingPersent3.Text))
+            txtBuildingPriceTotalDeteriorate.Text = String.Format("{0:N2}", (CDec(txtBuildingPrice.Text) * CDec(txtBuildingTotalDeteriorate.Text)) / 100)
+        End If
+    End Sub
+
+    Protected Sub txtBuildAddArea_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtBuildAddArea.TextChanged
+        If txtBuildAddAge.Text = String.Empty Or txtBuildAddPersent1.Text = String.Empty Or txtBuildAddPersent2.Text = String.Empty Or txtBuildAddPersent3.Text = String.Empty Then
+            Exit Sub
+        Else
+            txtBuildingTotalDeteriorate.Text = CInt(txtBuildAddAge.Text) * (CDec(txtBuildAddPersent1.Text) + CDec(txtBuildAddPersent2.Text) + CDec(txtBuildingPersent3.Text))
+            txtBuildAddPriceTotalDeteriorate.Text = String.Format("{0:N2}", (CDec(txtBuildAddPrice.Text) * CDec(txtBuildAddTotalDeteriorate.Text)) / 100)
+        End If
+    End Sub
+
+    Protected Sub txtBuildAddUnitPrice_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtBuildAddUnitPrice.TextChanged
+        If txtBuildAddAge.Text = String.Empty Or txtBuildAddPersent1.Text = String.Empty Or txtBuildAddPersent2.Text = String.Empty Or txtBuildAddPersent3.Text = String.Empty Then
+            Exit Sub
+        Else
+            txtBuildingTotalDeteriorate.Text = CInt(txtBuildAddAge.Text) * (CDec(txtBuildAddPersent1.Text) + CDec(txtBuildAddPersent2.Text) + CDec(txtBuildingPersent3.Text))
+            txtBuildAddPriceTotalDeteriorate.Text = String.Format("{0:N2}", (CDec(txtBuildAddPrice.Text) * CDec(txtBuildAddTotalDeteriorate.Text)) / 100)
+        End If
+    End Sub
+
 End Class

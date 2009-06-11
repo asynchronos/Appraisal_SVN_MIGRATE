@@ -221,7 +221,7 @@
                 <td>
                     <asp:DropDownList ID="ddlInteriorState" runat="server" 
                         DataSourceID="SDSInterior_State" DataTextField="InteriorState_Name" 
-                        DataValueField="InteriorState_Id">
+                        DataValueField="InteriorState_Id" BackColor="#FFFF66">
                     </asp:DropDownList>
                 </td>
             </tr>              
@@ -285,19 +285,22 @@
                     พื้นที่สิ่งปลูกสร้างทั้งหมด</td>
                 <td class="style8">
                     <cc1:mytext ID="txtBuildingArea" runat="server" AllowUserKey="num_Numeric" 
-                        EnableTextAlignRight="True" MaxLength="4" Width="35px" BackColor="#FFFF66">0</cc1:mytext>
+                        EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66" 
+                        AutoPostBack="True">0</cc1:mytext>
                     ตรม.</td>
                 <td class="style5">
                     ราคาต่อหน่วย</td>
                 <td class="style19">
                     <cc1:mytext ID="txtBuildingUnitPrice" runat="server" AllowUserKey="num_Numeric" 
-                        EnableTextAlignRight="True" Width="110px" BackColor="#FFFF66">0.00</cc1:mytext>
+                        EnableTextAlignRight="True" Width="110px" BackColor="#FFFF66" 
+                        AutoCurrencyFormatOnKeyUp="True" AutoPostBack="True">0.00</cc1:mytext>
                     บาท</td>
                 <td class="style14">
                     มูลค่า</td>
                 <td>
                     <cc1:mytext ID="txtBuildingPrice" runat="server" AllowUserKey="num_Numeric" 
-                        EnableTextAlignRight="True" Width="110px" BackColor="#FFFF66">0.00</cc1:mytext>
+                        EnableTextAlignRight="True" Width="110px" BackColor="#FFFF66" 
+                        AutoCurrencyFormatOnKeyUp="True" ReadOnly="True">0.00</cc1:mytext>
                     บาท</td>
             </tr>
             <tr>
@@ -305,19 +308,22 @@
                     อายุการใช้งาน</td>
                 <td class="style8">
                     <cc1:mytext ID="txtBuildingAge" runat="server" AllowUserKey="num_Numeric" 
-                        EnableTextAlignRight="True" MaxLength="2" Width="35px" BackColor="#FFFF66">0</cc1:mytext>
+                        EnableTextAlignRight="True" MaxLength="2" Width="35px" BackColor="#FFFF66" 
+                        AutoPostBack="True">0</cc1:mytext>
                     ปี</td>
                 <td class="style5">
                                         ค่าเสื่อมต่อปี</td>
                 <td class="style19">
                     <cc1:mytext ID="txtBuildingPersent1" runat="server" AllowUserKey="num_Numeric" 
-                        EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66">0</cc1:mytext>
+                        EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66" 
+                        AutoPostBack="True">0</cc1:mytext>
                     %</td>
                 <td class="style14">
                                         ค่าเสื่อมตามสภาพปรับปรุง</td>
                 <td>
                     <cc1:mytext ID="txtBuildingPersent2" runat="server" AllowUserKey="num_Numeric" 
-                        EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66">0</cc1:mytext>
+                        EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66" 
+                        AutoPostBack="True">0</cc1:mytext>
                     %</td>
             </tr>
             <tr>
@@ -325,19 +331,22 @@
                                         ค่าเสื่อมตามสภาพเสื่อมโทรม</td>
                 <td class="style8">
                     <cc1:mytext ID="txtBuildingPersent3" runat="server" AllowUserKey="num_Numeric" 
-                        EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66">0</cc1:mytext>
+                        EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66" 
+                        AutoPostBack="True">0</cc1:mytext>
                     %</td>
                 <td class="style5">
                     รวมค่าเสื่อม</td>
                 <td class="style19">
                     <cc1:mytext ID="txtBuildingTotalDeteriorate" runat="server" AllowUserKey="num_Numeric" 
-                        EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66">0</cc1:mytext>
+                        EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66" 
+                        ReadOnly="True">0</cc1:mytext>
                     %</td>
                 <td class="style14">
                     รวมค่าเสื่อมราคา</td>
                 <td>
                     <cc1:mytext ID="txtBuildingPriceTotalDeteriorate" runat="server" AllowUserKey="num_Numeric" 
-                        EnableTextAlignRight="True" Width="110px" BackColor="#FFFF66">0.00</cc1:mytext>
+                        EnableTextAlignRight="True" Width="110px" BackColor="#FFFF66" 
+                        AutoCurrencyFormatOnKeyUp="True" AutoPostBack="True" ReadOnly="True">0.00</cc1:mytext>
                     บาท</td>
             </tr>
             <tr>
@@ -345,7 +354,8 @@
                     ส่วนต่อเติม</td>
                 <td class="style8">
                     <cc1:mytext ID="txtBuildAddArea" runat="server" AllowUserKey="num_Numeric" 
-                        EnableTextAlignRight="True" MaxLength="4" Width="35px" BackColor="#FFFF66">0</cc1:mytext>
+                        EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66" 
+                        AutoPostBack="True">0</cc1:mytext>
                     ตรม.</td>
                 <td class="style5">
                     ราคาต่อหน่วย</td>
@@ -357,7 +367,8 @@
                     มูลค่า</td>
                 <td>
                     <cc1:mytext ID="txtBuildAddPrice" runat="server" AllowUserKey="num_Numeric" 
-                        EnableTextAlignRight="True" Width="110px" BackColor="#FFFF66">0.00</cc1:mytext>
+                        EnableTextAlignRight="True" Width="110px" BackColor="#FFFF66" 
+                        AutoCurrencyFormatOnKeyUp="True" AutoPostBack="True">0.00</cc1:mytext>
                     บาท</td>
             </tr>
             <tr>
@@ -365,20 +376,23 @@
                     อายุการใช้งาน</td>
                 <td class="style8">
                     <cc1:mytext ID="txtBuildAddAge" runat="server" AllowUserKey="num_Numeric" 
-                        EnableTextAlignRight="True" MaxLength="2" Width="35px" BackColor="#FFFF66">0</cc1:mytext>
+                        EnableTextAlignRight="True" MaxLength="2" Width="35px" BackColor="#FFFF66" 
+                        AutoPostBack="True">0</cc1:mytext>
                     ปี</td>
                 <td class="style5">
                                         ค่าเสื่อมต่อปี</td>
                 <td class="style19">
                     <cc1:mytext ID="txtBuildAddPersent1" runat="server" AllowUserKey="num_Numeric" 
-                        EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66">0</cc1:mytext>
+                        EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66" 
+                        AutoPostBack="True">0</cc1:mytext>
                     %</td>
                 <td class="style14">
                     ค่าเสื่อมตามสภาพปรับปรุง 
                 </td>
                 <td>
                     <cc1:mytext ID="txtBuildAddPersent2" runat="server" AllowUserKey="num_Numeric" 
-                        EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66">0</cc1:mytext>
+                        EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66" 
+                        AutoPostBack="True">0</cc1:mytext>
                     %</td>
             </tr>
             <tr>
@@ -386,19 +400,22 @@
                                         ค่าเสื่อมตามสภาพเสื่อมโทรม</td>
                 <td class="style8">
                     <cc1:mytext ID="txtBuildAddPersent3" runat="server" AllowUserKey="num_Numeric" 
-                        EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66">0</cc1:mytext>
+                        EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66" 
+                        AutoPostBack="True">0</cc1:mytext>
                     %</td>
                 <td class="style5">
                                         รวมค่าเสื่อม</td>
                 <td class="style19">
                     <cc1:mytext ID="txtBuildAddTotalDeteriorate" runat="server" AllowUserKey="num_Numeric" 
-                        EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66">0</cc1:mytext>
+                        EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66" 
+                        ReadOnly="True">0</cc1:mytext>
                     %</td>
                 <td class="style14">
                     รวมค่าเสื่อมราคา</td>
                 <td>
                     <cc1:mytext ID="txtBuildAddPriceTotalDeteriorate" runat="server" AllowUserKey="num_Numeric" 
-                        EnableTextAlignRight="True" Width="110px" BackColor="#FFFF66">0.00</cc1:mytext>
+                        EnableTextAlignRight="True" Width="110px" BackColor="#FFFF66" 
+                        ReadOnly="True">0.00</cc1:mytext>
                     บาท</td>
             </tr>
             <tr>

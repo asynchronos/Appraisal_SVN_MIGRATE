@@ -122,7 +122,7 @@
                     <ItemTemplate>
                         <asp:Label ID="lblCollateral_Key" runat="server" Text='<%# Bind("COLLATERAL_KEY") %>'></asp:Label>
                     </ItemTemplate>
-                </asp:TemplateField>  
+                </asp:TemplateField>                 
                 <asp:TemplateField HeaderText="APPRAISAL_DATE">
                     <EditItemTemplate>
                         <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("APPRAISAL_DATE") %>'></asp:TextBox>
@@ -158,7 +158,7 @@
                 <td class="style2">
                     CID</td>
                 <td class="style3">
-                    <asp:Label ID="lblCID" runat="server"></asp:Label>
+                    <asp:Label ID="lblCIDNo" runat="server"></asp:Label>
                 </td>
                 <td class="style4">
                     &nbsp;</td>
@@ -179,7 +179,8 @@
             </tr>
             <tr>
                 <td class="style2">
-                    เลขโฉนด</td>
+                    <asp:Label ID="lblAdd_No" runat="server" Text="เลขโฉนด"></asp:Label>
+                </td>
                 <td class="style3">
                     <asp:Label ID="lblChanode" runat="server"></asp:Label>
                 </td>
@@ -225,19 +226,22 @@
             </tr>
             <tr>
                 <td class="style2">
-                    จำนวนไร่</td>
+                    <asp:Label ID="Label1" runat="server" Text="จำนวนไร่"></asp:Label>
+                </td>
                 <td class="style3">
                     <asp:Label ID="lblRai" runat="server"></asp:Label>
                 </td>
                 <td class="style4">
-                    จำนวนงาน</td>
+                    <asp:Label ID="Label2" runat="server" Text="จำนวนงาน"></asp:Label>
+                </td>
                 <td>
                     <asp:Label ID="lblNgan" runat="server"></asp:Label>
                 </td>
             </tr>
             <tr>
                 <td class="style2">
-                    จำนวนวา</td>
+                    <asp:Label ID="Label3" runat="server" Text="จำนวนวา"></asp:Label>
+                </td>
                 <td class="style3">
                     <asp:Label ID="lblWah" runat="server"></asp:Label>
                 </td>

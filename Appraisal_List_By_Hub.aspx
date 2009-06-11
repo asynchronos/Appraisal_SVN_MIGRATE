@@ -3,7 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-    <asp:HiddenField ID="HiddenField1" runat="server" Value="4" />
+    <asp:HiddenField ID="HiddenField1" runat="server" Value="3" />
     <br />
     <br />
         <table>
@@ -47,7 +47,8 @@
             EmptyDataText="There are no data records to display." Width='100%' 
             BackColor="LightGoldenrodYellow" 
             BorderColor="Tan" BorderWidth="1px" CellPadding="2" ForeColor="Black" 
-            GridLines="None" ShowFooter="True" PageSize="15">
+            GridLines="None" ShowFooter="True" PageSize="15" 
+        style="font-size: small" AllowPaging="True">
             <FooterStyle BackColor="Tan" />
             <Columns>
                 <asp:TemplateField>
@@ -117,7 +118,13 @@
                     <ItemTemplate>
                         <asp:Button ID="btnOperation1" runat="server" Text="กำหนดราคาประเมินครั้งที่ 1" CommandName="Select"/>
                     </ItemTemplate>
-                </asp:TemplateField>                                                                                   
+                </asp:TemplateField>      
+            <asp:TemplateField HeaderText="">
+                <ItemTemplate>
+                    <asp:ImageButton ID="imgSearch" runat="server" ImageUrl="~/Images/find1.jpg"
+                        Height="22px" Width="22px" ToolTip="ค้นหา" CommandName="Select" OnClick="imgSearch_Click" />               
+                </ItemTemplate>
+            </asp:TemplateField>                                                                                             
             </Columns>
             <PagerStyle BackColor="PaleGoldenrod" ForeColor="DarkSlateBlue" 
                 HorizontalAlign="Center" />

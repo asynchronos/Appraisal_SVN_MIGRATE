@@ -4,7 +4,6 @@ Imports System.Xml
 Imports System.IO
 Imports System.Data
 Imports System.Data.SqlClient
-'Imports System.Data.OracleClient
 Imports Oracle.DataAccess.Client
 Imports Microsoft.Win32
 Imports System.Web.UI.HtmlControls
@@ -18,7 +17,7 @@ Imports System.Globalization.CultureInfo
 Imports SME_SERVICE
 Partial Class Appraisal_Form_Appraisal_FormRequest
     Inherits System.Web.UI.Page
-    Dim s As String
+    Dim s, StrNotice As String
 #Region "Variables"
     Dim gvUniqueID As String = String.Empty
     Dim gvNewPageIndex As Integer = 0
@@ -124,13 +123,13 @@ Partial Class Appraisal_Form_Appraisal_FormRequest
 
 #End Region
 
-    Protected Sub RadioButtonList1_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles RadioButtonList1.SelectedIndexChanged
-        If RadioButtonList1.SelectedValue = "1" Then
-            lblMessage.Text = "Cif ไม่จำเป็นต้องใส่ หากไม่ทราบ"
-        Else
-            lblMessage.Text = "Cif จำเป็นต้องใส่ ทุกครั้ง"
-        End If
-    End Sub
+    'Protected Sub RadioButtonList1_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles RadioButtonList1.SelectedIndexChanged
+    '    If RadioButtonList1.SelectedValue = "1" Then
+    '        lblMessage.Text = "Cif ไม่จำเป็นต้องใส่ หากไม่ทราบ"
+    '    Else
+    '        lblMessage.Text = "Cif จำเป็นต้องใส่ ทุกครั้ง"
+    '    End If
+    'End Sub
 
     Protected Sub cb1_Checked(ByVal sender As Object, ByVal e As System.EventArgs)
         Dim cb1 As CheckBox = sender
@@ -184,7 +183,19 @@ Partial Class Appraisal_Form_Appraisal_FormRequest
         Dim cph As ContentPlaceHolder = TryCast(Me.Form.FindControl("ContentPlaceHolder1"), ContentPlaceHolder)
         Dim lbluserid As Label = TryCast(Me.Form.FindControl("lblUserID"), Label) 'หา Control จาก Master Page ที่ control ไม่อยู่ใน  ContentPlaceHolder1
         Dim lblHub_id As Label = TryCast(Me.Form.FindControl("lblHub_Id"), Label)
-        If RadioButtonList1.SelectedValue = 1 Then
+        If TxtSender.Text = "" Then
+            s = "<script language=""javascript"">alert('คุณไม่มีรหัสผู้ให้ประเมิน กรุณากรอกรหัสผู้ให้ประเมินก่อน');</script>"
+            Page.ClientScript.RegisterStartupScript(Me.GetType, "Notice", s)
+            Exit Sub
+        End If
+        If TxtAppraisalName.Text = "" Then
+            s = "<script language=""javascript"">alert('คุณไม่มีชื่อผู้ให้ประเมิน กรุณากรอกชื่อผู้ให้ประเมินก่อน');</script>"
+            Page.ClientScript.RegisterStartupScript(Me.GetType, "Notice", s)
+            Exit Sub
+        End If
+
+
+        If ddlAppraisal_Method.SelectedValue = 1 Then
         Else
             If TxtCif.Text = "" Then
                 s = "<script language=""javascript"">alert('คุณไม่มีรหัสลูกหนี้ กรุณากรอกรหัสลูกหนี้ก่อน');</script>"
@@ -201,15 +212,17 @@ Partial Class Appraisal_Form_Appraisal_FormRequest
         If lblRequestID.Text <> String.Empty Then
             Dim dg As GridView = DirectCast(cph.FindControl("GridView_HubList"), GridView) 'FindControl("GridView_HubList")
             Dim gvr_master As GridViewRow
-            Appraisal_Manager.AddAppraisal_Request_Master(lblRequestID.Text, TxtCif.Text, ddlTitle.SelectedValue, TxtCifName.Text, TxtCifLastName.Text, ddlAppraisal_Method.SelectedValue, ddlAID.SelectedValue, 0, lbluserid.Text, Now)
+            Appraisal_Manager.AddAppraisal_Request_Master(lblRequestID.Text, TxtCif.Text, ddlTitle.SelectedValue, TxtCifName.Text, TxtCifLastName.Text, ddlAppraisal_Method.SelectedValue, ddlAID.SelectedValue, 0, TxtSender.Text, TxtAppraisalName.Text, lbluserid.Text, Now)
 
             For Each gvr_master In dg.Rows
                 Dim chk1 As CheckBox = gvr_master.FindControl("cb2")
                 Dim lblHubID As Label = gvr_master.FindControl("lblHUB_ID")
                 If chk1.Checked = True Then
-                    Appraisal_Manager.AddAppraisal_Request(lblRequestID.Text, lblHubID.Text, TxtCif.Text, ddlTitle.SelectedValue, TxtCifName.Text, TxtCifLastName.Text, ddlAppraisal_Method.SelectedValue, 0, lbluserid.Text, Now)
+                    AddAppraisal_Request(lblRequestID.Text, lblHubID.Text, TxtCif.Text, ddlTitle.SelectedValue, TxtCifName.Text, TxtCifLastName.Text, ddlAppraisal_Method.SelectedValue, 0, String.Empty, lbluserid.Text, Now)
                 End If
             Next
+            StrNotice = "<Script language=""javascript"">alert('บันทึกการส่งประเมินเสร็จสมบูรณ์');</Script>"
+            Page.ClientScript.RegisterStartupScript(Me.GetType, "Notice", StrNotice)
             Dim btnRequestId As Button = DirectCast(cph.FindControl("bntRequest_ID"), Button)
             btnRequestId.Enabled = True
             Dim imgBtnSave As ImageButton = DirectCast(cph.FindControl("imgBtnSave"), ImageButton)
@@ -222,7 +235,7 @@ Partial Class Appraisal_Form_Appraisal_FormRequest
         'กำหนดให้ไปเพิ่มหลักประกันในกรณีเป็นการทบทวนการประเมิน
         If ddlAppraisal_Method.SelectedValue >= 2 Then
             Context.Items("Req_Id") = lblRequestID.Text  'Request.QueryString("Req_Id")
-            Context.Items("Hub_Id") = lblHub_Id.Text 'Request.QueryString("Hub_Id")
+            Context.Items("Hub_Id") = lblHub_id.Text 'Request.QueryString("Hub_Id")
             Context.Items("Cif") = TxtCif.Text  'Request.QueryString("Cif")
             Context.Items("AID") = ddlAID.SelectedValue   'Request.QueryString("Aid")
             Server.Transfer("Appraisal_GetData_DWS.aspx")
@@ -231,21 +244,30 @@ Partial Class Appraisal_Form_Appraisal_FormRequest
     End Sub
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        If lblRequestID.Text = String.Empty Or lblRequestID.Text = "" Then
-            lblMessage.Text = "คุณยังไม่มีเลขคำขอประเมิน"
-            GridView_HubList.Enabled = False
-        Else
-            lblMessage.Text = ""
+        If Not Page.IsPostBack Then
+            If lblRequestID.Text = String.Empty Or lblRequestID.Text = "" Then
+                lblMessage.Text = "คุณยังไม่มีเลขคำขอประเมิน"
+                GridView_HubList.Enabled = False
+            Else
+                lblMessage.Text = ""
+            End If
         End If
+
     End Sub
 
     Protected Sub bntRequest_ID_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles bntRequest_ID.Click
         Dim cph As ContentPlaceHolder = TryCast(Me.Form.FindControl("ContentPlaceHolder1"), ContentPlaceHolder)
         Dim ds As DataSet
+        If TxtCifName.Text = String.Empty And TxtCifLastName.Text = String.Empty Then
+            s = "<script language=""javascript"">alert('คุณไม่ได้ใส่ชื่อ และ สกุล ลูกค้าประเมิน');</script>"
+            Page.ClientScript.RegisterStartupScript(Me.GetType, "รับเรื่องประเมิน", s)
+        ElseIf TxtSender.Text = String.Empty Or TxtAppraisalName.Text = String.Empty Then
+            s = "<script language=""javascript"">alert('คุณไม่มีชื่อผู้ให้ประเมิน กรุณากรอกชื่อผู้ให้ประเมินก่อน');</script>"
+            Page.ClientScript.RegisterStartupScript(Me.GetType, "Notice", s)
+        Else
         ds = GET_RequestID()
         If ds.Tables(0).Rows.Count > 0 Then
             lblRequestID.Text = ds.Tables(0).Rows.Item(0).Item("Req_ID")
-            'bntRequest_ID.Enabled = False
             Dim btnRequestId As Button = DirectCast(cph.FindControl("bntRequest_ID"), Button)
             btnRequestId.Enabled = False
         Else
@@ -263,6 +285,8 @@ Partial Class Appraisal_Form_Appraisal_FormRequest
             Dim imgBtnSave As ImageButton = DirectCast(cph.FindControl("imgBtnSave"), ImageButton)
             imgBtnSave.Enabled = True
         End If
+        End If
+
     End Sub
 
     Protected Sub ImgBtFindCif_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs) Handles ImgBtFindCif.Click
@@ -272,25 +296,39 @@ Partial Class Appraisal_Form_Appraisal_FormRequest
             Dim cus_class As Customer_Class
             Dim SV As New SME_SERVICE.Service
             'Dim cif As Integer
+            Try
+                If SV.GetCifInfo(TxtCif.Text)(0) Is Nothing Then
 
-            cus_class = SV.GetCifInfo(TxtCif.Text)(0)
-            'ถ้า cif ที่ส่งมาไม่เท่ากับ 0 ให้ใส่ข้อมูลลูกค้าใส่ในคอนโทรลที่กำหนดให้
-            If cus_class.Cif.ToString <> 0 Then
-                TxtCifName.Text = cus_class.cus_first
-                TxtCifLastName.Text = cus_class.cus_last
-                'Get_AID_BY_CIF()
-                GET_AID_BY_CIFNEW()
-            Else
-                'ถ้า cif ที่ส่งมาเท่ากับ 0 ให้ Clear ค่า  ในคอนโทรล
-                Dim l As New Label
-                'MessageBox("Format Exception: " & ex.Message)
-                l.Text = SV.MSb("ค้นหาข้อมูลลูกค้าไม่พบ ")
-                Page.Controls.Add(l)
+                Else
+                    cus_class = SV.GetCifInfo(TxtCif.Text)(0)
 
+                    'ถ้า cif ที่ส่งมาไม่เท่ากับ 0 ให้ใส่ข้อมูลลูกค้าใส่ในคอนโทรลที่กำหนดให้
+                    If cus_class.Cif.ToString <> 0 Then
+                        'ใช้คำนำหน้าชื่อที่ได้จาก Customer มาหา ID Title
+                        ddlTitle.SelectedIndex = ddlTitle.Items.IndexOf(ddlTitle.Items.FindByText(cus_class.Cus_Title))
+                        TxtCifName.Text = cus_class.cus_first
+                        TxtCifLastName.Text = cus_class.cus_last
+                        'Get_AID_BY_CIF()
+                        If ddlAppraisal_Method.SelectedValue = 2 Then
+                            GET_AID_BY_CIFNEW()
+                        End If
+                    Else
+                        'ถ้า cif ที่ส่งมาเท่ากับ 0 ให้ Clear ค่า  ในคอนโทรล
+                        Dim l As New Label
+                        'MessageBox("Format Exception: " & ex.Message)
+                        l.Text = SV.MSb("ค้นหาข้อมูลลูกค้าไม่พบ ")
+                        Page.Controls.Add(l)
+
+                        TxtCifName.Text = ""
+                        TxtCifLastName.Text = ""
+                    End If
+                End If
+            Catch ex As Exception
+                Beep()
+                lblMessage.Text = "ไม่มี รหัสลูกหนี้นี้อยู่บนระบบ"
                 TxtCifName.Text = ""
                 TxtCifLastName.Text = ""
-            End If
-
+            End Try
         End If
     End Sub
 
@@ -393,4 +431,32 @@ Partial Class Appraisal_Form_Appraisal_FormRequest
             conn.Dispose()
         End Try
     End Sub
+
+    'Protected Sub ImgBtFindEmp_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs) Handles ImgBtFindEmp.Click
+    '    Dim Emp_class As Employee_Info
+    '    Dim SV As New SME_SERVICE.Service
+
+    '    If TxtSender.Text = String.Empty Then
+    '        s = "<script language=""javascript"">alert('คุณยังไม่ใส่รหัสผู้ขอให้ประเมิน');</script>"
+    '        Page.ClientScript.RegisterStartupScript(Me.GetType, "รับเรื่องประเมิน", s)
+    '    Else
+    '        Emp_class = SV.GetEmployee_Info(TxtSender.Text)(0)
+    '        If Emp_class.EmpId.ToString <> 0 Then
+    '            TxtAppraisalName.Text = Emp_class.EmpName
+    '        Else
+    '            s = "<script language=""javascript"">alert('ไม่พบรหัสผู้ขอให้ประเมินบนฐานข้อมูล');</script>"
+    '            Page.ClientScript.RegisterStartupScript(Me.GetType, "รับเรื่องประเมิน", s)
+    '            TxtSender.Text = String.Empty
+    '            TxtAppraisalName.Text = String.Empty
+    '        End If
+    '    End If
+
+    'End Sub
+
+    Protected Sub ImgBtSearchEmp_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs) Handles ImgBtSearchEmp.Click
+        Dim myScript As String
+        myScript = "<script>" + "window.open('Search_Employee.aspx?empid=" & TxtSender.ClientID & "&empname=" & TxtAppraisalName.ClientID & "','window','toolbar=no, menubar=no, scrollbars=yes, resizable=no,location=no, directories=no, status=yes,height=550px,width=650px');</script>"
+        Page.ClientScript.RegisterStartupScript(Me.GetType, "Search", myScript)
+    End Sub
+
 End Class

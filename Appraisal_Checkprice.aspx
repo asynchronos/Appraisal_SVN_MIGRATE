@@ -22,26 +22,31 @@
                     </ItemTemplate>
                 </asp:TemplateField> --%>
             <asp:TemplateField HeaderText="Req No.">
+            <ItemStyle Width="50px" />
                 <ItemTemplate>
                     <asp:Label ID="lblReq_id" runat="server" Text='<%# Bind("Req_Id") %>'></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
             <asp:TemplateField HeaderText="Hub ID">
+            <ItemStyle Width="50px" />
                 <ItemTemplate>
                     <asp:Label ID="lblHub_Id" runat="server" Text='<%# Bind("Hub_Id") %>'></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
             <asp:TemplateField HeaderText="Hub Name">
+            <ItemStyle Width="200px" />
                 <ItemTemplate>
                     <asp:Label ID="lblHub_Name" runat="server" Text='<%# Bind("Hub_Name") %>'></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
             <asp:TemplateField HeaderText="Cif">
+            <ItemStyle Width="100px" />
                 <ItemTemplate>
                     <asp:Label ID="lblCif" runat="server" Text='<%# Bind("Cif") %>'></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
             <asp:TemplateField HeaderText="Cif Name">
+            <ItemStyle Width="210px" />
                 <ItemTemplate>
                     <asp:Label ID="Label3" runat="server" Text='<%# Bind("CifName") %>'></asp:Label>
                 </ItemTemplate>
@@ -68,6 +73,7 @@
                 </ItemTemplate>
             </asp:TemplateField>                                    
             <asp:TemplateField HeaderText="ชื่อผู้ส่งประเมิน">
+            <ItemStyle Width="210px" />
                 <ItemTemplate>
                     <asp:Label ID="LabelEmp_Name" runat="server" Text='<%# Bind("Sender_Name") %>'></asp:Label>
                 </ItemTemplate>
@@ -79,13 +85,21 @@
                 </ItemTemplate>
             </asp:TemplateField>
             <asp:TemplateField HeaderText="">
-                <ItemStyle Width="25px" />
+                <ItemStyle Width="25px" HorizontalAlign="Center" />
                 <ItemTemplate>
                     <asp:ImageButton ID="imgEditPosition" runat="server" 
                         ImageUrl="~/Images/houses.png" Height="22px" Width="22px" 
-                        ToolTip="ดูแผนที่" CommandName="Select" OnClick="imgEditPosition_Click" />
+                        ToolTip="แผนที่" CommandName="Select" OnClick="imgEditPosition_Click" />
                 </ItemTemplate>                              
-            </asp:TemplateField>              
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="">
+                <ItemStyle Width="25px" HorizontalAlign="Center" />
+                <ItemTemplate>
+                    <asp:ImageButton ID="imgCollPic" runat="server" 
+                        ImageUrl="~/Images/camera2.png" Height="22px" Width="22px" 
+                        ToolTip="รูปหลักประกัน" CommandName="Select" OnClick="imgCollPic_Click" />
+                </ItemTemplate>                              
+            </asp:TemplateField>                              
             <%--                <asp:HyperLinkField DataNavigateUrlFields="Req_Id,Hub_Id" 
                     DataNavigateUrlFormatString="Appraisal_Assign_Update_Job.aspx?Req_Id={0}&amp;Hub_Id={1}" 
                     HeaderText="Edit" Text="Edit" />--%>

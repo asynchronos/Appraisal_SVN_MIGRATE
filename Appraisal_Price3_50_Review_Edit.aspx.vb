@@ -2,6 +2,7 @@
 
 Partial Class Appraisal_Price3_50_Review_Edit
     Inherits System.Web.UI.Page
+    Dim s As String
 
     Private Sub Show_Price3_50_Review()
         Dim Obj_GetP50_Review As List(Of Price3_50_Review) = GET_PRICE3_50_REVIEW(lblReq_Id.Text, lblHub_Id.Text, lblId.Text)
@@ -32,6 +33,7 @@ Partial Class Appraisal_Price3_50_Review_Edit
             ddlBinifit.SelectedValue = Obj_GetP50_Review.Item(0).Binifit
             txtBinifit.Text = Obj_GetP50_Review.Item(0).Binifit_Detail
             ddlTendency.SelectedValue = Obj_GetP50_Review.Item(0).Tendency
+            'ddlSubUnit.SelectedValue = Obj_GetP50_Review.Item(0).SubUnit
             ddlBuySale_State.SelectedValue = Obj_GetP50_Review.Item(0).BuySale_State
             txtPriceWah.Text = Format(Obj_GetP50_Review.Item(0).PriceWah, "#,##0.00")
             txtTotal.Text = Format(Obj_GetP50_Review.Item(0).PriceTotal1, "#,##0.00")
@@ -66,11 +68,11 @@ Partial Class Appraisal_Price3_50_Review_Edit
     Protected Sub ImageSave_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs) Handles ImageSave.Click
         Dim lbluserid As Label = TryCast(Me.Form.FindControl("lblUserID"), Label) 'หา Control จาก Master Page ที่ control ไม่อยู่ใน  ContentPlaceHolder1 ของ Master Page
         UPDATE_PRICE3_50_REVIEW(lblId.Text, CInt(lblReq_Id.Text), CInt(lblHub_Id.Text), lblTemp_AID.Text, CInt(DDLSubCollType.SelectedValue), txtChanode.Text, String.Empty, txtTumbon.Text, txtAmphur.Text, _
-                                                      ddlProvince.SelectedValue, CInt(txtRai.Text), CInt(txtNgan.Text), CInt(txtWah.Text), _
+                                                      ddlProvince.SelectedValue, CInt(txtRai.Text), CInt(txtNgan.Text), CDec(txtWah.Text), _
                                                       txtRoad.Text, CInt(ddlRoad_Detail.SelectedValue), CDec(txtMeter.Text), CInt(ddlRoad_Forntoff.SelectedValue), _
                                                       CDec(txtRoadWidth.Text), CInt(ddlSite.SelectedValue), CStr(txtSite_Detail.Text), CInt(ddlLand_State.SelectedValue), _
                                                       txtLand_State_Detail.Text, CInt(ddlPublic_Utility.SelectedValue), txtPublic_Utility_Detail.Text, CInt(ddlBinifit.SelectedValue), _
-                                                      txtBinifit.Text, CInt(ddlTendency.SelectedValue), CInt(ddlBuySale_State.SelectedValue), _
+                                                      txtBinifit.Text, CInt(ddlTendency.SelectedValue), CInt(ddlBuySale_State.SelectedValue), ddlSubUnit.SelectedValue, _
                                                       CInt(txtPriceWah.Text), CInt(txtTotal.Text), txtRaWang.Text, txtLandNumber.Text, txtSurway.Text, txtDocNo.Text, txtPage.Text, txtOwnerShip.Text, _
                                                       txtObligation.Text, txtLand_Closeto_RoadWidth.Text, txtDeepWidth.Text, txtBehindWidth.Text, ddlAreaColur.SelectedValue, lbluserid.Text, Now())
     End Sub
@@ -84,4 +86,89 @@ Partial Class Appraisal_Price3_50_Review_Edit
         Context.Items("Cif") = lblCif.Text
         Server.Transfer("Appraisal_Price3_Form_Review.Aspx")
     End Sub
+
+    Protected Sub txtPriceWah_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtPriceWah.TextChanged
+        Dim TotalWah As Double = 0
+        If txtRai.Text = String.Empty Then
+            txtRai.Text = "0"
+        End If
+        If txtNgan.Text = String.Empty Then
+            txtNgan.Text = "0"
+        End If
+        If txtWah.Text = String.Empty Then
+            txtWah.Text = "0"
+        End If
+
+        If txtRai.Text = "0" And txtNgan.Text = "0" And txtWah.Text = "0" Then
+            s = "<script language=""javascript"">alert('ไม่มีพื้นที่ให้คำนวณราคา');</script>"
+            Page.ClientScript.RegisterStartupScript(Me.GetType, "รับเรื่องประเมิน", s)
+        Else
+            TotalWah = (CDec(txtRai.Text) * 400) + (CDec(txtNgan.Text) * 100) + CDec(txtWah.Text)
+            txtTotal.Text = String.Format("{0:N2}", TotalWah * CDec(txtPriceWah.Text))
+        End If
+    End Sub
+
+    Protected Sub txtRai_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtRai.TextChanged
+        Dim TotalWah As Double = 0
+        If txtRai.Text = String.Empty Then
+            txtRai.Text = "0"
+        End If
+        If txtNgan.Text = String.Empty Then
+            txtNgan.Text = "0"
+        End If
+        If txtWah.Text = String.Empty Then
+            txtWah.Text = "0"
+        End If
+
+        If txtRai.Text = "0" And txtNgan.Text = "0" And txtWah.Text = "0" Then
+            s = "<script language=""javascript"">alert('ไม่มีพื้นที่ให้คำนวณราคา');</script>"
+            Page.ClientScript.RegisterStartupScript(Me.GetType, "รับเรื่องประเมิน", s)
+        Else
+            TotalWah = (CDec(txtRai.Text) * 400) + (CDec(txtNgan.Text) * 100) + CDec(txtWah.Text)
+            txtTotal.Text = String.Format("{0:N2}", TotalWah * CDec(txtPriceWah.Text))
+        End If
+    End Sub
+
+    Protected Sub txtNgan_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtNgan.TextChanged
+        Dim TotalWah As Double = 0
+        If txtRai.Text = String.Empty Then
+            txtRai.Text = "0"
+        End If
+        If txtNgan.Text = String.Empty Then
+            txtNgan.Text = "0"
+        End If
+        If txtWah.Text = String.Empty Then
+            txtWah.Text = "0"
+        End If
+
+        If txtRai.Text = "0" And txtNgan.Text = "0" And txtWah.Text = "0" Then
+            s = "<script language=""javascript"">alert('ไม่มีพื้นที่ให้คำนวณราคา');</script>"
+            Page.ClientScript.RegisterStartupScript(Me.GetType, "รับเรื่องประเมิน", s)
+        Else
+            TotalWah = (CDec(txtRai.Text) * 400) + (CDec(txtNgan.Text) * 100) + CDec(txtWah.Text)
+            txtTotal.Text = String.Format("{0:N2}", TotalWah * CDec(txtPriceWah.Text))
+        End If
+    End Sub
+
+    Protected Sub txtWah_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtWah.TextChanged
+        Dim TotalWah As Double = 0
+        If txtRai.Text = String.Empty Then
+            txtRai.Text = "0"
+        End If
+        If txtNgan.Text = String.Empty Then
+            txtNgan.Text = "0"
+        End If
+        If txtWah.Text = String.Empty Then
+            txtWah.Text = "0"
+        End If
+
+        If txtRai.Text = "0" And txtNgan.Text = "0" And txtWah.Text = "0" Then
+            s = "<script language=""javascript"">alert('ไม่มีพื้นที่ให้คำนวณราคา');</script>"
+            Page.ClientScript.RegisterStartupScript(Me.GetType, "รับเรื่องประเมิน", s)
+        Else
+            TotalWah = (CDec(txtRai.Text) * 400) + (CDec(txtNgan.Text) * 100) + CDec(txtWah.Text)
+            txtTotal.Text = String.Format("{0:N2}", TotalWah * CDec(txtPriceWah.Text))
+        End If
+    End Sub
+
 End Class
