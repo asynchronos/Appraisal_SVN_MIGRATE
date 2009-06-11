@@ -90,4 +90,12 @@ Partial Class Appraisal_Price3_Add_Colltype70Detail
         Response.Redirect("Appraisal_Price3_List.aspx")
     End Sub
 
+    Protected Sub ImgBack_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs) Handles ImgBack.Click
+        Context.Items("Req_Id") = HiddenField1.Value
+        Context.Items("Hub_Id") = HiddenField2.Value
+        Context.Items("Temp_AID") = HiddenField3.Value
+        Context.Items("ID") = HiddenField4.Value
+        Context.Items("Coll_Type") = "70"
+        Server.Transfer("Appraisal_Price3_Add_Colltype70.aspx")
+    End Sub
 End Class

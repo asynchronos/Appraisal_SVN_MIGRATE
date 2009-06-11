@@ -64,8 +64,14 @@
             // Just in case left and top are ignored
             win.moveTo(wleft, wtop);
             win.focus();
-        }    
-               
+        }
+
+        function ConfirmOnDelete(item) {
+            if (confirm("คุณยืนยันที่จะลบ: " + item + " ใช่หรือไม่ ?") == true)
+                return true;
+            else
+                return false;
+        }               
      </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
@@ -143,6 +149,14 @@
                 </ItemTemplate>
             </asp:TemplateField>
             <asp:TemplateField HeaderText="">
+                <ItemStyle Width="25px" />
+                <ItemTemplate>
+                    <asp:ImageButton ID="imgPrint2View" runat="server" 
+                        ImageUrl="~/Images/search.ico" Height="22px" Width="22px" 
+                        ToolTip="ฟอร์มอย่างย่อราคาที่ 2" CommandName="Select" OnClick="imgPrint2View_Click" />
+                </ItemTemplate>
+            </asp:TemplateField>              
+            <asp:TemplateField HeaderText="">
             <ItemStyle Width="25px" />
                 <ItemTemplate>
                     <asp:ImageButton ID="imgaddplus" runat="server" 
@@ -157,7 +171,15 @@
                         ImageUrl="~/Images/find1.jpg" Height="22px" Width="22px" 
                         ToolTip="ดูผลก่อนพิมพ์" CommandName="Select" OnClick="imgPrintPreview_Click" />
                 </ItemTemplate>
-            </asp:TemplateField>                            
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="">
+                <ItemStyle Width="25px" />
+                <ItemTemplate>
+                    <asp:ImageButton ID="imgAddColl" runat="server" 
+                        ImageUrl="~/Images/add_plus.jpg" Height="22px" Width="22px" 
+                        ToolTip="เพิ่มชิ้นหลักประกัน" CommandName="Select" OnClick="imgAddColl_Click" />
+                </ItemTemplate>
+            </asp:TemplateField>                                           
             <asp:TemplateField>
                 <ItemTemplate>
                     <tr>
@@ -168,9 +190,12 @@
                                         AllowSorting="True" AutoGenerateColumns="False" BackColor="#EEEEDD" 
                                         BorderColor="#0083C1" BorderStyle="Double" DataKeyNames="Temp_AID" 
                                         Font-Names="Verdana" Font-Size="Small" GridLines="None" 
+                                        OnRowDataBound="GridView2_RowDataBound"
                                         OnPageIndexChanging="GridView2_PageIndexChanging" 
                                         OnSelectedIndexChanging="GridView2_SelectedIndexChanging"
                                         OnSorting="GridView2_Sorting" 
+                                        OnRowDeleting = "GridView2_RowDeleting" 
+                                        OnRowDeleted = "GridView2_RowDeleted"
                                         OnRowCommand="GridView2_RowCommand" 
                                         ShowFooter="True" Width="100%">
                                     <HeaderStyle BackColor="#0083C1" ForeColor="White" />
@@ -207,12 +232,18 @@
                                                 <asp:Label ID="lblHUB_NAME" runat="server" Text='<%# Eval("HUB_NAME") %>'  ></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="ชนิดหลักประกัน">
-                                            <ItemStyle VerticalAlign="Middle" Width="100px" />
+                                        <asp:TemplateField HeaderText="หลักประกัน">
+                                            <ItemStyle VerticalAlign="Middle" Width="120px" />
                                             <ItemTemplate>
                                                 <asp:Label ID="lblColltype" runat="server" Text='<%# Eval("CollType_ID") %>'  ></asp:Label>
                                             </ItemTemplate>
-                                        </asp:TemplateField>                                        
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="ชื่อหลักประกัน">
+                                            <ItemStyle VerticalAlign="Middle" Width="200px" />
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblCollName" runat="server" Text='<%# Eval("SubCollType_Name") %>'  ></asp:Label>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>                                                                                  
                                         <asp:TemplateField HeaderText="Address_No">
                                             <ItemStyle VerticalAlign="Middle" Width="100px" />
                                             <ItemTemplate>
@@ -246,7 +277,7 @@
                                         <asp:TemplateField HeaderText="">
                                             <ItemStyle VerticalAlign="Middle" Width="30px" />
                                             <ItemTemplate>
-                                                <asp:ImageButton ID="ImgCancel" runat="server" ImageUrl="~/Images/cancel1.jpg" ToolTip="Cancel" Width="22px" Height="22px" CommandName="Select"  />              
+                                                <asp:ImageButton ID="ImgDelete" runat="server" ImageUrl="~/Images/cancel1.jpg" ToolTip="Delete" Width="22px" Height="22px" CommandName="Delete"  />              
                                             </ItemTemplate>
                                         </asp:TemplateField>                                        
                                     </Columns>

@@ -74,6 +74,7 @@
     <br />
     <asp:HiddenField ID="hdfHub_ID" runat="server" />
     <asp:HiddenField ID="hdfAppraisal_Method" runat="server" />
+    <asp:HiddenField ID="hdfTemp_AID" runat="server" />
     <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="AID,Req_ID"
         DataSourceID="sdsPriceList3_Review" EmptyDataText="There are no data records to display."
         Width='100%' BackColor="LightGoldenrodYellow" BorderColor="Tan" BorderWidth="1px"
@@ -109,11 +110,6 @@
                     <asp:Label ID="lblAID" runat="server" Text='<%# Bind("AID") %>'></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
-<%--            <asp:TemplateField HeaderText="TEMP AID">
-                <ItemTemplate>
-                    <asp:Label ID="lblTemp_AID" runat="server" Text='<%# Bind("Temp_AID") %>'></asp:Label>
-                </ItemTemplate>
-            </asp:TemplateField>--%>
             <asp:TemplateField HeaderText="Cif">
                 <ItemTemplate>
                     <asp:Label ID="lblCif" runat="server" Text='<%# Bind("Cif") %>'></asp:Label>
@@ -149,6 +145,8 @@
                 <ItemTemplate>
                     <asp:ImageButton ID="imgPrintPreview" runat="server" ImageUrl="~/Images/find1.jpg"
                         Height="22px" Width="22px" ToolTip="ดูผลก่อนพิมพ์" CommandName="Select" OnClick="imgPrintPreview_Click" />
+                    <asp:HiddenField ID="hdf_taid" runat="server" />
+                    <asp:HiddenField ID="hdfCollType" runat="server" />                    
                 </ItemTemplate>
             </asp:TemplateField>
             <asp:TemplateField HeaderText="">

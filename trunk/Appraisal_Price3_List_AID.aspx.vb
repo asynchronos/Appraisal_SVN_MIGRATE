@@ -43,7 +43,7 @@ Partial Class Appraisal_Price3_List_AID
 
         Dim conn As String = "server=172.19.54.2;Database=Appraisal;User ID=sa;Password=sa0123"
         dsTemp.ConnectionString = conn
-        strQRY = "SELECT Id,Temp_AID, Req_Id, Cif, CIFNAME, Hub_Id, HUB_NAME, Temp_AID, CollType_ID, MysubColl_ID, SubCollType_Name, Address_No, Tumbon, Amphur, Province,PROV_NAME, AID" _
+        strQRY = "SELECT Id,Temp_AID, Req_Id, Cif, CIFNAME, Hub_Id, HUB_NAME, CollType_ID, MysubColl_ID, SubCollType_Name, Address_No, Tumbon, Amphur, Province,PROV_NAME, AID" _
                  & " FROM View_Appraisal_Price3_Review WHERE AID = " & strAID & " AND Req_Id = " & ReqId & ""
         dsTemp.SelectCommand = strQRY
         Return dsTemp
@@ -52,9 +52,11 @@ Partial Class Appraisal_Price3_List_AID
 #Region "GridView1 Event Handlers"
 
     Protected Sub GridView1_RowDataBound(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.GridViewRowEventArgs) Handles GridView1.RowDataBound
+        Dim dv As DataView
         Dim row As GridViewRow = e.Row
         Dim strSort As String = String.Empty
-
+        Dim hdf_taid As HiddenField = e.Row.FindControl("hdf_taid")
+        Dim hdfCollType As HiddenField = e.Row.FindControl("hdfCollType")
         ' Make sure we aren't in header/footer rows 
         If row.DataItem Is Nothing Then
             Return
@@ -77,10 +79,22 @@ Partial Class Appraisal_Price3_List_AID
             ClientScript.RegisterStartupScript([GetType](), "Expand", "<SCRIPT LANGUAGE='javascript'>expandcollapse('div" + DirectCast(e.Row.DataItem, DataRowView)("AID").ToString() + "','one');</script>")
         End If
 
-        'Prepare the query for Child GridView by passing the Customer ID of the parent row 
-        gv.DataSource = ChildDataSource(DirectCast(e.Row.DataItem, DataRowView)("AID"), DirectCast(e.Row.DataItem, DataRowView)("Req_Id"), strSort)
-        'gv.DataSource = GET_PRICE3_DETAIL_LIST(DirectCast(e.Row.DataItem, DataRowView)("Temp_AID").ToString())
-        gv.DataBind()
+        If DirectCast(e.Row.DataItem, DataRowView)("AID").ToString <> String.Empty Then
+            'Prepare the query for Child GridView by passing the Customer ID of the parent row 
+
+            gv.DataSource = ChildDataSource(DirectCast(e.Row.DataItem, DataRowView)("AID"), DirectCast(e.Row.DataItem, DataRowView)("Req_Id"), strSort)
+            'หาค่าที่อยู่ใน ChildGrid
+            dv = CType(gv.DataSource.Select(DataSourceSelectArguments.Empty), Data.DataView)
+            If dv.Count > 0 Then
+                hdf_taid.Value = dv.Table.Rows(0)(1)
+                hdfCollType.Value = dv.Table.Rows(0)(7)
+                gv.DataBind()
+            End If
+
+        Else
+            MsgBox("ไม่มีรายการให้ทบทวนราคาประเมิน")
+        End If
+
 
     End Sub
 #End Region
@@ -97,7 +111,7 @@ Partial Class Appraisal_Price3_List_AID
     Protected Sub GridView2_RowDataBound(ByVal sender As Object, ByVal e As GridViewRowEventArgs)
 
         If e.Row.RowType = DataControlRowType.DataRow Then
-
+            hdfTemp_AID.Value = DirectCast(e.Row.DataItem, DataRowView)("Temp_AID")
             If DirectCast(e.Row.DataItem, DataRowView)("AID").ToString() = String.Empty Then
                 e.Row.Visible = False
             End If
@@ -132,9 +146,10 @@ Partial Class Appraisal_Price3_List_AID
                     Dim CollType_Id As Label = gvRow.FindControl("lblColltype")
                     Try
                         'ADD_PRICE3_MASTER_REVIEW()
+
                         ADD_PRICE3_REVIEW_ALL_TYPE(Id.Text, Req_Id.Text, Hub_Id.Text, Temp_AID.Text, CollType_Id.Text, lblUserid.Text)
                     Catch ex As Exception
-                        s = "<script language=""javascript"">alert('บันทึกผิดพลาด');</script>"
+                        s = "<script language=""javascript"">alert('บันทึกล้มเหลว');</script>"
                         Page.ClientScript.RegisterStartupScript(Me.GetType, "Notice", s)
                     End Try
 
@@ -205,10 +220,15 @@ Partial Class Appraisal_Price3_List_AID
         Dim Hub_Id As Label = ImgBtAdd.Parent.FindControl("lblHub_Id")
         Dim AID As Label = ImgBtAdd.Parent.FindControl("lblAID")
         Dim Cif As Label = ImgBtAdd.Parent.FindControl("lblCif")
+        Dim hdf_taid As HiddenField = ImgBtAdd.Parent.FindControl("hdf_taid")
+        Dim hdfCollType As HiddenField = ImgBtAdd.Parent.FindControl("hdfCollType")
+        'MsgBox(hdf_taid.Value)
         Context.Items("Req_Id") = Req_Id.Text
         Context.Items("Hub_Id") = Hub_Id.Text
         Context.Items("AID") = AID.Text
         Context.Items("Cif") = Cif.Text
+        Context.Items("Temp_AID") = hdf_taid.Value
+        Context.Items("CollType") = hdfCollType.Value
         Server.Transfer("Appraisal_Price3_Form_Review.aspx")
     End Sub
 

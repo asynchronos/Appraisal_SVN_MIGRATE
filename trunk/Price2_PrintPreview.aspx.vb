@@ -11,70 +11,131 @@ Imports Microsoft.Win32
 Imports System.Web.UI.HtmlControls
 Imports System.Web.UI.WebControls
 Imports System.Text
+Imports SME_SERVICE
+Imports ThaiBaht
 
 Partial Class Price2_PrintPreview
     Inherits System.Web.UI.Page
     Private Itemsddl As List(Of Dropdown_Pro)
     Private QID As Integer
+
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not Page.IsPostBack Then
-            QID = Request.QueryString("Q_ID")
-            lblYears.Text = Format(Now(), "dd/MM/yyyy")
-            Dim ds As DataSet
-            Dim count As Integer
-            ds = CreateDataset()
-            'MsgBox(ds.Tables(0).Rows.Count)
-            count = ds.Tables(0).Rows.Count
-            lblCif.Text = ds.Tables(0).Rows.Item(0).Item("cif")
-            lblCifName.Text = ds.Tables(0).Rows.Item(0).Item("cifname")
-            lblCollTypeName.Text = ds.Tables(0).Rows.Item(0).Item("SubCollType_Name")
-            lblBranchname.Text = ds.Tables(0).Rows.Item(0).Item("DepartName")
-            lblAddno.Text = ds.Tables(0).Rows.Item(0).Item("Address_No")
-            lblTumbon.Text = ds.Tables(0).Rows.Item(0).Item("tumbon")
-            lblAmphur.Text = ds.Tables(0).Rows.Item(0).Item("Amphur")
-            lblPrivinceName.Text = ds.Tables(0).Rows.Item(0).Item("Prov_Name")
-            lblSizeAll.Text = ds.Tables(0).Rows.Item(0).Item("size")
-            lblRoad.Text = ds.Tables(0).Rows.Item(0).Item("road")
-            lblRoad_Detail.Text = ds.Tables(0).Rows.Item(0).Item("road_Detail_Name")
-            lblMeter.Text = ds.Tables(0).Rows.Item(0).Item("Road_Access")
-            lblLand_State.Text = ds.Tables(0).Rows.Item(0).Item("Land_State_Name")
-            lblLand_State_Detail.Text = ds.Tables(0).Rows.Item(0).Item("Land_State_Detail")
-            lblRoad_Forntoff.Text = ds.Tables(0).Rows.Item(0).Item("Road_Frontoff_Name")
-            lblRoadWidth.Text = ds.Tables(0).Rows.Item(0).Item("Roadwidth")
-            lblSite.Text = ds.Tables(0).Rows.Item(0).Item("Site_Name")
-            lblSite_Detail.Text = ds.Tables(0).Rows.Item(0).Item("Site_Detail")
-            lbllPublic_Utility.Text = ds.Tables(0).Rows.Item(0).Item("Public_Utility_Name")
-            lbllPublic_Utility_Detail.Text = ds.Tables(0).Rows.Item(0).Item("Public_Utility_Detail")
-            lblBinifit.Text = ds.Tables(0).Rows.Item(0).Item("binifit_Name")
-            lblBinifit_Detail.Text = ds.Tables(0).Rows.Item(0).Item("binifit_Detail")
-            lblTendency.Text = ds.Tables(0).Rows.Item(0).Item("Tendency_Name")
-            lblBuySale_State.Text = ds.Tables(0).Rows.Item(0).Item("BuySale_State_Name")
-            lblBuild_No.Text = ds.Tables(0).Rows.Item(0).Item("Build_No")
-            lblBuild_Character.Text = ds.Tables(0).Rows.Item(0).Item("Build_Character_Name")
-            lblBuild_Floor.Text = ds.Tables(0).Rows.Item(0).Item("Floors")
-            lblItem.Text = ds.Tables(0).Rows.Item(0).Item("Item")
-            lblBuild_Construct.Text = ds.Tables(0).Rows.Item(0).Item("Build_Construct_Name")
-            lblRoof.Text = ds.Tables(0).Rows.Item(0).Item("Roof_Name")
-            lblDetail_Other.Text = ds.Tables(0).Rows.Item(0).Item("Roof_Detail")
-            lblBuild_State.Text = ds.Tables(0).Rows.Item(0).Item("Build_State_Name")
-            lblPriceItem1.Text = ds.Tables(0).Rows.Item(0).Item("PriceItem1")
-            lblPriceItem2.Text = ds.Tables(0).Rows.Item(0).Item("PriceItem2")
-            lblSize.Text = ds.Tables(0).Rows.Item(0).Item("sizing")
-            lblPriceWah.Text = ds.Tables(0).Rows.Item(0).Item("PriceWah")
-            lblTotal1.Text = ds.Tables(0).Rows.Item(0).Item("PriceTotal1")
-            lblBuilding_Detail.Text = (ds.Tables(0).Rows.Item(0).Item("Building_Detail"))
-            lblTotal2.Text = (ds.Tables(0).Rows.Item(0).Item("PriceTotal2"))
-            lblLand_Build.Text = (ds.Tables(0).Rows.Item(0).Item("Building_Detail"))
-            lblTotal3.Text = (ds.Tables(0).Rows.Item(0).Item("PriceTotal3"))
-            lblGrandTotal.Text = (ds.Tables(0).Rows.Item(0).Item("GrandTotal"))
-            lblAppraisalName.Text = (ds.Tables(0).Rows.Item(0).Item("AppraisalName"))
-            chkDoc1.Checked = (ds.Tables(0).Rows.Item(0).Item("Doc1"))
-            chkDoc2.Checked = (ds.Tables(0).Rows.Item(0).Item("Doc2"))
-            lblDocument_Detail.Text = (ds.Tables(0).Rows.Item(0).Item("Doc_Detail"))
+            Dim ObjP2_18 As List(Of PRICE2_18) = GET_PRICE2_18_FOR_PRINT(Context.Items("Req_Id"), Context.Items("Hub_Id"))
+            If ObjP2_18.Count > 0 Then
+                Dim ObjSubColl As List(Of Cls_SubCollType) = GET_SUBCOLLTYPE(ObjP2_18.Item(0).MysubColl_ID)
+                lblCollTypeName.Text = ObjSubColl.Item(0).SubCollType_Name
+                lblAddno.Text = ObjP2_18.Item(0).Address_No
+                lblTumbon.Text = ObjP2_18.Item(0).Tumbon
+                lblAmphur.Text = ObjP2_18.Item(0).Amphur
+                Dim ObjProvince As List(Of Cls_PROVINCE) = GET_PROVINCE_INFO(ObjP2_18.Item(0).Province)
+                lblProvinceName.Text = ObjProvince.Item(0).PROV_NAME
+                lblSizeAll.Text = ObjP2_18.Item(0).Room_Area
+                'lblSize.Text = ObjP2_18.Item(0).Room_Area
+                lblRoad.Text = ObjP2_18.Item(0).Road
+                Dim ObjRoadDetail As List(Of Cls_Road_Detail) = GET_ROAD_DETAIL_INFO(ObjP2_18.Item(0).Road_Detail)
+                lblRoad_Detail.Text = ObjRoadDetail.Item(0).Road_Detail_Name
+                lblMeter.Text = ObjP2_18.Item(0).Road_Access
+                'Dim ObjLandState As List(Of Cls_LandState) = GET_LANDSTATE_INFO(ObjP2_18.Item(0).)
+                lblLand_State.Text = "-"
+                'lblLand_State_Detail.Text = ObjP2_18.Item(0).Land_State_Detail
+                Dim ObjRoad_FrontOff As List(Of Cls_RoadFrontOff) = GET_ROADFRONTOFF_INFO(ObjP2_18.Item(0).Road_Frontoff)
+                lblRoad_Forntoff.Text = ObjRoad_FrontOff.Item(0).Road_Frontoff_Name
+                lblRoadWidth.Text = ObjP2_18.Item(0).RoadWidth
+                Dim ObjSite As List(Of Cls_SITE) = GET_SITE_INFO(ObjP2_18.Item(0).Site)
+                lblSite.Text = ObjSite.Item(0).Site_Name
+                lblSite_Detail.Text = ObjP2_18.Item(0).Site_Detail
+                Dim ObjBinifit As List(Of Cls_BINIFIT) = GET_BINIFIT_INFO(ObjP2_18.Item(0).Binifit)
+                lblBinifit.Text = ObjBinifit.Item(0).Binifit_Name
+                lblBinifit_Detail.Text = ObjP2_18.Item(0).Binifit_Detail
+                Dim ObjTendency As List(Of Cls_TENDENCY) = GET_TENDENCY_INFO(ObjP2_18.Item(0).Tendency)
+                lblTendency.Text = ObjTendency.Item(0).Tendency_Name
+                Dim ObjPublic As List(Of Cls_Public_Utility) = GET_PUBLIC_UTILITY_INFO(ObjP2_18.Item(0).Public_Utility)
+                lbllPublic_Utility.Text = ObjPublic.Item(0).Public_Utility_Name
+                Dim ObjBuysal As List(Of Cls_Buy_Sale_State) = GET_BUYSALE_STATE_INFO(ObjP2_18.Item(0).BuySale_State)
+                lblBuySale_State.Text = ObjBuysal.Item(0).BuySale_State_Name
+
+                'lblPriceWah.Text = String.Format("{0:N2}", ObjP2_18.Item(0).Unit_Price)
+                lblPriceItem1.Text = String.Format("{0:N2}", ObjP2_18.Item(0).PriceTotal)
+                'lblPriceItem2.Text = String.Format("{0:N2}", ObjP2_18.Item(0).PriceTotal)
+                'lblGrandTotal.Text = CDec(lblPriceItem1.Text) + CDec(lblPriceItem2.Text) + CDec(lblTotal1.Text) + CDec(lblTotal2.Text) + CDec(lblTotal3.Text)
+            End If
+            Dim ObjP2_50 As List(Of PRICE2_50) = GET_PRICE2_50_FOR_PRINT(Context.Items("Req_Id"), Context.Items("Hub_Id"))
+            If ObjP2_50.Count > 0 Then
+                Dim ObjSubColl As List(Of Cls_SubCollType) = GET_SUBCOLLTYPE(ObjP2_50.Item(0).MysubColl_ID)
+                lblCollTypeName.Text = ObjSubColl.Item(0).SubCollType_Name
+                lblAddno.Text = ObjP2_50.Item(0).Address_No
+                lblTumbon.Text = ObjP2_50.Item(0).Tumbon
+                lblAmphur.Text = ObjP2_50.Item(0).Amphur
+                Dim ObjProvince As List(Of Cls_PROVINCE) = GET_PROVINCE_INFO(ObjP2_50.Item(0).Province)
+                lblProvinceName.Text = ObjProvince.Item(0).PROV_NAME
+                lblSizeAll.Text = ObjP2_50.Item(0).Rai & "-" & ObjP2_50.Item(0).Ngan & "-" & ObjP2_50.Item(0).Wah
+                lblSize.Text = ObjP2_50.Item(0).Rai & "-" & ObjP2_50.Item(0).Ngan & "-" & ObjP2_50.Item(0).Wah
+                lblRoad.Text = ObjP2_50.Item(0).Road
+                Dim ObjRoadDetail As List(Of Cls_Road_Detail) = GET_ROAD_DETAIL_INFO(ObjP2_50.Item(0).Road_Detail)
+                lblRoad_Detail.Text = ObjRoadDetail.Item(0).Road_Detail_Name
+                lblMeter.Text = ObjP2_50.Item(0).Road_Access
+                Dim ObjLandState As List(Of Cls_LandState) = GET_LANDSTATE_INFO(ObjP2_50.Item(0).Land_State)
+                lblLand_State.Text = ObjLandState.Item(0).Land_State_Name
+                lblLand_State_Detail.Text = ObjP2_50.Item(0).Land_State_Detail
+                Dim ObjRoad_FrontOff As List(Of Cls_RoadFrontOff) = GET_ROADFRONTOFF_INFO(ObjP2_50.Item(0).Road_Frontoff)
+                lblRoad_Forntoff.Text = ObjRoad_FrontOff.Item(0).Road_Frontoff_Name
+                lblRoadWidth.Text = ObjP2_50.Item(0).RoadWidth
+                Dim ObjSite As List(Of Cls_SITE) = GET_SITE_INFO(ObjP2_50.Item(0).Site)
+                lblSite.Text = ObjSite.Item(0).Site_Name
+                lblSite_Detail.Text = ObjP2_50.Item(0).Site_Detail
+                Dim ObjBinifit As List(Of Cls_BINIFIT) = GET_BINIFIT_INFO(ObjP2_50.Item(0).Binifit)
+                lblBinifit.Text = ObjBinifit.Item(0).Binifit_Name
+                lblBinifit_Detail.Text = ObjP2_50.Item(0).Binifit_Detail
+                Dim ObjTendency As List(Of Cls_TENDENCY) = GET_TENDENCY_INFO(ObjP2_50.Item(0).Tendency)
+                lblTendency.Text = ObjTendency.Item(0).Tendency_Name
+                Dim ObjPublic As List(Of Cls_Public_Utility) = GET_PUBLIC_UTILITY_INFO(ObjP2_50.Item(0).Public_Utility)
+                lbllPublic_Utility.Text = ObjPublic.Item(0).Public_Utility_Name
+                Dim ObjBuysal As List(Of Cls_Buy_Sale_State) = GET_BUYSALE_STATE_INFO(ObjP2_50.Item(0).BuySale_State)
+                lblBuySale_State.Text = ObjBuysal.Item(0).BuySale_State_Name
+
+                lblPriceWah.Text = String.Format("{0:N2}", ObjP2_50.Item(0).PriceWah)
+                lblTotal1.Text = String.Format("{0:N2}", ObjP2_50.Item(0).PriceTotal1)
+                lblPriceItem1.Text = String.Format("{0:N2}", ObjP2_50.Item(0).PriceTotal1)
+            End If
+            Dim ObjP2_70 As List(Of PRICE2_70) = GET_PRICE2_70_FOR_PRINT(Context.Items("Req_Id"), Context.Items("Hub_Id"))
+            If ObjP2_70.Count > 0 Then
+                Dim ObjBuilding_Cons As List(Of Cls_Build_Construct) = GET_Build_Construct(ObjP2_70.Item(0).Build_Construct)
+                lblBuild_Construct.Text = ObjBuilding_Cons.Item(0).Build_Construct_Name
+                lblBuild_No.Text = ObjP2_70.Item(0).Build_No
+                Dim ObjSubColl70 As List(Of Cls_SubCollType) = GET_SUBCOLLTYPE(ObjP2_70.Item(0).MysubColl_ID)
+                lblBuild_Character.Text = ObjSubColl70.Item(0).SubCollType_Name
+                Dim ObjRoof As List(Of Cls_Roof) = GET_Roof(ObjP2_70.Item(0).Roof)
+                lblRoof.Text = ObjRoof.Item(0).Roof_Name
+
+                lblTotal2.Text = String.Format("{0:N2}", ObjP2_70.Item(0).PriceTotal1)
+                chkDoc1.Checked = ObjP2_70.Item(0).Doc1
+                chkDoc2.Checked = ObjP2_70.Item(0).Doc2
+                lblDocument_Detail.Text = ObjP2_70.Item(0).Doc_Detail
+            End If
+
+            Dim ObjP2_Master As List(Of Price2_Master) = GET_PRICE2_MASTER(Context.Items("Req_Id"), Context.Items("Hub_Id"))
+            If ObjP2_Master.Count > 0 Then
+                lblCif.Text = ObjP2_Master.Item(0).Cif
+                Dim cus_class As Customer_Class
+                Dim SV As New SME_SERVICE.Service
+
+                cus_class = SV.GetCifInfo(ObjP2_Master.Item(0).Cif)(0)
+                'ถ้า cif ที่ส่งมาไม่เท่ากับ 0 ให้ใส่ข้อมูลลูกค้าใส่ในคอนโทรลที่กำหนดให้
+                If cus_class.Cif.ToString <> 0 Then
+                    lblCifName.Text = cus_class.cifName '& cus_class.cus_first & "  " & cus_class.cus_last
+                End If
+
+                Dim Emp As Employee_Info
+                Emp = SV.GetEmployee_Info(ObjP2_Master.Item(0).Appraisal_Id)(0)
+                If Emp.EmpId > 0 Then
+                    lblAppraisalName.Text = Emp.EmpName
+                End If
+                lblGrandTotal.Text = CDec(lblPriceItem1.Text) + CDec(lblPriceItem2.Text) + CDec(lblTotal1.Text) + CDec(lblTotal2.Text) + CDec(lblTotal3.Text)
+                lblThaiBaht.Text = ThaiBahtFun(lblGrandTotal.Text)
+            End If
             Session("ctrl") = Panel1
-
         End If
-
     End Sub
 
     Private Function CreateDataset() As DataSet
@@ -96,7 +157,6 @@ Partial Class Price2_PrintPreview
         Return DS
 
     End Function
-
 
     Protected Sub Button1_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles Button1.Click
 

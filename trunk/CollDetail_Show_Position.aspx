@@ -29,7 +29,7 @@
        </tr>
        <tr>
            <td>
-                 <div id="map" style="width: 800px; height: 600px" ></div>
+                 <div id="map_canvas" style="width: 800px; height: 600px" ></div>
                      </td>
            <td valign="top"> <div id="formMark">
                 <div id="side_bar" style="display:none";></div></div>
@@ -67,9 +67,6 @@
                 blueIcon.infoWindowAnchor = new GPoint(9, 2);
                 blueIcon.infoShadowAnchor = new GPoint(18, 25);
 
-                // blueIcon.transparent = "http://www.google.com/intl/en_ALL/mapfiles/markerTransparent.png";
-                // blueIcon.printImage = "coldmarkerie.gif";
-                // blueIcon.mozPrintImage = "coldmarkerff.gif";
                 var icons = blueIcon;
                 var center = point //map.getCenter();
                 //var marker = new GMarker(point, { draggable: false });
@@ -119,13 +116,23 @@
 
 
             // create the map
-            var map = new GMap2(document.getElementById("map"));
+            //map = new GMap2(document.getElementById("map_canvas"), 
+            //{ size: new GSize(400, 300) });
+            //map.setCenter(new GLatLng(41.897997, -87.790203), 11);
+            //var customUI = map.getDefaultUI();
+            //customUI.controls.scalecontrol = false; map.setUI(customUI);
+
+            var map = new GMap2(document.getElementById("map_canvas"));
+            var customUI = map.getDefaultUI();
+            customUI.controls.scalecontrol = true;
+            //map.setUIToDefault();
+            map.setUI(customUI);
             //GLargeMapControl Is pan/zoom control
             map.addControl(new GLargeMapControl());
             //GMapTypeControl Is buttons that let the user toggle between map types (such as Map and Satellite) 
             map.addControl(new GMapTypeControl());
             //map.setCenter(new GLatLng(13.6758888, 100.54613888), 10);
-            map.addControl(new GScaleControl());
+            //map.addControl(new GScaleControl());
             loadMark()// โหลดครั้งแรก
 
             function loadMark() {

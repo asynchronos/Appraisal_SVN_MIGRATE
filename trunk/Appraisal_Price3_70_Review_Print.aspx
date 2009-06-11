@@ -537,10 +537,9 @@
                 &nbsp;</td>
             <td>
                 &nbsp;</td>
-            <td>
-                &nbsp;</td>
-            <td>
-                &nbsp;</td>
+            <td colspan="2">
+                <asp:Label ID="lblThaiBaht" runat="server"></asp:Label>
+            </td>
             <td>
                 &nbsp;</td>
             <td>

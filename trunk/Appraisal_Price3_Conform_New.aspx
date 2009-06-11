@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="VB" MasterPageFile="~/MasterPage.master" AutoEventWireup="false" CodeFile="Appraisal_Price3_Conform_New.aspx.vb" Inherits="Appraisal_Price3_Conform_New" %>
+﻿<%@ Page Title="" Language="VB" MasterPageFile="~/MasterPage.master" AutoEventWireup="false" CodeFile="Appraisal_Price3_Conform_New.aspx.vb" Inherits="Appraisal_Price3_Conform_New" Culture="th-TH" uiCulture="th-TH" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <%@ Register Assembly="Mytextbox" Namespace="Mytextbox" TagPrefix="cc1" %>
@@ -160,29 +160,59 @@
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+     <asp:HiddenField ID="hdfChkColl" runat="server" />
      <asp:ScriptManager ID="ScriptManager1" runat="server" 
         EnableScriptGlobalization="True">
     </asp:ScriptManager>   
 <asp:Panel ID="Panel1" runat="server">
     <br />
     <br />
-    <table>
+    <table width="100%">
+        <tr>
+            <td colspan="5" style="text-align:center;">
+                <img alt="BayLogo" src="Images/logo_bank.jpg" 
+                    style="width: 344px; height: 89px" /></td>
+        </tr>
+        <tr>
+            <td colspan="5" 
+                style="text-align:center; border-bottom-style: double; border-bottom-width: thin; border-bottom-color: #000000;">
+                <asp:Label ID="lblDescript1" runat="server" 
+                    Text="รายงานการประเมินราคาหลักประกัน" 
+                    style="font-weight: 700; font-size: x-large"></asp:Label>
+            </td>
+        </tr>
         <tr>
             <td>
-                <asp:Label ID="Label1" runat="server" Text="เรียน"></asp:Label>
+                &nbsp;</td>
+            <td class="txtDoPrint">
+                &nbsp;</td>
+            <td>
+                &nbsp;</td>
+            <td>
+                &nbsp;</td>
+            <td>
+                &nbsp;</td>
+        </tr>
+        <tr>
+            <td>
+                <asp:Label ID="Label1" runat="server" Font-Size="Large" 
+                    style="font-weight: 700" Text="เรียน"></asp:Label>
             </td>
             <td class="txtDoPrint">
-                <asp:TextBox ID="txtInform_To" runat="server" Width="350px"></asp:TextBox>
+                <asp:TextBox ID="txtInform_To" runat="server" style="font-weight: 700" 
+                    Width="350px"></asp:TextBox>
             </td>
-            <td>AID</td>
+            <td>
+                AID</td>
             <td>
                 <asp:TextBox ID="txtAID" runat="server"></asp:TextBox>
             </td>
             <td>
-                            <table class="NotshowOnPrint">
+                <table class="NotshowOnPrint">
                     <tr>
                         <td>
-                            <asp:Button ID="btnEditPosition" runat="server" Text="แก้ไขพิกัด" />
+                            <asp:Button ID="btnEditPosition" runat="server" Text="แก้ไขพิกัด" 
+                                Height="26px" />
                         </td>
                     </tr>
                 </table>
@@ -192,18 +222,22 @@
     <table width="100%">
         <tr>
             <td class="style15">
-                <asp:Label ID="Label3" runat="server" Text="ผู้ขอสินเชื่อ"></asp:Label>
+                <asp:Label ID="Label3" runat="server" Text="ผู้ขอสินเชื่อ" Font-Size="Large" 
+                    style="font-weight: 700"></asp:Label>
             </td>
             <td class="style14">
                 <span style="color: Red">
-                    <asp:Label ID="lblCifName" runat="server" Width="220px"></asp:Label></span>
+                    <asp:Label ID="lblCifName" runat="server" Width="220px" 
+                    style="font-weight: 700; color: #000000"></asp:Label></span>
             </td>
             <td class="style13">
-                <asp:Label ID="Label2" runat="server" Text="Cif"></asp:Label>
-                &nbsp; <asp:TextBox ID="txtCif" runat="server" Width="100px"></asp:TextBox>
+                <asp:Label ID="Label2" runat="server" Text="Cif" style="font-weight: 700"></asp:Label>
+                &nbsp; <asp:TextBox ID="txtCif" runat="server" Width="100px" 
+                    style="font-weight: 700"></asp:TextBox>
             </td>
             <td class="style9">
-                <asp:Label ID="Label4" runat="server" Text="วันที่รับเรื่อง"></asp:Label>
+                <asp:Label ID="Label4" runat="server" Text="วันที่รับเรื่อง" 
+                    style="font-weight: 700"></asp:Label>
                 <span style="color: Red">
                 &nbsp;<asp:TextBox ID="txtReceive_Date" runat="server" Width="80px"></asp:TextBox><ajaxToolkit:CalendarExtender
                     ID="CalendarExtender1" runat="server" Enabled="True" Format="dd/MM/yyyy" TargetControlID="txtReceive_Date">
@@ -217,19 +251,22 @@
         </tr>
         <tr>
             <td class="style15">
-    <asp:Label ID="Label80" runat="server" Text="สาขา/ฝ่ายงาน"></asp:Label>
+    <asp:Label ID="Label80" runat="server" Text="สาขา/ฝ่ายงาน" Font-Bold="True" 
+                    Font-Size="Large"></asp:Label>
     
             </td>
             <td class="style14">
                 <asp:DropDownList ID="ddlBranch" runat="server" DataSourceID="sdsBranch" 
-                    DataTextField="BRANCH_T" DataValueField="ID_BRANCH" style="margin-left: 0px">
+                    DataTextField="BRANCH_T" DataValueField="ID_BRANCH" 
+                    style="margin-left: 0px; font-weight: 700;">
                 </asp:DropDownList>
             </td>
             <td class="style13">
 
             </td>
             <td class="style9">
-                <asp:Label ID="Label79" runat="server" Text="วันที่ประเมิน"></asp:Label>
+                <asp:Label ID="Label79" runat="server" Text="วันที่ประเมิน" 
+                    style="font-weight: 700"></asp:Label>
                 <asp:TextBox ID="txtAppraisal_Date" runat="server" Width="80px"></asp:TextBox>
                 <ajaxToolkit:CalendarExtender ID="CalendarExtender3" runat="server" 
                     Enabled="True" Format="dd/MM/yyyy" TargetControlID="txtAppraisal_Date">
@@ -361,7 +398,7 @@
                 <asp:Label ID="Label50" runat="server" Font-Bold="True" Text="การประเมินราคา"></asp:Label>&#160;<asp:Label
                     ID="Label51" runat="server" Text="ข้อมูลการซื้อขาย"></asp:Label><br />
                 <asp:TextBox ID="txtBuy_Sale_Comment" runat="server" Height="90px" TextMode="MultiLine"
-                    Width="800px" BackColor="#FFFF66"></asp:TextBox>
+                    Width="800px" BackColor="#FFFF66" style="font-size: large"></asp:TextBox>
             </td>
         </tr>
     </table>
@@ -418,8 +455,7 @@
                 <asp:Label ID="lblSubUnit0" runat="server" Width="135px"></asp:Label>
             </td>
             <td class="style30">
-                <asp:Label ID="lblTotal2" runat="server" Style="color: #FF0000"></asp:Label>
-            </td>
+                &nbsp;</td>
             <td class="style7">
                 <asp:Label ID="Label57" runat="server" Text="เป็นเงิน"></asp:Label>
             </td>
@@ -509,7 +545,7 @@
         <tr>
             <td valign="top" class="style16">
                 <asp:TextBox ID="txtWarning_Detail" runat="server" Height="80px" TextMode="MultiLine"
-                    Width="500px" BackColor="#FFFF66"></asp:TextBox>
+                    Width="500px" BackColor="#FFFF66" style="font-size: large"></asp:TextBox>
             </td>
             <td align="left">
                 <table width="100%">
@@ -573,9 +609,14 @@
             </td>
         </tr>
         <tr>
+            <td align="center" colspan="2" 
+                style="border-top-style: solid; border-top-width: thin; border-top-color: #000000">
+                &nbsp;</td>
+        </tr>
+        <tr>
             <td align="center" colspan="2">
-                <asp:Label ID="Label69" runat="server" Text="ความเห็นคณะอนุกรรมพิจารณาการประเมินมูลค่าสินทรัพย์ภายใน"
-                    Style="font-weight: 700"></asp:Label>
+                <asp:Label ID="Label69" runat="server" Style="font-weight: 700" 
+                    Text="ความเห็นคณะอนุกรรมพิจารณาการประเมินมูลค่าสินทรัพย์ภายใน"></asp:Label>
             </td>
         </tr>
         <tr>
@@ -586,20 +627,17 @@
                             <asp:Label ID="Label70" runat="server" Text="1.)"></asp:Label>
                         </td>
                         <td class="style28">
-                            &#160;&#160;
-                        </td>
+                            &nbsp;</td>
                         <td class="style29">
                             <asp:Label ID="Label71" runat="server" Text="2.)"></asp:Label>
                         </td>
                         <td class="style27">
-                            &#160;&#160;
-                        </td>
+                            &nbsp;</td>
                         <td class="style26">
                             <asp:Label ID="Label72" runat="server" Text="3.)"></asp:Label>
                         </td>
                         <td class="style23">
-                            &#160;&#160;
-                            </td>
+                            &nbsp;</td>
                     </tr>
                     <tr>
                         <td class="style22">
@@ -619,6 +657,23 @@
 
                         </td>
                     </tr>                    
+                    <tr>
+                        <td class="style22">
+                            .</td>
+                        <td class="style28" 
+                            style="border-bottom-style: dotted; border-bottom-width: thin; border-bottom-color: #000000;">
+                            &nbsp;</td>
+                        <td class="style29">
+                            .</td>
+                        <td class="style27" 
+                            style="border-bottom-style: dotted; border-bottom-width: thin; border-bottom-color: #000000;">
+                            &nbsp;</td>
+                        <td class="style26">
+                            .</td>
+                        <td class="style23" 
+                            style="border-bottom-style: dotted; border-bottom-width: thin; border-bottom-color: #000000;">
+                            &nbsp;</td>
+                    </tr>
                     <tr>
                         <td class="style22">
                             &#160;&#160;
@@ -670,19 +725,28 @@
                             &#160;&#160;
                         </td>
                         <td align="center">
-                            <asp:Label ID="Label76" runat="server" Text="อนุกรรมการ"></asp:Label>
+                            <asp:DropDownList ID="ddlPos_Approve1" runat="server" BackColor="#FFFF66" 
+                                DataSourceID="sdsPosition_Approve" DataTextField="Position_Name" 
+                                DataValueField="Position_Id" style="font-weight:bold;text-align:center;">
+                            </asp:DropDownList>
                         </td>
                         <td class="style29">
                             &#160;&#160;
                         </td>
                         <td align="center">
-                            <asp:Label ID="Label78" runat="server" Text="อนุกรรมการ"></asp:Label>
+                            <asp:DropDownList ID="ddlPos_Approve2" runat="server" BackColor="#FFFF66" 
+                                DataSourceID="sdsPosition_Approve" DataTextField="Position_Name" 
+                                DataValueField="Position_Id" style="font-weight:bold;text-align:center;">
+                            </asp:DropDownList>
                         </td>
                         <td class="style26">
                             &#160;&#160;
                         </td>
                         <td align="center" >
-                            <asp:Label ID="Label77" runat="server" Text="อนุกรรมการ"></asp:Label>
+                            <asp:DropDownList ID="ddlPos_Approve3" runat="server" BackColor="#FFFF66" 
+                                DataSourceID="sdsPosition_Approve" DataTextField="Position_Name" 
+                                DataValueField="Position_Id" style="font-weight:bold;text-align:center;">
+                            </asp:DropDownList>
                         </td>
                     </tr>
                     <tr>
@@ -691,17 +755,17 @@
                         </td>
                         <td class="style28">
                         
-                        </td>
+                            &nbsp;</td>
                         <td class="style29">
                         
                         </td>
                         <td class="style27">
-                        </td>
+                            &nbsp;</td>
                         <td class="style26">
                         </td>
                         <td class="style23">
 
-                        </td>
+                            &nbsp;</td>
                     </tr>
                     <tr>
                         <td colspan="6"  align="center">
@@ -748,11 +812,17 @@
     </asp:SqlDataSource>
     <asp:SqlDataSource ID="sdsSubCommittee" runat="server" 
         ConnectionString="<%$ ConnectionStrings:AppraisalConn %>" 
+        
+        
         SelectCommand="SELECT [SubCommittee_ID], [SubCommittee_Name] FROM [TB_SubCommittee] ORDER BY [SubCommittee_Name]">
     </asp:SqlDataSource>
     <asp:SqlDataSource ID="sdsProblem" runat="server" 
         ConnectionString="<%$ ConnectionStrings:AppraisalConn %>" 
         SelectCommand="SELECT [Problem_Id], [Problem_Name] FROM [TB_Problem]">
+    </asp:SqlDataSource>
+    <asp:SqlDataSource ID="sdsPosition_Approve" runat="server" 
+        ConnectionString="<%$ ConnectionStrings:AppraisalConn %>" 
+        SelectCommand="SELECT [Position_Id], [Position_Name] FROM [TB_POSITION_APPROVE]">
     </asp:SqlDataSource>
 </asp:Panel>
 

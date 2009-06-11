@@ -1,4 +1,5 @@
 ﻿Imports Appraisal_Manager
+Imports ThaiBaht
 Partial Class Appraisal_Price3_70_Review_Print
     Inherits System.Web.UI.Page
 
@@ -98,7 +99,6 @@ Partial Class Appraisal_Price3_70_Review_Print
     End Function
 
     Function Get_Balance(ByVal Price As Decimal, ByVal Age As Decimal, ByVal P1 As Decimal, ByVal P2 As Decimal, ByVal P3 As Decimal) As String
-
         Dim Amount_Price As Decimal = Price - (Price * (((P1 + P2 + P3) * Age) / 100))
         total += Amount_Price
         Return String.Format("{0:N2}", Amount_Price)
@@ -107,9 +107,6 @@ Partial Class Appraisal_Price3_70_Review_Print
 
     Function Get_Total() As String
         lblGrandTotal0.Text = String.Format("{0:N2}", total)
-        'lblGrantotal.Text = String.Format("{0:N2}", CDec(lblLandTotal.Text) + CDec(lblBuildingPrice.Text))
-        'lblGrandTotal0.Text = String.Format("{0:N2}", CDec(lblLandTotal.Text) + CDec(lblBuildingPrice.Text))
         Return String.Format("{0:N2}", total)
-
     End Function
 End Class

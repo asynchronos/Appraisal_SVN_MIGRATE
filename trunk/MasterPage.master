@@ -38,20 +38,20 @@
                     </tr>
                     <tr>
                         <td>
-                            Department&nbsp;&nbsp; :
-                        </td>
-                        <td>
-                            <asp:Label ID="lblPostion" runat="server"></asp:Label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
                             Hub ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:
                         </td>
                         <td>
                             <asp:Label ID="lblHub_Id" runat="server"></asp:Label>
                         </td>
                     </tr>
+                    <tr>
+                        <td>
+                            Hub Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:
+                        </td>
+                        <td>
+                            <asp:Label ID="lblHubname" runat="server"></asp:Label>
+                        </td>
+                    </tr>                    
                 </table>
             </td>
         </tr>

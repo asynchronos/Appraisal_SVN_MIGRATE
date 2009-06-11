@@ -18,6 +18,7 @@ Partial Class Price3DB
         'MsgBox(a)
         'MsgBox(b)
         'End If
+
         Select Case Request("action")
             Case "1"
                 showAll()
@@ -33,6 +34,8 @@ Partial Class Price3DB
                 ShowMark_Price3_ByReq_Id()
             Case "7"
                 updateMark_Price3()
+            Case "8"
+                showMarkPrice1()
         End Select
     End Sub
     Public Function FormatXMLToHTML(ByVal sXML As String) As String
@@ -166,6 +169,23 @@ Partial Class Price3DB
         Response.Expires = -1
         Response.CacheControl = "no-cache"
         Response.ContentType = "text/xml"
+        Response.Write(sXML)
+        Response.End()
+    End Sub
+
+    Private Sub showMarkPrice1()
+        Dim oStrW As New StringWriter()
+        Dim sXML As String
+        Dim dalmap As New GmapDAL_NEW
+        'Dim lmap As New Price1_Master
+        Dim lmap As New List(Of Price1_Master)
+        lmap = dalmap.getGmapBy_Req_ID(Int(Request("Req_Id")), Int(Request("Hub_Id")))
+        Dim oXS As XmlSerializer = New XmlSerializer(lmap.GetType)
+        'Dim oXS As XmlSerializer = New XmlSerializer(TypeOf(lmap))
+        'Serialize object into an XML string
+        oXS.Serialize(oStrW, lmap)
+        sXML = oStrW.ToString()
+        oStrW.Close()
         Response.Write(sXML)
         Response.End()
     End Sub

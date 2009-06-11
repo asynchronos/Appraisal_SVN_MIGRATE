@@ -6,4 +6,5 @@ Partial Class Testprint
         Dim ctrl As Control = CType(Session("ctrl"), Control)
         PrintHelper.PrintWebControl(ctrl)
     End Sub
+
 End Class

@@ -2,13 +2,9 @@
 Partial Class Appraisal_Price3_Add_Colltype50
     Inherits System.Web.UI.Page
     Dim s As String
+
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not Page.IsPostBack Then
-            'lblReq_Id.Text = Request.QueryString("Req_Id")
-            'lblHub_Id.Text = Request.QueryString("Hub_Id")
-            'lblTemp_AID.Text = Request.QueryString("Temp_AID")
-            'Dim lblCollType_Id As String = Request.QueryString("Coll_Type")
-            'lblId.Text = Request.QueryString("ID")
 
             lblReq_Id.Text = Context.Items("Req_Id")
             lblHub_Id.Text = Context.Items("Hub_Id")
@@ -97,8 +93,9 @@ Partial Class Appraisal_Price3_Add_Colltype50
             txtBinifit.Text = Obj_GetP50.Item(0).Binifit_Detail
             ddlTendency.SelectedValue = Obj_GetP50.Item(0).Tendency
             ddlBuySale_State.SelectedValue = Obj_GetP50.Item(0).BuySale_State
-            txtPriceWah.Text = Obj_GetP50.Item(0).PriceWah
-            txtTotal.Text = Obj_GetP50.Item(0).PriceTotal1
+            ddlSubUnit.SelectedValue = Obj_GetP50.Item(0).SubUnit
+            txtPriceWah.Text = String.Format("{0:N2}", Obj_GetP50.Item(0).PriceWah)
+            txtTotal.Text = String.Format("{0:N2}", Obj_GetP50.Item(0).PriceTotal1)
             txtRaWang.Text = Obj_GetP50.Item(0).Rawang
             txtLandNumber.Text = Obj_GetP50.Item(0).LandNumber
             txtSurway.Text = Obj_GetP50.Item(0).Surway
@@ -118,13 +115,14 @@ Partial Class Appraisal_Price3_Add_Colltype50
         If lblMethodDesc.Text = "เพิ่มกรณีปกติ" Then
             'ส่งตัวแปรไปที่ Function  AddPRICE3_50 เพื่อทำการเพิ่มหรือแก้ไขข้อมูล
             AddPRICE3_50(lblId.Text, CInt(lblReq_Id.Text), CInt(lblHub_Id.Text), lblTemp_AID.Text, CInt(DDLSubCollType.SelectedValue), txtChanode.Text, String.Empty, txtTumbon.Text, txtAmphur.Text, _
-                                                                  ddlProvince.SelectedValue, CInt(txtRai.Text), CInt(txtNgan.Text), CInt(txtWah.Text), _
+                                                                  ddlProvince.SelectedValue, CInt(txtRai.Text), CInt(txtNgan.Text), CDec(txtWah.Text), _
                                                                   txtRoad.Text, CInt(ddlRoad_Detail.SelectedValue), CDec(txtMeter.Text), CInt(ddlRoad_Forntoff.SelectedValue), _
                                                                   CDec(txtRoadWidth.Text), CInt(ddlSite.SelectedValue), CStr(txtSite_Detail.Text), CInt(ddlLand_State.SelectedValue), _
                                                                   txtLand_State_Detail.Text, CInt(ddlPublic_Utility.SelectedValue), txtPublic_Utility_Detail.Text, CInt(ddlBinifit.SelectedValue), _
-                                                                  txtBinifit.Text, CInt(ddlTendency.SelectedValue), CInt(ddlBuySale_State.SelectedValue), _
+                                                                  txtBinifit.Text, CInt(ddlTendency.SelectedValue), CInt(ddlBuySale_State.SelectedValue), ddlSubUnit.SelectedValue, _
                                                                   CInt(txtPriceWah.Text), CInt(txtTotal.Text), txtRaWang.Text, txtLandNumber.Text, txtSurway.Text, txtDocNo.Text, txtPage.Text, txtOwnerShip.Text, _
                                                                   txtObligation.Text, txtLand_Closeto_RoadWidth.Text, txtDeepWidth.Text, txtBehindWidth.Text, ddlAreaColur.SelectedValue, lbluserid.Text, Now())
+            UPDATE_Status_Appraisal_Request(lblReq_Id.Text, lblHub_Id.Text, 6)
             Response.Redirect("Appraisal_Price2.aspx")
         Else
             'กรณีไม่ปกติ
@@ -135,6 +133,7 @@ Partial Class Appraisal_Price3_Add_Colltype50
 
     Protected Sub txtPriceWah_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtPriceWah.TextChanged
         Dim TotalWah As Double = 0
+
         If txtRai.Text = String.Empty Then
             txtRai.Text = "0"
         End If
@@ -145,13 +144,32 @@ Partial Class Appraisal_Price3_Add_Colltype50
             txtWah.Text = "0"
         End If
 
-        If txtRai.Text = "0" And txtNgan.Text = "0" And txtWah.Text = "0" Then
-            s = "<script language=""javascript"">alert('ไม่มีพื้นที่ให้คำนวณราคา');</script>"
-            Page.ClientScript.RegisterStartupScript(Me.GetType, "รับเรื่องประเมิน", s)
-        Else
-            TotalWah = (CDec(txtRai.Text) * 400) + (CDec(txtNgan.Text) * 100) + CDec(txtWah.Text)
-            txtTotal.Text = String.Format("{0:N2}", TotalWah * CDec(txtPriceWah.Text))
+        If ddlSubUnit.SelectedValue = 1 Then
+            If txtRai.Text = "0" And txtNgan.Text = "0" And txtWah.Text = "0" Then
+                s = "<script language=""javascript"">alert('ไม่มีพื้นที่ให้คำนวณราคา');</script>"
+                Page.ClientScript.RegisterStartupScript(Me.GetType, "รับเรื่องประเมิน", s)
+            Else
+                TotalWah = (CDec(txtRai.Text) * 400) + (CDec(txtNgan.Text) * 100) + CDec(txtWah.Text)
+                txtTotal.Text = String.Format("{0:N2}", TotalWah * CDec(txtPriceWah.Text))
+            End If
+        ElseIf ddlSubUnit.SelectedValue = 2 Then
+            If txtRai.Text = "0" And txtNgan.Text = "0" And txtWah.Text = "0" Then
+                s = "<script language=""javascript"">alert('ไม่มีพื้นที่ให้คำนวณราคา');</script>"
+                Page.ClientScript.RegisterStartupScript(Me.GetType, "รับเรื่องประเมิน", s)
+            Else
+                TotalWah = (CDec(txtRai.Text) * 400) + (CDec(txtNgan.Text) * 100) + CDec(txtWah.Text)
+                txtTotal.Text = String.Format("{0:N2}", TotalWah * CDec(txtPriceWah.Text))
+            End If
+        ElseIf ddlSubUnit.SelectedValue = 3 Then
+            If txtRai.Text = "0" And txtNgan.Text = "0" And txtWah.Text = "0" Then
+                s = "<script language=""javascript"">alert('ไม่มีพื้นที่ให้คำนวณราคา');</script>"
+                Page.ClientScript.RegisterStartupScript(Me.GetType, "รับเรื่องประเมิน", s)
+            Else
+                TotalWah = (CDec(txtRai.Text)) + (CDec(txtNgan.Text)) + CDec(txtWah.Text) / 100
+                txtTotal.Text = String.Format("{0:N2}", TotalWah * CDec(txtPriceWah.Text))
+            End If
         End If
+
     End Sub
 
     Protected Sub txtRai_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtRai.TextChanged

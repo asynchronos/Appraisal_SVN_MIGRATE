@@ -16,11 +16,7 @@
         {
             width: 88px;
         }
-        .style22
-        {
-            width: 293px;
-        }
-        
+                
         .style5
         {
             width: 187px;
@@ -32,7 +28,7 @@
         }
         .style23
         {
-            width: 293px;
+            width: 338px;
             height: 30px;
         }
             .style19
@@ -54,6 +50,10 @@
         {
             height: 30px;
         }
+            .style31
+        {
+            width: 338px;
+        }
             </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
@@ -66,7 +66,7 @@
         <tr>
             <td class="style26">
                 รายละเอียดการเพิ่ม</td>
-            <td>
+            <td class="style31">
                 <asp:Label ID="lblMethodDesc" runat="server" 
                     style="font-weight: 700; color: #FF0000;"></asp:Label>
             </td>
@@ -82,7 +82,7 @@
         <tr>
             <td class="style26">
                 เลขลำดับ</td>
-            <td>
+            <td class="style31">
                 <asp:Label ID="lblId" runat="server" style="font-weight: 700; color: #FF0000;"></asp:Label>
             </td>
             <td>
@@ -99,7 +99,7 @@
         <tr>
             <td class="style26">
                 เลขคำขอประเมิน</td>
-            <td>
+            <td class="style31">
                 <asp:Label ID="lblReq_Id" runat="server" style="font-weight: 700"></asp:Label>
             </td>
             <td>
@@ -115,7 +115,7 @@
         <tr>
             <td class="style26">
                 ผู้ขอสินเชื่อ</td>
-            <td>
+            <td class="style31">
                 <asp:Label ID="lblCifName" runat="server" style="font-weight: 700"></asp:Label>
             </td>
             <td>
@@ -131,7 +131,7 @@
         <tr>
             <td class="style26">
                 ชนิดหลักประกัน</td>
-            <td>
+            <td class="style31">
                 <asp:DropDownList ID="DDLSubCollType" runat="server" 
                         DataSourceID="sdsSubCollType" DataTextField="SubCollType_Name"
                         DataValueField="MysubColl_ID">
@@ -150,7 +150,7 @@
         <tr>
             <td class="style26">
                 ระวาง</td>
-            <td>
+            <td class="style31">
                 <asp:TextBox ID="txtRaWang" runat="server" BackColor="#FFFF66" MaxLength="50"></asp:TextBox>
             </td>
             <td>
@@ -166,7 +166,7 @@
         <tr>
             <td class="style26">
                 หน้าสำรวจ</td>
-            <td>
+            <td class="style31">
                 <asp:TextBox ID="txtSurway" runat="server" BackColor="#FFFF66"></asp:TextBox>
             </td>
             <td>
@@ -182,7 +182,7 @@
         <tr>
             <td class="style26">
                 หน้า</td>
-            <td>
+            <td class="style31">
                 <asp:TextBox ID="txtPage" runat="server" BackColor="#FFFF66"></asp:TextBox>
             </td>
             <td>
@@ -198,7 +198,7 @@
         <tr>
             <td class="style26">
                     อำเภอ/เขต</td>
-            <td class="style22">
+            <td class="style31">
                 <asp:TextBox ID="txtAmphur" runat="server" Width="222px"></asp:TextBox>
             </td>
             <td class="style5">
@@ -218,15 +218,15 @@
             <td class="style26">
                     เนื้อที่
                 </td>
-            <td class="style22">
+            <td class="style31">
                 <cc1:mytext ID="txtRai" runat="server" AllowUserKey="int_Integer"
                         EnableTextAlignRight="True" Width="50px" AutoPostBack="True">0</cc1:mytext>
                     &nbsp;ไร่
                     <cc1:mytext ID="txtNgan" runat="server" AllowUserKey="int_Integer" EnableTextAlignRight="True"
                         MaxLength="1" Width="50px" AutoPostBack="True">0</cc1:mytext>
                     &nbsp;งาน
-                   <cc1:mytext ID="txtWah" runat="server" AllowUserKey="int_Integer" EnableTextAlignRight="True"
-                        MaxLength="3" Width="50px" AutoPostBack="True">0</cc1:mytext>
+                   <cc1:mytext ID="txtWah" runat="server" AllowUserKey="num_Numeric" EnableTextAlignRight="True"
+                        MaxLength="5" Width="50px" AutoPostBack="True">0</cc1:mytext>
                     &nbsp;ตรว.</td>
             <td class="style5">
                                         &nbsp;</td>
@@ -240,7 +240,7 @@
         <tr>
             <td class="style26">
                                 ผู้ถือกรรมสิทธิ์ที่ดิน</td>
-            <td>
+            <td class="style31">
                 <asp:TextBox ID="txtOwnerShip" runat="server" Width="222px" BackColor="#FFFF66"></asp:TextBox>
             </td>
             <td>
@@ -257,7 +257,7 @@
         <tr>
             <td class="style26">
                                         ที่ตั้งหลักประกัน ตั้งอยู่ถนน</td>
-            <td class="style22">
+            <td class="style31">
                 <asp:TextBox ID="txtRoad" runat="server" Width="222px"></asp:TextBox>
             </td>
             <td class="style5">
@@ -267,8 +267,8 @@
                         DataSourceID="SDSRoad_Detail" DataTextField="Road_Detail_Name" 
                         DataValueField="Road_Detail_ID">
                 </asp:DropDownList>
-                <cc1:mytext ID="txtMeter" runat="server" AllowUserKey="int_Integer" EnableTextAlignRight="True"
-                        MaxLength="3" Width="50px">0</cc1:mytext>
+                <cc1:mytext ID="txtMeter" runat="server" AllowUserKey="num_Numeric" EnableTextAlignRight="True"
+                        MaxLength="5" Width="50px">0</cc1:mytext>
                     เมตร</td>
             <td class="style29">
                 &nbsp;</td>
@@ -280,7 +280,7 @@
             <td class="style26">
                     สถาพที่ดิน
                 </td>
-            <td class="style22">
+            <td class="style31">
                 <asp:DropDownList ID="ddlLand_State" runat="server" 
                         DataSourceID="SDSLand_State" DataTextField="Land_State_Name" 
                         DataValueField="Land_State_Id">
@@ -311,7 +311,7 @@
             <td class="style19">
                     ผิวจราจรกว้าง</td>
             <td class="style28">
-                <cc1:mytext id="txtRoadWidth" runat="server" AllowUserKey="num_Numeric" MaxLength="2"
+                <cc1:mytext id="txtRoadWidth" runat="server" AllowUserKey="num_Numeric" MaxLength="5"
                         Width="50px" EnableTextAlignRight="True">0</cc1:mytext>
                     &nbsp;เมตร
                 </td>
@@ -325,17 +325,17 @@
                     ขนาดที่ดินกว้างติดถนน</td>
             <td class="style23">
                 <cc1:mytext id="txtLand_Closeto_RoadWidth" runat="server" 
-                    AllowUserKey="num_Numeric" MaxLength="2"
+                    AllowUserKey="num_Numeric" MaxLength="5"
                         Width="50px" EnableTextAlignRight="True" BackColor="#FFFF66">0</cc1:mytext>
                     &nbsp;เมตร
-                    ที่ดินลึก
-                <cc1:mytext id="txtDeepWidth" runat="server" AllowUserKey="num_Numeric" MaxLength="2"
+                    ที่ดินลึก(ซ้าย/ขวา)
+                <cc1:mytext id="txtDeepWidth" runat="server" AllowUserKey="txt_Text" MaxLength="10"
                         Width="50px" EnableTextAlignRight="True" BackColor="#FFFF66">0</cc1:mytext>
                     &nbsp;เมตร</td>
             <td class="style19">
                     ิที่ดินด้านหลังกว้าง</td>
             <td class="style28">
-                <cc1:mytext id="txtBehindWidth" runat="server" AllowUserKey="num_Numeric" MaxLength="2"
+                <cc1:mytext id="txtBehindWidth" runat="server" AllowUserKey="num_Numeric" MaxLength="5"
                         Width="50px" EnableTextAlignRight="True" BackColor="#FFFF66">0</cc1:mytext>
                     &nbsp;เมตร</td>
             <td class="style30">
@@ -347,7 +347,7 @@
             <td class="style26">
                     ทำเล
                 </td>
-            <td class="style22">
+            <td class="style31">
                 <asp:DropDownList ID="ddlSite" runat="server" DataSourceID="SDSSite" 
                         DataTextField="Site_Name" DataValueField="Site_ID">
                 </asp:DropDownList>
@@ -368,7 +368,7 @@
             <td class="style26">
                     สาธารณูปโภค
                 </td>
-            <td class="style22">
+            <td class="style31">
                 <asp:DropDownList ID="ddlPublic_Utility" runat="server" 
                         DataSourceID="SDSPublic_Utility" DataTextField="Public_Utility_Name" 
                         DataValueField="Public_Utility_ID">
@@ -388,9 +388,9 @@
         </tr>
         <tr>
             <td class="style26">
-                    การใช้ประโยชน์ในอาคาร
+                    การใช้ประโยชน์ในที่ดิน
                 </td>
-            <td class="style22">
+            <td class="style31">
                 <asp:DropDownList ID="ddlBinifit" runat="server" DataSourceID="SDSBinifit" 
                         DataTextField="Binifit_Name" DataValueField="Binifit_ID">
                 </asp:DropDownList>
@@ -411,7 +411,7 @@
             <td class="style26">
                     แนวโน้มความเจริญ
                 </td>
-            <td class="style22">
+            <td class="style31">
                 <asp:DropDownList ID="ddlTendency" runat="server" DataSourceID="SDSTendency" 
                         DataTextField="Tendency_Name" DataValueField="Tendency_ID">
                 </asp:DropDownList>
@@ -433,19 +433,22 @@
         </tr>
         <tr>
             <td class="style26">
-                    ตรว. ละ</td>
-            <td class="style22">
-                <cc1:mytext id="txtPriceWah" runat="server" allowuserkey="num_Numeric" width="120px"
+                    ราคาต่อหน่วย</td>
+            <td class="style31">
+                <asp:DropDownList ID="ddlSubUnit" runat="server" DataSourceID="SDSSubUnit" 
+                        DataTextField="SubUnit_Name" DataValueField="SubUnit_Id">
+                </asp:DropDownList>
+            &nbsp;<cc1:mytext id="txtPriceWah" runat="server" allowuserkey="num_Numeric" width="120px"
                         autocurrencyformatonkeyup="True" EnableTextAlignRight="True" 
                     AutoPostBack="True">0</cc1:mytext>
-            </td>
+            &nbsp;บาท</td>
             <td class="style5">
                     เป็นเงิน</td>
             <td class="style27">
                 <cc1:mytext ID="txtTotal" runat="server" AllowUserKey="num_Numeric" Width="120px"
                         AutoCurrencyFormatOnKeyUp="True" EnableTextAlignRight="True" 
                     ReadOnly="True">0</cc1:mytext>
-            </td>
+            &nbsp;บาท</td>
             <td class="style29">
                     &nbsp;
                 </td>
@@ -455,20 +458,16 @@
         <tr>
             <td>
                 ที่ดินอยู่ในเขตพื้นที่สี</td>
-            <td>
+            <td class="style31">
                 <asp:DropDownList ID="ddlAreaColur" runat="server" 
                         DataSourceID="SDSArea_Color" DataTextField="AreaColour_Name" 
                         DataValueField="AreaColour_No" BackColor="#FFFF66">
                 </asp:DropDownList>
             </td>
             <td>
-                วันที่ประเมิน</td>
+                &nbsp;</td>
             <td>
-            <asp:TextBox ID="txtReceive_Date" runat="server" Width="112px"></asp:TextBox>
-               <ajaxToolkit:CalendarExtender
-                    ID="CalendarExtender1" runat="server" Enabled="True" Format="dd/MM/yyyy" TargetControlID="txtReceive_Date">
-                    </ajaxToolkit:CalendarExtender>            
-            </td>
+                &nbsp;</td>
             <td>
             </td>
             <td>
@@ -538,5 +537,13 @@ Order by prov_code">
         SelectCommand="SELECT [AreaColour_No], [AreaColour_Name] FROM [AreaColour]">
     </asp:SqlDataSource>
     
+    <asp:SqlDataSource ID="SDSSubUnit" runat="server" ConnectionString="<%$ ConnectionStrings:AppraisalConn %>"
+        
+        SelectCommand="SELECT [SubUnit_Id], [SubUnit_Name] FROM [TB_SubUnit] WHERE ([SubUnit_Id] &lt;= @SubUnit_Id)">
+        <SelectParameters>
+            <asp:Parameter DefaultValue="3" Name="SubUnit_Id" Type="Int32" />
+        </SelectParameters>
+    </asp:SqlDataSource>
+        
 </asp:Content>
 

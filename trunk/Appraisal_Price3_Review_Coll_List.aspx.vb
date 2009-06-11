@@ -30,7 +30,7 @@ Partial Class Appraisal_Price3_Review_Coll_List
             Server.Transfer("Appraisal_Price3_50_Review_Edit.Aspx")
         ElseIf CollType.Text = "70" Then
             Server.Transfer("Appraisal_Price3_70_Review_Edit.Aspx")
-        Else
+        ElseIf CollType.Text = "18" Then
             Server.Transfer("Appraisal_Price3_18_Review_Edit.Aspx")
         End If
 
