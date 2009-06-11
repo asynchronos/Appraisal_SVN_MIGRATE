@@ -49,6 +49,9 @@ function addFileUploadBox()
 
 
 </script>
+<asp:Button ID="Button1" runat="server" Text="Upload Resize" />
+<asp:HiddenField ID="hdfReq_Id" runat="server" />
+<asp:HiddenField ID="hdfHub_Id" runat="server" />
 </form>
 </body>
 </html>
