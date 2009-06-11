@@ -187,13 +187,13 @@ Partial Class Appraisal_Form_Appraisal_Form
         If lblRequestID.Text <> String.Empty Then
             Dim dg As GridView = FindControl("GridView_HubList")
             Dim gvr_master As GridViewRow
-            Appraisal_Manager.AddAppraisal_Request_Master(lblRequestID.Text, TxtCif.Text, ddlTitle.SelectedValue, TxtCifName.Text, TxtCifLastName.Text, RadioButtonList1.SelectedValue, txtAID.Text, 0, lblUserID.Text, Now)
+            Appraisal_Manager.AddAppraisal_Request_Master(lblRequestID.Text, TxtCif.Text, ddlTitle.SelectedValue, TxtCifName.Text, TxtCifLastName.Text, RadioButtonList1.SelectedValue, txtAID.Text, 0, "", "", lblUserID.Text, Now)
 
             For Each gvr_master In dg.Rows
                 Dim chk1 As CheckBox = gvr_master.FindControl("cb2")
                 Dim lblHubID As Label = gvr_master.FindControl("lblHUB_ID")
                 If chk1.Checked = True Then
-                    Appraisal_Manager.AddAppraisal_Request(lblRequestID.Text, lblHubID.Text, TxtCif.Text, ddlTitle.SelectedValue, TxtCifName.Text, TxtCifLastName.Text, RadioButtonList1.SelectedValue, 0, lblUserID.Text, Now)
+                    AddAppraisal_Request(lblRequestID.Text, lblHubID.Text, TxtCif.Text, ddlTitle.SelectedValue, TxtCifName.Text, TxtCifLastName.Text, RadioButtonList1.SelectedValue, 0, String.Empty, lblUserID.Text, Now)
                 End If
             Next
             bntRequest_ID.Enabled = True
