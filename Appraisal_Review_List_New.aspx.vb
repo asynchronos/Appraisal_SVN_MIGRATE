@@ -1,4 +1,9 @@
-﻿
+﻿Imports Appraisal_Manager
+Imports System.IO
+Imports System.Data
+Imports System.Data.SqlClient
+Imports System.Collections.Generic
+
 Partial Class Appraisal_Review_List_New
     Inherits System.Web.UI.Page
 
@@ -36,7 +41,7 @@ Partial Class Appraisal_Review_List_New
             '    sql = "Select   * from EMPLOYEE01"
             'Else
             SqlDataSource1.SelectParameters.Clear()
-            sql = "Select APPS_ID, CIF, Cifname, Class, COLLVAL, VALDATE, NoticeDate, ReviewDate FROM Appraisal_Review_List WHERE Review_Check =0"
+            sql = "Select APPS_ID, CIF, Cifname, Class, COLLVAL, VALDATE, NoticeDate, ReviewDate FROM Appraisal_Review_List WHERE Review_Check =0 Order By VALDATE"
             'SqlDataSource1.SelectParameters.Add("SearchValue", "%" & TextBox1.Text & "%")
 
             'End If
@@ -68,4 +73,51 @@ Partial Class Appraisal_Review_List_New
         myScript = "<script>" + "window.open('Appraisal_Review_List_Cid.aspx?Apps_Id=" + Trim(Apps_Id.Text) + "','window','toolbar=no, menubar=no, scrollbars=yes, resizable=no,location=no, directories=no, status=yes,height=580px,width=880px');</script>"
         Page.ClientScript.RegisterStartupScript(Me.GetType, "ชิ้นทรัพย์หลักประกัน", myScript)
     End Sub
+
+    Protected Sub btnReview_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnReview.Click
+        Dim ds As DataSet
+        Dim cph As ContentPlaceHolder = TryCast(Me.Form.FindControl("ContentPlaceHolder1"), ContentPlaceHolder)
+        Dim dg As GridView = DirectCast(cph.FindControl("GridView_Review_List"), GridView) 'FindControl("GridView_HubList")
+        Dim gvr_master As GridViewRow
+
+        For Each gvr_master In dg.Rows
+
+            Dim chk1 As CheckBox = gvr_master.FindControl("cb2")
+            Dim lblHubID As Label = gvr_master.FindControl("lblHUB_ID")
+            Dim lblAPPS_ID As Label = gvr_master.FindControl("lblAPPS_ID")
+            Dim lblCif As Label = gvr_master.FindControl("lblCIF")
+            If chk1.Checked = True Then
+                'MsgBox(lblAPPS_ID.Text)
+                ds = GET_RequestID()
+
+                'Add Appraisal Request
+
+                AddAppraisal_Request(ds.Tables(0).Rows.Item(0).Item("Req_ID"), 999, lblCif.Text, 0, "", "", 2, 11, 0, 0, Now)
+                'Add Appraisal Price3 Review
+                UPDATE_REVIEW_STATUS(lblAPPS_ID.Text)
+                UPDATE_REQUEST_ID()
+            End If
+        Next
+        Showdata()
+    End Sub
+
+    Private Function GET_RequestID() As DataSet
+
+        'For Print Data Out
+        Dim DS As DataSet
+        Dim MyConnection As SqlConnection
+        Dim MyDataAdapter As SqlDataAdapter
+
+        MyConnection = New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+
+        MyDataAdapter = New SqlDataAdapter("GET_REQUEST_ID", MyConnection)
+        MyDataAdapter.SelectCommand.CommandType = CommandType.StoredProcedure
+        'MyDataAdapter.SelectCommand.Parameters.Add(New SqlParameter("@Q_ID", SqlDbType.Int))
+        'MyDataAdapter.SelectCommand.Parameters("@Q_ID").Value = QID
+
+        DS = New DataSet() 'Create a new DataSet to hold the records.
+        MyDataAdapter.Fill(DS, "GET_REQUEST_ID") 'Fill the DataSet with the rows returned.
+        Return DS
+
+    End Function
 End Class

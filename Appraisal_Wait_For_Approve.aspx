@@ -117,7 +117,7 @@
                     <asp:TextBox ID="TextBox5" runat="server" Text='<%# Bind("Save_Date") %>'></asp:TextBox>
                 </EditItemTemplate>
                 <ItemTemplate>
-                    <asp:Label ID="Label12" runat="server" Text='<%# Bind("Save_Date") %>'></asp:Label>
+                    <asp:Label ID="Label12" runat="server" Text='<%# Bind("Save_Date", "{0:d}") %>'></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
             <asp:TemplateField HeaderText="">

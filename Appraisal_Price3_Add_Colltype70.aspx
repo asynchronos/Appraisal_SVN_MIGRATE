@@ -63,9 +63,8 @@
         .style24
         {
             width: 211px;
-            color: #6600FF;
-            font-weight: bold;
-        }
+            color: #000000;
+            }
         .style25
         {
             height: 24px;
@@ -79,6 +78,12 @@
         {
             height: 24px;
             width: 222px;
+        }
+        .style28
+        {
+            width: 211px;
+            color: #3333CC;
+            font-weight: bold;
         }
     </style>
     
@@ -119,6 +124,13 @@ function wopen(url, name, w, h) {
 }
 
 // -->
+
+function ConfirmOnSave(item) {
+        if (confirm("ไม่มีข้อมูลส่งปลูกสร้างนี้ คุณต้องการบันทึกสิ่งปลูกสร้างเลขที่: " + item + " ใช่หรือไม่ ?") == true)
+            return true;
+        else
+            return false;
+    }  
         </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
@@ -309,11 +321,9 @@ function wopen(url, name, w, h) {
                         EnableTextAlignRight="True" onblur="GrandTotal_ActiveChanged();">0</cc1:mytext>
                 </td>
                 <td class="style5">
-                    &nbsp;
-                </td>
+                    &nbsp;</td>
                 <td class="style19">
-                    &nbsp;
-                </td>
+                    &nbsp;</td>
                 <td class="style26">
                     &nbsp;</td>
                 <td>
@@ -330,8 +340,7 @@ function wopen(url, name, w, h) {
                     <asp:CheckBox ID="chkDoc2" runat="server" Text="เรื่องทางภารจำยอม" />
                 </td>
                 <td class="style19">
-                    &nbsp;
-                </td>
+                    &nbsp;</td>
                 <td class="style26">
                     ระบุเอกสารอื่น
                 </td>
@@ -356,34 +365,55 @@ function wopen(url, name, w, h) {
                     &nbsp;</td>
             </tr>              
             <tr>
-                <td class="style24">
+                <td class="style28">
                     พื้นที่สิ่งปลูกสร้างทั้งหมด</td>
                 <td class="style8">
                     <cc1:mytext ID="txtBuildingArea" runat="server" AllowUserKey="num_Numeric" 
-                        EnableTextAlignRight="True" MaxLength="4" Width="35px" BackColor="#FFFF66" 
+                        EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66" 
                         AutoPostBack="True">0</cc1:mytext>
                     ตรม.</td>
                 <td class="style5">
-                    ราคาต่อหน่วย</td>
+                    ราคาต่อหน่วย(สร้างเสร็จ)</td>
                 <td class="style19">
                     <cc1:mytext ID="txtBuildingUnitPrice" runat="server" AllowUserKey="num_Numeric" 
                         EnableTextAlignRight="True" Width="110px" BackColor="#FFFF66" 
-                        AutoPostBack="True">0.00</cc1:mytext>
+                        AutoPostBack="True" AutoCurrencyFormatOnKeyUp="True">0.00</cc1:mytext>
                     บาท</td>
                 <td class="style26">
-                    มูลค่า</td>
+                    มูลค่า(สร้างเสร็จ)</td>
                 <td>
                     <cc1:mytext ID="txtBuildingPrice" runat="server" AllowUserKey="num_Numeric" 
                         EnableTextAlignRight="True" Width="110px" BackColor="#FFFF66" 
-                        AutoPostBack="True">0.00</cc1:mytext>
+                        AutoPostBack="True" ReadOnly="True">0.00</cc1:mytext>
                     บาท</td>
+            </tr>
+            <tr>
+                <td class="style22">
+                    เปอร์เซ็นต์สิ่งปลูกสร้างสร้างเสร็จ</td>
+                <td class="style8">
+                    <cc1:mytext ID="txtFinishPercent" runat="server" AllowUserKey="num_Numeric" 
+                        Width="35px" BackColor="#FFFF66" MaxLength="3" AutoPostBack="True" 
+                        EnableTextAlignRight="True">100</cc1:mytext>
+                    &nbsp;%</td>
+                <td class="style5">
+                    มูลค่า(ยังสร้างไม่เสร็จ)</td>
+                <td class="style19">
+                    <cc1:mytext ID="txtPriceNotFinish" runat="server" AllowUserKey="num_Numeric" 
+                        EnableTextAlignRight="True" Width="110px" BackColor="#FFFF66" 
+                        AutoPostBack="True" ReadOnly="True">0.00</cc1:mytext>
+                    บาท</td>
+                <td class="style26">
+                                        &nbsp;</td>
+                <td>
+                    &nbsp;</td>
             </tr>
             <tr>
                 <td class="style22">
                     อายุการใช้งาน</td>
                 <td class="style8">
                     <cc1:mytext ID="txtBuildingAge" runat="server" AllowUserKey="num_Numeric" 
-                        EnableTextAlignRight="True" MaxLength="2" Width="35px" BackColor="#FFFF66">0</cc1:mytext>
+                        EnableTextAlignRight="True" MaxLength="2" Width="35px" BackColor="#FFFF66" 
+                        AutoPostBack="True">0</cc1:mytext>
                     ปี</td>
                 <td class="style5">
                                         ค่าเสื่อมต่อปี</td>
@@ -419,31 +449,66 @@ function wopen(url, name, w, h) {
                     รวมค่าเสื่อมราคา</td>
                 <td>
                     <cc1:mytext ID="txtBuildingPriceTotalDeteriorate" runat="server" AllowUserKey="num_Numeric" 
-                        EnableTextAlignRight="True" Width="110px" BackColor="#FFFF66">0.00</cc1:mytext>
+                        EnableTextAlignRight="True" Width="110px" BackColor="#FFFF66" 
+                        ReadOnly="True">0.00</cc1:mytext>
                     บาท</td>
             </tr>
             <tr>
                 <td class="style24">
+                    &nbsp;</td>
+                <td class="style8">
+                    &nbsp;</td>
+                <td class="style5">
+                    &nbsp;</td>
+                <td class="style19">
+                    &nbsp;</td>
+                <td class="style26">
+                    &nbsp;</td>
+                <td>
+                    &nbsp;</td>
+            </tr>
+            <tr>
+                <td class="style28">
                     ส่วนต่อเติม</td>
                 <td class="style8">
                     <cc1:mytext ID="txtBuildAddArea" runat="server" AllowUserKey="num_Numeric" 
-                        EnableTextAlignRight="True" MaxLength="4" Width="35px" BackColor="#FFFF66" 
+                        EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66" 
                         AutoPostBack="True">0</cc1:mytext>
                     ตรม.</td>
                 <td class="style5">
-                    ราคาต่อหน่วย</td>
+                    ราคาต่อหน่วย(สร้างเสร็จ)</td>
                 <td class="style19">
                     <cc1:mytext ID="txtBuildAddUnitPrice" runat="server" AllowUserKey="num_Numeric" 
                         EnableTextAlignRight="True" Width="110px" BackColor="#FFFF66" 
-                        AutoPostBack="True">0.00</cc1:mytext>
+                        AutoPostBack="True" AutoCurrencyFormatOnKeyUp="True" ReadOnly="True">0.00</cc1:mytext>
                     บาท</td>
                 <td class="style26">
-                    มูลค่า</td>
+                    มูลค่า(สร้างเสร็จ)</td>
                 <td>
                     <cc1:mytext ID="txtBuildAddPrice" runat="server" AllowUserKey="num_Numeric" 
                         EnableTextAlignRight="True" Width="110px" BackColor="#FFFF66" 
-                        AutoPostBack="True">0.00</cc1:mytext>
+                        AutoPostBack="True" ReadOnly="True" AutoCurrencyFormatOnKeyUp="True">0.00</cc1:mytext>
                     บาท</td>
+            </tr>
+            <tr>
+                <td class="style22">
+                    เปอร์เซ็นต์ส่วนต่อเติมสร้างเสร็จ</td>
+                <td class="style8">
+                    <cc1:mytext ID="txtFinishPercent1" runat="server" AllowUserKey="num_Numeric" 
+                        Width="35px" BackColor="#FFFF66" MaxLength="3" AutoPostBack="True" 
+                        EnableTextAlignRight="True">100</cc1:mytext>
+                    %</td>
+                <td class="style5">
+                    มูลค่า(ยังสร้างไม่เสร็จ)</td>
+                <td class="style19">
+                    <cc1:mytext ID="txtPriceNotFinish1" runat="server" AllowUserKey="num_Numeric" 
+                        EnableTextAlignRight="True" Width="110px" BackColor="#FFFF66" 
+                        AutoPostBack="True" ReadOnly="True">0.00</cc1:mytext>
+                    บาท</td>
+                <td class="style26">
+                    &nbsp;</td>
+                <td>
+                    &nbsp;</td>
             </tr>
             <tr>
                 <td class="style22">
@@ -488,8 +553,23 @@ function wopen(url, name, w, h) {
                     รวมค่าเสื่อมราคา</td>
                 <td>
                     <cc1:mytext ID="txtBuildAddPriceTotalDeteriorate" runat="server" AllowUserKey="num_Numeric" 
-                        EnableTextAlignRight="True" Width="110px" BackColor="#FFFF66">0.00</cc1:mytext>
+                        EnableTextAlignRight="True" Width="110px" BackColor="#FFFF66" 
+                        ReadOnly="True">0.00</cc1:mytext>
                     บาท</td>
+            </tr>
+            <tr>
+                <td class="style22">
+                                        &nbsp;</td>
+                <td class="style8">
+                    &nbsp;</td>
+                <td class="style5">
+                                        &nbsp;</td>
+                <td class="style19">
+                    &nbsp;</td>
+                <td class="style26">
+                    &nbsp;</td>
+                <td>
+                    &nbsp;</td>
             </tr>
             <tr>
                 <td class="style22">

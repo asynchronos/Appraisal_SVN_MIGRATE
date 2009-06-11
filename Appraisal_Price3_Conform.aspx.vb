@@ -1,24 +1,34 @@
 ﻿Imports Appraisal_Manager
 Imports System.Data
 Imports System.Data.SqlClient
+Imports ThaiBaht
+Imports SME_SERVICE
 
 Partial Class Appraisal_Price3_Conform
     Inherits System.Web.UI.Page
     'Private t1, t2 As Integer
+    Dim cus_class As Customer_Class
+    Dim SV As New SME_SERVICE.Service
+    Dim Cnt_P3M As Object
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         If Not Page.IsPostBack Then
             HiddenField1.Value = Context.Items("Req_Id")
             HiddenField2.Value = Context.Items("Hub_Id")
             HiddenField3.Value = Context.Items("Temp_AID")
+            txtCif.Text = Context.Items("Cif")
+            ddlUserAppraisal.SelectedValue = Context.Items("Appraisal_Id")
             'lblCif.Text = Context.Items("Temp_AID").Text
             'MsgBox(Context.Items("Req_Id").ToString, Context.Items("Hub_Id").ToString, Context.Items("Temp_AID").ToString)
 
             Show_Price3_Master()
+            Show_Price3_18()
             Show_Price3_50()
             Show_Price3_70_GROUP()
             Try
-                txtSubTotal.Text = Format(CDec(txtLandTotal.Text) + CDec(txtBuildingPrice.Text), "#,##0.00")
+                'txtSubTotal.Text = Format(CDec(txtLandTotal.Text) + CDec(txtBuildingPrice.Text), "#,##0.00")
+                txtGrandTotal.Text = String.Format("{0:N2}", CDec(txtSubTotal.Text))
+                lblThaiBaht.Text = ThaiBahtFun(CDec(txtGrandTotal.Text))
             Catch ex As Exception
 
             End Try
@@ -33,70 +43,167 @@ Partial Class Appraisal_Price3_Conform
         btnEditPosition.Attributes.Add("onclick", s1 & "','pop', 'width=820, height=680');")
         'txtAID.Attributes.Add("onfocus", "this.blur();")  ' set textbox to readonly 
         'txtCID.Attributes.Add("onfocus", "this.blur();")  ' set textbox to readonly 
+        Session("ctrl") = Panel1
     End Sub
 
     Private Sub Show_Price3_Master()
         Dim Obj_P3M As List(Of clsPrice3_Master) = GET_PRICE3_MASTER(HiddenField1.Value, HiddenField3.Value)
+        Cnt_P3M = Obj_P3M.Count
         If Obj_P3M.Count > 0 Then
             txtAID.Text = Obj_P3M.Item(0).AID
             txtInform_To.Text = Obj_P3M.Item(0).Inform_To
             txtCif.Text = Obj_P3M.Item(0).Cif
+            cus_class = SV.GetCifInfo(txtCif.Text)(0)
+            If cus_class.Cif.ToString <> 0 Then
+                lblCifName.Text = cus_class.cifName
+            Else
+                lblCifName.Text = ""
+            End If
             txtReceive_Date.Text = Obj_P3M.Item(0).Receive_Date
             txtAppraisal_Date.Text = Obj_P3M.Item(0).Appraisal_Date
-            ChkProblem.Checked = Obj_P3M.Item(0).Env_Effect
+            ddlProblem.SelectedValue = Obj_P3M.Item(0).Env_Effect
             txtProblem_Detail.Text = Obj_P3M.Item(0).Env_Effect_Detail
             txtBuy_Sale_Comment.Text = Obj_P3M.Item(0).Appraisal_Detail
             ddlAppraisal_Type.SelectedValue = Obj_P3M.Item(0).Appraisal_Type_ID
             ddlComment.SelectedValue = Obj_P3M.Item(0).Comment_ID
             ddlWarning.SelectedValue = Obj_P3M.Item(0).Warning_ID
             txtWarning_Detail.Text = Obj_P3M.Item(0).Warning_Detail
-            txtApprove1.Text = Obj_P3M.Item(0).Approved1
-            txtApprove2.Text = Obj_P3M.Item(0).Approved2
-            txtApprove3.Text = Obj_P3M.Item(0).Approved3
+            ddlApprove1.SelectedValue = Obj_P3M.Item(0).Approved1
+            ddlApprove2.SelectedValue = Obj_P3M.Item(0).Approved2
+            ddlApprove3.SelectedValue = Obj_P3M.Item(0).Approved3
             ddlUserAppraisal.SelectedValue = Obj_P3M.Item(0).Appraisal_ID
             If Obj_P3M.Item(0).Req_Dept <> 0 Then
                 ddlBranch.SelectedValue = Obj_P3M.Item(0).Req_Dept
             Else
             End If
-
+            lblPriceWah.Text = Format(Obj_P3M.Item(0).PriceWah, "#,##0.00")
+            txtLandTotal.Text = Format(Obj_P3M.Item(0).TotalPrice, "#,##0.00")
+            txtBuildingPrice.Text = Format(Obj_P3M.Item(0).BuildingPrice, "#,##0.00")
+            txtSubTotal.Text = Format(Obj_P3M.Item(0).Land_Building_Price, "#,##0.00")
+            txtGrandTotal.Text = String.Format("{0:N2}", (Obj_P3M.Item(0).TotalPrice + Obj_P3M.Item(0).BuildingPrice + Obj_P3M.Item(0).Land_Building_Price))
         Else
+            cus_class = SV.GetCifInfo(txtCif.Text)(0)
+            If cus_class.Cif.ToString <> 0 Then
+                lblCifName.Text = cus_class.cifName
+            Else
+                lblCifName.Text = ""
+            End If
+        End If
+    End Sub
+
+    Private Sub Show_Price3_18()
+        Dim Obj_GetP18 As List(Of Price3_18) = GET_PRICE3_18(HiddenField3.Value, HiddenField1.Value, HiddenField2.Value)
+        If Obj_GetP18.Count > 0 Then
+            lblCollName.Text = "หลักประกันห้องชุด"
+            Label5.Text = "หลักประกัน"
+            lblChanode_No.Text = Obj_GetP18.Item(0).Address_No
+            'lblRai.Text = Obj_GetP50.Item(0).Rai
+            'lblNgan.Text = Obj_GetP50.Item(0).Ngan
+            'lblWah.Text = Obj_GetP50.Item(0).Wah
+            lblRoad.Text = Obj_GetP18.Item(0).Road
+            Dim Obj_RoadAccess_Detail As List(Of Cls_Road_Detail) = GET_ROAD_DETAIL_INFO(Obj_GetP18.Item(0).Road_Detail)
+            lblRoadAccess_Detail.Text = Obj_RoadAccess_Detail.Item(0).Road_Detail_Name
+            lblMeter_Access.Text = Obj_GetP18.Item(0).Road_Access
+            lblTumbon.Text = Obj_GetP18.Item(0).Tumbon
+            lblAmphur.Text = Obj_GetP18.Item(0).Amphur
+            Dim Obj_Provinceas As List(Of Cls_PROVINCE) = GET_PROVINCE_INFO(Obj_GetP18.Item(0).Province)
+            lblProvince.Text = Obj_Provinceas.Item(0).PROV_NAME
+            'Dim Obj_Land_State As List(Of Cls_LandState) = GET_LANDSTATE_INFO(Obj_GetP50.Item(0).Land_State)
+            'lblLandState.Text = Obj_Land_State.Item(0).Land_State_Name
+            'lblLandStateDetail.Text = Obj_GetP50.Item(0).Land_State_Detail
+            Dim Obj_Road_Forntoff As List(Of Cls_RoadFrontOff) = GET_ROADFRONTOFF_INFO(Obj_GetP18.Item(0).Road_Frontoff)
+            lblRoad_Forntoff.Text = Obj_Road_Forntoff.Item(0).Road_Frontoff_Name
+            lblRoad_Forntoff_Width.Text = Obj_GetP18.Item(0).RoadWidth
+            'lblRoadWidth.Text = Obj_GetP50.Item(0).Land_Closeto_RoadWidth
+            'Dim Obj_Site As List(Of Cls_SITE) = GET_SITE_INFO(Obj_GetP50.Item(0).Sited)
+            'lblSiteName.Text = Obj_Site.Item(0).Site_Name
+            'txtSite_Detail.Text = Obj_GetP50.Item(0).Site_Detail
+            Dim Obj_Public_Utility As List(Of Cls_Public_Utility) = GET_PUBLIC_UTILITY_INFO(Obj_GetP18.Item(0).Public_Utility)
+            lblPublic_Utility.Text = Obj_Public_Utility.Item(0).Public_Utility_Name
+            'txtBinifit.Text = Obj_GetP50.Item(0).Binifit_Detail
+            Dim Obj_TENDENCY As List(Of Cls_TENDENCY) = GET_TENDENCY_INFO(Obj_GetP18.Item(0).Tendency)
+            lblTendency_Name.Text = Obj_TENDENCY.Item(0).Tendency_Name
+            Dim Obj_BuySale_State As List(Of Cls_Buy_Sale_State) = GET_BUYSALE_STATE_INFO(Obj_GetP18.Item(0).BuySale_State)
+            lblBuySale_StateName.Text = Obj_BuySale_State.Item(0).BuySale_State_Name
+            'lblPriceWah.Text = Format(Obj_GetP50.Item(0).PriceWah, "#,##0.00")
+            'txtLandTotal.Text = Format(Obj_GetP50.Item(0).PriceTotal1, "#,##0.00")
+            'lblRaWang.Text = Obj_GetP50.Item(0).Rawang
+            'lblLandNumber.Text = Obj_GetP50.Item(0).LandNumber
+            'lblSurway.Text = Obj_GetP50.Item(0).Surway
+            'lblDocNo.Text = Obj_GetP50.Item(0).DocNo
+            'lblPage.Text = Obj_GetP50.Item(0).PageNo
+            lblLandOwnerShip.Text = Obj_GetP18.Item(0).Ownership
+            lblObligation.Text = Obj_GetP18.Item(0).Obligation
+            txtBuildingPrice.Text = String.Format("{0:N2}", Obj_GetP18.Item(0).PriceTotal)
         End If
     End Sub
 
     Private Sub Show_Price3_50()
         Dim Obj_GetP50 As List(Of Price3_50) = GET_PRICE3_CONFORM(HiddenField1.Value, HiddenField2.Value, HiddenField3.Value)
         If Obj_GetP50.Count > 0 Then
+            lblDetail1.Text = "โฉนดที่ดินที่ เลขที่ " & Obj_GetP50.Item(0).Address_No & " ระวาง " & Obj_GetP50.Item(0).Rawang & " เลขที่ดิน " & Obj_GetP50.Item(0).LandNumber
+            lblDetail2.Text = "หน้าสำรวจ  " & Obj_GetP50.Item(0).Surway & " สารบัญ เล่มที่ " & Obj_GetP50.Item(0).DocNo & " หน้า " & Obj_GetP50.Item(0).PageNo
+            Dim Obj_Provinceas As List(Of Cls_PROVINCE) = GET_PROVINCE_INFO(Obj_GetP50.Item(0).Province)
+            lblDetail3.Text = "ตำบล  " & Obj_GetP50.Item(0).Tumbon & " อำเภอ " & Obj_GetP50.Item(0).Amphur & " จังหวัด " & Obj_Provinceas.Item(0).PROV_NAME & " เนื้อที่ " & Obj_GetP50.Item(0).Rai & " ไร่  " & Obj_GetP50.Item(0).Ngan & " งาน  " & Obj_GetP50.Item(0).Wah & " วา"
+            lblDetail4.Text = "ผู้ถือกรรมสิทธิ์ที่ดิน  " & Obj_GetP50.Item(0).Ownership & " ภาระผูกพัน " & Obj_GetP50.Item(0).Obligation & " สิ่งปลูกสร้างของ "
+            lblCollName.Text = "ที่ดิน"
+            '---------------------------------------
             lblChanode_No.Text = Obj_GetP50.Item(0).Address_No
             lblRai.Text = Obj_GetP50.Item(0).Rai
             lblNgan.Text = Obj_GetP50.Item(0).Ngan
             lblWah.Text = Obj_GetP50.Item(0).Wah
-            lblRoad.Text = Obj_GetP50.Item(0).Road
+            '---------------------------------------
             Dim Obj_RoadAccess_Detail As List(Of Cls_Road_Detail) = GET_ROAD_DETAIL_INFO(Obj_GetP50.Item(0).Road_Detail)
+            Dim Obj_Land_State As List(Of Cls_LandState) = GET_LANDSTATE_INFO(Obj_GetP50.Item(0).Land_State)
+            Dim Obj_Road_Forntoff As List(Of Cls_RoadFrontOff) = GET_ROADFRONTOFF_INFO(Obj_GetP50.Item(0).Road_Frontoff)
+            Dim Obj_Site As List(Of Cls_SITE) = GET_SITE_INFO(Obj_GetP50.Item(0).Sited)
+            Dim Obj_AreaColour As List(Of Cls_Area_Colour) = GET_AREA_COLOUR_INFO(Obj_GetP50.Item(0).AreaColour_No)
+            Dim Obj_Public_Utility As List(Of Cls_Public_Utility) = GET_PUBLIC_UTILITY_INFO(Obj_GetP50.Item(0).Public_Utility)
+            Dim Obj_TENDENCY As List(Of Cls_TENDENCY) = GET_TENDENCY_INFO(Obj_GetP50.Item(0).Tendency)
+            Dim Obj_BuySale_State As List(Of Cls_Buy_Sale_State) = GET_BUYSALE_STATE_INFO(Obj_GetP50.Item(0).BuySale_State)
+            Dim Obj_SubUnit As List(Of Cls_SubUnit) = GET_SubUnit_Info(Obj_GetP50.Item(0).SubUnit)
+
+            lblLandDetail1.Text = "หลักประกัน ตั้งอยู่ที่ถนน  " & Obj_GetP50.Item(0).Road & "   " & Obj_RoadAccess_Detail.Item(0).Road_Detail_Name & "  ระยะประมาณ " & Obj_GetP50.Item(0).Road_Access & " เมตร "
+            lblLandDetail2.Text = "ถนนหน้าหลักประกัน  " & Obj_Road_Forntoff.Item(0).Road_Frontoff_Name & " กว้าง " & Obj_GetP50.Item(0).RoadWidth & " เมตร (รายละเอียดตามรูปแผนที่สังเขป)"
+            lblLandDetail3.Text = "สภาพลักษระรูปที่ดิน  "
+            lblLandDetail4.Text = "ขนาดที่ดิน กว้างติดถนน  " & Obj_GetP50.Item(0).Land_Closeto_RoadWidth & " เมตร  " & " ลึก  " & Obj_GetP50.Item(0).DeepWidth & " เมตร  " & " ด้านหลัง  " & Obj_GetP50.Item(0).BehindWidth & " เมตร "
+            lblLandDetail5.Text = "สภาพและการปรับปรุงระดับของที่ดินกับถนน  " & Obj_Land_State.Item(0).Land_State_Name & Obj_GetP50.Item(0).Land_State_Detail & " ทำเล  " & Obj_Site.Item(0).Site_Name
+            lblLandDetail6.Text = "ผังเมืองรวม   ที่ดินอยู่ในเขตพื้นที่สี  " & Obj_AreaColour.Item(0).AreaColour_Name
+            lblLandDetail7.Text = "สาธารณูปโภค  " & Obj_Public_Utility.Item(0).Public_Utility_Name & "  แนวโน้มความเจริญ   " & Obj_TENDENCY.Item(0).Tendency_Name
+            lblLandDetail7.Text = "สภาพการซื้อขาย  " & Obj_BuySale_State.Item(0).BuySale_State_Name
+
+            '---------------------------------------
+            lblRoad.Text = Obj_GetP50.Item(0).Road
             lblRoadAccess_Detail.Text = Obj_RoadAccess_Detail.Item(0).Road_Detail_Name
             lblMeter_Access.Text = Obj_GetP50.Item(0).Road_Access
             lblTumbon.Text = Obj_GetP50.Item(0).Tumbon
             lblAmphur.Text = Obj_GetP50.Item(0).Amphur
-            Dim Obj_Provinceas As List(Of Cls_PROVINCE) = GET_PROVINCE_INFO(Obj_GetP50.Item(0).Province)
             lblProvince.Text = Obj_Provinceas.Item(0).PROV_NAME
-            Dim Obj_Land_State As List(Of Cls_LandState) = GET_LANDSTATE_INFO(Obj_GetP50.Item(0).Land_State)
+
             lblLandState.Text = Obj_Land_State.Item(0).Land_State_Name
             lblLandStateDetail.Text = Obj_GetP50.Item(0).Land_State_Detail
-            Dim Obj_Road_Forntoff As List(Of Cls_RoadFrontOff) = GET_ROADFRONTOFF_INFO(Obj_GetP50.Item(0).Road_Frontoff)
+
             lblRoad_Forntoff.Text = Obj_Road_Forntoff.Item(0).Road_Frontoff_Name
             lblRoad_Forntoff_Width.Text = Obj_GetP50.Item(0).RoadWidth
             lblRoadWidth.Text = Obj_GetP50.Item(0).Land_Closeto_RoadWidth
-            Dim Obj_Site As List(Of Cls_SITE) = GET_SITE_INFO(Obj_GetP50.Item(0).Sited)
+
             lblSiteName.Text = Obj_Site.Item(0).Site_Name
             'txtSite_Detail.Text = Obj_GetP50.Item(0).Site_Detail
-            Dim Obj_Public_Utility As List(Of Cls_Public_Utility) = GET_PUBLIC_UTILITY_INFO(Obj_GetP50.Item(0).Public_Utility)
+
             lblPublic_Utility.Text = Obj_Public_Utility.Item(0).Public_Utility_Name
             'txtBinifit.Text = Obj_GetP50.Item(0).Binifit_Detail
-            Dim Obj_TENDENCY As List(Of Cls_TENDENCY) = GET_TENDENCY_INFO(Obj_GetP50.Item(0).Tendency)
+
             lblTendency_Name.Text = Obj_TENDENCY.Item(0).Tendency_Name
-            Dim Obj_BuySale_State As List(Of Cls_Buy_Sale_State) = GET_BUYSALE_STATE_INFO(Obj_GetP50.Item(0).BuySale_State)
+
             lblBuySale_StateName.Text = Obj_BuySale_State.Item(0).BuySale_State_Name
-            lblPriceWah.Text = Format(Obj_GetP50.Item(0).PriceWah, "#,##0.00")
-            txtLandTotal.Text = Format(Obj_GetP50.Item(0).PriceTotal1, "#,##0.00")
+
+            lblSubUnit.Text = Obj_SubUnit.Item(0).SubUnit_Name
+            'ตรวจสอบราคาของราคา Price 3 Master ที่จะแสดง
+            If CInt(Cnt_P3M) = 0 Then
+                lblPriceWah.Text = Format(Obj_GetP50.Item(0).PriceWah, "#,##0.00")
+                txtLandTotal.Text = Format(Obj_GetP50.Item(0).PriceTotal1, "#,##0.00")
+            End If
+
             lblRaWang.Text = Obj_GetP50.Item(0).Rawang
             lblLandNumber.Text = Obj_GetP50.Item(0).LandNumber
             lblSurway.Text = Obj_GetP50.Item(0).Surway
@@ -106,67 +213,34 @@ Partial Class Appraisal_Price3_Conform
             lblObligation.Text = Obj_GetP50.Item(0).Obligation
             lblDeepWidth.Text = Obj_GetP50.Item(0).DeepWidth
             lblBehindWidth.Text = Obj_GetP50.Item(0).BehindWidth
-            Dim Obj_AreaColour As List(Of Cls_Area_Colour) = GET_AREA_COLOUR_INFO(Obj_GetP50.Item(0).AreaColour_No)
+
             lblArea_Colour.Text = Obj_AreaColour.Item(0).AreaColour_Name
+            lblSize.Text = Obj_GetP50.Item(0).Rai & "-" & Obj_GetP50.Item(0).Ngan & "-" & Obj_GetP50.Item(0).Wah
         End If
     End Sub
 
     Private Sub Show_Price3_70_GROUP()
         Dim Obj_GetP70G As DataSet = GET_PRICE3_70_GROUP(Context.Items("Req_Id"), Context.Items("Hub_Id"), Context.Items("Temp_AID"))
         If Obj_GetP70G.Tables(0).Rows.Count > 0 Then
+            If Obj_GetP70G.Tables(0).Rows(0).Item("CntBuild_No") = 1 Then
+                lblLandDetail7.Text = "สิ่งปลูกสร้างเลขที่  " & Obj_GetP70G.Tables(0).Rows(0).Item("Build_No") & " รวมจำนวน 1 " & " หลัง "
+            Else
+                lblLandDetail7.Text = "ตามรายละเอียดสิ่งปลูกสร้างแนบ "
+            End If
+
             lblBuilding_No.Text = Obj_GetP70G.Tables(0).Rows(0).Item("Build_No").ToString()
             lblTotal2.Text = Format(CDec(Obj_GetP70G.Tables(0).Rows(0).Item("UnitPrice").ToString), "#,##0.00")
             lblItem.Text = Obj_GetP70G.Tables(0).Rows(0).Item("Item").ToString()
-            txtBuildingPrice.Text = Format(CDec(Obj_GetP70G.Tables(0).Rows(0).Item("Buildingprice").ToString), "#,##0.00")
+            'ตรวจสอบราคาของราคา Price 3 Master ที่จะแสดง
+            If CInt(Cnt_P3M) = 0 Then
+                txtBuildingPrice.Text = Format(CDec(Obj_GetP70G.Tables(0).Rows(0).Item("Buildingprice").ToString), "#,##0.00")
+                txtSubTotal.Text = String.Format("{0:N2}", Obj_GetP70G.Tables(0).Rows(0).Item("PriceTotal1"))
+            End If
+
         Else
-            lblTotal2.Text = "0.00"
-            txtBuildingPrice.Text = "0.00"
+            'lblTotal2.Text = "0.00"
+            'txtBuildingPrice.Text = "0.00"
         End If
-
-
-        'Dim Obj_GetP70 As List(Of Price3_70) = GET_PRICE3_70(lblId.Text, lblReq_Id.Text, lblHub_Id.Text, lblTemp_AID.Text)
-        'If Obj_GetP70.Count > 0 Then
-        '    lblId.Text = Obj_GetP70.Item(0).ID
-        '    lblReq_Id.Text = Obj_GetP70.Item(0).Req_Id
-        '    lblHub_Id.Text = Obj_GetP70.Item(0).Hub_Id
-        '    DDLSubCollType.SelectedValue = Obj_GetP70.Item(0).MysubColl_ID
-        '    txtChanodeNo.Text = Obj_GetP70.Item(0).Put_On_Chanode
-        '    lbBuildinObligation.Text = Obj_GetP70.Item(0).Ownership
-        '    txtBuild_No.Text = Obj_GetP70.Item(0).Build_No
-        '    txtTumbon.Text = Obj_GetP70.Item(0).Tumbon
-        '    txtAmphur.Text = Obj_GetP70.Item(0).Amphur
-        '    ddlProvince.SelectedValue = Obj_GetP70.Item(0).Province
-        '    ddlBuild_Character.SelectedValue = Obj_GetP70.Item(0).Build_Character
-        '    txtFloor.Text = Obj_GetP70.Item(0).Floors
-        '    txtItem.Text = Obj_GetP70.Item(0).Item
-        '    ddlBuild_Construct.SelectedValue = Obj_GetP70.Item(0).Build_Construct
-        '    ddlRoof.SelectedValue = Obj_GetP70.Item(0).Roof
-        '    txtRoof_Detail.Text = Obj_GetP70.Item(0).Roof_Detail
-        '    ddlBuild_State.SelectedValue = Obj_GetP70.Item(0).Build_State
-        '    txtBuild_State_Detail.Text = Obj_GetP70.Item(0).Build_State_Detail
-        '    txtBuilding_Detail.Text = Obj_GetP70.Item(0).Building_Detail
-        '    txtPriceTotal1.Text = Obj_GetP70.Item(0).PriceTotal1
-        '    chkDoc1.Checked = Obj_GetP70.Item(0).Doc1
-        '    chkDoc2.Checked = Obj_GetP70.Item(0).Doc2
-        '    txtDoc_Detail.Text = Obj_GetP70.Item(0).Doc_Detail
-        '    txtBuildingArea.Text = Obj_GetP70.Item(0).BuildingArea
-        '    txtBuildingUnitPrice.Text = Obj_GetP70.Item(0).BuildingUintPrice
-        '    txtBuildingPrice.Text = Obj_GetP70.Item(0).BuildingPrice
-        '    txtBuildingAge.Text = Obj_GetP70.Item(0).BuildingAge
-        '    txtBuildingPersent1.Text = Obj_GetP70.Item(0).BuildingPersent1
-        '    txtBuildingPersent2.Text = Obj_GetP70.Item(0).BuildingPersent2
-        '    txtBuildingPersent3.Text = Obj_GetP70.Item(0).BuildingPersent3
-        '    txtBuildingTotalDeteriorate.Text = Obj_GetP70.Item(0).BuildingPriceTotalDeteriorate
-        '    txtBuildAddArea.Text = Obj_GetP70.Item(0).BuildAddArea
-        '    txtBuildAddUnitPrice.Text = Obj_GetP70.Item(0).BuildAddUintPrice
-        '    txtBuildAddPrice.Text = Obj_GetP70.Item(0).BuildAddPrice
-        '    txtBuildAddAge.Text = Obj_GetP70.Item(0).BuildAddAge
-        '    txtBuildAddPersent1.Text = Obj_GetP70.Item(0).BuildAddPersent1
-        '    txtBuildAddPersent2.Text = Obj_GetP70.Item(0).BuildAddPersent2
-        '    txtBuildAddPersent3.Text = Obj_GetP70.Item(0).BuildAddPersent3
-        '    txtBuildAddTotalDeteriorate.Text = Obj_GetP70.Item(0).BuildAddPriceTotalDeteriorate
-        '    txtBuildingDetail.Text = Obj_GetP70.Item(0).BuildingDetail
-        'End If
     End Sub
 
     Protected Sub ImageSave_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs) Handles ImageSave.Click
@@ -206,11 +280,14 @@ Partial Class Appraisal_Price3_Conform
                  CDec(txtLandTotal.Text), _
                  CDec(txtBuildingPrice.Text), _
                  CDec(txtSubTotal.Text), _
-                 txtApprove1.Text, _
-                 txtApprove2.Text, _
-                 txtApprove3.Text, _
+                 ddlApprove1.SelectedValue, _
+                 ddlPos_Approve1.SelectedValue, _
+                 ddlApprove2.SelectedValue, _
+                 ddlPos_Approve2.SelectedValue, _
+                 ddlApprove3.SelectedValue, _
+                 ddlPos_Approve3.SelectedValue, _
                  0, _
-                 ChkProblem.Checked, _
+                 ddlProblem.SelectedValue, _
                  txtProblem_Detail.Text, _
                  txtBuy_Sale_Comment.Text, _
                  ddlAppraisal_Type.SelectedValue, _
@@ -237,11 +314,11 @@ Partial Class Appraisal_Price3_Conform
                  CDec(txtLandTotal.Text), _
                  CDec(txtBuildingPrice.Text), _
                  CDec(txtSubTotal.Text), _
-                 txtApprove1.Text, _
-                 txtApprove2.Text, _
-                 txtApprove3.Text, _
+                 ddlApprove1.SelectedValue, _
+                 ddlApprove2.SelectedValue, _
+                 ddlApprove3.SelectedValue, _
                  0, _
-                 ChkProblem.Checked, _
+                 ddlProblem.SelectedValue, _
                  txtProblem_Detail.Text, _
                  txtBuy_Sale_Comment.Text, _
                  ddlAppraisal_Type.SelectedValue, _
@@ -262,6 +339,17 @@ Partial Class Appraisal_Price3_Conform
             Page.ClientScript.RegisterStartupScript(Me.GetType, "ผิดพลาด", s)
         End If
 
+    End Sub
+
+    Protected Sub ImagePrint_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs) Handles ImagePrint.Click
+        'Dim ctrl As Control = CType(Session("ctrl"), Control)
+        'PrintHelper.PrintWebControl(ctrl)
+        'ImagePrint.Visible = False
+        'lblSave.Visible = False
+        'ImageSave.Visible = False
+        'btnEditPosition.ValidationGroup = False
+        Session("ctrl") = Panel1
+        ClientScript.RegisterStartupScript(Me.GetType(), "onclick", "<script language=javascript>window.open('Testprint.aspx','PrintMe','height=768px,width=1024px,scrollbars=1');</script>")
     End Sub
 
 End Class

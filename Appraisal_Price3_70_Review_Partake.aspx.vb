@@ -142,10 +142,6 @@ Partial Class Appraisal_Price3_70_Review_Pastake
         btnCal_Click(sender, Nothing)
     End Sub
 
-    Protected Sub ImgBtnClose_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs) Handles ImgBtnClose.Click
-
-    End Sub
-
     Protected Sub ImagePrint_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs) Handles ImagePrint.Click
 
         ddlPartaked.Enabled = True

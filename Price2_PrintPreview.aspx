@@ -16,7 +16,6 @@
         }
         .style3
         {
-            width: 243px;
         }
         .style4
         {
@@ -100,7 +99,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;อำเภอ
         <asp:Label ID="lblAmphur" runat="server"></asp:Label>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;จังหวัด
-        <asp:Label ID="lblPrivinceName" runat="server"></asp:Label>
+        <asp:Label ID="lblProvinceName" runat="server"></asp:Label>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;เนื้อที่
         <asp:Label ID="lblSizeAll" runat="server"></asp:Label>
         <br />
@@ -168,12 +167,12 @@
                 <td class="style2">
                     รายการทีรายการที่ 1 เป็นเงิน</td>
                 <td class="style4">
-        <asp:Label ID="lblPriceItem1" runat="server"></asp:Label>
+                    <asp:Label ID="lblPriceItem1" runat="server">0.00</asp:Label>
                 </td>
                 <td class="style3">
                     รายงานที่ 2 เป็นเงิน</td>
-                <td>
-        <asp:Label ID="lblPriceItem2" runat="server" Width="100px"></asp:Label>
+                <td style="text-align:right;">
+                    <asp:Label ID="lblPriceItem2" runat="server" Width="100px">0.00</asp:Label>
                 </td>
                 <td class="style5">
                     บาท</td>
@@ -186,13 +185,13 @@
                 <td class="style4">
          <asp:Label ID="lblSize" runat="server"></asp:Label>
 &nbsp;ไร่ ตรว. ละ
-        <asp:Label ID="lblPriceWah" runat="server"></asp:Label>
+        <asp:Label ID="lblPriceWah" runat="server">0.00</asp:Label>
 &nbsp;บาท</td>
                 <td class="style3">
 &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; เป็นเงิน
                 </td>
-                <td>
-        <asp:Label ID="lblTotal1" runat="server" Width="100px"></asp:Label>
+                <td style="text-align:right;">
+        <asp:Label ID="lblTotal1" runat="server" Width="100px">0.00</asp:Label>
                 </td>
                 <td class="style5">
                     บาท</td>
@@ -208,8 +207,8 @@
                 <td class="style3">
                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; เป็นเงิน
                 </td>
-                <td>
-        <asp:Label ID="lblTotal2" runat="server" Width="100px"></asp:Label>
+                <td style="text-align:right;">
+        <asp:Label ID="lblTotal2" runat="server" Width="100px">0.00</asp:Label>
                 </td>
                 <td class="style5">
                     บาท</td>
@@ -224,8 +223,8 @@
                 </td>
                 <td class="style3">
                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; เป็นเงิน</td>
-                <td>
-        <asp:Label ID="lblTotal3" runat="server" Width="100px"></asp:Label>
+                <td style="text-align:right;">
+        <asp:Label ID="lblTotal3" runat="server" Width="100px">0.00</asp:Label>
                 </td>
                 <td class="style5">
                     บาท&nbsp;</td>
@@ -240,11 +239,24 @@
                 <td class="style3">
 &nbsp;<b>รวมราคาประเมินเบื้องต้น</b> เป็นเงิน
                 </td>
-                <td>
-        <asp:Label ID="lblGrandTotal" runat="server" Width="100px"></asp:Label>
+                <td style="text-align:right;">
+        <asp:Label ID="lblGrandTotal" runat="server" Width="100px">0.00</asp:Label>
                 </td>
                 <td class="style5">
                     บาท</td>
+            </tr>
+            <tr>
+                <td>
+                    &nbsp;</td>
+                <td class="style2">
+                    &nbsp;</td>
+                <td class="style4">
+                    &nbsp;</td>
+                <td class="style3" colspan="2">
+                    <asp:Label ID="lblThaiBaht" runat="server"></asp:Label>
+                </td>
+                <td class="style5">
+                    &nbsp;</td>
             </tr>
         </table>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
@@ -260,7 +272,9 @@
         อื่น ๆ ระบุ
         <asp:Label ID="lblDocument_Detail" runat="server"></asp:Label>
                 <br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ลงชื่อ <asp:Label ID="lblAppraisalName" runat="server" Width="180px"></asp:Label>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ลงชื่อ 
+            <asp:Label ID="lblAppraisalName" runat="server" Width="180px" 
+            style="text-align: center"></asp:Label>        
         ผู้แจ้งราคาประเมินเบื้องต้น<br />
         <br />
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(..............................................)&nbsp;&nbsp; <asp:Label ID="lblYears" runat="server"></asp:Label>

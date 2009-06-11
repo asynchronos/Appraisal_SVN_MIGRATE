@@ -11,11 +11,11 @@
             width: 100%;
         }
         .style2
-        {            font-size: small;
+        {            font-size: x-small;
         }
         .style3
         {
-            height: 22px;
+            height: 18px;
         }
         .bgTable
         {
@@ -24,7 +24,7 @@
         }
         .style4
         {
-            width: 97px;
+            width: 50px;
         }
         .style5
         {            font-size: small;
@@ -130,12 +130,13 @@
                 &nbsp;</td>
         </tr>   
         <tr>
-            <td colspan="5" rowspan="10">
+            <td colspan="6" valign="top">
     
         <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" 
             BackColor="LightGoldenrodYellow" BorderColor="Tan" BorderWidth="1px" 
             CellPadding="2" DataKeyNames="ID,Req_Id,Hub_Id,Temp_AID,Floors" 
-            DataSourceID="DdsPrice3_70_Detail" ForeColor="Black" GridLines="None" PageSize="8">
+            DataSourceID="DdsPrice3_70_Detail" ForeColor="Black" GridLines="None" PageSize="8" 
+                    style="font-size: small" Width="100%">
             <Columns>
                 <asp:TemplateField HeaderText="ID" SortExpression="ID" Visible="False">
                     <EditItemTemplate>
@@ -179,6 +180,7 @@
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="ชั้น" SortExpression="Floors">
+                <ItemStyle HorizontalAlign="Center" />
                     <EditItemTemplate>
                         <asp:Label ID="Label5" runat="server" Text='<%# Eval("Floors") %>'></asp:Label>
                     </EditItemTemplate>
@@ -196,6 +198,7 @@
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="แกรนิต" SortExpression="Granite">
+                <ItemStyle HorizontalAlign="Center" />
                     <EditItemTemplate>
                         <asp:TextBox ID="TextBox3" runat="server" Text='<%# Bind("Granite") %>'></asp:TextBox>
                     </EditItemTemplate>
@@ -204,6 +207,7 @@
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="ลามิเนต/ปาร์เก้" SortExpression="Parquet">
+                <ItemStyle HorizontalAlign="Center" />
                     <EditItemTemplate>
                         <asp:TextBox ID="TextBox4" runat="server" Text='<%# Bind("Parquet") %>'></asp:TextBox>
                     </EditItemTemplate>
@@ -212,6 +216,7 @@
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="เซรามิค" SortExpression="Ceramic">
+                <ItemStyle HorizontalAlign="Center" />
                     <EditItemTemplate>
                         <asp:TextBox ID="TextBox5" runat="server" Text='<%# Bind("Ceramic") %>'></asp:TextBox>
                     </EditItemTemplate>
@@ -220,6 +225,7 @@
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="ไม้" SortExpression="Wood">
+                <ItemStyle HorizontalAlign="Center" />
                     <EditItemTemplate>
                         <asp:TextBox ID="TextBox6" runat="server" Text='<%# Bind("Wood") %>'></asp:TextBox>
                     </EditItemTemplate>
@@ -228,6 +234,7 @@
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="อื่น ๆ" SortExpression="Other">
+                <ItemStyle HorizontalAlign="Center" />
                     <EditItemTemplate>
                         <asp:TextBox ID="TextBox7" runat="server" Text='<%# Bind("Other") %>'></asp:TextBox>
                     </EditItemTemplate>
@@ -243,7 +250,8 @@
                         <asp:Label ID="lblOther_Detail" runat="server" Text='<%# Bind("Other_Detail") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="BrickWall" SortExpression="BrickWall">
+                <asp:TemplateField HeaderText="ผนังอิฐ" SortExpression="BrickWall">
+                <ItemStyle HorizontalAlign="Center" />
                     <EditItemTemplate>
                         <asp:TextBox ID="TextBox9" runat="server" Text='<%# Bind("BrickWall") %>'></asp:TextBox>
                     </EditItemTemplate>
@@ -251,7 +259,8 @@
                         <asp:checkbox ID="chkBrickWall" runat="server" checked='<%# Bind("BrickWall") %>'></asp:checkbox>
                     </ItemTemplate>
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="BlockBrickWall" SortExpression="BlockBrickWall">
+                <asp:TemplateField HeaderText="ผนังอิฐบล็อค" SortExpression="BlockBrickWall">
+                <ItemStyle HorizontalAlign="Center" />
                     <EditItemTemplate>
                         <asp:TextBox ID="TextBox10" runat="server" Text='<%# Bind("BlockBrickWall") %>'></asp:TextBox>
                     </EditItemTemplate>
@@ -259,7 +268,8 @@
                         <asp:checkbox ID="chkBlockBrickWall" runat="server" checked='<%# Bind("BlockBrickWall") %>'></asp:checkbox>
                     </ItemTemplate>
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="WoodWall" SortExpression="WoodWall">
+                <asp:TemplateField HeaderText="ผนังไม้" SortExpression="WoodWall">
+                <ItemStyle HorizontalAlign="Center" />
                     <EditItemTemplate>
                         <asp:TextBox ID="TextBox11" runat="server" Text='<%# Bind("WoodWall") %>'></asp:TextBox>
                     </EditItemTemplate>
@@ -267,7 +277,8 @@
                         <asp:checkbox ID="chkWoodWall" runat="server" checked='<%# Bind("WoodWall") %>'></asp:checkbox>
                     </ItemTemplate>
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="OtherWall" SortExpression="OtherWall">
+                <asp:TemplateField HeaderText="อื่นๆ" SortExpression="OtherWall">
+                <ItemStyle HorizontalAlign="Center" />
                     <EditItemTemplate>
                         <asp:TextBox ID="TextBox12" runat="server" Text='<%# Bind("OtherWall") %>'></asp:TextBox>
                     </EditItemTemplate>
@@ -275,7 +286,7 @@
                         <asp:checkbox ID="chkOtherWall" runat="server" checked='<%# Bind("OtherWall") %>'></asp:checkbox>
                     </ItemTemplate>
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="OtherWall_Detail" 
+<%--                <asp:TemplateField HeaderText="รายละเอียด" 
                     SortExpression="OtherWall_Detail">
                     <EditItemTemplate>
                         <asp:TextBox ID="TextBox13" runat="server" 
@@ -284,7 +295,7 @@
                     <ItemTemplate>
                         <asp:Label ID="lblOtherWall_Detail" runat="server" Text='<%# Bind("OtherWall_Detail") %>'></asp:Label>
                     </ItemTemplate>
-                </asp:TemplateField>
+                </asp:TemplateField>--%>
             </Columns>
             <FooterStyle BackColor="Tan" />
             <PagerStyle BackColor="PaleGoldenrod" ForeColor="DarkSlateBlue" 
@@ -310,45 +321,7 @@
     </asp:SqlDataSource>
     
             </td>
-            <td>
-                &nbsp;</td>
         </tr>  
-        <tr>
-            <td>
-                &nbsp;</td>
-        </tr> 
-        <tr>
-            <td>
-                &nbsp;</td>
-        </tr> 
-        <tr>
-            <td>
-                &nbsp;</td>
-        </tr>  
-        <tr>
-            <td>
-                &nbsp;</td>
-        </tr>  
-        <tr>
-            <td>
-                &nbsp;</td>
-        </tr> 
-        <tr>
-            <td>
-                &nbsp;</td>
-        </tr> 
-        <tr>
-            <td>
-                &nbsp;</td>
-        </tr> 
-        <tr>
-            <td>
-                &nbsp;</td>
-        </tr> 
-        <tr>
-            <td>
-                &nbsp;</td>
-        </tr> 
         <tr>
             <td class="style5">
                 สภาพการตกแต่ง</td>
@@ -367,7 +340,7 @@
                 &nbsp;</td>
         </tr> 
         <tr>
-            <td class="style2" colspan="5" rowspan="5" valign="top">
+            <td class="style2" colspan="6" valign="top">
                 <asp:Repeater ID="Repeater1" runat="server" DataSourceID="sdsBuilding_Partake_List">
                 <HeaderTemplate>
                     <table border="1px" width="100%">
@@ -377,25 +350,36 @@
                         <td rowspan="2" valign="top">
                             พื้นที่<br />
                             (ตรม.)</td>
+                        <td rowspan="2" valign="top">
+                            สร้างเสร็จ<br />
+                           %</td>                            
                         <td colspan="2">
                             ราคาต้นทุนทดแทนใหม่
                         </td>
-                        <td rowspan="2" valign="top">
+                        <td rowspan="2" valign="top" style="width:40px">
                             อายุการ<br />
                             ใช้งาน(ปี)</td>
                         <td rowspan="2" valign="top" class="style4">
-                            ค่าเสื่อม(ปี)</td>
+                            ค่าเสื่อม<br />
+                            (ปี)</td>
                         <td colspan="2">
                             ปรับค่าเสื่อมตามสภาพ</td>
-                        <td rowspan="2" valign="top">
-                            รวมค่าเสื่อม<br />
-                            %</td>
+                        <td rowspan="2" valign="top" style="width:60px">
+                            รวม<br />
+                            ค่าเสื่อม%</td>
                         <td rowspan="2" valign="top">
                             รวมค่าเสื่อม<br />
                             (บาท)</td>
                         <td rowspan="2" valign="top">
+                            รวมค่าเสื่อม<br />
+                            ตามสภาพ<br />
+                            ปัจจุบัน(บาท)</td>                            
+                        <td rowspan="2" valign="top">
+                            ราคา<br />
+                            สร้างเสร็จ(บาท)</td>   
+                        <td rowspan="2" valign="top"> 
                             ราคาตามสภาพ<br />
-                            ปัจจุบัน(บาท)</td>
+                            ปัจจุบัน(บาท)</td>                                                    
                     </tr>
                     <tr class="bgTable">
                         <td class="style3" valign="top">
@@ -417,6 +401,9 @@
                         <td align="center">
                             <%#Eval("Area")%>
                         </td>
+                        <td align="center">
+                            <%#Eval("PercentFinish")%>
+                        </td>
                         <td align="right">
                             <%#String.Format("{0:N2}", Eval("UintPrice"))%>
                         </td>
@@ -442,7 +429,13 @@
                             <%# Get_Amount_Bht( eval("Price") ,eval("Age"), eval("Persent1"), eval("Persent2"), eval("Persent3")) %>
                         </td>
                         <td align="right">
+                            <%#Get_Amount_Bht(Eval("Pricepercent"), Eval("Age"), Eval("Persent1"), Eval("Persent2"), Eval("Persent3"))%>
+                        </td>
+                        <td align="right">
                             <%# Get_Balance( eval("Price") ,eval("Age"), eval("Persent1"), eval("Persent2"), eval("Persent3")) %>
+                        </td>
+                        <td align="right">
+                            <%#Get_Balance1(Eval("Pricepercent"), Eval("Age"), Eval("Persent1"), Eval("Persent2"), Eval("Persent3"))%>
                         </td>
                     </tr>                    
                 </ItemTemplate>
@@ -454,6 +447,9 @@
                         <td align="center">
                             <%#Eval("Area")%>
                         </td>
+                        <td align="center">
+                            <%#Eval("PercentFinish")%>
+                        </td>                        
                         <td align="right">
                             <%#String.Format("{0:N2}", Eval("UintPrice"))%>
                         </td>
@@ -477,14 +473,27 @@
                         </td>
                         <td align="right">
                             <%# Get_Amount_Bht( eval("Price") ,eval("Age"), eval("Persent1"), eval("Persent2"), eval("Persent3")) %>
+                        </td>                        
+                        <td align="right">
+                            <%#Get_Amount_Bht(Eval("Pricepercent"), Eval("Age"), Eval("Persent1"), Eval("Persent2"), Eval("Persent3"))%>
                         </td>
                         <td align="right">
                             <%# Get_Balance( eval("Price") ,eval("Age"), eval("Persent1"), eval("Persent2"), eval("Persent3")) %>
                         </td>
+                        <td align="right">
+                            <%#Get_Balance1(Eval("Pricepercent"), Eval("Age"), Eval("Persent1"), Eval("Persent2"), Eval("Persent3"))%>
+                        </td>                        
                     </tr>
                 </AlternatingItemTemplate>
+<%--                <SeparatorTemplate>
+                    <tr>
+                        <td colspan="11"><hr></td>
+                    </tr>
+                </SeparatorTemplate>--%>
                <FooterTemplate>
                     <tr style ="background-color:Gray">
+                        <td></td>
+                        <td></td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -498,30 +507,15 @@
                         <td align="right">
                             <%#String.Format("{0:N2}", (Get_Total()))%>
                         </td>
+                        <td align="right">
+                            <%#String.Format("{0:N2}", (Get_Total1()))%>
+                        </td>                        
                     </tr>
 	               </table>
                </FooterTemplate>
 
                 </asp:Repeater>
                 </td>
-            <td class="style2">
-                </td>
-        </tr> 
-        <tr>
-            <td>
-                &nbsp;</td>
-        </tr> 
-        <tr>
-            <td>
-                &nbsp;</td>
-        </tr>   
-        <tr>
-            <td>
-                &nbsp;</td>
-        </tr> 
-        <tr>
-            <td>
-                &nbsp;</td>
         </tr> 
         <tr>
             <td class="style5">
@@ -542,7 +536,7 @@
     - มูลค่าสิ่งปลูกสร้าง ณ ปัจจุบัน<br />
     - 
     ราคาประเมินค่าก่อสร้างถื่อตามมาตรฐานของสมาคมผู้ประเมินค่าทรัพย์สินแห่งประเทศไทย 
-    พ.ศ. 2550<br />
+    พ.ศ. 2551<br />
     <br />
     <br />
     <br />

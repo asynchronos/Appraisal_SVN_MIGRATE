@@ -79,12 +79,12 @@
 <%--                <asp:HyperLinkField DataNavigateUrlFields="Req_Id,Hub_Id" 
                     DataNavigateUrlFormatString="Appraisal_Assign_Update_Job.aspx?Req_Id={0}&amp;Hub_Id={1}" 
                     HeaderText="Edit" Text="Edit" />--%>
-                <asp:TemplateField HeaderText="EDIT">
+<%--                <asp:TemplateField HeaderText="EDIT">
                     <ItemTemplate>
                         <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" 
                             CommandName="Select" Text="Select"></asp:LinkButton>
                     </ItemTemplate>
-                </asp:TemplateField>
+                </asp:TemplateField>--%>
             </Columns>
             <PagerStyle BackColor="PaleGoldenrod" ForeColor="DarkSlateBlue" 
                 HorizontalAlign="Center" />
