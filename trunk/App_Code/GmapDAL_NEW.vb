@@ -2,6 +2,7 @@
 Option Strict On
 
 Imports Microsoft.VisualBasic
+Imports System
 Imports System.Data
 Imports System.Data.SqlClient
 Imports System.Diagnostics
@@ -212,7 +213,7 @@ Public Class GmapDAL_NEW
                 & " isnull(Price,0) as Price, " _
                 & " Create_User, " _
                 & " isnull(Create_Date,getdate()) as Create_Date " _
-             & "FROM Price1_Master " _
+             & "FROM View_Price1_Master " _
              & "WHERE Req_Id=@Req_Id AND Hub_Id =@Hub_Id " _
              & "ORDER BY Req_Id"
 
@@ -468,7 +469,7 @@ Public Class GmapDAL_NEW
                 & " (Req_Id, Hub_Id, Cif, CifName, Lat, Lng, Pricewah, Price, Create_User, Create_Date) " _
                 & " VALUES(@Req_Id, @Hub_Id, @Cif, @CifName, @Lat, @Lng, @Pricewah, @Price, @Create_User, @Create_Date) "
             Dim SqlUpdate As String = "UPDATE Appraisal_Request " _
-            & " SET Status_ID = 5 " _
+            & " SET Status_ID = 4 " _
             & " WHERE Req_Id = Req_Id AND Hub_Id = @Hub_Id"
 
             Dim sqlCmd As New SqlCommand(sql, conn)
@@ -494,7 +495,7 @@ Public Class GmapDAL_NEW
             'sqlCmdUpdate.Parameters.AddWithValue("@Hub_Id", objPrice1Master.Hub_Id)
             'sqlCmdUpdate.ExecuteNonQuery()
 
-            UPDATE_Status_Appraisal_Request(objPrice1Master.Req_Id, objPrice1Master.Hub_Id, 5)
+            UPDATE_Status_Appraisal_Request(objPrice1Master.Req_Id, objPrice1Master.Hub_Id, 4)
         Catch ex As Exception
             Throw New Exception(ex.Message & " : " & ex.StackTrace)
         Finally

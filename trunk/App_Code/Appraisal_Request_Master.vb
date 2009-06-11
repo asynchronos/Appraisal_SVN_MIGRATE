@@ -11,6 +11,8 @@ Public Class Appraisal_Request_Master
     Private _Req_Type As Integer
     Private _AID As String
     Private _Status_ID As Integer
+    Private _Sender_ID As Integer
+    Private _Sender_Name As Integer
     Private _Create_User As String
     Private _Create_Date As Date
 
@@ -24,6 +26,8 @@ Public Class Appraisal_Request_Master
      ByVal Req_Type As Integer, _
      ByVal AID As String, _
      ByVal Status_ID As Integer, _
+     ByVal Sender_ID As Integer, _
+     ByVal Sender_Name As Integer, _
      ByVal Create_User As String, _
      ByVal Create_Date As Date)
         MyBase.New()
@@ -35,6 +39,8 @@ Public Class Appraisal_Request_Master
         _Req_Type = Req_Type
         _AID = AID
         _Status_ID = Status_ID
+        _Sender_ID = Sender_ID
+        _Sender_Name = Sender_Name
         _Create_User = Create_User
         _Create_Date = Create_Date
     End Sub
@@ -108,6 +114,24 @@ Public Class Appraisal_Request_Master
         End Get
         Set(ByVal Value As Integer)
             _Status_ID = Value
+        End Set
+    End Property
+
+    Public Property Sender_ID() As String
+        Get
+            Return _Sender_ID
+        End Get
+        Set(ByVal Value As String)
+            _Sender_ID = Value
+        End Set
+    End Property
+
+    Public Property Sender_Name() As String
+        Get
+            Return _Sender_Name
+        End Get
+        Set(ByVal Value As String)
+            _Sender_Name = Value
         End Set
     End Property
 

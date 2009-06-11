@@ -29,12 +29,14 @@ Public Class Price3_70
     Private _OwnerShip As String
     Private _BuildingArea As Double
     Private _BuildingUintPrice As Double
-    Private _BuildingPrice As Double
+    Private _BuildingPrice As Decimal
     Private _BuildingAge As Integer
     Private _BuildingPersent1 As Decimal
     Private _BuildingPersent2 As Decimal
     Private _BuildingPersent3 As Decimal
     Private _BuildingPriceTotalDeteriorate As Decimal
+    Private _BuildingPercentFinish As Integer
+    Private _BuildingPriceFinish As Decimal
     Private _BuildAddArea As Double
     Private _BuildAddUintPrice As Double
     Private _BuildAddPrice As Double
@@ -43,6 +45,8 @@ Public Class Price3_70
     Private _BuildAddPersent2 As Decimal
     Private _BuildAddPersent3 As Decimal
     Private _BuildAddPriceTotalDeteriorate As Decimal
+    Private _BuildAddPercentFinish As Integer
+    Private _BuildAddPriceFinish As Decimal
     Private _BuildingDetail As String
     Private _Decoration As Integer
     Private _Create_User As String
@@ -83,6 +87,8 @@ Public Class Price3_70
      ByVal BuildingPersent2 As Decimal, _
      ByVal BuildingPersent3 As Decimal, _
      ByVal BuildingPriceTotalDeteriorate As Decimal, _
+     ByVal BuildingPercentFinish As Integer, _
+     ByVal BuildingPriceFinish As Decimal, _
      ByVal BuildAddArea As Double, _
      ByVal BuildAddUintPrice As Double, _
      ByVal BuildAddPrice As Double, _
@@ -91,6 +97,8 @@ Public Class Price3_70
      ByVal BuildAddPersent2 As Decimal, _
      ByVal BuildAddPersent3 As Decimal, _
      ByVal BuildAddPriceTotalDeteriorate As Decimal, _
+     ByVal BuildAddPercentFinish As Integer, _
+     ByVal BuildAddPriceFinish As Decimal, _
      ByVal BuildingDetail As String, _
      ByVal Decoration As Integer, _
      ByVal Create_User As String, _
@@ -129,14 +137,18 @@ Public Class Price3_70
         _BuildingPersent2 = BuildingPersent2
         _BuildingPersent3 = BuildingPersent3
         _BuildingPriceTotalDeteriorate = BuildingPriceTotalDeteriorate
-        _BuildAddArea = BuildAddArea
         _BuildAddUintPrice = BuildAddUintPrice
+        _BuildingPercentFinish = BuildingPercentFinish
+        _BuildingPriceFinish = BuildingPriceFinish
         _BuildAddPrice = BuildAddPrice
+        _BuildAddArea = BuildAddArea
         _BuildAddAge = BuildAddAge
         _BuildAddPersent1 = BuildAddPersent1
         _BuildAddPersent2 = BuildAddPersent2
         _BuildAddPersent3 = BuildAddPersent3
         _BuildAddPriceTotalDeteriorate = BuildAddPriceTotalDeteriorate
+        _BuildAddPercentFinish = BuildAddPercentFinish
+        _BuildAddPriceFinish = BuildAddPriceFinish
         _BuildingDetail = BuildingDetail
         _Decoration = Decoration
         _Create_User = Create_User
@@ -440,6 +452,24 @@ Public Class Price3_70
         End Set
     End Property
 
+    Public Property BuildingPercentFinish() As Integer
+        Get
+            Return _BuildingPercentFinish
+        End Get
+        Set(ByVal Value As Integer)
+            _BuildingPercentFinish = Value
+        End Set
+    End Property
+
+    Public Property BuildingPriceFinish() As Decimal
+        Get
+            Return _BuildingPriceFinish
+        End Get
+        Set(ByVal Value As Decimal)
+            _BuildingPriceFinish = Value
+        End Set
+    End Property
+
     Public Property BuildAddArea() As Double
         Get
             Return _BuildAddArea
@@ -509,6 +539,24 @@ Public Class Price3_70
         End Get
         Set(ByVal Value As Decimal)
             _BuildAddPriceTotalDeteriorate = Value
+        End Set
+    End Property
+
+    Public Property BuildAddPercentFinish() As Integer
+        Get
+            Return _BuildAddPercentFinish
+        End Get
+        Set(ByVal Value As Integer)
+            _BuildAddPercentFinish = Value
+        End Set
+    End Property
+
+    Public Property BuildAddPriceFinish() As Decimal
+        Get
+            Return _BuildAddPriceFinish
+        End Get
+        Set(ByVal Value As Decimal)
+            _BuildAddPriceFinish = Value
         End Set
     End Property
 

@@ -12,6 +12,7 @@ Imports System.IO
 Imports System.Text
 Imports System.Web.SessionState
 
+
 Public Class PrintHelper
     Public Sub New()
     End Sub
@@ -36,8 +37,12 @@ Public Class PrintHelper
         pg.Controls.Add(frm)
         frm.Attributes.Add("runat", "server")
         frm.Controls.Add(ctrl)
+        'ถ้าหากจะให้ออกปุ่มด้วยให้ใส่คำสั่งนี้ลงไป
+        'Dim scr As String = "<script>function window.onafterprint(){history.back(1);}</script>"
+        'htmlWrite.Write(scr)
         pg.DesignerInitialize()
         pg.RenderControl(htmlWrite)
+
         Dim strHTML As String = stringWrite.ToString()
         HttpContext.Current.Response.Clear()
         HttpContext.Current.Response.Write(strHTML)

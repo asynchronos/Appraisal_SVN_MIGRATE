@@ -16,7 +16,7 @@ Public Class Price3_50
     Private _Province As Integer
     Private _Rai As Integer
     Private _Ngan As Integer
-    Private _Wah As Integer
+    Private _Wah As Decimal
     Private _Road As String
     Private _Road_Detail As Integer
     Private _Road_Access As Decimal
@@ -32,6 +32,7 @@ Public Class Price3_50
     Private _Binifit_Detail As String
     Private _Tendency As Integer
     Private _BuySale_State As Integer
+    Private _SubUnit As Integer
     Private _PriceWah As Decimal
     Private _PriceTotal1 As Decimal
     Private _Rawang As String
@@ -42,7 +43,7 @@ Public Class Price3_50
     Private _Ownership As String
     Private _Obligation As String
     Private _Land_Closeto_RoadWidth As Double
-    Private _DeepWidth As Double
+    Private _DeepWidth As String
     Private _BehindWidth As Double
     Private _AreaColour_No As Integer
     Private _Create_User As String
@@ -62,7 +63,7 @@ Public Class Price3_50
      ByVal Province As Integer, _
      ByVal Rai As Integer, _
      ByVal Ngan As Integer, _
-     ByVal Wah As Integer, _
+     ByVal Wah As Decimal, _
      ByVal Road As String, _
      ByVal Road_Detail As Integer, _
      ByVal Road_Access As Decimal, _
@@ -78,6 +79,7 @@ Public Class Price3_50
      ByVal Binifit_Detail As String, _
      ByVal Tendency As Integer, _
      ByVal BuySale_State As Integer, _
+     ByVal SubUnit As Integer, _
      ByVal PriceWah As Decimal, _
      ByVal PriceTotal1 As Decimal, _
      ByVal Rawang As String, _
@@ -88,7 +90,7 @@ Public Class Price3_50
      ByVal Ownership As String, _
      ByVal Obligation As String, _
      ByVal Land_Closeto_RoadWidth As Double, _
-     ByVal DeepWidth As Double, _
+     ByVal DeepWidth As String, _
      ByVal BehindWidth As Double, _
      ByVal AreaColour_No As Integer, _
      ByVal Create_User As String, _
@@ -122,6 +124,7 @@ Public Class Price3_50
         _Binifit_Detail = Binifit_Detail
         _Tendency = Tendency
         _BuySale_State = BuySale_State
+        _SubUnit = SubUnit
         _PriceWah = PriceWah
         _PriceTotal1 = PriceTotal1
         _Rawang = Rawang
@@ -247,11 +250,11 @@ Public Class Price3_50
         End Set
     End Property
 
-    Public Property Wah() As Integer
+    Public Property Wah() As Decimal
         Get
             Return _Wah
         End Get
-        Set(ByVal Value As Integer)
+        Set(ByVal Value As Decimal)
             _Wah = Value
         End Set
     End Property
@@ -391,6 +394,15 @@ Public Class Price3_50
         End Set
     End Property
 
+    Public Property SubUnit() As Integer
+        Get
+            Return _SubUnit
+        End Get
+        Set(ByVal Value As Integer)
+            _SubUnit = Value
+        End Set
+    End Property
+
     Public Property PriceWah() As Decimal
         Get
             Return _PriceWah
@@ -481,11 +493,11 @@ Public Class Price3_50
         End Set
     End Property
 
-    Public Property DeepWidth() As Double
+    Public Property DeepWidth() As String
         Get
             Return _DeepWidth
         End Get
-        Set(ByVal Value As Double)
+        Set(ByVal Value As String)
             _DeepWidth = Value
         End Set
     End Property

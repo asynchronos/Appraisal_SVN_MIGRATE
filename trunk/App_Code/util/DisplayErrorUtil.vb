@@ -3,6 +3,8 @@ Option Strict On
 
 Imports Microsoft.VisualBasic
 Imports System.Diagnostics
+Imports System
+Imports System.Exception
 
 Public Class DisplayErrorUtil
     Private Shared className As String = "DisplayErrorUtil"
@@ -44,7 +46,7 @@ Public Class DisplayErrorUtil
     ''' <param name="page"></param>
     ''' <param name="ex"></param>
     ''' <remarks></remarks>
-    Public Shared Sub onPage(ByVal page As Page, ByVal ex As Exception)
+    Public Shared Sub onPage(ByVal page As System.Web.UI.Page, ByVal ex As Exception)
         onPage(page, ex.Message, ex.StackTrace)
     End Sub
 
@@ -55,7 +57,7 @@ Public Class DisplayErrorUtil
     ''' <param name="ErrorMessage">error message ที่ต้องการจะแสดงบนหน้า web</param>
     ''' <param name="ErrorStackTrace">รายละเอียดที่จะให้แสดงเมื่อคลิ๊กที่ error message</param>
     ''' <remarks></remarks>
-    Public Shared Sub onPage(ByVal page As Page, ByVal ErrorMessage As String, ByVal ErrorStackTrace As String)
+    Public Shared Sub onPage(ByVal page As Web.UI.Page, ByVal ErrorMessage As String, ByVal ErrorStackTrace As String)
         Dim result As String = Nothing
 
         'regis script

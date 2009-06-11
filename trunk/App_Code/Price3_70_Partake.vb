@@ -16,6 +16,8 @@ Public Class Price3_70_Partake
     Private _PartakePersent2 As Decimal
     Private _PartakePersent3 As Decimal
     Private _PartakePriceTotalDeteriorate As Decimal
+    Private _PercentFinish As Integer
+    Private _PriceFinish As Decimal
     Private _PartakeDetail As String
     Private _Create_User As String
     Private _Create_Date As Date
@@ -37,6 +39,8 @@ Public Class Price3_70_Partake
      ByVal PartakePersent2 As Decimal, _
      ByVal PartakePersent3 As Decimal, _
      ByVal PartakePriceTotalDeteriorate As Decimal, _
+     ByVal PercentFinish As Integer, _
+     ByVal PriceFinish As Decimal, _
      ByVal PartakeDetail As String, _
      ByVal Create_User As String, _
      ByVal Create_Date As Date)
@@ -56,6 +60,8 @@ Public Class Price3_70_Partake
         _PartakePersent2 = PartakePersent2
         _PartakePersent3 = PartakePersent3
         _PartakePriceTotalDeteriorate = PartakePriceTotalDeteriorate
+        _PercentFinish = PercentFinish
+        _PriceFinish = PriceFinish
         _PartakeDetail = PartakeDetail
         _Create_User = Create_User
         _Create_Date = Create_Date
@@ -193,6 +199,24 @@ Public Class Price3_70_Partake
         End Get
         Set(ByVal Value As Decimal)
             _PartakePriceTotalDeteriorate = Value
+        End Set
+    End Property
+
+    Public Property PercentFinish() As Integer
+        Get
+            Return _PercentFinish
+        End Get
+        Set(ByVal Value As Integer)
+            _PercentFinish = Value
+        End Set
+    End Property
+
+    Public Property PriceFinish() As Decimal
+        Get
+            Return _PriceFinish
+        End Get
+        Set(ByVal Value As Decimal)
+            _PriceFinish = Value
         End Set
     End Property
 

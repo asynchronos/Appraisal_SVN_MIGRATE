@@ -12,6 +12,7 @@ Public Class Appraisal_Request
     Private _Lastname As String
     Private _Req_Type As Integer
     Private _Status_ID As Integer
+    Private _Appraisal_Id As String
     Private _Create_User As String
     Private _Create_Date As Date
 
@@ -25,6 +26,7 @@ Public Class Appraisal_Request
      ByVal Lastname As String, _
      ByVal Req_Type As Integer, _
      ByVal Status_ID As Integer, _
+     ByVal Appraisal_Id As String, _
      ByVal Create_User As String, _
      ByVal Create_Date As Date)
         MyBase.New()
@@ -36,6 +38,7 @@ Public Class Appraisal_Request
         _Lastname = Lastname
         _Req_Type = Req_Type
         _Status_ID = Status_ID
+        _Appraisal_Id = Appraisal_Id
         _Create_User = Create_User
         _Create_Date = Create_Date
     End Sub
@@ -109,6 +112,15 @@ Public Class Appraisal_Request
         End Get
         Set(ByVal Value As Integer)
             _Status_ID = Value
+        End Set
+    End Property
+
+    Public Property Appraisal_Id() As Integer
+        Get
+            Return _Appraisal_Id
+        End Get
+        Set(ByVal Value As Integer)
+            _Appraisal_Id = Value
         End Set
     End Property
 

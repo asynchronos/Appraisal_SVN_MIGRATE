@@ -1,4 +1,6 @@
 ﻿Imports Microsoft.VisualBasic
+Imports System
+Imports System.Web.UI.WebControls
 
 Public Class MessageBox
     Public Shared Function MSB_Alert(ByVal strMsg As String) As String

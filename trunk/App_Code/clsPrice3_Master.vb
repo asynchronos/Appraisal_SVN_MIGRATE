@@ -18,8 +18,11 @@ Public Class clsPrice3_Master
     Private _BuildingPrice As Decimal
     Private _Land_Building_Price As Decimal
     Private _Approved1 As String
+    Private _Position_Approved1 As Integer
     Private _Approved2 As String
+    Private _Position_Approved2 As Integer
     Private _Approved3 As String
+    Private _Position_Approved3 As Integer
     Private _Approved As Integer
     Private _Env_Effect As Integer
     Private _Env_Effect_Detail As String
@@ -49,8 +52,11 @@ Public Class clsPrice3_Master
      ByVal BuildingPrice As Decimal, _
      ByVal Land_Building_Price As Decimal, _
      ByVal Approved1 As String, _
+     ByVal Position_Approved1 As Integer, _
      ByVal Approved2 As String, _
+     ByVal Position_Approved2 As Integer, _
      ByVal Approved3 As String, _
+     ByVal Position_Approved3 As Integer, _
      ByVal Approved As Integer, _
      ByVal Env_Effect As Integer, _
      ByVal Env_Effect_Detail As String, _
@@ -78,8 +84,11 @@ Public Class clsPrice3_Master
         _Land_Building_Price = Land_Building_Price
         _TotalPrice = TotalPrice
         _Approved1 = Approved1
+        _Position_Approved1 = Position_Approved1
         _Approved2 = Approved2
+        _Position_Approved2 = Position_Approved2
         _Approved3 = Approved3
+        _Position_Approved3 = Position_Approved3
         _Approved = Approved
         _Env_Effect = Env_Effect
         _Env_Effect_Detail = Env_Effect_Detail
@@ -220,6 +229,15 @@ Public Class clsPrice3_Master
         End Set
     End Property
 
+    Public Property Position_Approved1() As Integer
+        Get
+            Return _Position_Approved1
+        End Get
+        Set(ByVal Value As Integer)
+            _Position_Approved1 = Value
+        End Set
+    End Property
+
     Public Property Approved2() As String
         Get
             Return _Approved2
@@ -229,12 +247,30 @@ Public Class clsPrice3_Master
         End Set
     End Property
 
+    Public Property Position_Approved2() As Integer
+        Get
+            Return _Position_Approved2
+        End Get
+        Set(ByVal Value As Integer)
+            _Position_Approved2 = Value
+        End Set
+    End Property
+
     Public Property Approved3() As String
         Get
             Return _Approved3
         End Get
         Set(ByVal Value As String)
             _Approved3 = Value
+        End Set
+    End Property
+
+    Public Property Position_Approved3() As Integer
+        Get
+            Return _Position_Approved3
+        End Get
+        Set(ByVal Value As Integer)
+            _Position_Approved3 = Value
         End Set
     End Property
 

@@ -55,11 +55,11 @@ Public Class ConvertUtil
                 If Value Is Nothing Or IsDBNull(Value) Then Return False
                 Return CBool(Value)
             Case ObjectValueEnum.DateValue
-                If Value Is Nothing Or IsDBNull(Value) Then Return DateTime.Now
+                If Value Is Nothing Or IsDBNull(Value) Then Return Date.Now
                 If IsDate(Value) Then
                     Return CDate(Value)
                 Else
-                    Return DateTime.Now
+                    Return Date.Now
                 End If
             Case ObjectValueEnum.NumbericValue
                 If Value Is Nothing Or IsDBNull(Value) Then Return 0
@@ -80,7 +80,7 @@ Public Class ConvertUtil
                 Return CStr(Value)
             Case ObjectValueEnum.TimeValue
                 ' Dim dt As DateTime
-                If Value Is Nothing Or IsDBNull(Value) Then Return DateTime.Now
+                If Value Is Nothing Or IsDBNull(Value) Then Return Date.Now
                 Return CDate(Value)
         End Select
         Return ""

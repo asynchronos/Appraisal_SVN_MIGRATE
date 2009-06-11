@@ -2,7 +2,9 @@ Imports Microsoft.VisualBasic
 Imports System.Data.SqlClient
 Imports System.Data
 Imports System.Xml.Serialization
-Imports system.xml
+Imports System.Xml
+Imports System.Configuration
+Imports System.Collections
 
 Public Class Conn
     'Private strConn As String = "Server=TAM\SQLEXPRESS;database=Northwind;uid=sa;password=sa;"
@@ -61,7 +63,7 @@ Public Class Conn
         Return cmd
     End Function
 
-   
+
     ''' <summary>
     ''' Function นี้ใช้สำหรับสร้าง SqlConnection
     ''' </summary>
@@ -78,7 +80,7 @@ Public Class Conn
 
     Public Function GetArrayListOrderBy(ByVal SqlStatement As String, ByVal ColumnOrder As String) As ArrayList
 
-   
+
         'Dim i As Integer
         Dim MyConnection As New SqlConnection(strConn)
         MyConnection.Open()

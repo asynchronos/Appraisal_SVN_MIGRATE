@@ -6,6 +6,8 @@ Imports System.Drawing.Imaging
 Imports System.IO
 Imports System.Collections
 Imports System.Collections.Generic
+Imports System.Configuration
+
 Public Class Cif_Mgr
     Public Shared Function GetCifInfo(ByVal Cif As Integer) As Generic.List(Of CifInfo)
         Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("NEW_DEPConnectionString1").ConnectionString)
