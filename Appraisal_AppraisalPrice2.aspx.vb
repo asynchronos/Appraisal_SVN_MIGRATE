@@ -15,10 +15,11 @@ Partial Class Appraisal_AppraisalPrice2
             lblCifName.Text = Request.QueryString("Cif_Name")
             Dim Obj_P2 As DataSet = GET_APPRAISAL_PRICE2(lblReq_Id.Text, lblHub_Id.Text)
             If Obj_P2.Tables(0).Rows.Count > 0 Then
-                lblPrice1.Text = String.Format("{0:N2}", Obj_P2.Tables(0).Rows(0).Item("Price1")) & "บาท"
-                lblPrice2.Text = String.Format("{0:N2}", Obj_P2.Tables(0).Rows(0).Item("Price2")) & "บาท"
+                lblPrice1.Text = String.Format("{0:N2}", Obj_P2.Tables(0).Rows(0).Item("Price1"))
+                lblPrice2.Text = String.Format("{0:N2}", Obj_P2.Tables(0).Rows(0).Item("Price2"))
                 ddlUserAppraisal.SelectedValue = Obj_P2.Tables(0).Rows(0).Item("Appraisal_Id")
                 ddlSender.SelectedValue = Obj_P2.Tables(0).Rows(0).Item("Sender_Id")
+                txtComment.Text = Obj_P2.Tables(0).Rows(0).Item("Comment")
             Else
                 'MsgBox("No Data")
             End If
@@ -36,10 +37,11 @@ Partial Class Appraisal_AppraisalPrice2
             s = "<script language=""javascript"">alert('ไม่พบการกำหนดราคาที่ 2 ของเลขคำขอนี้ในระบบ');</script>"
             Page.ClientScript.RegisterStartupScript(Me.GetType, "รับเรื่องประเมิน", s)
         Else
-            UPDATE_Status_Appraisal_Request(lblReq_Id.Text, lblHub_Id.Text, 7)
+            UPDATE_Status_Appraisal_Request(lblReq_Id.Text, lblHub_Id.Text, rdbAccept.SelectedValue)
             s = "<script language=""javascript"">alert('ยืนยันการกำหนดราคาที่ 2 แล้ว');</script>"
             Page.ClientScript.RegisterStartupScript(Me.GetType, "รับเรื่องประเมิน", s)
         End If
 
+        'MsgBox(rdbAccept.SelectedValue)
     End Sub
 End Class

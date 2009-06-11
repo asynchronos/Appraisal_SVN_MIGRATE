@@ -4,7 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>Assign งาน ให้กับผู้ประเมิน</title>
+    <title></title>
 </head>
 <body onunload="opener.location=('Appraisal_Assign_Job.aspx')">
     <form id="form1" runat="server">
@@ -14,15 +14,21 @@
         ConnectionString="<%$ ConnectionStrings:AppraisalConnectionString %>" 
         
         
-        SelectCommand="SELECT Req_ID, Hub_ID, Cif, Title, Name, Lastname, Req_Type, Status_ID,Appraisal_Id
- FROM Appraisal_Request WHERE (Req_ID = @Req_ID)" 
+        SelectCommand="SELECT Req_ID, Hub_ID, Cif, Title, Name, Lastname, Req_Type, Status_ID, CASE WHEN Appraisal_Id IS NULL THEN '0' WHEN Appraisal_Id = '' THEN '0' ELSE Appraisal_Id END AS Appraisal_Id FROM Appraisal_Request WHERE (Req_ID = @Req_ID) AND (Hub_ID = @Hub_Id)" 
         
-        UpdateCommand="UPDATE Appraisal_Request SET Appraisal_Id = @Appraisal_Id WHERE (Req_ID = @Req_Id) AND (Hub_ID = @Hub_Id)">
+        
+        
+        
+        
+        UpdateCommand="UPDATE Appraisal_Request SET Status_Id = @Status_Id,Appraisal_Id = @Appraisal_Id WHERE (Req_ID = @Req_Id) AND (Hub_ID = @Hub_Id)">
         <SelectParameters>
             <asp:QueryStringParameter Name="Req_ID" QueryStringField="Req_Id" />
+            <asp:QueryStringParameter Name="Hub_Id" QueryStringField="Hub_Id" />
         </SelectParameters>
         <UpdateParameters>
-            <asp:Parameter Name="Appraisal_Id" Type="Int32" />
+            <asp:ControlParameter ControlID="HdfStatus" Name="Status_Id" 
+                PropertyName="Value" Type="Int32" />
+            <asp:Parameter Name="Appraisal_Id" Type="String" />
             <asp:Parameter Name="Req_Id" Type="Int32" />
             <asp:Parameter Name="Hub_Id" Type="Int32" />
         </UpdateParameters>
@@ -59,6 +65,7 @@
                         </asp:DropDownList>
                         <asp:SqlDataSource ID="sdsHub" runat="server" 
                             ConnectionString="<%$ ConnectionStrings:AppraisalConnectionString %>" 
+                            
                             SelectCommand="SELECT [HUB_ID], [HUB_NAME] FROM [TB_HUB]">
                         </asp:SqlDataSource>
                     </EditItemTemplate>
@@ -143,8 +150,17 @@
                         <asp:Label ID="Label8" runat="server" Text='<%# Bind("Status_ID") %>'></asp:Label>
                     </ItemTemplate>
                     <EditItemTemplate>
-                        <asp:TextBox ID="TextBox6" runat="server" Text='<%# Bind("Status_ID") %>' 
-                            Enabled="False"></asp:TextBox>
+                        <asp:DropDownList ID="ddlStatus" runat="server" DataSourceID="sdsStatus" 
+                            DataTextField="Status_Name" DataValueField="Status_ID" 
+                            SelectedValue='<%# Bind("Status_ID") %>'>
+                        </asp:DropDownList>
+                        <asp:SqlDataSource ID="sdsStatus" runat="server" 
+                            ConnectionString="<%$ ConnectionStrings:AppraisalConn %>" 
+                            SelectCommand="SELECT Status_ID, Status_Name FROM Status_Appraisal WHERE (Status_ID &gt;= @Status_ID) ORDER BY Status_ID">
+                            <SelectParameters>
+                                <asp:QueryStringParameter Name="Status_Id" QueryStringField="Status_Id" />
+                            </SelectParameters>
+                        </asp:SqlDataSource>
                     </EditItemTemplate>
                     <InsertItemTemplate>
                         <asp:TextBox ID="TextBox8" runat="server" Text='<%# Bind("Status_ID") %>'></asp:TextBox>
@@ -157,13 +173,18 @@
                     </ItemTemplate>
                     <EditItemTemplate>
                         <asp:DropDownList ID="ddlAppraisal" runat="server" DataSourceID="sdsAppraisal" 
-                            DataTextField="UserAppraisal" DataValueField="Emp_id" 
+                            DataTextField="UserAppraisal" DataValueField="Appraisal_Id" 
                             SelectedValue='<%# Bind("Appraisal_Id") %>'>
                         </asp:DropDownList>
                         <asp:SqlDataSource ID="sdsAppraisal" runat="server" 
                             ConnectionString="<%$ ConnectionStrings:AppraisalConnectionString %>" 
                             
-                            SelectCommand="SELECT Emp_Id, Title + Name + '  ' + Lastname AS UserAppraisal FROM Tb_UserAppraisal">
+                            
+                            
+                            SelectCommand="SELECT Emp_id as Appraisal_Id, Title + Name + '  ' + Lastname AS UserAppraisal FROM Tb_UserAppraisal WHERE (Hub_Id = @Hub_Id Or Emp_Id = '0')">
+                            <SelectParameters>
+                                <asp:QueryStringParameter Name="Hub_Id" QueryStringField="Hub_Id" />
+                            </SelectParameters>
                         </asp:SqlDataSource>
                     </EditItemTemplate>
                     <InsertItemTemplate>
@@ -180,7 +201,9 @@
     
     <div>
     
-    <asp:HiddenField ID="HdfStatus" runat="server" Value="4" />
+    <asp:HiddenField ID="HdfStatus" runat="server" Value="3" />
+    
+    <asp:HiddenField ID="HdfHubId" runat="server" Value="4" />
     
     </div>
     </form>
