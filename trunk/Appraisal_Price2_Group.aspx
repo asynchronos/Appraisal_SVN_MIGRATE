@@ -204,10 +204,18 @@
                         <asp:Label ID="lblAppraisal_Id" runat="server" Text='<%# Bind("Appraisal_Id") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
+                <asp:TemplateField HeaderText="">
+                      <ItemStyle VerticalAlign="Middle" Width="20px" />
+                         <ItemTemplate>
+                              <asp:ImageButton ID="ImgAddFile" runat="server" 
+                                  ImageUrl="~/Images/add_plus2.jpg" ToolTip="แนบไฟล์" Width="22px" Height="22px" 
+                                  onclick="ImgAddFile_Click" />              
+                                            </ItemTemplate>
+                                        </asp:TemplateField>                    
                 <asp:TemplateField>
                 <ItemStyle HorizontalAlign="Center" />
                     <ItemTemplate>
-                        <asp:ImageButton ID="ImgBtFind" runat="server" ImageUrl="~/Images/book_blue_view.png" Height="25px" Width="25px" CommandName="Select" />
+                        <asp:ImageButton ID="ImgBtFind" runat="server" ImageUrl="~/Images/book_blue_view.png" Height="25px" Width="25px" ToolTip="ดูรายละเอียด" CommandName="Select" />
                     </ItemTemplate>
                 </asp:TemplateField>
                                         <asp:TemplateField HeaderText="">
