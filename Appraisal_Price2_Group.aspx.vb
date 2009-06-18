@@ -104,10 +104,10 @@ Partial Class Appraisal_Price2_Group
                         If chk2.Checked = True Then
                             'ส่งค่าไป Insert และท ำการ Update สถานะการประเมิน
                             AddPRICE2_Master(txtTemp_AID.Text, Req_id.Text, Hub_id.Text, Id.Text, Cif.Text, ddlUserAppraisal.SelectedValue, CollType.Text, ddlComment.SelectedItem.Text, String.Empty, 0, lbluserid.Text, Now())
+                            UPDATE_PRICE2_70_DETAIL_AND_PARTAKE(Id.Text, Req_id.Text, Hub_id.Text, txtTemp_AID.Text)
                         End If
 
                     Next
-                    'UPDATE_TEMP_AID()
 
                     s = "<script language=""javascript"">alert('บันทึกเสร็จสมบูรณ์'); </script>"
                     Page.ClientScript.RegisterStartupScript(Me.GetType, "รับเรื่องประเมิน", s)
@@ -285,6 +285,35 @@ Partial Class Appraisal_Price2_Group
             Page.ClientScript.RegisterStartupScript(Me.GetType, "ผลการบันทึก", s)
         End If
 
+
+    End Sub
+
+    Protected Sub ImgAddFile_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs)
+        Dim ImgBtAdd As ImageButton = DirectCast(sender, ImageButton)
+        Dim lblTemp_AID As New Label
+        If ImgBtAdd.Parent.FindControl("lblTemp_AID") Is Nothing Then
+            lblTemp_AID.Text = 0
+        Else
+            lblTemp_AID = DirectCast(ImgBtAdd.Parent.FindControl("lblTemp_AID"), Label)
+        End If
+
+        Dim lblCollType_Id As Label = ImgBtAdd.Parent.FindControl("lblColltype")
+        Dim lblUser_Id As Label = TryCast(Me.Form.FindControl("lblUserID"), Label)
+        Dim hdfReq_Id As Label = ImgBtAdd.Parent.FindControl("lblReq_Id")
+
+        Dim str As String
+        If IsNothing(lblTemp_AID.Text) Then
+            lblTemp_AID.Text = "0"
+        End If
+
+        If hdfReq_Id.Text <> Nothing Then
+            str = "FileUpload_Price2.aspx?Req_Id=" & hdfReq_Id.Text & "&Hub_Id=" & HiddenHubId.Value & "&Temp_AID=" & lblTemp_AID.Text & "&User_Id=" & lblUser_Id.Text
+            s = "<script language=""javascript"">window.open('" + str + "','window','toolbar=no, menubar=no, scrollbars=yes, resizable=no,location=no, copyhistory=no, directories=no, status=yes,height=350px,width=550px');</script>"
+            Page.ClientScript.RegisterStartupScript(Me.GetType, "จัดกลุ่ม", s)
+        Else
+            s = "<script language=""javascript"">alert('คุณยังไม่ได้เลือกชิ้นทรัพย์'); </script>"
+            Page.ClientScript.RegisterStartupScript(Me.GetType, "ผลการบันทึก", s)
+        End If
 
     End Sub
 End Class
