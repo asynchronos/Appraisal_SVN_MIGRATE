@@ -141,7 +141,7 @@
                                    <tr>
                                        <td align="right">
                                <asp:ImageButton ID="ImageOk" runat="server" 
-                        ImageUrl="~/Images/books_preferences.png" Height="40px" Width="40px" ToolTip="OK" />
+                        ImageUrl="~/Images/books_preferences.png" Height="40px" Width="40px" ToolTip="ยืนยัน" />
                                        </td>
                                        <td align="left">
                                <asp:ImageButton ID="ImageCancel" runat="server" 
