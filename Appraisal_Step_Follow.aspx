@@ -95,18 +95,21 @@
 
 
     <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
-        ConnectionString="<%$ ConnectionStrings:AppraisalConnectionString %>" 
+        ConnectionString="<%$ ConnectionStrings:AppraisalConn %>" 
         
         
         SelectCommand="GET_APPRAISAL_VERIFY_PROCESS_BY_HUB" 
         SelectCommandType="StoredProcedure">
         <SelectParameters>
-            <asp:SessionParameter Name="HUB_ID" SessionField="Hub_Id" Type="Int32" />
+            <asp:ControlParameter ControlID="HiddenHubId" Name="HUB_ID" 
+                PropertyName="Value" Type="Int32" />
             <asp:ControlParameter ControlID="HdfStatus" Name="Status_Id" 
                 PropertyName="Value" Type="Int32" />
         </SelectParameters>
     </asp:SqlDataSource>
     <asp:HiddenField ID="HdfStatus" runat="server" Value="4" />
     
-</asp:Content>
+        <asp:HiddenField ID="HiddenHubId" runat="server" />
+    
+        </asp:Content>
 
