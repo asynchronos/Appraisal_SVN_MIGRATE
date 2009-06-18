@@ -195,7 +195,7 @@ Partial Class Appraisal_Price3_Add_Colltype70
         Context.Items("Req_Id") = lblReq_Id.Text
         Context.Items("Hub_Id") = lblHub_Id.Text
         Context.Items("Temp_AID") = lblTemp_AID.Text
-        Server.Transfer("Appraisal_Price3_Print_CollType70.aspx")
+        Server.Transfer("Appraisal_Price3_Print_CollType70_New.aspx")
     End Sub
 
     Protected Sub btnAdPartake_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnAdPartake.Click

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="VB" MasterPageFile="~/MasterPage.master" AutoEventWireup="false" CodeFile="Appraisal_Review_List_New.aspx.vb" Inherits="Appraisal_Review_List_New" %>
+﻿<%@ Page Title="" Language="VB" MasterPageFile="~/MasterPage.master" AutoEventWireup="false" CodeFile="Appraisal_Review_List_New.aspx.vb" Inherits="Appraisal_Review_List_New" UICulture="th-TH" Culture="th-TH" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
@@ -56,7 +56,7 @@
                             <asp:TemplateField HeaderText="APPRAISAL DATE" >
                                 <ItemStyle HorizontalAlign="Center" Width="200px" />
                                 <ItemTemplate>
-                                    <asp:Label ID="lblVALDATE" runat="server" Text='<%# Bind("VALDATE") %>'></asp:Label>
+                                    <asp:Label ID="lblVALDATE" runat="server" Text='<%# string.Format( "{0:dd/MM/yyyy}",EVAL("VALDATE")) %>'></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
 <%--                            <asp:TemplateField HeaderText="Notice Date" >
@@ -68,7 +68,7 @@
                             <asp:TemplateField HeaderText="Review Date" >
                                 <ItemStyle HorizontalAlign="Center" Width="200px" />
                                 <ItemTemplate>
-                                    <asp:Label ID="lblReviewDate" runat="server" Text='<%# Bind("ReviewDate") %>'></asp:Label>
+                                    <asp:Label ID="lblReviewDate" runat="server" Text='<%# string.Format( "{0:dd/MM/yyyy}",EVAL("ReviewDate")) %>'></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>                                                                                                                                                
 <%--                            <asp:TemplateField>
