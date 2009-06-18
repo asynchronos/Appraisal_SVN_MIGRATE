@@ -2503,6 +2503,36 @@ ByVal Hub_Id As Integer)
             End Using
         End Using
     End Function
+
+    Public Shared Sub UPDATE_PRICE2_70_DETAIL_AND_PARTAKE(ByVal Id As Integer, _
+     ByVal Req_Id As Integer, _
+     ByVal Hub_Id As Integer, _
+     ByVal Temp_AID As Integer)
+
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("UPDATE_PRICE2_70_DETAIL_AND_PARTAKE", connection)
+                connection.Open()
+                command.Connection = connection
+                Dim myTrans As SqlTransaction
+                myTrans = connection.BeginTransaction()
+                command.Transaction = myTrans
+                Try
+                    command.CommandType = CommandType.StoredProcedure
+                    command.Parameters.Add(New SqlParameter("@Id", Id))
+                    command.Parameters.Add(New SqlParameter("@Req_Id", Req_Id))
+                    command.Parameters.Add(New SqlParameter("@Hub_Id", Hub_Id))
+                    command.Parameters.Add(New SqlParameter("@Temp_AID", Temp_AID))
+                    command.ExecuteNonQuery()
+                    myTrans.Commit()
+                Catch ex As Exception
+                    myTrans.Rollback()
+                    'MsgBox(ex.Message)
+                Finally
+                    connection.Close()
+                End Try
+            End Using
+        End Using
+    End Sub
 #End Region
 
 #Region "PRICE3"
