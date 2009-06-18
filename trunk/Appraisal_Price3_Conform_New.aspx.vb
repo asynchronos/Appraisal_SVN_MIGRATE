@@ -264,13 +264,18 @@ Partial Class Appraisal_Price3_Conform_New
 
     Private Sub Show_Price3_70_GROUP()
         Dim Obj_GetP70G As DataSet = GET_PRICE3_70_GROUP(HiddenField1.Value, HiddenField2.Value, HiddenField3.Value)
-        If Obj_GetP70G.Tables(0).Rows.Count > 0 Then
-            If Obj_GetP70G.Tables(0).Rows.Count = 1 Then
-                lblLandDetail9.Text = "สิ่งปลูกสร้างเลขที่  " & Obj_GetP70G.Tables(0).Rows(0).Item("Build_No") & " รวมจำนวน 1 " & " หลัง (ตามรายละเอียดสิ่งปลูกสร้างแนบ)"
-            Else
-                lblLandDetail9.Text = "ตามรายละเอียดสิ่งปลูกสร้างแนบ "
-            End If
+        Dim Cnt As Integer = GET_BUILDING_ITEMS_PRICE2(HiddenField1.Value, HiddenField2.Value)
 
+        If Obj_GetP70G.Tables(0).Rows.Count > 0 Then
+            'If Obj_GetP70G.Tables(0).Rows.Count = 1 Then
+            If Cnt = 0 Then
+                lblLandDetail9.Text = ""
+            ElseIf Cnt = 1 Then
+                lblLandDetail9.Text = "สิ่งปลูกสร้างเลขที่  " & Obj_GetP70G.Tables(0).Rows(0).Item("Build_No") & " รวมจำนวน  " & Cnt & " รายการ (ตามรายละเอียดสิ่งปลูกสร้างแนบ)"
+            Else
+                lblLandDetail9.Text = "สิ่งปลูกสร้างจำนวน  " & Cnt & " รายการ ตามรายละเอียดเอกสารสิ่งปลูกสร้างแนบ "
+            End If
+            lblBuilding_Detail.Text = "จำนวน  " & Cnt & " รายการ"
             'lblTotal2.Text = Format(CDec(Obj_GetP70G.Tables(0).Rows(0).Item("UnitPrice").ToString), "#,##0.00")
             'lblItem.Text = Obj_GetP70G.Tables(0).Rows(0).Item("Item").ToString()
             'ตรวจสอบราคาของราคา Price 3 Master ที่จะแสดง
@@ -488,4 +493,7 @@ Partial Class Appraisal_Price3_Conform_New
         End If
     End Sub
 
+    Private Sub Count_Item()
+        'นับจำนวนสิ่งปลูกสร้างตาม Req_Id และ Hub_Id
+    End Sub
 End Class

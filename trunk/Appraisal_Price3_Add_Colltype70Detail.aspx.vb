@@ -65,6 +65,31 @@ Partial Class Appraisal_Price3_Add_Colltype70Detail
 
     End Sub
 
+    Protected Sub GridView2_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles GridView2.SelectedIndexChanged
+        Dim row As GridViewRow = GridView2.SelectedRow
+        Dim L1 As Label = DirectCast(row.FindControl("lblFloors0"), Label)
+
+        Dim Obj_P2_70D As List(Of Cls_Price2_70_Detail) = GET_PRICE2_70_DETAIL(HiddenField4.Value, HiddenField1.Value, HiddenField2.Value, HiddenField3.Value, L1.Text)
+        If Obj_P2_70D.Count > 0 Then
+            txtBuilding_Struc.Text = Obj_P2_70D.Item(0).Main_Construction
+            txtBuildFloor.Text = Obj_P2_70D.Item(0).Floor
+            chkConcrete.Checked = Obj_P2_70D.Item(0).Concrete
+            chkGranite.Checked = Obj_P2_70D.Item(0).Granite
+            chkParquet.Checked = Obj_P2_70D.Item(0).Parquet
+            chkCeramic.Checked = Obj_P2_70D.Item(0).Ceramic
+            chkWood.Checked = Obj_P2_70D.Item(0).Wood
+            ChkOther.Checked = Obj_P2_70D.Item(0).Other
+            txtOtherFloor.Text = Obj_P2_70D.Item(0).Other_Detail
+            ChkBrickWall.Checked = Obj_P2_70D.Item(0).BrickWall
+            CheckBlockbrickWall.Checked = Obj_P2_70D.Item(0).BlockBrickWall
+            ChkWoodWall.Checked = Obj_P2_70D.Item(0).WoodWall
+            ChkOtherWall.Checked = Obj_P2_70D.Item(0).OtherWall
+            txtOtherWall.Text = Obj_P2_70D.Item(0).OtherWall_Detail
+        End If
+
+
+    End Sub
+
     Protected Sub btnConfOK_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnConfOK.Click
         ImageSave_Click(ImageSave, Nothing)
         LblDescription.Text = "SAVE"

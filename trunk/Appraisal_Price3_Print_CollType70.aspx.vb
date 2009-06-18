@@ -19,10 +19,85 @@ Partial Class Appraisal_Price3_Print_CollType70
             HiddenField3.Value = CInt(Context.Items("Hub_Id"))
             HiddenField4.Value = CInt(Context.Items("Temp_AID"))
             HiddenField5.Value = CStr(Context.Items("User_ID"))
+            'แสดงออกเป็นฟอร์มจากราคาที่ 3 (เดิมใช้อยู่)
+            'Show_Price3_70()
+            'Show_Price3_70_Detail()
 
-            Show_Price3_70()
-            'Show_Price3_70Main()
-            Show_Price3_70_Detail()
+            Show_Price2_70_NEW()
+            Show_Price2_70_NEW_Detail()
+        End If
+
+    End Sub
+
+    Private Sub Show_Price2_70_NEW()
+        Dim Obj_GetP70 As List(Of Price2_70_New) = GET_PRICE2_70_NEW(HiddenField1.Value, HiddenField2.Value, HiddenField3.Value)
+        If Obj_GetP70.Count > 0 Then
+            Dim Obj_AR As List(Of Appraisal_Request) = GET_APPRAISAL_REQUEST(HiddenField2.Value)
+            If Obj_AR.Count > 0 Then
+                lblCif.Text = Obj_AR.Item(0).Cif
+                Dim Obj_Title As List(Of Cls_Title) = GET_TITLE_INFO(Obj_AR.Item(0).Title)
+                If Obj_Title.Count > 0 Then
+                    lblCifName.Text = Obj_Title.Item(0).TITLE_NAME & Obj_AR.Item(0).Name & "  " & Obj_AR.Item(0).Lastname
+                Else
+                    lblCifName.Text = "คุณ" & Obj_AR.Item(0).Name & "  " & Obj_AR.Item(0).Lastname
+                End If
+            Else
+            End If
+            lblAddressNo.Text = Obj_GetP70.Item(0).Build_No
+            lbChanodeNo.Text = Obj_GetP70.Item(0).Put_On_Chanode
+            If Obj_GetP70.Item(0).MysubColl_ID = 6 Or Obj_GetP70.Item(0).MysubColl_ID = 7 Then
+                CheckBox3.Checked = True
+
+            ElseIf Obj_GetP70.Item(0).MysubColl_ID = 8 Then
+                CheckBox2.Checked = True
+
+            ElseIf Obj_GetP70.Item(0).MysubColl_ID = 9 Then
+                CheckBox1.Checked = True
+
+            Else
+                CheckBox4.Checked = True
+            End If
+            lblTumbon.Text = Obj_GetP70.Item(0).Tumbon
+            lblAmphur.Text = Obj_GetP70.Item(0).Amphur
+            Dim obj_Province As List(Of Cls_PROVINCE) = GET_PROVINCE_INFO(Obj_GetP70.Item(0).Province)
+            lblProvinceName.Text = obj_Province.Item(0).PROV_NAME
+
+            Literal1.Text = Obj_GetP70.Item(0).BuildingDetail
+            'lblArea.Text = Obj_P3_70.Item(0).BuildingArea
+            If CheckBox1.Checked = True Then
+                lblFloors1.Text = Obj_GetP70.Item(0).Floors
+                'lblBuildingFloors.Text = CheckBox1.Text & " " & lblFloors1.Text
+            ElseIf CheckBox2.Checked = True Then
+                lblFloors0.Text = Obj_GetP70.Item(0).Floors
+                'lblBuildingFloors.Text = CheckBox2.Text & " " & lblFloors0.Text
+            ElseIf CheckBox3.Checked = True Then
+                lblFloors.Text = Obj_GetP70.Item(0).Floors
+                'lblBuildingFloors.Text = CheckBox3.Text & " " & lblFloors.Text
+            ElseIf CheckBox4.Checked = True Then
+
+            End If
+
+            CheckBox5.Checked = False
+            CheckBox6.Checked = False
+            CheckBox7.Checked = False
+            Select Case Obj_GetP70.Item(0).Decoration
+                Case "1"
+                    CheckBox5.Checked = True
+                Case "2"
+                    CheckBox6.Checked = True
+                Case "3"
+                    CheckBox7.Checked = True
+            End Select
+            lblItems.Text = Obj_GetP70.Count
+
+        End If
+    End Sub
+
+    Private Sub Show_Price2_70_NEW_Detail()
+
+        Dim Obj_P3_70D As List(Of Cls_Price2_70_Detail) = GET_PRICE2_70_DETAIL(HiddenField1.Value, HiddenField2.Value, HiddenField3.Value, HiddenField4.Value, 0)
+        If Obj_P3_70D.Count > 0 Then
+            lblBuilding_Struc.Text = Obj_P3_70D.Item(0).Main_Construction
         End If
 
     End Sub

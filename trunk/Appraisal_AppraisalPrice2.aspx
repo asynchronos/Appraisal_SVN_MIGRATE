@@ -22,6 +22,8 @@
 </head>
 <body onunload="opener.location=('Appraisal_Assign_Job.aspx')">
     <form id="form1" runat="server">
+    <asp:Label ID="lblPage" runat="server" 
+        style="font-weight: 700; color: #3333CC" Text="ตรวจสอบราคาหลักประกัน"></asp:Label>
     <div>
     
         <table class="style1">
@@ -112,7 +114,7 @@
                     &nbsp;</td>
             </tr>
             <tr>
-                <td class="style2">
+                <td class="style2" >
                     Comment</td>
                 <td class="style3">
                     <asp:TextBox ID="txtComment" runat="server" Height="94px" TextMode="MultiLine" 

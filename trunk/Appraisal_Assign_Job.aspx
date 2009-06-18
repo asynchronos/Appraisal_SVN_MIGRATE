@@ -8,8 +8,8 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 <br />
 <br />  
-
-
+<asp:Label ID="lblPage" runat="server" 
+        style="font-weight: 700; color: #3333CC" Text="กำหนดผู้ประเมินและตรวจสอบราคา"></asp:Label>
 <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" 
             DataKeyNames="Req_Id,Hub_Id" DataSourceID="SqlDataSource1" 
             EmptyDataText="There are no data records to display." Width='100%' 

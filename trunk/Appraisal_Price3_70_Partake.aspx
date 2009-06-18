@@ -7,6 +7,16 @@
         {
             width: 211px;
         }
+        .style23
+        {
+            color: #3333CC;
+            font-weight: 700;
+        }
+        .style24
+        {
+            color: #3333CC;
+            font-size: medium;
+        }
         </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
@@ -14,7 +24,7 @@
     </asp:ScriptManager>
 <br />
 <br />
-<h4>เพิ่มส่วนควบ</h4>
+<p class="style23">เพิ่มส่วนควบ</p>
     <asp:HiddenField ID="hdfAID" runat="server" />
     <asp:HiddenField ID="hdfCif" runat="server" />
 
@@ -175,9 +185,36 @@
                           </tr>
                           <tr style="background-color:#E7E7FF;">
                               <td colspan="6" align="center">
+                                  <table>
+                                      <tr>
+                                          <td>
+                                              <asp:ImageButton ID="ImageSave" runat="server" Height="35px" 
+                                                  ImageUrl="~/Images/Save.jpg" Width="35px" />
+                                          </td>
+                                          <td>
+                                              <asp:Label ID="Label2" runat="server" Text="SAVE"></asp:Label>
+                                              &nbsp;</td>
+                                          <td>
+                                              <asp:ImageButton ID="ImagePrint" runat="server" Height="35px" 
+                                                  ImageUrl="~/Images/add_plus2.jpg" Width="35px" />
+                                          </td>
+                                          <td>
+                                              Add New
+                                          </td>
+                                          <td>
+                                              <asp:ImageButton ID="ImgBtnClose" runat="server" Height="35px" 
+                                                  ImageUrl="~/Images/Cancel1.jpg" Width="35px" />
+                                          </td>
+                                          <td>
+                                              CLOSE
+                                          </td>
+                                      </tr>
+                                  </table>
                                   <asp:Label ID="lblMessage" runat="server" 
                                       style="font-weight: 700; color: #FF0000; font-size: medium;"></asp:Label>
-                                  <asp:GridView ID="GridView1" runat="server" AllowPaging="True" 
+                                  <br />
+                                  <br />
+                                  <span class="style24"><b>รายละเอียดส่วนควบราคาที่ 3</b></span><asp:GridView ID="GridView1" runat="server" AllowPaging="True" 
                                       AutoGenerateColumns="False" BackColor="LightGoldenrodYellow" BorderColor="Tan" 
                                       BorderWidth="1px" CellPadding="2" 
                                       DataKeyNames="Id,Req_Id,Hub_Id,Temp_AID" 
@@ -289,36 +326,130 @@
                                       <HeaderStyle BackColor="Tan" Font-Bold="True" />
                                       <AlternatingRowStyle BackColor="PaleGoldenrod" />
                                   </asp:GridView>
+                                  <br />
+                                  <span class="style24"><b>รายละเอียดส่วนควบราคาที่ 2</b></span><asp:GridView 
+                                      ID="GridView2" runat="server" AllowPaging="True" AutoGenerateColumns="False" 
+                                      BackColor="LightGoldenrodYellow" BorderColor="Tan" BorderWidth="1px" 
+                                      CellPadding="2" DataKeyNames="Id,Req_Id,Hub_Id,Temp_AID" 
+                                      DataSourceID="sdsPartake2_Grid" ForeColor="Black" GridLines="None" >
+                                      <Columns>
+                                          <asp:TemplateField HeaderText="รหัสส่วนควบ" SortExpression="Partake_Id">
+                                              <EditItemTemplate>
+                                                  <asp:Label ID="Label3" runat="server" Text='<%# Eval("Partake_Id") %>'></asp:Label>
+                                              </EditItemTemplate>
+                                              <ItemTemplate>
+                                                  <asp:Label ID="lblPartake_Id0" runat="server" Text='<%# Bind("Partake_Id") %>'></asp:Label>
+                                              </ItemTemplate>
+                                          </asp:TemplateField>
+                                          <asp:TemplateField HeaderText="พื้นที่" SortExpression="PartakeArea">
+                                              <EditItemTemplate>
+                                                  <asp:TextBox ID="TextBox10" runat="server" Text='<%# Bind("PartakeArea") %>'></asp:TextBox>
+                                              </EditItemTemplate>
+                                              <ItemTemplate>
+                                                  <asp:Label ID="lblPartakeArea0" runat="server" 
+                                                      Text='<%# Bind("PartakeArea") %>'></asp:Label>
+                                              </ItemTemplate>
+                                          </asp:TemplateField>
+                                          <asp:TemplateField HeaderText="เปอร์เซ็นต์สร้างเสร็จ" 
+                                              SortExpression="PartakeUintPrice">
+                                              <ItemTemplate>
+                                                  <asp:Label ID="lblPercentFinish0" runat="server" 
+                                                      Text='<%# Bind("PercentFinish", "{0:N}") %>'></asp:Label>
+                                              </ItemTemplate>
+                                          </asp:TemplateField>
+                                          <asp:TemplateField HeaderText="ราคาต่อหน่วย" SortExpression="PartakeUintPrice">
+                                              <EditItemTemplate>
+                                                  <asp:TextBox ID="TextBox11" runat="server" 
+                                                      Text='<%# Bind("PartakeUintPrice") %>'></asp:TextBox>
+                                              </EditItemTemplate>
+                                              <ItemTemplate>
+                                                  <asp:Label ID="lblPartakeUintPrice0" runat="server" 
+                                                      Text='<%# Bind("PartakeUintPrice", "{0:N}") %>'></asp:Label>
+                                              </ItemTemplate>
+                                          </asp:TemplateField>
+                                          <asp:TemplateField HeaderText="ราคาส่วนควบ" SortExpression="PartakePrice">
+                                              <EditItemTemplate>
+                                                  <asp:TextBox ID="TextBox12" runat="server" Text='<%# Bind("PartakePrice") %>'></asp:TextBox>
+                                              </EditItemTemplate>
+                                              <ItemTemplate>
+                                                  <asp:Label ID="lblPartakePrice0" runat="server" 
+                                                      Text='<%# Bind("PartakePrice", "{0:N}") %>'></asp:Label>
+                                              </ItemTemplate>
+                                          </asp:TemplateField>
+                                          <asp:TemplateField HeaderText="อายุใช้งาน" SortExpression="PartakeAge">
+                                              <EditItemTemplate>
+                                                  <asp:TextBox ID="TextBox13" runat="server" Text='<%# Bind("PartakeAge") %>'></asp:TextBox>
+                                              </EditItemTemplate>
+                                              <ItemTemplate>
+                                                  <asp:Label ID="lblPartakeAge0" runat="server" Text='<%# Bind("PartakeAge") %>'></asp:Label>
+                                              </ItemTemplate>
+                                          </asp:TemplateField>
+                                          <asp:TemplateField HeaderText="ค่าเสื่อม/ปี" SortExpression="PartakePersent1">
+                                              <EditItemTemplate>
+                                                  <asp:TextBox ID="TextBox14" runat="server" 
+                                                      Text='<%# Bind("PartakePersent1") %>'></asp:TextBox>
+                                              </EditItemTemplate>
+                                              <ItemTemplate>
+                                                  <asp:Label ID="lblPartakePersent4" runat="server" 
+                                                      Text='<%# Bind("PartakePersent1") %>'></asp:Label>
+                                              </ItemTemplate>
+                                          </asp:TemplateField>
+                                          <asp:TemplateField HeaderText="ค่าเสื่อมปรับปรุง" 
+                                              SortExpression="PartakePersent2">
+                                              <EditItemTemplate>
+                                                  <asp:TextBox ID="TextBox15" runat="server" 
+                                                      Text='<%# Bind("PartakePersent2") %>'></asp:TextBox>
+                                              </EditItemTemplate>
+                                              <ItemTemplate>
+                                                  <asp:Label ID="lblPartakePersent5" runat="server" 
+                                                      Text='<%# Bind("PartakePersent2") %>'></asp:Label>
+                                              </ItemTemplate>
+                                          </asp:TemplateField>
+                                          <asp:TemplateField HeaderText="ค่าเสื่อมตามสภาพ" 
+                                              SortExpression="PartakePersent3">
+                                              <EditItemTemplate>
+                                                  <asp:TextBox ID="TextBox16" runat="server" 
+                                                      Text='<%# Bind("PartakePersent3") %>'></asp:TextBox>
+                                              </EditItemTemplate>
+                                              <ItemTemplate>
+                                                  <asp:Label ID="lblPartakePersent6" runat="server" 
+                                                      Text='<%# Bind("PartakePersent3") %>'></asp:Label>
+                                              </ItemTemplate>
+                                          </asp:TemplateField>
+                                          <asp:TemplateField HeaderText="รวมค่าเสื่อม" 
+                                              SortExpression="PartakePriceTotalDeteriorate">
+                                              <EditItemTemplate>
+                                                  <asp:TextBox ID="TextBox17" runat="server" 
+                                                      Text='<%# Bind("PartakePriceTotalDeteriorate") %>'></asp:TextBox>
+                                              </EditItemTemplate>
+                                              <ItemTemplate>
+                                                  <asp:Label ID="lblPartakePriceTotalDeteriorate0" runat="server" 
+                                                      Text='<%# Bind("PartakePriceTotalDeteriorate", "{0:N}") %>'></asp:Label>
+                                              </ItemTemplate>
+                                          </asp:TemplateField>
+                                          <asp:TemplateField HeaderText="รายละเอียด" SortExpression="PartakeDetail">
+                                              <EditItemTemplate>
+                                                  <asp:TextBox ID="TextBox18" runat="server" Text='<%# Bind("PartakeDetail") %>'></asp:TextBox>
+                                              </EditItemTemplate>
+                                              <ItemTemplate>
+                                                  <asp:Label ID="lblPartakeDetail0" runat="server" 
+                                                      Text='<%# Bind("PartakeDetail") %>'></asp:Label>
+                                              </ItemTemplate>
+                                          </asp:TemplateField>
+                                          <asp:CommandField ButtonType="Button" ShowSelectButton="True" />
+                                      </Columns>
+                                      <FooterStyle BackColor="Tan" />
+                                      <PagerStyle BackColor="PaleGoldenrod" ForeColor="DarkSlateBlue" 
+                                          HorizontalAlign="Center" />
+                                      <SelectedRowStyle BackColor="DarkSlateBlue" ForeColor="GhostWhite" />
+                                      <HeaderStyle BackColor="Tan" Font-Bold="True" />
+                                      <AlternatingRowStyle BackColor="PaleGoldenrod" />
+                                  </asp:GridView>
                               </td>
                           </tr>
                           <tr style="background-color:#E7E7FF;">
                               <td align="center" colspan="6">
-                                  <table>
-                                      <tr>
-                                          <td>
-                                              <asp:ImageButton ID="ImageSave" runat="server" Height="35px" 
-                                                  ImageUrl="~/Images/Save.jpg" Width="35px" />
-                                          </td>
-                                          <td>
-                                              <asp:Label ID="Label2" runat="server" Text="SAVE"></asp:Label>
-&nbsp;</td>
-                                          <td>
-                                              <asp:ImageButton ID="ImagePrint" runat="server" Height="35px" 
-                                                  ImageUrl="~/Images/add_plus2.jpg" Width="35px" />
-                                          </td>
-                                          <td>
-                                              Add New
-                                          </td>
-                                          <td>
-                                              <asp:ImageButton ID="ImgBtnClose" runat="server" Height="35px" 
-                                                  ImageUrl="~/Images/Cancel1.jpg" Width="35px" />
-                                          </td>
-                                          <td>
-                                              CLOSE
-                                          </td>
-                                      </tr>
-                                  </table>
-                              </td>
+                                  &nbsp;</td>
                           </tr>
                       </table>
                   </ContentTemplate>
@@ -331,6 +462,21 @@
     <asp:SqlDataSource ID="sdsPartake_Grid" runat="server" 
         ConnectionString="<%$ ConnectionStrings:AppraisalConn %>" 
         SelectCommand="GET_PRICE3_70_PARTAKE_INFO" 
+        SelectCommandType="StoredProcedure">
+        <SelectParameters>
+            <asp:ControlParameter ControlID="lblId" Name="ID" PropertyName="Text" 
+                Type="Int32" />
+            <asp:ControlParameter ControlID="lblReq_Id" Name="Req_Id" PropertyName="Text" 
+                Type="Int32" />
+            <asp:ControlParameter ControlID="lblHub_Id" Name="Hub_Id" PropertyName="Text" 
+                Type="Int32" />
+            <asp:ControlParameter ControlID="lblTemp_AID" Name="TEMP_AID" 
+                PropertyName="Text" Type="Int32" />
+        </SelectParameters>
+    </asp:SqlDataSource>
+    <asp:SqlDataSource ID="sdsPartake2_Grid" runat="server" 
+        ConnectionString="<%$ ConnectionStrings:AppraisalConn %>" 
+        SelectCommand="GET_PRICE2_70_PARTAKE_INFO" 
         SelectCommandType="StoredProcedure">
         <SelectParameters>
             <asp:ControlParameter ControlID="lblId" Name="ID" PropertyName="Text" 

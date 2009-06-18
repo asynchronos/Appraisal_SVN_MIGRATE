@@ -49,7 +49,11 @@ Partial Class Appraisal_Price2
             'Response.Redirect("Appraisal_Price2_Add_By_Colltype.aspx?Req_id=" & Req_Id.Text & "&Hub_Id=" & Hub_Id.Text & "&Coll_Type=" & ddlOperation.SelectedValue & "&Cif=" & Cif.Text & "&AID=" & AID.Text)
             Server.Transfer("Appraisal_Price2_Add_By_Colltype.aspx")
         ElseIf ddlOperation.SelectedValue = 70 Then
-            Response.Redirect("Appraisal_Price2_Add_By_Colltype70.aspx?Req_id=" & Req_Id.Text & "&Hub_Id=" & Hub_Id.Text & "&Coll_Type=" & ddlOperation.SelectedValue & "&Cif=" & Cif.Text & "&AID=" & AID.Text)
+            'ลิงค์ที่ใช้เดิม
+            'Response.Redirect("Appraisal_Price2_Add_By_Colltype70.aspx?Req_id=" & Req_Id.Text & "&Hub_Id=" & Hub_Id.Text & "&Coll_Type=" & ddlOperation.SelectedValue & "&Cif=" & Cif.Text & "&AID=" & AID.Text)
+
+            'Link ใหม่
+            Server.Transfer("Appraisal_Price2_Add_By_Colltype70_New.aspx")
         ElseIf ddlOperation.SelectedValue = 15 Then
         ElseIf ddlOperation.SelectedValue = 18 Then
             'Response.Redirect("Appraisal_Price2_Add_By_Colltype18.aspx?Req_id=" & Req_Id.Text & "&Hub_Id=" & Hub_Id.Text & "&Coll_Type=" & ddlOperation.SelectedValue)

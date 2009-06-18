@@ -13,6 +13,11 @@
             color: #6600FF;
             font-weight: bold;
         }
+        .style2
+        {
+            color: #3333CC;
+            font-weight: bold;
+        }
     </style>
     <script type="text/javascript">
     <!--
@@ -121,7 +126,7 @@
                 <td></td>
                 <td></td>
                 <td>                <table>
-                    <tr>
+                    <tr>                 
                         <td>
                             <asp:ImageButton ID="ImageSave" runat="server" ImageUrl="~/Images/Save.jpg" 
                                 Width="35px" Height="35px" onclientclick="return ShowMessage()"/>
@@ -140,12 +145,13 @@
         </table>
     </div>
     <div>
-    
+        <br />
+        <span class="style2">พื้น ผนัง ราคาที่ 3</span>
         <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" 
             BackColor="LightGoldenrodYellow" BorderColor="Tan" BorderWidth="1px" 
             CellPadding="2" DataKeyNames="ID,Req_Id,Hub_Id,Temp_AID,Floors" 
             DataSourceID="DdsPrice3_70_Detail" ForeColor="Black" GridLines="None" 
-            AllowPaging="True" PageSize="8">
+            AllowPaging="True" PageSize="8" style="font-size: small" Width="865px">
             <Columns>
                 <asp:TemplateField HeaderText="ID" SortExpression="ID" Visible="False">
                     <EditItemTemplate>
@@ -180,7 +186,7 @@
                         <asp:Label ID="lblTemp_AID" runat="server" Text='<%# Bind("Temp_AID") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="Floors" SortExpression="Floors">
+                <asp:TemplateField HeaderText="ชั้นที่" SortExpression="Floors">
                     <EditItemTemplate>
                         <asp:Label ID="Label5" runat="server" Text='<%# Eval("Floors") %>'></asp:Label>
                     </EditItemTemplate>
@@ -188,8 +194,7 @@
                         <asp:Label ID="lblFloors" runat="server" Text='<%# Bind("Floors") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="Main_Construction" 
-                    SortExpression="Main_Construction">
+                <asp:TemplateField HeaderText="โครงสร้างหลักสิ่งปลูกสร้าง" SortExpression="Main_Construction">
                     <EditItemTemplate>
                         <asp:TextBox ID="TextBox1" runat="server" 
                             Text='<%# Bind("Main_Construction") %>'></asp:TextBox>
@@ -198,7 +203,7 @@
                         <asp:Label ID="lblMain_Construction" runat="server" Text='<%# Bind("Main_Construction") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="Concrete" SortExpression="Concrete">
+                <asp:TemplateField HeaderText="คอนกรีต" SortExpression="Concrete">
                     <EditItemTemplate>
                         <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("Concrete") %>'></asp:TextBox>
                     </EditItemTemplate>
@@ -206,7 +211,7 @@
                         <asp:Label ID="lblConcrete" runat="server" Text='<%# Bind("Concrete") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="Granite" SortExpression="Granite">
+                <asp:TemplateField HeaderText="แกรนิต" SortExpression="Granite">
                     <EditItemTemplate>
                         <asp:TextBox ID="TextBox3" runat="server" Text='<%# Bind("Granite") %>'></asp:TextBox>
                     </EditItemTemplate>
@@ -214,7 +219,7 @@
                         <asp:Label ID="lblGranite" runat="server" Text='<%# Bind("Granite") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="Parquet" SortExpression="Parquet">
+                <asp:TemplateField HeaderText="ปาร์เก้" SortExpression="Parquet">
                     <EditItemTemplate>
                         <asp:TextBox ID="TextBox4" runat="server" Text='<%# Bind("Parquet") %>'></asp:TextBox>
                     </EditItemTemplate>
@@ -222,7 +227,7 @@
                         <asp:Label ID="lblParquet" runat="server" Text='<%# Bind("Parquet") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="Ceramic" SortExpression="Ceramic">
+                <asp:TemplateField HeaderText="เซลามิค" SortExpression="Ceramic">
                     <EditItemTemplate>
                         <asp:TextBox ID="TextBox5" runat="server" Text='<%# Bind("Ceramic") %>'></asp:TextBox>
                     </EditItemTemplate>
@@ -230,7 +235,7 @@
                         <asp:Label ID="lblCeramic" runat="server" Text='<%# Bind("Ceramic") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="Wood" SortExpression="Wood">
+                <asp:TemplateField HeaderText="ไม้" SortExpression="Wood">
                     <EditItemTemplate>
                         <asp:TextBox ID="TextBox6" runat="server" Text='<%# Bind("Wood") %>'></asp:TextBox>
                     </EditItemTemplate>
@@ -238,7 +243,7 @@
                         <asp:Label ID="lblWood" runat="server" Text='<%# Bind("Wood") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="Other" SortExpression="Other">
+                <asp:TemplateField HeaderText="อื่น ๆ" SortExpression="Other">
                     <EditItemTemplate>
                         <asp:TextBox ID="TextBox7" runat="server" Text='<%# Bind("Other") %>'></asp:TextBox>
                     </EditItemTemplate>
@@ -246,7 +251,7 @@
                         <asp:Label ID="lblOther" runat="server" Text='<%# Bind("Other") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="Other_Detail" SortExpression="Other_Detail">
+                <asp:TemplateField HeaderText="รายละเอียด อื่นๆ" SortExpression="Other_Detail">
                     <EditItemTemplate>
                         <asp:TextBox ID="TextBox8" runat="server" Text='<%# Bind("Other_Detail") %>'></asp:TextBox>
                     </EditItemTemplate>
@@ -254,7 +259,7 @@
                         <asp:Label ID="lblOther_Detail" runat="server" Text='<%# Bind("Other_Detail") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="BrickWall" SortExpression="BrickWall">
+                <asp:TemplateField HeaderText="ผนังอิฐ" SortExpression="BrickWall">
                     <EditItemTemplate>
                         <asp:TextBox ID="TextBox9" runat="server" Text='<%# Bind("BrickWall") %>'></asp:TextBox>
                     </EditItemTemplate>
@@ -262,7 +267,7 @@
                         <asp:Label ID="lblBrickWall" runat="server" Text='<%# Bind("BrickWall") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="BlockBrickWall" SortExpression="BlockBrickWall" 
+                <asp:TemplateField HeaderText="ผนังอิฐบล็อค" SortExpression="BlockBrickWall" 
                     Visible="False">
                     <EditItemTemplate>
                         <asp:TextBox ID="TextBox10" runat="server" Text='<%# Bind("BlockBrickWall") %>'></asp:TextBox>
@@ -309,9 +314,180 @@
             <AlternatingRowStyle BackColor="PaleGoldenrod" />
         </asp:GridView>
 
-        <%--<asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/Add_Product.aspx">Add New</asp:HyperLink>--%>
+        <br />
+        <span class="style2">พื้น ผนัง ราคาที่ 2</span><asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="False" 
+            BackColor="LightGoldenrodYellow" BorderColor="Tan" BorderWidth="1px" 
+            CellPadding="2" DataKeyNames="ID,Req_Id,Hub_Id,Temp_AID,Floors" 
+            DataSourceID="DdsPrice2_70_Detail" ForeColor="Black" GridLines="None" 
+            AllowPaging="True" PageSize="8" style="font-size: small" Width="865px">
+            <Columns>
+                <asp:TemplateField HeaderText="ID" SortExpression="ID" Visible="False">
+                    <EditItemTemplate>
+                        <asp:Label ID="Label7" runat="server" Text='<%# Eval("ID") %>'></asp:Label>
+                    </EditItemTemplate>
+                    <ItemTemplate>
+                        <asp:Label ID="lblId0" runat="server" Text='<%# Bind("ID") %>'></asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Req_Id" SortExpression="Req_Id" Visible="False">
+                    <EditItemTemplate>
+                        <asp:Label ID="Label8" runat="server" Text='<%# Eval("Req_Id") %>'></asp:Label>
+                    </EditItemTemplate>
+                    <ItemTemplate>
+                        <asp:Label ID="lblReq_Id0" runat="server" Text='<%# Bind("Req_Id") %>'></asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Hub_Id" SortExpression="Hub_Id" Visible="False">
+                    <EditItemTemplate>
+                        <asp:Label ID="Label9" runat="server" Text='<%# Eval("Hub_Id") %>'></asp:Label>
+                    </EditItemTemplate>
+                    <ItemTemplate>
+                        <asp:Label ID="lblHub_Id0" runat="server" Text='<%# Bind("Hub_Id") %>'></asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Temp_AID" SortExpression="Temp_AID" 
+                    Visible="False">
+                    <EditItemTemplate>
+                        <asp:Label ID="Label10" runat="server" Text='<%# Eval("Temp_AID") %>'></asp:Label>
+                    </EditItemTemplate>
+                    <ItemTemplate>
+                        <asp:Label ID="lblTemp_AID0" runat="server" Text='<%# Bind("Temp_AID") %>'></asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="ชั้นที่" SortExpression="Floors">
+                    <EditItemTemplate>
+                        <asp:Label ID="Label11" runat="server" Text='<%# Eval("Floors") %>'></asp:Label>
+                    </EditItemTemplate>
+                    <ItemTemplate>
+                        <asp:Label ID="lblFloors0" runat="server" Text='<%# Bind("Floors") %>'></asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="โครงสร้างหลักสิ่งปลูกสร้าง" 
+                    SortExpression="Main_Construction">
+                    <EditItemTemplate>
+                        <asp:TextBox ID="TextBox14" runat="server" 
+                            Text='<%# Bind("Main_Construction") %>'></asp:TextBox>
+                    </EditItemTemplate>
+                    <ItemTemplate>
+                        <asp:Label ID="lblMain_Construction0" runat="server" 
+                            Text='<%# Bind("Main_Construction") %>'></asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="คอนกรีต" SortExpression="Concrete">
+                    <EditItemTemplate>
+                        <asp:TextBox ID="TextBox15" runat="server" Text='<%# Bind("Concrete") %>'></asp:TextBox>
+                    </EditItemTemplate>
+                    <ItemTemplate>
+                        <asp:Label ID="lblConcrete0" runat="server" Text='<%# Bind("Concrete") %>'></asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="แกรนิต" SortExpression="Granite">
+                    <EditItemTemplate>
+                        <asp:TextBox ID="TextBox16" runat="server" Text='<%# Bind("Granite") %>'></asp:TextBox>
+                    </EditItemTemplate>
+                    <ItemTemplate>
+                        <asp:Label ID="lblGranite0" runat="server" Text='<%# Bind("Granite") %>'></asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="ปาร์เก้" SortExpression="Parquet">
+                    <EditItemTemplate>
+                        <asp:TextBox ID="TextBox17" runat="server" Text='<%# Bind("Parquet") %>'></asp:TextBox>
+                    </EditItemTemplate>
+                    <ItemTemplate>
+                        <asp:Label ID="lblParquet0" runat="server" Text='<%# Bind("Parquet") %>'></asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="เซลามิค" SortExpression="Ceramic">
+                    <EditItemTemplate>
+                        <asp:TextBox ID="TextBox18" runat="server" Text='<%# Bind("Ceramic") %>'></asp:TextBox>
+                    </EditItemTemplate>
+                    <ItemTemplate>
+                        <asp:Label ID="lblCeramic0" runat="server" Text='<%# Bind("Ceramic") %>'></asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="ไม้" SortExpression="Wood">
+                    <EditItemTemplate>
+                        <asp:TextBox ID="TextBox19" runat="server" Text='<%# Bind("Wood") %>'></asp:TextBox>
+                    </EditItemTemplate>
+                    <ItemTemplate>
+                        <asp:Label ID="lblWood0" runat="server" Text='<%# Bind("Wood") %>'></asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="อื่น ๆ" SortExpression="Other">
+                    <EditItemTemplate>
+                        <asp:TextBox ID="TextBox20" runat="server" Text='<%# Bind("Other") %>'></asp:TextBox>
+                    </EditItemTemplate>
+                    <ItemTemplate>
+                        <asp:Label ID="lblOther0" runat="server" Text='<%# Bind("Other") %>'></asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="รายละเอียด อื่นๆ" SortExpression="Other_Detail">
+                    <EditItemTemplate>
+                        <asp:TextBox ID="TextBox21" runat="server" Text='<%# Bind("Other_Detail") %>'></asp:TextBox>
+                    </EditItemTemplate>
+                    <ItemTemplate>
+                        <asp:Label ID="lblOther_Detail0" runat="server" 
+                            Text='<%# Bind("Other_Detail") %>'></asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="ผนังอิฐ" SortExpression="BrickWall">
+                    <EditItemTemplate>
+                        <asp:TextBox ID="TextBox22" runat="server" Text='<%# Bind("BrickWall") %>'></asp:TextBox>
+                    </EditItemTemplate>
+                    <ItemTemplate>
+                        <asp:Label ID="lblBrickWall0" runat="server" Text='<%# Bind("BrickWall") %>'></asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="ผนังอิฐบล็อค" SortExpression="BlockBrickWall" 
+                    Visible="False">
+                    <EditItemTemplate>
+                        <asp:TextBox ID="TextBox23" runat="server" Text='<%# Bind("BlockBrickWall") %>'></asp:TextBox>
+                    </EditItemTemplate>
+                    <ItemTemplate>
+                        <asp:Label ID="lblBlockBrickWall0" runat="server" 
+                            Text='<%# Bind("BlockBrickWall") %>'></asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="WoodWall" SortExpression="WoodWall" 
+                    Visible="False">
+                    <EditItemTemplate>
+                        <asp:TextBox ID="TextBox24" runat="server" Text='<%# Bind("WoodWall") %>'></asp:TextBox>
+                    </EditItemTemplate>
+                    <ItemTemplate>
+                        <asp:Label ID="lblWoodWall0" runat="server" Text='<%# Bind("WoodWall") %>'></asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="OtherWall" SortExpression="OtherWall" 
+                    Visible="False">
+                    <EditItemTemplate>
+                        <asp:TextBox ID="TextBox25" runat="server" Text='<%# Bind("OtherWall") %>'></asp:TextBox>
+                    </EditItemTemplate>
+                    <ItemTemplate>
+                        <asp:Label ID="lblOtherWall0" runat="server" Text='<%# Bind("OtherWall") %>'></asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="OtherWall_Detail" 
+                    SortExpression="OtherWall_Detail" Visible="False">
+                    <EditItemTemplate>
+                        <asp:TextBox ID="TextBox26" runat="server" 
+                            Text='<%# Bind("OtherWall_Detail") %>'></asp:TextBox>
+                    </EditItemTemplate>
+                    <ItemTemplate>
+                        <asp:Label ID="lblOtherWall_Detail0" runat="server" 
+                            Text='<%# Bind("OtherWall_Detail") %>'></asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:CommandField ShowSelectButton="True" ButtonType="Button" />
+            </Columns>
+            <FooterStyle BackColor="Tan" />
+            <PagerStyle BackColor="PaleGoldenrod" ForeColor="DarkSlateBlue" 
+                HorizontalAlign="Center" />
+            <SelectedRowStyle BackColor="DarkSlateBlue" ForeColor="GhostWhite" />
+            <HeaderStyle BackColor="Tan" Font-Bold="True" />
+            <AlternatingRowStyle BackColor="PaleGoldenrod" />
+        </asp:GridView>
 
-        <asp:HiddenField ID="HiddenField1" runat="server" />
+        &nbsp;<asp:HiddenField ID="HiddenField1" runat="server" />
         <asp:HiddenField ID="HiddenField2" runat="server" />
         <asp:HiddenField ID="HiddenField3" runat="server" />
         <asp:HiddenField ID="HiddenField4" runat="server" />
@@ -324,6 +500,21 @@
     <asp:SqlDataSource ID="DdsPrice3_70_Detail" runat="server" 
         ConnectionString="<%$ ConnectionStrings:AppraisalConn %>" 
         SelectCommand="GET_PRICE3_70_DETAIL" SelectCommandType="StoredProcedure">
+        <SelectParameters>
+            <asp:ControlParameter ControlID="HiddenField4" Name="ID" PropertyName="Value" 
+                Type="Int32" />
+            <asp:ControlParameter ControlID="HiddenField1" Name="Req_Id" 
+                PropertyName="Value" Type="Int32" />
+            <asp:ControlParameter ControlID="HiddenField2" Name="Hub_Id" 
+                PropertyName="Value" Type="Int32" />
+            <asp:ControlParameter ControlID="HiddenField3" Name="Temp_AID" 
+                PropertyName="Value" Type="Int32" />
+        </SelectParameters>
+    </asp:SqlDataSource>
+    
+    <asp:SqlDataSource ID="DdsPrice2_70_Detail" runat="server" 
+        ConnectionString="<%$ ConnectionStrings:AppraisalConn %>" 
+        SelectCommand="GET_PRICE2_70_DETAIL" SelectCommandType="StoredProcedure">
         <SelectParameters>
             <asp:ControlParameter ControlID="HiddenField4" Name="ID" PropertyName="Value" 
                 Type="Int32" />

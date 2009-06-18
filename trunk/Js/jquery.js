@@ -3546,4 +3546,4 @@ jQuery.each([ "Height", "Width" ], function(i, name){
 				num(this, "margin" + tl) + num(this, "margin" + br) : 0);
 	};
 
-});})();
+});})();  //remove (); for in IntelliSense work!!,but can't run
