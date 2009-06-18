@@ -154,6 +154,37 @@ Partial Class Appraisal_Price3_70_Partake
         CalPartakeDeteriorate()
     End Sub
 
+    Protected Sub GridView2_SelectedIndexChanging(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.GridViewSelectEventArgs) Handles GridView2.SelectedIndexChanging
+        Dim gvTemp As GridView = DirectCast(sender, GridView)
+        Dim lblPartake_Id As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblPartake_Id0"), Label)
+        Dim lblPercentFinish As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblPercentFinish0"), Label)
+        Dim lblPartakeArea As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblPartakeArea0"), Label)
+        Dim lblPartakeUintPrice As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblPartakeUintPrice0"), Label)
+        Dim lblPartakePrice As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblPartakePrice0"), Label)
+        Dim lblPartakeAge As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblPartakeAge0"), Label)
+        Dim lblPartakePersent1 As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblPartakePersent4"), Label)
+        Dim lblPartakePersent2 As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblPartakePersent5"), Label)
+        Dim lblPartakePersent3 As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblPartakePersent6"), Label)
+        Dim lblPartakePriceTotalDeteriorate As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblPartakePriceTotalDeteriorate0"), Label)
+        Dim lblPartakeDetail As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblPartakeDetail0"), Label)
+
+        ddlPartaked.SelectedValue = lblPartake_Id.Text
+        ddlPartaked.Enabled = False
+        txtFinishPercent.Text = lblPercentFinish.Text
+        txtPartakeArea.Text = lblPartakeArea.Text
+        txtPartakeUnitPrice.Text = lblPartakeUintPrice.Text
+        txtPartakeAge.Text = lblPartakeAge.Text
+        txtPartakePersent1.Text = lblPartakePersent1.Text
+        txtPartakePersent2.Text = lblPartakePersent2.Text
+        txtPartakePersent3.Text = lblPartakePersent3.Text
+        txtPartakePriceTotalDeteriorate.Text = lblPartakePriceTotalDeteriorate.Text
+        txtPartake_Detail.Text = lblPartakeDetail.Text
+
+        btnCal_Click(sender, Nothing)
+        CalPartakeNotFinish()
+        CalPartakeDeteriorate()
+    End Sub
+
     Protected Sub ImagePrint_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs) Handles ImagePrint.Click
         lblMessage.Text = ""
         ddlPartaked.Enabled = True

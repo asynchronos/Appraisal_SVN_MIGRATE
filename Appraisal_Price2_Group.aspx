@@ -54,11 +54,14 @@
     
         <asp:HiddenField ID="HiddenReq_No" runat="server" />
     
+        <asp:Label ID="lblPage" runat="server" 
+        style="font-weight: 700; color: #3333CC" Text="ผูกชิ้นทรัพย์หลักประกัน"></asp:Label>
+    
         <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" 
             CellPadding="2" DataSourceID="SqlDataSource1" 
             ForeColor="Black" GridLines="None" BackColor="LightGoldenrodYellow" 
             BorderColor="Tan" BorderWidth="1px" Width="100%" Font-Size="Small" 
-        AllowPaging="True" PageSize="6">
+        AllowPaging="True" PageSize="12" DataKeyNames="ID,Req_Id,Hub_Id">
             <Columns>
                 <asp:TemplateField>
                     <HeaderTemplate>
@@ -224,11 +227,17 @@
 
     <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
         ConnectionString="<%$ ConnectionStrings:AppraisalConn %>" 
-        SelectCommand="GET_PRICE2_LISTGROUP" SelectCommandType="StoredProcedure">
+        SelectCommand="GET_PRICE2_LISTGROUP" SelectCommandType="StoredProcedure" 
+        DeleteCommand="DELETE_PRICE2_70_NEW" DeleteCommandType="StoredProcedure">
         <SelectParameters>
             <asp:ControlParameter ControlID="HiddenHubId" Name="Hub_Id" 
                 PropertyName="Value" Type="Int32" />
         </SelectParameters>
+        <DeleteParameters>
+                <asp:Parameter Name="Req_Id" Type="Int32" />
+                <asp:Parameter Name="Hub_Id" Type="Int32" />
+                <asp:Parameter Name="Id" Type="Int32" />
+        </DeleteParameters>
     </asp:SqlDataSource>
     <br />
     <div style="text-align: center">
@@ -242,6 +251,17 @@
                 <td></td>
             </tr>
             <tr align="left">
+                <td>
+                    Comment</td>
+                <td>
+                <asp:DropDownList ID="ddlComment" runat="server" DataSourceID="SDSComment" 
+                    DataTextField="Comment_Name" DataValueField="Comment_ID">
+                </asp:DropDownList>
+                </td>
+                <td>
+                    &nbsp;</td>
+            </tr>            
+            <tr align="left" style="display:none">
                 <td>Comment</td>
                 <td>
                     <asp:TextBox ID="txtComment" runat="server" Height="94px" TextMode="MultiLine" 
@@ -280,6 +300,8 @@
     <asp:SqlDataSource ID="SDSUserAppraisal" runat="server" ConnectionString="<%$ ConnectionStrings:AppraisalConn %>"
         SelectCommand="SELECT Emp_id, Title + Name + '  ' + Lastname AS UserAppraisal FROM Tb_UserAppraisal">
     </asp:SqlDataSource>
+    <asp:SqlDataSource ID="SDSComment" runat="server" ConnectionString="<%$ ConnectionStrings:AppraisalConn %>"
+        SelectCommand="SELECT [Comment_ID], [Comment_Name] FROM [Comment]"></asp:SqlDataSource>
     </div>
 </asp:Content>
 

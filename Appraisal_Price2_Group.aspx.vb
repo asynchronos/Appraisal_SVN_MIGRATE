@@ -66,11 +66,11 @@ Partial Class Appraisal_Price2_Group
             Exit Sub
         End If
 
-        If txtComment.Text = String.Empty Then
-            s = "<script language=""javascript"">alert('คุณไม่ได้ใส่ Comment ของการให้ราคาที่ 2'); </script>"
-            Page.ClientScript.RegisterStartupScript(Me.GetType, "ให้ความคิดเห็น", s)
-            Exit Sub
-        End If
+        'If txtComment.Text = String.Empty Then
+        '    s = "<script language=""javascript"">alert('คุณไม่ได้ใส่ Comment ของการให้ราคาที่ 2'); </script>"
+        '    Page.ClientScript.RegisterStartupScript(Me.GetType, "ให้ความคิดเห็น", s)
+        '    Exit Sub
+        'End If
 
         If GV.Rows.Count > 0 Then
             If txtTemp_AID.Text = String.Empty Then
@@ -103,7 +103,7 @@ Partial Class Appraisal_Price2_Group
 
                         If chk2.Checked = True Then
                             'ส่งค่าไป Insert และท ำการ Update สถานะการประเมิน
-                            AddPRICE2_Master(txtTemp_AID.Text, Req_id.Text, Hub_id.Text, Id.Text, Cif.Text, ddlUserAppraisal.SelectedValue, CollType.Text, txtComment.Text, String.Empty, lbluserid.Text, Now())
+                            AddPRICE2_Master(txtTemp_AID.Text, Req_id.Text, Hub_id.Text, Id.Text, Cif.Text, ddlUserAppraisal.SelectedValue, CollType.Text, ddlComment.SelectedItem.Text, String.Empty, 0, lbluserid.Text, Now())
                         End If
 
                     Next
@@ -158,11 +158,11 @@ Partial Class Appraisal_Price2_Group
             Else
                 Dim Expl As String = String.Empty
                 Dim Req_ID As Object = DirectCast(e.Row.DataItem, DataRowView)("Req_Id").ToString()
-                Dim Hid_ID As Object = DirectCast(e.Row.DataItem, DataRowView)("ID").ToString()
+                Dim Hub_ID As Object = DirectCast(e.Row.DataItem, DataRowView)("Hub_Id").ToString()
                 Dim ID As Object = DirectCast(e.Row.DataItem, DataRowView)("ID").ToString()
                 Dim Address_No As Object = DirectCast(e.Row.DataItem, DataRowView)("Address_No").ToString()
                 Dim CifName As Object = DirectCast(e.Row.DataItem, DataRowView)("CifName").ToString()
-                Expl = "เลขคำขอที่ " & Req_ID & " Hub เลขที่ " & Hid_ID & "" & " หลักประกันเลขที่ " & Address_No & " ของลูกค้าราย " & CifName
+                Expl = "เลขคำขอที่ " & Req_ID & " Hub เลขที่ " & Hub_ID & "" & " หลักประกันเลขที่ " & Address_No & " ของลูกค้าราย " & CifName
                 'MsgBox(DirectCast(e.Row.DataItem, DataRowView)("ID").ToString())
                 If e.Row.RowState <> DataControlRowState.Edit Then
                     ' check for RowState 
@@ -198,18 +198,18 @@ Partial Class Appraisal_Price2_Group
         'Get the value 
         Dim Req_Id As Label = DirectCast(gvTemp.Rows.Item(e.RowIndex).FindControl("lblReq_Id"), Label)
         Dim Hub_Id As Label = DirectCast(gvTemp.Rows.Item(e.RowIndex).FindControl("lblHub_Id"), Label)
-        Dim Hid_ID As HiddenField = DirectCast(gvTemp.Rows.Item(e.RowIndex).FindControl("H_ID"), HiddenField)
+        Dim ID As Label = DirectCast(gvTemp.Rows.Item(e.RowIndex).FindControl("lblID"), Label)
         Dim lblColl_type As Label = DirectCast(gvTemp.Rows.Item(e.RowIndex).FindControl("lblColltype"), Label)
         'MsgBox(Hid_ID.Value.ToString)
 
         'Prepare the Update Command of the DataSource control 
         Try
             If lblColl_type.Text = 50 Then
-                DELETE_PRICE2_50(Hid_ID.Value, Req_Id.Text, Hub_Id.Text)
+                DELETE_PRICE2_50(ID.Text, Req_Id.Text, Hub_Id.Text)
             ElseIf lblColl_type.Text = 70 Then
-                DELETE_PRICE2_70(Hid_ID.Value, Req_Id.Text, Hub_Id.Text)
+                DELETE_PRICE2_70(ID.Text, Req_Id.Text, Hub_Id.Text)
             ElseIf lblColl_type.Text = 18 Then
-                DELETE_PRICE2_18(Hid_ID.Value, Req_Id.Text, Hub_Id.Text)
+                DELETE_PRICE2_18(ID.Text, Req_Id.Text, Hub_Id.Text)
             End If
             'คำสั่งเมื่อ Delete เสร็จ
             'ClientScript.RegisterStartupScript([GetType](), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Appraisal deleted successfully');</script>")
@@ -240,18 +240,12 @@ Partial Class Appraisal_Price2_Group
             Server.Transfer("Appraisal_Price2_Add_By_Colltype.aspx")
             'Response.Redirect("Appraisal_Price2_Add_By_Colltype.aspx?Req_id=" & Req_Id.Text & "&Hub_Id=" & Hub_Id.Text & "&Coll_Type=" & CollType.Text & "&Id=" & Id.Text & "&Cif=" & Cif.Text)
         ElseIf CollType.Text = 70 Then
-            Response.Redirect("Appraisal_Price2_Add_By_Colltype70.aspx?Req_id=" & Req_Id.Text & "&Hub_Id=" & Hub_Id.Text & "&Coll_Type=" & CollType.Text & "&Id=" & Id.Text & "&Cif=" & Cif.Text)
+            'Response.Redirect("Appraisal_Price2_Add_By_Colltype70_New.aspx?Req_id=" & Req_Id.Text & "&Hub_Id=" & Hub_Id.Text & "&Coll_Type=" & CollType.Text & "&Id=" & Id.Text & "&Cif=" & Cif.Text)
+            Server.Transfer("Appraisal_Price2_Add_By_Colltype70_New.aspx")
         ElseIf CollType.Text = 15 Then
         ElseIf CollType.Text = 18 Then
             Server.Transfer("Appraisal_Price2_Add_By_Colltype18.aspx")
         End If
-        'Else
-        '    Dim s As String
-        '    s = "<script language=""javascript"">alert('คุณไม่สามารถแก้ไขข้อมูลได้เพราะมีเลข Temp AID  แล้ว');</script>"
-        '    Page.ClientScript.RegisterStartupScript(Me.GetType, "ข้อความเตือน", s)
-
-        'End If
-
     End Sub
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load

@@ -4,14 +4,10 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
     <style type="text/css">
-
             .style17
         {
             height: 24px;
         }
-            
-
-
         .style8
         {
         }
@@ -85,6 +81,11 @@
             color: #3333CC;
             font-weight: bold;
         }
+        .style29
+        {
+            color: #3333CC;
+            font-weight: bold;
+        }
     </style>
     
         <script type="text/javascript">
@@ -126,7 +127,7 @@ function wopen(url, name, w, h) {
 // -->
 
 function ConfirmOnSave(item) {
-        if (confirm("ไม่มีข้อมูลส่งปลูกสร้างนี้ คุณต้องการบันทึกสิ่งปลูกสร้างเลขที่: " + item + " ใช่หรือไม่ ?") == true)
+        if (confirm("ไม่มีข้อมูลสิ่งปลูกสร้างนี้ คุณต้องการบันทึกสิ่งปลูกสร้างเลขที่: " + item + " ใช่หรือไม่ ?") == true)
             return true;
         else
             return false;
@@ -138,6 +139,7 @@ function ConfirmOnSave(item) {
     </asp:ScriptManager>
 <br />
 <br />
+    <span class="style29">รายละเอียดสิ่งปลูกสร้างราคาที่ 3</span>
               <table width="100%" 
         style="background-color: #B5C7DE; font-size: small;">
         <tr>
@@ -352,11 +354,9 @@ function ConfirmOnSave(item) {
                 <td class="style22">
                     &nbsp;</td>
                 <td class="style8">
-                    <asp:CheckBox ID="chkDetail" runat="server" Text="รายละเอียดเพิ่มเติม" />
-                </td>
+                    &nbsp;</td>
                 <td class="style5">
-                    <asp:Button ID="btnAddDetail" runat="server" Text="รายละเอียดเพิ่มเติม" />
-                </td>
+                    &nbsp;</td>
                 <td class="style19">
                     &nbsp;</td>
                 <td class="style26">
@@ -396,7 +396,7 @@ function ConfirmOnSave(item) {
                         EnableTextAlignRight="True">100</cc1:mytext>
                     &nbsp;%</td>
                 <td class="style5">
-                    มูลค่า(ยังสร้างไม่เสร็จ)</td>
+                                        มูลค่า</td>
                 <td class="style19">
                     <cc1:mytext ID="txtPriceNotFinish" runat="server" AllowUserKey="num_Numeric" 
                         EnableTextAlignRight="True" Width="110px" BackColor="#FFFF66" 
@@ -499,7 +499,7 @@ function ConfirmOnSave(item) {
                         EnableTextAlignRight="True">100</cc1:mytext>
                     %</td>
                 <td class="style5">
-                    มูลค่า(ยังสร้างไม่เสร็จ)</td>
+                                        มูลค่า</td>
                 <td class="style19">
                     <cc1:mytext ID="txtPriceNotFinish1" runat="server" AllowUserKey="num_Numeric" 
                         EnableTextAlignRight="True" Width="110px" BackColor="#FFFF66" 
@@ -561,11 +561,14 @@ function ConfirmOnSave(item) {
                 <td class="style22">
                                         &nbsp;</td>
                 <td class="style8">
-                    &nbsp;</td>
+                    <asp:CheckBox ID="chkDetail" runat="server" Text="รายละเอียดเพิ่มเติม" />
+                </td>
                 <td class="style5">
-                                        &nbsp;</td>
+                    <asp:Button ID="btnAddDetail" runat="server" Text="รายละเอียดเพิ่มเติม" />
+                </td>
                 <td class="style19">
-                    &nbsp;</td>
+                    <asp:Button ID="btnAdPartake" runat="server" Text="เพิ่มส่วนควบ" />
+                </td>
                 <td class="style26">
                     &nbsp;</td>
                 <td>
@@ -575,8 +578,7 @@ function ConfirmOnSave(item) {
                 <td class="style22">
                                         &nbsp;</td>
                 <td class="style8">
-                    <asp:Button ID="btnAdPartake" runat="server" Text="เพิ่มส่วนควบ" />
-                </td>
+                    &nbsp;</td>
                 <td class="style5">
                                         &nbsp;</td>
                 <td class="style19">

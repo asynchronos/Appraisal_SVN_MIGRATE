@@ -362,13 +362,15 @@
             <td class="style5">
                 สภาพการตกแต่ง</td>
             <td>
-                <asp:CheckBox ID="CheckBox5" runat="server" Text="ตกแต่งพร้อมอยู่" />
+                <asp:CheckBox ID="CheckBox5" runat="server" Text="ตกแต่งพร้อมอยู่" 
+                    Enabled="False" />
             </td>
             <td>
-                <asp:CheckBox ID="CheckBox6" runat="server" Text="ตกแต่งบางส่วน" />
+                <asp:CheckBox ID="CheckBox6" runat="server" Text="ตกแต่งบางส่วน" 
+                    Enabled="False" />
             </td>
             <td>
-                <asp:CheckBox ID="CheckBox7" runat="server" Text="ไม่ตกแต่ง" />
+                <asp:CheckBox ID="CheckBox7" runat="server" Text="ไม่ตกแต่ง" Enabled="False" />
             </td>
             <td>
                 &nbsp;</td>

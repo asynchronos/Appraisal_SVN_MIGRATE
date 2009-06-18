@@ -29,18 +29,32 @@
         .style5
         {            font-size: small;
         }
+        .style6
+        {
+            font-size: medium;
+            font-weight: bold;
+        }
+        .style7
+        {
+            font-size: small;
+            font-weight: bold;
+        }
+        .style8
+        {
+            font-size: medium;
+        }
     </style>
 </head>
 <body>
     <form id="form1" runat="server">
     <div>
-        <h5 style="text-align:center">รายละเอียดส่งปลูกสร้าง</h5>
+        <h5 style="text-align:center" class="style8">รายละเอียดส่งปลูกสร้าง</h5>
         
     </div>
     <table class="style1">
         <tr>
             <td colspan="6">
-                ลูกค้าราย
+                <b>ลูกค้าราย</b>
                 <asp:Label ID="lblCifName" runat="server"></asp:Label>
             &nbsp;Cif
                 <asp:Label ID="lblCif" runat="server"></asp:Label>
@@ -48,12 +62,13 @@
         </tr>
         <tr>
             <td class="style5">
-                สิ่งปลูกสร้าง&nbsp;&nbsp;&nbsp;&nbsp;บ้านเลขที่&nbsp;</td>
+                <span class="style6">สิ่งปลูกสร้าง</span>&nbsp;&nbsp;&nbsp;<span class="style8">บ้านเลขที่</span><span 
+                    class="style6">&nbsp;</span></td>
             <td>
                 <asp:Label ID="lblAddressNo" runat="server"></asp:Label>
             </td>
             <td>
-                ปลูกสร้างบนโฉนดเลขที่</td>
+                <b>ปลูกสร้างบนโฉนดเลขที่</b></td>
             <td>
                 <asp:Label ID="lbChanodeNo" runat="server"></asp:Label>
             </td>
@@ -64,16 +79,16 @@
         </tr>
         <tr>
             <td colspan="6">
-                เขตการปกครอง&nbsp;&nbsp;ตำบล
+                <b>เขตการปกครอง&nbsp;&nbsp;ตำบล</b>
                 <asp:Label ID="lblTumbon" runat="server"></asp:Label>
-            &nbsp;อำเภอ
+            &nbsp;<b>อำเภอ</b>
                 <asp:Label ID="lblAmphur" runat="server"></asp:Label>
-            &nbsp;จังหวัด
+            &nbsp;<b>จังหวัด</b>
                 <asp:Label ID="lblProvinceName" runat="server"></asp:Label>
             </td>
         </tr>
         <tr>
-            <td class="style5">
+            <td class="style6">
                 ลักษณะ</td>
             <td>
                 <asp:CheckBox ID="CheckBox1" runat="server" Text="ตึกแถว" />
@@ -115,7 +130,7 @@
                 &nbsp;</td>
         </tr>
         <tr>
-            <td class="style5">
+            <td class="style7">
                 โครงสร้างหลักของอาคาร</td>
             <td>
                 <asp:Label ID="lblBuilding_Struc" runat="server"></asp:Label>
@@ -135,7 +150,7 @@
         <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" 
             BackColor="LightGoldenrodYellow" BorderColor="Tan" BorderWidth="1px" 
             CellPadding="2" DataKeyNames="ID,Req_Id,Hub_Id,Temp_AID,Floors" 
-            DataSourceID="DdsPrice3_70_Detail" ForeColor="Black" GridLines="None" PageSize="8" 
+            DataSourceID="DdsPrice2_70_Detail" ForeColor="Black" GridLines="None" PageSize="8" 
                     style="font-size: small" Width="100%">
             <Columns>
                 <asp:TemplateField HeaderText="ID" SortExpression="ID" Visible="False">
@@ -305,9 +320,9 @@
             <AlternatingRowStyle BackColor="PaleGoldenrod" />
         </asp:GridView>
 
-    <asp:SqlDataSource ID="DdsPrice3_70_Detail" runat="server" 
+    <asp:SqlDataSource ID="DdsPrice2_70_Detail" runat="server" 
         ConnectionString="<%$ ConnectionStrings:AppraisalConn %>" 
-        SelectCommand="GET_PRICE3_70_DETAIL" SelectCommandType="StoredProcedure">
+        SelectCommand="GET_PRICE2_70_DETAIL" SelectCommandType="StoredProcedure">
         <SelectParameters>
             <asp:ControlParameter ControlID="HiddenField1" Name="ID" PropertyName="Value" 
                 Type="Int32" />
@@ -323,16 +338,18 @@
             </td>
         </tr>  
         <tr>
-            <td class="style5">
+            <td class="style6">
                 สภาพการตกแต่ง</td>
             <td>
-                <asp:CheckBox ID="CheckBox5" runat="server" Text="ตกแต่งพร้อมอยู่" />
+                <asp:CheckBox ID="CheckBox5" runat="server" Text="ตกแต่งพร้อมอยู่" 
+                    Enabled="False" />
             </td>
             <td>
-                <asp:CheckBox ID="CheckBox6" runat="server" Text="ตกแต่งบางส่วน" />
+                <asp:CheckBox ID="CheckBox6" runat="server" Text="ตกแต่งบางส่วน" 
+                    Enabled="False" />
             </td>
             <td>
-                <asp:CheckBox ID="CheckBox7" runat="server" Text="ไม่ตกแต่ง" />
+                <asp:CheckBox ID="CheckBox7" runat="server" Text="ไม่ตกแต่ง" Enabled="False" />
             </td>
             <td>
                 &nbsp;</td>
@@ -343,9 +360,9 @@
             <td class="style2" colspan="6" valign="top">
                 <asp:Repeater ID="Repeater1" runat="server" DataSourceID="sdsBuilding_Partake_List">
                 <HeaderTemplate>
-                    <table border="1px" width="100%">
+                    <table border="1px" width="100%" cellspacing="0px" cellpadding="1px">
                     <tr class="bgTable">
-                        <td rowspan="2" valign="top">
+                        <td rowspan="2" valign="top" style="width:200px">
                             รายการสิ่งปลูกสร้าง</td>
                         <td rowspan="2" valign="top">
                             พื้นที่<br />
@@ -359,18 +376,19 @@
                         <td rowspan="2" valign="top" style="width:40px">
                             อายุการ<br />
                             ใช้งาน(ปี)</td>
-                        <td rowspan="2" valign="top" class="style4">
+                        <td rowspan="2" valign="top" class="style4" style="width:40px">
                             ค่าเสื่อม<br />
                             (ปี)</td>
                         <td colspan="2">
                             ปรับค่าเสื่อมตามสภาพ</td>
                         <td rowspan="2" valign="top" style="width:60px">
                             รวม<br />
-                            ค่าเสื่อม%</td>
+                            ค่าเสื่อม<br />
+                            %</td>
                         <td rowspan="2" valign="top">
                             รวมค่าเสื่อม<br />
                             (บาท)</td>
-                        <td rowspan="2" valign="top">
+                        <td rowspan="2" valign="top" style="width:50px">
                             รวมค่าเสื่อม<br />
                             ตามสภาพ<br />
                             ปัจจุบัน(บาท)</td>                            
@@ -395,7 +413,7 @@
                 </HeaderTemplate>   
                 <ItemTemplate>
                      <tr>
-                        <td>
+                        <td style="width:200px">
                             <%#DataBinder.Eval(Container.DataItem, "CollName")%>
                         </td>
                         <td align="center">
@@ -410,10 +428,10 @@
                         <td align="right">
                             <%#String.Format("{0:N2}", Eval("Price"))%>
                         </td>
-                        <td align="center">
+                        <td align="center" style="width:40px">
                             <%#Eval("Age")%>
                         </td>
-                        <td align="center">
+                        <td align="center" style="width:40px">
                             <%#Eval("Persent1")%>
                         </td>
                         <td align="center">
@@ -422,13 +440,13 @@
                         <td align="center">
                             <%#Eval("Persent3")%>
                         </td>
-                        <td align="center">                     
+                        <td align="center" style="width:60px">                     
                             <%# Get_Amount( eval("Age"), eval("Persent1"), eval("Persent2"), eval("Persent3")) %>
                         </td>
                         <td align="right">
                             <%# Get_Amount_Bht( eval("Price") ,eval("Age"), eval("Persent1"), eval("Persent2"), eval("Persent3")) %>
                         </td>
-                        <td align="right">
+                        <td align="right" style="width:50px">
                             <%#Get_Amount_Bht(Eval("Pricepercent"), Eval("Age"), Eval("Persent1"), Eval("Persent2"), Eval("Persent3"))%>
                         </td>
                         <td align="right">
@@ -441,7 +459,7 @@
                 </ItemTemplate>
                 <AlternatingItemTemplate>
                     <tr style=" background-color:#ccff99">
-                        <td>
+                        <td style="width:200px">
                             <%#DataBinder.Eval(Container.DataItem, "CollName")%>
                         </td>
                         <td align="center">
@@ -453,13 +471,13 @@
                         <td align="right">
                             <%#String.Format("{0:N2}", Eval("UintPrice"))%>
                         </td>
-                        <td align="right">
+                        <td align="right" >
                             <%#String.Format("{0:N2}", Eval("Price"))%>
                         </td>
-                        <td align="center">
+                        <td align="center" style="width:40px">
                             <%#Eval("Age")%>
                         </td>
-                        <td align="center">
+                        <td align="center" style="width:40px">
                             <%#Eval("Persent1")%>
                         </td>
                         <td align="center">
@@ -468,7 +486,7 @@
                         <td align="center">
                             <%#Eval("Persent3")%>
                         </td>
-                        <td align="center">                     
+                        <td align="center" style="width:60px">                     
                             <%# Get_Amount( eval("Age"), eval("Persent1"), eval("Persent2"), eval("Persent3")) %>
                         </td>
                         <td align="right">
@@ -477,7 +495,7 @@
                         <td align="right">
                             <%#Get_Amount_Bht(Eval("Pricepercent"), Eval("Age"), Eval("Persent1"), Eval("Persent2"), Eval("Persent3"))%>
                         </td>
-                        <td align="right">
+                        <td align="right" style="width:50px">
                             <%# Get_Balance( eval("Price") ,eval("Age"), eval("Persent1"), eval("Persent2"), eval("Persent3")) %>
                         </td>
                         <td align="right">
@@ -485,13 +503,9 @@
                         </td>                        
                     </tr>
                 </AlternatingItemTemplate>
-<%--                <SeparatorTemplate>
-                    <tr>
-                        <td colspan="11"><hr></td>
-                    </tr>
-                </SeparatorTemplate>--%>
                <FooterTemplate>
-                    <tr style ="background-color:Gray">
+                    <tr style ="background-color:Gray; border-color:Black;" >
+                        <td style="width:200px"></td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -500,10 +514,9 @@
                         <td></td>
                         <td></td>
                         <td></td>
+                        <td style="width:60px"></td>
                         <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td style="width:50px"></td>
                         <td align="right">
                             <%#String.Format("{0:N2}", (Get_Total()))%>
                         </td>
@@ -562,7 +575,7 @@
 
     <asp:SqlDataSource ID="sdsBuilding_Partake_List" runat="server" 
         ConnectionString="<%$ ConnectionStrings:AppraisalConn %>" 
-        SelectCommand="GET_PRICE3_70_BUILDING_PARTAKE_ALL" 
+        SelectCommand="GET_PRICE2_70_BUILDING_PARTAKE_ALL" 
         SelectCommandType="StoredProcedure">
         <SelectParameters>
             <asp:ControlParameter ControlID="HiddenField2" Name="Req_Id" PropertyName="Value" 
@@ -571,6 +584,8 @@
                 Type="Int32" />
             <asp:ControlParameter ControlID="HiddenField4" Name="TEMP_AID" 
                 PropertyName="Value" Type="Int32" />
+            <asp:ControlParameter ControlID="HiddenField1" Name="ID" PropertyName="Value" 
+                Type="Int32" />
         </SelectParameters>
     </asp:SqlDataSource>
         

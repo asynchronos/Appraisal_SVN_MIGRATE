@@ -173,9 +173,6 @@ Partial Class Appraisal_For_Wait_Approve
                 StrNotice = "<Script language=""javascript"">alert('อนุกรรมการยังอนุมัติไม่ครบ 3 คน');</Script>"
                 Page.ClientScript.RegisterStartupScript(Me.GetType, "Notice", StrNotice)
             End If
-
-
-
         End If
 
 
