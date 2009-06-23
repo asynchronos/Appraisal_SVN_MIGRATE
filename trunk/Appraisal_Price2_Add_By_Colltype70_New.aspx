@@ -324,7 +324,7 @@ function ConfirmOnSave(reqid,item) {
                     <td colspan="5">
                         <asp:DropDownList ID="DDLSubCollType" runat="server" 
                             DataSourceID="sdsSubCollType" DataTextField="SubCollType_Name"
-                            DataValueField="MysubColl_ID">
+                            DataValueField="MysubColl_ID" BackColor="#FFFF66">
                         </asp:DropDownList>
                     </td>
               </tr>
@@ -347,17 +347,17 @@ function ConfirmOnSave(reqid,item) {
                 </td>
                 <td class="style8">
                     <asp:TextBox ID="txtBuild_No" runat="server"
-                    MyClintID="txtBuild_No"></asp:TextBox>
+                    MyClintID="txtBuild_No" BackColor="#FFFF66"></asp:TextBox>
                 </td>
                 <td class="style5">
                     ตำบล</td>
                 <td class="style19">
-                <asp:TextBox ID="txtTumbon" runat="server"></asp:TextBox>
+                <asp:TextBox ID="txtTumbon" runat="server" BackColor="#FFFF66"></asp:TextBox>
                 </td>
                 <td class="style26">
                     อำเภอ</td>
                 <td>
-                <asp:TextBox ID="txtAmphur" runat="server"></asp:TextBox>
+                <asp:TextBox ID="txtAmphur" runat="server" BackColor="#FFFF66"></asp:TextBox>
                 </td>
             </tr>
         <tr>
@@ -365,7 +365,7 @@ function ConfirmOnSave(reqid,item) {
                 จังหวัด</td>
             <td class="style17">
                 <asp:DropDownList ID="ddlProvince" runat="server" DataSourceID="SDSProvince" 
-                    DataTextField="PROV_NAME" DataValueField="PROV_CODE">
+                    DataTextField="PROV_NAME" DataValueField="PROV_CODE" BackColor="#FFFF66">
                 </asp:DropDownList>
             </td>
             <td class="style17">
@@ -373,16 +373,16 @@ function ConfirmOnSave(reqid,item) {
             <td class="style27">
                     <asp:DropDownList ID="ddlBuild_Character" runat="server" 
                         DataSourceID="SDSlBuild_Character" DataTextField="Build_Character_Name" 
-                        DataValueField="Build_Character_ID">
+                        DataValueField="Build_Character_ID" BackColor="#FFFF66">
                     </asp:DropDownList>
             </td>
             <td class="style25">
                     จำนวน</td>
             <td class="style17">
                     <cc1:mytext ID="txtFloor" runat="server" AllowUserKey="num_Numeric" 
-                        Width="35px"></cc1:mytext>
+                        Width="35px" BackColor="#FFFF66"></cc1:mytext>
                     &nbsp;ชั้น
-                    <asp:TextBox ID="txtItem" runat="server" Width="35px">0</asp:TextBox>
+                    <asp:TextBox ID="txtItem" runat="server" Width="35px" BackColor="#FFFF66">0</asp:TextBox>
                     &nbsp;หลัง</td>
         </tr>             
             <tr>
@@ -392,7 +392,7 @@ function ConfirmOnSave(reqid,item) {
                 <td class="style10">
                     <asp:DropDownList ID="ddlBuild_Construct" runat="server" 
                         DataSourceID="SDSBuild_Construct" DataTextField="Build_Construct_Name" 
-                        DataValueField="Build_Construct_ID">
+                        DataValueField="Build_Construct_ID" BackColor="#FFFF66">
                     </asp:DropDownList>
                 </td>
                 <td class="style7">
@@ -400,14 +400,14 @@ function ConfirmOnSave(reqid,item) {
                 </td>
                 <td class="style20">
                     <asp:DropDownList ID="ddlRoof" runat="server" DataSourceID="SDSRoof" 
-                        DataTextField="Roof_Name" DataValueField="Roof_ID">
+                        DataTextField="Roof_Name" DataValueField="Roof_ID" BackColor="#FFFF66">
                     </asp:DropDownList>
                 </td>
                 <td class="style16">
                     รายละเอียดเพิ่มเติม(ถ้ามี)
                 </td>
                 <td class="style4">
-                    <asp:TextBox ID="txtRoof_Detail" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="txtRoof_Detail" runat="server" BackColor="#FFFF66"></asp:TextBox>
                     &nbsp;
                 </td>
             </tr>
@@ -418,7 +418,7 @@ function ConfirmOnSave(reqid,item) {
                 <td class="style8">
                     <asp:DropDownList ID="ddlBuild_State" runat="server" 
                         DataSourceID="SDSBuild_State" DataTextField="Build_State_Name" 
-                        DataValueField="Build_State_ID">
+                        DataValueField="Build_State_ID" BackColor="#FFFF66">
                     </asp:DropDownList>
                 </td>
                 <td class="style5">
@@ -439,14 +439,15 @@ function ConfirmOnSave(reqid,item) {
                 <td class="style8">
                     <asp:DropDownList ID="ddlRoofConstructure" runat="server" 
                         DataSourceID="SDSRoofStructure" DataTextField="RoofStructure_Name" 
-                        DataValueField="RoofStructure_Id">
+                        DataValueField="RoofStructure_Id" BackColor="#FFFF66">
                     </asp:DropDownList>
                 </td>
                 <td class="style5">
                     สภาพหลังคา</td>
                 <td class="style19">
                     <asp:DropDownList ID="ddlRoofState" runat="server" DataSourceID="SDSRoof_State" 
-                        DataTextField="RoofState_Name" DataValueField="RoofState_Id">
+                        DataTextField="RoofState_Name" DataValueField="RoofState_Id" 
+                        BackColor="#FFFF66">
                     </asp:DropDownList>
                 </td>
                 <td class="style26">
@@ -454,7 +455,7 @@ function ConfirmOnSave(reqid,item) {
                 <td>
                     <asp:DropDownList ID="ddlInteriorState" runat="server" 
                         DataSourceID="SDSInterior_State" DataTextField="InteriorState_Name" 
-                        DataValueField="InteriorState_Id">
+                        DataValueField="InteriorState_Id" BackColor="#FFFF66">
                     </asp:DropDownList>
                 </td>
             </tr>              
@@ -464,7 +465,8 @@ function ConfirmOnSave(reqid,item) {
                 </td>
                 <td class="style8">
                     <cc1:mytext ID="txtPriceTotal1" runat="server" AllowUserKey="num_Numeric" AutoCurrencyFormatOnKeyUp="True"
-                        EnableTextAlignRight="True" onblur="GrandTotal_ActiveChanged();">0</cc1:mytext>
+                        EnableTextAlignRight="True" onblur="GrandTotal_ActiveChanged();" 
+                        BackColor="#FFFF66">0</cc1:mytext>
                 </td>
                 <td class="style5">
                     &nbsp;</td>

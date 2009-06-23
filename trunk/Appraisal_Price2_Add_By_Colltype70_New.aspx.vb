@@ -9,6 +9,7 @@ Partial Class Appraisal_Price2_Add_By_Colltype70_New
             lblHub_Id.Text = Context.Items("Hub_Id")
             hhhfSubCollType.Value = Context.Items("Coll_Type")
             hdfCif.Value = Context.Items("Cif")
+            Get_Price2_50_Info()
             If Context.Items("Temp_AID") = String.Empty Then
                 'lblTemp_AID.Text = 0
                 lblTemp_AID.Text = "0"
@@ -237,4 +238,15 @@ Partial Class Appraisal_Price2_Add_By_Colltype70_New
         'HiddenField4.Value = CInt(Context.Items("Temp_AID"))
         'HiddenField5.Value = CStr(Context.Items("User_ID"))
     End Sub
+
+    Private Sub Get_Price2_50_Info()
+        Dim Obj_GetP50 As List(Of PRICE2_50) = GET_PRICE2_50(0, lblReq_Id.Text, lblHub_Id.Text)
+        If Obj_GetP50.Count > 0 Then
+            txtTumbon.Text = Obj_GetP50.Item(0).Tumbon
+            txtAmphur.Text = Obj_GetP50.Item(0).Amphur
+            ddlProvince.SelectedValue = Obj_GetP50.Item(0).Province
+            txtChanodeNo.Text = Obj_GetP50.Item(0).Address_No
+        End If
+    End Sub
+
 End Class
