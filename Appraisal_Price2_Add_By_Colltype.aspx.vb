@@ -12,10 +12,6 @@ Partial Class Appraisal_Price2_Add_By_Colltype
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not Page.IsPostBack Then
-            'lblReq_Id.Text = Request.QueryString("Req_Id")
-            'lblHub_Id.Text = Request.QueryString("Hub_Id")
-            'lblId.Text = Request.QueryString("Id")
-            'txtAID.Text = Request.QueryString("AID")
 
             lblReq_Id.Text = Context.Items("Req_Id")
             lblHub_Id.Text = Context.Items("Hub_Id")
@@ -117,19 +113,27 @@ Partial Class Appraisal_Price2_Add_By_Colltype
         Dim lbluserid As Label = TryCast(Me.Form.FindControl("lblUserID"), Label) 'หา Control จาก Master Page ที่ control ไม่อยู่ใน  ContentPlaceHolder1 ของ Master Page
         Dim Id As Integer
         If lblId.Text = String.Empty Then
-            Id = "0"
+            'ส่งค่าไปขอ Id จาก ตาราง ID_50
+            Id = GET_ID_18_50_70(50)
+            UPDATE_ID_50()
         Else
             Id = lblId.Text
         End If
-        AddPRICE2_50(Id, CInt(lblReq_Id.Text), CInt(lblHub_Id.Text), txtAID.Text, txtCID.Text, 0, CInt(DDLSubCollType.SelectedValue), txtChanode.Text, String.Empty, txtTumbon.Text, txtAmphur.Text, _
-                                                              ddlProvince.SelectedValue, CInt(txtRai.Text), CInt(txtNgan.Text), CDec(txtWah.Text), _
-                                                              txtRoad.Text, CInt(ddlRoad_Detail.SelectedValue), CDec(txtMeter.Text), CInt(ddlRoad_Forntoff.SelectedValue), _
-                                                              CDec(txtRoadWidth.Text), CInt(ddlSite.SelectedValue), CStr(txtSite_Detail.Text), CInt(ddlLand_State.SelectedValue), _
-                                                              txtLand_State_Detail.Text, CInt(ddlPublic_Utility.SelectedValue), txtPublic_Utility_Detail.Text, CInt(ddlBinifit.SelectedValue), _
-                                                              txtBinifit.Text, CInt(ddlTendency.SelectedValue), CInt(ddlBuySale_State.SelectedValue), _
-                                                              CInt(txtPriceWah.Text), CInt(txtTotal.Text), lbluserid.Text, Now())
-        UPDATE_Status_Appraisal_Request(lblReq_Id.Text, lblHub_Id.Text, 5)
-        Response.Redirect("Appraisal_Price2.aspx")
+        If txtRai.Text = 0 And txtNgan.Text = 0 And txtWah.Text = 0 Then
+            s = "<script language=""javascript"">alert('ไม่มีพื้นที่ให้คำนวณราคา');</script>"
+            Page.ClientScript.RegisterStartupScript(Me.GetType, "รับเรื่องประเมิน", s)
+        Else
+            AddPRICE2_50(Id, CInt(lblReq_Id.Text), CInt(lblHub_Id.Text), txtAID.Text, txtCID.Text, 0, CInt(DDLSubCollType.SelectedValue), txtChanode.Text, String.Empty, txtTumbon.Text, txtAmphur.Text, _
+                                                                  ddlProvince.SelectedValue, CInt(txtRai.Text), CInt(txtNgan.Text), CDec(txtWah.Text), _
+                                                                  txtRoad.Text, CInt(ddlRoad_Detail.SelectedValue), CDec(txtMeter.Text), CInt(ddlRoad_Forntoff.SelectedValue), _
+                                                                  CDec(txtRoadWidth.Text), CInt(ddlSite.SelectedValue), CStr(txtSite_Detail.Text), CInt(ddlLand_State.SelectedValue), _
+                                                                  txtLand_State_Detail.Text, CInt(ddlPublic_Utility.SelectedValue), txtPublic_Utility_Detail.Text, CInt(ddlBinifit.SelectedValue), _
+                                                                  txtBinifit.Text, CInt(ddlTendency.SelectedValue), CInt(ddlBuySale_State.SelectedValue), _
+                                                                  CInt(txtPriceWah.Text), CInt(txtTotal.Text), lbluserid.Text, Now())
+            UPDATE_Status_Appraisal_Request(lblReq_Id.Text, lblHub_Id.Text, 5)
+            Response.Redirect("Appraisal_Price2.aspx")
+        End If
+
 
         'เพิ่มกระบวนการบันทึกขั้นตอนการประเมิน
         'INSERT_PROCESSID(Request.QueryString("Q_ID"), 5)
@@ -222,4 +226,5 @@ Partial Class Appraisal_Price2_Add_By_Colltype
 
 
     End Sub
+
 End Class

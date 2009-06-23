@@ -466,6 +466,14 @@ Partial Class Appraisal_Price3_Conform_New
             If lblCollName.Text = "หลักประกันห้องชุด เลขที่" Then
                 'คอนโด
                 txtSubTotal.Text = CDec(txtBuildingPrice.Text)
+            ElseIf lblCollName.Text = "ที่ดิน เนื้อที่" Then
+                Dim Obj_GetP50 As List(Of Price3_50) = GET_PRICE3_CONFORM(HiddenField1.Value, HiddenField2.Value, HiddenField3.Value)
+                If Obj_GetP50.Count > 0 Then
+                    txtLandTotal.Text = Format(Obj_GetP50.Item(0).PriceTotal1, "#,##0.00")
+                    txtBuildingPrice.Text = "0.00"
+                    txtSubTotal.Text = String.Format("{0:N2}", Obj_GetP50.Item(0).PriceTotal1)
+                    txtGrandTotal.Text = String.Format("{0:N2}", CDec(txtLandTotal.Text))
+                End If
             Else
                 'ที่ดิน สิ่งปลูกสร้าง
                 txtLandTotal.Text = "0.00"
@@ -496,4 +504,5 @@ Partial Class Appraisal_Price3_Conform_New
     Private Sub Count_Item()
         'นับจำนวนสิ่งปลูกสร้างตาม Req_Id และ Hub_Id
     End Sub
+
 End Class

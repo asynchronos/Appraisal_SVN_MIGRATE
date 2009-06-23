@@ -5,6 +5,8 @@
 
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+<script src="Js/jquery.js" type="text/javascript"></script>
+<script src="Js/common.js" type="text/javascript"></script>
     <style type="text/css">
 
             .style26
@@ -58,6 +60,39 @@
             height: 30px;
         }
             </style>
+<script type="text/javascript">
+    function CalSection_Land(sender, e) {
+        //ต้องกำหนด ชนิด input type MyClintID ที่ตัว Control ของแต่ละตัวที่จะส่ง และชื่อ Property  Name ของ Control นั้น ๆ ก่อน
+        var txtrai = getEleByProperty("input", "MyClintID", "txtRai");
+        var txtngan = getEleByProperty("input", "MyClintID", "txtNgan");
+        var txtwah = getEleByProperty("input", "MyClintID", "txtWah");
+        var txtpricewah = getEleByProperty("input", "MyClintID", "txtPriceWah");
+        var txtland_Price = getEleByProperty("input", "MyClintID", "txtTotal");
+
+        var wah_rai = Number(txtrai.value) * 400;
+        //alert(wah_rai);
+        var wah_ngan = Number(txtngan.value) * 100;
+        var wah = Number(txtwah.value);
+        var totalwar = wah_rai + wah_ngan + wah;
+        var unit_price = Number(txtpricewah.value);
+        var land_price = (totalwar * unit_price);
+
+        //ส่งแสดงผลกลับให้กับ Textbox ที่อยู่หน้า Design
+        txtland_Price.value = addCommas(land_price);
+    }
+
+    function addCommas(nStr) {
+        nStr += '';
+        x = nStr.split('.');
+        x1 = x[0];
+        x2 = x.length > 1 ? '.' + x[1] : '';
+        var rgx = /(\d+)(\d{3})/;
+        while (rgx.test(x1)) {
+            x1 = x1.replace(rgx, '$1' + ',' + '$2');
+        }
+        return x1 + x2;
+    }
+</script>           
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <br />
@@ -110,7 +145,7 @@
                     <asp:TextBox ID="txtCID" runat="server"></asp:TextBox>
                 <asp:ImageButton ID="imSearchAID" runat="server" 
                         ImageUrl="~/Images/find1.jpg" Height="22px" Width="22px" 
-                        ToolTip="ดูผลก่อนพิมพ์"/>
+                        ToolTip="ค้นหา"/>
             </td>
             <td class="style29">
                 &nbsp;</td>
@@ -142,14 +177,20 @@
                 </td>
             <td class="style22">
 
-                    <cc1:mytext ID="txtRai" runat="server" AllowUserKey="int_Integer" AutoCurrencyFormatOnKeyUp="True"
-                        EnableTextAlignRight="True" Width="50px">0</cc1:mytext>
+                    <cc1:mytext ID="txtRai" runat="server" AllowUserKey="int_Integer"
+                        EnableTextAlignRight="True" Width="50px"
+                        MyClintID="txtRai"
+                        onkeyup="CalSection_Land(this,event);" >0</cc1:mytext>
                     &nbsp;ไร่
                     <cc1:mytext ID="txtNgan" runat="server" AllowUserKey="int_Integer" EnableTextAlignRight="True"
-                        MaxLength="1" Width="50px">0</cc1:mytext>
+                        MaxLength="1" Width="50px"
+                        MyClintID="txtNgan"
+                        onkeyup="CalSection_Land(this,event);" >0</cc1:mytext>
                     &nbsp;งาน
                    <cc1:mytext ID="txtWah" runat="server" AllowUserKey="num_Numeric" EnableTextAlignRight="True"
-                        MaxLength="4" Width="50px">0</cc1:mytext>
+                        MaxLength="4" Width="50px"
+                        MyClintID="txtWah"
+                        onkeyup="CalSection_Land(this,event);" >0</cc1:mytext>
                     &nbsp;ตรว.</td>
             <td class="style5">
                                         ที่ตั้งหลักประกัน ตั้งอยู่ถนน</td>
@@ -292,7 +333,7 @@
         </tr>
         <tr>
             <td class="style26">
-                    การใช้ประโยชน์ในอาคาร
+                    การใช้ประโยชน์ในที่ดิน
                 </td>
             <td class="style22">
                 <asp:DropDownList ID="ddlBinifit" runat="server" DataSourceID="SDSBinifit" 
@@ -339,15 +380,17 @@
             <td class="style26">
                     ตรว. ละ</td>
             <td class="style22">
-                <cc1:mytext id="txtPriceWah" runat="server" allowuserkey="num_Numeric" width="120px"
-                        autocurrencyformatonkeyup="True" EnableTextAlignRight="True" 
-                    AutoPostBack="True">0</cc1:mytext>
+                <cc1:mytext id="txtPriceWah" runat="server" allowuserkey="num_Numeric" 
+                    width="120px" EnableTextAlignRight="True"
+                    MyClintID="txtPriceWah"
+                    onkeyup="CalSection_Land(this,event);" >0</cc1:mytext>
             </td>
             <td class="style5">
                     เป็นเงิน</td>
             <td class="style27">
                 <cc1:mytext ID="txtTotal" runat="server" AllowUserKey="num_Numeric" Width="120px"
-                        AutoCurrencyFormatOnKeyUp="True" EnableTextAlignRight="True">0</cc1:mytext>
+                        AutoCurrencyFormatOnKeyUp="True" EnableTextAlignRight="True"
+                        MyClintID="txtTotal">0</cc1:mytext>
             </td>
             <td class="style29">
                     &nbsp;
