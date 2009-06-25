@@ -697,6 +697,9 @@ Public Class Appraisal_Manager
      ByVal Comment As String, _
      ByVal Approve2_Id As String, _
      ByVal Price As Decimal, _
+     ByVal Standard_Id As Integer, _
+     ByVal Appraisal_Type As Integer, _
+     ByVal Note As String, _
      ByVal Create_User As String, _
      ByVal Create_Date As Date)
 
@@ -719,6 +722,9 @@ Public Class Appraisal_Manager
                     command.Parameters.Add(New SqlParameter("@Comment", Comment))
                     command.Parameters.Add(New SqlParameter("@Approve2_Id", Approve2_Id))
                     command.Parameters.Add(New SqlParameter("@Price", Price))
+                    command.Parameters.Add(New SqlParameter("@Standard_Id", Standard_Id))
+                    command.Parameters.Add(New SqlParameter("@Appraisal_Type", Appraisal_Type))
+                    command.Parameters.Add(New SqlParameter("@Note", Note))
                     command.Parameters.Add(New SqlParameter("@Create_User", Create_User))
                     command.Parameters.Add(New SqlParameter("@Create_Date", Create_Date))
                     command.ExecuteNonQuery()
@@ -784,7 +790,10 @@ Public Class Appraisal_Manager
                                                 CInt(reader("Appraisal_Id")), _
                                                 CStr(reader("Comment")), _
                                                 CStr(reader("Approve2_Id")), _
-                                                CStr(reader("Price")), _
+                                                CDec(reader("Price")), _
+                                                CInt(reader("Standard_Id")), _
+                                                CInt(reader("Appraisal_Type")), _
+                                                CStr(reader("Note")), _
                                                 CStr(reader("Create_User")), _
                                                 CDate(reader("Create_Date")))
                         list.Add(temp)
@@ -794,6 +803,32 @@ Public Class Appraisal_Manager
             End Using
         End Using
     End Function
+
+    Public Shared Sub UPDATE_PRICE2_MASTER(ByVal Req_Id As Integer, ByVal Hub_Id As Integer, ByVal Price As Decimal, ByVal Note As String)
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("UPDATE_PRICE2_MASTER", connection)
+
+                connection.Open()
+                command.Connection = connection
+                Dim myTrans As SqlTransaction
+                myTrans = connection.BeginTransaction()
+                command.Transaction = myTrans
+                Try
+                    command.CommandType = CommandType.StoredProcedure
+                    command.Parameters.Add(New SqlParameter("@Req_Id", Req_Id))
+                    command.Parameters.Add(New SqlParameter("@Hub_Id", Hub_Id))
+                    command.Parameters.Add(New SqlParameter("@Price", Price))
+                    command.Parameters.Add(New SqlParameter("@Note", Note))
+                    command.ExecuteNonQuery()
+                    myTrans.Commit()
+                Catch ex As Exception
+                    myTrans.Rollback()
+                Finally
+                    connection.Close()
+                End Try
+            End Using
+        End Using
+    End Sub
 
 #End Region
 
@@ -2351,7 +2386,7 @@ ByVal Hub_Id As Integer)
                     myTrans.Commit()
                 Catch ex As Exception
                     myTrans.Rollback()
-                    MsgBox(ex.Message)
+                    'MsgBox(ex.Message)
                 Finally
                     connection.Close()
                 End Try
@@ -2968,7 +3003,7 @@ ByVal Cif As Integer)
                     myTrans.Commit()
                 Catch ex As Exception
                     myTrans.Rollback()
-                    MsgBox(ex.Message)
+                    'MsgBox(ex.Message)
                 Finally
                     connection.Close()
                 End Try
