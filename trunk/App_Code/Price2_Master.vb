@@ -12,6 +12,9 @@ Public Class Price2_Master
     Private _Comment As String
     Private _Approve2_Id As String
     Private _Price As Decimal
+    Private _Standard_Id As Integer
+    Private _Appraisal_Type As Integer
+    Private _Note As String
     Private _Create_User As String
     Private _Create_Date As Date
 
@@ -25,6 +28,9 @@ Public Class Price2_Master
      ByVal Comment As String, _
      ByVal Approve2_Id As String, _
      ByVal Price As Decimal, _
+     ByVal Standard_Id As Integer, _
+     ByVal Appraisal_Type As Integer, _
+     ByVal Note As String, _
      ByVal Create_User As String, _
      ByVal Create_Date As Date)
 
@@ -37,6 +43,9 @@ Public Class Price2_Master
         _Comment = Comment
         _Approve2_Id = Approve2_Id
         _Price = Price
+        _Standard_Id = Standard_Id
+        _Appraisal_Type = Appraisal_Type
+        _Note = Note
         _Create_User = Create_User
         _Create_Date = Create_Date
     End Sub
@@ -104,12 +113,39 @@ Public Class Price2_Master
         End Set
     End Property
 
-    Public Property Price() As String
+    Public Property Price() As Decimal
         Get
             Return _Price
         End Get
-        Set(ByVal Value As String)
+        Set(ByVal Value As Decimal)
             _Price = Value
+        End Set
+    End Property
+
+    Public Property Standard_Id() As Integer
+        Get
+            Return _Standard_Id
+        End Get
+        Set(ByVal Value As Integer)
+            _Standard_Id = Value
+        End Set
+    End Property
+
+    Public Property Appraisal_Type() As Integer
+        Get
+            Return _Appraisal_Type
+        End Get
+        Set(ByVal Value As Integer)
+            _Appraisal_Type = Value
+        End Set
+    End Property
+
+    Public Property Note() As String
+        Get
+            Return _Note
+        End Get
+        Set(ByVal Value As String)
+            _Note = Value
         End Set
     End Property
 
