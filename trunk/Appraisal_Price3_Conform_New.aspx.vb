@@ -357,6 +357,12 @@ Partial Class Appraisal_Price3_Conform_New
             Exit Sub
         End If
 
+        If ddlApprove1.SelectedValue = 0 Or ddlApprove2.SelectedValue = 0 Or ddlApprove3.SelectedValue = 0 Then
+            s = "<script language=""javascript"">alert('คุณเลือกอนุกรรมการไม่ครบ 3 คน');</script>"
+            Page.ClientScript.RegisterStartupScript(Me.GetType, "ข้อความเตือน", s)
+            Exit Sub
+        End If
+
 
         Dim Obj_GetP1Master As List(Of ClsPrice1_Master) = GetPrice1_Master(HiddenField1.Value, HiddenField2.Value)
         Dim ReceiveDate As Date = CDate(txtReceive_Date.Text)

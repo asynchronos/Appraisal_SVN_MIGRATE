@@ -70,7 +70,12 @@
                                 <ItemTemplate>
                                     <asp:Label ID="lblReviewDate" runat="server" Text='<%# string.Format( "{0:dd/MM/yyyy}",EVAL("ReviewDate")) %>'></asp:Label>
                                 </ItemTemplate>
-                            </asp:TemplateField>                                                                                                                                                
+                            </asp:TemplateField>                                                                                     <%--                            <asp:TemplateField HeaderText="Notice Date" >
+                                <ItemStyle HorizontalAlign="Center" Width="200px" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblNoticeDate" runat="server" Text='<%# Bind("NoticeDate") %>'></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>  --%>                          
 <%--                            <asp:TemplateField>
 								    <ItemTemplate>
 								            <asp:button runat="server" id="AddFileButton" Text="Add File"

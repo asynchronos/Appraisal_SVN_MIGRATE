@@ -71,7 +71,7 @@ Partial Class Appraisal_Price2_Add_By_Colltype
                     txtBinifit.Text = Obj_GetP50.Item(0).Binifit_Detail
                     ddlTendency.SelectedValue = Obj_GetP50.Item(0).Tendency
                     ddlBuySale_State.SelectedValue = Obj_GetP50.Item(0).BuySale_State
-                    txtPriceWah.Text = String.Format("{0:N2}", Obj_GetP50.Item(0).PriceWah)
+                    txtPriceWah.Text = Obj_GetP50.Item(0).PriceWah
                     txtTotal.Text = String.Format("{0:N2}", Obj_GetP50.Item(0).PriceTotal1)
                     If hdfCif.Value <> String.Empty Then
                         Get_AID_BY_CIF()

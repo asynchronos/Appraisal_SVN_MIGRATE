@@ -25,17 +25,13 @@
 			}
 			.style5
 			{
-				width: 437px;
+				width: 471px;
 			}
 			.style7
 			{
 				width: 256px;
 			}
-			.style8
-			{
-                width: 212px;
-            }
-		    .style31
+			.style31
         {
             width: 100%;
         }
@@ -55,6 +51,10 @@
             .style35
             {
                 width: 109px;
+            }
+		    .style36
+            {
+                width: 344px;
             }
 		</style>
 </asp:Content>
@@ -184,16 +184,16 @@
     <table width="100%">
 				<tr>
 					<td class="style5" valign="top"> 
-				<table class="style2" style="border-color:Blue; border-width:15px; width:441px">
+				<table class="style2" style="border-color:Blue; border-width:15px; width:469px">
 				<tr>
-				<td class="style8">เลขที่คำขอ</td>
+				<td class="style36">เลขที่คำขอ</td>
 				<td class="style7">
 					<asp:Label CssClass="Fcolor" ID="lblRequestID" runat="server" Font-Bold="True" 
 						Font-Size="Large" BackColor="#00FFCC"></asp:Label>
 					</td>
 				</tr>
 				<tr>
-					<td style="text-align:left;" class="style8">
+					<td style="text-align:left;" class="style36">
 						ประเภทคำขอ</td>
 					<td style="text-align:left;" class="style7">
 					    <asp:DropDownList ID="ddlAppraisal_Method" runat="server" 
@@ -203,7 +203,7 @@
 					</td>
 				</tr>                
 				<tr>
-					<td style="text-align:left;" class="style8">
+					<td style="text-align:left;" class="style36">
 					CIF</td>
 					<td style="text-align:left;" class="style7">
 						<asp:TextBox ID="TxtCif" runat="server" MaxLength="9" Width="90px"></asp:TextBox>
@@ -212,7 +212,7 @@
 								</td>
 				</tr>
 				<tr>
-					<td style="text-align:left;" class="style8">
+					<td style="text-align:left;" class="style36">
 						คำนำหน้าลูกค้า</td>
 					<td style="text-align:left;" class="style7">
 						<asp:DropDownList ID="ddlTitle" runat="server" DataSourceID="SDSTitle" 
@@ -221,22 +221,22 @@
 					</td>
 				</tr>
 				<tr>
-					<td style="text-align:left;" class="style8">
+					<td style="text-align:left;" class="style36">
 						ชื่อลูกค้าผู้ขอประเมิน</td>
 					<td style="text-align:left;" class="style7">
 						<asp:TextBox ID="TxtCifName" runat="server" Width="180px"></asp:TextBox>
 					</td>
 				</tr>                
 				<tr>
-					<td style="text-align:left;" class="style8">
+					<td style="text-align:left;" class="style36">
 						นามสกุล</td>
 					<td style="text-align:left;" class="style7">
 						<asp:TextBox ID="TxtCifLastName" runat="server" Width="180px"></asp:TextBox>
 					</td>
 				</tr>
 				<tr>
-					<td style="text-align:left;" class="style8">
-						รหัสผู้ขอให้ประเมิน</td>
+					<td style="text-align:left;" class="style36">
+						รหัสผู้ขอให้ประเมิน(จ.สาขา)</td>
 					<td style="text-align:left;" class="style7">
 	
 						<asp:TextBox ID="TxtSender" runat="server" MaxLength="9" Width="90px"></asp:TextBox>
@@ -247,7 +247,7 @@
 					</td>
 				</tr>
 				<tr>
-					<td style="text-align:left;" class="style8">
+					<td style="text-align:left;" class="style36">
 						ชื่อ-สกุลผู้ขอให้ประเมิน</td>
 					<td style="text-align:left;" class="style7">
 	
@@ -255,7 +255,7 @@
                     </td>
 				</tr>
 				<tr>
-					<td style="text-align:left;" class="style8">
+					<td style="text-align:left;" class="style36">
 					    AID</td>
 					<td style="text-align:left;" class="style7">
 	

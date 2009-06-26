@@ -1,4 +1,4 @@
-Ôªø<%@ Page Title="" Language="VB" MasterPageFile="~/MasterPage.master" AutoEventWireup="false" CodeFile="Appraisal_Price2_Group.aspx.vb" Inherits="Appraisal_Price2_Group" %>
+<%@ Page Title="" Language="VB" MasterPageFile="~/MasterPage.master" AutoEventWireup="false" CodeFile="Appraisal_Price2_Group.aspx.vb" Inherits="Appraisal_Price2_Group" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
     <script type="text/javascript">
@@ -38,7 +38,7 @@
         }
 
         function ConfirmOnDelete(item) {
-            if (confirm("‡∏Ñ‡∏∏‡∏ì‡∏¢‡∏∑‡∏ô‡∏¢‡∏±‡∏ô‡∏ó‡∏µ‡πà‡∏à‡∏∞‡∏•‡∏ö: " + item + " ‡πÉ‡∏ä‡πà‡∏´‡∏£‡∏∑‡∏≠‡πÑ‡∏°‡πà ?") == true)
+            if (confirm("§ÿ≥¬◊π¬—π∑’Ë®–≈∫: " + item + " „™ËÀ√◊Õ‰¡Ë ?") == true)
                 return true;
             else
                 return false;
@@ -55,7 +55,7 @@
         <asp:HiddenField ID="HiddenReq_No" runat="server" />
     
         <asp:Label ID="lblPage" runat="server" 
-        style="font-weight: 700; color: #3333CC" Text="‡∏ú‡∏π‡∏Å‡∏ä‡∏¥‡πâ‡∏ô‡∏ó‡∏£‡∏±‡∏û‡∏¢‡πå‡∏´‡∏•‡∏±‡∏Å‡∏õ‡∏£‡∏∞‡∏Å‡∏±‡∏ô"></asp:Label>
+        style="font-weight: 700; color: #3333CC" Text="ºŸ°™‘Èπ∑√—æ¬ÏÀ≈—°ª√–°—π"></asp:Label>
     
         <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" 
             CellPadding="2" DataSourceID="SqlDataSource1" 
@@ -73,7 +73,7 @@
                 <ItemStyle HorizontalAlign="Center" Width="40px" />
                 <HeaderStyle HorizontalAlign="Center" />
              </asp:TemplateField>  
-                <asp:TemplateField HeaderText="‡πÄ‡∏•‡∏Ç‡∏Ñ‡∏≥‡∏Ç‡∏≠" SortExpression="Req_Id">
+                <asp:TemplateField HeaderText="‡≈¢§”¢Õ" SortExpression="Req_Id">
                     <EditItemTemplate>
                         <asp:Label ID="Label2" runat="server" Text='<%# Eval("Req_Id") %>'></asp:Label>
                     </EditItemTemplate>
@@ -81,7 +81,7 @@
                         <asp:Label ID="lblReq_Id" runat="server" Text='<%# Bind("Req_Id") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>                        
-                <asp:TemplateField HeaderText="‡∏•‡∏≥‡∏î‡∏±‡∏ö‡∏ó‡∏µ‡πà" SortExpression="ID">
+                <asp:TemplateField HeaderText="≈”¥—∫∑’Ë" SortExpression="ID">
                 <ItemStyle HorizontalAlign="Center" />
                     <EditItemTemplate>
                         <asp:Label ID="Label1" runat="server" Text='<%# Eval("ID") %>'></asp:Label>
@@ -140,7 +140,7 @@
                         <asp:Label ID="Label7" runat="server" Text='<%# Bind("Temp_AID") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>--%>
-                <asp:TemplateField HeaderText="‡∏´‡∏•‡∏±‡∏Å‡∏õ‡∏£‡∏∞‡∏Å‡∏±‡∏ô" SortExpression="COLLTYPE_ID">
+                <asp:TemplateField HeaderText="À≈—°ª√–°—π" SortExpression="COLLTYPE_ID">
                     <ItemStyle HorizontalAlign="Center" />
                     <EditItemTemplate>
                         <asp:TextBox ID="TextBox3" runat="server" Text='<%# Bind("COLLTYPE_ID") %>'></asp:TextBox>
@@ -157,7 +157,7 @@
                         <asp:Label ID="Label9" runat="server" Text='<%# Bind("MysubColl_ID") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>--%>
-                <asp:TemplateField HeaderText="‡∏ä‡∏∑‡πà‡∏≠‡∏ä‡∏ô‡∏¥‡∏î‡∏´‡∏•‡∏±‡∏Å‡∏õ‡∏£‡∏∞‡∏Å‡∏±‡∏ô" 
+                <asp:TemplateField HeaderText="™◊ËÕ™π‘¥À≈—°ª√–°—π" 
                     SortExpression="SUBCOLLTYPE_NAME">
                     <EditItemTemplate>
                         <asp:TextBox ID="TextBox4" runat="server" 
@@ -167,7 +167,7 @@
                         <asp:Label ID="Label10" runat="server" Text='<%# Bind("SUBCOLLTYPE_NAME") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="‡∏ó‡∏µ‡πà‡∏≠‡∏¢‡∏π‡πà" SortExpression="Address_No">
+                <asp:TemplateField HeaderText="∑’ËÕ¬ŸË" SortExpression="Address_No">
                     <EditItemTemplate>
                         <asp:Label ID="Label7" runat="server" Text='<%# Eval("Address_No") %>'></asp:Label>
                     </EditItemTemplate>
@@ -175,7 +175,7 @@
                         <asp:Label ID="Label11" runat="server" Text='<%# Bind("Address_No") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="‡∏ï‡∏≥‡∏ö‡∏•" SortExpression="Tumbon">
+                <asp:TemplateField HeaderText="µ”∫≈" SortExpression="Tumbon">
                     <EditItemTemplate>
                         <asp:Label ID="Label8" runat="server" Text='<%# Eval("Tumbon") %>'></asp:Label>
                     </EditItemTemplate>
@@ -183,7 +183,7 @@
                         <asp:Label ID="Label12" runat="server" Text='<%# Bind("Tumbon") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="‡∏≠‡∏≥‡πÄ‡∏†‡∏≠" SortExpression="Amphur">
+                <asp:TemplateField HeaderText="Õ”‡¿Õ" SortExpression="Amphur">
                     <EditItemTemplate>
                         <asp:Label ID="Label9" runat="server" Text='<%# Eval("Amphur") %>'></asp:Label>
                     </EditItemTemplate>
@@ -191,7 +191,7 @@
                         <asp:Label ID="Label13" runat="server" Text='<%# Bind("Amphur") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="‡∏à‡∏±‡∏á‡∏´‡∏ß‡∏±‡∏î" SortExpression="Prov_Name">
+                <asp:TemplateField HeaderText="®—ßÀ«—¥" SortExpression="Prov_Name">
                     <EditItemTemplate>
                         <asp:TextBox ID="TextBox5" runat="server" Text='<%# Bind("Prov_Name") %>'></asp:TextBox>
                     </EditItemTemplate>
@@ -199,7 +199,7 @@
                         <asp:Label ID="Label15" runat="server" Text='<%# Bind("Prov_Name") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="‡∏ú‡∏π‡πâ‡∏õ‡∏£‡∏∞‡πÄ‡∏°‡∏¥‡∏ô" >
+                <asp:TemplateField HeaderText="ºŸÈª√–‡¡‘π" >
                     <ItemTemplate>
                         <asp:Label ID="lblAppraisal_Id" runat="server" Text='<%# Bind("Appraisal_Id") %>'></asp:Label>
                     </ItemTemplate>
@@ -208,14 +208,14 @@
                       <ItemStyle VerticalAlign="Middle" Width="20px" />
                          <ItemTemplate>
                               <asp:ImageButton ID="ImgAddFile" runat="server" 
-                                  ImageUrl="~/Images/add_plus2.jpg" ToolTip="‡πÅ‡∏ô‡∏ö‡πÑ‡∏ü‡∏•‡πå" Width="22px" Height="22px" 
+                                  ImageUrl="~/Images/add_plus2.jpg" ToolTip="·π∫‰ø≈Ï" Width="22px" Height="22px" 
                                   onclick="ImgAddFile_Click" />              
                                             </ItemTemplate>
                                         </asp:TemplateField>                    
                 <asp:TemplateField>
                 <ItemStyle HorizontalAlign="Center" />
                     <ItemTemplate>
-                        <asp:ImageButton ID="ImgBtFind" runat="server" ImageUrl="~/Images/book_blue_view.png" Height="25px" Width="25px" ToolTip="‡∏î‡∏π‡∏£‡∏≤‡∏¢‡∏•‡∏∞‡πÄ‡∏≠‡∏µ‡∏¢‡∏î" CommandName="Select" />
+                        <asp:ImageButton ID="ImgBtFind" runat="server" ImageUrl="~/Images/book_blue_view.png" Height="25px" Width="25px" ToolTip="¥Ÿ√“¬≈–‡Õ’¬¥" CommandName="Select" />
                     </ItemTemplate>
                 </asp:TemplateField>
                                         <asp:TemplateField HeaderText="">
@@ -251,7 +251,7 @@
     <div style="text-align: center">
         <table bgcolor="#00FFCC">
             <tr align="left">
-                <td>‡∏£‡∏´‡∏±‡∏™‡∏Å‡∏•‡∏∏‡πà‡∏°‡∏õ‡∏£‡∏∞‡πÄ‡∏°‡∏¥‡∏ô</td>
+                <td>√À— °≈ÿË¡ª√–‡¡‘π</td>
                 <td>
                     <asp:TextBox ID="txtTemp_AID" runat="server" BackColor="#FFFFCC" 
                         BorderStyle="None" ReadOnly="True"></asp:TextBox>
@@ -269,16 +269,29 @@
                 <td>
                     &nbsp;</td>
             </tr>            
-            <tr align="left" style="display:none">
-                <td>Comment</td>
+            <tr align="left">
                 <td>
-                    <asp:TextBox ID="txtComment" runat="server" Height="94px" TextMode="MultiLine" 
+                    «‘∏’°“√„ÀÈ√“§“</td>
+                <td>
+                    <asp:RadioButtonList ID="rdbAppraisal_Type" runat="server" 
+                        RepeatDirection="Horizontal">
+                        <asp:ListItem Value="2">«‘∏’µÈπ∑ÿπ</asp:ListItem>
+                        <asp:ListItem Value="1">«‘∏’µ≈“¥</asp:ListItem>
+                    </asp:RadioButtonList>
+                </td>
+                <td>
+                    &nbsp;</td>
+            </tr>            
+            <tr align="left" valign="top">
+                <td>À¡“¬‡Àµÿ</td>
+                <td>
+                    <asp:TextBox ID="txtNote" runat="server" Height="74px" TextMode="MultiLine" 
                         Width="497px"></asp:TextBox>
                 </td>
                 <td></td>
             </tr>   
             <tr align="left">
-                <td>‡∏ú‡∏π‡πâ‡∏õ‡∏£‡∏∞‡πÄ‡∏°‡∏¥‡∏ô</td>
+                <td>ºŸÈª√–‡¡‘π</td>
                 <td>
                     <asp:DropDownList ID="ddlUserAppraisal" runat="server" DataSourceID="SDSUserAppraisal"
                         DataTextField="UserAppraisal" DataValueField="Emp_id">
@@ -297,7 +310,7 @@
                 <td></td>
                 <td style="text-align:center;">
                                 <asp:ImageButton ID="ImgBtnAttachment" runat="server" ImageUrl="~/Images/add_plus2.jpg" 
-                            Height="30px" Width="30px" CommandName="Select" ToolTip="‡πÅ‡∏ô‡∏ö‡πÑ‡∏ü‡∏•‡πå" />
+                            Height="30px" Width="30px" CommandName="Select" ToolTip="·π∫‰ø≈Ï" />
                     &nbsp;
                                <asp:ImageButton ID="ImageSave" runat="server" 
                         ImageUrl="~/Images/Save.jpg" Height="30px" Width="30px" />

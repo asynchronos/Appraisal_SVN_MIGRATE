@@ -575,18 +575,13 @@ function ConfirmOnSave(item) {
                     &nbsp;</td>
             </tr>
             <tr>
-                <td class="style22">
-                                        &nbsp;</td>
-                <td class="style8">
-                    &nbsp;</td>
-                <td class="style5">
-                                        &nbsp;</td>
-                <td class="style19">
-                    &nbsp;</td>
-                <td class="style26">
-                    &nbsp;</td>
-                <td>
-                    &nbsp;</td>
+                <td class="style28">
+                                        �ҵðҹ</td>
+                <td class="style8" colspan="5">
+                <asp:DropDownList ID="ddlStandard" runat="server" DataSourceID="sdsStandard" 
+                    DataTextField="Standard_Name" DataValueField="Standard_Id">
+                </asp:DropDownList>
+                </td>
             </tr>
             <tr>
                 <td class="style22">
@@ -660,5 +655,8 @@ Order by prov_code">
         SelectCommand="SELECT [InteriorState_Id], [InteriorState_Name] FROM [Interior_State]">
     </asp:SqlDataSource>
     
+    <asp:SqlDataSource ID="sdsStandard" runat="server" ConnectionString="<%$ ConnectionStrings:AppraisalConn %>"
+        SelectCommand="GET_STANDARD_INFO" SelectCommandType="StoredProcedure"></asp:SqlDataSource>
+        
     </asp:Content>
 

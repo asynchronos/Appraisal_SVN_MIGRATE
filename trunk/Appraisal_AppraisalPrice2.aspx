@@ -4,7 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title></title>
+    <title>ยืนยันการกำหนดราคาที่ 2</title>
     <style type="text/css">
         .style1
         {
@@ -13,10 +13,21 @@
         .style2
         {
             width: 238px;
+            background-color:Aqua;
         }
         .style3
         {
-            width: 500px;
+            background-color:Yellow;
+        }
+        .style4
+        {
+            background-color: Aqua;
+            height: 57px;
+        }
+        .style5
+        {
+            background-color: Aqua;
+            height: 34px;
         }
     </style>
 </head>
@@ -26,15 +37,13 @@
         style="font-weight: 700; color: #3333CC" Text="ตรวจสอบราคาหลักประกัน"></asp:Label>
     <div>
     
-        <table class="style1">
+        <table class="style1" border="1">
             <tr>
                 <td class="style2">
                     เลขที่คำขอประเมิน</td>
                 <td class="style3">
                     <asp:Label ID="lblReq_Id" runat="server"></asp:Label>
                 </td>
-                <td>
-                    &nbsp;</td>
             </tr>
             <tr>
                 <td class="style2">
@@ -42,8 +51,6 @@
                 <td class="style3">
                     <asp:Label ID="lblHub_Id" runat="server"></asp:Label>
                 </td>
-                <td>
-                    &nbsp;</td>
             </tr>
             <tr>
                 <td class="style2">
@@ -51,8 +58,6 @@
                 <td class="style3">
                     <asp:Label ID="lblHub_Name" runat="server"></asp:Label>
                 </td>
-                <td>
-                    &nbsp;</td>
             </tr>
             <tr>
                 <td class="style2">
@@ -60,8 +65,6 @@
                 <td class="style3">
                     <asp:Label ID="lblCif" runat="server"></asp:Label>
                 </td>
-                <td>
-                    &nbsp;</td>
             </tr>
             <tr>
                 <td class="style2">
@@ -69,8 +72,6 @@
                 <td class="style3">
                     <asp:Label ID="lblCifName" runat="server"></asp:Label>
                 </td>
-                <td>
-                    &nbsp;</td>
             </tr>
             <tr>
                 <td class="style2">
@@ -80,8 +81,6 @@
                         DataTextField="Emp_Name" DataValueField="EMP_ID" Enabled="False">
                     </asp:DropDownList>
                 </td>
-                <td>
-                    &nbsp;</td>
             </tr>
             <tr>
                 <td class="style2">
@@ -92,8 +91,6 @@
                         ToolTip="ยืนยันการกำหนดราคาที่ 2">
                     </asp:DropDownList>
                 </td>
-                <td>
-                    &nbsp;</td>
             </tr>
             <tr>
                 <td class="style2">
@@ -101,8 +98,6 @@
                 <td class="style3">
                     <asp:Label ID="lblPrice1" runat="server"></asp:Label>
                 &nbsp;บาท</td>
-                <td>
-                    &nbsp;</td>
             </tr>
             <tr>
                 <td class="style2">
@@ -110,18 +105,14 @@
                 <td class="style3">
                     <asp:Label ID="lblPrice2" runat="server"></asp:Label>
                 &nbsp;บาท</td>
-                <td>
-                    &nbsp;</td>
             </tr>
             <tr>
-                <td class="style2" >
+                <td class="style2" valign="top">
                     Comment</td>
                 <td class="style3">
-                    <asp:TextBox ID="txtComment" runat="server" Height="94px" TextMode="MultiLine" 
+                    <asp:TextBox ID="txtComment" runat="server" Height="45px" TextMode="MultiLine" 
                         Width="497px" ReadOnly="True"></asp:TextBox>
                 </td>
-                <td>
-                    &nbsp;</td>
             </tr>
             <tr>
                 <td class="style2">
@@ -132,26 +123,42 @@
                         <asp:ListItem Value="7">ไม่เห็นชอบ</asp:ListItem>
                     </asp:RadioButtonList>
                 </td>
-                <td>
-                    &nbsp;</td>
             </tr>
             <tr>
-                <td colspan="3" style="text-align:Center;">
-                               <table class="style1">
+                <td class="style4" valign="top">
+                    หมายเหตุ</td>
+                <td class="style3">
+                    <asp:TextBox ID="txtNote" runat="server" Height="51px" TextMode="MultiLine" 
+                        Width="497px" ReadOnly="True"></asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td class="style5" valign="top" align="center" colspan="2">
+                               <table>
                                    <tr>
-                                       <td align="right">
+                                       <td>
                                <asp:ImageButton ID="ImageOk" runat="server" 
                         ImageUrl="~/Images/books_preferences.png" Height="40px" Width="40px" ToolTip="ยืนยัน" />
                                        </td>
-                                       <td align="left">
+                                       <td>
+                               <asp:ImageButton ID="ImgLocation" runat="server" 
+                        ImageUrl="~/Images/pawn.png" Height="40px" Width="40px" ToolTip="แผนที่" />
+                                       </td>
+                                       <td>
+                               <asp:ImageButton ID="ImgImformation" runat="server" 
+                        ImageUrl="~/Images/info.ico" Height="40px" Width="40px" ToolTip="รายละเอียด" />
+                                       </td>
+                                       <td>
+                                           &nbsp;</td>
+                                       <td>
                                <asp:ImageButton ID="ImageCancel" runat="server" 
-                        ImageUrl="~/Images/cancel1.jpg" Height="40px" Width="40px" ToolTip="ยกเลิก" />
+                        ImageUrl="~/Images/cancel1.jpg" Height="40px" Width="40px" ToolTip="ออก" />
                                        </td>
                                    </tr>
                                </table>
-                                </td>
+                </td>
             </tr>
-        </table>
+            </table>
     
     </div>
     <asp:SqlDataSource ID="SDSUserAppraisal" runat="server" ConnectionString="<%$ ConnectionStrings:AppraisalConn %>"

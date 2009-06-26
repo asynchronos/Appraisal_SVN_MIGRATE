@@ -105,11 +105,14 @@
                 PropertyName="Value" Type="Int32" />
             <asp:ControlParameter ControlID="HdfStatus" Name="Status_Id" 
                 PropertyName="Value" Type="Int32" />
+            <asp:ControlParameter ControlID="hdfAppraisal_Id" Name="Appraisal_Id" 
+                PropertyName="Value" Type="String" />
         </SelectParameters>
     </asp:SqlDataSource>
     <asp:HiddenField ID="HdfStatus" runat="server" Value="4" />
     
         <asp:HiddenField ID="HiddenHubId" runat="server" />
+        <asp:HiddenField ID="hdfAppraisal_Id" runat="server" />
     
         </asp:Content>
 

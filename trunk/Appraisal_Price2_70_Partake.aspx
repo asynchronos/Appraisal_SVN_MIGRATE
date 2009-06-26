@@ -1,6 +1,8 @@
-Ôªø<%@ Page Title="" Language="VB" MasterPageFile="~/MasterPage.master" AutoEventWireup="false" CodeFile="Appraisal_Price2_70_Partake.aspx.vb" Inherits="Appraisal_Price2_70_Partake" %>
+<%@ Page Title="" Language="VB" MasterPageFile="~/MasterPage.master" AutoEventWireup="false" CodeFile="Appraisal_Price2_70_Partake.aspx.vb" Inherits="Appraisal_Price2_70_Partake" %>
 <%@ Register assembly="Mytextbox" namespace="Mytextbox" tagprefix="cc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+<script src="Js/jquery.js" type="text/javascript"></script>
+<script src="Js/common.js" type="text/javascript"></script>
     <style type="text/css">
 
         .style22
@@ -13,13 +15,60 @@
             font-weight: 700;
         }
         </style>
+<script type="text/javascript">
+    function CalSection_Pastake(sender, e) {
+        var txtPartakeArea = getEleByProperty("input", "MyClintID", "txtPartakeArea");
+        var txtPartakeUnitPrice = getEleByProperty("input", "MyClintID", "txtPartakeUnitPrice");
+        var txtPartakePrice = getEleByProperty("input", "MyClintID", "txtPartakePrice");
+        var txtFinishPercent = getEleByProperty("input", "MyClintID", "txtFinishPercent");
+        var txtPriceNotFinish = getEleByProperty("input", "MyClintID", "txtPriceNotFinish");
+        var txtPartakeAge = getEleByProperty("input", "MyClintID", "txtPartakeAge");
+        var txtPartakePersent1 = getEleByProperty("input", "MyClintID", "txtPartakePersent1");
+        var txtPartakePersent2 = getEleByProperty("input", "MyClintID", "txtPartakePersent2");
+        var txtPartakePersent3 = getEleByProperty("input", "MyClintID", "txtPartakePersent3");
+        var txtPartakeTotalDeteriorate = getEleByProperty("input", "MyClintID", "txtPartakeTotalDeteriorate");
+        var txtPartakePriceTotalDeteriorate = getEleByProperty("input", "MyClintID", "txtPartakePriceTotalDeteriorate");
+
+        var b_area = Number(txtPartakeArea.value);
+        var pp_unit = Number(txtPartakeUnitPrice.value);
+        var percent_finish = Number(txtFinishPercent.value);
+        var buildingAge = Number(txtPartakeAge.value);
+        var BuildingPersent1 = Number(txtPartakePersent1.value);
+        var BuildingPersent2 = Number(txtPartakePersent2.value);
+        var BuildingPersent3 = Number(txtPartakePersent3.value);
+        
+        // Ëß· ¥ßº≈°≈—∫„ÀÈ°—∫ Textbox ∑’ËÕ¬ŸËÀπÈ“ Design
+        var partake_price = b_area * pp_unit;
+        txtPartakePrice.value = addCommas(partake_price);
+        var partake_price2 = partake_price * (percent_finish / 100);
+        txtPriceNotFinish.value = addCommas(partake_price2);
+        var percent_total = buildingAge * (BuildingPersent1 + BuildingPersent2 + BuildingPersent3);
+        txtPartakeTotalDeteriorate.value = percent_total;
+        var PartakePriceTotalDeteriorate = addCommas(partake_price2 * (percent_total / 100));
+        txtPartakePriceTotalDeteriorate.value = addCommas(PartakePriceTotalDeteriorate);
+    }
+
+    function addCommas(nStr) {
+        nStr += '';
+        x = nStr.split('.');
+        x1 = x[0];
+        x2 = x.length > 1 ? '.' + x[1] : '';
+        var rgx = /(\d+)(\d{3})/;
+        while (rgx.test(x1)) {
+            x1 = x1.replace(rgx, '$1' + ',' + '$2');
+        }
+        return x1 + x2;
+    }
+
+</script>
+      
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 <asp:ScriptManager ID="ScriptManager1" runat="server">
-    </asp:ScriptManager>
+</asp:ScriptManager>
 <br />
 <br />
-<p class="style23">‡πÄ‡∏û‡∏¥‡πà‡∏°‡∏™‡πà‡∏ß‡∏ô‡∏Ñ‡∏ß‡∏ö‡∏™‡∏¥‡πà‡∏á‡∏õ‡∏•‡∏π‡∏Å‡∏™‡∏£‡πâ‡∏≤‡∏á</p>
+<p class="style23">‡æ‘Ë¡ Ë«π§«∫ ‘Ëßª≈Ÿ° √È“ß</p>
     <asp:HiddenField ID="hdfAID" runat="server" />
     <asp:HiddenField ID="hdfCif" runat="server" />
 
@@ -29,7 +78,7 @@
         style="background-color: #B5C7DE; font-size: small;">
                           <tr>
                               <td>
-                                  ‡πÄ‡∏•‡∏Ç‡∏•‡∏≥‡∏î‡∏±‡∏ö</td>
+                                  ‡≈¢≈”¥—∫</td>
                               <td>
                                   <asp:Label ID="lblId" runat="server" style="font-weight: 700; color: #FF0000;"></asp:Label>
                               </td>
@@ -46,12 +95,12 @@
                           </tr>
                           <tr>
                               <td>
-                                  ‡πÄ‡∏•‡∏Ç‡∏Ñ‡∏≥‡∏Ç‡∏≠‡∏õ‡∏£‡∏∞‡πÄ‡∏°‡∏¥‡∏ô</td>
+                                  ‡≈¢§”¢Õª√–‡¡‘π</td>
                               <td>
                                   <asp:Label ID="lblReq_Id" runat="server" style="font-weight: 700"></asp:Label>
                               </td>
                               <td>
-                                  ‡∏£‡∏´‡∏±‡∏™ Hub</td>
+                                  √À—  Hub</td>
                               <td>
                                   <asp:Label ID="lblHub_Id" runat="server" style="font-weight: 700"></asp:Label>
                               </td>
@@ -62,14 +111,14 @@
                           </tr>
                           <tr>
                               <td>
-                                  ‡∏ä‡∏ô‡∏¥‡∏î‡∏™‡πà‡∏ß‡∏ô‡∏Ñ‡∏ß‡∏ö</td>
+                                  ™π‘¥ Ë«π§«∫</td>
                               <td>
                                   <asp:DropDownList ID="ddlPartaked" runat="server" DataSourceID="SDSPartake" 
                                       DataTextField="Partake_Name" DataValueField="Partake_Id">
                                   </asp:DropDownList>
                               </td>
                               <td>
-                                  ‡πÄ‡∏•‡∏Ç‡∏ó‡∏µ‡πà</td>
+                                  ‡≈¢∑’Ë</td>
                               <td >
                                   <asp:TextBox ID="txtBuilding_No" runat="server" ReadOnly="True"></asp:TextBox>
                               </td>
@@ -80,43 +129,46 @@
                           </tr>
                           <tr>
                               <td>
-                                  ‡∏û‡∏∑‡πâ‡∏ô‡∏ó‡∏µ‡πà‡∏™‡πà‡∏ß‡∏ô‡∏Ñ‡∏ß‡∏ö</td>
+                                  æ◊Èπ∑’Ë Ë«π§«∫</td>
                               <td>
                                   <cc1:mytext ID="txtPartakeArea" runat="server" AllowUserKey="num_Numeric" 
-                        EnableTextAlignRight="True" MaxLength="6" Width="35px" BackColor="#FFFF66" 
-                                      AutoPostBack="True">0</cc1:mytext>
-                                  ‡∏ï‡∏£‡∏°.</td>
+                                    EnableTextAlignRight="True" MaxLength="6" Width="35px" BackColor="#FFFF66"
+                                    MyClintID="txtPartakeArea" onkeyup="CalSection_Pastake(this,event);" >0</cc1:mytext>
+                                  µ√¡.</td>
                               <td>
-                                  ‡∏£‡∏≤‡∏Ñ‡∏≤‡∏ï‡πà‡∏≠‡∏´‡∏ô‡πà‡∏ß‡∏¢</td>
-                              <td class="style19">
+                                  √“§“µËÕÀπË«¬</td>
+                              <td>
                                   <cc1:mytext ID="txtPartakeUnitPrice" runat="server" AllowUserKey="num_Numeric" 
-                        EnableTextAlignRight="True" Width="110px" BackColor="#FFFF66" AutoPostBack="True" 
-                                      AutoCurrencyFormatOnKeyUp="True">0.00</cc1:mytext>
-                                  ‡∏ö‡∏≤‡∏ó</td>
-                              <td class="style14">
-                                  ‡∏°‡∏π‡∏•‡∏Ñ‡πà‡∏≤</td>
+                        EnableTextAlignRight="True" Width="110px" BackColor="#FFFF66" MyClintID="txtPartakeUnitPrice" 
+                                      onkeyup="CalSection_Pastake(this,event);" >0.00</cc1:mytext>
+                                  ∫“∑</td>
+                              <td>
+                                  ¡Ÿ≈§Ë“</td>
                               <td>
                                   <cc1:mytext ID="txtPartakePrice" runat="server" AllowUserKey="num_Numeric" 
                         EnableTextAlignRight="True" Width="110px" BackColor="#FFFF66" 
                                       AutoCurrencyFormatOnKeyUp="True" AutoPostBack="True" ReadOnly="True" 
-                                      Enabled="False">0.00</cc1:mytext>
-                                  ‡∏ö‡∏≤‡∏ó</td>
+                                      Enabled="False"
+                                      MyClintID="txtPartakePrice" >0.00</cc1:mytext>
+                                  ∫“∑</td>
                           </tr>
                           <tr>
                               <td class="style22">
-                                  ‡πÄ‡∏õ‡∏≠‡∏£‡πå‡πÄ‡∏ã‡πá‡∏ô‡∏ï‡πå‡∏™‡πà‡∏ß‡∏ô‡∏Ñ‡∏ß‡∏ö‡∏™‡∏£‡πâ‡∏≤‡∏á‡πÄ‡∏™‡∏£‡πá‡∏à</td>
+                                  ‡ªÕ√Ï‡´ÁπµÏ Ë«π§«∫ √È“ß‡ √Á®</td>
                               <td class="">
                                   <cc1:mytext ID="txtFinishPercent" runat="server" AllowUserKey="num_Numeric" 
-                                      AutoPostBack="True" BackColor="#FFFF66" EnableTextAlignRight="True" 
-                                      MaxLength="3" Width="35px">100</cc1:mytext>
+                                      BackColor="#FFFF66" EnableTextAlignRight="True" 
+                                      MaxLength="3" Width="35px"
+                                      MyClintID="txtFinishPercent" onkeyup="CalSection_Pastake(this,event);" >100</cc1:mytext>
                                   %</td>
                               <td class="">
-                                  ‡∏°‡∏π‡∏•‡∏Ñ‡πà‡∏≤</td>
+                                  ¡Ÿ≈§Ë“</td>
                               <td class="">
                                   <cc1:mytext ID="txtPriceNotFinish" runat="server" AllowUserKey="num_Numeric" 
                                       AutoPostBack="True" BackColor="#FFFF66" EnableTextAlignRight="True" 
-                                      ReadOnly="True" Width="110px">0.00</cc1:mytext>
-                                  ‡∏ö‡∏≤‡∏ó</td>
+                                      ReadOnly="True" Width="110px"
+                                      MyClintID="txtPriceNotFinish" >0.00</cc1:mytext>
+                                  ∫“∑</td>
                               <td class="">
                                   &nbsp;</td>
                               <td>
@@ -124,55 +176,60 @@
                           </tr>
                           <tr>
                               <td class="style22">
-                                  ‡∏≠‡∏≤‡∏¢‡∏∏‡∏Å‡∏≤‡∏£‡πÉ‡∏ä‡πâ‡∏á‡∏≤‡∏ô</td>
+                                  Õ“¬ÿ°“√„™Èß“π</td>
                               <td class="">
                                   <cc1:mytext ID="txtPartakeAge" runat="server" AllowUserKey="num_Numeric" 
-                                      AutoPostBack="True" BackColor="#FFFF66" EnableTextAlignRight="True" 
-                                      MaxLength="5" Width="35px">0</cc1:mytext>
-                                  ‡∏õ‡∏µ</td>
+                                      BackColor="#FFFF66" EnableTextAlignRight="True" 
+                                      MaxLength="5" Width="35px"
+                                      MyClintID="txtPartakeAge" onkeyup="CalSection_Pastake(this,event);" >0</cc1:mytext>
+                                  ª’</td>
                               <td class="">
-                                  ‡∏Ñ‡πà‡∏≤‡πÄ‡∏™‡∏∑‡πà‡∏≠‡∏°‡∏ï‡πà‡∏≠‡∏õ‡∏µ</td>
+                                  §Ë“‡ ◊ËÕ¡µËÕª’</td>
                               <td class="">
                                   <cc1:mytext ID="txtPartakePersent1" runat="server" AllowUserKey="num_Numeric" 
-                                      AutoPostBack="True" BackColor="#FFFF66" EnableTextAlignRight="True" 
-                                      MaxLength="5" Width="35px">0</cc1:mytext>
+                                      BackColor="#FFFF66" EnableTextAlignRight="True" 
+                                      MaxLength="5" Width="35px"
+                                      MyClintID="txtPartakePersent1" onkeyup="CalSection_Pastake(this,event);" >0</cc1:mytext>
                                   %</td>
                               <td class="">
-                                  ‡∏Ñ‡πà‡∏≤‡πÄ‡∏™‡∏∑‡πà‡∏≠‡∏°‡∏ï‡∏≤‡∏°‡∏™‡∏†‡∏≤‡∏û‡∏õ‡∏£‡∏±‡∏ö‡∏õ‡∏£‡∏∏‡∏á
+                                  §Ë“‡ ◊ËÕ¡µ“¡ ¿“æª√—∫ª√ÿß
                               </td>
                               <td>
                                   <cc1:mytext ID="txtPartakePersent2" runat="server" AllowUserKey="num_Numeric" 
-                                      AutoPostBack="True" BackColor="#FFFF66" EnableTextAlignRight="True" 
-                                      MaxLength="5" Width="35px">0</cc1:mytext>
+                                      BackColor="#FFFF66" EnableTextAlignRight="True" 
+                                      MaxLength="5" Width="35px"
+                                      MyClintID="txtPartakePersent2" onkeyup="CalSection_Pastake(this,event);" >0</cc1:mytext>
                                   %</td>
                           </tr>
                           <tr>
                               <td class="style22">
-                                  ‡∏Ñ‡πà‡∏≤‡πÄ‡∏™‡∏∑‡πà‡∏≠‡∏°‡∏ï‡∏≤‡∏°‡∏™‡∏†‡∏≤‡∏û‡πÄ‡∏™‡∏∑‡πà‡∏≠‡∏°‡πÇ‡∏ó‡∏£‡∏°</td>
-                              <td class="style8">
+                                  §Ë“‡ ◊ËÕ¡µ“¡ ¿“æ‡ ◊ËÕ¡‚∑√¡</td>
+                              <td>
                                   <cc1:mytext ID="txtPartakePersent3" runat="server" AllowUserKey="num_Numeric" 
-                        EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66" 
-                                      AutoPostBack="True">0</cc1:mytext>
+                        EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66"
+                                      MyClintID="txtPartakePersent3" onkeyup="CalSection_Pastake(this,event);" >0</cc1:mytext>
                                   %</td>
-                              <td class="style5">
-                                  ‡∏£‡∏ß‡∏°‡∏Ñ‡πà‡∏≤‡πÄ‡∏™‡∏∑‡πà‡∏≠‡∏°</td>
-                              <td class="style19">
+                              <td>
+                                  √«¡§Ë“‡ ◊ËÕ¡</td>
+                              <td>
                                   <cc1:mytext ID="txtPartakeTotalDeteriorate" runat="server" AllowUserKey="num_Numeric" 
                         EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66" 
-                                      ReadOnly="True">0</cc1:mytext>
+                                      ReadOnly="True"
+                                      MyClintID="txtPartakeTotalDeteriorate" onkeyup="CalSection_Pastake(this,event);" >0</cc1:mytext>
                                   %</td>
-                              <td class="style14">
-                                  ‡∏£‡∏ß‡∏°‡∏Ñ‡πà‡∏≤‡πÄ‡∏™‡∏∑‡πà‡∏≠‡∏°‡∏£‡∏≤‡∏Ñ‡∏≤</td>
+                              <td>
+                                  √«¡§Ë“‡ ◊ËÕ¡√“§“</td>
                               <td>
                                   <cc1:mytext ID="txtPartakePriceTotalDeteriorate" runat="server" AllowUserKey="num_Numeric" 
                         EnableTextAlignRight="True" Width="110px" BackColor="#FFFF66" ReadOnly="True" 
-                                      Enabled="False">0.00</cc1:mytext>
-                                  ‡∏ö‡∏≤‡∏ó</td>
+                                      Enabled="False"
+                                      MyClintID="txtPartakePriceTotalDeteriorate" >0.00</cc1:mytext>
+                                  ∫“∑</td>
                           </tr>
                           <tr>
                               <td class="style22">
-                                  ‡∏£‡∏≤‡∏¢‡∏•‡∏∞‡πÄ‡∏≠‡∏µ‡∏¢‡∏î&nbsp;</td>
-                              <td class="style8" colspan="5">
+                                  √“¬≈–‡Õ’¬¥&nbsp;</td>
+                              <td colspan="5">
                                   <asp:TextBox ID="txtPartake_Detail" runat="server" Height="70px" 
                         TextMode="MultiLine" Width="600px" BackColor="#FFFF66"></asp:TextBox>
                                   <asp:Button ID="btnCal" runat="server" Text="Cal" Visible="False" />
@@ -188,7 +245,7 @@
                                       DataKeyNames="Id,Req_Id,Hub_Id,Temp_AID" 
                                       DataSourceID="sdsPartake_Grid" ForeColor="Black" GridLines="None">
                                       <Columns>
-                                          <asp:TemplateField HeaderText="‡∏£‡∏´‡∏±‡∏™‡∏™‡πà‡∏ß‡∏ô‡∏Ñ‡∏ß‡∏ö" SortExpression="Partake_Id">
+                                          <asp:TemplateField HeaderText="√À—  Ë«π§«∫" SortExpression="Partake_Id">
                                               <EditItemTemplate>
                                                   <asp:Label ID="Label1" runat="server" Text='<%# Eval("Partake_Id") %>'></asp:Label>
                                               </EditItemTemplate>
@@ -196,7 +253,7 @@
                                                   <asp:Label ID="lblPartake_Id" runat="server" Text='<%# Bind("Partake_Id") %>'></asp:Label>
                                               </ItemTemplate>
                                           </asp:TemplateField>
-                                          <asp:TemplateField HeaderText="‡∏û‡∏∑‡πâ‡∏ô‡∏ó‡∏µ‡πà" SortExpression="PartakeArea">
+                                          <asp:TemplateField HeaderText="æ◊Èπ∑’Ë" SortExpression="PartakeArea">
                                               <EditItemTemplate>
                                                   <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("PartakeArea") %>'></asp:TextBox>
                                               </EditItemTemplate>
@@ -204,14 +261,14 @@
                                                   <asp:Label ID="lblPartakeArea" runat="server" Text='<%# Bind("PartakeArea") %>'></asp:Label>
                                               </ItemTemplate>
                                           </asp:TemplateField>
-                                          <asp:TemplateField HeaderText="‡πÄ‡∏õ‡∏≠‡∏£‡πå‡πÄ‡∏ã‡πá‡∏ô‡∏ï‡πå‡∏™‡∏£‡πâ‡∏≤‡∏á‡πÄ‡∏™‡∏£‡πá‡∏à" 
+                                          <asp:TemplateField HeaderText="‡ªÕ√Ï‡´ÁπµÏ √È“ß‡ √Á®" 
                                               SortExpression="PartakeUintPrice">
                                               <ItemTemplate>
                                                   <asp:Label ID="lblPercentFinish" runat="server" 
                                                       Text='<%# Bind("PercentFinish", "{0:N}") %>'></asp:Label>
                                               </ItemTemplate>
                                           </asp:TemplateField>                                          
-                                          <asp:TemplateField HeaderText="‡∏£‡∏≤‡∏Ñ‡∏≤‡∏ï‡πà‡∏≠‡∏´‡∏ô‡πà‡∏ß‡∏¢" 
+                                          <asp:TemplateField HeaderText="√“§“µËÕÀπË«¬" 
                                               SortExpression="PartakeUintPrice">
                                               <EditItemTemplate>
                                                   <asp:TextBox ID="TextBox2" runat="server" 
@@ -222,7 +279,7 @@
                                                       Text='<%# Bind("PartakeUintPrice", "{0:N}") %>'></asp:Label>
                                               </ItemTemplate>
                                           </asp:TemplateField>
-                                          <asp:TemplateField HeaderText="‡∏£‡∏≤‡∏Ñ‡∏≤‡∏™‡πà‡∏ß‡∏ô‡∏Ñ‡∏ß‡∏ö" SortExpression="PartakePrice">
+                                          <asp:TemplateField HeaderText="√“§“ Ë«π§«∫" SortExpression="PartakePrice">
                                               <EditItemTemplate>
                                                   <asp:TextBox ID="TextBox3" runat="server" Text='<%# Bind("PartakePrice") %>'></asp:TextBox>
                                               </EditItemTemplate>
@@ -231,7 +288,7 @@
                                                       Text='<%# Bind("PartakePrice", "{0:N}") %>'></asp:Label>
                                               </ItemTemplate>
                                           </asp:TemplateField>
-                                          <asp:TemplateField HeaderText="‡∏≠‡∏≤‡∏¢‡∏∏‡πÉ‡∏ä‡πâ‡∏á‡∏≤‡∏ô" SortExpression="PartakeAge">
+                                          <asp:TemplateField HeaderText="Õ“¬ÿ„™Èß“π" SortExpression="PartakeAge">
                                               <EditItemTemplate>
                                                   <asp:TextBox ID="TextBox4" runat="server" Text='<%# Bind("PartakeAge") %>'></asp:TextBox>
                                               </EditItemTemplate>
@@ -239,7 +296,7 @@
                                                   <asp:Label ID="lblPartakeAge" runat="server" Text='<%# Bind("PartakeAge") %>'></asp:Label>
                                               </ItemTemplate>
                                           </asp:TemplateField>
-                                          <asp:TemplateField HeaderText="‡∏Ñ‡πà‡∏≤‡πÄ‡∏™‡∏∑‡πà‡∏≠‡∏°/‡∏õ‡∏µ" 
+                                          <asp:TemplateField HeaderText="§Ë“‡ ◊ËÕ¡/ª’" 
                                               SortExpression="PartakePersent1">
                                               <EditItemTemplate>
                                                   <asp:TextBox ID="TextBox5" runat="server" Text='<%# Bind("PartakePersent1") %>'></asp:TextBox>
@@ -248,7 +305,7 @@
                                                   <asp:Label ID="lblPartakePersent1" runat="server" Text='<%# Bind("PartakePersent1") %>'></asp:Label>
                                               </ItemTemplate>
                                           </asp:TemplateField>
-                                          <asp:TemplateField HeaderText="‡∏Ñ‡πà‡∏≤‡πÄ‡∏™‡∏∑‡πà‡∏≠‡∏°‡∏õ‡∏£‡∏±‡∏ö‡∏õ‡∏£‡∏∏‡∏á" 
+                                          <asp:TemplateField HeaderText="§Ë“‡ ◊ËÕ¡ª√—∫ª√ÿß" 
                                               SortExpression="PartakePersent2">
                                               <EditItemTemplate>
                                                   <asp:TextBox ID="TextBox6" runat="server" Text='<%# Bind("PartakePersent2") %>'></asp:TextBox>
@@ -257,7 +314,7 @@
                                                   <asp:Label ID="lblPartakePersent2" runat="server" Text='<%# Bind("PartakePersent2") %>'></asp:Label>
                                               </ItemTemplate>
                                           </asp:TemplateField>
-                                          <asp:TemplateField HeaderText="‡∏Ñ‡πà‡∏≤‡πÄ‡∏™‡∏∑‡πà‡∏≠‡∏°‡∏ï‡∏≤‡∏°‡∏™‡∏†‡∏≤‡∏û" 
+                                          <asp:TemplateField HeaderText="§Ë“‡ ◊ËÕ¡µ“¡ ¿“æ" 
                                               SortExpression="PartakePersent3">
                                               <EditItemTemplate>
                                                   <asp:TextBox ID="TextBox7" runat="server" Text='<%# Bind("PartakePersent3") %>'></asp:TextBox>
@@ -266,7 +323,7 @@
                                                   <asp:Label ID="lblPartakePersent3" runat="server" Text='<%# Bind("PartakePersent3") %>'></asp:Label>
                                               </ItemTemplate>
                                           </asp:TemplateField>
-                                          <asp:TemplateField HeaderText="‡∏£‡∏ß‡∏°‡∏Ñ‡πà‡∏≤‡πÄ‡∏™‡∏∑‡πà‡∏≠‡∏°" 
+                                          <asp:TemplateField HeaderText="√«¡§Ë“‡ ◊ËÕ¡" 
                                               SortExpression="PartakePriceTotalDeteriorate">
                                               <EditItemTemplate>
                                                   <asp:TextBox ID="TextBox8" runat="server" 
@@ -277,7 +334,7 @@
                                                       Text='<%# Bind("PartakePriceTotalDeteriorate", "{0:N}") %>'></asp:Label>
                                               </ItemTemplate>
                                           </asp:TemplateField>
-                                          <asp:TemplateField HeaderText="‡∏£‡∏≤‡∏¢‡∏•‡∏∞‡πÄ‡∏≠‡∏µ‡∏¢‡∏î" SortExpression="PartakeDetail">
+                                          <asp:TemplateField HeaderText="√“¬≈–‡Õ’¬¥" SortExpression="PartakeDetail">
                                               <EditItemTemplate>
                                                   <asp:TextBox ID="TextBox9" runat="server" Text='<%# Bind("PartakeDetail") %>'></asp:TextBox>
                                               </EditItemTemplate>
@@ -335,7 +392,7 @@
     </asp:SqlDataSource>
     <asp:SqlDataSource ID="sdsPartake_Grid" runat="server" 
         ConnectionString="<%$ ConnectionStrings:AppraisalConn %>" 
-        SelectCommand="GET_PRICE3_70_PARTAKE_INFO" 
+        SelectCommand="GET_PRICE2_70_PARTAKE_INFO" 
         SelectCommandType="StoredProcedure">
         <SelectParameters>
             <asp:ControlParameter ControlID="lblId" Name="ID" PropertyName="Text" 

@@ -4,12 +4,54 @@
 
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+    <style type="text/css">
+        .style1
+        {
+            width: 100%;
+        }
+        .style2
+        {
+            width: 139px;
+            font-weight: bold;
+        }
+        .style3
+        {
+            width: 157px;
+        }
+        .style4
+        {
+            width: 74px;
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 <br />
 <br />  
 <asp:Label ID="lblPage" runat="server" 
         style="font-weight: 700; color: #3333CC" Text="กำหนดผู้ประเมินและตรวจสอบราคา"></asp:Label>
+<br />
+<br />
+    <table class="style1">
+        <tr>
+            <td class="style2">
+                เลือกผู้ประเมิน</td>
+            <td class="style3">
+                <asp:DropDownList ID="ddlAppraisal_User" runat="server" 
+                    DataSourceID="sdsAppraisal" DataTextField="UserAppraisal" 
+                    DataValueField="Appraisal_Id">
+                </asp:DropDownList>
+            </td>
+            <td class="style4">
+                <asp:Button ID="bntSearch" runat="server" Text="ค้นหา" />
+            </td>
+            <td>
+            
+                <b>จำนวน</b>
+                <asp:Label ID="lblMessage" runat="server" 
+                    style="color: #3333CC; font-weight: 700"></asp:Label>
+&nbsp;<b>รายการ</b></td>
+        </tr>
+    </table>
 <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" 
             DataKeyNames="Req_Id,Hub_Id" DataSourceID="SqlDataSource1" 
             EmptyDataText="There are no data records to display." Width='100%' 
@@ -114,17 +156,36 @@
 
 
     <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
-        ConnectionString="<%$ ConnectionStrings:AppraisalConnectionString %>" 
-        
-        
+        ConnectionString="<%$ ConnectionStrings:AppraisalConn %>" 
         SelectCommand="GET_APPRAISAL_VERIFY_PROCESS_BY_HUB" 
         SelectCommandType="StoredProcedure">
         <SelectParameters>
-            <asp:SessionParameter Name="HUB_ID" SessionField="Hub_Id" Type="Int32" />
+            <asp:ControlParameter ControlID="HdfHub_Id" Name="HUB_ID" PropertyName="Value" 
+                Type="Int32" />
             <asp:ControlParameter ControlID="HdfStatus" Name="Status_Id" 
                 PropertyName="Value" Type="Int32" />
+            <asp:ControlParameter ControlID="ddlAppraisal_User" Name="Appraisal_Id" 
+                PropertyName="SelectedValue" Type="String" />
         </SelectParameters>
     </asp:SqlDataSource>
     <asp:HiddenField ID="HdfStatus" runat="server" Value="4" />
+    <asp:HiddenField ID="HdfHub_Id" runat="server" />
+    <asp:SqlDataSource ID="sdsAppraisal" runat="server" 
+                            ConnectionString="<%$ ConnectionStrings:AppraisalConn %>" 
+        SelectCommand="GET_USER_APPRAISAL" SelectCommandType="StoredProcedure">
+        <SelectParameters>
+            <asp:ControlParameter ControlID="HdfHub_Id" Name="Hub_Id" 
+                PropertyName="Value" />
+        </SelectParameters>
+    </asp:SqlDataSource>
+    <asp:SqlDataSource ID="sdsAppraisal0" runat="server" 
+                            ConnectionString="<%$ ConnectionStrings:AppraisalConnectionString %>" 
+        
+        SelectCommand="SELECT Emp_id as Appraisal_Id, Title + Name + '  ' + Lastname AS UserAppraisal FROM Tb_UserAppraisal WHERE (Hub_Id = @Hub_Id Or Emp_Id = '0')">
+        <SelectParameters>
+            <asp:ControlParameter ControlID="HdfHub_Id" Name="Hub_Id" 
+                PropertyName="Value" />
+        </SelectParameters>
+    </asp:SqlDataSource>
     </asp:Content>
 

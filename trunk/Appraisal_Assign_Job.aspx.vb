@@ -2,11 +2,23 @@
 Partial Class Appraisal_Assign_Job
     Inherits System.Web.UI.Page
 
+    'Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+    '    If Not Page.IsPostBack Then
+    '        If Session("Appraisal_Id_Search") = Nothing Then
+    '        Else
+    '            ddlAppraisal_User.SelectedValue = Session("Appraisal_Id_Search")
+    '        End If
+    '    Else
+    '        Session("Appraisal_Id_Search") = ddlAppraisal_User.SelectedValue
+    '    End If
+    'End Sub
 
     Protected Sub Page_PreRender(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.PreRender
         Dim cph As ContentPlaceHolder = TryCast(Me.Form.FindControl("ContentPlaceHolder1"), ContentPlaceHolder) 'หา Control จาก Master Page ที่ control อยู่ใน  ContentPlaceHolder1
         Dim lblHub As Label = TryCast(Me.Form.FindControl("lblHub_Id"), Label)
-        Session("Hub_Id") = lblHub.Text
+        HdfHub_Id.Value = lblHub.Text
+        'MsgBox(HdfHub_Id.Value)
+        'Session("Hub_Id") = lblHub.Text
         Dim ReqId As Label = DirectCast(cph.FindControl("lblRequestID"), Label) 'Me.FindControl("lblRequestID")
     End Sub
 
@@ -60,5 +72,9 @@ Partial Class Appraisal_Assign_Job
         Page.ClientScript.RegisterStartupScript(Me.GetType, "กำหนดงานให้เจ้าหน้าที่ประเมิน", myScript)
         'End If
 
+    End Sub
+
+    Protected Sub GridView1_DataBound(ByVal sender As Object, ByVal e As System.EventArgs) Handles GridView1.DataBound
+        lblMessage.Text = GridView1.Rows.Count
     End Sub
 End Class

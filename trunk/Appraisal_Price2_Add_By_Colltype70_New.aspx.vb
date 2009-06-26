@@ -57,7 +57,7 @@ Partial Class Appraisal_Price2_Add_By_Colltype70_New
                 CDec(txtBuildingPrice.Text), txtBuildingAge.Text, txtBuildingPersent1.Text, txtBuildingPersent2.Text, txtBuildingPersent3.Text, _
                 CDec(txtBuildingPriceTotalDeteriorate.Text), CInt(txtFinishPercent.Text), CDec(txtPriceNotFinish.Text), txtBuildAddArea.Text, CDec(txtBuildAddUnitPrice.Text), CDec(txtBuildAddPrice.Text), _
                 txtBuildAddAge.Text, txtBuildAddPersent1.Text, txtBuildAddPersent2.Text, txtBuildAddPersent3.Text, CDec(txtBuildAddTotalDeteriorate.Text), CInt(txtFinishPercent1.Text), CDec(txtPriceNotFinish1.Text), _
-                txtBuildingDetail.Text, ddlInteriorState.SelectedValue, lbluserid.Text, Now())
+                txtBuildingDetail.Text, ddlInteriorState.SelectedValue, ddlStandard.SelectedValue, lbluserid.Text, Now())
         UPDATE_Status_Appraisal_Request(lblReq_Id.Text, lblHub_Id.Text, 5)
     End Sub
 
@@ -73,7 +73,7 @@ Partial Class Appraisal_Price2_Add_By_Colltype70_New
                 CDec(txtBuildingPrice.Text), txtBuildingAge.Text, txtBuildingPersent1.Text, txtBuildingPersent2.Text, txtBuildingPersent3.Text, _
                 CDec(txtBuildingPriceTotalDeteriorate.Text), CInt(txtFinishPercent.Text), CDec(txtPriceNotFinish.Text), txtBuildAddArea.Text, CDec(txtBuildAddUnitPrice.Text), CDec(txtBuildAddPrice.Text), _
                 txtBuildAddAge.Text, txtBuildAddPersent1.Text, txtBuildAddPersent2.Text, txtBuildAddPersent3.Text, CDec(txtBuildAddTotalDeteriorate.Text), CInt(txtFinishPercent1.Text), CDec(txtPriceNotFinish1.Text), _
-                txtBuildingDetail.Text, ddlInteriorState.SelectedValue, lbluserid.Text, Now())
+                txtBuildingDetail.Text, ddlInteriorState.SelectedValue, ddlStandard.SelectedValue, lbluserid.Text, Now())
         'UPDATE_Status_Appraisal_Request(lblReq_Id.Text, lblHub_Id.Text, 6)
     End Sub
 
@@ -125,6 +125,7 @@ Partial Class Appraisal_Price2_Add_By_Colltype70_New
         txtBuildAddPriceTotalDeteriorate.Text = String.Format("{0:N2}", (CDec(txtPriceNotFinish1.Text) * CDec(txtBuildAddTotalDeteriorate.Text)) / 100)
         txtBuildingDetail.Text = P2_70New.Item(0).BuildingDetail
         ddlInteriorState.SelectedValue = P2_70New.Item(0).Decoration
+        ddlStandard.SelectedValue = P2_70New.Item(0).Standard_Id
         Dim Obj_P2_70D As List(Of Cls_Price2_70_Detail) = GET_PRICE2_70_DETAIL(lblId.Text, lblReq_Id.Text, lblHub_Id.Text, lblTemp_AID.Text, 0)
         If Obj_P2_70D.Count > 0 Then
             chkDetail.Checked = True
