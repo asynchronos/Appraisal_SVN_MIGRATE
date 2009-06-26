@@ -692,12 +692,11 @@ Public Class Appraisal_Manager
      ByVal Hub_Id As Integer, _
      ByVal Id As Integer, _
      ByVal Cif As Integer, _
-     ByVal Appraisal_Id As Integer, _
+     ByVal Appraisal_Id As String, _
      ByVal CollType As Integer, _
      ByVal Comment As String, _
      ByVal Approve2_Id As String, _
      ByVal Price As Decimal, _
-     ByVal Standard_Id As Integer, _
      ByVal Appraisal_Type As Integer, _
      ByVal Note As String, _
      ByVal Create_User As String, _
@@ -722,7 +721,6 @@ Public Class Appraisal_Manager
                     command.Parameters.Add(New SqlParameter("@Comment", Comment))
                     command.Parameters.Add(New SqlParameter("@Approve2_Id", Approve2_Id))
                     command.Parameters.Add(New SqlParameter("@Price", Price))
-                    command.Parameters.Add(New SqlParameter("@Standard_Id", Standard_Id))
                     command.Parameters.Add(New SqlParameter("@Appraisal_Type", Appraisal_Type))
                     command.Parameters.Add(New SqlParameter("@Note", Note))
                     command.Parameters.Add(New SqlParameter("@Create_User", Create_User))
@@ -787,11 +785,10 @@ Public Class Appraisal_Manager
                                                 CInt(reader("Req_Id")), _
                                                 CInt(reader("Hub_Id")), _
                                                 CInt(reader("Cif")), _
-                                                CInt(reader("Appraisal_Id")), _
+                                                CStr(reader("Appraisal_Id")), _
                                                 CStr(reader("Comment")), _
                                                 CStr(reader("Approve2_Id")), _
                                                 CDec(reader("Price")), _
-                                                CInt(reader("Standard_Id")), _
                                                 CInt(reader("Appraisal_Type")), _
                                                 CStr(reader("Note")), _
                                                 CStr(reader("Create_User")), _
@@ -1890,6 +1887,7 @@ ByVal Hub_Id As Integer)
  ByVal BuildAddPriceFinish As Decimal, _
  ByVal BuildingDetail As String, _
  ByVal Decoration As Integer, _
+ ByVal Standard_Id As Integer, _
  ByVal Create_User As String, _
  ByVal Create_Date As Date)
 
@@ -1949,6 +1947,7 @@ ByVal Hub_Id As Integer)
                     command.Parameters.Add(New SqlParameter("@BuildAddPriceFinish", BuildAddPriceFinish))
                     command.Parameters.Add(New SqlParameter("@BuildingDetail", BuildingDetail))
                     command.Parameters.Add(New SqlParameter("@Decoration", Decoration))
+                    command.Parameters.Add(New SqlParameter("@Standard_Id", Standard_Id))
                     command.Parameters.Add(New SqlParameter("@Create_User", Create_User))
                     command.Parameters.Add(New SqlParameter("@Create_Date", Create_Date))
                     command.ExecuteNonQuery()
@@ -2010,6 +2009,7 @@ ByVal Hub_Id As Integer)
      ByVal BuildAddPriceFinish As Decimal, _
      ByVal BuildingDetail As String, _
      ByVal Decoration As Integer, _
+     ByVal Standard_Id As Integer, _
      ByVal Create_User As String, _
      ByVal Create_Date As Date)
 
@@ -2069,6 +2069,7 @@ ByVal Hub_Id As Integer)
                     command.Parameters.Add(New SqlParameter("@BuildAddPriceFinish", BuildAddPriceFinish))
                     command.Parameters.Add(New SqlParameter("@BuildingDetail", BuildingDetail))
                     command.Parameters.Add(New SqlParameter("@Decoration", Decoration))
+                    command.Parameters.Add(New SqlParameter("@Standard_Id", Standard_Id))
                     command.Parameters.Add(New SqlParameter("@Create_User", Create_User))
                     command.Parameters.Add(New SqlParameter("@Create_Date", Create_Date))
                     command.ExecuteNonQuery()
@@ -2143,6 +2144,7 @@ ByVal Hub_Id As Integer)
                                                 CDec(reader("BuildAddPriceFinish")), _
                                                 CStr(reader("BuildingDetail")), _
                                                 CInt(reader("Decoration")), _
+                                                CInt(reader("Standard_Id")), _
                                                 CStr(reader("Create_User")), _
                                                 CDate(reader("Create_Date")))
                         list.Add(temp)
@@ -4187,6 +4189,7 @@ ByVal Cif As Integer)
                                                 CDec(reader("BuildAddPriceFinish")), _
                                                 CStr(reader("BuildingDetail")), _
                                                 CInt(reader("Decoration")), _
+                                                CInt(reader("Standard_Id")), _
                                                 CStr(reader("Create_User")), _
                                                 CDate(reader("Create_Date")))
                         list.Add(temp)
@@ -4659,6 +4662,7 @@ ByVal Cif As Integer)
                                                 CDec(reader("BuildAddPriceTotalDeteriorate")), _
                                                 CStr(reader("BuildingDetail")), _
                                                 CInt(reader("Decoration")), _
+                                                CInt(reader("Standard_Id")), _
                                                 CStr(reader("Create_User")), _
                                                 CDate(reader("Create_Date")))
                         list.Add(temp)
@@ -4726,6 +4730,7 @@ ByVal Cif As Integer)
                                                 CDec(reader("BuildAddPriceTotalDeteriorate")), _
                                                 CStr(reader("BuildingDetail")), _
                                                 CInt(reader("Decoration")), _
+                                                CInt(reader("Standard_Id")), _
                                                 CStr(reader("Create_User")), _
                                                 CDate(reader("Create_Date")))
                         list.Add(temp)
@@ -7198,6 +7203,52 @@ ByVal Cif As Integer)
                         Dim temp As New Cls_Title(CInt(reader("TITLE_CODE")), _
                                                   CStr(reader("TITLE_NAME")), _
                                                 CStr(reader("TITLE_NAME_E")))
+                        list.Add(temp)
+                    Loop
+                End Using
+                Return list
+            End Using
+        End Using
+    End Function
+
+    Public Shared Function GET_STANDARD_INFO(ByVal STANDARD_ID As Integer) As Generic.List(Of Cls_Standard)
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("GET_STANDARD_INFO", connection)
+                command.CommandType = CommandType.StoredProcedure
+                command.CommandTimeout = 60
+
+                command.Parameters.Add(New SqlParameter("@Standard_Id", STANDARD_ID))
+                connection.Open()
+                Dim list As New Generic.List(Of Cls_Standard)()
+                Using reader As SqlDataReader = command.ExecuteReader()
+
+                    Do While (reader.Read())
+                        Dim temp As New Cls_Standard(CInt(reader("STANDARD_ID")), _
+                                                  CStr(reader("STANDARD_NAME")), _
+                                                CStr(reader("STANDARD_STATUS")))
+                        list.Add(temp)
+                    Loop
+                End Using
+                Return list
+            End Using
+        End Using
+    End Function
+
+    Public Shared Function GET_STANDARD_INFO_BY_ID(ByVal STANDARD_ID As Integer) As Generic.List(Of Cls_Standard)
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("GET_STANDARD_INFO_BY_ID", connection)
+                command.CommandType = CommandType.StoredProcedure
+                command.CommandTimeout = 60
+
+                command.Parameters.Add(New SqlParameter("@Standard_Id", STANDARD_ID))
+                connection.Open()
+                Dim list As New Generic.List(Of Cls_Standard)()
+                Using reader As SqlDataReader = command.ExecuteReader()
+
+                    Do While (reader.Read())
+                        Dim temp As New Cls_Standard(CInt(reader("STANDARD_ID")), _
+                                                  CStr(reader("STANDARD_NAME")), _
+                                                CStr(reader("STANDARD_STATUS")))
                         list.Add(temp)
                     Loop
                 End Using
