@@ -45,6 +45,7 @@ Public Class Price3_70_Review
     Private _BuildAddPriceTotalDeteriorate As Decimal
     Private _BuildingDetail As String
     Private _Decoration As Integer
+    Private _Standard_Id As Integer
     Private _Create_User As String
     Private _Create_Date As Date
 
@@ -93,6 +94,7 @@ Public Class Price3_70_Review
      ByVal BuildAddPriceTotalDeteriorate As Decimal, _
      ByVal BuildingDetail As String, _
      ByVal Decoration As Integer, _
+     ByVal Standard_Id As Integer, _
      ByVal Create_User As String, _
      ByVal Create_Date As Date)
         MyBase.New()
@@ -139,6 +141,7 @@ Public Class Price3_70_Review
         _BuildAddPriceTotalDeteriorate = BuildAddPriceTotalDeteriorate
         _BuildingDetail = BuildingDetail
         _Decoration = Decoration
+        _Standard_Id = Standard_Id
         _Create_User = Create_User
         _Create_Date = Create_Date
     End Sub
@@ -527,6 +530,15 @@ Public Class Price3_70_Review
         End Get
         Set(ByVal Value As Integer)
             _Decoration = Value
+        End Set
+    End Property
+
+    Public Property Standard_Id() As Integer
+        Get
+            Return _Standard_Id
+        End Get
+        Set(ByVal Value As Integer)
+            _Standard_Id = Value
         End Set
     End Property
 
