@@ -170,8 +170,11 @@ Partial Class Appraisal_For_Wait_Approve
                     Page.ClientScript.RegisterStartupScript(Me.GetType, "Notice", StrNotice)
                 End Try
             Else
-                StrNotice = "<Script language=""javascript"">alert('อนุกรรมการยังอนุมัติไม่ครบ 3 คน');</Script>"
-                Page.ClientScript.RegisterStartupScript(Me.GetType, "Notice", StrNotice)
+                'StrNotice = "<Script language=""javascript"">alert('อนุกรรมการยังอนุมัติไม่ครบ 3 คน');</Script>"
+                'Page.ClientScript.RegisterStartupScript(Me.GetType, "Notice", StrNotice)
+                StrPath = Request.ApplicationPath & "/ListOfAppraisal_Approve.aspx?Req_Id=" & Req_Id.Text & "&Hub_Id=" & Hub_Id.Text
+                s1 = "<script language=""javascript"">window.open('" + StrPath + "','window','toolbar=no, menubar=no, scrollbars=yes, resizable=no,location=no, directories=no, status=yes,height=400px,width=780px');</script>"
+                Page.ClientScript.RegisterStartupScript(Me.GetType, "Notice", s1)
             End If
         End If
 

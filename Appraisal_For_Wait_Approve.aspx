@@ -1,12 +1,54 @@
 ﻿<%@ Page Title="" Language="VB" MasterPageFile="~/MasterPage.master" AutoEventWireup="false" CodeFile="Appraisal_For_Wait_Approve.aspx.vb" Inherits="Appraisal_For_Wait_Approve" Culture="th-TH" uiCulture="th-TH" %>
 
+<%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="cc1" %>
+<%@ Register assembly="Mytextbox" namespace="Mytextbox" tagprefix="cc2" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+    <style type="text/css">
+
+        .style1
+        {
+            width: 100%;
+        }
+        .style2
+        {
+            width: 196px;
+            font-weight: bold;
+            color: #3333CC;
+        }
+        .style3
+        {
+            width: 131px;
+        }
+        .style4
+        {
+            width: 74px;
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-    <br />
 <br />
-
+<br />
+<br />
     <asp:HiddenField ID="hdfApproved" runat="server" Value="0" />
+    <table class="style1">
+        <tr>
+            <td class="style2">
+                รหัสคำขอปะเมิน เลขที่</td>
+            <td class="style3">
+                <cc2:mytext ID="txtReq_Id" runat="server" AllowUserKey="int_Integer"></cc2:mytext>
+            </td>
+            <td class="style4">
+                <asp:Button ID="bntSearch" runat="server" Text="ค้นหา" />
+            </td>
+            <td>
+            
+                &nbsp;<asp:Label ID="lblMessage" runat="server" 
+                    style="color: #3333CC; font-weight: 700"></asp:Label>
+            </td>
+        </tr>
+    </table>
+<br />
     <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" 
         BackColor="LightGoldenrodYellow" BorderColor="Tan" BorderWidth="1px" 
         CellPadding="2" DataKeyNames="Req_Id,AID,Temp_AID" DataSourceID="sdsForApprove" 
@@ -101,6 +143,7 @@
                 </ItemTemplate>              
             </asp:TemplateField>
             <asp:TemplateField HeaderText="อนุกรรมการที่1" SortExpression="Approved1">
+                <ItemStyle Width="150px" />
                 <EditItemTemplate>
                     <asp:TextBox ID="TextBox4" runat="server" Text='<%# Bind("Approve_Name1") %>'></asp:TextBox>
                 </EditItemTemplate>
@@ -110,6 +153,7 @@
                 </ItemTemplate>
             </asp:TemplateField>
             <asp:TemplateField HeaderText="อนุกรรมการที่2" SortExpression="Approved2">
+            <ItemStyle Width="150px" />
                 <EditItemTemplate>
                     <asp:TextBox ID="TextBox5" runat="server" Text='<%# Bind("Approve_Name2") %>'></asp:TextBox>
                 </EditItemTemplate>
@@ -119,6 +163,7 @@
                 </ItemTemplate>
             </asp:TemplateField>
             <asp:TemplateField HeaderText="อนุกรรมการที่3" SortExpression="Approved3">
+            <ItemStyle Width="150px" />
                 <EditItemTemplate>
                     <asp:TextBox ID="TextBox6" runat="server" Text='<%# Bind("Approve_Name3") %>'></asp:TextBox>
                 </EditItemTemplate>
@@ -197,7 +242,9 @@
         SelectCommandType="StoredProcedure">
         <SelectParameters>
             <asp:ControlParameter ControlID="hdfApproved" Name="Approved" 
-                PropertyName="Value" Type="Int32" />
+                PropertyName="Value" Type="Int32" DefaultValue="" />
+            <asp:ControlParameter ControlID="txtReq_Id" DefaultValue=" " Name="Req_Id" 
+                PropertyName="Text" Type="String" />
         </SelectParameters>
     </asp:SqlDataSource>
 

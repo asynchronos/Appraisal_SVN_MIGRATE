@@ -36,7 +36,7 @@ Partial Class Appraisal_Price2_70_Partake
                                          txtFinishPercent.Text, txtPriceNotFinish.Text, txtPartake_Detail.Text, lbluserid.Text, Now())
             lblMessage.Text = "บันทึกเสร็จสมบูรณ์"
             GridView1.DataBind()
-            ImagePrint_Click(sender, Nothing)
+            'ImagePrint_Click(sender, Nothing)
         Else
             'Update
             UPDATE_PRICE2_70_PARTAKE(lblId.Text, lblReq_Id.Text, lblHub_Id.Text, lblTemp_AID.Text, "", ddlPartaked.SelectedValue, txtBuilding_No.Text, _
@@ -113,7 +113,7 @@ Partial Class Appraisal_Price2_70_Partake
     End Sub
 
     Protected Sub btnCal_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnCal.Click
-        TotalPersent()
+        'TotalPersent()
     End Sub
 
     Protected Sub txtPartakeArea_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtPartakeArea.TextChanged
@@ -139,9 +139,10 @@ Partial Class Appraisal_Price2_70_Partake
 
         ddlPartaked.SelectedValue = lblPartake_Id.Text
         ddlPartaked.Enabled = False
-        txtFinishPercent.Text = lblPercentFinish.Text
+        txtFinishPercent.Text = Format(CDec(lblPercentFinish.Text), "#,000")
         txtPartakeArea.Text = lblPartakeArea.Text
-        txtPartakeUnitPrice.Text = lblPartakeUintPrice.Text
+        txtPartakeUnitPrice.Text = CDec(lblPartakeUintPrice.Text)
+        txtPartakePrice.Text = Format(CDec(lblPartakeUintPrice.Text) * CDec(txtPartakeArea.Text), "#,##0.00")
         txtPartakeAge.Text = lblPartakeAge.Text
         txtPartakePersent1.Text = lblPartakePersent1.Text
         txtPartakePersent2.Text = lblPartakePersent2.Text
@@ -195,13 +196,6 @@ Partial Class Appraisal_Price2_70_Partake
     End Sub
 
     Protected Sub ImgBtnClose_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs) Handles ImgBtnClose.Click
-        'Context.Items("ID") = lblId.Text
-        'Context.Items("Temp_AID") = lblTemp_AID.Text
-        'Context.Items("Req_Id") = lblReq_Id.Text
-        'Context.Items("Hub_Id") = lblHub_Id.Text
-        'Context.Items("Coll_Type") = "70"
-        'Server.Transfer("Appraisal_Price3_Add_Colltype70.aspx")
-        'Response.Redirect("Appraisal_Price3_List.aspx")
         Context.Items("Coll_Type") = "70"
         Context.Items("Req_Id") = lblReq_Id.Text
         Context.Items("Hub_Id") = lblHub_Id.Text

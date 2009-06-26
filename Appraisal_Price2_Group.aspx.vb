@@ -66,6 +66,11 @@ Partial Class Appraisal_Price2_Group
             Exit Sub
         End If
 
+        If rdbAppraisal_Type.SelectedValue = 0 Then
+            s = "<script language=""javascript"">alert('คุณไม่ได้เลือกวิธีการให้ราคา'); </script>"
+            Page.ClientScript.RegisterStartupScript(Me.GetType, "ให้ความคิดเห็น", s)
+            Exit Sub
+        End If
         'If txtComment.Text = String.Empty Then
         '    s = "<script language=""javascript"">alert('คุณไม่ได้ใส่ Comment ของการให้ราคาที่ 2'); </script>"
         '    Page.ClientScript.RegisterStartupScript(Me.GetType, "ให้ความคิดเห็น", s)
@@ -103,7 +108,7 @@ Partial Class Appraisal_Price2_Group
 
                         If chk2.Checked = True Then
                             'ส่งค่าไป Insert และท ำการ Update สถานะการประเมิน
-                            AddPRICE2_Master(txtTemp_AID.Text, Req_id.Text, Hub_id.Text, Id.Text, Cif.Text, ddlUserAppraisal.SelectedValue, CollType.Text, ddlComment.SelectedItem.Text, String.Empty, 0, lbluserid.Text, Now())
+                            AddPRICE2_Master(txtTemp_AID.Text, Req_id.Text, Hub_id.Text, Id.Text, Cif.Text, ddlUserAppraisal.SelectedValue, CollType.Text, ddlComment.SelectedItem.Text, String.Empty, 0, rdbAppraisal_Type.SelectedValue, txtNote.Text, lbluserid.Text, Now())
                             UPDATE_PRICE2_70_DETAIL_AND_PARTAKE(Id.Text, Req_id.Text, Hub_id.Text, txtTemp_AID.Text)
                         End If
 
@@ -316,4 +321,8 @@ Partial Class Appraisal_Price2_Group
         End If
 
     End Sub
+
+    'Protected Sub Button1_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles Button1.Click
+    '    MsgBox(rdbAppraisal_Type.SelectedValue)
+    'End Sub
 End Class

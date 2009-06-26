@@ -85,7 +85,8 @@ Partial Class Appraisal_Price2_Add_By_Colltype18
         Dim lbluserid As Label = TryCast(Me.Form.FindControl("lblUserID"), Label)
         Dim ID As Integer
         If lblId.Text = String.Empty Then
-            ID = 0
+            ID = GET_ID_18_50_70(18)
+            UPDATE_ID_18()
         Else
             ID = CInt(lblId.Text)
         End If
@@ -107,7 +108,7 @@ Partial Class Appraisal_Price2_Add_By_Colltype18
                           txtPublic_Utility_Detail.Text, ddlBinifit.SelectedValue, txtBinifit.Text, ddlTendency.SelectedValue, ddlBuySale_State.SelectedValue, _
                           ddlBuild_Construct.SelectedValue, ddlInteriorState.SelectedValue, ddlCharacter_Room.SelectedValue, txtRoomWidth_BehideSiteWalk.Text, _
                           txtRoomdeep.Text, txtBackside_Width.Text, ddlFloors.SelectedValue, txtSideWalk_Width.Text, txtUnitPrice.Text, txtCondoPrice.Text, lbluserid.Text, Now())
-            UPDATE_Status_Appraisal_Request(lblReq_Id.Text, lblHub_Id.Text, 5)
+            'UPDATE_Status_Appraisal_Request(lblReq_Id.Text, lblHub_Id.Text, 5)
         End If
 
     End Sub

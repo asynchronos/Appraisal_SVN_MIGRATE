@@ -5,6 +5,7 @@ Imports System.Data.SqlClient
 Partial Class Appraisal_AppraisalPrice2
     Inherits System.Web.UI.Page
     Dim s As String
+    Dim StrPath As String
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not Page.IsPostBack Then
@@ -16,10 +17,15 @@ Partial Class Appraisal_AppraisalPrice2
             Dim Obj_P2 As DataSet = GET_APPRAISAL_PRICE2(lblReq_Id.Text, lblHub_Id.Text)
             If Obj_P2.Tables(0).Rows.Count > 0 Then
                 lblPrice1.Text = String.Format("{0:N2}", Obj_P2.Tables(0).Rows(0).Item("Price1"))
-                lblPrice2.Text = String.Format("{0:N2}", Obj_P2.Tables(0).Rows(0).Item("Price2"))
+                If Obj_P2.Tables(0).Rows(0).Item("Appraisal_Type") = 1 Then
+                    lblPrice2.Text = String.Format("{0:N2}", Obj_P2.Tables(0).Rows(0).Item("PriceMarket"))
+                Else
+                    lblPrice2.Text = String.Format("{0:N2}", Obj_P2.Tables(0).Rows(0).Item("Price2"))
+                End If
                 ddlUserAppraisal.SelectedValue = Obj_P2.Tables(0).Rows(0).Item("Appraisal_Id")
                 ddlSender.SelectedValue = Obj_P2.Tables(0).Rows(0).Item("Sender_Id")
                 txtComment.Text = Obj_P2.Tables(0).Rows(0).Item("Comment")
+                txtNote.Text = Obj_P2.Tables(0).Rows(0).Item("Note")
             Else
                 'MsgBox("No Data")
             End If
@@ -37,11 +43,24 @@ Partial Class Appraisal_AppraisalPrice2
             s = "<script language=""javascript"">alert('ไม่พบการกำหนดราคาที่ 2 ของเลขคำขอนี้ในระบบ');</script>"
             Page.ClientScript.RegisterStartupScript(Me.GetType, "รับเรื่องประเมิน", s)
         Else
+            UPDATE_PRICE2_MASTER(lblReq_Id.Text, lblHub_Id.Text, lblPrice2.Text, txtNote.Text)
             UPDATE_Status_Appraisal_Request(lblReq_Id.Text, lblHub_Id.Text, rdbAccept.SelectedValue)
+
             s = "<script language=""javascript"">alert('ยืนยันการกำหนดราคาที่ 2 แล้ว');</script>"
             Page.ClientScript.RegisterStartupScript(Me.GetType, "รับเรื่องประเมิน", s)
         End If
 
         'MsgBox(rdbAccept.SelectedValue)
+    End Sub
+
+    Protected Sub ImgLocation_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs) Handles ImgLocation.Click
+        'Dim lbluserid As Label = TryCast(Me.Form.FindControl("lblUserID"), Label)
+        'Dim Req_Id As Label = lblReq_Id.Text
+        'Dim Hub_Id As Label = imgEditPosition.Parent.FindControl("lblHub_Id")
+        'Dim Temp_AID As Label = imgEditPosition.Parent.FindControl("lblTemp_AID")
+
+        StrPath = Request.ApplicationPath & "/CollDetail_Show_Position.aspx?Req_Id=" & lblReq_Id.Text & "&Hub_Id=" & lblHub_Id.Text
+        s = "<script language=""javascript"">window.open('" + StrPath + "','window','toolbar=no target=_blank, menubar=no, scrollbars=yes, resizable=no,location=no,directories=no, status=yes height=680px,width=850px');</script>"
+        Page.ClientScript.RegisterStartupScript(Me.GetType, "แสดงพิกัด", s)
     End Sub
 End Class

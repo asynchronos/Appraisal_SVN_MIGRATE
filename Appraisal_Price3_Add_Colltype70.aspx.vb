@@ -156,6 +156,7 @@ Partial Class Appraisal_Price3_Add_Colltype70
             txtBuildAddPriceTotalDeteriorate.Text = String.Format("{0:N2}", (CDec(txtPriceNotFinish1.Text) * CDec(txtBuildAddTotalDeteriorate.Text)) / 100)
             txtBuildingDetail.Text = Obj_GetP70.Item(0).BuildingDetail
             ddlInteriorState.SelectedValue = Obj_GetP70.Item(0).Decoration
+            ddlStandard.SelectedValue = Obj_GetP70.Item(0).Standard_Id
             Dim Obj_P3_70D As List(Of ClsPrice3_70_Detail) = GET_PRICE3_70_DETAIL(lblId.Text, lblReq_Id.Text, lblHub_Id.Text, lblTemp_AID.Text, 0)
             If Obj_P3_70D.Count > 0 Then
                 chkDetail.Checked = True
