@@ -88,7 +88,12 @@ Partial Class Appraisal_Price3_Print_CollType70_New
                     CheckBox7.Checked = True
             End Select
             lblItems.Text = Obj_GetP70.Count
-
+            Dim std As List(Of Cls_Standard) = GET_STANDARD_INFO_BY_ID(Obj_GetP70.Item(0).Standard_Id)
+            If std.Count > 0 Then
+                lblStandardName.Text = std.Item(0).STANDARD_NAME
+            Else
+                lblStandardName.Text = "- ราคาประเมินค่าก่อสร้างถื่อตามมาตรฐานของสมาคมผู้ประเมินค่าทรัพย์สินแห่งประเทศไทย พ.ศ. 2551"
+            End If
         End If
     End Sub
 
@@ -161,7 +166,12 @@ Partial Class Appraisal_Price3_Print_CollType70_New
                     CheckBox7.Checked = True
             End Select
             lblItems.Text = Obj_GetP70.Count
-
+            Dim std As List(Of Cls_Standard) = GET_STANDARD_INFO_BY_ID(Obj_GetP70.Item(0).Standard_Id)
+            If std.Count > 0 Then
+                lblStandardName.Text = std.Item(0).STANDARD_NAME
+            Else
+                lblStandardName.Text = "- ราคาประเมินค่าก่อสร้างถื่อตามมาตรฐานของสมาคมผู้ประเมินค่าทรัพย์สินแห่งประเทศไทย พ.ศ. 2551"
+            End If
         End If
     End Sub
 
