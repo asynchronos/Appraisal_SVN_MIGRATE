@@ -1,7 +1,8 @@
 <%@ Page Title="" Language="VB" MasterPageFile="~/MasterPage.master" AutoEventWireup="false" CodeFile="Appraisal_Price2_70_Partake.aspx.vb" Inherits="Appraisal_Price2_70_Partake" %>
 <%@ Register assembly="Mytextbox" namespace="Mytextbox" tagprefix="cc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
-<script src="Js/jquery.js" type="text/javascript"></script>
+
+    <script src="Js/jquery.js" type="text/javascript"></script>
 <script src="Js/common.js" type="text/javascript"></script>
     <style type="text/css">
 
@@ -64,15 +65,13 @@
       
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-<asp:ScriptManager ID="ScriptManager1" runat="server">
-</asp:ScriptManager>
+    <asp:ScriptManager ID="ScriptManager1" runat="server">
+    </asp:ScriptManager>
 <br />
 <br />
 <p class="style23">เพิ่มส่วนควบสิ่งปลูกสร้าง</p>
     <asp:HiddenField ID="hdfAID" runat="server" />
     <asp:HiddenField ID="hdfCif" runat="server" />
-
-              <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                   <ContentTemplate>
                       <table width="100%" 
         style="background-color: #B5C7DE; font-size: small;">
@@ -384,7 +383,6 @@
                           </tr>
                       </table>
                   </ContentTemplate>
-    </asp:UpdatePanel>
     <br />
     
     <asp:SqlDataSource ID="SDSPartake" runat="server" ConnectionString="<%$ ConnectionStrings:AppraisalConn %>"

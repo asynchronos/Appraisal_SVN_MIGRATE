@@ -411,7 +411,7 @@ Partial Class Appraisal_Price3_Add_Colltype70
                 CDec(txtBuildingPrice.Text), txtBuildingAge.Text, txtBuildingPersent1.Text, txtBuildingPersent2.Text, txtBuildingPersent3.Text, _
                 CDec(txtBuildingPriceTotalDeteriorate.Text), CInt(txtFinishPercent.Text), CDec(txtPriceNotFinish.Text), txtBuildAddArea.Text, CDec(txtBuildAddUnitPrice.Text), CDec(txtBuildAddPrice.Text), _
                 txtBuildAddAge.Text, txtBuildAddPersent1.Text, txtBuildAddPersent2.Text, txtBuildAddPersent3.Text, CDec(txtBuildAddTotalDeteriorate.Text), CInt(txtFinishPercent1.Text), CDec(txtPriceNotFinish1.Text), _
-                txtBuildingDetail.Text, ddlInteriorState.SelectedValue, lbluserid.Text, Now())
+                txtBuildingDetail.Text, ddlInteriorState.SelectedValue, ddlStandard.SelectedValue, lbluserid.Text, Now())
         UPDATE_Status_Appraisal_Request(lblReq_Id.Text, lblHub_Id.Text, 10)
     End Sub
 

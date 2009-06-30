@@ -10,6 +10,7 @@ Partial Class Appraisal_Price2_70_Partake
             lblHub_Id.Text = Context.Items("Hub_Id")
             lblTemp_AID.Text = Context.Items("Temp_AID")
             txtBuilding_No.Text = Context.Items("Building_No")
+            hdfCif.Value = Context.Items("Cif")
         End If
     End Sub
 
@@ -201,6 +202,7 @@ Partial Class Appraisal_Price2_70_Partake
         Context.Items("Hub_Id") = lblHub_Id.Text
         Context.Items("Temp_AID") = lblTemp_AID.Text
         Context.Items("ID") = lblId.Text
+        Context.Items("Cif") = hdfCif.Value
         Server.Transfer("Appraisal_Price2_Add_By_Colltype70_New.aspx")
     End Sub
 End Class

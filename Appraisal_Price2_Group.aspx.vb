@@ -238,6 +238,7 @@ Partial Class Appraisal_Price2_Group
         Context.Items("Hub_Id") = Hub_Id.Text
         Context.Items("Coll_Type") = CollType.Text
         Context.Items("AID") = ""
+        Context.Items("Temp_AID") = Temp_AID.Text
         Context.Items("Cif") = Cif.Text
 
         'If Temp_AID.Text = String.Empty Or Temp_AID.Text = "0" Then
