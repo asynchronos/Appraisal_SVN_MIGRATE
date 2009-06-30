@@ -23,6 +23,37 @@
             width: 74px;
         }
     </style>
+    <script type="text/javascript">
+        function expandcollapse(obj, row) {
+            try {
+                var div = document.getElementById(obj);
+                var img = document.getElementById('img' + obj);
+
+                if (div.style.display == "none") {
+                    div.style.display = "block";
+                    if (row == 'alt') {
+                        img.src = ".../../Images/minus.gif";
+                    }
+                    else {
+                        img.src = ".../../Images/minus.gif";
+                    }
+                    img.alt = "Close to view other CIF";
+                }
+                else {
+                    div.style.display = "none";
+                    if (row == 'alt') {
+                        img.src = ".../../Images/plus.gif";
+                    }
+                    else {
+                        img.src = ".../../Images/plus.gif";
+                    }
+                    img.alt = "Expand to show Coll ID";
+                }
+            } catch (err) {
+                alert(err);
+            }
+        }
+    </script>            
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 <br />
@@ -57,17 +88,17 @@
             EmptyDataText="There are no data records to display." Width='100%' 
             BackColor="LightGoldenrodYellow" 
             BorderColor="Tan" BorderWidth="1px" CellPadding="2" ForeColor="Black" 
-            GridLines="None" ShowFooter="True" PageSize="15" Font-Size="Small">
+            GridLines="None" ShowFooter="True" PageSize="15" Font-Size="Small" 
+        AllowPaging="True">
             <FooterStyle BackColor="Tan" />
             <Columns>
-<%--                <asp:TemplateField>
-                    <ItemTemplate>
-                        <a href="javascript:expandcollapse('div<%# Eval("Req_Id") %>', 'one');">
-                            <img id="imgdiv<%# Eval("Req_Id") %>" alt="Click to show/hide Queue for Appraisal <%# Eval("Req_Id") %>"
-                                width="9px" src="Images/plus.gif" />
-                        </a>
-                    </ItemTemplate>
-                </asp:TemplateField> --%> 
+            <asp:TemplateField>
+                <ItemTemplate>
+                    <a href="javascript:expandcollapse('div<%# Eval("Req_Id") %>', 'one');">
+                    <img id="imgdiv<%# Eval("Req_Id") %>" alt="Click to show/hide Queue for Appraisal <%# Eval("Req_Id") %>"
+                                width="9px" src="Images/plus.gif" /> </a>
+                </ItemTemplate>
+            </asp:TemplateField>
                 <asp:TemplateField HeaderText="Req No.">
                     <ItemTemplate>
                         <asp:Label ID="lblReq_id" runat="server" Text='<%# Bind("Req_Id") %>'></asp:Label>
@@ -146,6 +177,107 @@
                             CommandName="Select" Text="EDIT"></asp:LinkButton>
                     </ItemTemplate>
                 </asp:TemplateField>--%>
+                <asp:TemplateField>
+                    <ItemTemplate>
+                        <tr>
+                            <td colspan="100%">
+                                <div id="div<%# Eval("Req_Id") %>" style="display:none;position: relative; 
+                                        left: 15px; overflow: auto; width: 97%">
+                                    <asp:GridView ID="GridView2" runat="server" AllowPaging="True" 
+                                            AllowSorting="True" AutoGenerateColumns="False" BackColor="#EEEEDD" 
+                                            BorderColor="#0083C1" BorderStyle="Double" DataKeyNames="Req_Id" 
+                                            Font-Names="Verdana" Font-Size="Small" GridLines="None" 
+                                            OnRowDataBound="GridView2_RowDataBound"
+                                            OnPageIndexChanging="GridView2_PageIndexChanging" 
+                                            OnSelectedIndexChanging="GridView2_SelectedIndexChanging"
+                                            OnSorting="GridView2_Sorting" 
+                                            OnRowDeleting = "GridView2_RowDeleting" 
+                                            OnRowDeleted = "GridView2_RowDeleted"
+                                            OnRowCommand="GridView2_RowCommand" 
+                                            ShowFooter="True" Width="100%">
+                                        <HeaderStyle BackColor="#0083C1" ForeColor="White" />
+                                        <FooterStyle BackColor="White" />
+                                        <Columns>                                    
+                                            <asp:TemplateField HeaderText="Temp AID">
+                                                <ItemStyle VerticalAlign="Middle" Width="80px" />
+                                                <ItemTemplate>
+                                                    <asp:HiddenField ID="H_ID" runat="server" Value='<%# Eval("ID") %>' />                  
+                                                    <asp:Label ID="lblTemp_AID" runat="server" Text='<%# Eval("Temp_AID") %>'  ></asp:Label>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>                                     
+                                            <asp:TemplateField HeaderText="Req Id">
+                                                <ItemStyle VerticalAlign="Middle" Width="50px" />
+                                                <ItemTemplate>
+                                                    <asp:Label ID="lblReq_Id" runat="server" Text='<%# Eval("Req_Id") %>'  ></asp:Label>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>                                      
+                                            <asp:TemplateField HeaderText="cif name">
+                                                <ItemStyle VerticalAlign="Middle" Width="250px" />
+                                                <ItemTemplate>
+                                                    <asp:Label ID="lblcifname" runat="server" Text='<%# Eval("cifname") %>'  ></asp:Label>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="HUB ID">
+                                                <ItemStyle VerticalAlign="Middle" Width="50px" />
+                                                <ItemTemplate>
+                                                    <asp:Label ID="lblHub_Id" runat="server" Text='<%# Eval("Hub_Id") %>'  ></asp:Label>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>                                        
+                                            <asp:TemplateField HeaderText="HUB_NAME">
+                                                <ItemStyle VerticalAlign="Middle" Width="350px" />
+                                                <ItemTemplate>
+                                                    <asp:Label ID="lblHUB_NAME" runat="server" Text='<%# Eval("HUB_NAME") %>'  ></asp:Label>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="หลักประกัน">
+                                                <ItemStyle VerticalAlign="Middle" Width="120px" />
+                                                <ItemTemplate>
+                                                    <asp:Label ID="lblColltype" runat="server" Text='<%# Eval("CollType_ID") %>'  ></asp:Label>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="ชื่อหลักประกัน">
+                                                <ItemStyle VerticalAlign="Middle" Width="200px" />
+                                                <ItemTemplate>
+                                                    <asp:Label ID="lblCollName" runat="server" Text='<%# Eval("SubCollType_Name") %>'  ></asp:Label>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>                                                                                  
+                                            <asp:TemplateField HeaderText="Address_No">
+                                                <ItemStyle VerticalAlign="Middle" Width="100px" />
+                                                <ItemTemplate>
+                                                    <asp:Label ID="lblAddress_No" runat="server" Text='<%# Eval("Address_No") %>'  ></asp:Label>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="Tumbon">
+                                                <ItemStyle VerticalAlign="Middle" Width="200px" />
+                                                <ItemTemplate>
+                                                    <asp:Label ID="lblTumbon" runat="server" Text='<%# Eval("Tumbon") %>'></asp:Label>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="อำเภอ">
+                                                <ItemStyle VerticalAlign="Middle" Width="200px" />
+                                                <ItemTemplate>
+                                                    <asp:Label ID="lblAmphur" runat="server" Text='<%# Eval("Amphur") %>'></asp:Label>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>     
+                                            <asp:TemplateField HeaderText="จังหวัด">
+                                                <ItemStyle VerticalAlign="Middle" Width="200px" />
+                                                <ItemTemplate>
+                                                    <asp:Label ID="lblProvince_Name" runat="server" Text='<%# Eval("PROV_NAME") %>'></asp:Label>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>                                                                              
+                                            <asp:TemplateField HeaderText="">
+                                                <ItemStyle VerticalAlign="Middle" Width="30px" />
+                                                <ItemTemplate>
+                                                    <asp:ImageButton ID="ImageEdit" runat="server" ImageUrl="~/Images/edit.gif" ToolTip="Select" Width="22px" Height="22px" CommandName="Select"  />              
+                                                </ItemTemplate>
+                                            </asp:TemplateField>                                      
+                                        </Columns>
+                                    </asp:GridView>
+                                </div>
+                            </td>
+                        </tr>
+                    </ItemTemplate>
+                </asp:TemplateField>                
             </Columns>
             <PagerStyle BackColor="PaleGoldenrod" ForeColor="DarkSlateBlue" 
                 HorizontalAlign="Center" />
@@ -173,15 +305,6 @@
     <asp:SqlDataSource ID="sdsAppraisal" runat="server" 
                             ConnectionString="<%$ ConnectionStrings:AppraisalConn %>" 
         SelectCommand="GET_USER_APPRAISAL" SelectCommandType="StoredProcedure">
-        <SelectParameters>
-            <asp:ControlParameter ControlID="HdfHub_Id" Name="Hub_Id" 
-                PropertyName="Value" />
-        </SelectParameters>
-    </asp:SqlDataSource>
-    <asp:SqlDataSource ID="sdsAppraisal0" runat="server" 
-                            ConnectionString="<%$ ConnectionStrings:AppraisalConnectionString %>" 
-        
-        SelectCommand="SELECT Emp_id as Appraisal_Id, Title + Name + '  ' + Lastname AS UserAppraisal FROM Tb_UserAppraisal WHERE (Hub_Id = @Hub_Id Or Emp_Id = '0')">
         <SelectParameters>
             <asp:ControlParameter ControlID="HdfHub_Id" Name="Hub_Id" 
                 PropertyName="Value" />

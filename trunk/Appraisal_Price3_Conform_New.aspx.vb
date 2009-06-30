@@ -20,19 +20,24 @@ Partial Class Appraisal_Price3_Conform_New
             txtCif.Text = Context.Items("Cif")
             hdfChkColl.Value = Context.Items("ChkColl")
             ddlUserAppraisal.SelectedValue = Context.Items("Appraisal_Id")
-            ddlAppraisal_Type.SelectedValue = 2
 
+            Dim P2Master As List(Of Price2_Master) = GET_PRICE2_MASTER(HiddenField1.Value, HiddenField2.Value)
+            If P2Master.Count > 0 Then
+                'MsgBox(P2Master.Item(0).Appraisal_Type)
+                ddlAppraisal_Type.SelectedValue = P2Master.Item(0).Appraisal_Type
+                ddlComment.SelectedValue = P2Master.Item(0).Comment
+            End If
             If hdfChkColl.Value = 18 Then
                 'คอนโดอย่างเดียว
-                Show_Price3_Master()
+                Show_Price3_Master(P2Master.Item(0).Appraisal_Type)
                 Show_Price3_18()
             ElseIf hdfChkColl.Value = 50 Then
                 'ที่ดินอย่างเดียว
-                Show_Price3_Master()
+                Show_Price3_Master(P2Master.Item(0).Appraisal_Type)
                 Show_Price3_50()
             ElseIf hdfChkColl.Value = 70 Then
                 'มีทั้งที่ดินและสิ่งปลูกสร้าง
-                Show_Price3_Master()
+                Show_Price3_Master(P2Master.Item(0).Appraisal_Type)
                 Show_Price3_50()
                 Show_Price3_70_GROUP()
                 Show_Price3_70_Group_Parttake()
@@ -59,7 +64,7 @@ Partial Class Appraisal_Price3_Conform_New
         Session("ctrl") = Panel1
     End Sub
 
-    Private Sub Show_Price3_Master()
+    Private Sub Show_Price3_Master(ByVal Appraisal_Type As Integer)
         Dim Obj_P3M As List(Of clsPrice3_Master) = GET_PRICE3_MASTER(HiddenField1.Value, HiddenField3.Value)
         Cnt_P3M = Obj_P3M.Count
         'ค้นหาว่ามีการกำหนดราคาที่ 3 แล้วหรือไม่
@@ -102,6 +107,11 @@ Partial Class Appraisal_Price3_Conform_New
             txtLandTotal.Text = Format(Obj_P3M.Item(0).TotalPrice, "#,##0.00")
             txtBuildingPrice.Text = Format(Obj_P3M.Item(0).BuildingPrice, "#,##0.00")
             txtSubTotal.Text = Format(Obj_P3M.Item(0).Land_Building_Price, "#,##0.00")
+            If Appraisal_Type = 1 Then
+                txtGrandTotal.Text = String.Format("{0:N2}", txtSubTotal.Text)
+            Else
+                txtGrandTotal.Text = String.Format("{0:N2}", CDec(txtLandTotal.Text) + CDec(txtBuildingPrice.Text))
+            End If
             'txtGrandTotal.Text = String.Format("{0:N2}", (Obj_P3M.Item(0).TotalPrice + Obj_P3M.Item(0).BuildingPrice + Obj_P3M.Item(0).Land_Building_Price))
         Else
             'มีการกำหนดราคาที่ 3 แล้ว แสดงชื่อลูกค้า

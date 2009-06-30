@@ -60,56 +60,6 @@ Partial Class Appraisal_Price3_List
 
 #Region "GridView1 Event Handlers"
 
-    Protected Sub GridView1_RowCommand(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.GridViewCommandEventArgs) Handles GridView1.RowCommand
-        'Dim ImgBtAdd As ImageButton = DirectCast(sender, ImageButton)
-        'Dim gvTemp As GridView = DirectCast(sender, GridView)
-        'Dim Req_Id As Label = gvTemp.Parent.FindControl("lblReq_Id")
-        'Dim Hub_Id As Label = gvTemp.Parent.FindControl("lblHub_Id")
-        'Dim Temp_AID As Label = gvTemp.Parent.FindControl("lblTemp_AID")
-        'Dim CollType_Id As Label = gvTemp.Parent.FindControl("lblColltype")
-
-
-
-        'gvUniqueID = gvTemp.UniqueID
-        ''Dim lblTemp_AID As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblTemp_AID"), Label)
-        'Dim lblTemp_AID As String = gvTemp.DataKeys(0).Value.ToString()
-        'If e.CommandName = "Add" Then
-        '    Try
-
-        '    Catch ex As Exception
-        '        ClientScript.RegisterStartupScript([GetType](), "Message", "<SCRIPT LANGUAGE='javascript'>alert('" & ex.Message.ToString().Replace("'", "") & "');</script>")
-        '    End Try
-        'ElseIf e.CommandName = "View" Then
-        '    Try
-
-        '        'Context.Items("Temp_AID") = lblTemp_AID  'กำหนดเพื่อส่งค่าให้กับฟอร์มที่จะส่งค่าได้ด้านล่าง
-
-        '        Context.Items("Req_Id") = Req_Id
-        '        Context.Items("Hub_Id") = Hub_Id
-        '        Context.Items("Temp_AID") = Temp_AID
-        '        Context.Items("CollType_Id") = CollType_Id
-        '        Server.Transfer("Appraisal_Price3_Conform.aspx")
-        '    Catch ex As Exception
-        '        ClientScript.RegisterStartupScript([GetType](), "Message", "<SCRIPT LANGUAGE='javascript'>alert('" & ex.Message.ToString().Replace("'", "") & "');</script>")
-        '    End Try
-        'Else
-        'End If
-
-
-    End Sub
-
-    'Protected Sub GridView1_RowCreated(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.GridViewRowEventArgs) Handles GridView1.RowCreated
-    'ทำ ไฮร์ไลท์ Gridview
-
-    '    Dim onmouseoverStyle As String = "this.style.backgroundColor='yellow'"
-    '    Dim onmouseoutStyle As String = "this.style.backgroundColor='white'"
-
-    '    If e.Row.RowType = DataControlRowType.DataRow Then
-    '        e.Row.Attributes.Add("onmouseover", onmouseoverStyle)
-    '        e.Row.Attributes.Add("onmouseout", onmouseoutStyle)
-    '    End If
-    'End Sub
-
     Protected Sub GridView1_RowDataBound(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.GridViewRowEventArgs) Handles GridView1.RowDataBound
         Dim row As GridViewRow = e.Row
         Dim strSort As String = String.Empty
@@ -142,7 +92,6 @@ Partial Class Appraisal_Price3_List
         gv.DataBind()
 
     End Sub
-
 
 #End Region
 
@@ -323,11 +272,19 @@ Partial Class Appraisal_Price3_List
             End If
             'มีทรัพย์หลักประกันเป็นที่ดิน หาว่ามีสิ่งปลูกสร้างหรือไม่
             If ChkColl = 50 Then
-                Dim Obj_GetP70G As DataSet = GET_PRICE3_70_GROUP(Req_Id.Text, Hub_Id.Text, Temp_AID.Text)
-                If Obj_GetP70G.Tables(0).Rows.Count > 0 Then
-                    ChkColl = 70
+                Dim P2_70G As List(Of Price2_70_New) = GET_PRICE2_70_NEW_BY_REQID_HUBID(Req_Id.Text, Hub_Id.Text, Temp_AID.Text)
+                If P2_70G.Count > 0 Then  ' มีสิ่งปลูกสร้างในราคาที่ 2
+                    Dim Obj_GetP70G As DataSet = GET_PRICE3_70_GROUP(Req_Id.Text, Hub_Id.Text, Temp_AID.Text)
+                    If P2_70G.Count = Obj_GetP70G.Tables(0).Rows.Count Then ' มีสิ่งปลูกสร้างในราคาที่ 2 เท่ากับ ปลูกสร้างในราคาที่ 3
+                        ChkColl = 70
+                    Else ' มีสิ่งปลูกสร้างในราคาที่ 2 ไม่เท่ากับ ปลูกสร้างในราคาที่ 3
+                        s = "<script language=""javascript"">alert('รายละเอียดในที่สิ่งปลูกสร้างในราคาที่ 3 ยังไม่สมบูรณ์');</script>"
+                        Page.ClientScript.RegisterStartupScript(Me.GetType, "ข้อความเตือน", s)
+                        Exit Sub
+                    End If
+                Else 'ไม่มีสิ่งปลูกสร้างในราคาที่ 2
+                    ChkColl = 50
                 End If
-            Else
             End If
 
         End If

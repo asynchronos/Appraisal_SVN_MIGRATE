@@ -127,31 +127,6 @@
                 </ContentTemplate>
             </ajaxToolkit:TabPanel>
 <ajaxToolkit:TabPanel runat="server" ID="talPanelAdditional" HeaderText="ข้อมูลเพิ่มเติม"> 
-<ContentTemplate> 
-<table> 
-<tr> 
-<td> อาชีพปัจจุบัน: </td> 
-<td> <asp:TextBox ID="txtOccupation" runat="server"></asp:TextBox> </td> 
-</tr>
-<tr>
-<td> สิ่งที่คุณสนใจ: </td> 
-<td> 
-<asp:CheckBoxList ID="cblInterest" runat="server" RepeatLayout="Table" RepeatColumns="2"> 
-<asp:ListItem Text="บันเทิง" Value="1"></asp:ListItem> <asp:ListItem Text="การเมือง" Value="2"></asp:ListItem> 
-<asp:ListItem Text="กีฬา" Value="3"></asp:ListItem> 
-<asp:ListItem Text="วิทยาศาสตร์" Value="4"></asp:ListItem> 
-</asp:CheckBoxList> 
-</td> 
-</tr>
-<tr> 
-<td> 
-</td> 
-<td> 
-<asp:Button ID="btnSave" Text="บันทึก" runat="server" />
-</td>
-</tr> 
-</table> 
-</ContentTemplate>
 </ajaxToolkit:TabPanel> 
             
         </ajaxToolkit:TabContainer>

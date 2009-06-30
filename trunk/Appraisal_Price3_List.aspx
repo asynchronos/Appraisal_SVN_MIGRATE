@@ -81,7 +81,6 @@
             DataKeyNames="Temp_AID" DataSourceID="REQUEST_APPRAISAL_PRICE3_LIST" 
             EmptyDataText="There are no data records to display." Width='100%' 
             BackColor="LightGoldenrodYellow" 
-            OnRowCommand = "GridView1_RowCommand"
             BorderColor="Tan" BorderWidth="1px" CellPadding="2" ForeColor="Black" 
             GridLines="None" ShowFooter="True" PageSize="15" Font-Size="Small">
         <FooterStyle BackColor="Tan" />

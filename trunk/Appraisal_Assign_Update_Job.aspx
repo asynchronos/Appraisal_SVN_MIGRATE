@@ -43,7 +43,7 @@
             <FieldHeaderStyle BackColor="#E9ECF1" Font-Bold="True" />
             <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
             <Fields>
-                <asp:TemplateField HeaderText="Req_ID" SortExpression="Req_ID">
+                <asp:TemplateField HeaderText="คำขอเลขที่" SortExpression="Req_ID">
                     <ItemTemplate>
                         <asp:Label ID="Label1" runat="server" Text='<%# Bind("Req_ID") %>'></asp:Label>
                     </ItemTemplate>
@@ -54,7 +54,7 @@
                         <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("Req_ID") %>'></asp:TextBox>
                     </InsertItemTemplate>
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="Hub_ID" SortExpression="Hub_ID">
+                <asp:TemplateField HeaderText="รหัส Hub" SortExpression="Hub_ID">
                     <ItemTemplate>
                         <asp:Label ID="Label5" runat="server" Text='<%# Bind("Hub_ID") %>'></asp:Label>
                     </ItemTemplate>
@@ -85,7 +85,7 @@
                         <asp:TextBox ID="TextBox3" runat="server" Text='<%# Bind("Cif") %>'></asp:TextBox>
                     </InsertItemTemplate>
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="Title" SortExpression="Title">
+                <asp:TemplateField HeaderText="คำนำหน้าชื่อ" SortExpression="Title">
                     <ItemTemplate>
                         <asp:Label ID="Label2" runat="server" Text='<%# Bind("Title") %>'></asp:Label>
                     </ItemTemplate>
@@ -103,7 +103,7 @@
                         <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("Title") %>'></asp:TextBox>
                     </InsertItemTemplate>
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="Name" SortExpression="Name">
+                <asp:TemplateField HeaderText="ชื่อ" SortExpression="Name">
                     <ItemTemplate>
                         <asp:Label ID="Label4" runat="server" Text='<%# Bind("Name") %>'></asp:Label>
                     </ItemTemplate>
@@ -115,7 +115,7 @@
                         <asp:TextBox ID="TextBox4" runat="server" Text='<%# Bind("Name") %>'></asp:TextBox>
                     </InsertItemTemplate>
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="Lastname" SortExpression="Lastname">
+                <asp:TemplateField HeaderText="นามสกุล" SortExpression="Lastname">
                     <ItemTemplate>
                         <asp:Label ID="Label6" runat="server" Text='<%# Bind("Lastname") %>'></asp:Label>
                     </ItemTemplate>
@@ -127,7 +127,7 @@
                         <asp:TextBox ID="TextBox6" runat="server" Text='<%# Bind("Lastname") %>'></asp:TextBox>
                     </InsertItemTemplate>
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="Req_Type" SortExpression="Req_Type">
+                <asp:TemplateField HeaderText="ประเภทคำขอ" SortExpression="Req_Type">
                     <ItemTemplate>
                         <asp:Label ID="Label7" runat="server" Text='<%# Bind("Req_Type") %>'></asp:Label>
                     </ItemTemplate>
@@ -145,7 +145,7 @@
                         <asp:TextBox ID="TextBox7" runat="server" Text='<%# Bind("Req_Type") %>'></asp:TextBox>
                     </InsertItemTemplate>
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="Status_ID" SortExpression="Status_ID">
+                <asp:TemplateField HeaderText="สถานะคำขอ" SortExpression="Status_ID">
                     <ItemTemplate>
                         <asp:Label ID="Label8" runat="server" Text='<%# Bind("Status_ID") %>'></asp:Label>
                     </ItemTemplate>
@@ -167,7 +167,7 @@
                     </InsertItemTemplate>
                 </asp:TemplateField>
               
-                <asp:TemplateField HeaderText="Appraisal_Id" SortExpression="Appraisal_Id">
+                <asp:TemplateField HeaderText="ผู้ประเมิน" SortExpression="Appraisal_Id">
                     <ItemTemplate>
                         <asp:Label ID="Label9" runat="server" Text='<%# Bind("Appraisal_Id") %>'></asp:Label>
                     </ItemTemplate>
