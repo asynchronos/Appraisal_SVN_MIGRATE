@@ -51,30 +51,9 @@
                     <asp:Label ID="lblCifName" runat="server"></asp:Label>
                 </td>
             </tr>
-            <tr>
-                <td class="style2">
-                    &nbsp;</td>
-                <td>
-                    &nbsp;</td>
-                    <td></td>
-            </tr>
-            <tr>
-                <td class="style2">
-                    &nbsp;</td>
-                <td>
-                    &nbsp;</td>
-                    <td></td>
-            </tr>
-            <tr>
-                <td class="style2">
-                    &nbsp;</td>
-                <td>
-                    &nbsp;</td>
-                    <td></td>
-            </tr>
-        </table>
+            </table>
         <br />
-        <ajaxToolkit:TabContainer ID="TabContainer1" runat="server" Height="222px" 
+        <ajaxToolkit:TabContainer ID="TabContainer1" runat="server" Height="352px" 
             Width="100%" ActiveTabIndex="0">
             <ajaxToolkit:TabPanel runat="server" ID="tabPanelGeneral">
             <HeaderTemplate> ข้อมูลทั่วไป </HeaderTemplate>
@@ -86,13 +65,17 @@
                                 <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" 
                                     BackColor="White" BorderColor="#E7E7FF" BorderStyle="None" BorderWidth="1px" 
                                     CellPadding="3" DataSourceID="sdsPrice2" GridLines="Horizontal" Height="108px" 
-                                    Width="100%">
+                                    Width="100%" style="font-size: small">
                                     <AlternatingRowStyle BackColor="#F7F7F7" />
                                     <Columns>
                                         <asp:BoundField DataField="ID" HeaderText="ลำดับ" 
-                                            SortExpression="ID" ItemStyle-Width="50px" />                                    
+                                            SortExpression="ID" >                                    
+                                            <ItemStyle Width="50px" />
+                                        </asp:BoundField>
                                         <asp:BoundField DataField="CollType_ID" HeaderText="ประเภท" 
-                                            SortExpression="CollType_ID" ItemStyle-Width="50px" />
+                                            SortExpression="CollType_ID" >
+                                            <ItemStyle Width="50px" />
+                                        </asp:BoundField>
                                         <asp:BoundField DataField="SubCollType_Name" HeaderText="หลักประกัน" 
                                             SortExpression="SubCollType_Name" />
                                         <asp:BoundField DataField="Address_No" HeaderText="เลขที่" ReadOnly="True" 
@@ -127,6 +110,44 @@
                 </ContentTemplate>
             </ajaxToolkit:TabPanel>
 <ajaxToolkit:TabPanel runat="server" ID="talPanelAdditional" HeaderText="ข้อมูลเพิ่มเติม"> 
+    <ContentTemplate>
+        <asp:SqlDataSource ID="Appraisal_Request_PicturePath" runat="server" 
+            ConnectionString="<%$ ConnectionStrings:AppraisalConn %>" 
+            SelectCommand="SELECT Appraisal_Price2_PicturePath.Req_ID, Appraisal_Price2_PicturePath.Hub_ID, Appraisal_Price2_PicturePath.Temp_AID, TB_HUB.HUB_NAME, Appraisal_Price2_PicturePath.Picture_Path FROM Appraisal_Price2_PicturePath INNER JOIN TB_HUB ON Appraisal_Price2_PicturePath.Hub_ID = TB_HUB.HUB_ID WHERE (Appraisal_Price2_PicturePath.Req_ID = @Req_Id) AND (Appraisal_Price2_PicturePath.Hub_ID = @Hub_Id)">
+            <SelectParameters>
+                <asp:ControlParameter ControlID="lblReq_Id" Name="Req_Id" PropertyName="Text" />
+                <asp:ControlParameter ControlID="lblHub_Id" Name="Hub_Id" PropertyName="Text" />
+            </SelectParameters>
+        </asp:SqlDataSource>
+        <div>
+            <asp:GridView ID="GridView2" runat="server" AllowPaging="True" 
+                AutoGenerateColumns="False" CellPadding="4" 
+                DataKeyNames="Req_ID,Hub_ID,Picture_Path" 
+                DataSourceID="Appraisal_Request_PicturePath" ForeColor="#333333" 
+                GridLines="None" style="font-size: small">
+                <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                <RowStyle BackColor="#EFF3FB" />
+                <Columns>
+                    <asp:BoundField DataField="Req_ID" HeaderText="Req ID" ReadOnly="True" 
+                        SortExpression="Req_ID" />
+                    <asp:BoundField DataField="HUB_NAME" HeaderText="ชื่อ Hub" 
+                        ItemStyle-Width="250px" SortExpression="HUB_NAME" />
+                    <asp:TemplateField HeaderText="ภาพถ่ายหลักประกันจากสถานที่จริง">
+                        <ItemTemplate>
+                            <asp:HyperLink ID="linkPath" runat="server" 
+                                NavigateUrl='<%#  "UploadedFiles/Pic_Price2/" &  EVAL("Picture_Path") %>' 
+                                target="_blank" text='<%#EVAL("Picture_Path") %>'>HyperLink</asp:HyperLink>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                </Columns>
+                <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
+                <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
+                <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                <EditRowStyle BackColor="#2461BF" />
+                <AlternatingRowStyle BackColor="White" />
+            </asp:GridView>
+        </div>
+    </ContentTemplate>
 </ajaxToolkit:TabPanel> 
             
         </ajaxToolkit:TabContainer>

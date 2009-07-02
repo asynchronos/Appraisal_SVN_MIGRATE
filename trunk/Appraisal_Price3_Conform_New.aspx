@@ -779,9 +779,14 @@
                             <asp:Label ID="lblSave" runat="server" Text="SAVE"></asp:Label>
                         </td>
                         <td>
-                                    <asp:ImageButton ID="ImagePrint" runat="server" ImageUrl="~/Images/Printer.png" Width="35px" Height="35px" />
+                           <asp:ImageButton ID="ImagePrint" runat="server" ImageUrl="~/Images/Printer.png" Width="35px" Height="35px" />
                                                         
                         </td>
+                        <td>Print</td>
+                        <td>
+                            <asp:ImageButton ID="ImgAttach" runat="server" ImageUrl="~/Images/attachment.ico" Width="35px" Height="35px" />
+                        </td>
+                        <td>แนบไฟล์</td>
                     </tr>
                </table>
                         

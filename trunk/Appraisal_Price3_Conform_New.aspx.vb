@@ -23,9 +23,9 @@ Partial Class Appraisal_Price3_Conform_New
 
             Dim P2Master As List(Of Price2_Master) = GET_PRICE2_MASTER(HiddenField1.Value, HiddenField2.Value)
             If P2Master.Count > 0 Then
-                'MsgBox(P2Master.Item(0).Appraisal_Type)
+                'Dim xx As String = P2Master.Item(0).Comment
                 ddlAppraisal_Type.SelectedValue = P2Master.Item(0).Appraisal_Type
-                ddlComment.SelectedValue = P2Master.Item(0).Comment
+                ViewState("Comment") = P2Master.Item(0).Comment
             End If
             If hdfChkColl.Value = 18 Then
                 'คอนโดอย่างเดียว
@@ -73,12 +73,12 @@ Partial Class Appraisal_Price3_Conform_New
             txtAID.Text = Obj_P3M.Item(0).AID
             txtInform_To.Text = Obj_P3M.Item(0).Inform_To
             txtCif.Text = Obj_P3M.Item(0).Cif
-            cus_class = SV.GetCifInfo(txtCif.Text)(0)
-            'If cus_class.Cif.ToString <> 0 Then
-            '    lblCifName.Text = cus_class.cifName
-            'Else
-            '    lblCifName.Text = ""
-            'End If
+            Try
+                cus_class = SV.GetCifInfo(txtCif.Text)(0)
+            Catch ex As Exception
+
+            End Try
+
             Dim Obj_Cif As List(Of Appraisal_Request) = GET_APPRAISAL_REQUEST(HiddenField1.Value)
             Dim Obj_title As List(Of Cls_Title) = GET_TITLE_INFO(Obj_Cif.Item(0).Title)
             lblCifName.Text = Obj_title.Item(0).TITLE_NAME & Obj_Cif.Item(0).Name & "  " & Obj_Cif.Item(0).Lastname
@@ -248,11 +248,11 @@ Partial Class Appraisal_Price3_Conform_New
 
             lblLandDetail1.Text = Replace(Space(10), " ", "&nbsp;") & "หลักประกัน ตั้งอยู่ที่ถนน  " & Replace(Space(5), " ", "&nbsp;") & Obj_GetP50.Item(0).Road & Replace(Space(5), " ", "&nbsp;") & Obj_RoadAccess_Detail.Item(0).Road_Detail_Name & Replace(Space(5), " ", "&nbsp;") & " ระยะประมาณ" & Replace(Space(5), " ", "&nbsp;") & Obj_GetP50.Item(0).Road_Access & " เมตร "
             lblLandDetail2.Text = Replace(Space(10), " ", "&nbsp;") & "ถนนหน้าหลักประกัน  " & Replace(Space(5), " ", "&nbsp;") & Obj_Road_Forntoff.Item(0).Road_Frontoff_Name & Replace(Space(5), " ", "&nbsp;") & Replace(Space(5), " ", "&nbsp;") & "กว้าง" & Obj_GetP50.Item(0).RoadWidth & Replace(Space(5), " ", "&nbsp;") & " เมตร (รายละเอียดตามรูปแผนที่สังเขป)"
-            lblLandDetail3.Text = Replace(Space(10), " ", "&nbsp;") & "สภาพลักษณะรูปที่ดิน  "
+            lblLandDetail3.Text = Replace(Space(10), " ", "&nbsp;") & "สภาพลักษณะรูปที่ดิน  " & Replace(Space(5), " ", "&nbsp;") & Obj_GetP50.Item(0).Binifit_Detail
             lblLandDetail4.Text = Replace(Space(10), " ", "&nbsp;") & "ขนาดที่ดิน กว้างติดถนน " & Replace(Space(5), " ", "&nbsp;") & Replace(Space(5), " ", "&nbsp;") & Obj_GetP50.Item(0).Land_Closeto_RoadWidth & Replace(Space(5), " ", "&nbsp;") & " เมตร  " & Replace(Space(5), " ", "&nbsp;") & " ลึก  " & Replace(Space(5), " ", "&nbsp;") & Obj_GetP50.Item(0).DeepWidth & Replace(Space(5), " ", "&nbsp;") & " เมตร  " & Replace(Space(5), " ", "&nbsp;") & " ด้านหลัง  " & Obj_GetP50.Item(0).BehindWidth & " เมตร "
             lblLandDetail5.Text = Replace(Space(10), " ", "&nbsp;") & "สภาพและการปรับปรุงระดับของที่ดินกับถนน  " & Replace(Space(5), " ", "&nbsp;") & Obj_Land_State.Item(0).Land_State_Name & Replace(Space(5), " ", "&nbsp;") & Obj_GetP50.Item(0).Land_State_Detail & Replace(Space(5), " ", "&nbsp;") & " ทำเล  " & Replace(Space(5), " ", "&nbsp;") & Obj_Site.Item(0).Site_Name
             lblLandDetail6.Text = Replace(Space(10), " ", "&nbsp;") & "ผังเมืองรวม   ที่ดินอยู่ในเขตพื้นที่สี  " & Replace(Space(5), " ", "&nbsp;") & Obj_AreaColour.Item(0).AreaColour_Name
-            lblLandDetail7.Text = Replace(Space(10), " ", "&nbsp;") & "สาธารณูปโภค  " & Replace(Space(5), " ", "&nbsp;") & Obj_Public_Utility.Item(0).Public_Utility_Name & Replace(Space(5), " ", "&nbsp;") & "แนวโน้มความเจริญ" & Replace(Space(5), " ", "&nbsp;") & Obj_TENDENCY.Item(0).Tendency_Name
+            lblLandDetail7.Text = Replace(Space(10), " ", "&nbsp;") & "สาธารณูปโภค  " & Replace(Space(5), " ", "&nbsp;") & Obj_Public_Utility.Item(0).Public_Utility_Name & Replace(Space(5), " ", "&nbsp;") & Obj_GetP50.Item(0).Public_Utility_Detail & Replace(Space(5), " ", "&nbsp;") & "แนวโน้มความเจริญ" & Replace(Space(5), " ", "&nbsp;") & Obj_TENDENCY.Item(0).Tendency_Name
             lblLandDetail8.Text = Replace(Space(10), " ", "&nbsp;") & "สภาพการซื้อขาย " & Replace(Space(5), " ", "&nbsp;") & Obj_BuySale_State.Item(0).BuySale_State_Name
 
             '---------------------------------------
@@ -521,4 +521,8 @@ Partial Class Appraisal_Price3_Conform_New
         'นับจำนวนสิ่งปลูกสร้างตาม Req_Id และ Hub_Id
     End Sub
 
+    Protected Sub ddlComment_PreRender(ByVal sender As Object, ByVal e As System.EventArgs) Handles ddlComment.PreRender
+        Dim D1 As DropDownList = DirectCast(sender, DropDownList)
+        D1.SelectedIndex = ddlComment.Items.IndexOf(D1.Items.FindByText(ViewState("Comment")))
+    End Sub
 End Class
