@@ -229,9 +229,10 @@
                         MaxLength="5" Width="50px" AutoPostBack="True">0</cc1:mytext>
                     &nbsp;ตรว.</td>
             <td class="style5">
-                                        &nbsp;</td>
+                                ผู้ถือกรรมสิทธิ์ที่ดิน</td>
             <td class="style27">
-                &nbsp;</td>
+                <asp:TextBox ID="txtOwnerShip" runat="server" Width="222px" BackColor="#FFFF66"></asp:TextBox>
+            </td>
             <td class="style29">
                 &nbsp;</td>
             <td>
@@ -239,15 +240,15 @@
         </tr>         
         <tr>
             <td class="style26">
-                                ผู้ถือกรรมสิทธิ์ที่ดิน</td>
-            <td class="style31">
-                <asp:TextBox ID="txtOwnerShip" runat="server" Width="222px" BackColor="#FFFF66"></asp:TextBox>
-            </td>
-            <td>
                 ภาระผูกพัน</td>
-            <td class="style27">
+            <td class="style31">
                 <asp:TextBox ID="txtObligation" runat="server" Width="222px" 
                     BackColor="#FFFF66"></asp:TextBox>
+            </td>
+            <td>
+                                        ที่ตั้งหลักประกัน ตั้งอยู่ถนน</td>
+            <td class="style27">
+                <asp:TextBox ID="txtRoad" runat="server" Width="222px"></asp:TextBox>
             </td>
             <td class="style29">
                 &nbsp;</td>
@@ -256,13 +257,8 @@
         </tr>                                       
         <tr>
             <td class="style26">
-                                        ที่ตั้งหลักประกัน ตั้งอยู่ถนน</td>
-            <td class="style31">
-                <asp:TextBox ID="txtRoad" runat="server" Width="222px"></asp:TextBox>
-            </td>
-            <td class="style5">
                     การตั้งอยู่ของหลักประกัน</td>
-            <td class="style27">
+            <td class="style31">
                 <asp:DropDownList ID="ddlRoad_Detail" runat="server" 
                         DataSourceID="SDSRoad_Detail" DataTextField="Road_Detail_Name" 
                         DataValueField="Road_Detail_ID">
@@ -270,6 +266,11 @@
                 <cc1:mytext ID="txtMeter" runat="server" AllowUserKey="num_Numeric" EnableTextAlignRight="True"
                         MaxLength="5" Width="50px">0</cc1:mytext>
                     เมตร</td>
+            <td class="style5">
+                    ชื่อ ซอย (ถ้ามี)</td>
+            <td class="style27">
+                <asp:TextBox ID="txtSoi" runat="server" Width="222px" BackColor="#FFFF66"></asp:TextBox>
+            </td>
             <td class="style29">
                 &nbsp;</td>
             <td>
@@ -396,7 +397,7 @@
                 </asp:DropDownList>
             </td>
             <td class="style5">
-                    รายละเอียด
+                    ลักษณะรูปที่ดิน
                 </td>
             <td class="style27">
                 <asp:TextBox ID="txtBinifit" runat="server" Width="222px"></asp:TextBox>

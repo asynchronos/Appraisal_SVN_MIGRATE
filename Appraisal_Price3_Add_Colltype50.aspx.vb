@@ -78,6 +78,7 @@ Partial Class Appraisal_Price3_Add_Colltype50
             txtRoad.Text = Obj_GetP50.Item(0).Road
             ddlRoad_Detail.SelectedValue = Obj_GetP50.Item(0).Road_Detail
             txtMeter.Text = Obj_GetP50.Item(0).Road_Access
+            txtSoi.Text = Obj_GetP50.Item(0).Soi
             txtTumbon.Text = Obj_GetP50.Item(0).Tumbon
             txtAmphur.Text = Obj_GetP50.Item(0).Amphur
             ddlProvince.SelectedValue = Obj_GetP50.Item(0).Province
@@ -116,7 +117,7 @@ Partial Class Appraisal_Price3_Add_Colltype50
             'ส่งตัวแปรไปที่ Function  AddPRICE3_50 เพื่อทำการเพิ่มหรือแก้ไขข้อมูล
             AddPRICE3_50(lblId.Text, CInt(lblReq_Id.Text), CInt(lblHub_Id.Text), lblTemp_AID.Text, CInt(DDLSubCollType.SelectedValue), txtChanode.Text, String.Empty, txtTumbon.Text, txtAmphur.Text, _
                                                                   ddlProvince.SelectedValue, CInt(txtRai.Text), CInt(txtNgan.Text), CDec(txtWah.Text), _
-                                                                  txtRoad.Text, CInt(ddlRoad_Detail.SelectedValue), CDec(txtMeter.Text), CInt(ddlRoad_Forntoff.SelectedValue), _
+                                                                  txtRoad.Text, CInt(ddlRoad_Detail.SelectedValue), CDec(txtMeter.Text), txtSoi.Text, CInt(ddlRoad_Forntoff.SelectedValue), _
                                                                   CDec(txtRoadWidth.Text), CInt(ddlSite.SelectedValue), CStr(txtSite_Detail.Text), CInt(ddlLand_State.SelectedValue), _
                                                                   txtLand_State_Detail.Text, CInt(ddlPublic_Utility.SelectedValue), txtPublic_Utility_Detail.Text, CInt(ddlBinifit.SelectedValue), _
                                                                   txtBinifit.Text, CInt(ddlTendency.SelectedValue), CInt(ddlBuySale_State.SelectedValue), ddlSubUnit.SelectedValue, _
