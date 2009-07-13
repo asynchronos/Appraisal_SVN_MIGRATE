@@ -36,7 +36,7 @@ Partial Class Appraisal_Price2_Add_By_Colltype
             If lblId.Text Is Nothing Or lblId.Text = String.Empty Then
                 Dim Objp1 As List(Of ClsPrice1_Master) = GetPrice1_Master(lblReq_Id.Text, lblHub_Id.Text)
                 If Objp1.Count > 0 Then
-                    txtPriceWah.Text = String.Format("{0:N2}", Objp1.Item(0).Pricewah)
+                    txtPriceWah.Text = Objp1.Item(0).Pricewah
                     txtTotal.Text = String.Format("{0:N2}", Objp1.Item(0).Price)
                 Else
                 End If
@@ -130,7 +130,10 @@ Partial Class Appraisal_Price2_Add_By_Colltype
                                                                   txtLand_State_Detail.Text, CInt(ddlPublic_Utility.SelectedValue), txtPublic_Utility_Detail.Text, CInt(ddlBinifit.SelectedValue), _
                                                                   txtBinifit.Text, CInt(ddlTendency.SelectedValue), CInt(ddlBuySale_State.SelectedValue), _
                                                                   CInt(txtPriceWah.Text), CInt(txtTotal.Text), lbluserid.Text, Now())
-            UPDATE_Status_Appraisal_Request(lblReq_Id.Text, lblHub_Id.Text, 5)
+            If lblId.Text = String.Empty Then
+                UPDATE_Status_Appraisal_Request(lblReq_Id.Text, lblHub_Id.Text, 5)
+            End If
+
             Response.Redirect("Appraisal_Price2.aspx")
         End If
 

@@ -9,6 +9,7 @@ Partial Class Appraisal_Price2_Add_By_Colltype70_New
             lblHub_Id.Text = Context.Items("Hub_Id")
             hhhfSubCollType.Value = Context.Items("Coll_Type")
             hdfCif.Value = Context.Items("Cif")
+            lblTemp_AID.Text = Context.Items("Temp_AID")
             Get_Price2_50_Info()
             If Context.Items("Temp_AID") = String.Empty Then
                 'lblTemp_AID.Text = 0
@@ -58,7 +59,9 @@ Partial Class Appraisal_Price2_Add_By_Colltype70_New
                 CDec(txtBuildingPriceTotalDeteriorate.Text), CInt(txtFinishPercent.Text), CDec(txtPriceNotFinish.Text), txtBuildAddArea.Text, CDec(txtBuildAddUnitPrice.Text), CDec(txtBuildAddPrice.Text), _
                 txtBuildAddAge.Text, txtBuildAddPersent1.Text, txtBuildAddPersent2.Text, txtBuildAddPersent3.Text, CDec(txtBuildAddTotalDeteriorate.Text), CInt(txtFinishPercent1.Text), CDec(txtPriceNotFinish1.Text), _
                 txtBuildingDetail.Text, ddlInteriorState.SelectedValue, ddlStandard.SelectedValue, lbluserid.Text, Now())
-        UPDATE_Status_Appraisal_Request(lblReq_Id.Text, lblHub_Id.Text, 5)
+        If lblId.Text = String.Empty Then
+            UPDATE_Status_Appraisal_Request(lblReq_Id.Text, lblHub_Id.Text, 5)
+        End If
     End Sub
 
     Private Sub UPDATE_DATA()
@@ -213,6 +216,7 @@ Partial Class Appraisal_Price2_Add_By_Colltype70_New
         Context.Items("Req_Id") = lblReq_Id.Text
         Context.Items("Hub_Id") = lblHub_Id.Text
         Context.Items("Building_No") = txtBuild_No.Text
+        Context.Items("Cif") = hdfCif.Value
         Server.Transfer("Appraisal_Price2_70_Partake.aspx")
     End Sub
 

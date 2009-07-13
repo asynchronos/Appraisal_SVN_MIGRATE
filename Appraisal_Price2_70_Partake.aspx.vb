@@ -123,6 +123,13 @@ Partial Class Appraisal_Price2_70_Partake
         CalPartakeNotFinish()
     End Sub
 
+    Protected Sub GridView1_RowDeleted(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.GridViewDeletedEventArgs) Handles GridView1.RowDeleted
+        If e.Exception IsNot Nothing Then
+            ClientScript.RegisterStartupScript([GetType](), "Message", "<SCRIPT LANGUAGE='javascript'>alert('" & e.Exception.Message.ToString().Replace("'", "") & "');</script>")
+            e.ExceptionHandled = True
+        End If
+    End Sub
+
 
     Protected Sub GridView1_SelectedIndexChanging(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.GridViewSelectEventArgs) Handles GridView1.SelectedIndexChanging
         Dim gvTemp As GridView = DirectCast(sender, GridView)
@@ -205,4 +212,5 @@ Partial Class Appraisal_Price2_70_Partake
         Context.Items("Cif") = hdfCif.Value
         Server.Transfer("Appraisal_Price2_Add_By_Colltype70_New.aspx")
     End Sub
+
 End Class
