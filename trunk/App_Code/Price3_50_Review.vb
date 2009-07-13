@@ -18,6 +18,7 @@ Public Class Price3_50_Review
     Private _Road As String
     Private _Road_Detail As Integer
     Private _Road_Access As Decimal
+    Private _Soi As String
     Private _Road_Frontoff As Integer
     Private _RoadWidth As Decimal
     Private _Sited As Integer
@@ -65,6 +66,7 @@ Public Class Price3_50_Review
      ByVal Road As String, _
      ByVal Road_Detail As Integer, _
      ByVal Road_Access As Decimal, _
+     ByVal Soi As String, _
      ByVal Road_Frontoff As Integer, _
      ByVal RoadWidth As Decimal, _
      ByVal Sited As Integer, _
@@ -110,6 +112,7 @@ Public Class Price3_50_Review
         _Road = Road
         _Road_Detail = Road_Detail
         _Road_Access = Road_Access
+        _Soi = Soi
         _Road_Frontoff = Road_Frontoff
         _RoadWidth = RoadWidth
         _Sited = Sited
@@ -281,6 +284,15 @@ Public Class Price3_50_Review
         End Get
         Set(ByVal Value As Decimal)
             _Road_Access = Value
+        End Set
+    End Property
+
+    Public Property Soi() As String
+        Get
+            Return _Soi
+        End Get
+        Set(ByVal Value As String)
+            _Soi = Value
         End Set
     End Property
 
