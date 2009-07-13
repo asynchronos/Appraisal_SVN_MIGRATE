@@ -241,11 +241,16 @@
                                   <asp:GridView ID="GridView1" runat="server" AllowPaging="True" 
                                       AutoGenerateColumns="False" BackColor="LightGoldenrodYellow" BorderColor="Tan" 
                                       BorderWidth="1px" CellPadding="2" 
-                                      DataKeyNames="Id,Req_Id,Hub_Id,Temp_AID" 
-                                      DataSourceID="sdsPartake_Grid" ForeColor="Black" GridLines="None">
+                                      DataKeyNames="Id,Req_Id,Hub_Id,Temp_AID,Partake_Id" 
+                                      DataSourceID="sdsPartake_Grid" ForeColor="Black" GridLines="None" 
+                                      Width="100%">
                                       <Columns>
                                           <asp:TemplateField HeaderText="รหัสส่วนควบ" SortExpression="Partake_Id">
                                               <EditItemTemplate>
+                                                  <asp:HiddenField ID="hdf_ID" runat="server" Value='<%# Eval("ID") %>' />                  
+                                                  <asp:HiddenField ID="hdfReq_Id" runat="server" Value='<%# Eval("Req_Id") %>' />
+                                                  <asp:HiddenField ID="hdfHub_Id" runat="server" Value='<%# Eval("Hub_Id") %>' />
+                                                  <asp:HiddenField ID="hdfTemp_AID" runat="server" Value='<%# Eval("Temp_AID") %>' />
                                                   <asp:Label ID="Label1" runat="server" Text='<%# Eval("Partake_Id") %>'></asp:Label>
                                               </EditItemTemplate>
                                               <ItemTemplate>
@@ -342,6 +347,7 @@
                                               </ItemTemplate>
                                           </asp:TemplateField>
                                           <asp:CommandField ButtonType="Button" ShowSelectButton="True" />
+                                          <asp:CommandField ButtonType="Button" ShowDeleteButton="True" />
                                       </Columns>
                                       <FooterStyle BackColor="Tan" />
                                       <PagerStyle BackColor="PaleGoldenrod" ForeColor="DarkSlateBlue" 
@@ -391,7 +397,8 @@
     <asp:SqlDataSource ID="sdsPartake_Grid" runat="server" 
         ConnectionString="<%$ ConnectionStrings:AppraisalConn %>" 
         SelectCommand="GET_PRICE2_70_PARTAKE_INFO" 
-        SelectCommandType="StoredProcedure">
+        SelectCommandType="StoredProcedure" 
+        DeleteCommand="DELETE_PRICE2_70_PARTAKE" DeleteCommandType="StoredProcedure">
         <SelectParameters>
             <asp:ControlParameter ControlID="lblId" Name="ID" PropertyName="Text" 
                 Type="Int32" />
@@ -402,6 +409,13 @@
             <asp:ControlParameter ControlID="lblTemp_AID" Name="TEMP_AID" 
                 PropertyName="Text" Type="Int32" />
         </SelectParameters>
+        <DeleteParameters>
+            <asp:Parameter Name="Req_Id" Type="Int32" />
+            <asp:Parameter Name="Hub_Id" Type="Int32" />
+            <asp:Parameter Name="Id" Type="Int32" />
+            <asp:Parameter Name="Temp_AID" Type="Int32" />
+            <asp:Parameter Name="Partake_Id" Type="Int32" />
+        </DeleteParameters>
     </asp:SqlDataSource>
 </asp:Content>
 

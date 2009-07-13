@@ -80,7 +80,6 @@
         }
         .style28
         {
-            width: 211px;
             color: #3333CC;
             font-weight: bold;
         }
@@ -465,7 +464,7 @@ function ConfirmOnSave(reqid,item) {
                 </td>
                 <td class="style8">
                     <cc1:mytext ID="txtPriceTotal1" runat="server" AllowUserKey="num_Numeric" AutoCurrencyFormatOnKeyUp="True"
-                        EnableTextAlignRight="True" onblur="GrandTotal_ActiveChanged();" 
+                        EnableTextAlignRight="True" 
                         BackColor="#FFFF66">0</cc1:mytext>
                 </td>
                 <td class="style5">
@@ -737,9 +736,8 @@ function ConfirmOnSave(reqid,item) {
                     &nbsp;</td>
             </tr>
             <tr>
-                <td class="style28">
-                                        �ҵðҹ</td>
-                <td class="style8" colspan="5">
+                <td class="style28" colspan="6">
+                                        �ҵðҹ
                 <asp:DropDownList ID="ddlStandard" runat="server" DataSourceID="sdsStandard" 
                     DataTextField="Standard_Name" DataValueField="Standard_Id">
                 </asp:DropDownList>

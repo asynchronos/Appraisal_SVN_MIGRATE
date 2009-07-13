@@ -341,8 +341,7 @@
                 </asp:DropDownList>
             </td>
             <td class="style5">
-                    รายละเอียด
-                </td>
+                    ลักษณะรูปที่ดิน</td>
             <td class="style27">
                 <asp:TextBox ID="txtBinifit" runat="server"></asp:TextBox>
             </td>
