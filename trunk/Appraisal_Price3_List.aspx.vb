@@ -286,7 +286,6 @@ Partial Class Appraisal_Price3_List
                     ChkColl = 50
                 End If
             End If
-
         End If
 
         Context.Items("ChkColl") = ChkColl
@@ -313,27 +312,6 @@ Partial Class Appraisal_Price3_List
             End If
         Else
         End If
-
-
-
-        'Dim Obj_GetP50 As List(Of Price3_50) = GET_PRICE3_CONFORM(Req_Id.Text, Hub_Id.Text, Temp_AID.Text)
-        'If Obj_GetP50.Count = 0 Then
-        'Else
-        '    s = "<script language=""javascript"">alert('คุณยังไม่ได้กำหนดรายละเอียดในที่ดิน');</script>"
-        '    Page.ClientScript.RegisterStartupScript(Me.GetType, "ข้อความเตือน", s)
-        'End If
-
-        'Dim Obj_GetP70G As DataSet = GET_PRICE3_70_GROUP(Req_Id.Text, Hub_Id.Text, Temp_AID.Text)
-        'If Obj_GetP70G.Tables(0).Rows.Count = 0 Then
-        'Else
-        '    s = "<script language=""javascript"">alert('คุณยังไม่ได้กำหนดรายละเอียดสิ่งปลูกสร้าง');</script>"
-        '    Page.ClientScript.RegisterStartupScript(Me.GetType, "ข้อความเตือน", s)
-        'End If
-        'If MethodNo.Text = "1" Then
-        '    Server.Transfer("Appraisal_Price3_Conform_New.aspx")
-        'ElseIf MethodNo.Text = "2" Then
-        '    Server.Transfer("Appraisal_Price3_Form_Review.aspx")
-        'End If
 
     End Sub
 
