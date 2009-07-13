@@ -196,7 +196,7 @@
             <td class="style31">
 
                     <cc1:mytext ID="txtBuilding_Age" runat="server" AllowUserKey="int_Integer" AutoCurrencyFormatOnKeyUp="True"
-                        EnableTextAlignRight="True" Width="50px"></cc1:mytext>
+                        EnableTextAlignRight="True" Width="50px" BackColor="#FFFF66">0</cc1:mytext>
             &nbsp;ปี</td>
             <td class="style5">
                     รายละเอียดเพิ่มเติม</td>
