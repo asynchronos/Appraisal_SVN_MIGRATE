@@ -129,13 +129,13 @@
                         onclick="imgPrintPreview_Click" />
                 </ItemTemplate>
             </asp:TemplateField>            
-            <asp:TemplateField HeaderText="">
+<%--            <asp:TemplateField HeaderText="">
             <ItemStyle HorizontalAlign="Center" Width="25px" />
                 <ItemTemplate>
                     <asp:ImageButton ID="imgConfirm" runat="server" ImageUrl="~/Images/confirm_approve.png"
                         Height="22px" Width="22px" ToolTip="อนุมัติ" onclick="imgConfirm_Click" />               
                 </ItemTemplate>
-            </asp:TemplateField>             
+            </asp:TemplateField>  --%>           
         </Columns>
         <FooterStyle BackColor="Tan" />
         <PagerStyle BackColor="PaleGoldenrod" ForeColor="DarkSlateBlue" 

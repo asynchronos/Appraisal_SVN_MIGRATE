@@ -11,10 +11,6 @@ Partial Class Appraisal_Wait_For_Approve
         HdfApprove_Id.Value = lbluserid.Text
     End Sub
 
-    Protected Sub GridView1_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles GridView1.SelectedIndexChanged
-
-    End Sub
-
     Protected Sub imgPrintPreview_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs)
         Dim ImgBtAdd As ImageButton = DirectCast(sender, ImageButton)
         Dim Req_Id As Label = ImgBtAdd.Parent.FindControl("lblReq_Id")
