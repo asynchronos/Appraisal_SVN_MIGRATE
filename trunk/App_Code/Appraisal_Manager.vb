@@ -1246,6 +1246,7 @@ ByVal Hub_Id As Integer)
      ByVal Binifit_Detail As String, _
      ByVal Tendency As Integer, _
      ByVal BuySale_State As Integer, _
+     ByVal SubUnit_Id As Integer, _
      ByVal PriceWah As Decimal, _
      ByVal PriceTotal1 As Decimal, _
      ByVal Create_User As String, _
@@ -1295,6 +1296,7 @@ ByVal Hub_Id As Integer)
                     command.Parameters.Add(New SqlParameter("@Binifit_Detail", Binifit_Detail))
                     command.Parameters.Add(New SqlParameter("@Tendency", Tendency))
                     command.Parameters.Add(New SqlParameter("@BuySale_State", BuySale_State))
+                    command.Parameters.Add(New SqlParameter("@SubUnit_Id", SubUnit_Id))
                     command.Parameters.Add(New SqlParameter("@PriceWah", PriceWah))
                     command.Parameters.Add(New SqlParameter("@PriceTotal1", PriceTotal1))
                     command.Parameters.Add(New SqlParameter("@Create_User", Create_User))
@@ -1462,6 +1464,7 @@ ByVal Hub_Id As Integer)
                                                 CStr(reader("Binifit_Detail")), _
                                                 CInt(reader("Tendency")), _
                                                 CInt(reader("BuySale_State")), _
+                                                CInt(reader("SubUnit_Id")), _
                                                 CDec(reader("PriceWah")), _
                                                 CDec(reader("PriceTotal1")), _
                                                 CStr(reader("Create_User")), _
@@ -1519,6 +1522,7 @@ ByVal Hub_Id As Integer)
                                                 CStr(reader("Binifit_Detail")), _
                                                 CInt(reader("Tendency")), _
                                                 CInt(reader("BuySale_State")), _
+                                                CInt(reader("SubUnit_Id")), _
                                                 CDec(reader("PriceWah")), _
                                                 CDec(reader("PriceTotal1")), _
                                                 CStr(reader("Create_User")), _
@@ -2644,6 +2648,76 @@ ByVal Hub_Id As Integer)
             End Using
         End Using
     End Sub
+
+    Public Shared Function GET_PRICE2_70_NEW_CHANODE(ByVal Put_On_Chanode As String) As Generic.List(Of Price2_70_New)
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("GET_PRICE2_70_NEW_CHANODE", connection)
+                command.CommandType = CommandType.StoredProcedure
+                command.CommandTimeout = 60
+                command.Parameters.Add(New SqlParameter("@Put_On_Chanode", Put_On_Chanode))
+                connection.Open()
+                Dim list As New Generic.List(Of Price2_70_New)()
+                Using reader As SqlDataReader = command.ExecuteReader()
+
+                    Do While (reader.Read())
+                        Dim temp As New Price2_70_New(CInt(reader("ID")), _
+                                                CInt(reader("Req_Id")), _
+                                                CInt(reader("Hub_Id")), _
+                                                CInt(reader("Temp_AID")), _
+                                                CInt(reader("MysubColl_ID")), _
+                                                CStr(reader("Build_No")), _
+                                                CStr(reader("Tumbon")), _
+                                                CStr(reader("Amphur")), _
+                                                CInt(reader("Province")), _
+                                                CInt(reader("Build_Character")), _
+                                                CStr(reader("Floors")), _
+                                                CInt(reader("Item")), _
+                                                CInt(reader("Build_Construct")), _
+                                                CInt(reader("Roof")), _
+                                                CStr(reader("Roof_Detail")), _
+                                                CInt(reader("Build_State")), _
+                                                CStr(reader("Build_State_Detail")), _
+                                                CStr(reader("Building_Detail")), _
+                                                CDec(reader("PriceTotal1")), _
+                                                CInt(reader("Doc1")), _
+                                                CInt(reader("Doc2")), _
+                                                CStr(reader("Doc_Detail")), _
+                                                CStr(reader("Pic_path")), _
+                                                CStr(reader("Put_On_Chanode")), _
+                                                CStr(reader("Ownership")), _
+                                                CDec(reader("BuildingArea")), _
+                                                CDec(reader("BuildingUintPrice")), _
+                                                CDec(reader("BuildingPrice")), _
+                                                CInt(reader("BuildingAge")), _
+                                                CDec(reader("BuildingPersent1")), _
+                                                CDec(reader("BuildingPersent2")), _
+                                                CDec(reader("BuildingPersent3")), _
+                                                CDec(reader("BuildingPriceTotalDeteriorate")), _
+                                                CInt(reader("BuildingPercentFinish")), _
+                                                CDec(reader("BuildingPriceFinish")), _
+                                                CDec(reader("BuildAddArea")), _
+                                                CDec(reader("BuildAddUintPrice")), _
+                                                CDec(reader("BuildAddPrice")), _
+                                                CDec(reader("BuildAddAge")), _
+                                                CDec(reader("BuildAddPersent1")), _
+                                                CDec(reader("BuildAddPersent2")), _
+                                                CDec(reader("BuildAddPersent3")), _
+                                                CDec(reader("BuildAddPriceTotalDeteriorate")), _
+                                                CInt(reader("BuildAddPercentFinish")), _
+                                                CDec(reader("BuildAddPriceFinish")), _
+                                                CStr(reader("BuildingDetail")), _
+                                                CInt(reader("Decoration")), _
+                                                CInt(reader("Standard_Id")), _
+                                                CStr(reader("Create_User")), _
+                                                CDate(reader("Create_Date")))
+                        list.Add(temp)
+                    Loop
+                End Using
+                Return list
+            End Using
+        End Using
+
+    End Function
 #End Region
 
 #Region "PRICE3"
@@ -6873,6 +6947,32 @@ ByVal Cif As Integer)
                     myTrans.Commit()
                 Catch ex As Exception
                     myTrans.Rollback()
+                Finally
+                    connection.Close()
+                End Try
+            End Using
+        End Using
+    End Sub
+
+    Public Shared Sub UPDATE_AUTHORIZE_SYSTEM_USER(ByVal Emp_Id As String, _
+     ByVal SGroup_Id As Integer)
+
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("UPDATE_AUTHORIZE_SYSTEM_USER", connection)
+                connection.Open()
+                command.Connection = connection
+                Dim myTrans As SqlTransaction
+                myTrans = connection.BeginTransaction()
+                command.Transaction = myTrans
+                Try
+                    command.CommandType = CommandType.StoredProcedure
+                    command.Parameters.Add(New SqlParameter("@Emp_Id", Emp_Id))
+                    command.Parameters.Add(New SqlParameter("@SGroup_Id", SGroup_Id))
+                    command.ExecuteNonQuery()
+                    myTrans.Commit()
+                Catch ex As Exception
+                    myTrans.Rollback()
+                    'MsgBox(ex.Message)
                 Finally
                     connection.Close()
                 End Try
