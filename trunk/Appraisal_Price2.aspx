@@ -29,7 +29,8 @@
                 BackColor="LightGoldenrodYellow" BorderColor="Tan" BorderWidth="1px" 
                 CellPadding="2" DataKeyNames="Req_ID,Hub_ID" DataSourceID="SqlDataSource1" 
                 EmptyDataText="There are no data records to display." ForeColor="Black" 
-                GridLines="None" PageSize="15" ShowFooter="True" Width="100%">
+                GridLines="None" PageSize="15" ShowFooter="True" Width="100%" 
+        style="font-size: small">
                 <FooterStyle BackColor="Tan" />
                 <Columns>
                     <%--                <asp:TemplateField HeaderText="รายละเอียดการดำเนินการ">

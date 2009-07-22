@@ -129,7 +129,7 @@ Partial Class Appraisal_Price2_Add_By_Colltype
                                                                   CDec(txtRoadWidth.Text), CInt(ddlSite.SelectedValue), CStr(txtSite_Detail.Text), CInt(ddlLand_State.SelectedValue), _
                                                                   txtLand_State_Detail.Text, CInt(ddlPublic_Utility.SelectedValue), txtPublic_Utility_Detail.Text, CInt(ddlBinifit.SelectedValue), _
                                                                   txtBinifit.Text, CInt(ddlTendency.SelectedValue), CInt(ddlBuySale_State.SelectedValue), _
-                                                                  CInt(txtPriceWah.Text), CInt(txtTotal.Text), lbluserid.Text, Now())
+                                                                  CInt(ddlSubUnit.SelectedValue), CDec(txtPriceWah.Text), CDec(txtTotal.Text), lbluserid.Text, Now())
             If lblId.Text = String.Empty Then
                 UPDATE_Status_Appraisal_Request(lblReq_Id.Text, lblHub_Id.Text, 5)
             End If

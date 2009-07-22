@@ -332,6 +332,9 @@ function ConfirmOnSave(reqid,item) {
                     <td>
                     <asp:TextBox ID="txtChanodeNo" runat="server" BackColor="#FFFF66"
                     MyClintID="txtChanodeNo"></asp:TextBox>
+                    &nbsp;<asp:ImageButton ID="ImageButton_Verify" runat="server" 
+                            ImageUrl="~/Images/page_accept.ico" Width="20px" Height="20px" 
+                            ToolTip="ตรวสอบเลขที่โฉนด" />
                     </td>
                     <td>ิสิ่งปลูกสร้างกรรมสิทธิ์ของ</td>
                     <td class="style19">
@@ -724,8 +727,8 @@ function ConfirmOnSave(reqid,item) {
                 <td class="style8">
                     <asp:CheckBox ID="chkDetail" runat="server" Text="รายละเอียดเพิ่มเติม" />
                 </td>
-                <td class="style5">
-                    <asp:Button ID="btnAddDetail" runat="server" Text="พื้น/ฝนัง/หลังคา" />
+                <td class="style5" id="z">
+                    <asp:Button ID="btnAddDetail" runat="server" Text="พื้น/ผนัง" />
                 </td>
                 <td class="style19">
                     <asp:Button ID="btnAdPartake" runat="server" Text="เพิ่มส่วนควบ" />
@@ -739,7 +742,7 @@ function ConfirmOnSave(reqid,item) {
                 <td class="style28" colspan="6">
                                         มาตรฐาน
                 <asp:DropDownList ID="ddlStandard" runat="server" DataSourceID="sdsStandard" 
-                    DataTextField="Standard_Name" DataValueField="Standard_Id">
+                    DataTextField="Standard_Name" DataValueField="Standard_Id" BackColor="#FFFF66">
                 </asp:DropDownList>
                 </td>
             </tr>

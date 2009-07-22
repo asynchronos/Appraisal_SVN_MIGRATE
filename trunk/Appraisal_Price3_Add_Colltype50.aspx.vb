@@ -59,6 +59,7 @@ Partial Class Appraisal_Price3_Add_Colltype50
             txtBinifit.Text = Obj_GetP50.Item(0).Binifit_Detail
             ddlTendency.SelectedValue = Obj_GetP50.Item(0).Tendency
             ddlBuySale_State.SelectedValue = Obj_GetP50.Item(0).BuySale_State
+            ddlSubUnit.SelectedValue = Obj_GetP50.Item(0).SubUnit
             txtPriceWah.Text = Obj_GetP50.Item(0).PriceWah
             txtTotal.Text = Obj_GetP50.Item(0).PriceTotal1
         End If
@@ -121,10 +122,10 @@ Partial Class Appraisal_Price3_Add_Colltype50
                                                                   CDec(txtRoadWidth.Text), CInt(ddlSite.SelectedValue), CStr(txtSite_Detail.Text), CInt(ddlLand_State.SelectedValue), _
                                                                   txtLand_State_Detail.Text, CInt(ddlPublic_Utility.SelectedValue), txtPublic_Utility_Detail.Text, CInt(ddlBinifit.SelectedValue), _
                                                                   txtBinifit.Text, CInt(ddlTendency.SelectedValue), CInt(ddlBuySale_State.SelectedValue), ddlSubUnit.SelectedValue, _
-                                                                  CInt(txtPriceWah.Text), CInt(txtTotal.Text), txtRaWang.Text, txtLandNumber.Text, txtSurway.Text, txtDocNo.Text, txtPage.Text, txtOwnerShip.Text, _
+                                                                  CDec(txtPriceWah.Text), CDec(txtTotal.Text), txtRaWang.Text, txtLandNumber.Text, txtSurway.Text, txtDocNo.Text, txtPage.Text, txtOwnerShip.Text, _
                                                                   txtObligation.Text, txtLand_Closeto_RoadWidth.Text, txtDeepWidth.Text, txtBehindWidth.Text, ddlAreaColur.SelectedValue, lbluserid.Text, Now())
             UPDATE_Status_Appraisal_Request(lblReq_Id.Text, lblHub_Id.Text, 6)
-            Response.Redirect("Appraisal_Price2.aspx")
+            Response.Redirect("Appraisal_Price3_List.aspx")
         Else
             'กรณีไม่ปกติ
 

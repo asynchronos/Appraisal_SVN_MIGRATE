@@ -264,7 +264,7 @@
                         DataValueField="Road_Detail_ID">
                 </asp:DropDownList>
                 <cc1:mytext ID="txtMeter" runat="server" AllowUserKey="num_Numeric" EnableTextAlignRight="True"
-                        MaxLength="5" Width="50px">0</cc1:mytext>
+                        MaxLength="6" Width="50px">0</cc1:mytext>
                     เมตร</td>
             <td class="style5">
                     ชื่อ ซอย (ถ้ามี)</td>

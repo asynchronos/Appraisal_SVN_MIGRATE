@@ -1,7 +1,7 @@
 ﻿Imports Appraisal_Manager
 Partial Class Appraisal_Price2_Add_By_Colltype70_New
     Inherits System.Web.UI.Page
-    Dim xId, xTemp_AID As Integer
+    Dim s As String
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         If Not Page.IsPostBack Then
@@ -254,4 +254,61 @@ Partial Class Appraisal_Price2_Add_By_Colltype70_New
         End If
     End Sub
 
+    Protected Sub ImageButton_Verify_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs) Handles ImageButton_Verify.Click
+        'MsgBox("Verify โฉนด")
+        'ตรวจสอบเลขโฉนด จากระบบว่าเคยให้ราคาแล้วหรือไม่
+        Dim Get_Chanode As List(Of Price2_70_New) = GET_PRICE2_70_NEW_CHANODE(txtChanodeNo.Text)
+        If Get_Chanode.Count > 0 Then
+            s = "<script language=""javascript"">alert('พบเลขที่โฉนดดังกล่าวระบบจะแสดงรายละเอียดดังกล่าว'); </script>"
+            Page.ClientScript.RegisterStartupScript(Me.GetType, "รับเรื่องประเมิน", s)
+
+            DDLSubCollType.SelectedValue = Get_Chanode.Item(0).MysubColl_ID
+            txtChanodeNo.Text = Get_Chanode.Item(0).Put_On_Chanode
+            txtOwnership.Text = Get_Chanode.Item(0).Ownership
+            txtBuild_No.Text = Get_Chanode.Item(0).Build_No
+            txtTumbon.Text = Get_Chanode.Item(0).Tumbon
+            txtAmphur.Text = Get_Chanode.Item(0).Amphur
+            ddlProvince.SelectedValue = Get_Chanode.Item(0).Province
+            ddlBuild_Character.SelectedValue = Get_Chanode.Item(0).Build_Character
+            txtFloor.Text = Get_Chanode.Item(0).Floors
+            txtItem.Text = Get_Chanode.Item(0).Item
+            ddlBuild_Construct.SelectedValue = Get_Chanode.Item(0).Build_Construct
+            ddlRoof.SelectedValue = Get_Chanode.Item(0).Roof
+            txtRoof_Detail.Text = Get_Chanode.Item(0).Roof_Detail
+            ddlBuild_State.SelectedValue = Get_Chanode.Item(0).Build_State
+            txtBuild_State_Detail.Text = Get_Chanode.Item(0).Build_State_Detail
+            txtBuilding_Detail.Text = Get_Chanode.Item(0).Building_Detail
+            txtPriceTotal1.Text = String.Format("{0:N2}", Get_Chanode.Item(0).PriceTotal1)
+            chkDoc1.Checked = Get_Chanode.Item(0).Doc1
+            chkDoc2.Checked = Get_Chanode.Item(0).Doc2
+            txtDoc_Detail.Text = Get_Chanode.Item(0).Doc_Detail
+            txtBuildingArea.Text = Get_Chanode.Item(0).BuildingArea
+            txtBuildingUnitPrice.Text = Get_Chanode.Item(0).BuildingUintPrice
+            txtBuildingPrice.Text = String.Format("{0:N2}", Get_Chanode.Item(0).BuildingPrice)
+            txtBuildingAge.Text = Get_Chanode.Item(0).BuildingAge
+            txtBuildingPersent1.Text = Get_Chanode.Item(0).BuildingPersent1
+            txtBuildingPersent2.Text = Get_Chanode.Item(0).BuildingPersent2
+            txtBuildingPersent3.Text = Get_Chanode.Item(0).BuildingPersent3
+            txtBuildingTotalDeteriorate.Text = Get_Chanode.Item(0).BuildingAge * (Get_Chanode.Item(0).BuildingPersent1 + Get_Chanode.Item(0).BuildingPersent2 + Get_Chanode.Item(0).BuildingPersent3)
+            txtFinishPercent.Text = Get_Chanode.Item(0).BuildingPercentFinish
+            txtPriceNotFinish.Text = String.Format("{0:N2}", Get_Chanode.Item(0).BuildingPriceFinish)
+            txtBuildingPriceTotalDeteriorate.Text = String.Format("{0:N2}", (CDec(txtPriceNotFinish.Text) * CDec(txtBuildingTotalDeteriorate.Text)) / 100)
+            txtBuildAddArea.Text = Get_Chanode.Item(0).BuildAddArea
+            txtBuildAddUnitPrice.Text = Get_Chanode.Item(0).BuildAddUintPrice
+            txtBuildAddPrice.Text = String.Format("{0:N2}", Get_Chanode.Item(0).BuildAddPrice)
+            txtBuildAddAge.Text = Get_Chanode.Item(0).BuildAddAge
+            txtBuildAddPersent1.Text = Get_Chanode.Item(0).BuildAddPersent1
+            txtBuildAddPersent2.Text = Get_Chanode.Item(0).BuildAddPersent2
+            txtBuildAddPersent3.Text = Get_Chanode.Item(0).BuildAddPersent3
+            txtFinishPercent1.Text = Get_Chanode.Item(0).BuildAddPercentFinish
+            txtPriceNotFinish1.Text = String.Format("{0:N2}", Get_Chanode.Item(0).BuildAddPriceFinish)
+            txtBuildAddTotalDeteriorate.Text = Get_Chanode.Item(0).BuildAddAge * (Get_Chanode.Item(0).BuildAddPersent1 + Get_Chanode.Item(0).BuildAddPersent2 + Get_Chanode.Item(0).BuildAddPersent3) 'Obj_GetP70.Item(0).BuildAddPriceTotalDeteriorate
+            txtBuildAddPriceTotalDeteriorate.Text = String.Format("{0:N2}", (CDec(txtPriceNotFinish1.Text) * CDec(txtBuildAddTotalDeteriorate.Text)) / 100)
+            txtBuildingDetail.Text = Get_Chanode.Item(0).BuildingDetail
+            ddlInteriorState.SelectedValue = Get_Chanode.Item(0).Decoration
+            ddlStandard.SelectedValue = Get_Chanode.Item(0).Standard_Id
+        Else
+        End If
+
+    End Sub
 End Class
