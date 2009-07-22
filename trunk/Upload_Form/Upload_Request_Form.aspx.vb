@@ -55,8 +55,8 @@ Partial Class Upload_Form_Upload_Request_Form
         '*********************** Sample Code Resize *************************
         'กำหนดขนาดไฟล์ภาพที่สามารถส่งได้ใน  Web.Config ด้วยนะ
         Dim uploads As HttpFileCollection = HttpContext.Current.Request.Files
-        Const bmpW As Integer = 800 'New image canvas width
-        Const bmpH As Integer = 600 'New Image canvas height 
+        Dim bmpW As Integer = 800 'New image canvas width
+        Dim bmpH As Integer = 600 'New Image canvas height 
         For i = 0 To uploads.Count - 1
             Dim FileToUpload As HttpPostedFile = uploads(i)
             Dim Filename As String = hdfReq_Id.Value & "_" & hdfReq_Id.Value & "_" & System.IO.Path.GetFileName(FileToUpload.FileName)
@@ -69,8 +69,8 @@ Partial Class Upload_Form_Upload_Request_Form
                 Dim filePath As String = "~/UploadedFiles/Pic_RegID/" & upName & ".png"
                 'Set the new bitmap resolution to 72 pixels per inch 
                 Dim upBmp As Bitmap = Bitmap.FromStream(FileToUpload.InputStream)
-                Dim newBmp As Bitmap = New Bitmap(newWidth, newHeight, Imaging.PixelFormat.Format24bppRgb)
-                newBmp.SetResolution(72, 72)
+                Dim newBmp As Bitmap = Nothing
+
 
                 'Get the uploaded image width and height 
 
@@ -88,8 +88,11 @@ Partial Class Upload_Form_Upload_Request_Form
 
                     'calculate the width percentage reduction as decimal 
                     newHeight = Int(upHeight * reDuce)
+                    newWidth = Int(upWidth * reDuce)
+
+
                     'reduce the uploaded image height by the reduce amount 
-                    newY = Int((bmpH - newHeight) / 2)
+                    newY = 0 'Int((bmpH - newHeight) / 2)
                     'Position the image centrally down the canvas 
                     newX = 0
 
@@ -98,11 +101,14 @@ Partial Class Upload_Form_Upload_Request_Form
                     reDuce = newHeight / upHeight
 
                     'calculate the height percentage reduction as decimal 
-                    newWidth = Int(upWidth * reDuce)
+                    'newWidth = Int(upWidth * reDuce)
                     'reduce the uploaded image height by the reduce amount 
-                    newX = Int((bmpW - newWidth) / 2)
+                    'newX = Int((bmpW - newWidth) / 2)
                     'Position the image centrally across the canvas 
+                    newHeight = Int(upHeight * reDuce)
+                    newWidth = Int(upWidth * reDuce)
                     newY = 0
+                    newX = 0
 
                     'Picture will be full hieght 
                 ElseIf upWidth = upHeight Then 'square picture 
@@ -122,22 +128,25 @@ Partial Class Upload_Form_Upload_Request_Form
                 'Clear the graphic and set the background colour to white 
                 'Use Antialias and High Quality Bicubic to maintain a good quality picture
                 'Save the new bitmap image using 'Png' picture format and the calculated canvas positioning 
-                Dim newGraphic As Graphics = Graphics.FromImage(newBmp)
-
+                Dim newGraphic As Graphics = Nothing
+                
                 Try
+                    newBmp = New Bitmap(newWidth, newHeight, Imaging.PixelFormat.Format24bppRgb)
+                    newBmp.SetResolution(72, 72)
+                    newGraphic = Graphics.FromImage(newBmp)
+
                     newGraphic.Clear(Color.White)
                     newGraphic.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
                     newGraphic.InterpolationMode = Drawing2D.InterpolationMode.HighQualityBicubic
                     newGraphic.DrawImage(upBmp, newX, newY, newWidth, newHeight)
                     newBmp.Save(MapPath(filePath), Imaging.ImageFormat.Png)
                     Appraisal_Manager.AddAppraisal_Request_PicturePath(hdfReq_Id.Value, hdfHub_Id.Value, Filename, 0)
-
                     'Show the uploaded resized picture in the image control 
                     'Image1.ImageUrl = filePath
                     'Image1.Visible = True
 
                 Catch ex As Exception
-                    'MsgBox(ex.ToString)
+                    MsgBox(ex.ToString)
                 Finally
                     upBmp.Dispose()
                     newBmp.Dispose()
@@ -166,6 +175,8 @@ Partial Class Upload_Form_Upload_Request_Form
             Case ".jpeg"
                 Return True
             Case ".bmp"
+                Return True
+            Case ".tiff"
                 Return True
             Case Else
                 Return False
