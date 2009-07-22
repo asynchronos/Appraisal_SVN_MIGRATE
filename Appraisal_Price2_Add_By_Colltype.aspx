@@ -212,7 +212,7 @@
                         DataValueField="Road_Detail_ID">
                 </asp:DropDownList>
                    <cc1:mytext ID="txtMeter" runat="server" AllowUserKey="int_Integer" EnableTextAlignRight="True"
-                        MaxLength="4" Width="50px">0</cc1:mytext>
+                        MaxLength="6" Width="50px">0</cc1:mytext>
                     เมตร</td>
             <td class="style5">
                     ตำบล/แขวง</td>
@@ -377,8 +377,11 @@
         </tr>
         <tr>
             <td class="style26">
-                    ตรว. ละ</td>
+                    ราคาต่อหน่วย</td>
             <td class="style22">
+                <asp:DropDownList ID="ddlSubUnit" runat="server" DataSourceID="SDSSubUnit" 
+                        DataTextField="SubUnit_Name" DataValueField="SubUnit_Id">
+                </asp:DropDownList>
                 <cc1:mytext id="txtPriceWah" runat="server" allowuserkey="num_Numeric" 
                     width="120px" EnableTextAlignRight="True"
                     MyClintID="txtPriceWah"
@@ -450,14 +453,18 @@
     <asp:SqlDataSource ID="SDSBuySale_State" runat="server" ConnectionString="<%$ ConnectionStrings:AppraisalConn %>"
         SelectCommand="SELECT [BuySale_State_ID], [BuySale_State_Name] FROM [BuySale_State]">
     </asp:SqlDataSource>
-    
     <asp:SqlDataSource ID="SDSProvince" runat="server" ConnectionString="<%$ ConnectionStrings:AppraisalConn %>"
-        
         SelectCommand="SELECT PROV_CODE, PROV_NAME FROM Bay01.dbo.TB_PROVINCE
 Order by prov_code">
     </asp:SqlDataSource>
     
-    <asp:SqlDataSource ID="SqlDataSource1" runat="server"></asp:SqlDataSource>
-    
-</asp:Content>
+    <asp:SqlDataSource ID="SDSSubUnit" runat="server" ConnectionString="<%$ ConnectionStrings:AppraisalConn %>"
+        
+        SelectCommand="SELECT [SubUnit_Id], [SubUnit_Name] FROM [TB_SubUnit] WHERE ([SubUnit_Id] &lt;= @SubUnit_Id)">
+        <SelectParameters>
+            <asp:Parameter DefaultValue="3" Name="SubUnit_Id" Type="Int32" />
+        </SelectParameters>
+    </asp:SqlDataSource>
+        
+    </asp:Content>
 

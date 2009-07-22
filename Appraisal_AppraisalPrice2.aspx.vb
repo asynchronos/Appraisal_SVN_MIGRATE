@@ -22,8 +22,10 @@ Partial Class Appraisal_AppraisalPrice2
                 Else
                     lblPrice2.Text = String.Format("{0:N2}", Obj_P2.Tables(0).Rows(0).Item("Price2"))
                 End If
-                ddlUserAppraisal.SelectedValue = Obj_P2.Tables(0).Rows(0).Item("Appraisal_Id")
-                ddlSender.SelectedValue = Obj_P2.Tables(0).Rows(0).Item("Sender_Id")
+                'ddlUserAppraisal.SelectedValue = Obj_P2.Tables(0).Rows(0).Item("Appraisal_Id")
+                'ddlSender.SelectedValue = Obj_P2.Tables(0).Rows(0).Item("Sender_Id")
+                lblSender_Name.Text = Obj_P2.Tables(0).Rows(0).Item("Sender_Name")
+                lblAppraisal_Name.Text = Obj_P2.Tables(0).Rows(0).Item("AppraisalName")
                 txtComment.Text = Obj_P2.Tables(0).Rows(0).Item("Comment")
                 txtNote.Text = Obj_P2.Tables(0).Rows(0).Item("Note")
             Else

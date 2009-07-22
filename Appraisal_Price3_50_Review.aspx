@@ -387,6 +387,9 @@
             <td class="style26">
                     ราคาต่อหน่วย</td>
             <td class="style22">
+                <asp:DropDownList ID="ddlSubUnit" runat="server" DataSourceID="SDSSubUnit" 
+                        DataTextField="SubUnit_Name" DataValueField="SubUnit_Id">
+                </asp:DropDownList>
                 <cc1:mytext id="txtPriceWah" runat="server" allowuserkey="num_Numeric" width="120px"
                         autocurrencyformatonkeyup="True" EnableTextAlignRight="True">0</cc1:mytext>
             &nbsp;บาท</td>
@@ -490,6 +493,14 @@ Order by prov_code">
         SelectCommand="SELECT [AreaColour_No], [AreaColour_Name] FROM [AreaColour]">
     </asp:SqlDataSource>
     
+    <asp:SqlDataSource ID="SDSSubUnit" runat="server" ConnectionString="<%$ ConnectionStrings:AppraisalConn %>"
+        
+        SelectCommand="SELECT [SubUnit_Id], [SubUnit_Name] FROM [TB_SubUnit] WHERE ([SubUnit_Id] &lt;= @SubUnit_Id)">
+        <SelectParameters>
+            <asp:Parameter DefaultValue="3" Name="SubUnit_Id" Type="Int32" />
+        </SelectParameters>
+    </asp:SqlDataSource>
+        
     </div>
     </form>
 </body>

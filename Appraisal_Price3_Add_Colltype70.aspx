@@ -77,7 +77,6 @@
         }
         .style28
         {
-            width: 211px;
             color: #3333CC;
             font-weight: bold;
         }
@@ -564,7 +563,7 @@ function ConfirmOnSave(item) {
                     <asp:CheckBox ID="chkDetail" runat="server" Text="รายละเอียดเพิ่มเติม" />
                 </td>
                 <td class="style5">
-                    <asp:Button ID="btnAddDetail" runat="server" Text="รายละเอียดเพิ่มเติม" />
+                    <asp:Button ID="btnAddDetail" runat="server" Text="พื้น/ผนัง" />
                 </td>
                 <td class="style19">
                     <asp:Button ID="btnAdPartake" runat="server" Text="เพิ่มส่วนควบ" />
@@ -575,9 +574,8 @@ function ConfirmOnSave(item) {
                     &nbsp;</td>
             </tr>
             <tr>
-                <td class="style28">
-                                        มาตรฐาน</td>
-                <td class="style8" colspan="5">
+                <td class="style28" colspan="6">
+                                        มาตรฐาน
                 <asp:DropDownList ID="ddlStandard" runat="server" DataSourceID="sdsStandard" 
                     DataTextField="Standard_Name" DataValueField="Standard_Id">
                 </asp:DropDownList>

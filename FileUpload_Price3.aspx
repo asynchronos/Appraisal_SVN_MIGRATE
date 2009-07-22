@@ -69,7 +69,7 @@
     SelectCommand="GET_APPRAISAL_PRICE3_PICTUREPATH" SelectCommandType="StoredProcedure">
             <SelectParameters>
                 <asp:ControlParameter ControlID="lblReq_Id" Name="Req_Id" PropertyName="Text" />
-                <asp:ControlParameter ControlID="lblHub_Id" Name="Hub_Id" PropertyName="Text" />
+<%--                <asp:ControlParameter ControlID="lblHub_Id" Name="Hub_Id" PropertyName="Text" />--%>
             </SelectParameters>
         </asp:SqlDataSource>
         <br />

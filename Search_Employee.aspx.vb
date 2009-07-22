@@ -8,6 +8,7 @@ Partial Class project_Search_Employee
             Showdata()
         End If
     End Sub
+
     Sub BindDropDown()
 
         DropDownList1.Items.Insert(0, New ListItem("รหัสพนักงาน", "EMP_ID"))

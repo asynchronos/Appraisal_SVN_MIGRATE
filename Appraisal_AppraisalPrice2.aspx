@@ -77,19 +77,14 @@
                 <td class="style2">
                     ผู้ขอให้ประเมิน</td>
                 <td class="style3">
-                    <asp:DropDownList ID="ddlSender" runat="server" DataSourceID="sdsSender"
-                        DataTextField="Emp_Name" DataValueField="EMP_ID" Enabled="False">
-                    </asp:DropDownList>
+                    <asp:Label ID="lblSender_Name" runat="server"></asp:Label>
                 </td>
             </tr>
             <tr>
                 <td class="style2">
                     ผู้ประเมิน</td>
                 <td class="style3">
-                    <asp:DropDownList ID="ddlUserAppraisal" runat="server" DataSourceID="SDSUserAppraisal"
-                        DataTextField="UserAppraisal" DataValueField="Emp_id" Enabled="False" 
-                        ToolTip="ยืนยันการกำหนดราคาที่ 2">
-                    </asp:DropDownList>
+                    <asp:Label ID="lblAppraisal_Name" runat="server"></asp:Label>
                 </td>
             </tr>
             <tr>
@@ -161,13 +156,6 @@
             </table>
     
     </div>
-    <asp:SqlDataSource ID="SDSUserAppraisal" runat="server" ConnectionString="<%$ ConnectionStrings:AppraisalConn %>"
-        SelectCommand="SELECT Emp_id, Title + Name + '  ' + Lastname AS UserAppraisal FROM Tb_UserAppraisal">
-    </asp:SqlDataSource>
-    <asp:SqlDataSource ID="sdsSender" runat="server" ConnectionString="<%$ ConnectionStrings:AppraisalConn %>"
-        
-        SelectCommand="SELECT [EMP_ID], [Emp_Name] FROM [View_Employee_Info]">
-    </asp:SqlDataSource>
     </form>
 </body>
 </html>
