@@ -33,6 +33,7 @@ Public Class PRICE2_50
     Private _Binifit_Detail As String
     Private _Tendency As Integer
     Private _BuySale_State As Integer
+    Private _SubUnit As Integer
     Private _PriceWah As Decimal
     Private _PriceTotal1 As Decimal
     Private _Create_User As String
@@ -70,6 +71,7 @@ Public Class PRICE2_50
      ByVal Binifit_Detail As String, _
      ByVal Tendency As Integer, _
      ByVal BuySale_State As Integer, _
+     ByVal SubUnit As Integer, _
      ByVal PriceWah As Decimal, _
      ByVal PriceTotal1 As Decimal, _
      ByVal Create_User As String, _
@@ -105,6 +107,7 @@ Public Class PRICE2_50
         _Binifit_Detail = Binifit_Detail
         _Tendency = Tendency
         _BuySale_State = BuySale_State
+        _SubUnit = SubUnit
         _PriceWah = PriceWah
         _PriceTotal1 = PriceTotal1
         _Create_User = Create_User
@@ -378,6 +381,15 @@ Public Class PRICE2_50
         End Get
         Set(ByVal Value As Integer)
             _BuySale_State = Value
+        End Set
+    End Property
+
+    Public Property SubUnit() As Integer
+        Get
+            Return _SubUnit
+        End Get
+        Set(ByVal Value As Integer)
+            _SubUnit = Value
         End Set
     End Property
 
