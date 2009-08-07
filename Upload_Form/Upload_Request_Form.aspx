@@ -15,7 +15,8 @@
 </p>
 
 <input id="AddFile" type="button" value="Add file" onclick="addFileUploadBox()" />
-<p><asp:Button ID="btnSubmit" runat="server" Text="Upload Now"  OnClick="btnSubmit_Click" /></p>
+<p><asp:Button ID="btnSubmit" runat="server" Text="Upload Now"  
+        OnClick="btnSubmit_Click" Visible="False" /></p>
 </div>
 <script type="text/javascript">
 function addFileUploadBox()
