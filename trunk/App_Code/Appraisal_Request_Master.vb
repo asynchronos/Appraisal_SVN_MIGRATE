@@ -11,7 +11,7 @@ Public Class Appraisal_Request_Master
     Private _Req_Type As Integer
     Private _AID As String
     Private _Status_ID As Integer
-    Private _Sender_ID As Integer
+    Private _Sender_ID As String
     Private _Sender_Name As Integer
     Private _Create_User As String
     Private _Create_Date As Date
@@ -26,7 +26,7 @@ Public Class Appraisal_Request_Master
      ByVal Req_Type As Integer, _
      ByVal AID As String, _
      ByVal Status_ID As Integer, _
-     ByVal Sender_ID As Integer, _
+     ByVal Sender_ID As String, _
      ByVal Sender_Name As Integer, _
      ByVal Create_User As String, _
      ByVal Create_Date As Date)
