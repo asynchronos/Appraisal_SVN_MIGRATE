@@ -6064,6 +6064,33 @@ ByVal Cif As Integer)
             End Using
         End Using
     End Sub
+
+    Public Shared Sub ADD_PRICE3_DETAIL_AND_PARTAKE(ByVal Req_Id As Integer, _
+    ByVal Hub_Id As Integer, _
+    ByVal Temp_AID As Integer)
+
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("ADD_PRICE3_DETAIL_AND_PARTAKE", connection)
+                connection.Open()
+                command.Connection = connection
+                Dim myTrans As SqlTransaction
+                myTrans = connection.BeginTransaction()
+                command.Transaction = myTrans
+                Try
+                    command.CommandType = CommandType.StoredProcedure
+                    command.Parameters.Add(New SqlParameter("@Req_Id", Req_Id))
+                    command.Parameters.Add(New SqlParameter("@Hub_Id", Hub_Id))
+                    command.Parameters.Add(New SqlParameter("@Temp_AID", Temp_AID))
+                    command.ExecuteNonQuery()
+                    myTrans.Commit()
+                Catch ex As Exception
+                    myTrans.Rollback()
+                Finally
+                    connection.Close()
+                End Try
+            End Using
+        End Using
+    End Sub
 #End Region
 
 #Region "Process Operation"

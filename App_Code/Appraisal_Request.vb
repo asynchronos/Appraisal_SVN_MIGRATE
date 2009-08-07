@@ -115,11 +115,11 @@ Public Class Appraisal_Request
         End Set
     End Property
 
-    Public Property Appraisal_Id() As Integer
+    Public Property Appraisal_Id() As String
         Get
             Return _Appraisal_Id
         End Get
-        Set(ByVal Value As Integer)
+        Set(ByVal Value As String)
             _Appraisal_Id = Value
         End Set
     End Property
