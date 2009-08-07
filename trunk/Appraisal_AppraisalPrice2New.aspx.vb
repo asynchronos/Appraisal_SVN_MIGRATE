@@ -65,26 +65,16 @@ Partial Class Appraisal_AppraisalPrice2New
     End Sub
 
     Protected Sub ImgLocation_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs) Handles ImgLocation.Click
-        'Dim lbluserid As Label = TryCast(Me.Form.FindControl("lblUserID"), Label)
-        'Dim Req_Id As Label = lblReq_Id.Text
-        'Dim Hub_Id As Label = imgEditPosition.Parent.FindControl("lblHub_Id")
-        'Dim Temp_AID As Label = imgEditPosition.Parent.FindControl("lblTemp_AID")
 
         StrPath = Request.ApplicationPath & "/CollDetail_Show_Position.aspx?Req_Id=" & lblReq_Id.Text & "&Hub_Id=" & lblHub_Id.Text
-        s = "<script language=""javascript"">window.open('" + StrPath + "','window','toolbar=no target=_blank, menubar=no, scrollbars=yes, resizable=no,location=no,directories=no, status=yes height=680px,width=850px');</script>"
+        s = "<script language=""javascript"">window.open('" + StrPath + "','windowlocation','toolbar=no target=_blank, menubar=no, scrollbars=yes, resizable=no,location=no,directories=no, status=yes height=680px,width=850px');</script>"
         Page.ClientScript.RegisterStartupScript(Me.GetType, "แสดงพิกัด", s)
     End Sub
 
     Protected Sub ImgImformation_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs) Handles ImgImformation.Click
-        'lblReq_Id.Text = Request.QueryString("Req_Id")
-        'lblHub_Id.Text = Request.QueryString("Hub_Id")
-        'lblHub_Name.Text = Request.QueryString("Hub_Name")
-        'lblCif.Text = Request.QueryString("Cif")
-        'lblCifName.Text = Request.QueryString("Cif_Name")
-
-        s = "<script language=""javascript"">window.close('');</script>"
+        's = "<script language=""javascript"">window.close('');</script>"
         StrPath = Request.ApplicationPath & "/Appraisal_Price2_Information.aspx?Req_Id=" & lblReq_Id.Text & "&Hub_Id=" & lblHub_Id.Text & "&HubName=" & lblHub_Name.Text & "&Cif=" & lblCif.Text & "&CifName=" & lblCifName.Text
-        s = "<script language=""javascript"">window.open('" + StrPath + "','window','toolbar=no target=_blank, menubar=no, scrollbars=yes, resizable=yes,location=no,directories=no, status=yes height=680px,width=850px');</script>"
+        s = "<script language=""javascript"">window.open('" + StrPath + "','windowinfo','toolbar=no target=_blank, menubar=no, scrollbars=yes, resizable=yes,location=no,directories=no, status=yes height=680px,width=850px');</script>"
         Page.ClientScript.RegisterStartupScript(Me.GetType, "รับเรื่องประเมิน", s)
     End Sub
 End Class

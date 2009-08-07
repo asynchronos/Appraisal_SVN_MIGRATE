@@ -36,7 +36,7 @@ Partial Class Appraisal_Assign_Job
         Dim strQRY As String = ""
         Dim dsTemp As New SqlDataSource
 
-        Dim conn As String = "server=172.19.54.2;Database=Appraisal;User ID=sa;Password=sa0123"
+        Dim conn As String = ConfigurationManager.ConnectionStrings.Item("Appraisal_Menu").ToString '"server=172.19.54.2;Database=Appraisal_Test;User ID=sa;Password=sa0123"
         dsTemp.ConnectionString = conn
         strQRY = "SELECT ID, Req_Id, Cif, CIFNAME, Hub_Id, HUB_NAME, Temp_AID, CollType_ID, MysubColl_ID, SubCollType_Name, Address_No, Tumbon, Amphur, Province,PROV_NAME FROM View_Appraisal_Price3_ListDetail WHERE Req_Id = " & strReq_Id & ""
         dsTemp.SelectCommand = strQRY
@@ -277,7 +277,7 @@ Partial Class Appraisal_Assign_Job
         '    myScript = "<script language=""javascript"">alert('กำหนดราคายังไม่เรียบร้อย'); </script>"
         '    Page.ClientScript.RegisterStartupScript(Me.GetType, "ผลการบันทึก", myScript)
         'Else
-        myScript = "<script>" + "window.open('Appraisal_Assign_Update_Job.aspx?Req_Id=" + Trim(Req_Id.Text) + "&Hub_Id=" + Trim(Hub_Id.Text) + "&Status_Id=" + Trim(Status_Id.Value) + "','window','toolbar=no, menubar=no, scrollbars=yes, resizable=no,location=no, directories=no, status=yes,height=350px,width=450px');</script>"
+        myScript = "<script>" + "window.open('Appraisal_Assign_Update_Job.aspx?Req_Id=" + Trim(Req_Id.Text) + "&Hub_Id=" + Trim(Hub_Id.Text) + "&Status_Id=" + Trim(Status_Id.Value) + "','window','toolbar=no, menubar=no, scrollbars=yes, resizable=no,location=no, directories=no, status=yes,height=450px,width=450px');</script>"
         Page.ClientScript.RegisterStartupScript(Me.GetType, "กำหนดงานให้เจ้าหน้าที่ประเมิน", myScript)
         'End If
 
