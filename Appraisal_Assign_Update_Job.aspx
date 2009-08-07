@@ -15,11 +15,6 @@
         
         
         SelectCommand="SELECT Req_ID, Hub_ID, Cif, Title, Name, Lastname, Req_Type, Status_ID, CASE WHEN Appraisal_Id IS NULL THEN '0' WHEN Appraisal_Id = '' THEN '0' ELSE Appraisal_Id END AS Appraisal_Id FROM Appraisal_Request WHERE (Req_ID = @Req_ID) AND (Hub_ID = @Hub_Id)" 
-        
-        
-        
-        
-        
         UpdateCommand="UPDATE Appraisal_Request SET Status_Id = @Status_Id,Appraisal_Id = @Appraisal_Id WHERE (Req_ID = @Req_Id) AND (Hub_ID = @Hub_Id)">
         <SelectParameters>
             <asp:QueryStringParameter Name="Req_ID" QueryStringField="Req_Id" />
@@ -36,7 +31,7 @@
         <asp:DetailsView ID="DetailsView1" runat="server" AutoGenerateRows="False" 
             CellPadding="4" DataKeyNames="Req_ID,Hub_ID" DataSourceID="sdsAssignJob" 
             DefaultMode="Edit" ForeColor="#333333" GridLines="None" Height="50px" 
-            Width="314px">
+            Width="427px">
             <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
             <CommandRowStyle BackColor="#E2DED6" Font-Bold="True" />
             <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
@@ -178,9 +173,6 @@
                         </asp:DropDownList>
                         <asp:SqlDataSource ID="sdsAppraisal" runat="server" 
                             ConnectionString="<%$ ConnectionStrings:AppraisalConnectionString %>" 
-                            
-                            
-                            
                             SelectCommand="SELECT Emp_id as Appraisal_Id, Title + Name + '  ' + Lastname AS UserAppraisal FROM Tb_UserAppraisal WHERE (Hub_Id = @Hub_Id Or Emp_Id = '0')">
                             <SelectParameters>
                                 <asp:QueryStringParameter Name="Hub_Id" QueryStringField="Hub_Id" />
