@@ -140,7 +140,7 @@ Partial Class Upload_Form_Upload_Request_Form
                     newGraphic.InterpolationMode = Drawing2D.InterpolationMode.HighQualityBicubic
                     newGraphic.DrawImage(upBmp, newX, newY, newWidth, newHeight)
                     newBmp.Save(MapPath(filePath), Imaging.ImageFormat.Png)
-                    Appraisal_Manager.AddAppraisal_Request_PicturePath(hdfReq_Id.Value, hdfHub_Id.Value, Filename, 0)
+                    Appraisal_Manager.AddAppraisal_Request_PicturePath(hdfReq_Id.Value, hdfHub_Id.Value, upName & ".png", 0)
                     'Show the uploaded resized picture in the image control 
                     'Image1.ImageUrl = filePath
                     'Image1.Visible = True
