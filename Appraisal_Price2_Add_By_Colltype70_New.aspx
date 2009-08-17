@@ -4,6 +4,7 @@
 
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+
 <script src="Js/jquery.js" type="text/javascript"></script>
 <script src="Js/common.js" type="text/javascript"></script>
     <style type="text/css">
@@ -87,6 +88,10 @@
         {
             color: #3333CC;
             font-weight: bold;
+        }
+        .style30
+        {
+            color: #CC0000;
         }
     </style>
     
@@ -208,7 +213,7 @@ function ConfirmOnSave(reqid,item) {
         var building_price2 = building_price * (percent_finish / 100);
         txtbuildingPrice.value = addCommas(building_price);
         txtprice_finish.value = addCommas(building_price2);
-        var percent_total = buildingAge * (BuildingPersent1 + BuildingPersent2 + BuildingPersent3);
+        var percent_total = (buildingAge * BuildingPersent1) + BuildingPersent2 - BuildingPersent3;
         txtBuildingTotalDeteriorate.value = percent_total;
         var BuildingPriceTotalDeteriorate = addCommas(building_price2 * (percent_total / 100));
         txtBuildingPriceTotalDeteriorate.value = addCommas(BuildingPriceTotalDeteriorate);
@@ -255,7 +260,7 @@ function ConfirmOnSave(reqid,item) {
         txtbuildAddPrice.value = addCommas(buildAdd_price);
         var building_price2 = buildAdd_price * (percent_finish / 100);
         txtprice_finish.value = addCommas(building_price2);
-        var percent_total = buildingAge * (BuildingPersent1 + BuildingPersent2 + BuildingPersent3);
+        var percent_total = (buildingAge * BuildingPersent1) + BuildingPersent2 - BuildingPersent3;
         txtBuildingTotalDeteriorate.value = percent_total;
         var BuildingPriceTotalDeteriorate = addCommas(building_price2 * (percent_total / 100));
         txtBuildingPriceTotalDeteriorate.value = addCommas(BuildingPriceTotalDeteriorate);
@@ -276,7 +281,7 @@ function ConfirmOnSave(reqid,item) {
         </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-<br />         
+    <br />         
 <br />
 <asp:HiddenField ID="hhhfSubCollType" runat="server" />
 <asp:HiddenField ID="hdfCif" runat="server" />
@@ -305,12 +310,13 @@ function ConfirmOnSave(reqid,item) {
                 เลขคำขอประเมิน</td>
             <td class="style17">
                 <asp:Label ID="lblReq_Id" runat="server" style="font-weight: 700"
-                MyClintID="lblReq_Id" ></asp:Label>
+                MyClintID="lblReq_Id" CssClass="style30" ></asp:Label>
             </td>
             <td class="style17">
                 รหัส Hub</td>
             <td class="style27">
-                <asp:Label ID="lblHub_Id" runat="server" style="font-weight: 700"></asp:Label>
+                <asp:Label ID="lblHub_Id" runat="server" style="font-weight: 700" 
+                    CssClass="style30"></asp:Label>
             </td>
             <td class="style25">
             </td>
@@ -463,8 +469,7 @@ function ConfirmOnSave(reqid,item) {
             </tr>              
             <tr>
                 <td class="style22">
-                    เป็นเงิน
-                </td>
+                    เป็นเงิน(ราคาตลาด)</td>
                 <td class="style8">
                     <cc1:mytext ID="txtPriceTotal1" runat="server" AllowUserKey="num_Numeric" AutoCurrencyFormatOnKeyUp="True"
                         EnableTextAlignRight="True" 
@@ -521,7 +526,7 @@ function ConfirmOnSave(reqid,item) {
                         MyClintID="txtBuildingArea" onkeyup="CalSection_Building(this,event);" >0</cc1:mytext>
                     ตรม.</td>
                 <td class="style5">
-                    ราคาต่อหน่วย(สร้างเสร็จ)</td>
+                    ตรม.(สร้างเสร็จ)</td>
                 <td class="style19">
                     <cc1:mytext ID="txtBuildingUnitPrice" runat="server" AllowUserKey="num_Numeric" 
                         EnableTextAlignRight="True" Width="110px" BackColor="#FFFF66" MyClintID="txtBuildingUnitPrice"
@@ -633,7 +638,7 @@ function ConfirmOnSave(reqid,item) {
                         onkeyup="CalSection_Building_Addplus(this,event);" >0</cc1:mytext>
                     ตรม.</td>
                 <td class="style5">
-                    ราคาต่อหน่วย(สร้างเสร็จ)</td>
+                    ตรม.(สร้างเสร็จ)</td>
                 <td class="style19">
                     <cc1:mytext ID="txtBuildAddUnitPrice" runat="server" AllowUserKey="num_Numeric" 
                         EnableTextAlignRight="True" Width="110px" BackColor="#FFFF66"
