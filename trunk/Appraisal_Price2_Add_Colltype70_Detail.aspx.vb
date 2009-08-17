@@ -10,10 +10,10 @@ Partial Class Appraisal_Price2_Add_Colltype70_Detail
             If txtBuilding_Struc.Text = String.Empty Or txtBuildFloor.Text = String.Empty Then
                 Exit Sub
             End If
-            Dim ObjP3_Detail As List(Of ClsPrice3_70_Detail) = GET_PRICE3_70_DETAIL(HiddenField4.Value, HiddenField1.Value, HiddenField2.Value, HiddenField3.Value, txtBuildFloor.Text)
+            Dim ObjP3_Detail As List(Of Cls_Price2_70_Detail) = GET_PRICE2_70_DETAIL(HiddenField4.Value, HiddenField1.Value, HiddenField2.Value, HiddenField3.Value, txtBuildFloor.Text)
             'ตรวจสอบว่ามีการให้ข้อมูลของชั้นดังกล่าวแล้วหรือไม่
             If ObjP3_Detail.Count = 0 Then  'ถ้ายังไม่มี
-                ADD_PRICE2_70_DETAIL(HiddenField4.Value, HiddenField1.Value, HiddenField2.Value, HiddenField3.Value, txtBuildFloor.Text, txtBuilding_Struc.Text, _
+                ADD_PRICE2_70_DETAIL(HiddenField4.Value, HiddenField1.Value, HiddenField2.Value, HiddenField3.Value, CStr(txtBuildFloor.Text), txtBuilding_Struc.Text, _
                                     chkConcrete.Checked, chkGranite.Checked, chkParquet.Checked, chkCeramic.Checked, chkWood.Checked, ChkOther.Checked, txtOtherFloor.Text, _
                                     ChkBrickWall.Checked, CheckBlockbrickWall.Checked, ChkWoodWall.Checked, ChkOtherWall.Checked, txtOtherWall.Text, HiddenField5.Value, Now())
                 GridView1.DataBind()
@@ -24,7 +24,7 @@ Partial Class Appraisal_Price2_Add_Colltype70_Detail
 
 
         Else  'Update data
-            UPDATE_PRICE2_70_DETAIL(HiddenField4.Value, HiddenField1.Value, HiddenField2.Value, HiddenField3.Value, txtBuildFloor.Text, txtBuilding_Struc.Text, _
+            UPDATE_PRICE2_70_DETAIL(HiddenField4.Value, HiddenField1.Value, HiddenField2.Value, HiddenField3.Value, CStr(txtBuildFloor.Text), txtBuilding_Struc.Text, _
                                 chkConcrete.Checked, chkGranite.Checked, chkParquet.Checked, chkCeramic.Checked, chkWood.Checked, ChkOther.Checked, txtOtherFloor.Text, _
                                 ChkBrickWall.Checked, CheckBlockbrickWall.Checked, ChkWoodWall.Checked, ChkOtherWall.Checked, txtOtherWall.Text, HiddenField5.Value, Now())
         End If
