@@ -2,6 +2,7 @@
 Partial Class Appraisal_Price2_Add_By_Colltype70_New
     Inherits System.Web.UI.Page
     Dim s As String
+
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         If Not Page.IsPostBack Then
@@ -57,7 +58,7 @@ Partial Class Appraisal_Price2_Add_By_Colltype70_New
                 chkDoc1.Checked, chkDoc2.Checked, txtDoc_Detail.Text, String.Empty, txtChanodeNo.Text, txtOwnership.Text, txtBuildingArea.Text, CDec(txtBuildingUnitPrice.Text), _
                 CDec(txtBuildingPrice.Text), txtBuildingAge.Text, txtBuildingPersent1.Text, txtBuildingPersent2.Text, txtBuildingPersent3.Text, _
                 CDec(txtBuildingPriceTotalDeteriorate.Text), CInt(txtFinishPercent.Text), CDec(txtPriceNotFinish.Text), txtBuildAddArea.Text, CDec(txtBuildAddUnitPrice.Text), CDec(txtBuildAddPrice.Text), _
-                txtBuildAddAge.Text, txtBuildAddPersent1.Text, txtBuildAddPersent2.Text, txtBuildAddPersent3.Text, CDec(txtBuildAddTotalDeteriorate.Text), CInt(txtFinishPercent1.Text), CDec(txtPriceNotFinish1.Text), _
+                txtBuildAddAge.Text, txtBuildAddPersent1.Text, txtBuildAddPersent2.Text, txtBuildAddPersent3.Text, CDec(txtBuildAddPriceTotalDeteriorate.Text), CInt(txtFinishPercent1.Text), CDec(txtPriceNotFinish1.Text), _
                 txtBuildingDetail.Text, ddlInteriorState.SelectedValue, ddlStandard.SelectedValue, lbluserid.Text, Now())
         If lblId.Text = String.Empty Then
             UPDATE_Status_Appraisal_Request(lblReq_Id.Text, lblHub_Id.Text, 5)
@@ -75,7 +76,7 @@ Partial Class Appraisal_Price2_Add_By_Colltype70_New
                 chkDoc1.Checked, chkDoc2.Checked, txtDoc_Detail.Text, String.Empty, txtChanodeNo.Text, txtOwnership.Text, txtBuildingArea.Text, CDec(txtBuildingUnitPrice.Text), _
                 CDec(txtBuildingPrice.Text), txtBuildingAge.Text, txtBuildingPersent1.Text, txtBuildingPersent2.Text, txtBuildingPersent3.Text, _
                 CDec(txtBuildingPriceTotalDeteriorate.Text), CInt(txtFinishPercent.Text), CDec(txtPriceNotFinish.Text), txtBuildAddArea.Text, CDec(txtBuildAddUnitPrice.Text), CDec(txtBuildAddPrice.Text), _
-                txtBuildAddAge.Text, txtBuildAddPersent1.Text, txtBuildAddPersent2.Text, txtBuildAddPersent3.Text, CDec(txtBuildAddTotalDeteriorate.Text), CInt(txtFinishPercent1.Text), CDec(txtPriceNotFinish1.Text), _
+                txtBuildAddAge.Text, txtBuildAddPersent1.Text, txtBuildAddPersent2.Text, txtBuildAddPersent3.Text, CDec(txtBuildAddPriceTotalDeteriorate.Text), CInt(txtFinishPercent1.Text), CDec(txtPriceNotFinish1.Text), _
                 txtBuildingDetail.Text, ddlInteriorState.SelectedValue, ddlStandard.SelectedValue, lbluserid.Text, Now())
         'UPDATE_Status_Appraisal_Request(lblReq_Id.Text, lblHub_Id.Text, 6)
     End Sub
@@ -111,7 +112,7 @@ Partial Class Appraisal_Price2_Add_By_Colltype70_New
         txtBuildingPersent1.Text = P2_70New.Item(0).BuildingPersent1
         txtBuildingPersent2.Text = P2_70New.Item(0).BuildingPersent2
         txtBuildingPersent3.Text = P2_70New.Item(0).BuildingPersent3
-        txtBuildingTotalDeteriorate.Text = P2_70New.Item(0).BuildingAge * (P2_70New.Item(0).BuildingPersent1 + P2_70New.Item(0).BuildingPersent2 + P2_70New.Item(0).BuildingPersent3)
+        txtBuildingTotalDeteriorate.Text = (P2_70New.Item(0).BuildingAge * (P2_70New.Item(0).BuildingPersent1) + P2_70New.Item(0).BuildingPersent2 - P2_70New.Item(0).BuildingPersent3)
         txtFinishPercent.Text = P2_70New.Item(0).BuildingPercentFinish
         txtPriceNotFinish.Text = String.Format("{0:N2}", P2_70New.Item(0).BuildingPriceFinish)
         txtBuildingPriceTotalDeteriorate.Text = String.Format("{0:N2}", (CDec(txtPriceNotFinish.Text) * CDec(txtBuildingTotalDeteriorate.Text)) / 100)
