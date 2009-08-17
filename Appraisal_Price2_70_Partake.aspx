@@ -43,7 +43,7 @@
         txtPartakePrice.value = addCommas(partake_price);
         var partake_price2 = partake_price * (percent_finish / 100);
         txtPriceNotFinish.value = addCommas(partake_price2);
-        var percent_total = buildingAge * (BuildingPersent1 + BuildingPersent2 + BuildingPersent3);
+        var percent_total = (buildingAge * BuildingPersent1) + BuildingPersent2 - BuildingPersent3;
         txtPartakeTotalDeteriorate.value = percent_total;
         var PartakePriceTotalDeteriorate = addCommas(partake_price2 * (percent_total / 100));
         txtPartakePriceTotalDeteriorate.value = addCommas(PartakePriceTotalDeteriorate);
@@ -146,8 +146,7 @@
                               <td>
                                   <cc1:mytext ID="txtPartakePrice" runat="server" AllowUserKey="num_Numeric" 
                         EnableTextAlignRight="True" Width="110px" BackColor="#FFFF66" 
-                                      AutoCurrencyFormatOnKeyUp="True" AutoPostBack="True" ReadOnly="True" 
-                                      Enabled="False"
+                                      AutoCurrencyFormatOnKeyUp="True"
                                       MyClintID="txtPartakePrice" >0.00</cc1:mytext>
                                   บาท</td>
                           </tr>
@@ -220,8 +219,7 @@
                                   รวมค่าเสื่อมราคา</td>
                               <td>
                                   <cc1:mytext ID="txtPartakePriceTotalDeteriorate" runat="server" AllowUserKey="num_Numeric" 
-                        EnableTextAlignRight="True" Width="110px" BackColor="#FFFF66" ReadOnly="True" 
-                                      Enabled="False"
+                        EnableTextAlignRight="True" Width="110px" BackColor="#FFFF66"
                                       MyClintID="txtPartakePriceTotalDeteriorate" >0.00</cc1:mytext>
                                   บาท</td>
                           </tr>

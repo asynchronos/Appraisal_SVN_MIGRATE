@@ -37,7 +37,6 @@ Partial Class Appraisal_Price2_70_Partake
                                          txtFinishPercent.Text, txtPriceNotFinish.Text, txtPartake_Detail.Text, lbluserid.Text, Now())
             lblMessage.Text = "บันทึกเสร็จสมบูรณ์"
             GridView1.DataBind()
-            'ImagePrint_Click(sender, Nothing)
         Else
             'Update
             UPDATE_PRICE2_70_PARTAKE(lblId.Text, lblReq_Id.Text, lblHub_Id.Text, lblTemp_AID.Text, "", ddlPartaked.SelectedValue, txtBuilding_No.Text, _
@@ -130,7 +129,6 @@ Partial Class Appraisal_Price2_70_Partake
         End If
     End Sub
 
-
     Protected Sub GridView1_SelectedIndexChanging(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.GridViewSelectEventArgs) Handles GridView1.SelectedIndexChanging
         Dim gvTemp As GridView = DirectCast(sender, GridView)
         Dim lblPartake_Id As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblPartake_Id"), Label)
@@ -198,7 +196,7 @@ Partial Class Appraisal_Price2_70_Partake
         If txtPartakeAge.Text = String.Empty Or txtPartakePersent1.Text = String.Empty Or txtPartakePersent2.Text = String.Empty Or txtPartakePersent3.Text = String.Empty Then
             Exit Sub
         Else
-            txtPartakeTotalDeteriorate.Text = CInt(txtPartakeAge.Text) * (CDec(txtPartakePersent1.Text) + CDec(txtPartakePersent2.Text) + CDec(txtPartakePersent3.Text))
+            txtPartakeTotalDeteriorate.Text = (CInt(txtPartakeAge.Text) * (CDec(txtPartakePersent1.Text)) + CDec(txtPartakePersent2.Text) - CDec(txtPartakePersent3.Text))
             txtPartakePriceTotalDeteriorate.Text = String.Format("{0:N2}", (CDec(txtPriceNotFinish.Text) * CDec(txtPartakeTotalDeteriorate.Text)) / 100)
         End If
     End Sub
