@@ -49,13 +49,13 @@ Partial Class Appraisal_Form_Appraisal_Form_Verify
     Private Function ChildDataSource(ByVal strRegId As Integer, ByVal strSort As String) As SqlDataSource
         Dim strQRY As String = ""
         Dim dsTemp As New SqlDataSource
-        Dim conn As String = "server=172.19.54.2;Database=Appraisal;User ID=sa;Password=sa0123"
+        Dim conn As String = ConfigurationManager.ConnectionStrings.Item("AppraisalConn").ToString '"server=172.19.54.2;Database=Appraisal_Test;User ID=sa;Password=sa0123"
 
         dsTemp.ConnectionString = conn
 
         strQRY = "SELECT dbo.Appraisal_Request_Master.Req_ID, dbo.Appraisal_Request_PicturePath.Hub_ID, dbo.TB_HUB.HUB_NAME,dbo.Appraisal_Request_PicturePath.Picture_Path,dbo.Appraisal_Request_PicturePath.done" _
                 & " FROM dbo.Appraisal_Request_Master INNER JOIN" _
-                & " dbo.Appraisal_Request_PicturePath ON dbo.Appraisal_Request_Master.Req_ID = dbo.Appraisal_Request_PicturePath.Req_ID INNER JOIN" _
+                & " dbo.Appraisal_Request_PicturePath ON dbo.Appraisal_Request_Master.Req_ID = dbo.Appraisal_Request_PicturePath.Req_ID LEFT OUTER JOIN" _
                 & " dbo.TB_HUB ON dbo.Appraisal_Request_PicturePath.Hub_ID = dbo.TB_HUB.HUB_ID WHERE dbo.Appraisal_Request_Master.Req_ID = " & strRegId & ""
         dsTemp.SelectCommand = strQRY
         Return dsTemp

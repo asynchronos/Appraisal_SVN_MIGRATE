@@ -36,7 +36,7 @@ Partial Class Appraisal_Assign_Job
         Dim strQRY As String = ""
         Dim dsTemp As New SqlDataSource
 
-        Dim conn As String = ConfigurationManager.ConnectionStrings.Item("Appraisal_Menu").ToString '"server=172.19.54.2;Database=Appraisal_Test;User ID=sa;Password=sa0123"
+        Dim conn As String = ConfigurationManager.ConnectionStrings.Item("AppraisalConn").ToString '"server=172.19.54.2;Database=Appraisal_Test;User ID=sa;Password=sa0123"
         dsTemp.ConnectionString = conn
         strQRY = "SELECT ID, Req_Id, Cif, CIFNAME, Hub_Id, HUB_NAME, Temp_AID, CollType_ID, MysubColl_ID, SubCollType_Name, Address_No, Tumbon, Amphur, Province,PROV_NAME FROM View_Appraisal_Price3_ListDetail WHERE Req_Id = " & strReq_Id & ""
         dsTemp.SelectCommand = strQRY

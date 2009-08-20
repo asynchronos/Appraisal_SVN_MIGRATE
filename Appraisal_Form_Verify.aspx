@@ -49,7 +49,8 @@
             EmptyDataText="There are no data records to display." Width='100%' 
             BackColor="LightGoldenrodYellow" 
             BorderColor="Tan" BorderWidth="1px" CellPadding="2" ForeColor="Black" 
-            GridLines="None" ShowFooter="True" PageSize="15">
+            GridLines="None" ShowFooter="True" PageSize="15" AllowPaging="True" 
+                    style="font-size: small">
             <FooterStyle BackColor="Tan" />
             <Columns>
                 <asp:TemplateField>
@@ -78,10 +79,10 @@
                         <asp:Label ID="Label3" runat="server" Text='<%# Bind("CifName") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>  
-                <asp:TemplateField HeaderText="ชื่อผู้ส่งประเมิน">
+                <asp:TemplateField HeaderText="ชื่อผู้ขอส่งประเมิน">
                 <ItemStyle Width="200px" />
                     <ItemTemplate>
-                        <asp:Label ID="LabelEmp_Name" runat="server" Text='<%# Bind("Emp_Name") %>'></asp:Label>
+                        <asp:Label ID="LabelEmp_Name" runat="server" Text='<%# Bind("Sender_Name") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>  
                 <asp:TemplateField HeaderText="สถานะการประเมิน">

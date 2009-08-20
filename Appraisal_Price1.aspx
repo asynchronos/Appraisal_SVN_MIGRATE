@@ -79,9 +79,9 @@
         </tr>
         <tr>
             <td class="style2">
-                รูปแผนที่หลักประกัน</td>
+                &nbsp;</td>
             <td>
-   <input id="File1" type="file" runat="server" size="60" /></td>
+                &nbsp;</td>
         </tr>
         <tr>
             <td class="style2">
