@@ -172,7 +172,7 @@
         }
         .NotshowOnPrint
         {
-            width: 186px;
+            width: 357px;
         }
         .style42
         {
@@ -412,8 +412,8 @@
     <asp:Label ID="Label5" runat="server" Text="ลูกค้าราย" 
                     style="font-weight: 700; font-size: large"></asp:Label>
     
-            &nbsp;<asp:Label ID="lblCifName" runat="server" Width="180px" 
-                    style="font-weight: 700; font-size: large"></asp:Label>
+            &nbsp;<asp:Label ID="lblCifName" runat="server" Width="259px" 
+                    style="font-weight: 700; font-size: large" Height="20px"></asp:Label>
             </td>
             <td>
     <asp:Label ID="Label7" runat="server" Text="สาขา/ฝ่ายงาน"></asp:Label>
@@ -713,10 +713,10 @@
                <FooterTemplate>
                     <tr style ="background-color:Gray">
                         <td colspan="9" style="font-size:10pt; font-style:italic">
-                            <asp:DropDownList ID="ddlDrecription" 
+<%--                            <asp:DropDownList ID="ddlDrecription" 
                                     runat="server" DataSourceID="sdsDecription" DataTextField="Standard_Name" 
                                     DataValueField="Standard_Id">
-                            </asp:DropDownList>
+                            </asp:DropDownList>--%>
                         </td>
                         <td align="right">
                             รวมราคา
@@ -737,6 +737,18 @@
                </FooterTemplate>
 
                 </asp:Repeater>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="6">
+                <asp:DropDownList ID="ddlDrecription" runat="server" 
+                    DataSourceID="sdsDecription" DataTextField="Standard_Name" 
+                    DataValueField="Standard_Id">
+                </asp:DropDownList>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="6">
                 <asp:Label ID="lblMessage" runat="server" 
                     style="font-weight: 700; color: #FF0000; font-size: large;">รายการสิ่งปลูกสร้างตามเอกสารแนบ</asp:Label>
             </td>
@@ -1112,14 +1124,19 @@
                                 ImageUrl="~/Images/Save.jpg" Width="35px" ToolTip="Save Data" />
                         </td>
                         <td>
-                            SAVE                         </td>
-                        <td>
-                            <asp:ImageButton ID="ImageCancel" runat="server" Height="35px" 
-                                ImageUrl="~/Images/cancel1.jpg" Width="35px" 
-                                ToolTip="Cancel" />
+                            <b>SAVE</b>                         
                         </td>
                         <td>
-                            ยกเลิก                         </td>                            
+                            <asp:ImageButton ID="ImageEditPosition" runat="server" Height="35px" 
+                                ImageUrl="~/Images/pawn.png" Width="35px" ToolTip="Save Data" />
+                        </td>
+                        <td style="width:100px"><b>กำหนดพิกัด</b></td>
+                        <td>
+                            <asp:ImageButton ID="ImgAttach" runat="server" 
+                                ImageUrl="~/Images/attachment.ico" Width="35px" Height="35px" />
+                        </td>
+                        <td>
+                            <b>ไฟล์แนบ</b>                         </td>                            
                     </tr>                  
                 </table>
             </td>

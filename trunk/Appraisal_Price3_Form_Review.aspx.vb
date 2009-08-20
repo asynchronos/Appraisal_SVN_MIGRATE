@@ -13,7 +13,7 @@ Partial Class Appraisal_Price3_Form_Review
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         Dim cus_class As Customer_Class
         Dim SV As New SME_SERVICE.Service
-
+        Dim lbluserid As Label = TryCast(Me.Form.FindControl("lblUserID"), Label)
         If Not Page.IsPostBack Then
             txtAID.Text = Context.Items("AID")
             lblCif.Text = Context.Items("Cif")
@@ -24,7 +24,7 @@ Partial Class Appraisal_Price3_Form_Review
             hdfCollType.Value = Context.Items("CollType")
             cus_class = SV.GetCifInfo(lblCif.Text)(0)
             If cus_class.Cif.ToString <> 0 Then
-                lblCifName.Text = cus_class.cifName
+                lblCifName.Text = (cus_class.cifName)
             Else
                 'ถ้า cif ที่ส่งมาเท่ากับ 0 ให้ Clear ค่า  ในคอนโทรล
                 lblCifName.Text = ""
@@ -35,7 +35,8 @@ Partial Class Appraisal_Price3_Form_Review
             End If
 
             'หาหมายเลขโฉนด
-            Dim ObjP3_Review As List(Of Price3_50_Review) = GET_PRICE3_50_REVIEW(hdfReq_Id.Value, hdfHub_Id.Value, 0)
+            'Dim ObjP3_Review As List(Of Price3_50_Review) = GET_PRICE3_50_REVIEW(hdfReq_Id.Value, hdfHub_Id.Value, 0)
+            Dim ObjP3_Review As List(Of Price3_50) = GET_PRICE3_CONFORM(hdfReq_Id.Value, hdfHub_Id.Value, hdfTemp_AID.Value)
             If ObjP3_Review.Count > 0 Then
                 hdfTemp_AID.Value = ObjP3_Review.Item(0).Temp_AID
                 For i = 0 To ObjP3_Review.Count - 1
@@ -50,12 +51,20 @@ Partial Class Appraisal_Price3_Form_Review
                         Exit For
                     End If
                 Next
+                Form_Information()
             Else
                 'แสดงรายละเอียดข้อมูล
                 Form_Information()
             End If
         End If
 
+        Dim s1 As String = Nothing
+        s1 += "window.open('CollDetail_Edit_Position_Price3.aspx"
+        s1 += "?Req_Id=" & hdfReq_Id.Value
+        s1 += "&Hub_Id=" & hdfHub_Id.Value
+        s1 += "&UserId=" & lbluserid.Text
+        s1 += "&Temp_AID=" & hdfTemp_AID.Value
+        ImageEditPosition.Attributes.Add("onclick", s1 & "','showMap', 'width=820, height=780');")
     End Sub
 
     Protected Sub btnChangeLand_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnChangeLand.Click
@@ -200,8 +209,12 @@ Partial Class Appraisal_Price3_Form_Review
                                      RadioButtonList2.SelectedValue, txtObligation.Text, RadioButtonList3.SelectedValue, txtLandAddress.Text, RadioButtonList4.SelectedValue, _
                                      RadioButtonList5.SelectedValue, txtBuilding.Text, txtLast_Appraisal_Detail.Text, lbluserid.Text, Now())
         Else 'ยังไม่มีข้อมูลให้ Insert
+            Dim wah As Decimal
             Lat = 0
             Lng = 0
+            If lblPriceWah.Text = "ตามเอกสารแนบ" Then
+                wah = 0
+            End If
             AddPRICE3_Master(hdfReq_Id.Value, _
                  txtAID.Text, _
                  hdfTemp_AID.Value, _
@@ -211,7 +224,7 @@ Partial Class Appraisal_Price3_Form_Review
                  Lng, _
                  AppraisalDate, _
                  ReceiveDate, _
-                 CDec(lblPriceWah.Text), _
+                 CDec(wah), _
                  CDec(txtLandTotal.Text), _
                  CDec(txtBuildingPrice.Text), _
                  CDec(txtSubTotal.Text), _
@@ -221,7 +234,7 @@ Partial Class Appraisal_Price3_Form_Review
                  ddlPos_Approve2.SelectedValue, _
                  ddlApprove3.SelectedValue, _
                  ddlPos_Approve3.SelectedValue, _
-                 10, _
+                 1, _
                  ddlProblem.SelectedValue, _
                  txtProblem_Detail.Text, _
                  txtBuy_Sale_Comment.Text, _
@@ -238,6 +251,9 @@ Partial Class Appraisal_Price3_Form_Review
                                      RadioButtonList5.SelectedValue, txtBuilding.Text, txtLast_Appraisal_Detail.Text, lbluserid.Text, Now())
 
         End If
+
+        s = "<script language=""javascript"">alert('การทบทวนประเมินนี้ ไม่มีการกำหนด Lat Lng อยู่ในระบบ ให้ทำการกำหนด Lat และ Lng');</script>"
+        Page.ClientScript.RegisterStartupScript(Me.GetType, "ข้อความเตือน", s)
 
 
         'Server.Transfer("Appraisal_Price3_List.aspx")
@@ -294,8 +310,10 @@ Partial Class Appraisal_Price3_Form_Review
             ElseIf hdfCollType.Value = "" Then
             Else
                 'ตรวจเช็คก่อนว่ามีใน Review
-                Price3_50_Review(Obj_P3M.Item(0).Appraisal_Type_ID)
-                Price3_70_Review(Obj_P3M.Item(0).Appraisal_Type_ID)
+                'Price3_50_Review(Obj_P3M.Item(0).Appraisal_Type_ID)
+                'Price3_70_Review(Obj_P3M.Item(0).Appraisal_Type_ID)
+                Price3_50_Review(2)
+                Price3_70_Review(2)
             End If
 
         End If
@@ -370,7 +388,7 @@ Partial Class Appraisal_Price3_Form_Review
         'txtGrandTotal_Round.Text = String.Format("{0:N2}", Round(CDec(txtLandTotal.Text) + CDec(txtBuildingPrice.Text), -3, MidpointRounding.AwayFromZero))
 
 
-
+        txtGrandTotal.Text = String.Format("{0:N2}", CDec(txtLandTotal.Text) + CDec(txtBuildingPrice.Text))
         Return String.Format("{0:N2}", total)
 
     End Function
@@ -465,7 +483,8 @@ Partial Class Appraisal_Price3_Form_Review
 
     Private Sub Price3_50_Review(ByVal Appraisal_Type_ID As Integer)
         Dim DS As DataSet
-        DS = CreateDataset(50, "PRICE3_50_REVIEW")
+        'DS = CreateDataset(50, "PRICE3_50_REVIEW")
+        DS = CreateDataset(50, "PRICE3_50")
         If DS.Tables(0).Rows.Item(0).Item("CntID") > 0 Then
             hdfTemp_AID.Value = DS.Tables(0).Rows.Item(0).Item("Temp_AID")
             If DS.Tables(0).Rows.Item(0).Item("Rai") = 0 And DS.Tables(0).Rows.Item(0).Item("Ngan") = 0 Then
@@ -481,7 +500,14 @@ Partial Class Appraisal_Price3_Form_Review
             If Appraisal_Type_ID = 1 Then
                 lblPriceWah.Text = "0.00"
             Else
-                lblPriceWah.Text = String.Format("{0:N2}", DS.Tables(0).Rows.Item(0).Item("PriceWah"))
+                If DS.Tables(0).Rows.Item(0).Item("CntID") = 1 Then
+                    lblPriceWah.Text = String.Format("{0:N2}", DS.Tables(0).Rows.Item(0).Item("PriceWah"))
+                Else
+                    lblPriceWah.Text = "ตามเอกสารแนบ"
+                End If
+
+                txtLandTotal.Text = Format(DS.Tables(0).Rows.Item(0).Item("PriceTotal1"), "#,##0.00")
+
             End If
 
             'lblPriceWah.Text = Format(DS.Tables(0).Rows.Item(0).Item("PriceTotal1") / DS.Tables(0).Rows.Item(0).Item("Totalwah"), "#,##0.00")  'Format(DS.Tables(0).Rows.Item(0).Item("PriceWah"), "#,##0.00") & " บาท"
@@ -502,7 +528,8 @@ Partial Class Appraisal_Price3_Form_Review
     Private Sub Price3_70_Review(ByVal Appraisal_Type_ID As Integer)
         Dim DS As DataSet
         'หาเนื้อที่รวมสิ่งปลูกสร้าง
-        DS = CreateDataset(70, "PRICE3_70_REVIEW")
+        'DS = CreateDataset(70, "PRICE3_70_REVIEW")
+        DS = CreateDataset(70, "PRICE3_70")
         If DS.Tables(0).Rows.Item(0).Item("CntID") > 0 Then
             'If hdfTemp_AID.Value = String.Empty Then
             '    hdfTemp_AID.Value = DS.Tables(0).Rows.Item(0).Item("Temp_AID")
@@ -521,8 +548,13 @@ Partial Class Appraisal_Price3_Form_Review
             If Appraisal_Type_ID = 1 Then
                 txtSubTotal.Text = String.Format("{0:N2}", DS.Tables(0).Rows.Item(0).Item("PriceTotal1"))
             Else
-                txtSubTotal.Text = "0.00"
+                'รวมราคาที่ดิน+สิ่งปลูกสร้าง
+                'txtSubTotal.Text = "0.00"
+                txtGrandTotal.Text = String.Format("{0:N2}", CDec(txtLandTotal.Text) + CDec(txtBuildingPrice.Text))
             End If
+        Else
+            'รวมราคาที่ดินอย่างเดียว
+            txtGrandTotal.Text = String.Format("{0:N2}", CDec(txtLandTotal.Text))
         End If
     End Sub
 
@@ -612,4 +644,6 @@ Partial Class Appraisal_Price3_Form_Review
         Dim Obj_province As List(Of Cls_PROVINCE) = GET_PROVINCE_INFO(Pro_Id)
         lblProvinceName.Text = Obj_province.Item(0).PROV_NAME
     End Sub
+
+
 End Class

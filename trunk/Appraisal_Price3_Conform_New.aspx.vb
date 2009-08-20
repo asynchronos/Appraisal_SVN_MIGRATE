@@ -10,10 +10,13 @@ Partial Class Appraisal_Price3_Conform_New
     Dim cus_class As Customer_Class
     Dim SV As New SME_SERVICE.Service
     Dim Cnt_P3M As Object
+    Dim StrPath As String
+    Dim S1 As String
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         If Not Page.IsPostBack Then
+            lblYear.Text = Year(Now)
             HiddenField1.Value = Context.Items("Req_Id")
             HiddenField2.Value = Context.Items("Hub_Id")
             HiddenField3.Value = Context.Items("Temp_AID")
@@ -70,6 +73,7 @@ Partial Class Appraisal_Price3_Conform_New
         'ค้นหาว่ามีการกำหนดราคาที่ 3 แล้วหรือไม่
         If Obj_P3M.Count > 0 Then
             'มีการกำหนดราคาที่ 3 แล้ว
+
             txtAID.Text = Obj_P3M.Item(0).AID
             txtInform_To.Text = Obj_P3M.Item(0).Inform_To
             txtCif.Text = Obj_P3M.Item(0).Cif
@@ -84,6 +88,7 @@ Partial Class Appraisal_Price3_Conform_New
             lblCifName.Text = Obj_title.Item(0).TITLE_NAME & Obj_Cif.Item(0).Name & "  " & Obj_Cif.Item(0).Lastname
 
             txtReceive_Date.Text = Obj_P3M.Item(0).Receive_Date
+            lblYear.Text = Year(Obj_P3M.Item(0).Receive_Date)
             txtAppraisal_Date.Text = Obj_P3M.Item(0).Appraisal_Date
             ddlProblem.SelectedValue = Obj_P3M.Item(0).Env_Effect
             txtProblem_Detail.Text = Obj_P3M.Item(0).Env_Effect_Detail
@@ -118,13 +123,6 @@ Partial Class Appraisal_Price3_Conform_New
             Dim Obj_Cif As List(Of Appraisal_Request) = GET_APPRAISAL_REQUEST(HiddenField1.Value)
             Dim Obj_title As List(Of Cls_Title) = GET_TITLE_INFO(Obj_Cif.Item(0).Title)
             lblCifName.Text = Obj_title.Item(0).TITLE_NAME & Obj_Cif.Item(0).Name & "  " & Obj_Cif.Item(0).Lastname
-
-            'cus_class = SV.GetCifInfo(txtCif.Text)(0)
-            'If cus_class.Cif.ToString <> 0 Then
-            '    lblCifName.Text = cus_class.cifName
-            'Else
-            '    lblCifName.Text = ""
-            'End If
         End If
     End Sub
 
@@ -210,34 +208,15 @@ Partial Class Appraisal_Price3_Conform_New
                 lblDetail2.Text = Replace(Space(10), " ", "&nbsp;") & "หน้าสำรวจ " & Replace(Space(5), " ", "&nbsp;") & Obj_GetP50.Item(0).Surway & Replace(Space(5), " ", "&nbsp;") & "สารบัญ เล่มที่" & Obj_GetP50.Item(0).DocNo & Replace(Space(5), " ", "&nbsp;") & "หน้า" & Obj_GetP50.Item(0).PageNo
                 Dim Obj_Provinceas As List(Of Cls_PROVINCE) = GET_PROVINCE_INFO(Obj_GetP50.Item(0).Province)
                 lblDetail3.Text = Replace(Space(10), " ", "&nbsp;") & "ตำบล" & Replace(Space(5), " ", "&nbsp;") & Obj_GetP50.Item(0).Tumbon & Replace(Space(5), " ", "&nbsp;") & "อำเภอ" & Replace(Space(5), " ", "&nbsp;") & Obj_GetP50.Item(0).Amphur & Replace(Space(5), " ", "&nbsp;") & "จังหวัด" & Replace(Space(5), " ", "&nbsp;") & Obj_Provinceas.Item(0).PROV_NAME & Replace(Space(5), " ", "&nbsp;") & "เนื้อที่" & Replace(Space(5), " ", "&nbsp;") & Obj_GetP50.Item(0).Rai & " ไร่  " & Obj_GetP50.Item(0).Ngan & Replace(Space(5), " ", "&nbsp;") & "งาน " & Obj_GetP50.Item(0).Wah & " วา"
-                lblDetail4.Text = Replace(Space(10), " ", "&nbsp;") & "ผู้ถือกรรมสิทธิ์ที่ดิน  " & Replace(Space(5), " ", "&nbsp;") & Obj_GetP50.Item(0).Ownership & Replace(Space(5), " ", "&nbsp;") & "สิ่งปลูกสร้างของ" & Replace(Space(5), " ", "&nbsp;") & "ภาระผูกพัน" & Replace(Space(5), " ", "&nbsp;") & Obj_GetP50.Item(0).Obligation & Replace(Space(5), " ", "&nbsp;")
-                'lblCollName.Text = "ที่ดิน เนื้อที่"
-                'Dim Obj_RoadAccess_Detail As List(Of Cls_Road_Detail) = GET_ROAD_DETAIL_INFO(Obj_GetP50.Item(0).Road_Detail)
-                'Dim Obj_Land_State As List(Of Cls_LandState) = GET_LANDSTATE_INFO(Obj_GetP50.Item(0).Land_State)
-                'Dim Obj_Road_Forntoff As List(Of Cls_RoadFrontOff) = GET_ROADFRONTOFF_INFO(Obj_GetP50.Item(0).Road_Frontoff)
-                'Dim Obj_Site As List(Of Cls_SITE) = GET_SITE_INFO(Obj_GetP50.Item(0).Sited)
-                'Dim Obj_AreaColour As List(Of Cls_Area_Colour) = GET_AREA_COLOUR_INFO(Obj_GetP50.Item(0).AreaColour_No)
-                'Dim Obj_Public_Utility As List(Of Cls_Public_Utility) = GET_PUBLIC_UTILITY_INFO(Obj_GetP50.Item(0).Public_Utility)
-                'Dim Obj_TENDENCY As List(Of Cls_TENDENCY) = GET_TENDENCY_INFO(Obj_GetP50.Item(0).Tendency)
-                'Dim Obj_BuySale_State As List(Of Cls_Buy_Sale_State) = GET_BUYSALE_STATE_INFO(Obj_GetP50.Item(0).BuySale_State)
-                'Dim Obj_SubUnit As List(Of Cls_SubUnit) = GET_SubUnit_Info(Obj_GetP50.Item(0).SubUnit)
+                lblDetail4.Text = Replace(Space(10), " ", "&nbsp;") & "ผู้ถือกรรมสิทธิ์ที่ดิน  " & Replace(Space(5), " ", "&nbsp;") & Obj_GetP50.Item(0).Ownership & Replace(Space(5), " ", "&nbsp;") & "สิ่งปลูกสร้างของ" & Replace(Space(5), " ", "&nbsp;") & "-" & "ภาระผูกพัน" & Replace(Space(5), " ", "&nbsp;") & Obj_GetP50.Item(0).Obligation & Replace(Space(5), " ", "&nbsp;")
 
-                'lblLandDetail1.Text = Replace(Space(10), " ", "&nbsp;") & "หลักประกัน ตั้งอยู่ที่ถนน  " & Replace(Space(5), " ", "&nbsp;") & Obj_GetP50.Item(0).Road & Replace(Space(5), " ", "&nbsp;") & Obj_RoadAccess_Detail.Item(0).Road_Detail_Name & Replace(Space(5), " ", "&nbsp;") & " ระยะประมาณ" & Replace(Space(5), " ", "&nbsp;") & Obj_GetP50.Item(0).Road_Access & " เมตร "
-                'lblLandDetail2.Text = Replace(Space(10), " ", "&nbsp;") & "ถนนหน้าหลักประกัน  " & Replace(Space(5), " ", "&nbsp;") & Obj_Road_Forntoff.Item(0).Road_Frontoff_Name & Replace(Space(5), " ", "&nbsp;") & Replace(Space(5), " ", "&nbsp;") & "กว้าง" & Obj_GetP50.Item(0).RoadWidth & Replace(Space(5), " ", "&nbsp;") & " เมตร (รายละเอียดตามรูปแผนที่สังเขป)"
-                'lblLandDetail3.Text = Replace(Space(10), " ", "&nbsp;") & "สภาพลักษณะรูปที่ดิน  " & Replace(Space(5), " ", "&nbsp;") & Obj_GetP50.Item(0).Binifit_Detail
-                'lblLandDetail4.Text = Replace(Space(10), " ", "&nbsp;") & "ขนาดที่ดิน กว้างติดถนน " & Replace(Space(5), " ", "&nbsp;") & Replace(Space(5), " ", "&nbsp;") & Obj_GetP50.Item(0).Land_Closeto_RoadWidth & Replace(Space(5), " ", "&nbsp;") & " เมตร  " & Replace(Space(5), " ", "&nbsp;") & " ลึก  " & Replace(Space(5), " ", "&nbsp;") & Obj_GetP50.Item(0).DeepWidth & Replace(Space(5), " ", "&nbsp;") & " เมตร  " & Replace(Space(5), " ", "&nbsp;") & " ด้านหลัง  " & Obj_GetP50.Item(0).BehindWidth & " เมตร "
-                'lblLandDetail5.Text = Replace(Space(10), " ", "&nbsp;") & "สภาพและการปรับปรุงระดับของที่ดินกับถนน  " & Replace(Space(5), " ", "&nbsp;") & Obj_Land_State.Item(0).Land_State_Name & Replace(Space(5), " ", "&nbsp;") & Obj_GetP50.Item(0).Land_State_Detail & Replace(Space(5), " ", "&nbsp;") & " ทำเล  " & Replace(Space(5), " ", "&nbsp;") & Obj_Site.Item(0).Site_Name
-                'lblLandDetail6.Text = Replace(Space(10), " ", "&nbsp;") & "ผังเมืองรวม   ที่ดินอยู่ในเขตพื้นที่สี  " & Replace(Space(5), " ", "&nbsp;") & Obj_AreaColour.Item(0).AreaColour_Name
-                'lblLandDetail7.Text = Replace(Space(10), " ", "&nbsp;") & "สาธารณูปโภค  " & Replace(Space(5), " ", "&nbsp;") & Obj_Public_Utility.Item(0).Public_Utility_Name & Replace(Space(5), " ", "&nbsp;") & Obj_GetP50.Item(0).Public_Utility_Detail & Replace(Space(5), " ", "&nbsp;") & "แนวโน้มความเจริญ" & Replace(Space(5), " ", "&nbsp;") & Obj_TENDENCY.Item(0).Tendency_Name
-                'lblLandDetail8.Text = Replace(Space(10), " ", "&nbsp;") & "สภาพการซื้อขาย " & Replace(Space(5), " ", "&nbsp;") & Obj_BuySale_State.Item(0).BuySale_State_Name
-
-                'lblSubUnit.Text = Obj_SubUnit.Item(0).SubUnit_Name
                 'ตรวจสอบราคาของราคา Price 3 Master ที่จะแสดง
                 If CInt(Cnt_P3M) = 0 Then
                     lblPriceWah.Text = Format(Obj_GetP50.Item(0).PriceWah, "#,##0.00")
                     txtLandTotal.Text = Format(Obj_GetP50.Item(0).PriceTotal1, "#,##0.00")
                     txtBuildingPrice.Text = "0.00"
                     txtSubTotal.Text = "0.00"
+                    txtGrandTotal.Text = Format(Obj_GetP50.Item(0).PriceWah, "#,##0.00")
                 Else
                     txtGrandTotal.Text = String.Format("{0:N2}", CDec(txtLandTotal.Text))
                 End If
@@ -253,7 +232,7 @@ Partial Class Appraisal_Price3_Conform_New
                 Dim SumP3 As DataSet = GET_SUM_PRICE3_50(HiddenField1.Value, HiddenField2.Value, HiddenField3.Value)
                 txtLandTotal.Text = Format(SumP3.Tables(0).Rows(0).Item("PriceTotal1"), "#,##0.00")
                 lblSize.Text = ""
-                lblPriceWah.Text = ""
+                lblPriceWah.Text = "0.00"
             End If
 
             'ใช้ข้อมูลด้วยกัน ถึงแม้จะมีที่ดินกี่ชิ้น
@@ -268,7 +247,7 @@ Partial Class Appraisal_Price3_Conform_New
             Dim Obj_BuySale_State As List(Of Cls_Buy_Sale_State) = GET_BUYSALE_STATE_INFO(Obj_GetP50.Item(0).BuySale_State)
             Dim Obj_SubUnit As List(Of Cls_SubUnit) = GET_SubUnit_Info(Obj_GetP50.Item(0).SubUnit)
 
-            lblLandDetail1.Text = Replace(Space(10), " ", "&nbsp;") & "หลักประกัน ตั้งอยู่ที่ถนน  " & Replace(Space(5), " ", "&nbsp;") & Obj_GetP50.Item(0).Road & Replace(Space(5), " ", "&nbsp;") & Obj_RoadAccess_Detail.Item(0).Road_Detail_Name & Replace(Space(5), " ", "&nbsp;") & " ระยะประมาณ" & Replace(Space(5), " ", "&nbsp;") & Obj_GetP50.Item(0).Road_Access & " เมตร "
+            lblLandDetail1.Text = Replace(Space(10), " ", "&nbsp;") & "หลักประกัน ตั้งอยู่ที่ถนน  " & Replace(Space(5), " ", "&nbsp;") & Obj_GetP50.Item(0).Road & Replace(Space(5), " ", "&nbsp;") & Obj_RoadAccess_Detail.Item(0).Road_Detail_Name & Replace(Space(5), " ", "&nbsp;") & Obj_GetP50.Item(0).Soi & " ระยะประมาณ" & Replace(Space(5), " ", "&nbsp;") & Obj_GetP50.Item(0).Road_Access & " เมตร "
             lblLandDetail2.Text = Replace(Space(10), " ", "&nbsp;") & "ถนนหน้าหลักประกัน  " & Replace(Space(5), " ", "&nbsp;") & Obj_Road_Forntoff.Item(0).Road_Frontoff_Name & Replace(Space(5), " ", "&nbsp;") & Replace(Space(5), " ", "&nbsp;") & "กว้าง" & Obj_GetP50.Item(0).RoadWidth & Replace(Space(5), " ", "&nbsp;") & " เมตร (รายละเอียดตามรูปแผนที่สังเขป)"
             lblLandDetail3.Text = Replace(Space(10), " ", "&nbsp;") & "สภาพลักษณะรูปที่ดิน  " & Replace(Space(5), " ", "&nbsp;") & Obj_GetP50.Item(0).Binifit_Detail
             lblLandDetail4.Text = Replace(Space(10), " ", "&nbsp;") & "ขนาดที่ดิน กว้างติดถนน " & Replace(Space(5), " ", "&nbsp;") & Replace(Space(5), " ", "&nbsp;") & Obj_GetP50.Item(0).Land_Closeto_RoadWidth & Replace(Space(5), " ", "&nbsp;") & " เมตร  " & Replace(Space(5), " ", "&nbsp;") & " ลึก  " & Replace(Space(5), " ", "&nbsp;") & Obj_GetP50.Item(0).DeepWidth & Replace(Space(5), " ", "&nbsp;") & " เมตร  " & Replace(Space(5), " ", "&nbsp;") & " ด้านหลัง  " & Obj_GetP50.Item(0).BehindWidth & " เมตร "
@@ -300,13 +279,19 @@ Partial Class Appraisal_Price3_Conform_New
             'lblItem.Text = Obj_GetP70G.Tables(0).Rows(0).Item("Item").ToString()
             'ตรวจสอบราคาของราคา Price 3 Master ที่จะแสดง
             If CInt(Cnt_P3M) = 0 Then
-
-                'txtBuildingPrice.Text = Format(CDec(Obj_GetP70G.Tables(0).Rows(0).Item("Deteriorate").ToString), "#,##0.00")
                 txtBuildingPrice.Text = String.Format("{0:N2}", ((Obj_GetP70G.Tables(0).Rows(0).Item("Deteriorate"))))
-                txtSubTotal.Text = String.Format("{0:N2}", CDec(txtLandTotal.Text) + CDec(txtBuildingPrice.Text)) 'String.Format("{0:N2}", Obj_GetP70G.Tables(0).Rows(0).Item("Deteriorate"))
-                txtGrandTotal.Text = String.Format("{0:N2}", CDec(txtSubTotal.Text))
+                'txtBuildingPrice.Text = Round(Obj_GetP70G.Tables(0).Rows(0).Item("Deteriorate"), System.MidpointRounding.AwayFromZero)
+                Dim P2Master As List(Of Price2_Master) = GET_PRICE2_MASTER(HiddenField1.Value, HiddenField2.Value)
+                If P2Master.Item(0).Appraisal_Type = 1 Then
+                    txtBuildingPrice.Text = String.Format("{0:N2}", ((Obj_GetP70G.Tables(0).Rows(0).Item("Deteriorate"))))
+                    txtSubTotal.Text = String.Format("{0:N2}", ((Obj_GetP70G.Tables(0).Rows(0).Item("PriceTotal1"))))
+                Else
+                    txtBuildingPrice.Text = String.Format("{0:N2}", ((Obj_GetP70G.Tables(0).Rows(0).Item("Deteriorate"))))
+                    txtSubTotal.Text = String.Format("{0:N2}", CDec(txtLandTotal.Text) + CDec(txtBuildingPrice.Text)) 'String.Format("{0:N2}", Obj_GetP70G.Tables(0).Rows(0).Item("Deteriorate"))
+                End If
+                txtGrandTotal.Text = String.Format("{0:N2}", Round(CDec(txtSubTotal.Text), System.MidpointRounding.AwayFromZero))
             Else
-                txtGrandTotal.Text = String.Format("{0:N2}", CDec(txtSubTotal.Text))
+                txtGrandTotal.Text = String.Format("{0:N2}", Round(CDec(txtSubTotal.Text), System.MidpointRounding.AwayFromZero))
             End If
 
         Else
@@ -323,15 +308,26 @@ Partial Class Appraisal_Price3_Conform_New
             'lblTotal2.Text = Format(CDec(Obj_P3_Grp_Partake.Tables(0).Rows(0).Item("PartakeUintPrice").ToString + CDec(lblTotal2.Text)), "#,##0.00")
             'ตรวจสอบราคาของราคา Price 3 Master ที่จะแสดง
             If CInt(Cnt_P3M) = 0 Then
-                txtBuildingPrice.Text = String.Format("{0:N2}", Round(((CDec(Obj_P3_Grp_Partake.Tables(0).Rows(0).Item("Partake_Price1") + CDec(txtBuildingPrice.Text))) / 1000), 0) * 1000)
+                txtBuildingPrice.Text = String.Format("{0:N2}", Round(((CDec(Obj_P3_Grp_Partake.Tables(0).Rows(0).Item("Partake_Price1") + CDec(txtBuildingPrice.Text))) / 1000), System.MidpointRounding.AwayFromZero) * 1000)
                 txtSubTotal.Text = String.Format("{0:N2}", CDec(txtBuildingPrice.Text) + CDec(txtLandTotal.Text))
                 txtGrandTotal.Text = String.Format("{0:N2}", CDec(txtSubTotal.Text))
             Else
-                txtGrandTotal.Text = String.Format("{0:N2}", CDec(txtSubTotal.Text))
+                txtGrandTotal.Text = String.Format("{0:N2}", Round(CDec(txtSubTotal.Text), System.MidpointRounding.AwayFromZero))
             End If
         Else
             'ไม่มีส่วนควบ
-            txtBuildingPrice.Text = String.Format("{0:N2}", Round(CDec(txtBuildingPrice.Text) / 1000) * 1000)
+
+            txtBuildingPrice.Text = String.Format("{0:N2}", Round(CDec(txtBuildingPrice.Text) / 1000, System.MidpointRounding.AwayFromZero) * 1000)
+            'txtBuildingPrice.Text = (Round(CDec(txtBuildingPrice.Text) / 1000, System.MidpointRounding.AwayFromZero) * 1000)
+            Dim P2Master As List(Of Price2_Master) = GET_PRICE2_MASTER(HiddenField1.Value, HiddenField2.Value)
+            If P2Master.Item(0).Appraisal_Type = 1 Then
+                txtSubTotal.Text = String.Format("{0:N2}", CDec(txtSubTotal.Text))
+                txtGrandTotal.Text = String.Format("{0:N2}", CDec(txtSubTotal.Text))
+            Else
+                txtSubTotal.Text = String.Format("{0:N2}", CDec(txtLandTotal.Text) + CDec(txtBuildingPrice.Text))
+                txtGrandTotal.Text = String.Format("{0:N2}", CDec(txtLandTotal.Text) + CDec(txtBuildingPrice.Text))
+            End If
+
         End If
     End Sub
 
@@ -383,7 +379,24 @@ Partial Class Appraisal_Price3_Conform_New
             Page.ClientScript.RegisterStartupScript(Me.GetType, "ข้อความเตือน", s)
             Exit Sub
         End If
+        'ตรวจสอบราคาที่ 2 กับราคาที่ 2 ว่าตรงกันหรือไม่
+        Dim Obj_P2 As DataSet = GET_APPRAISAL_PRICE2(HiddenField1.Value, HiddenField2.Value)
+        Dim Price2 As Decimal = 0.0
+        If Obj_P2.Tables(0).Rows.Count > 0 Then
+            If Obj_P2.Tables(0).Rows(0).Item("Appraisal_Type") = 1 Then
+                Price2 = String.Format("{0:N2}", Obj_P2.Tables(0).Rows(0).Item("PriceMarket"))
+            Else
+                Price2 = String.Format("{0:N2}", Obj_P2.Tables(0).Rows(0).Item("Price2"))
+            End If
+        Else
+            'MsgBox("No Data")
+        End If
 
+        If Price2 <> CDec(txtGrandTotal.Text) Then
+            s = "<script language=""javascript"">alert('ราคาที่ 2 ไม่เท่ากับราคาที่ 3');</script>"
+            Page.ClientScript.RegisterStartupScript(Me.GetType, "ข้อความเตือน", s)
+            Exit Sub
+        End If
 
         Dim Obj_GetP1Master As List(Of ClsPrice1_Master) = GetPrice1_Master(HiddenField1.Value, HiddenField2.Value)
         Dim ReceiveDate As Date = CDate(txtReceive_Date.Text)
@@ -535,5 +548,14 @@ Partial Class Appraisal_Price3_Conform_New
     Protected Sub ddlComment_PreRender(ByVal sender As Object, ByVal e As System.EventArgs) Handles ddlComment.PreRender
         Dim D1 As DropDownList = DirectCast(sender, DropDownList)
         D1.SelectedIndex = ddlComment.Items.IndexOf(D1.Items.FindByText(ViewState("Comment")))
+    End Sub
+
+    Protected Sub ImgAttach_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs) Handles ImgAttach.Click
+        Dim ImgAttach As ImageButton = DirectCast(sender, ImageButton)
+        Dim lbluserid As Label = TryCast(Me.Form.FindControl("lblUserID"), Label)
+
+        StrPath = Request.ApplicationPath & "/FileUpload_Price3.aspx?Req_Id=" & HiddenField1.Value & "&Hub_Id=" & HiddenField2.Value & "&AID=" & txtAID.Text & "&Temp_AID=" & HiddenField3.Value & "&UserId=" & lbluserid.Text
+        S1 = "<script language=""javascript"">window.open('" + StrPath + "','window','toolbar=no, menubar=no, scrollbars=yes, resizable=no,location=no, directories=no, status=yes,height=700px,width=830px');</script>"
+        Page.ClientScript.RegisterStartupScript(Me.GetType, "แนบไฟล์", S1)
     End Sub
 End Class
