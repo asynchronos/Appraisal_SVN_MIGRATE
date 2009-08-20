@@ -156,6 +156,10 @@
         {
             width: 157px;
         }
+        .style33
+        {
+            font-size: medium;
+        }
     </style>
 
 </asp:Content>
@@ -182,10 +186,27 @@
             </td>
         </tr>
         <tr>
-            <td>
+            <td class="style33">
                 &nbsp;</td>
             <td class="txtDoPrint">
                 &nbsp;</td>
+            <td>
+                &nbsp;</td>
+            <td>
+                &nbsp;</td>
+            <td>
+                &nbsp;</td>
+        </tr>
+        <tr>
+            <td class="style33">
+                <asp:Label ID="Label82" runat="server" 
+                    style="font-weight: 700; font-size: large" Text="ที่ ปร."></asp:Label>
+            </td>
+            <td class="txtDoPrint">
+                <asp:Label ID="Label83" runat="server" Text="__________________/"></asp:Label>
+                <asp:Label ID="lblYear" runat="server" 
+                    style="font-weight: 700; font-size: medium"></asp:Label>
+            </td>
             <td>
                 &nbsp;</td>
             <td>
@@ -776,17 +797,17 @@
                             <asp:ImageButton ID="ImageSave" runat="server" ImageUrl="~/Images/Save.jpg" Width="35px" Height="35px"/>
                         </td>
                         <td class="style1">
-                            <asp:Label ID="lblSave" runat="server" Text="SAVE"></asp:Label>
+                            <asp:Label ID="lblSave" runat="server" Text="SAVE" style="font-weight: 700"></asp:Label>
                         </td>
                         <td>
                            <asp:ImageButton ID="ImagePrint" runat="server" ImageUrl="~/Images/Printer.png" Width="35px" Height="35px" />
                                                         
                         </td>
-                        <td>Print</td>
+                        <td><b>Print</b></td>
                         <td>
                             <asp:ImageButton ID="ImgAttach" runat="server" ImageUrl="~/Images/attachment.ico" Width="35px" Height="35px" />
                         </td>
-                        <td>แนบไฟล์</td>
+                        <td><b>แนบไฟล์</b></td>
                     </tr>
                </table>
                         
