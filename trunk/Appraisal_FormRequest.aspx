@@ -44,14 +44,6 @@
                 color: #6600FF;
                 font-weight: bold;
             }
-		    .style34
-            {
-                width: 101px;
-            }
-            .style35
-            {
-                width: 109px;
-            }
 		    .style36
             {
                 width: 344px;
@@ -337,134 +329,6 @@
 			</table>
 	<br />
 	
-	<table class="style31">
-        <tr>
-            <td>
-                <table class="style31">
-                    <tr>
-                        <td class="style34">
-                            ค้นหา</td>
-                        <td class="style35">
-						<asp:TextBox ID="txtSearch" runat="server" MaxLength="9" Width="90px"></asp:TextBox>
-					    </td>
-                        <td>
-					<asp:ImageButton ID="ImgBtFind0" runat="server" ImageUrl="~/Images/book_blue_view.png" 
-							Height="25px" Width="28px" />
-								&nbsp;</td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-        <tr>
-            <td>
-<asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" 
-            DataKeyNames="Req_Id" DataSourceID="sdsRequest_Appraisal_List" 
-            EmptyDataText="There are no data records to display." Width='100%' 
-            BackColor="LightGoldenrodYellow" 
-            BorderColor="Tan" BorderWidth="1px" CellPadding="2" ForeColor="Black" 
-            GridLines="None" ShowFooter="True" PageSize="15" AllowPaging="True">
-            <FooterStyle BackColor="Tan" />
-            <Columns>
-                <asp:TemplateField>
-                    <ItemTemplate>
-                        <a href="javascript:expandcollapse('div<%# Eval("Req_ID") %>', 'one');">
-                            <img id="imgdiv<%# Eval("Req_Id") %>" alt="Click to show/hide Queue for Appraisal <%# Eval("Req_Id") %>"
-                                width="9px" src="Images/plus.gif" />
-                        </a>
-                    </ItemTemplate>
-                </asp:TemplateField>  
-                <asp:TemplateField HeaderText="เลขคำขอประเมิน">
-                    <ItemStyle Width="150px" />
-                    <ItemTemplate>
-                        <asp:Label ID="lblReq_Id" runat="server" Text='<%# Bind("Req_ID") %>'></asp:Label>
-                    </ItemTemplate>
-                </asp:TemplateField>                                           
-                <asp:TemplateField HeaderText="Cif">
-                <ItemStyle Width="80px" />
-                    <ItemTemplate>
-                        <asp:Label ID="lblCif" runat="server" Text='<%# Bind("Cif") %>'></asp:Label>
-                    </ItemTemplate>
-                </asp:TemplateField>
-                <asp:TemplateField HeaderText="Cif Name">
-                <ItemStyle Width="200px" />
-                    <ItemTemplate>
-                        <asp:Label ID="Label3" runat="server" Text='<%# Bind("CifName") %>'></asp:Label>
-                    </ItemTemplate>
-                </asp:TemplateField>  
-                <asp:TemplateField HeaderText="ชื่อผู้ขอให้ประเมิน">
-                <ItemStyle Width="200px" />
-                    <ItemTemplate>
-                        <asp:Label ID="LabelEmp_Name" runat="server" Text='<%# Bind("Emp_Name") %>'></asp:Label>
-                    </ItemTemplate>
-                </asp:TemplateField>  
-                <asp:TemplateField HeaderText="สถานะการประเมิน">
-                    <ItemTemplate>
-                        <asp:Label ID="LabelStatus_Name" runat="server" Text='<%# Bind("Status_Name") %>'></asp:Label>
-                    </ItemTemplate>
-                </asp:TemplateField> 
-                <asp:TemplateField HeaderText="วันที่ส่งประเมิน">
-                    <ItemTemplate>
-                        <asp:Label ID="LabelCreate_Date" runat="server" Text='<%# Bind("Create_Date") %>'></asp:Label>
-                    </ItemTemplate>
-                </asp:TemplateField> 
-                 <asp:TemplateField>
-                    <ItemTemplate>
-                        <tr>
-                            <td colspan="100%">
-                                <div id="div<%# Eval("Req_ID") %>" style="display:none;position: relative; 
-                                    left: 15px; overflow: auto; width: 97%">
-                                    <asp:GridView ID="GridView2" runat="server" AllowPaging="True" 
-                                        AllowSorting="True" AutoGenerateColumns="False" BackColor="#EEEEDD" 
-                                        BorderColor="#0083C1" BorderStyle="Double" DataKeyNames="Req_ID" 
-                                        Font-Names="Verdana" Font-Size="Small" GridLines="None" 
-                                        OnPageIndexChanging="GridView2_PageIndexChanging" 
-                                        OnSorting="GridView2_Sorting"
-                                        ShowFooter="True" Width="100%">
-                                        <HeaderStyle BackColor="#0083C1" ForeColor="White" />
-                                        <FooterStyle BackColor="White" />
-                                        <Columns>
-                                            <asp:TemplateField HeaderText="Request ID">
-                                                <ItemStyle VerticalAlign="Middle" Width="70px" />
-                                                <ItemTemplate>
-                                                    <asp:Label ID="lblcoll_id" runat="server" Text='<%# Eval("Req_ID") %>'  ></asp:Label>
-                                                </ItemTemplate>
-                                            </asp:TemplateField>
-                                            <asp:TemplateField HeaderText="Hub ID">
-                                                <ItemStyle VerticalAlign="Middle" Width="350px" />
-                                                <ItemTemplate>
-                                                    <asp:Label ID="lblDetail1" runat="server" Text='<%# Eval("Hub_Id") %>'  ></asp:Label>
-                                                </ItemTemplate>
-                                            </asp:TemplateField> 
-                                            <asp:TemplateField HeaderText="Hub Name">
-                                                <ItemStyle VerticalAlign="Middle" Width="100px" />
-                                                <ItemTemplate>
-                                                    <asp:Label ID="lblProv_Name" runat="server" Text='<%# Eval("Hub_Name") %>'  ></asp:Label>
-                                                </ItemTemplate>
-                                            </asp:TemplateField>   
-                                            <asp:TemplateField HeaderText="แสดงรูปภาพ">
-                                            <ItemStyle VerticalAlign="Middle" Width="50px" />
-                                                <ItemTemplate>
-                                                    <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/Images/view.jpg" ToolTip="Select" OnClientClick='<%# "wopen(""Appraisal_Form/Show_Picture_Request_Appraisal.aspx?Req_Id=" + Eval("Req_ID").toString() + "&Hub_Id=" + Eval("Hub_Id").toString() + """, ""popup"", 500, 300); return false;" %>' />
-                                                </ItemTemplate>
-                                            </asp:TemplateField>                                                                                                                                                                                                                         
-                                        </Columns>
-                                    </asp:GridView>
-                                </div>
-                            </td>
-                        </tr>
-                    </ItemTemplate>
-                </asp:TemplateField>                                                                                      
-            </Columns>
-            <PagerStyle BackColor="PaleGoldenrod" ForeColor="DarkSlateBlue" 
-                HorizontalAlign="Center" />
-            <SelectedRowStyle BackColor="DarkSlateBlue" ForeColor="GhostWhite" />
-            <HeaderStyle BackColor="Tan" Font-Bold="True" />
-            <AlternatingRowStyle BackColor="PaleGoldenrod" />
-        </asp:GridView>
-            </td>
-        </tr>
-    </table>
-	
 	<asp:SqlDataSource ID="SDSTitle" runat="server" 
 		ConnectionString="<%$ ConnectionStrings:AppraisalConn %>" 
 		SelectCommand="SELECT [TITLE_CODE], [TITLE_NAME] FROM [TB_TITLE]">
@@ -474,8 +338,9 @@
 		SelectCommand="SELECT HUB_ID, HUB_NAME FROM TB_HUB WHERE (HUB_ID &lt;&gt; 999)">
 	</asp:SqlDataSource>
 	<asp:SqlDataSource ID="sdsRequest_Appraisal_List" runat="server" 
-        ConnectionString="<%$ ConnectionStrings:AppraisalConn %>" 
-        SelectCommand="GET_REQUEST_APPRAISAL_LIST" SelectCommandType="StoredProcedure"></asp:SqlDataSource>
+    ConnectionString="<%$ ConnectionStrings:AppraisalConn %>" 
+    SelectCommand="GET_REQUEST_APPRAISAL_LIST" SelectCommandType="StoredProcedure">
+    </asp:SqlDataSource>
         <asp:SqlDataSource ID="sdsAppraisal_Method" runat="server" 
             ConnectionString="<%$ ConnectionStrings:AppraisalConn %>" 
             SelectCommand="SELECT [Method_ID], [Method_Name] FROM [Appraisal_Method]">

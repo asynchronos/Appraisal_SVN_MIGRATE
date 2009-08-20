@@ -191,11 +191,13 @@ Partial Class Appraisal_GetData_DWS
         SaveData()
     End Sub
 
-    Private Sub SaveData() 
+    Private Sub SaveData()
+        Dim TEMPAID As Integer
         Dim cph As ContentPlaceHolder = TryCast(Me.Form.FindControl("ContentPlaceHolder1"), ContentPlaceHolder)
         Dim lbluserid As Label = TryCast(Me.Form.FindControl("lblUserID"), Label) 'หา Control จาก Master Page ที่ control ไม่อยู่ใน  ContentPlaceHolder1 ของ Master Page
         Dim Gv As GridView = DirectCast(cph.FindControl("GridView_CID_DETAIL"), GridView)
         Dim Gv_Row As GridViewRow
+        TEMPAID = Appraisal_Manager.GET_TEMP_AID()
 
         For Each Gv_Row In Gv.Rows
             Dim chk1 As CheckBox = Gv_Row.FindControl("cb2")
@@ -293,24 +295,55 @@ Partial Class Appraisal_GetData_DWS
                 End If
 
             End If
+
             If chk1.Checked = True Then   'ถ้าได้เลือกไว้
                 If CollType1 = "050" Then  'ถ้าเป็นที่ดิน
-                    AddPRICE2_50(ID, CInt(lblReq_Id.Text), CInt(lblHub_Id.Text), lblAID.Text, CID.Text, 0, SubCollType, AddNo, String.Empty, District, Amphur, _
-                                 ProvinceCode, CInt(Rai), CInt(Ngan), CInt(Wah), _
-                                 Road, CInt(RoadDetail), CDec(RoadAcress), CInt(RoadFornoff), _
-                                 CDec(RoadWidth), CInt(Site), CStr(SiteDetail), CInt(LandState), _
-                                 LandStateDetail, CInt(PublicUtility), PublicUtilityDetail, CInt(Binifit), _
-                                 BinifitDetail, CInt(Tendency), CInt(BuySaleState), _
-                                 CInt(PriceWah), CInt(Total), lbluserid.Text, Now())
+                    ID = GET_ID_18_50_70(50)
+                    UPDATE_ID_50()
+                    'AddPRICE2_50(ID, CInt(lblReq_Id.Text), CInt(lblHub_Id.Text), lblAID.Text, CID.Text, 0, SubCollType, AddNo, String.Empty, District, Amphur, _
+                    '             ProvinceCode, CInt(Rai), CInt(Ngan), CInt(Wah), _
+                    '             Road, CInt(RoadDetail), CDec(RoadAcress), CInt(RoadFornoff), _
+                    '             CDec(RoadWidth), CInt(Site), CStr(SiteDetail), CInt(LandState), _
+                    '             LandStateDetail, CInt(PublicUtility), PublicUtilityDetail, CInt(Binifit), _
+                    '             BinifitDetail, CInt(Tendency), CInt(BuySaleState), _
+                    '             1, CDec(PriceWah), CInt(Total), lbluserid.Text, Now())
+                    'ส่งตัวแปรไปที่ Function  AddPRICE3_50 เพื่อทำการเพิ่มหรือแก้ไขข้อมูล
+                    AddPRICE3_50(ID, CInt(lblReq_Id.Text), CInt(lblHub_Id.Text), TEMPAID, lblAID.Text, CID.Text, SubCollType, AddNo, String.Empty, District, Amphur, _
+                                ProvinceCode, CInt(Rai), CInt(Ngan), CDec(Wah), _
+                                Road, CInt(RoadDetail), CDec(RoadAcress), String.Empty, CInt(RoadFornoff), _
+                                CDec(RoadWidth), CInt(Site), CStr(SiteDetail), CInt(LandState), _
+                                LandStateDetail, CInt(PublicUtility), PublicUtilityDetail, CInt(Binifit), _
+                                BinifitDetail, CInt(Tendency), CInt(BuySaleState), 1, _
+                                CDec(PriceWah), CDec(Total), String.Empty, String.Empty, String.Empty, String.Empty, String.Empty, String.Empty, _
+                                String.Empty, 0, String.Empty, 0, 1, lbluserid.Text, Now())
+                    UPDATE_Status_Appraisal_Request(lblReq_Id.Text, lblHub_Id.Text, 2)
                 ElseIf CollType1 = "070" Then 'ถ้าเป็นสิ่งปลูกสร้าง
+                    ID = GET_ID_18_50_70(70)
+                    UPDATE_ID_70()
                     If SubCollType <> String.Empty Then
                         SubCollType = SubCollType + 5
                     End If
                     'MsgBox("Building")
-                    AddPRICE2_70(ID, CInt(lblReq_Id.Text), CInt(lblHub_Id.Text), lblAID.Text, CID.Text, 0, CInt(SubCollType), AddNo, District, Amphur, _
-                                                                          ProvinceCode, 0, 0, 0, 0, _
-                                                                          0, "", 0, "", "", CInt(Total), 0, 0, "", "", lbluserid.Text, Now())
+                    AddPRICE3_70(ID, CInt(lblReq_Id.Text), CInt(lblHub_Id.Text), TEMPAID, lblAID.Text, CID.Text, _
+                    SubCollType, AddNo, District, Amphur, _
+                    ProvinceCode, 1, _
+                    String.Empty, 0, 0, _
+                    0, String.Empty, 0, _
+                    String.Empty, String.Empty, 0, _
+                    0, 0, String.Empty, String.Empty, String.Empty, String.Empty, 0, 0, _
+                    0, 0, 0, 0, 0, _
+                    0, 100, 0, 0, 0, 0, _
+                    0, 0, 0, 0, 0, 100, 0, _
+                    String.Empty, 1, 1, lbluserid.Text, Now())
+                    UPDATE_Status_Appraisal_Request(lblReq_Id.Text, lblHub_Id.Text, 2)
+                    'ADD_PRICE2_70_NEW(ID, CInt(lblReq_Id.Text), lblHub_Id.Text, 0, CInt(SubCollType), AddNo, District, Amphur, ProvinceCode, 0, 0, 0, _
+                    '                  0, 0, "", 0, "", "", 0, 0, 0, "", "", "", "", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "", 0, 0, lbluserid.Text, Now())
+                    'AddPRICE2_70(ID, CInt(lblReq_Id.Text), CInt(lblHub_Id.Text), lblAID.Text, CID.Text, 0, CInt(SubCollType), AddNo, District, Amphur, _
+                    '                                                      ProvinceCode, 0, 0, 0, 0, _
+                    '                                                      0, "", 0, "", "", CInt(Total), 0, 0, "", "", lbluserid.Text, Now())
                 ElseIf CollType1 = "180" Then 'ถ้าเป็นCondo
+                    ID = GET_ID_18_50_70(18)
+                    UPDATE_ID_18()
                     ADD_PRICE2_18(ID, lblReq_Id.Text, lblHub_Id.Text, lblAID.Text, CID.Text, 0, 46, 0, 0, _
                                   AddNo, Area, 0, BuildingName, Floors, String.Empty, String.Empty, _
                                   District, Amphur, ProvinceCode, Road, CInt(RoadDetail), CDec(RoadAcress), _
@@ -325,7 +358,7 @@ Partial Class Appraisal_GetData_DWS
         Next
 
 
-
+        Response.Redirect("Default.aspx")
         'Response.Redirect("Appraisal_Price2.aspx")
 
     End Sub

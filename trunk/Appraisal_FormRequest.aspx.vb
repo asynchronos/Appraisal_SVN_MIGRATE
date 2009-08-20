@@ -63,36 +63,36 @@ Partial Class Appraisal_Form_Appraisal_FormRequest
     End Function
 
 #Region "GridView1 Event Handlers"
-    Private Sub GridView1_RowDataBound(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.GridViewRowEventArgs) Handles GridView1.RowDataBound
-        Dim row As GridViewRow = e.Row
-        Dim strSort As String = String.Empty
+    'Private Sub GridView1_RowDataBound(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.GridViewRowEventArgs) Handles GridView1.RowDataBound
+    '    Dim row As GridViewRow = e.Row
+    '    Dim strSort As String = String.Empty
 
-        ' Make sure we aren't in header/footer rows 
-        If row.DataItem Is Nothing Then
-            Return
-        End If
+    '    ' Make sure we aren't in header/footer rows 
+    '    If row.DataItem Is Nothing Then
+    '        Return
+    '    End If
 
-        'Find Child GridView control 
-        Dim gv As New GridView()
-        gv = DirectCast(row.FindControl("GridView2"), GridView)
+    '    'Find Child GridView control 
+    '    Dim gv As New GridView()
+    '    gv = DirectCast(row.FindControl("GridView2"), GridView)
 
-        'Check if any additional conditions (Paging, Sorting, Editing, etc) to be applied on child GridView 
-        If gv.UniqueID = gvUniqueID Then
-            gv.PageIndex = gvNewPageIndex
-            gv.EditIndex = gvEditIndex
-            'Check if Sorting used 
-            If gvSortExpr <> String.Empty Then
-                GetSortDirection()
-                strSort = " ORDER BY " + String.Format("{0} {1}", gvSortExpr, gvSortDir)
-            End If
-            'Expand the Child grid 
-            ClientScript.RegisterStartupScript([GetType](), "Expand", "<SCRIPT LANGUAGE='javascript'>expandcollapse('div" + DirectCast(e.Row.DataItem, DataRowView)("Q_ID").ToString() + "','one');</script>")
-        End If
+    '    'Check if any additional conditions (Paging, Sorting, Editing, etc) to be applied on child GridView 
+    '    If gv.UniqueID = gvUniqueID Then
+    '        gv.PageIndex = gvNewPageIndex
+    '        gv.EditIndex = gvEditIndex
+    '        'Check if Sorting used 
+    '        If gvSortExpr <> String.Empty Then
+    '            GetSortDirection()
+    '            strSort = " ORDER BY " + String.Format("{0} {1}", gvSortExpr, gvSortDir)
+    '        End If
+    '        'Expand the Child grid 
+    '        ClientScript.RegisterStartupScript([GetType](), "Expand", "<SCRIPT LANGUAGE='javascript'>expandcollapse('div" + DirectCast(e.Row.DataItem, DataRowView)("Q_ID").ToString() + "','one');</script>")
+    '    End If
 
-        'Prepare the query for Child GridView by passing the Customer ID of the parent row 
-        gv.DataSource = ChildDataSource(DirectCast(e.Row.DataItem, DataRowView)("Req_Id").ToString(), strSort)
-        gv.DataBind()
-    End Sub
+    '    'Prepare the query for Child GridView by passing the Customer ID of the parent row 
+    '    gv.DataSource = ChildDataSource(DirectCast(e.Row.DataItem, DataRowView)("Req_Id").ToString(), strSort)
+    '    gv.DataBind()
+    'End Sub
 #End Region
 
 #Region "GridView2 Event Handlers"
@@ -100,7 +100,7 @@ Partial Class Appraisal_Form_Appraisal_FormRequest
         Dim gvTemp As GridView = DirectCast(sender, GridView)
         gvUniqueID = gvTemp.UniqueID
         gvNewPageIndex = e.NewPageIndex
-        GridView1.DataBind()
+        'GridView1.DataBind()
     End Sub
 
     Protected Sub GridView2_RowDataBound(ByVal sender As Object, ByVal e As GridViewRowEventArgs)
@@ -118,7 +118,7 @@ Partial Class Appraisal_Form_Appraisal_FormRequest
         Dim gvTemp As GridView = DirectCast(sender, GridView)
         gvUniqueID = gvTemp.UniqueID
         gvSortExpr = e.SortExpression
-        GridView1.DataBind()
+        'GridView1.DataBind()
     End Sub
 
 #End Region
@@ -230,15 +230,36 @@ Partial Class Appraisal_Form_Appraisal_FormRequest
         Else
             lblMessage.Text = "ยังไม่มีเลขที่คำขอประเมิน"
         End If
-        GridView1.DataBind()
+        'GridView1.DataBind()
 
         'กำหนดให้ไปเพิ่มหลักประกันในกรณีเป็นการทบทวนการประเมิน
         If ddlAppraisal_Method.SelectedValue >= 2 Then
+            Dim dg As GridView = DirectCast(cph.FindControl("GridView_HubList"), GridView) 'FindControl("GridView_HubList")
+            Dim gvr_master As GridViewRow
+            Dim HubId As String = ""
+            For Each gvr_master In dg.Rows
+                Dim chk1 As CheckBox = gvr_master.FindControl("cb2")
+                Dim lblHubID As Label = gvr_master.FindControl("lblHUB_ID")
+
+                If chk1.Checked = True Then
+                    HubId = lblHubID.Text
+                End If
+            Next
             Context.Items("Req_Id") = lblRequestID.Text  'Request.QueryString("Req_Id")
-            Context.Items("Hub_Id") = lblHub_id.Text 'Request.QueryString("Hub_Id")
+            Context.Items("Hub_Id") = HubId 'Request.QueryString("Hub_Id")
             Context.Items("Cif") = TxtCif.Text  'Request.QueryString("Cif")
             Context.Items("AID") = ddlAID.SelectedValue   'Request.QueryString("Aid")
-            Server.Transfer("Appraisal_GetData_DWS.aspx")
+
+            'ถ้าหากมีการประเมินแล้วในระบบให้ไปหาข้อมูลจากในระบบตาม AID นั้นในราคาที่ 3 และดูจากเลขคำขอประเมินล่าสุด
+            'ถ้าหากยังไม่มีข้อมูลการประเมินให้ไปดึงข้อมูลจาก Data warehouse
+            Dim Obj_P3M As List(Of clsPrice3_Master) = GET_PRICE3_MASTER(lblRequestID.Text, HubId)
+            'หา PRICE3_MASTER หากมีจะดึงข้อมูลเดิมมาให้
+            If Obj_P3M.Count > 0 Then
+                'หน้าแสดงรายการประเมินในระบบที่เคยประเมินแล้ว
+            Else
+                Server.Transfer("Appraisal_GetData_DWS.aspx")
+            End If
+
         End If
 
     End Sub
@@ -386,10 +407,11 @@ Partial Class Appraisal_Form_Appraisal_FormRequest
     End Sub
 
     Private Sub GET_AID_BY_CIFNEW()
-        Dim oradb As String = "Data Source=(DESCRIPTION=" _
-            + "(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.32.52)(PORT=1521)))" _
-            + "(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=edw)));" _
-            + "User Id=cpr214361;Password=newyear2009;"
+        'Dim oradb As String = "Data Source=(DESCRIPTION=" _
+        '    + "(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.32.52)(PORT=1521)))" _
+        '    + "(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=edw)));" _
+        '    + "User Id=cpr214361;Password=newyear2009;"
+        Dim oradb As String = ConfigurationManager.ConnectionStrings.Item("EDW_Connectionstring").ToString
         Dim conn As New OracleConnection(oradb)
         conn.Open()
 
@@ -458,5 +480,5 @@ Partial Class Appraisal_Form_Appraisal_FormRequest
         myScript = "<script>" + "window.open('Search_Employee.aspx?empid=" & TxtSender.ClientID & "&empname=" & TxtAppraisalName.ClientID & "','window','toolbar=no, menubar=no, scrollbars=yes, resizable=no,location=no, directories=no, status=yes,height=550px,width=650px');</script>"
         Page.ClientScript.RegisterStartupScript(Me.GetType, "Search", myScript)
     End Sub
-
 End Class
+

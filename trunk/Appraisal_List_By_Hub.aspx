@@ -119,12 +119,12 @@
                         <asp:Button ID="btnOperation1" runat="server" Text="กำหนดราคาประเมินครั้งที่ 1" CommandName="Select"/>
                     </ItemTemplate>
                 </asp:TemplateField>      
-            <asp:TemplateField HeaderText="">
+<%--            <asp:TemplateField HeaderText="">
                 <ItemTemplate>
                     <asp:ImageButton ID="imgSearch" runat="server" ImageUrl="~/Images/find1.jpg"
                         Height="22px" Width="22px" ToolTip="ค้นหา" CommandName="Select" OnClick="imgSearch_Click" />               
                 </ItemTemplate>
-            </asp:TemplateField>                                                                                             
+            </asp:TemplateField>   --%>                                                                                          
             </Columns>
             <PagerStyle BackColor="PaleGoldenrod" ForeColor="DarkSlateBlue" 
                 HorizontalAlign="Center" />

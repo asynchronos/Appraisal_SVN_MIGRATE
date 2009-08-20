@@ -26,108 +26,108 @@ Partial Class Appraisal_Price1
         End If
 
         'กำหนดขนาดไฟล์ภาพที่สามารถส่งได้ใน  Web.Config ด้วยนะ
-        Dim uploads As HttpFileCollection = HttpContext.Current.Request.Files
-        Dim bmpW As Integer = 800 'New image canvas width
-        Dim bmpH As Integer = 600 'New Image canvas height 
-        For i = 0 To uploads.Count - 1
-            Dim FileToUpload As HttpPostedFile = uploads(i)
-            Dim Filename As String = "Map_" & lblReq_Id.Text & "_" & lblHub_Id.Text & "_" & System.IO.Path.GetFileName(FileToUpload.FileName)
-            If (CheckFileType(FileToUpload.FileName)) Then
-                Dim newWidth As Integer = bmpW
-                Dim newHeight As Integer = bmpH
-                'Use the uploaded filename without the '.' extension 
-                Dim upName As String = Mid(Filename, 1, (InStr(Filename, ".") - 1))
-                'Dim filePath As String = "~/Upload/" & upName & ".png"
-                Dim filePath As String = "~/UploadedFiles/Pic_RegID/" & upName & ".png"
-                'Set the new bitmap resolution to 72 pixels per inch 
-                Dim upBmp As Bitmap = Bitmap.FromStream(FileToUpload.InputStream)
-                Dim newBmp As Bitmap = Nothing
+        'Dim uploads As HttpFileCollection = HttpContext.Current.Request.Files
+        'Dim bmpW As Integer = 800 'New image canvas width
+        'Dim bmpH As Integer = 600 'New Image canvas height 
+        'For i = 0 To uploads.Count - 1
+        '    Dim FileToUpload As HttpPostedFile = uploads(i)
+        '    Dim Filename As String = "Map_" & lblReq_Id.Text & "_" & lblHub_Id.Text & "_" & System.IO.Path.GetFileName(FileToUpload.FileName)
+        '    If (CheckFileType(FileToUpload.FileName)) Then
+        '        Dim newWidth As Integer = bmpW
+        '        Dim newHeight As Integer = bmpH
+        '        'Use the uploaded filename without the '.' extension 
+        '        Dim upName As String = Mid(Filename, 1, (InStr(Filename, ".") - 1))
+        '        'Dim filePath As String = "~/Upload/" & upName & ".png"
+        '        Dim filePath As String = "~/UploadedFiles/Pic_RegID/" & upName & ".png"
+        '        'Set the new bitmap resolution to 72 pixels per inch 
+        '        Dim upBmp As Bitmap = Bitmap.FromStream(FileToUpload.InputStream)
+        '        Dim newBmp As Bitmap = Nothing
 
 
-                'Get the uploaded image width and height 
+        '        'Get the uploaded image width and height 
 
-                Dim upWidth As Integer = upBmp.Width
-                Dim upHeight As Integer = upBmp.Height
-                Dim newX As Integer = 0
-                Dim newY As Integer = 0
-                Dim reDuce As Decimal
+        '        Dim upWidth As Integer = upBmp.Width
+        '        Dim upHeight As Integer = upBmp.Height
+        '        Dim newX As Integer = 0
+        '        Dim newY As Integer = 0
+        '        Dim reDuce As Decimal
 
-                'Keep the aspect ratio of image the same if not 4:3 and work out the newX and newY positions 
-                'to ensure the image is always in the centre of the canvas vertically and horizontally 
+        '        'Keep the aspect ratio of image the same if not 4:3 and work out the newX and newY positions 
+        '        'to ensure the image is always in the centre of the canvas vertically and horizontally 
 
-                If upWidth > upHeight Then 'Landscape picture 
-                    reDuce = newWidth / upWidth
+        '        If upWidth > upHeight Then 'Landscape picture 
+        '            reDuce = newWidth / upWidth
 
-                    'calculate the width percentage reduction as decimal 
-                    newHeight = Int(upHeight * reDuce)
-                    newWidth = Int(upWidth * reDuce)
+        '            'calculate the width percentage reduction as decimal 
+        '            newHeight = Int(upHeight * reDuce)
+        '            newWidth = Int(upWidth * reDuce)
 
 
-                    'reduce the uploaded image height by the reduce amount 
-                    newY = 0 'Int((bmpH - newHeight) / 2)
-                    'Position the image centrally down the canvas 
-                    newX = 0
+        '            'reduce the uploaded image height by the reduce amount 
+        '            newY = 0 'Int((bmpH - newHeight) / 2)
+        '            'Position the image centrally down the canvas 
+        '            newX = 0
 
-                    'Picture will be full width 
-                ElseIf upWidth < upHeight Then 'Portrait picture 
-                    reDuce = newHeight / upHeight
+        '            'Picture will be full width 
+        '        ElseIf upWidth < upHeight Then 'Portrait picture 
+        '            reDuce = newHeight / upHeight
 
-                    'calculate the height percentage reduction as decimal 
-                    'newWidth = Int(upWidth * reDuce)
-                    'reduce the uploaded image height by the reduce amount 
-                    'newX = Int((bmpW - newWidth) / 2)
-                    'Position the image centrally across the canvas 
-                    newHeight = Int(upHeight * reDuce)
-                    newWidth = Int(upWidth * reDuce)
-                    newY = 0
-                    newX = 0
+        '            'calculate the height percentage reduction as decimal 
+        '            'newWidth = Int(upWidth * reDuce)
+        '            'reduce the uploaded image height by the reduce amount 
+        '            'newX = Int((bmpW - newWidth) / 2)
+        '            'Position the image centrally across the canvas 
+        '            newHeight = Int(upHeight * reDuce)
+        '            newWidth = Int(upWidth * reDuce)
+        '            newY = 0
+        '            newX = 0
 
-                    'Picture will be full hieght 
-                ElseIf upWidth = upHeight Then 'square picture 
-                    reDuce = newHeight / upHeight
+        '            'Picture will be full hieght 
+        '        ElseIf upWidth = upHeight Then 'square picture 
+        '            reDuce = newHeight / upHeight
 
-                    'calculate the height percentage reduction as decimal 
-                    newWidth = Int(upWidth * reDuce)
-                    'reduce the uploaded image height by the reduce amount 
-                    newX = Int((bmpW - newWidth) / 2)
-                    'Position the image centrally across the canvas 
-                    newY = Int((bmpH - newHeight) / 2)
+        '            'calculate the height percentage reduction as decimal 
+        '            newWidth = Int(upWidth * reDuce)
+        '            'reduce the uploaded image height by the reduce amount 
+        '            newX = Int((bmpW - newWidth) / 2)
+        '            'Position the image centrally across the canvas 
+        '            newY = Int((bmpH - newHeight) / 2)
 
-                    'Position the image centrally down the canvas 
-                End If
+        '            'Position the image centrally down the canvas 
+        '        End If
 
-                'Create a new image from the uploaded picture using the Graphics class 
-                'Clear the graphic and set the background colour to white 
-                'Use Antialias and High Quality Bicubic to maintain a good quality picture
-                'Save the new bitmap image using 'Png' picture format and the calculated canvas positioning 
-                Dim newGraphic As Graphics = Nothing
+        '        'Create a new image from the uploaded picture using the Graphics class 
+        '        'Clear the graphic and set the background colour to white 
+        '        'Use Antialias and High Quality Bicubic to maintain a good quality picture
+        '        'Save the new bitmap image using 'Png' picture format and the calculated canvas positioning 
+        '        Dim newGraphic As Graphics = Nothing
 
-                Try
-                    newBmp = New Bitmap(newWidth, newHeight, Imaging.PixelFormat.Format24bppRgb)
-                    newBmp.SetResolution(72, 72)
-                    newGraphic = Graphics.FromImage(newBmp)
+        '        Try
+        '            newBmp = New Bitmap(newWidth, newHeight, Imaging.PixelFormat.Format24bppRgb)
+        '            newBmp.SetResolution(72, 72)
+        '            newGraphic = Graphics.FromImage(newBmp)
 
-                    newGraphic.Clear(Color.White)
-                    newGraphic.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
-                    newGraphic.InterpolationMode = Drawing2D.InterpolationMode.HighQualityBicubic
-                    newGraphic.DrawImage(upBmp, newX, newY, newWidth, newHeight)
-                    newBmp.Save(MapPath(filePath), Imaging.ImageFormat.Png)
-                    Appraisal_Manager.AddAppraisal_Request_PicturePath(lblReq_Id.Text, lblHub_Id.Text, Filename, 0)
-                    'Show the uploaded resized picture in the image control 
-                    'Image1.ImageUrl = filePath
-                    'Image1.Visible = True
+        '            newGraphic.Clear(Color.White)
+        '            newGraphic.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
+        '            newGraphic.InterpolationMode = Drawing2D.InterpolationMode.HighQualityBicubic
+        '            newGraphic.DrawImage(upBmp, newX, newY, newWidth, newHeight)
+        '            newBmp.Save(MapPath(filePath), Imaging.ImageFormat.Png)
+        '            Appraisal_Manager.AddAppraisal_Request_PicturePath(lblReq_Id.Text, lblHub_Id.Text, Filename, 0)
+        '            'Show the uploaded resized picture in the image control 
+        '            'Image1.ImageUrl = filePath
+        '            'Image1.Visible = True
 
-                Catch ex As Exception
-                    MsgBox(ex.ToString)
-                Finally
-                    upBmp.Dispose()
-                    newBmp.Dispose()
-                    newGraphic.Dispose()
-                End Try
-            Else
-                MsgBox("Please select a picture with a file format extension of either Bmp, Jpg, Jpeg, Gif, Tiff or Png.")
-            End If
-        Next
+        '        Catch ex As Exception
+        '            MsgBox(ex.ToString)
+        '        Finally
+        '            upBmp.Dispose()
+        '            newBmp.Dispose()
+        '            newGraphic.Dispose()
+        '        End Try
+        '    Else
+        '        MsgBox("Please select a picture with a file format extension of either Bmp, Jpg, Jpeg, Gif, Tiff or Png.")
+        '    End If
+        'Next
         '***********************************************************************************************************
 
         Dim dal As New GmapDAL_NEW
