@@ -153,7 +153,10 @@ Partial Class Upload_Form_Upload_Request_Form
                     newGraphic.Dispose()
                 End Try
             Else
-                MsgBox("Please select a picture with a file format extension of either Bmp, Jpg, Jpeg, Gif or Png.")
+                'MsgBox("ไฟล์ที่จะทำการ Upload ต้องเป็นนามสกุล .gif,.png,.jpeg,.jpg,.bmp และ .tiff เท่านั้น")
+                Dim s As String
+                s = "<script language=""javascript"">alert('ไฟล์ที่จะทำการ Upload ต้องเป็นนามสกุล .gif,.png,.jpeg,.jpg,.bmp และ .tiff เท่านั้น');</script>"
+                Page.ClientScript.RegisterStartupScript(Me.GetType, "Notice", s)
             End If
         Next
         ''***********************************************************************************************************
@@ -177,6 +180,8 @@ Partial Class Upload_Form_Upload_Request_Form
             Case ".bmp"
                 Return True
             Case ".tiff"
+                Return True
+            Case ".tif"
                 Return True
             Case Else
                 Return False

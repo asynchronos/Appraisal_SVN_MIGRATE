@@ -5,6 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>File Upload Request Form</title>
+    <style type="text/css">
+        .style1
+        {
+            color: #993300;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
 <form id="form1" runat="server" enctype="multipart/form-data">
@@ -16,7 +23,9 @@
 
 <input id="AddFile" type="button" value="Add file" onclick="addFileUploadBox()" />
 <p><asp:Button ID="btnSubmit" runat="server" Text="Upload Now"  
-        OnClick="btnSubmit_Click" Visible="False" /></p>
+        OnClick="btnSubmit_Click" Visible="False" />&nbsp;</p>
+    <p class="style1">ไฟล์ที่จะทำการ Upload ต้องเป็นนามสกุล .gif,.png,.jpeg,.jpg,.bmp 
+        และ .tiff เท่านั้น</p>
 </div>
 <script type="text/javascript">
 function addFileUploadBox()
