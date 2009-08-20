@@ -2619,6 +2619,25 @@ ByVal Hub_Id As Integer)
         End Using
     End Function
 
+    Public Shared Function GET_BUILDING_ITEMS_PRICE3(ByVal Req_Id As Integer, ByVal Hub_Id As Integer) As Integer
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("GET_BUILDING_ITEMS_PRICE3", connection)
+                command.CommandType = CommandType.StoredProcedure
+                command.Parameters.Add(New SqlParameter("@Req_Id", Req_Id))
+                command.Parameters.Add(New SqlParameter("@Hub_Id", Hub_Id))
+                connection.Open()
+                Dim list As New Integer
+                Using reader As SqlDataReader = command.ExecuteReader()
+                    Do While (reader.Read())
+                        Dim temp As Integer = (reader("ITEMS"))
+                        list = (temp)
+                    Loop
+                End Using
+                Return list
+            End Using
+        End Using
+    End Function
+
     Public Shared Sub UPDATE_PRICE2_70_DETAIL_AND_PARTAKE(ByVal Id As Integer, _
      ByVal Req_Id As Integer, _
      ByVal Hub_Id As Integer, _
@@ -3499,6 +3518,8 @@ ByVal Cif As Integer)
      ByVal Req_Id As Integer, _
      ByVal Hub_Id As Integer, _
      ByVal Temp_AID As Integer, _
+     ByVal AID As String, _
+     ByVal CID As String, _
      ByVal MysubColl_ID As Integer, _
      ByVal Address_No As String, _
      ByVal Building_Name As String, _
@@ -3554,6 +3575,8 @@ ByVal Cif As Integer)
                     command.Parameters.Add(New SqlParameter("@Req_Id", Req_Id))
                     command.Parameters.Add(New SqlParameter("@Hub_Id", Hub_Id))
                     command.Parameters.Add(New SqlParameter("@Temp_AID", Temp_AID))
+                    command.Parameters.Add(New SqlParameter("@AID", AID))
+                    command.Parameters.Add(New SqlParameter("@CID", CID))
                     command.Parameters.Add(New SqlParameter("@MysubColl_ID", MysubColl_ID))
                     command.Parameters.Add(New SqlParameter("@Address_No", Address_No))
                     command.Parameters.Add(New SqlParameter("@Building_Name", Building_Name))
@@ -3610,6 +3633,8 @@ ByVal Cif As Integer)
     Public Shared Sub UpdatePRICE3_50(ByVal Req_Id As Integer, _
      ByVal Hub_Id As Integer, _
      ByVal Temp_AID As Integer, _
+     ByVal AID As String, _
+     ByVal CID As String, _
      ByVal MysubColl_ID As Integer, _
      ByVal Address_No As String, _
      ByVal Building_Name As String, _
@@ -3664,6 +3689,8 @@ ByVal Cif As Integer)
                     command.Parameters.Add(New SqlParameter("@Req_Id", Req_Id))
                     command.Parameters.Add(New SqlParameter("@Hub_Id", Hub_Id))
                     command.Parameters.Add(New SqlParameter("@Temp_AID", Temp_AID))
+                    command.Parameters.Add(New SqlParameter("@AID", AID))
+                    command.Parameters.Add(New SqlParameter("@CID", CID))
                     command.Parameters.Add(New SqlParameter("@MysubColl_ID", MysubColl_ID))
                     command.Parameters.Add(New SqlParameter("@Address_No", Address_No))
                     command.Parameters.Add(New SqlParameter("@Building_Name", Building_Name))
@@ -3735,6 +3762,8 @@ ByVal Cif As Integer)
                                                 CInt(reader("Req_Id")), _
                                                 CInt(reader("Hub_Id")), _
                                                 CInt(reader("Temp_AID")), _
+                                                CStr(reader("AID")), _
+                                                CStr(reader("CID")), _
                                                 CInt(reader("MysubColl_ID")), _
                                                 CStr(reader("Address_No")), _
                                                 CStr(reader("Building_Name")), _
@@ -3818,6 +3847,8 @@ ByVal Cif As Integer)
      ByVal Req_Id As Integer, _
      ByVal Hub_Id As Integer, _
      ByVal Temp_AID As Integer, _
+     ByVal AID As String, _
+     ByVal CID As String, _
      ByVal MysubColl_ID As Integer, _
      ByVal Build_No As String, _
      ByVal Tumbon As String, _
@@ -3878,6 +3909,8 @@ ByVal Cif As Integer)
                     command.Parameters.Add(New SqlParameter("@Req_Id", Req_Id))
                     command.Parameters.Add(New SqlParameter("@Hub_Id", Hub_Id))
                     command.Parameters.Add(New SqlParameter("@Temp_AID", Temp_AID))
+                    command.Parameters.Add(New SqlParameter("@AID", AID))
+                    command.Parameters.Add(New SqlParameter("@CID", CID))
                     command.Parameters.Add(New SqlParameter("@MysubColl_ID", MysubColl_ID))
                     command.Parameters.Add(New SqlParameter("@Build_No", Build_No))
                     command.Parameters.Add(New SqlParameter("@Tumbon", Tumbon))
@@ -4178,6 +4211,8 @@ ByVal Cif As Integer)
     Public Shared Sub UpdatePRICE3_70(ByVal Req_Id As Integer, _
      ByVal Hub_Id As Integer, _
      ByVal Temp_AID As Integer, _
+     ByVal AID As String, _
+     ByVal CID As String, _
      ByVal MysubColl_ID As Integer, _
      ByVal Build_No As String, _
      ByVal Tumbon As String, _
@@ -4301,6 +4336,8 @@ ByVal Cif As Integer)
                                                 CInt(reader("Req_Id")), _
                                                 CInt(reader("Hub_Id")), _
                                                 CInt(reader("Temp_AID")), _
+                                                CStr(reader("AID")), _
+                                                CStr(reader("CID")), _
                                                 CInt(reader("MysubColl_ID")), _
                                                 CStr(reader("Build_No")), _
                                                 CStr(reader("Tumbon")), _
@@ -4591,6 +4628,8 @@ ByVal Cif As Integer)
                                                 CInt(reader("Req_Id")), _
                                                 CInt(reader("Hub_Id")), _
                                                 CInt(reader("Temp_AID")), _
+                                                CStr(reader("AID")), _
+                                                CStr(reader("CID")), _
                                                 CInt(reader("MysubColl_ID")), _
                                                 CStr(reader("Address_No")), _
                                                 CStr(reader("Building_Name")), _
