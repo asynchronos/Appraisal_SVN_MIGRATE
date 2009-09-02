@@ -206,21 +206,21 @@ Partial Class Appraisal_Price3_Print_CollType70
 
     Function Get_Amount(ByVal Age As Decimal, ByVal P1 As Decimal, ByVal P2 As Decimal, ByVal P3 As Decimal) As String
 
-        Dim Amount As Decimal = Age * (P1 + P2 + P3)
+        Dim Amount As Decimal = (Age * P1) - P2 + P3
         Return String.Format("{0:N2}", Amount)
 
     End Function
 
     Function Get_Amount_Bht(ByVal Price As Decimal, ByVal Age As Decimal, ByVal P1 As Decimal, ByVal P2 As Decimal, ByVal P3 As Decimal) As String
 
-        Dim Amount_Price As Decimal = Price * (((P1 + P2 + P3) * Age) / 100)
+        Dim Amount_Price As Decimal = (Price * ((Age * P1) - P2 + P3) / 100)
         Return String.Format("{0:N2}", Amount_Price)
 
     End Function
 
     Function Get_Balance(ByVal Price As Decimal, ByVal Age As Decimal, ByVal P1 As Decimal, ByVal P2 As Decimal, ByVal P3 As Decimal) As String
 
-        Dim Amount_Price As Decimal = Price - (Price * (((P1 + P2 + P3) * Age) / 100))
+        Dim Amount_Price As Decimal = Price - (Price * ((Age * P1) - P2 + P3) / 100)
         total += Amount_Price
         Return String.Format("{0:N2}", Amount_Price)
         'MsgBox(total)
@@ -228,19 +228,21 @@ Partial Class Appraisal_Price3_Print_CollType70
 
     Function Get_Balance1(ByVal Price As Decimal, ByVal Age As Decimal, ByVal P1 As Decimal, ByVal P2 As Decimal, ByVal P3 As Decimal) As String
         'ราคาปัจจุบัน
-        Dim Amount_Price As Decimal = Price - (Price * (((P1 + P2 + P3) * Age) / 100))
+        Dim Amount_Price As Decimal = Price - (Price * ((Age * P1) - P2 + P3) / 100)
         total1 += Amount_Price
         Return String.Format("{0:N2}", Amount_Price)
         'MsgBox(total)
     End Function
 
     Function Get_Total() As String
-        lblGrandTotal0.Text = String.Format("{0:N2}", Round(((total) / 1000), 0) * 1000)
+
+        'lblGrandTotal0.Text = String.Format("{0:N2}", Round(((CDbl(total)) / 1000), 5) * 1000)
+        lblGrandTotal0.Text = String.Format("{0:N2}", Round((total / 1000), System.MidpointRounding.AwayFromZero) * 1000)
         Return String.Format("{0:N2}", total)
     End Function
 
     Function Get_Total1() As String
-        lblGrandTotal0.Text = String.Format("{0:N2}", Round(((total1) / 1000), 0) * 1000)
+        lblGrandTotal0.Text = String.Format("{0:N2}", Round((total1 / 1000), System.MidpointRounding.AwayFromZero) * 1000) 'String.Format("{0:N2}", Round(((CDbl(total1)) / 1000), 4) * 1000)
         Return String.Format("{0:N2}", total1)
     End Function
 End Class

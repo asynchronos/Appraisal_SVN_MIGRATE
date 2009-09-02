@@ -585,6 +585,8 @@
                 Type="Int32" />
             <asp:ControlParameter ControlID="HiddenField4" Name="TEMP_AID" 
                 PropertyName="Value" Type="Int32" />
+            <asp:ControlParameter ControlID="HiddenField1" Name="ID" PropertyName="Value" 
+                Type="Int32" />
         </SelectParameters>
     </asp:SqlDataSource>
     </form>
