@@ -121,4 +121,9 @@ Partial Class Appraisal_Form_Appraisal_Form_Verify
     End Sub
 
 #End Region
+
+    Protected Sub Page_PreRender(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.PreRender
+        Dim lblHub_Id As Label = TryCast(Me.Form.FindControl("lblHub_Id"), Label)
+        hdfHub_Id.Value = lblHub_Id.Text
+    End Sub
 End Class

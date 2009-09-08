@@ -255,7 +255,8 @@ Partial Class Appraisal_Form_Appraisal_FormRequest
             Dim Obj_P3M As List(Of clsPrice3_Master) = GET_PRICE3_MASTER(lblRequestID.Text, HubId)
             'หา PRICE3_MASTER หากมีจะดึงข้อมูลเดิมมาให้
             If Obj_P3M.Count > 0 Then
-                'หน้าแสดงรายการประเมินในระบบที่เคยประเมินแล้ว
+                'หน้าแสดงรายการประเมินในระบบที่เคยประเมินแล้ว(ประวัติการประเมิน)
+                Server.Transfer("Appraisal_List_Review.aspx")
             Else
                 Server.Transfer("Appraisal_GetData_DWS.aspx")
             End If
@@ -479,6 +480,12 @@ Partial Class Appraisal_Form_Appraisal_FormRequest
         Dim myScript As String
         myScript = "<script>" + "window.open('Search_Employee.aspx?empid=" & TxtSender.ClientID & "&empname=" & TxtAppraisalName.ClientID & "','window','toolbar=no, menubar=no, scrollbars=yes, resizable=no,location=no, directories=no, status=yes,height=550px,width=650px');</script>"
         Page.ClientScript.RegisterStartupScript(Me.GetType, "Search", myScript)
+    End Sub
+
+    Protected Sub Button1_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles Button1.Click
+        Context.Items("AID") = 1542
+            'หน้าแสดงรายการประเมินในระบบที่เคยประเมินแล้ว(ประวัติการประเมิน)
+            Server.Transfer("Appraisal_List_Review.aspx")
     End Sub
 End Class
 

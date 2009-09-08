@@ -277,6 +277,7 @@ Partial Class Appraisal_Assign_Job
         '    myScript = "<script language=""javascript"">alert('กำหนดราคายังไม่เรียบร้อย'); </script>"
         '    Page.ClientScript.RegisterStartupScript(Me.GetType, "ผลการบันทึก", myScript)
         'Else
+
         myScript = "<script>" + "window.open('Appraisal_Assign_Update_Job.aspx?Req_Id=" + Trim(Req_Id.Text) + "&Hub_Id=" + Trim(Hub_Id.Text) + "&Status_Id=" + Trim(Status_Id.Value) + "','window','toolbar=no, menubar=no, scrollbars=yes, resizable=no,location=no, directories=no, status=yes,height=450px,width=450px');</script>"
         Page.ClientScript.RegisterStartupScript(Me.GetType, "กำหนดงานให้เจ้าหน้าที่ประเมิน", myScript)
         'End If

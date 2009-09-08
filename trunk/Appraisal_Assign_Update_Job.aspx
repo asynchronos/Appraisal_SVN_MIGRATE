@@ -151,7 +151,9 @@
                         </asp:DropDownList>
                         <asp:SqlDataSource ID="sdsStatus" runat="server" 
                             ConnectionString="<%$ ConnectionStrings:AppraisalConn %>" 
-                            SelectCommand="SELECT Status_ID, Status_Name FROM Status_Appraisal WHERE (Status_ID &gt;= @Status_ID) ORDER BY Status_ID">
+                            
+                            
+                            SelectCommand="SELECT Status_ID, Status_Name FROM Status_Appraisal WHERE (Status_ID = @Status_ID) UNION SELECT Status_ID, Status_Name FROM Status_Appraisal AS Status_Appraisal_2 WHERE (Status_ID = 3) UNION SELECT Status_ID, Status_Name FROM Status_Appraisal AS Status_Appraisal_1 WHERE (Status_ID IN (97, 98, 99))">
                             <SelectParameters>
                                 <asp:QueryStringParameter Name="Status_Id" QueryStringField="Status_Id" />
                             </SelectParameters>
@@ -172,8 +174,9 @@
                             SelectedValue='<%# Bind("Appraisal_Id") %>'>
                         </asp:DropDownList>
                         <asp:SqlDataSource ID="sdsAppraisal" runat="server" 
-                            ConnectionString="<%$ ConnectionStrings:AppraisalConnectionString %>" 
-                            SelectCommand="SELECT Emp_id as Appraisal_Id, Title + Name + '  ' + Lastname AS UserAppraisal FROM Tb_UserAppraisal WHERE (Hub_Id = @Hub_Id Or Emp_Id = '0')">
+                            ConnectionString="<%$ ConnectionStrings:AppraisalConn %>" 
+                            
+                            SelectCommand="SELECT Emp_id AS Appraisal_Id, Title + Name + '  ' + Lastname AS UserAppraisal FROM Tb_UserAppraisal WHERE (Hub_Id = @Hub_Id) OR (Emp_id = '0')">
                             <SelectParameters>
                                 <asp:QueryStringParameter Name="Hub_Id" QueryStringField="Hub_Id" />
                             </SelectParameters>

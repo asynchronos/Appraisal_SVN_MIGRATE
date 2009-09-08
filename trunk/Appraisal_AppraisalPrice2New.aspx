@@ -134,7 +134,7 @@
                                        </td>
                                        <td>
                                <asp:ImageButton ID="ImgLocation" runat="server" 
-                        ImageUrl="~/Images/pawn.png" Height="40px" Width="40px" ToolTip="แผนที่" />
+                        ImageUrl="~/Images/viewmap.jpg" Height="40px" Width="40px" ToolTip="แผนที่" />
                                        </td>
                                        <td>
                                <asp:ImageButton ID="ImgImformation" runat="server" 
