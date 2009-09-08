@@ -419,7 +419,8 @@
                 <asp:Label ID="Label50" runat="server" Font-Bold="True" Text="การประเมินราคา"></asp:Label>&#160;<asp:Label
                     ID="Label51" runat="server" Text="ข้อมูลการซื้อขาย"></asp:Label><br />
                 <asp:TextBox ID="txtBuy_Sale_Comment" runat="server" Height="90px" TextMode="MultiLine"
-                    Width="800px" BackColor="#FFFF66" style="font-size: large"></asp:TextBox>
+                    Width="800px" BackColor="#FFFF66" style="font-size: large" 
+                    BorderStyle="None" ></asp:TextBox>
             </td>
         </tr>
     </table>
@@ -797,7 +798,8 @@
                             <asp:ImageButton ID="ImageSave" runat="server" ImageUrl="~/Images/Save.jpg" Width="35px" Height="35px"/>
                         </td>
                         <td class="style1">
-                            <asp:Label ID="lblSave" runat="server" Text="SAVE" style="font-weight: 700"></asp:Label>
+                            <asp:Label ID="lblSave" runat="server" Text="ยืนยัน" style="font-weight: 700" 
+                                Width="80px"></asp:Label>
                         </td>
                         <td>
                            <asp:ImageButton ID="ImagePrint" runat="server" ImageUrl="~/Images/Printer.png" Width="35px" Height="35px" />
