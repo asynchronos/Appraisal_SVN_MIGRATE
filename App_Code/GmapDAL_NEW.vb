@@ -599,7 +599,6 @@ Public Class GmapDAL_NEW
             Dim sql As String = "UPDATE Price3_Master SET " _
                 & " Lat=@Lat, " _
                 & " Lng=@Lng, " _
-                & " Create_User=@Create_User, " _
                 & " Create_Date=@Create_Date " _
                 & " WHERE Req_Id=@Req_Id AND Temp_AID=@Temp_AID"
 
@@ -610,12 +609,12 @@ Public Class GmapDAL_NEW
             sqlCmd.Parameters.AddWithValue("@Temp_AID", objPrice3Master.Temp_AID)
             sqlCmd.Parameters.AddWithValue("@Lat", objPrice3Master.Lat)
             sqlCmd.Parameters.AddWithValue("@Lng", objPrice3Master.Lng)
-            sqlCmd.Parameters.AddWithValue("@Create_User", objPrice3Master.Create_User)
             sqlCmd.Parameters.AddWithValue("@Create_Date", objPrice3Master.Create_Date)
 
             sqlCmd.ExecuteNonQuery()
         Catch ex As Exception
             Throw New Exception(ex.Message & " : " & ex.StackTrace)
+            'MsgBox(ex.Message)
         Finally
             If (conn.State = ConnectionState.Open) Then
                 conn.Close()

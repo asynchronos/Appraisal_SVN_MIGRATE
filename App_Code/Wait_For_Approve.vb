@@ -3,9 +3,9 @@
 Public Class Wait_For_Approve
 
     Private Const CLSNAME As String = "Class Wait_For_Approve"
-
     Private _Req_Id As Integer
     Private _Hub_Id As Integer
+    Private _Seq_Id As Integer
     Private _AID As String
     Private _Temp_AID As Integer
     Private _Approve_Id As String
@@ -23,6 +23,7 @@ Public Class Wait_For_Approve
     Public Sub New( _
      ByVal Req_Id As Integer, _
      ByVal Hub_Id As Integer, _
+     ByVal Seq_Id As Integer, _
      ByVal AID As String, _
      ByVal Temp_AID As Integer, _
      ByVal Approve_Id As String, _
@@ -36,8 +37,10 @@ Public Class Wait_For_Approve
      ByVal Create_User As String, _
      ByVal Create_Date As Date)
         MyBase.New()
+
         _Req_Id = Req_Id
         _Hub_Id = Hub_Id
+        _Seq_Id = Seq_Id
         _AID = AID
         _Temp_AID = Temp_AID
         _Approve_Id = Approve_Id
@@ -67,6 +70,15 @@ Public Class Wait_For_Approve
         End Get
         Set(ByVal Value As Integer)
             _Hub_Id = Value
+        End Set
+    End Property
+
+    Public Property Seq_Id() As Integer
+        Get
+            Return _Seq_Id
+        End Get
+        Set(ByVal Value As Integer)
+            _Seq_Id = Value
         End Set
     End Property
 
