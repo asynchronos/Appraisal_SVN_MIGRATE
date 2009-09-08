@@ -35,6 +35,9 @@ Partial Class Appraisal_For_Wait_Approve
         Dim Cif As Label = imgEditData.Parent.FindControl("lblCif")
         Dim Temp_AID As Label = imgEditData.Parent.FindControl("lblTemp_AID")
         Dim Appraisal_Id As Label = imgEditData.Parent.FindControl("lblAppraisal_Id")
+        Dim Approved1_Id As HiddenField = imgEditData.Parent.FindControl("hdfApproved1")
+        Dim Approved2_Id As HiddenField = imgEditData.Parent.FindControl("hdfApproved2")
+        Dim Approved3_Id As HiddenField = imgEditData.Parent.FindControl("hdfApproved3")
 
         Context.Items("Req_Id") = Req_Id.Text
         Context.Items("Hub_Id") = Hub_Id.Text
@@ -43,14 +46,10 @@ Partial Class Appraisal_For_Wait_Approve
         Context.Items("Temp_AID") = Temp_AID.Text
         Context.Items("Appraisal_Id") = Appraisal_Id.Text
 
-        'If Method_Type.Text = "1" Then
-        '    Server.Transfer("Appraisal_Price3_ConForm_New.aspx")
-        'Else
-        '    Server.Transfer("Appraisal_Price3_Form_Review.aspx")
-        'End If
-
+        'Dim ObjW4A As Integer = GET_WAIT_FOR_APPROVE_BY_REQ_ID(Req_Id.Text, Hub_Id.Text, Approved1_Id.Value, Approved2_Id.Value, Approved3_Id.Value)
+        'If ObjW4A = 3 Then
+        'อนุกรรมกรรมการเซ็นต์ครบ 3 คน
         Dim ChkColl As Integer = 0
-
         Dim Obj_GetP18 As List(Of Price3_18) = GET_PRICE3_18(Req_Id.Text, Hub_Id.Text, Temp_AID.Text)
         If Obj_GetP18.Count > 0 Then
             ChkColl = 18
@@ -98,6 +97,20 @@ Partial Class Appraisal_For_Wait_Approve
             End If
         Else
         End If
+        'Else
+        ''อนุกรรมกรรมการเซ็นต์ไม่ครบ 3 คน
+        'StrPath = Request.ApplicationPath & "/ListOfAppraisal_Approve.aspx?Req_Id=" & Req_Id.Text & "&Hub_Id=" & Hub_Id.Text
+        's1 = "<script language=""javascript"">window.open('" + StrPath + "','window','toolbar=no, menubar=no, scrollbars=yes, resizable=no,location=no, directories=no, status=yes,height=400px,width=780px');</script>"
+        'Page.ClientScript.RegisterStartupScript(Me.GetType, "Notice", s1)
+        'End If
+
+        'If Method_Type.Text = "1" Then
+        '    Server.Transfer("Appraisal_Price3_ConForm_New.aspx")
+        'Else
+        '    Server.Transfer("Appraisal_Price3_Form_Review.aspx")
+        'End If
+
+
     End Sub
 
     Protected Sub imgEditPosition_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs)
@@ -139,44 +152,70 @@ Partial Class Appraisal_For_Wait_Approve
         Dim Temp_AID As Label = imgApprove.Parent.FindControl("lblTemp_AID")
         Dim lbluserid As Label = TryCast(Me.Form.FindControl("lblUserID"), Label)
 
-        If Approved1.Text = String.Empty Or Approved2.Text = String.Empty Or Approved3.Text = String.Empty Then
-            StrNotice = "<Script language=""javascript"">alert('อนุกรรมการในการอนุมัติมีไม่ครบ 3 คน');</Script>"
-            Page.ClientScript.RegisterStartupScript(Me.GetType, "Notice", StrNotice)
-            'Exit Sub
-        End If
-
         If Lng.Text = "0" Or Lat.Text = "0" Then
             StrNotice = "<Script language=""javascript"">alert('คุณไม่ได้กำหนดพิกัด Lat Lng');</Script>"
             Page.ClientScript.RegisterStartupScript(Me.GetType, "Notice", StrNotice)
             'Exit Sub
         End If
 
-        If AID.Text = "0" Then
-            StrNotice = "<Script language=""javascript"">alert('คุณยังไม่เลข AID ใส่ข้อมูล AID ก่อนจะทำการอนุมัติ');</Script>"
-            Page.ClientScript.RegisterStartupScript(Me.GetType, "Notice", StrNotice)
-        Else
-            'ตรวจสอบว่าอนุกรรมการที่กำหนดไว้ ได้อนุมัติแล้วหรือไม่
-            Dim ObjW4A As Integer = GET_WAIT_FOR_APPROVE_BY_REQ_ID(Req_Id.Text, Hub_Id.Text, Approved1_Id.Value, Approved2_Id.Value, Approved3_Id.Value)
-            'Dim ObjW4A As List(Of Wait_For_Approve) = GET_WAIT_FOR_APPROVE_BY_REQ_ID(Req_Id.Text, Hub_Id.Text, Approved3_Id.Value)
-            If ObjW4A = 3 Then
-                Try
+        Dim ObjW4A As Integer = GET_WAIT_FOR_APPROVE_BY_REQ_ID(Req_Id.Text, Hub_Id.Text, Approved1_Id.Value, Approved2_Id.Value, Approved3_Id.Value)
+        If ObjW4A = 3 Then
+            Try
+                If AID.Text = "0" Then
+                    StrNotice = "<Script language=""javascript"">alert('คุณยังไม่เลข AID ใส่ข้อมูล AID ก่อนจะทำการอนุมัติ');</Script>"
+                    Page.ClientScript.RegisterStartupScript(Me.GetType, "Notice", StrNotice)
+                Else
                     UPDATE_PRICE3_MASTER_APPROVE(Req_Id.Text, AID.Text, Temp_AID.Text, Cif.Text)
                     UPDATE_Status_Appraisal_Request(Req_Id.Text, Hub_Id.Text, 12)
                     GridView1.DataBind()
                     StrNotice = "<Script language=""javascript"">alert('การอนุมัติเสร็จสมบูรณ์');</Script>"
                     Page.ClientScript.RegisterStartupScript(Me.GetType, "Notice", StrNotice)
-                Catch ex As Exception
-                    StrNotice = "<Script language=""javascript"">alert('ไม่สามารถ Approved ได้ ข้อมูลผิดพลาด');</Script>"
-                    Page.ClientScript.RegisterStartupScript(Me.GetType, "Notice", StrNotice)
-                End Try
-            Else
-                'StrNotice = "<Script language=""javascript"">alert('อนุกรรมการยังอนุมัติไม่ครบ 3 คน');</Script>"
-                'Page.ClientScript.RegisterStartupScript(Me.GetType, "Notice", StrNotice)
-                StrPath = Request.ApplicationPath & "/ListOfAppraisal_Approve.aspx?Req_Id=" & Req_Id.Text & "&Hub_Id=" & Hub_Id.Text
-                s1 = "<script language=""javascript"">window.open('" + StrPath + "','window','toolbar=no, menubar=no, scrollbars=yes, resizable=no,location=no, directories=no, status=yes,height=400px,width=780px');</script>"
-                Page.ClientScript.RegisterStartupScript(Me.GetType, "Notice", s1)
-            End If
+                End If
+
+            Catch ex As Exception
+                StrNotice = "<Script language=""javascript"">alert('ไม่สามารถ Approved ได้ ข้อมูลผิดพลาด');</Script>"
+                Page.ClientScript.RegisterStartupScript(Me.GetType, "Notice", StrNotice)
+            End Try
+        Else
+            StrPath = Request.ApplicationPath & "/ListOfAppraisal_Approve.aspx?Req_Id=" & Req_Id.Text & "&Hub_Id=" & Hub_Id.Text
+            s1 = "<script language=""javascript"">window.open('" + StrPath + "','window','toolbar=no, menubar=no, scrollbars=yes, resizable=no,location=no, directories=no, status=yes,height=400px,width=780px');</script>"
+            Page.ClientScript.RegisterStartupScript(Me.GetType, "Notice", s1)
         End If
+
+
+        'If Approved1.Text = String.Empty Or Approved2.Text = String.Empty Or Approved3.Text = String.Empty Then
+        '    StrNotice = "<Script language=""javascript"">alert('อนุกรรมการในการอนุมัติมีไม่ครบ 3 คน');</Script>"
+        '    Page.ClientScript.RegisterStartupScript(Me.GetType, "Notice", StrNotice)
+        '    'Exit Sub
+        'End If
+
+
+
+
+        'If AID.Text = "0" Then
+        '    StrNotice = "<Script language=""javascript"">alert('คุณยังไม่เลข AID ใส่ข้อมูล AID ก่อนจะทำการอนุมัติ');</Script>"
+        '    Page.ClientScript.RegisterStartupScript(Me.GetType, "Notice", StrNotice)
+        'Else
+        'ตรวจสอบว่าอนุกรรมการที่กำหนดไว้ ได้อนุมัติแล้วหรือไม่
+        'Dim ObjW4A As Integer = GET_WAIT_FOR_APPROVE_BY_REQ_ID(Req_Id.Text, Hub_Id.Text, Approved1_Id.Value, Approved2_Id.Value, Approved3_Id.Value)
+        ''Dim ObjW4A As List(Of Wait_For_Approve) = GET_WAIT_FOR_APPROVE_BY_REQ_ID(Req_Id.Text, Hub_Id.Text, Approved3_Id.Value)
+        'If ObjW4A = 3 Then
+        '    Try
+        '        UPDATE_PRICE3_MASTER_APPROVE(Req_Id.Text, AID.Text, Temp_AID.Text, Cif.Text)
+        '        UPDATE_Status_Appraisal_Request(Req_Id.Text, Hub_Id.Text, 12)
+        '        GridView1.DataBind()
+        '        StrNotice = "<Script language=""javascript"">alert('การอนุมัติเสร็จสมบูรณ์');</Script>"
+        '        Page.ClientScript.RegisterStartupScript(Me.GetType, "Notice", StrNotice)
+        '    Catch ex As Exception
+        '        StrNotice = "<Script language=""javascript"">alert('ไม่สามารถ Approved ได้ ข้อมูลผิดพลาด');</Script>"
+        '        Page.ClientScript.RegisterStartupScript(Me.GetType, "Notice", StrNotice)
+        '    End Try
+        'Else
+        '    StrPath = Request.ApplicationPath & "/ListOfAppraisal_Approve.aspx?Req_Id=" & Req_Id.Text & "&Hub_Id=" & Hub_Id.Text
+        '    s1 = "<script language=""javascript"">window.open('" + StrPath + "','window','toolbar=no, menubar=no, scrollbars=yes, resizable=no,location=no, directories=no, status=yes,height=400px,width=780px');</script>"
+        '    Page.ClientScript.RegisterStartupScript(Me.GetType, "Notice", s1)
+        'End If
+        'End If
 
 
     End Sub

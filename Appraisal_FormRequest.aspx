@@ -324,6 +324,7 @@
                                    <td class="style33">SAVE</td>
                             </tr>
                         </table>
+					    <asp:Button ID="Button1" runat="server" Text="Button" />
 					</td>
 				</tr>
 			</table>

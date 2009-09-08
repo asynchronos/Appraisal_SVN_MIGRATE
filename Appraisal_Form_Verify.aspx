@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="VB" MasterPageFile="~/MasterPage.master" AutoEventWireup="false" CodeFile="Appraisal_Form_Verify.aspx.vb" Inherits="Appraisal_Form_Appraisal_Form_Verify" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+
     <script type="text/javascript">
 
         function expandcollapse(obj, row) {
@@ -36,7 +37,7 @@
     
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-<br />
+    <br />
     <table width=100%>
         <tr>
             <td>
@@ -144,7 +145,14 @@
         </asp:GridView>
 	<asp:SqlDataSource ID="sdsRequest_Appraisal_List" runat="server" 
         ConnectionString="<%$ ConnectionStrings:AppraisalConn %>" 
-        SelectCommand="GET_REQUEST_APPRAISAL_LIST" SelectCommandType="StoredProcedure"></asp:SqlDataSource>
+        SelectCommand="GET_REQUEST_APPRAISAL_LIST" SelectCommandType="StoredProcedure">
+        <SelectParameters>
+            <asp:ControlParameter ControlID="hdfHub_Id" Name="HUB_ID" PropertyName="Value" 
+                Type="Int32" />
+        </SelectParameters>
+                </asp:SqlDataSource>
+    
+    <asp:HiddenField ID="hdfHub_Id" runat="server" />
             </td>
         </tr>
     </table>
