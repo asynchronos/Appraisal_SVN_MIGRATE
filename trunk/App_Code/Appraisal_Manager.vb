@@ -16,6 +16,7 @@ Imports System.Configuration
 
 
 Public Class Appraisal_Manager
+
     Public Shared Sub Add_Sent_Appraisal(ByVal Q_ID As Integer, _
                                     ByVal Cif As Integer, _
                                     ByVal Create_Date As Date, _
@@ -138,6 +139,7 @@ Public Class Appraisal_Manager
     Public Shared Function GET_TEMP_AID() As Integer
         Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
             Using command As New SqlCommand("GET_TEMP_AID", connection)
+
                 command.CommandType = CommandType.StoredProcedure
                 connection.Open()
                 Dim list As New Integer
@@ -148,6 +150,7 @@ Public Class Appraisal_Manager
                     Loop
                 End Using
                 Return list
+                connection.Close()
             End Using
         End Using
     End Function
@@ -295,8 +298,8 @@ Public Class Appraisal_Manager
                 '    list.Add(temp)
                 '    Return list
                 'End If
-
             End Using
+            connection.Close()
         End Using
     End Function
 #End Region
@@ -645,7 +648,7 @@ Public Class Appraisal_Manager
                     list.Add(temp)
                     Return list
                 End If
-
+                connection.Close()
             End Using
         End Using
     End Function
@@ -798,6 +801,7 @@ Public Class Appraisal_Manager
                     Loop
                 End Using
                 Return list
+                connection.Close()
             End Using
         End Using
     End Function
@@ -1114,6 +1118,7 @@ Public Class Appraisal_Manager
                     Loop
                 End Using
                 Return list
+                connection.Close()
             End Using
         End Using
 
@@ -1473,6 +1478,7 @@ ByVal Hub_Id As Integer)
                     Loop
                 End Using
                 Return list
+                connection.Close()
             End Using
         End Using
 
@@ -1587,6 +1593,7 @@ ByVal Hub_Id As Integer)
                     Loop
                 End Using
                 Return list
+                connection.Close()
             End Using
         End Using
 
@@ -1819,6 +1826,7 @@ ByVal Hub_Id As Integer)
                     Loop
                 End Using
                 Return list
+                connection.Close()
             End Using
         End Using
 
@@ -1869,6 +1877,7 @@ ByVal Hub_Id As Integer)
                     Loop
                 End Using
                 Return list
+                connection.Close()
             End Using
         End Using
 
@@ -2212,6 +2221,7 @@ ByVal Hub_Id As Integer)
                     Loop
                 End Using
                 Return list
+                connection.Close()
             End Using
         End Using
 
@@ -2286,6 +2296,7 @@ ByVal Hub_Id As Integer)
                     Loop
                 End Using
                 Return list
+                connection.Close()
             End Using
         End Using
 
@@ -2359,6 +2370,7 @@ ByVal Hub_Id As Integer)
                     Loop
                 End Using
                 Return list
+                connection.Close()
             End Using
         End Using
 
@@ -2537,6 +2549,7 @@ ByVal Hub_Id As Integer)
                     Loop
                 End Using
                 Return list
+                connection.Close()
             End Using
         End Using
 
@@ -2706,6 +2719,7 @@ ByVal Hub_Id As Integer)
                     Loop
                 End Using
                 Return list
+                connection.Close()
             End Using
         End Using
 
@@ -2725,6 +2739,7 @@ ByVal Hub_Id As Integer)
                 Dim ds As New DataSet
                 list.Fill(ds)
                 Return ds
+                connection.Close()
             End Using
         End Using
 
@@ -2745,6 +2760,7 @@ ByVal Hub_Id As Integer)
                     Loop
                 End Using
                 Return list
+                connection.Close()
             End Using
         End Using
     End Function
@@ -2764,6 +2780,7 @@ ByVal Hub_Id As Integer)
                     Loop
                 End Using
                 Return list
+                connection.Close()
             End Using
         End Using
     End Function
@@ -2863,6 +2880,7 @@ ByVal Hub_Id As Integer)
                     Loop
                 End Using
                 Return list
+                connection.Close()
             End Using
         End Using
 
@@ -3165,6 +3183,7 @@ ByVal Cif As Integer)
                     Loop
                 End Using
                 Return list
+                connection.Close()
             End Using
         End Using
 
@@ -3217,6 +3236,7 @@ ByVal Cif As Integer)
                     Loop
                 End Using
                 Return list
+                connection.Close()
             End Using
         End Using
 
@@ -3579,6 +3599,7 @@ ByVal Cif As Integer)
                     Loop
                 End Using
                 Return list
+                connection.Close()
             End Using
         End Using
 
@@ -3663,6 +3684,7 @@ ByVal Cif As Integer)
                     Loop
                 End Using
                 Return list
+                connection.Close()
             End Using
         End Using
 
@@ -4009,6 +4031,7 @@ ByVal Cif As Integer)
                 Dim ds As New DataSet
                 list.Fill(ds)
                 Return ds
+                connection.Close()
             End Using
         End Using
 
@@ -4026,6 +4049,7 @@ ByVal Cif As Integer)
                 Dim ds As New DataSet
                 list.Fill(ds)
                 Return ds
+                connection.Close()
             End Using
         End Using
 
@@ -4420,6 +4444,7 @@ ByVal Cif As Integer)
                     Loop
                 End Using
                 Return list
+                connection.Close()
             End Using
         End Using
 
@@ -4605,6 +4630,7 @@ ByVal Cif As Integer)
                     Loop
                 End Using
                 Return list
+                connection.Close()
             End Using
         End Using
 
@@ -4804,6 +4830,7 @@ ByVal Cif As Integer)
                 End Using
                 Return list
             End Using
+            connection.Close()
         End Using
 
     End Function
@@ -4822,7 +4849,9 @@ ByVal Cif As Integer)
                 Dim ds As New DataSet
                 list.Fill(ds)
                 Return ds
+
             End Using
+            connection.Close()
         End Using
 
     End Function
@@ -4893,6 +4922,7 @@ ByVal Cif As Integer)
                 End Using
                 Return list
             End Using
+            connection.Close()
         End Using
 
     End Function
@@ -4912,6 +4942,7 @@ ByVal Cif As Integer)
                 list.Fill(ds)
                 Return ds
             End Using
+            connection.Close()
         End Using
 
     End Function
@@ -4931,6 +4962,7 @@ ByVal Cif As Integer)
                 list.Fill(ds)
                 Return ds
             End Using
+            connection.Close()
         End Using
 
     End Function
@@ -4950,6 +4982,7 @@ ByVal Cif As Integer)
                 list.Fill(ds)
                 Return ds
             End Using
+            connection.Close()
         End Using
 
     End Function
@@ -5053,6 +5086,7 @@ ByVal Cif As Integer)
                     Loop
                 End Using
                 Return list
+                connection.Close()
             End Using
         End Using
 
@@ -5122,6 +5156,7 @@ ByVal Cif As Integer)
                     Loop
                 End Using
                 Return list
+                connection.Close()
             End Using
         End Using
 
@@ -5190,6 +5225,7 @@ ByVal Cif As Integer)
                     Loop
                 End Using
                 Return list
+                connection.Close()
             End Using
         End Using
 
@@ -5420,6 +5456,8 @@ ByVal Cif As Integer)
   ByVal AID As String, _
   ByVal Temp_AID As Integer, _
   ByVal Cif As Integer, _
+  ByVal District As String, _
+  ByVal Amphur As String, _
   ByVal Building_Age As Decimal, _
   ByVal Memo_Date As Date, _
   ByVal Sequence As Integer, _
@@ -5449,6 +5487,8 @@ ByVal Cif As Integer)
                     command.Parameters.Add(New SqlParameter("@AID", AID))
                     command.Parameters.Add(New SqlParameter("@Temp_AID", Temp_AID))
                     command.Parameters.Add(New SqlParameter("@Cif", Cif))
+                    command.Parameters.Add(New SqlParameter("@District", District))
+                    command.Parameters.Add(New SqlParameter("@Amphur", Amphur))
                     command.Parameters.Add(New SqlParameter("@Building_Age", Building_Age))
                     command.Parameters.Add(New SqlParameter("@Memo_Date", Memo_Date))
                     command.Parameters.Add(New SqlParameter("@Sequence", Sequence))
@@ -5480,6 +5520,8 @@ ByVal Cif As Integer)
   ByVal AID As String, _
   ByVal Temp_AID As Integer, _
   ByVal Cif As Integer, _
+  ByVal District As String, _
+  ByVal Amphur As String, _
   ByVal Building_Age As Decimal, _
   ByVal Memo_Date As Date, _
   ByVal Sequence As Integer, _
@@ -5509,6 +5551,8 @@ ByVal Cif As Integer)
                     command.Parameters.Add(New SqlParameter("@AID", AID))
                     command.Parameters.Add(New SqlParameter("@Temp_AID", Temp_AID))
                     command.Parameters.Add(New SqlParameter("@Cif", Cif))
+                    command.Parameters.Add(New SqlParameter("@District", District))
+                    command.Parameters.Add(New SqlParameter("@Amphur", Amphur))
                     command.Parameters.Add(New SqlParameter("@Building_Age", Building_Age))
                     command.Parameters.Add(New SqlParameter("@Memo_Date", Memo_Date))
                     command.Parameters.Add(New SqlParameter("@Sequence", Sequence))
@@ -5554,6 +5598,8 @@ ByVal Cif As Integer)
                                                 CStr(reader("AID")), _
                                                 CInt(reader("Temp_AID")), _
                                                 CInt(reader("Cif")), _
+                                                CStr(reader("District")), _
+                                                CStr(reader("Amphur")), _
                                                 CDec(reader("Building_Age")), _
                                                 CDate(reader("Memo_Date")), _
                                                 CInt(reader("Sequence")), _
@@ -5574,6 +5620,7 @@ ByVal Cif As Integer)
                 End Using
                 Return list
             End Using
+            connection.Close()
         End Using
 
     End Function
@@ -5731,6 +5778,7 @@ ByVal Cif As Integer)
                     Loop
                 End Using
                 Return list
+                connection.Close()
             End Using
         End Using
 
@@ -5773,6 +5821,7 @@ ByVal Cif As Integer)
                     Loop
                 End Using
                 Return list
+                connection.Close()
             End Using
         End Using
 
@@ -5982,6 +6031,7 @@ ByVal Cif As Integer)
                     Loop
                 End Using
                 Return list
+                connection.Close()
             End Using
         End Using
 
@@ -6066,6 +6116,7 @@ ByVal Cif As Integer)
                     Loop
                 End Using
                 Return list
+                connection.Close()
             End Using
         End Using
 
@@ -6148,6 +6199,7 @@ ByVal Cif As Integer)
                     Loop
                 End Using
                 Return list
+                connection.Close()
             End Using
         End Using
 
@@ -6574,6 +6626,7 @@ ByVal Cif As Integer)
                 End Using
                 Return list
             End Using
+            connection.Close()
         End Using
     End Function
 #End Region
@@ -6594,7 +6647,9 @@ ByVal Cif As Integer)
                     Loop
                 End Using
                 Return list
+
             End Using
+            connection.Close()
         End Using
     End Function
 
@@ -6691,7 +6746,8 @@ ByVal Cif As Integer)
 
 #Region "WAIT FOR APPROVE"
 
-    Public Shared Sub AddWait_For_Approve(ByVal Req_Id As Integer, _
+    Public Shared Sub AddWait_For_Approve(ByVal Seq_Id As Integer, _
+     ByVal Req_Id As Integer, _
      ByVal Hub_Id As Integer, _
      ByVal AID As String, _
      ByVal Temp_AID As Integer, _
@@ -6715,6 +6771,7 @@ ByVal Cif As Integer)
                 command.Transaction = myTrans
                 Try
                     command.CommandType = CommandType.StoredProcedure
+                    command.Parameters.Add(New SqlParameter("@Seq_Id", Seq_Id))
                     command.Parameters.Add(New SqlParameter("@Req_Id", Req_Id))
                     command.Parameters.Add(New SqlParameter("@Hub_Id", Hub_Id))
                     command.Parameters.Add(New SqlParameter("@AID", AID))
@@ -6766,6 +6823,57 @@ ByVal Cif As Integer)
                     command.CommandType = CommandType.StoredProcedure
                     command.Parameters.Add(New SqlParameter("@Req_Id", Req_Id))
                     command.Parameters.Add(New SqlParameter("@Hub_Id", Hub_Id))
+                    command.Parameters.Add(New SqlParameter("@AID", AID))
+                    command.Parameters.Add(New SqlParameter("@Temp_AID", Temp_AID))
+                    command.Parameters.Add(New SqlParameter("@Approve_Id", Approve_Id))
+                    command.Parameters.Add(New SqlParameter("@Cif", Cif))
+                    command.Parameters.Add(New SqlParameter("@ChkColl", ChkColl))
+                    command.Parameters.Add(New SqlParameter("@Appraisal_Id", Appraisal_Id))
+                    command.Parameters.Add(New SqlParameter("@Chk_Approve", Chk_Approve))
+                    command.Parameters.Add(New SqlParameter("@Save_Date", Save_Date))
+                    command.Parameters.Add(New SqlParameter("@Approve_Date", Approve_Date))
+                    command.Parameters.Add(New SqlParameter("@Update_Date", Update_Date))
+                    command.Parameters.Add(New SqlParameter("@Create_User", Create_User))
+                    command.Parameters.Add(New SqlParameter("@Create_Date", Create_Date))
+                    command.ExecuteNonQuery()
+                    myTrans.Commit()
+                Catch ex As Exception
+                    myTrans.Rollback()
+                Finally
+                    connection.Close()
+                End Try
+            End Using
+        End Using
+    End Sub
+
+    Public Shared Sub UPDATE_WAIT_FOR_APPROVE_COMMITTEE(ByVal Req_Id As Integer, _
+ ByVal Hub_Id As Integer, _
+ ByVal Seq_Id As Integer, _
+ ByVal AID As String, _
+ ByVal Temp_AID As Integer, _
+ ByVal Approve_Id As String, _
+ ByVal Cif As String, _
+ ByVal ChkColl As String, _
+ ByVal Appraisal_Id As String, _
+ ByVal Chk_Approve As Integer, _
+ ByVal Save_Date As Date, _
+ ByVal Approve_Date As Date, _
+ ByVal Update_Date As Date, _
+ ByVal Create_User As String, _
+ ByVal Create_Date As Date)
+
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("UPDATE_WAIT_FOR_APPROVE_COMMITTEE", connection)
+                connection.Open()
+                command.Connection = connection
+                Dim myTrans As SqlTransaction
+                myTrans = connection.BeginTransaction()
+                command.Transaction = myTrans
+                Try
+                    command.CommandType = CommandType.StoredProcedure
+                    command.Parameters.Add(New SqlParameter("@Req_Id", Req_Id))
+                    command.Parameters.Add(New SqlParameter("@Hub_Id", Hub_Id))
+                    command.Parameters.Add(New SqlParameter("@Seq_Id", Seq_Id))
                     command.Parameters.Add(New SqlParameter("@AID", AID))
                     command.Parameters.Add(New SqlParameter("@Temp_AID", Temp_AID))
                     command.Parameters.Add(New SqlParameter("@Approve_Id", Approve_Id))
@@ -6857,6 +6965,7 @@ ByVal Cif As Integer)
                     Do While (reader.Read())
                         Dim temp As New Wait_For_Approve(CInt(reader("Req_Id")), _
                                                 CInt(reader("Hub_Id")), _
+                                                CInt(reader("Seq_Id")), _
                                                 CStr(reader("AID")), _
                                                 CInt(reader("Temp_AID")), _
                                                 CStr(reader("Approve_Id")), _
@@ -6873,7 +6982,9 @@ ByVal Cif As Integer)
                     Loop
                 End Using
                 Return list
+
             End Using
+            connection.Close()
         End Using
 
     End Function
@@ -6902,7 +7013,9 @@ ByVal Cif As Integer)
                     Loop
                 End Using
                 Return list
+
             End Using
+            connection.Close()
         End Using
 
     End Function
@@ -7149,7 +7262,6 @@ ByVal Cif As Integer)
         DS = New DataSet() 'Create a new DataSet to hold the records.
         MyDataAdapter.Fill(DS, "GET_TOTAL_COLLTYPE") 'Fill the DataSet with the rows returned.
         Return DS
-
     End Function
 #End Region
 
@@ -7158,26 +7270,35 @@ ByVal Cif As Integer)
     Public Shared Function GET_SYSTEM_USER(ByVal sUser As String, ByVal sPwd As String) As Generic.List(Of SystemUser)
         Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
             Using command As New SqlCommand("GET_SYSTEM_USER", connection)
-                command.CommandType = CommandType.StoredProcedure
-                command.Parameters.Add(New SqlParameter("@UserID", sUser))
-                command.Parameters.Add(New SqlParameter("@Pwd", sPwd))
-                connection.Open()
-                Dim list As New Generic.List(Of SystemUser)()
-                Using reader As SqlDataReader = command.ExecuteReader()
-                    Do While (reader.Read())
-                        Dim temp As New SystemUser(CStr(reader("UserId")), _
-                                                CStr(reader("Pwd")), _
-                                                CStr(reader("Emp_Id")), _
-                                                CInt(reader("Hub_Id")), _
-                                                CInt(reader("SGroup_Id")), _
-                                                CStr(reader("Create_User")), _
-                                                CDate(reader("Create_Date")))
-                        list.Add(temp)
-                    Loop
-                End Using
+                Try
+                    command.CommandType = CommandType.StoredProcedure
+                    command.Parameters.Add(New SqlParameter("@UserID", sUser))
+                    command.Parameters.Add(New SqlParameter("@Pwd", sPwd))
+                    connection.Open()
+                    Dim list As New Generic.List(Of SystemUser)()
+                    Using reader As SqlDataReader = command.ExecuteReader()
+                        Do While (reader.Read())
+                            Dim temp As New SystemUser(CStr(reader("UserId")), _
+                                                    CStr(reader("Pwd")), _
+                                                    CStr(reader("Emp_Id")), _
+                                                    CInt(reader("Hub_Id")), _
+                                                    CInt(reader("SGroup_Id")), _
+                                                    CStr(reader("Create_User")), _
+                                                    CDate(reader("Create_Date")))
+                            list.Add(temp)
+                        Loop
+                        reader.Close()
+                    End Using
 
-                Return list
+                    Return list
+
+                Catch ex As Exception
+                    Throw New Exception(ex.Message & " : " & ex.StackTrace)
+                Finally
+                    connection.Close()
+                End Try
             End Using
+            Return Nothing
         End Using
     End Function
 
@@ -7289,7 +7410,9 @@ ByVal Cif As Integer)
                     Loop
                 End Using
                 Return list
+
             End Using
+            connection.Close()
         End Using
 
     End Function
@@ -7316,6 +7439,7 @@ ByVal Cif As Integer)
                 End Using
                 Return list
             End Using
+            connection.Close()
         End Using
 
     End Function
@@ -7339,7 +7463,9 @@ ByVal Cif As Integer)
                     Loop
                 End Using
                 Return list
+
             End Using
+            connection.Close()
         End Using
 
     End Function
@@ -7363,7 +7489,9 @@ ByVal Cif As Integer)
                     Loop
                 End Using
                 Return list
+
             End Using
+            connection.Close()
         End Using
 
     End Function
@@ -7387,7 +7515,9 @@ ByVal Cif As Integer)
                     Loop
                 End Using
                 Return list
+
             End Using
+            connection.Close()
         End Using
 
     End Function
@@ -7411,7 +7541,9 @@ ByVal Cif As Integer)
                     Loop
                 End Using
                 Return list
+
             End Using
+            connection.Close()
         End Using
 
     End Function
@@ -7435,7 +7567,9 @@ ByVal Cif As Integer)
                     Loop
                 End Using
                 Return list
+
             End Using
+            connection.Close()
         End Using
 
     End Function
@@ -7459,7 +7593,9 @@ ByVal Cif As Integer)
                     Loop
                 End Using
                 Return list
+
             End Using
+            connection.Close()
         End Using
 
     End Function
@@ -7483,7 +7619,9 @@ ByVal Cif As Integer)
                     Loop
                 End Using
                 Return list
+
             End Using
+            connection.Close()
         End Using
 
     End Function
@@ -7507,7 +7645,9 @@ ByVal Cif As Integer)
                     Loop
                 End Using
                 Return list
+
             End Using
+            connection.Close()
         End Using
 
     End Function
@@ -7533,7 +7673,9 @@ ByVal Cif As Integer)
                     Loop
                 End Using
                 Return list
+
             End Using
+            connection.Close()
         End Using
 
     End Function
@@ -7557,7 +7699,9 @@ ByVal Cif As Integer)
                     Loop
                 End Using
                 Return list
+
             End Using
+            connection.Close()
         End Using
 
     End Function
@@ -7581,7 +7725,9 @@ ByVal Cif As Integer)
                     Loop
                 End Using
                 Return list
+
             End Using
+            connection.Close()
         End Using
 
     End Function
@@ -7605,7 +7751,9 @@ ByVal Cif As Integer)
                     Loop
                 End Using
                 Return list
+
             End Using
+            connection.Close()
         End Using
 
     End Function
@@ -7629,7 +7777,9 @@ ByVal Cif As Integer)
                     Loop
                 End Using
                 Return list
+
             End Using
+            connection.Close()
         End Using
 
     End Function
@@ -7652,6 +7802,7 @@ ByVal Cif As Integer)
                     Loop
                 End Using
                 Return list
+                connection.Close()
             End Using
         End Using
     End Function
@@ -7675,6 +7826,7 @@ ByVal Cif As Integer)
                 End Using
                 Return list
             End Using
+            connection.Close()
         End Using
     End Function
 
@@ -7696,6 +7848,7 @@ ByVal Cif As Integer)
                     Loop
                 End Using
                 Return list
+                connection.Close()
             End Using
         End Using
     End Function
@@ -7714,6 +7867,7 @@ ByVal Cif As Integer)
                 list.Fill(ds)
                 Return ds
             End Using
+            connection.Close()
         End Using
 
     End Function
@@ -7738,6 +7892,7 @@ ByVal Cif As Integer)
                 End Using
                 Return list
             End Using
+            connection.Close()
         End Using
     End Function
 
@@ -7761,6 +7916,7 @@ ByVal Cif As Integer)
                 End Using
                 Return list
             End Using
+            connection.Close()
         End Using
     End Function
 
@@ -7784,6 +7940,7 @@ ByVal Cif As Integer)
                 End Using
                 Return list
             End Using
+            connection.Close()
         End Using
     End Function
 #End Region

@@ -1,11 +1,12 @@
 ﻿Imports Microsoft.VisualBasic
 
 Public Class Price3_Master_Review
-
     Private _Req_Id As Integer
     Private _AID As Integer
     Private _Temp_AID As Integer
     Private _Cif As Integer
+    Private _District As String
+    Private _Amphur As String
     Private _Building_Age As Decimal
     Private _Memo_Date As Date
     Private _Sequence As Integer
@@ -28,6 +29,8 @@ Public Class Price3_Master_Review
      ByVal AID As Integer, _
      ByVal Temp_AID As Integer, _
      ByVal Cif As Integer, _
+     ByVal District As String, _
+     ByVal Amphur As String, _
      ByVal Building_Age As Decimal, _
      ByVal Memo_Date As Date, _
      ByVal Sequence As Integer, _
@@ -48,6 +51,8 @@ Public Class Price3_Master_Review
         _AID = AID
         _Temp_AID = Temp_AID
         _Cif = Cif
+        _District = District
+        _Amphur = Amphur
         _Building_Age = Building_Age
         _Memo_Date = Memo_Date
         _Sequence = Sequence
@@ -107,6 +112,24 @@ Public Class Price3_Master_Review
         End Get
         Set(ByVal Value As Integer)
             _Cif = Value
+        End Set
+    End Property
+
+    Public Property District() As String
+        Get
+            Return _District
+        End Get
+        Set(ByVal Value As String)
+            _District = Value
+        End Set
+    End Property
+
+    Public Property Amphur() As String
+        Get
+            Return _Amphur
+        End Get
+        Set(ByVal Value As String)
+            _Amphur = Value
         End Set
     End Property
 
