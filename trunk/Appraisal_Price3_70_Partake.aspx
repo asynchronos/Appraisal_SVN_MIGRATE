@@ -1,6 +1,8 @@
 ﻿<%@ Page Title="" Language="VB" MasterPageFile="~/MasterPage.master" AutoEventWireup="false" CodeFile="Appraisal_Price3_70_Partake.aspx.vb" Inherits="Appraisal_Price3_70_Partake" %>
 <%@ Register assembly="Mytextbox" namespace="Mytextbox" tagprefix="cc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+<script src="Js/jquery.js" type="text/javascript"></script>
+<script src="Js/common.js" type="text/javascript"></script>
     <style type="text/css">
 
         .style22
@@ -18,6 +20,52 @@
             font-size: medium;
         }
         </style>
+<script type="text/javascript">
+    function CalSection_Pastake(sender, e) {
+        var txtPartakeArea = getEleByProperty("input", "MyClintID", "txtPartakeArea");
+        var txtPartakeUnitPrice = getEleByProperty("input", "MyClintID", "txtPartakeUnitPrice");
+        var txtPartakePrice = getEleByProperty("input", "MyClintID", "txtPartakePrice");
+        var txtFinishPercent = getEleByProperty("input", "MyClintID", "txtFinishPercent");
+        var txtPriceNotFinish = getEleByProperty("input", "MyClintID", "txtPriceNotFinish");
+        var txtPartakeAge = getEleByProperty("input", "MyClintID", "txtPartakeAge");
+        var txtPartakePersent1 = getEleByProperty("input", "MyClintID", "txtPartakePersent1");
+        var txtPartakePersent2 = getEleByProperty("input", "MyClintID", "txtPartakePersent2");
+        var txtPartakePersent3 = getEleByProperty("input", "MyClintID", "txtPartakePersent3");
+        var txtPartakeTotalDeteriorate = getEleByProperty("input", "MyClintID", "txtPartakeTotalDeteriorate");
+        var txtPartakePriceTotalDeteriorate = getEleByProperty("input", "MyClintID", "txtPartakePriceTotalDeteriorate");
+
+        var b_area = Number(txtPartakeArea.value);
+        var pp_unit = Number(txtPartakeUnitPrice.value);
+        var percent_finish = Number(txtFinishPercent.value);
+        var buildingAge = Number(txtPartakeAge.value);
+        var BuildingPersent1 = Number(txtPartakePersent1.value);
+        var BuildingPersent2 = Number(txtPartakePersent2.value);
+        var BuildingPersent3 = Number(txtPartakePersent3.value);
+
+        //ส่งแสดงผลกลับให้กับ Textbox ที่อยู่หน้า Design
+        var partake_price = b_area * pp_unit;
+        txtPartakePrice.value = addCommas(partake_price);
+        var partake_price2 = partake_price * (percent_finish / 100);
+        txtPriceNotFinish.value = addCommas(partake_price2);
+        var percent_total = (buildingAge * BuildingPersent1) - BuildingPersent2 + BuildingPersent3;
+        txtPartakeTotalDeteriorate.value = percent_total;
+        var PartakePriceTotalDeteriorate = addCommas(partake_price2 * (percent_total / 100));
+        txtPartakePriceTotalDeteriorate.value = addCommas(PartakePriceTotalDeteriorate);
+    }
+
+    function addCommas(nStr) {
+        nStr += '';
+        x = nStr.split('.');
+        x1 = x[0];
+        x2 = x.length > 1 ? '.' + x[1] : '';
+        var rgx = /(\d+)(\d{3})/;
+        while (rgx.test(x1)) {
+            x1 = x1.replace(rgx, '$1' + ',' + '$2');
+        }
+        return x1 + x2;
+    }
+
+</script>        
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <asp:ScriptManager ID="ScriptManager1" runat="server">
@@ -88,23 +136,21 @@
                                   พื้นที่ส่วนควบ</td>
                               <td>
                                   <cc1:mytext ID="txtPartakeArea" runat="server" AllowUserKey="num_Numeric" 
-                        EnableTextAlignRight="True" MaxLength="6" Width="35px" BackColor="#FFFF66" 
-                                      AutoPostBack="True">0</cc1:mytext>
+                                    EnableTextAlignRight="True" MaxLength="6" Width="35px" BackColor="#FFFF66" 
+                                    MyClintID="txtPartakeArea" onkeyup="CalSection_Pastake(this,event);" >0</cc1:mytext>
                                   ตรม.</td>
                               <td>
                                   ราคาต่อหน่วย</td>
                               <td class="style19">
                                   <cc1:mytext ID="txtPartakeUnitPrice" runat="server" AllowUserKey="num_Numeric" 
-                        EnableTextAlignRight="True" Width="110px" BackColor="#FFFF66" AutoPostBack="True" 
-                                      AutoCurrencyFormatOnKeyUp="True">0.00</cc1:mytext>
+                        EnableTextAlignRight="True" Width="110px" BackColor="#FFFF66" MyClintID="txtPartakeUnitPrice" 
+                                      onkeyup="CalSection_Pastake(this,event);" >0.00</cc1:mytext>
                                   บาท</td>
                               <td class="style14">
                                   มูลค่า</td>
                               <td>
                                   <cc1:mytext ID="txtPartakePrice" runat="server" AllowUserKey="num_Numeric" 
-                        EnableTextAlignRight="True" Width="110px" BackColor="#FFFF66" 
-                                      AutoCurrencyFormatOnKeyUp="True" AutoPostBack="True" ReadOnly="True" 
-                                      Enabled="False">0.00</cc1:mytext>
+                        EnableTextAlignRight="True" Width="110px" BackColor="#FFFF66" MyClintID="txtPartakePrice" >0.00</cc1:mytext>
                                   บาท</td>
                           </tr>
                           <tr>
@@ -112,15 +158,17 @@
                                   เปอร์เซ็นต์ส่วนควบสร้างเสร็จ</td>
                               <td class="">
                                   <cc1:mytext ID="txtFinishPercent" runat="server" AllowUserKey="num_Numeric" 
-                                      AutoPostBack="True" BackColor="#FFFF66" EnableTextAlignRight="True" 
-                                      MaxLength="3" Width="35px">100</cc1:mytext>
+                                      BackColor="#FFFF66" EnableTextAlignRight="True" 
+                                      MaxLength="3" Width="35px"
+                                      MyClintID="txtFinishPercent" onkeyup="CalSection_Pastake(this,event);" >100</cc1:mytext>
                                   %</td>
                               <td class="">
                                   มูลค่า</td>
                               <td class="">
                                   <cc1:mytext ID="txtPriceNotFinish" runat="server" AllowUserKey="num_Numeric" 
-                                      AutoPostBack="True" BackColor="#FFFF66" EnableTextAlignRight="True" 
-                                      ReadOnly="True" Width="110px">0.00</cc1:mytext>
+                                      BackColor="#FFFF66" EnableTextAlignRight="True" 
+                                      ReadOnly="True" Width="110px"
+                                      MyClintID="txtPriceNotFinish" >0.00</cc1:mytext>
                                   บาท</td>
                               <td class="">
                                   &nbsp;</td>
@@ -132,23 +180,26 @@
                                   อายุการใช้งาน</td>
                               <td class="">
                                   <cc1:mytext ID="txtPartakeAge" runat="server" AllowUserKey="num_Numeric" 
-                                      AutoPostBack="True" BackColor="#FFFF66" EnableTextAlignRight="True" 
-                                      MaxLength="5" Width="35px">0</cc1:mytext>
+                                      BackColor="#FFFF66" EnableTextAlignRight="True" 
+                                      MaxLength="5" Width="35px"
+                                      MyClintID="txtPartakeAge" onkeyup="CalSection_Pastake(this,event);" >0</cc1:mytext>
                                   ปี</td>
                               <td class="">
                                   ค่าเสื่อมต่อปี</td>
                               <td class="">
                                   <cc1:mytext ID="txtPartakePersent1" runat="server" AllowUserKey="num_Numeric" 
-                                      AutoPostBack="True" BackColor="#FFFF66" EnableTextAlignRight="True" 
-                                      MaxLength="5" Width="35px">0</cc1:mytext>
+                                      BackColor="#FFFF66" EnableTextAlignRight="True" 
+                                      MaxLength="5" Width="35px"
+                                      MyClintID="txtPartakePersent1" onkeyup="CalSection_Pastake(this,event);" >0</cc1:mytext>
                                   %</td>
                               <td class="">
                                   ค่าเสื่อมตามสภาพปรับปรุง
                               </td>
                               <td>
                                   <cc1:mytext ID="txtPartakePersent2" runat="server" AllowUserKey="num_Numeric" 
-                                      AutoPostBack="True" BackColor="#FFFF66" EnableTextAlignRight="True" 
-                                      MaxLength="5" Width="35px">0</cc1:mytext>
+                                      BackColor="#FFFF66" EnableTextAlignRight="True" 
+                                      MaxLength="5" Width="35px"
+                                      MyClintID="txtPartakePersent2" onkeyup="CalSection_Pastake(this,event);" >0</cc1:mytext>
                                   %</td>
                           </tr>
                           <tr>
@@ -157,21 +208,21 @@
                               <td class="style8">
                                   <cc1:mytext ID="txtPartakePersent3" runat="server" AllowUserKey="num_Numeric" 
                         EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66" 
-                                      AutoPostBack="True">0</cc1:mytext>
+                                      MyClintID="txtPartakePersent3" onkeyup="CalSection_Pastake(this,event);" >0</cc1:mytext>
                                   %</td>
                               <td class="style5">
                                   รวมค่าเสื่อม</td>
                               <td class="style19">
                                   <cc1:mytext ID="txtPartakeTotalDeteriorate" runat="server" AllowUserKey="num_Numeric" 
                         EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66" 
-                                      ReadOnly="True">0</cc1:mytext>
+                                      MyClintID="txtPartakeTotalDeteriorate" onkeyup="CalSection_Pastake(this,event);" >0</cc1:mytext>
                                   %</td>
                               <td class="style14">
                                   รวมค่าเสื่อมราคา</td>
                               <td>
                                   <cc1:mytext ID="txtPartakePriceTotalDeteriorate" runat="server" AllowUserKey="num_Numeric" 
-                        EnableTextAlignRight="True" Width="110px" BackColor="#FFFF66" ReadOnly="True" 
-                                      Enabled="False">0.00</cc1:mytext>
+                        EnableTextAlignRight="True" Width="110px" BackColor="#FFFF66" 
+                        MyClintID="txtPartakePriceTotalDeteriorate" >0.00</cc1:mytext>
                                   บาท</td>
                           </tr>
                           <tr>
@@ -228,6 +279,11 @@
                                                   <asp:Label ID="lblPartake_Id" runat="server" Text='<%# Bind("Partake_Id") %>'></asp:Label>
                                               </ItemTemplate>
                                           </asp:TemplateField>
+                                          <asp:TemplateField HeaderText="ชื่อส่วนควบ" SortExpression="Partake_Name">
+                                              <ItemTemplate>
+                                                  <asp:Label ID="lblPartakeName" runat="server" Text='<%# Bind("Partake_Name") %>'></asp:Label>
+                                              </ItemTemplate>
+                                          </asp:TemplateField>                                          
                                           <asp:TemplateField HeaderText="พื้นที่" SortExpression="PartakeArea">
                                               <EditItemTemplate>
                                                   <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("PartakeArea") %>'></asp:TextBox>
