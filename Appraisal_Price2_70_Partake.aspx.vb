@@ -93,7 +93,7 @@ Partial Class Appraisal_Price2_70_Partake
     Private Sub TotalPersent()
         Default_Value()
         txtPartakePrice.Text = Format(CDec(txtPartakeArea.Text) * CDec(txtPartakeUnitPrice.Text), "#,##0.00")
-        txtPartakeTotalDeteriorate.Text = (CDec(txtPartakeAge.Text) * (CDec(txtPartakePersent1.Text) + CDec(txtPartakePersent2.Text) + CDec(txtPartakePersent3.Text)))
+        txtPartakeTotalDeteriorate.Text = ((CDec(txtPartakeAge.Text) * CDec(txtPartakePersent1.Text)) - CDec(txtPartakePersent2.Text) + CDec(txtPartakePersent3.Text))
         'txtPartakePriceTotalDeteriorate.Text = Format(CDec(txtPartakePrice.Text) * (CDec(txtPartakeTotalDeteriorate.Text) / 100), "#,##0.00")
         txtPartakePriceTotalDeteriorate.Text = Format(CDec(txtPriceNotFinish.Text) * (CDec(txtPartakeTotalDeteriorate.Text) / 100), "#,##0.00")
     End Sub
@@ -135,6 +135,7 @@ Partial Class Appraisal_Price2_70_Partake
         Dim lblPercentFinish As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblPercentFinish"), Label)
         Dim lblPartakeArea As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblPartakeArea"), Label)
         Dim lblPartakeUintPrice As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblPartakeUintPrice"), Label)
+        lblPartakeUintPrice.Text = CDec(lblPartakeUintPrice.Text)
         Dim lblPartakePrice As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblPartakePrice"), Label)
         Dim lblPartakeAge As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblPartakeAge"), Label)
         Dim lblPartakePersent1 As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblPartakePersent1"), Label)
@@ -196,7 +197,7 @@ Partial Class Appraisal_Price2_70_Partake
         If txtPartakeAge.Text = String.Empty Or txtPartakePersent1.Text = String.Empty Or txtPartakePersent2.Text = String.Empty Or txtPartakePersent3.Text = String.Empty Then
             Exit Sub
         Else
-            txtPartakeTotalDeteriorate.Text = (CInt(txtPartakeAge.Text) * (CDec(txtPartakePersent1.Text)) + CDec(txtPartakePersent2.Text) - CDec(txtPartakePersent3.Text))
+            txtPartakeTotalDeteriorate.Text = (CInt(txtPartakeAge.Text) * CDec(txtPartakePersent1.Text)) - CDec(txtPartakePersent2.Text) + CDec(txtPartakePersent3.Text)
             txtPartakePriceTotalDeteriorate.Text = String.Format("{0:N2}", (CDec(txtPriceNotFinish.Text) * CDec(txtPartakeTotalDeteriorate.Text)) / 100)
         End If
     End Sub

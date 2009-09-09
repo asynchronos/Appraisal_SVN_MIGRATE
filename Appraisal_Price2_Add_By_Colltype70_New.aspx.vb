@@ -41,9 +41,7 @@ Partial Class Appraisal_Price2_Add_By_Colltype70_New
 
     Private Sub SAVE_DATA()
         Dim lbluserid As Label = TryCast(Me.Form.FindControl("lblUserID"), Label) 'หา Control จาก Master Page ที่ control ไม่อยู่ใน  ContentPlaceHolder1 ของ Master Page
-        'If lblId.Text = String.Empty Then
-        '    xId = 0
-        'End If
+ 
         If lblTemp_AID.Text = String.Empty Then
             lblTemp_AID.Text = 0
         End If
@@ -56,9 +54,9 @@ Partial Class Appraisal_Price2_Add_By_Colltype70_New
                 ddlRoof.SelectedValue, txtRoof_Detail.Text, ddlBuild_State.SelectedValue, _
                 txtBuild_State_Detail.Text, txtBuilding_Detail.Text, CDec(txtPriceTotal1.Text), _
                 chkDoc1.Checked, chkDoc2.Checked, txtDoc_Detail.Text, String.Empty, txtChanodeNo.Text, txtOwnership.Text, txtBuildingArea.Text, CDec(txtBuildingUnitPrice.Text), _
-                CDec(txtBuildingPrice.Text), txtBuildingAge.Text, txtBuildingPersent1.Text, txtBuildingPersent2.Text, txtBuildingPersent3.Text, _
+                CDec(txtBuildingPrice.Text), txtBuildingAge.Text, CDec(txtBuildingPersent1.Text), CDec(txtBuildingPersent2.Text), CDec(txtBuildingPersent3.Text), _
                 CDec(txtBuildingPriceTotalDeteriorate.Text), CInt(txtFinishPercent.Text), CDec(txtPriceNotFinish.Text), txtBuildAddArea.Text, CDec(txtBuildAddUnitPrice.Text), CDec(txtBuildAddPrice.Text), _
-                txtBuildAddAge.Text, txtBuildAddPersent1.Text, txtBuildAddPersent2.Text, txtBuildAddPersent3.Text, CDec(txtBuildAddPriceTotalDeteriorate.Text), CInt(txtFinishPercent1.Text), CDec(txtPriceNotFinish1.Text), _
+                txtBuildAddAge.Text, CDec(txtBuildAddPersent1.Text), CDec(txtBuildAddPersent2.Text), CDec(txtBuildAddPersent3.Text), CDec(txtBuildAddPriceTotalDeteriorate.Text), CInt(txtFinishPercent1.Text), CDec(txtPriceNotFinish1.Text), _
                 txtBuildingDetail.Text, ddlInteriorState.SelectedValue, ddlStandard.SelectedValue, lbluserid.Text, Now())
         If lblId.Text = String.Empty Then
             UPDATE_Status_Appraisal_Request(lblReq_Id.Text, lblHub_Id.Text, 5)
@@ -74,9 +72,9 @@ Partial Class Appraisal_Price2_Add_By_Colltype70_New
                 ddlRoof.SelectedValue, txtRoof_Detail.Text, ddlBuild_State.SelectedValue, _
                 txtBuild_State_Detail.Text, txtBuilding_Detail.Text, CDec(txtPriceTotal1.Text), _
                 chkDoc1.Checked, chkDoc2.Checked, txtDoc_Detail.Text, String.Empty, txtChanodeNo.Text, txtOwnership.Text, txtBuildingArea.Text, CDec(txtBuildingUnitPrice.Text), _
-                CDec(txtBuildingPrice.Text), txtBuildingAge.Text, txtBuildingPersent1.Text, txtBuildingPersent2.Text, txtBuildingPersent3.Text, _
+                CDec(txtBuildingPrice.Text), txtBuildingAge.Text, CDec(txtBuildingPersent1.Text), CDec(txtBuildingPersent2.Text), CDec(txtBuildingPersent3.Text), _
                 CDec(txtBuildingPriceTotalDeteriorate.Text), CInt(txtFinishPercent.Text), CDec(txtPriceNotFinish.Text), txtBuildAddArea.Text, CDec(txtBuildAddUnitPrice.Text), CDec(txtBuildAddPrice.Text), _
-                txtBuildAddAge.Text, txtBuildAddPersent1.Text, txtBuildAddPersent2.Text, txtBuildAddPersent3.Text, CDec(txtBuildAddPriceTotalDeteriorate.Text), CInt(txtFinishPercent1.Text), CDec(txtPriceNotFinish1.Text), _
+                txtBuildAddAge.Text, CDec(txtBuildAddPersent1.Text), CDec(txtBuildAddPersent2.Text), CDec(txtBuildAddPersent3.Text), CDec(txtBuildAddPriceTotalDeteriorate.Text), CInt(txtFinishPercent1.Text), CDec(txtPriceNotFinish1.Text), _
                 txtBuildingDetail.Text, ddlInteriorState.SelectedValue, ddlStandard.SelectedValue, lbluserid.Text, Now())
         'UPDATE_Status_Appraisal_Request(lblReq_Id.Text, lblHub_Id.Text, 6)
     End Sub
@@ -112,7 +110,7 @@ Partial Class Appraisal_Price2_Add_By_Colltype70_New
         txtBuildingPersent1.Text = P2_70New.Item(0).BuildingPersent1
         txtBuildingPersent2.Text = P2_70New.Item(0).BuildingPersent2
         txtBuildingPersent3.Text = P2_70New.Item(0).BuildingPersent3
-        txtBuildingTotalDeteriorate.Text = (P2_70New.Item(0).BuildingAge * (P2_70New.Item(0).BuildingPersent1) + P2_70New.Item(0).BuildingPersent2 - P2_70New.Item(0).BuildingPersent3)
+        txtBuildingTotalDeteriorate.Text = (P2_70New.Item(0).BuildingAge * (P2_70New.Item(0).BuildingPersent1)) - P2_70New.Item(0).BuildingPersent2 + P2_70New.Item(0).BuildingPersent3
         txtFinishPercent.Text = P2_70New.Item(0).BuildingPercentFinish
         txtPriceNotFinish.Text = String.Format("{0:N2}", P2_70New.Item(0).BuildingPriceFinish)
         txtBuildingPriceTotalDeteriorate.Text = String.Format("{0:N2}", (CDec(txtPriceNotFinish.Text) * CDec(txtBuildingTotalDeteriorate.Text)) / 100)
@@ -125,7 +123,7 @@ Partial Class Appraisal_Price2_Add_By_Colltype70_New
         txtBuildAddPersent3.Text = P2_70New.Item(0).BuildAddPersent3
         txtFinishPercent1.Text = P2_70New.Item(0).BuildAddPercentFinish
         txtPriceNotFinish1.Text = String.Format("{0:N2}", P2_70New.Item(0).BuildAddPriceFinish)
-        txtBuildAddTotalDeteriorate.Text = P2_70New.Item(0).BuildAddAge * (P2_70New.Item(0).BuildAddPersent1 + P2_70New.Item(0).BuildAddPersent2 + P2_70New.Item(0).BuildAddPersent3) 'Obj_GetP70.Item(0).BuildAddPriceTotalDeteriorate
+        txtBuildAddTotalDeteriorate.Text = (P2_70New.Item(0).BuildAddAge * P2_70New.Item(0).BuildAddPersent1) - P2_70New.Item(0).BuildAddPersent2 - P2_70New.Item(0).BuildAddPersent3 'Obj_GetP70.Item(0).BuildAddPriceTotalDeteriorate
         txtBuildAddPriceTotalDeteriorate.Text = String.Format("{0:N2}", (CDec(txtPriceNotFinish1.Text) * CDec(txtBuildAddTotalDeteriorate.Text)) / 100)
         txtBuildingDetail.Text = P2_70New.Item(0).BuildingDetail
         ddlInteriorState.SelectedValue = P2_70New.Item(0).Decoration
@@ -186,7 +184,13 @@ Partial Class Appraisal_Price2_Add_By_Colltype70_New
     End Sub
 
     Protected Sub ImageSave_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs) Handles ImageSave.Click
-        Operation()
+        If txtBuild_No.Text = String.Empty Then
+            s = "<script language=""javascript"">alert('คุณยังไม่ได้ใส่เลขที่สิ่งปลูกสร้าง หากไม่ปรากฎเลขที่สิ่งปลูกสร้าง ให้ใส่ สิ่งปลูกสร้างไม่มีเลขที่หลังที่1 หรือ ตามจำนวนสิ่งปลูกสร้าง'); </script>"
+            Page.ClientScript.RegisterStartupScript(Me.GetType, "รับเรื่องประเมิน", s)
+        Else
+            Operation()
+        End If
+
     End Sub
 
     Protected Sub btnAddDetail_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnAddDetail.Click
@@ -207,11 +211,69 @@ Partial Class Appraisal_Price2_Add_By_Colltype70_New
 
     Protected Sub btnAdPartake_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnAdPartake.Click
         'Operation()
-        If lblId.Text = String.Empty Or lblId.Text = "0" Then
-            SAVE_DATA()
+        'ตรวจเช็คก่อนว่าผู้ประเมินกับหัวหน้าดูข้อมูลเดียวกัน แต่ผู้ประเมินได้จัดกลุ่มไปแล้วแต่หัวหน้าเข้าไปดูก่อนที่เจ้าหน้าที่ประเมินจะจัดกลุ่มทำให้
+        'Temp_Aid ที่เกิดขึ้นขัดแย้งกัน จึงจำเป็นต้องเช็คก่อนว่าเลขคำขอนี้ และ Temp_Aid นี้ยังเป็นของเดิมหรือไม่
+        Dim P2_70New As List(Of Price2_70_New) = GET_PRICE2_70_NEW_TEMP_AID(lblId.Text, lblReq_Id.Text, lblHub_Id.Text, lblTemp_AID.Text)
+        If P2_70New.Count > 0 Then
+            s = "<script language=""javascript"">alert('ผู้ประเมินได้จัดกลุ่มทรัพย์ที่จะประเมินแล้วระบบจะทำการ Update ข้อมูลให้ถูกต้อง'); </script>"
+            Page.ClientScript.RegisterStartupScript(Me.GetType, "แจ้งเตือนการUpdate", s)
+            lblTemp_AID.Text = P2_70New.Item(0).Temp_AID
+            DDLSubCollType.SelectedValue = P2_70New.Item(0).MysubColl_ID
+            txtChanodeNo.Text = P2_70New.Item(0).Put_On_Chanode
+            txtOwnership.Text = P2_70New.Item(0).Ownership
+            txtBuild_No.Text = P2_70New.Item(0).Build_No
+            txtTumbon.Text = P2_70New.Item(0).Tumbon
+            txtAmphur.Text = P2_70New.Item(0).Amphur
+            ddlProvince.SelectedValue = P2_70New.Item(0).Province
+            ddlBuild_Character.SelectedValue = P2_70New.Item(0).Build_Character
+            txtFloor.Text = P2_70New.Item(0).Floors
+            txtItem.Text = P2_70New.Item(0).Item
+            ddlBuild_Construct.SelectedValue = P2_70New.Item(0).Build_Construct
+            ddlRoof.SelectedValue = P2_70New.Item(0).Roof
+            txtRoof_Detail.Text = P2_70New.Item(0).Roof_Detail
+            ddlBuild_State.SelectedValue = P2_70New.Item(0).Build_State
+            txtBuild_State_Detail.Text = P2_70New.Item(0).Build_State_Detail
+            txtBuilding_Detail.Text = P2_70New.Item(0).Building_Detail
+            txtPriceTotal1.Text = String.Format("{0:N2}", P2_70New.Item(0).PriceTotal1)
+            chkDoc1.Checked = P2_70New.Item(0).Doc1
+            chkDoc2.Checked = P2_70New.Item(0).Doc2
+            txtDoc_Detail.Text = P2_70New.Item(0).Doc_Detail
+            txtBuildingArea.Text = P2_70New.Item(0).BuildingArea
+            txtBuildingUnitPrice.Text = P2_70New.Item(0).BuildingUintPrice
+            txtBuildingPrice.Text = String.Format("{0:N2}", P2_70New.Item(0).BuildingPrice)
+            txtBuildingAge.Text = P2_70New.Item(0).BuildingAge
+            txtBuildingPersent1.Text = P2_70New.Item(0).BuildingPersent1
+            txtBuildingPersent2.Text = P2_70New.Item(0).BuildingPersent2
+            txtBuildingPersent3.Text = P2_70New.Item(0).BuildingPersent3
+            txtBuildingTotalDeteriorate.Text = (P2_70New.Item(0).BuildingAge * (P2_70New.Item(0).BuildingPersent1)) - P2_70New.Item(0).BuildingPersent2 + P2_70New.Item(0).BuildingPersent3
+            txtFinishPercent.Text = P2_70New.Item(0).BuildingPercentFinish
+            txtPriceNotFinish.Text = String.Format("{0:N2}", P2_70New.Item(0).BuildingPriceFinish)
+            txtBuildingPriceTotalDeteriorate.Text = String.Format("{0:N2}", (CDec(txtPriceNotFinish.Text) * CDec(txtBuildingTotalDeteriorate.Text)) / 100)
+            txtBuildAddArea.Text = P2_70New.Item(0).BuildAddArea
+            txtBuildAddUnitPrice.Text = P2_70New.Item(0).BuildAddUintPrice
+            txtBuildAddPrice.Text = String.Format("{0:N2}", P2_70New.Item(0).BuildAddPrice)
+            txtBuildAddAge.Text = P2_70New.Item(0).BuildAddAge
+            txtBuildAddPersent1.Text = P2_70New.Item(0).BuildAddPersent1
+            txtBuildAddPersent2.Text = P2_70New.Item(0).BuildAddPersent2
+            txtBuildAddPersent3.Text = P2_70New.Item(0).BuildAddPersent3
+            txtFinishPercent1.Text = P2_70New.Item(0).BuildAddPercentFinish
+            txtPriceNotFinish1.Text = String.Format("{0:N2}", P2_70New.Item(0).BuildAddPriceFinish)
+            txtBuildAddTotalDeteriorate.Text = (P2_70New.Item(0).BuildAddAge * P2_70New.Item(0).BuildAddPersent1) - P2_70New.Item(0).BuildAddPersent2 - P2_70New.Item(0).BuildAddPersent3 'Obj_GetP70.Item(0).BuildAddPriceTotalDeteriorate
+            txtBuildAddPriceTotalDeteriorate.Text = String.Format("{0:N2}", (CDec(txtPriceNotFinish1.Text) * CDec(txtBuildAddTotalDeteriorate.Text)) / 100)
+            txtBuildingDetail.Text = P2_70New.Item(0).BuildingDetail
+            ddlInteriorState.SelectedValue = P2_70New.Item(0).Decoration
+            ddlStandard.SelectedValue = P2_70New.Item(0).Standard_Id
+            Dim Obj_P2_70D As List(Of Cls_Price2_70_Detail) = GET_PRICE2_70_DETAIL(lblId.Text, lblReq_Id.Text, lblHub_Id.Text, lblTemp_AID.Text, 0)
+            If Obj_P2_70D.Count > 0 Then
+                chkDetail.Checked = True
+            End If
         Else
-
+            If lblId.Text = String.Empty Or lblId.Text = "0" Then
+                'บันทึกข้อมูลก่อนไปหน้าส่วนควบ
+                SAVE_DATA()
+            End If
         End If
+
         Context.Items("Id") = lblId.Text
         Context.Items("Temp_AID") = lblTemp_AID.Text
         Context.Items("Req_Id") = lblReq_Id.Text
@@ -290,7 +352,7 @@ Partial Class Appraisal_Price2_Add_By_Colltype70_New
             txtBuildingPersent1.Text = Get_Chanode.Item(0).BuildingPersent1
             txtBuildingPersent2.Text = Get_Chanode.Item(0).BuildingPersent2
             txtBuildingPersent3.Text = Get_Chanode.Item(0).BuildingPersent3
-            txtBuildingTotalDeteriorate.Text = Get_Chanode.Item(0).BuildingAge * (Get_Chanode.Item(0).BuildingPersent1 + Get_Chanode.Item(0).BuildingPersent2 + Get_Chanode.Item(0).BuildingPersent3)
+            txtBuildingTotalDeteriorate.Text = (Get_Chanode.Item(0).BuildingAge * Get_Chanode.Item(0).BuildingPersent1) - Get_Chanode.Item(0).BuildingPersent2 + Get_Chanode.Item(0).BuildingPersent3
             txtFinishPercent.Text = Get_Chanode.Item(0).BuildingPercentFinish
             txtPriceNotFinish.Text = String.Format("{0:N2}", Get_Chanode.Item(0).BuildingPriceFinish)
             txtBuildingPriceTotalDeteriorate.Text = String.Format("{0:N2}", (CDec(txtPriceNotFinish.Text) * CDec(txtBuildingTotalDeteriorate.Text)) / 100)
@@ -303,7 +365,7 @@ Partial Class Appraisal_Price2_Add_By_Colltype70_New
             txtBuildAddPersent3.Text = Get_Chanode.Item(0).BuildAddPersent3
             txtFinishPercent1.Text = Get_Chanode.Item(0).BuildAddPercentFinish
             txtPriceNotFinish1.Text = String.Format("{0:N2}", Get_Chanode.Item(0).BuildAddPriceFinish)
-            txtBuildAddTotalDeteriorate.Text = Get_Chanode.Item(0).BuildAddAge * (Get_Chanode.Item(0).BuildAddPersent1 + Get_Chanode.Item(0).BuildAddPersent2 + Get_Chanode.Item(0).BuildAddPersent3) 'Obj_GetP70.Item(0).BuildAddPriceTotalDeteriorate
+            txtBuildAddTotalDeteriorate.Text = (Get_Chanode.Item(0).BuildAddAge * Get_Chanode.Item(0).BuildAddPersent1) - Get_Chanode.Item(0).BuildAddPersent2 + Get_Chanode.Item(0).BuildAddPersent3 'Obj_GetP70.Item(0).BuildAddPriceTotalDeteriorate
             txtBuildAddPriceTotalDeteriorate.Text = String.Format("{0:N2}", (CDec(txtPriceNotFinish1.Text) * CDec(txtBuildAddTotalDeteriorate.Text)) / 100)
             txtBuildingDetail.Text = Get_Chanode.Item(0).BuildingDetail
             ddlInteriorState.SelectedValue = Get_Chanode.Item(0).Decoration
