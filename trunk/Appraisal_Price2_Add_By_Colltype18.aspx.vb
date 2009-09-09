@@ -59,7 +59,7 @@ Partial Class Appraisal_Price2_Add_By_Colltype18
                     txtBackside_Width.Text = ObjP2_18.Item(0).Backside_Width
                     ddlFloors.SelectedValue = ObjP2_18.Item(0).SideWalk_Is
                     txtSideWalk_Width.Text = ObjP2_18.Item(0).SideWalk_Width
-                    txtUnitPrice.Text = String.Format("{0:N2}", ObjP2_18.Item(0).Unit_Price)
+                    txtUnitPrice.Text = ObjP2_18.Item(0).Unit_Price 'String.Format("{0:N2}", ObjP2_18.Item(0).Unit_Price)
                     txtCondoPrice.Text = String.Format("{0:N2}", ObjP2_18.Item(0).PriceTotal)
                 End If
             End If

@@ -43,7 +43,7 @@
         txtPartakePrice.value = addCommas(partake_price);
         var partake_price2 = partake_price * (percent_finish / 100);
         txtPriceNotFinish.value = addCommas(partake_price2);
-        var percent_total = (buildingAge * BuildingPersent1) + BuildingPersent2 - BuildingPersent3;
+        var percent_total = (buildingAge * BuildingPersent1) - BuildingPersent2 + BuildingPersent3;
         txtPartakeTotalDeteriorate.value = percent_total;
         var PartakePriceTotalDeteriorate = addCommas(partake_price2 * (percent_total / 100));
         txtPartakePriceTotalDeteriorate.value = addCommas(PartakePriceTotalDeteriorate);
@@ -255,6 +255,11 @@
                                                   <asp:Label ID="lblPartake_Id" runat="server" Text='<%# Bind("Partake_Id") %>'></asp:Label>
                                               </ItemTemplate>
                                           </asp:TemplateField>
+                                          <asp:TemplateField HeaderText="ชื่อส่วนควบ" SortExpression="Partake_Name">
+                                              <ItemTemplate>
+                                                  <asp:Label ID="lblPartakeName" runat="server" Text='<%# Bind("Partake_Name") %>'></asp:Label>
+                                              </ItemTemplate>
+                                          </asp:TemplateField>                                          
                                           <asp:TemplateField HeaderText="พื้นที่" SortExpression="PartakeArea">
                                               <EditItemTemplate>
                                                   <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("PartakeArea") %>'></asp:TextBox>

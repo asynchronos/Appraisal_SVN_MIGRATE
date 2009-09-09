@@ -213,7 +213,7 @@ function ConfirmOnSave(reqid,item) {
         var building_price2 = building_price * (percent_finish / 100);
         txtbuildingPrice.value = addCommas(building_price);
         txtprice_finish.value = addCommas(building_price2);
-        var percent_total = (buildingAge * BuildingPersent1) + BuildingPersent2 - BuildingPersent3;
+        var percent_total = (buildingAge * BuildingPersent1) - BuildingPersent2 + BuildingPersent3;
         txtBuildingTotalDeteriorate.value = percent_total;
         var BuildingPriceTotalDeteriorate = addCommas(building_price2 * (percent_total / 100));
         txtBuildingPriceTotalDeteriorate.value = addCommas(BuildingPriceTotalDeteriorate);
@@ -260,7 +260,7 @@ function ConfirmOnSave(reqid,item) {
         txtbuildAddPrice.value = addCommas(buildAdd_price);
         var building_price2 = buildAdd_price * (percent_finish / 100);
         txtprice_finish.value = addCommas(building_price2);
-        var percent_total = (buildingAge * BuildingPersent1) + BuildingPersent2 - BuildingPersent3;
+        var percent_total = (buildingAge * BuildingPersent1) - BuildingPersent2 + BuildingPersent3;
         txtBuildingTotalDeteriorate.value = percent_total;
         var BuildingPriceTotalDeteriorate = addCommas(building_price2 * (percent_total / 100));
         txtBuildingPriceTotalDeteriorate.value = addCommas(BuildingPriceTotalDeteriorate);
@@ -467,23 +467,6 @@ function ConfirmOnSave(reqid,item) {
                     </asp:DropDownList>
                 </td>
             </tr>              
-            <tr>
-                <td class="style22">
-                    เป็นเงิน(ราคาตลาด)</td>
-                <td class="style8">
-                    <cc1:mytext ID="txtPriceTotal1" runat="server" AllowUserKey="num_Numeric" AutoCurrencyFormatOnKeyUp="True"
-                        EnableTextAlignRight="True" 
-                        BackColor="#FFFF66">0</cc1:mytext>
-                </td>
-                <td class="style5">
-                    &nbsp;</td>
-                <td class="style19">
-                    &nbsp;</td>
-                <td class="style26">
-                    &nbsp;</td>
-                <td>
-                    &nbsp;</td>
-            </tr>
             <tr>
                 <td class="style22">
                     &nbsp;เอกสารประกอบเพิ่มเติม
@@ -744,6 +727,23 @@ function ConfirmOnSave(reqid,item) {
                     &nbsp;</td>
             </tr>
             <tr>
+                <td class="style22">
+                    เป็นเงิน(ราคาตลาด)</td>
+                <td class="style8">
+                    <cc1:mytext ID="txtPriceTotal1" runat="server" AllowUserKey="num_Numeric" AutoCurrencyFormatOnKeyUp="True"
+                        EnableTextAlignRight="True" 
+                        BackColor="#FFFF66">0</cc1:mytext>
+                &nbsp;บาท</td>
+                <td class="style5" id="z">
+                    &nbsp;</td>
+                <td class="style19">
+                    &nbsp;</td>
+                <td class="style26">
+                    &nbsp;</td>
+                <td>
+                    &nbsp;</td>
+            </tr>
+            <tr>
                 <td class="style28" colspan="6">
                                         มาตรฐาน
                 <asp:DropDownList ID="ddlStandard" runat="server" DataSourceID="sdsStandard" 
@@ -803,7 +803,7 @@ function ConfirmOnSave(reqid,item) {
     <asp:SqlDataSource ID="SDSProvince" runat="server" ConnectionString="<%$ ConnectionStrings:AppraisalConn %>"
         
         SelectCommand="SELECT PROV_CODE, PROV_NAME FROM Bay01.dbo.TB_PROVINCE
-Order by prov_code">
+Order by PROV_NAME">
     </asp:SqlDataSource>
     
     <asp:SqlDataSource ID="SDSRoofStructure" runat="server" ConnectionString="<%$ ConnectionStrings:AppraisalConn %>"

@@ -3,6 +3,8 @@
 <%@ Register assembly="Mytextbox" namespace="Mytextbox" tagprefix="cc1" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+<script src="Js/jquery.js" type="text/javascript"></script>
+<script src="Js/common.js" type="text/javascript"></script>
     <style type="text/css">
             .style26
         {
@@ -55,6 +57,33 @@
             height: 30px;
         }
             </style>
+            
+        <script type="text/javascript">
+            function CalSection_Building(sender, e) {
+                //ต้องกำหนด ชนิด input type MyClintID ที่ตัว Control ของแต่ละตัวที่จะส่ง และชื่อ Property  Name ของ Control นั้น ๆ ก่อน
+                var building_area = getEleByProperty("input", "MyClintID", "txtArea");
+                var price_per_unit = getEleByProperty("input", "MyClintID", "txtUnitPrice");
+                var txtCondo_Price = getEleByProperty("input", "MyClintID", "txtCondoPrice");
+                var b_area = Number(building_area.value);
+                //alert(b_area);
+                var pp_unit = Number(price_per_unit.value);
+                //alert(pp_unit);
+                var Condo_price = b_area * pp_unit;
+                txtCondo_Price.value = addCommas(Condo_price);
+            }
+
+            function addCommas(nStr) {
+                nStr += '';
+                x = nStr.split('.');
+                x1 = x[0];
+                x2 = x.length > 1 ? '.' + x[1] : '';
+                var rgx = /(\d+)(\d{3})/;
+                while (rgx.test(x1)) {
+                    x1 = x1.replace(rgx, '$1' + ',' + '$2');
+                }
+                return x1 + x2;
+            }
+        </script>               
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 <br />
@@ -198,7 +227,7 @@
             <td class="style22">
 
                     <cc1:mytext ID="txtArea" runat="server" AllowUserKey="num_Numeric" AutoCurrencyFormatOnKeyUp="True"
-                        EnableTextAlignRight="True" Width="50px" AutoPostBack="True">0</cc1:mytext>
+                        EnableTextAlignRight="True" Width="50px" AutoPostBack="True" MyClintID="txtArea" onkeyup="CalSection_Building(this,event);" >0</cc1:mytext>
                     &nbsp;ตรม.&nbsp; สูง
                     <cc1:mytext ID="txtHeight" runat="server" AllowUserKey="num_Numeric" EnableTextAlignRight="True"
                         MaxLength="5" Width="50px">0</cc1:mytext>
@@ -448,16 +477,16 @@
             <td class="style26">
                     ตรม. ละ</td>
             <td class="style22">
-                <cc1:mytext id="txtUnitPrice" runat="server" allowuserkey="num_Numeric" width="120px"
-                        autocurrencyformatonkeyup="True" EnableTextAlignRight="True" 
-                    AutoPostBack="True">0</cc1:mytext>
+                <cc1:mytext id="txtUnitPrice" runat="server" allowuserkey="num_Numeric" 
+                    width="120px" EnableTextAlignRight="True" MyClintID="txtUnitPrice"
+                        onkeyup="CalSection_Building(this,event);" >0</cc1:mytext>
             </td>
             <td class="style5">
                     เป็นเงิน</td>
             <td class="style27">
                 <cc1:mytext ID="txtCondoPrice" runat="server" AllowUserKey="txt_Text" Width="120px"
                         AutoCurrencyFormatOnKeyUp="True" EnableTextAlignRight="True" 
-                    ReadOnly="True">0</cc1:mytext>
+                    MyClintID="txtCondoPrice" >0</cc1:mytext>
             </td>
             <td class="style29">
                     &nbsp;
@@ -522,7 +551,7 @@
     <asp:SqlDataSource ID="SDSProvince" runat="server" ConnectionString="<%$ ConnectionStrings:AppraisalConn %>"
         
         SelectCommand="SELECT PROV_CODE, PROV_NAME FROM Bay01.dbo.TB_PROVINCE
-Order by prov_code">
+Order by PROV_NAME">
     </asp:SqlDataSource>
     <asp:SqlDataSource ID="SDSBuild_Construct" runat="server" ConnectionString="<%$ ConnectionStrings:AppraisalConn %>"
         SelectCommand="SELECT [Build_Construct_ID], [Build_Construct_Name] FROM [Build_Construct]">
