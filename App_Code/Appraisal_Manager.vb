@@ -806,7 +806,7 @@ Public Class Appraisal_Manager
         End Using
     End Function
 
-    Public Shared Sub UPDATE_PRICE2_MASTER(ByVal Req_Id As Integer, ByVal Hub_Id As Integer, ByVal Price As Decimal, ByVal Note As String)
+    Public Shared Sub UPDATE_PRICE2_MASTER(ByVal Req_Id As Integer, ByVal Hub_Id As Integer, ByVal Price As Decimal, ByVal Note As String, ByVal Approve2_Id As String)
         Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
             Using command As New SqlCommand("UPDATE_PRICE2_MASTER", connection)
 
@@ -821,6 +821,7 @@ Public Class Appraisal_Manager
                     command.Parameters.Add(New SqlParameter("@Hub_Id", Hub_Id))
                     command.Parameters.Add(New SqlParameter("@Price", Price))
                     command.Parameters.Add(New SqlParameter("@Note", Note))
+                    command.Parameters.Add(New SqlParameter("@Approve2_Id", Approve2_Id))
                     command.ExecuteNonQuery()
                     myTrans.Commit()
                 Catch ex As Exception
