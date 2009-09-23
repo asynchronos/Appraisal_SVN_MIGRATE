@@ -1,0 +1,40 @@
+﻿<%@ Master Language="VB" CodeFile="Appraisal_MasterPage.master.vb" Inherits="Appraisal_MasterPage" %>
+<%@ Register TagPrefix="cc1" Namespace="EeekSoft.Web" Assembly="EeekSoft.Web.PopupWin" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <asp:ContentPlaceHolder id="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div id="links">
+     <table border="0" cellspacing="0" cellpadding="0" width="100%" style="height: 80px">
+        <tr>
+            <td align="left" style="background-color: #FFCE40">
+                <img alt="" src="Images/logo_bay.gif" />
+            </td>
+            <td style="height: 50px; background-color: #FFCE40;" valign="top">
+<cc1:PopupWin ID="popupTest" runat="server" ColorStyle="Blue" 
+                DockMode="BottomLeft" Message="First message" 
+                style="Z-INDEX: 120; LEFT: 616px; POSITION: absolute; TOP: 528px" 
+                Text="First text in new window" title="Notice Message" />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                &nbsp;</td>
+        </tr>
+    </table>   
+    </div>
+
+    <div>
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            
+        </asp:ContentPlaceHolder>
+    </div>
+    </form>
+</body>
+</html>
