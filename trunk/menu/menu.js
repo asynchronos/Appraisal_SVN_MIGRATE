@@ -115,6 +115,8 @@ var blnOk=true;
 //pour enlever les "px" pour faire des calculs...
 var reg = new RegExp("px", "g");
 
+var isIE7 = (isIE && IEver == 7);
+
 // onScroll pour Internet Explorer, le position:fixed fait ce boulot pour les autres navigateurs
 // qui respectent les normes CSS...
 window.onscroll = function()
@@ -345,6 +347,9 @@ function trimespaces() {
 }
 
 function SelectVisible(v,elem) {
-	if (blnOk && cacher_les_select && (isIE||isIE5win))
-		for (var i=0;i<elem.length;i++) elem[i].style.visibility=v;
+    if (blnOk && cacher_les_select && (isIE || isIE5win)) {
+        if (!isIE7) {
+            for (var i = 0; i < elem.length; i++) elem[i].style.visibility = v;
+        }
+    }
 }
