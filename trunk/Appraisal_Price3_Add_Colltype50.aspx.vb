@@ -23,8 +23,11 @@ Partial Class Appraisal_Price3_Add_Colltype50
                     Show_Price3_50()
                 End If
             Else
-                lblMethodDesc.Text = "เพิ่มกรณีพิเศษ"
+                lblMethodDesc.Text = "ทบทวนประเมิน"
                 lblCif.Text = Context.Items("Cif")
+                Show_Price3_50()
+                ImageSave.Visible = False
+                lblSave.Visible = False
             End If
 
         End If
@@ -71,6 +74,8 @@ Partial Class Appraisal_Price3_Add_Colltype50
             lblId.Text = Obj_GetP50.Item(0).Id
             lblReq_Id.Text = Obj_GetP50.Item(0).Req_Id
             lblHub_Id.Text = Obj_GetP50.Item(0).Hub_Id
+            lblAID.Text = Obj_GetP50.Item(0).AID
+            lblCID.Text = Obj_GetP50.Item(0).CID
             DDLSubCollType.SelectedValue = Obj_GetP50.Item(0).MysubColl_ID
             txtChanode.Text = Obj_GetP50.Item(0).Address_No
             txtRai.Text = Obj_GetP50.Item(0).Rai
@@ -96,7 +101,7 @@ Partial Class Appraisal_Price3_Add_Colltype50
             ddlTendency.SelectedValue = Obj_GetP50.Item(0).Tendency
             ddlBuySale_State.SelectedValue = Obj_GetP50.Item(0).BuySale_State
             ddlSubUnit.SelectedValue = Obj_GetP50.Item(0).SubUnit
-            txtPriceWah.Text = String.Format("{0:N2}", Obj_GetP50.Item(0).PriceWah)
+            txtPriceWah.Text = Obj_GetP50.Item(0).PriceWah 'String.Format("{0:N2}", Obj_GetP50.Item(0).PriceWah)
             txtTotal.Text = String.Format("{0:N2}", Obj_GetP50.Item(0).PriceTotal1)
             txtRaWang.Text = Obj_GetP50.Item(0).Rawang
             txtLandNumber.Text = Obj_GetP50.Item(0).LandNumber
@@ -116,7 +121,7 @@ Partial Class Appraisal_Price3_Add_Colltype50
         Dim lbluserid As Label = TryCast(Me.Form.FindControl("lblUserID"), Label) 'หา Control จาก Master Page ที่ control ไม่อยู่ใน  ContentPlaceHolder1 ของ Master Page
         If lblMethodDesc.Text = "เพิ่มกรณีปกติ" Then
             'ส่งตัวแปรไปที่ Function  AddPRICE3_50 เพื่อทำการเพิ่มหรือแก้ไขข้อมูล
-            AddPRICE3_50(lblId.Text, CInt(lblReq_Id.Text), CInt(lblHub_Id.Text), lblTemp_AID.Text, CInt(DDLSubCollType.SelectedValue), txtChanode.Text, String.Empty, txtTumbon.Text, txtAmphur.Text, _
+            AddPRICE3_50(lblId.Text, CInt(lblReq_Id.Text), CInt(lblHub_Id.Text), lblTemp_AID.Text, lblAID.Text, lblCID.Text, CInt(DDLSubCollType.SelectedValue), txtChanode.Text, String.Empty, txtTumbon.Text, txtAmphur.Text, _
                                                                   ddlProvince.SelectedValue, CInt(txtRai.Text), CInt(txtNgan.Text), CDec(txtWah.Text), _
                                                                   txtRoad.Text, CInt(ddlRoad_Detail.SelectedValue), CDec(txtMeter.Text), txtSoi.Text, CInt(ddlRoad_Forntoff.SelectedValue), _
                                                                   CDec(txtRoadWidth.Text), CInt(ddlSite.SelectedValue), CStr(txtSite_Detail.Text), CInt(ddlLand_State.SelectedValue), _
@@ -124,13 +129,11 @@ Partial Class Appraisal_Price3_Add_Colltype50
                                                                   txtBinifit.Text, CInt(ddlTendency.SelectedValue), CInt(ddlBuySale_State.SelectedValue), ddlSubUnit.SelectedValue, _
                                                                   CDec(txtPriceWah.Text), CDec(txtTotal.Text), txtRaWang.Text, txtLandNumber.Text, txtSurway.Text, txtDocNo.Text, txtPage.Text, txtOwnerShip.Text, _
                                                                   txtObligation.Text, txtLand_Closeto_RoadWidth.Text, txtDeepWidth.Text, txtBehindWidth.Text, ddlAreaColur.SelectedValue, lbluserid.Text, Now())
-            UPDATE_Status_Appraisal_Request(lblReq_Id.Text, lblHub_Id.Text, 6)
+            UPDATE_Status_Appraisal_Request(lblReq_Id.Text, lblHub_Id.Text, 10)
             Response.Redirect("Appraisal_Price3_List.aspx")
         Else
-            'กรณีไม่ปกติ
 
         End If
-
     End Sub
 
     Protected Sub txtPriceWah_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtPriceWah.TextChanged

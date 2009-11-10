@@ -1,6 +1,7 @@
 <%@ Page Title="" Language="VB" MasterPageFile="~/MasterPage.master" AutoEventWireup="false" CodeFile="Appraisal_Price2_Group.aspx.vb" Inherits="Appraisal_Price2_Group" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+
     <script type="text/javascript">
 <!--
         var updated = "";
@@ -47,7 +48,7 @@
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-<br />
+    <br />
 <br />
     
         <asp:HiddenField ID="HiddenHubId" runat="server" />
@@ -61,7 +62,7 @@
             CellPadding="2" DataSourceID="SqlDataSource1" 
             ForeColor="Black" GridLines="None" BackColor="LightGoldenrodYellow" 
             BorderColor="Tan" BorderWidth="1px" Width="100%" Font-Size="Small" 
-        AllowPaging="True" PageSize="12" DataKeyNames="ID,Req_Id,Hub_Id">
+        AllowPaging="True" PageSize="15" DataKeyNames="ID,Req_Id,Hub_Id">
             <Columns>
                 <asp:TemplateField>
                     <HeaderTemplate>

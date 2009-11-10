@@ -202,19 +202,31 @@ Partial Class MyMenu
         'Session("permission") = 0
         'Session("division") = 1
 
-
+        'Try
+        '    myConnection = New SqlConnection(strConnection)
+        '    myConnection.Open()
+        'Catch ex As Exception
+        '    menuLiteral.Text = ex.Message
+        'End Try
+        'If Session("menuString") Is Nothing Then
+        '    menuLiteral.Text = BuildMenu()
+        'Else
+        '    menuLiteral.Text = Session("menuString").ToString()
+        'End If
 
         Try
             myConnection = New SqlConnection(strConnection)
             myConnection.Open()
+            If Session("menuString") Is Nothing Then
+                menuLiteral.Text = BuildMenu()
+            Else
+                menuLiteral.Text = Session("menuString").ToString()
+            End If
         Catch ex As Exception
             menuLiteral.Text = ex.Message
+        Finally
+            myConnection.Close()
         End Try
-        If Session("menuString") Is Nothing Then
-            menuLiteral.Text = BuildMenu()
-        Else
-            menuLiteral.Text = Session("menuString").ToString()
-        End If
     End Sub
 
     Private Function BuildMenu() As String

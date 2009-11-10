@@ -13,7 +13,8 @@ Partial Class Longdo_Data
         'Param1.ParameterName = "EMP_ID"
         'Param1.Value = Request("EMP_ID")
         Response.ClearHeaders()
-        '        Response.Write(ExtData.GetExtStoreFromSQL(sql, CommandType.StoredProcedure, ExtDataStore.ExtDataType.Xml, Param1))
+        'Response.Write(ExtData.GetExtStoreFromSQL(sql, CommandType.StoredProcedure, ExtDataStore.ExtDataType.Json, Param1))
+        'Response.Write(ExtData.GetExtStoreFromSQL(sql, CommandType.StoredProcedure, ExtDataStore.ExtDataType.Xml, Param1))
         Response.Write(ExtData.GetExtStoreFromSQL(sql, CommandType.StoredProcedure, ExtDataStore.ExtDataType.Json, Param1))
     End Sub
 End Class

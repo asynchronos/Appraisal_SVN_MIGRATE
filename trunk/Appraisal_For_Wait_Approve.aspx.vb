@@ -73,30 +73,67 @@ Partial Class Appraisal_For_Wait_Approve
 
         End If
 
-        Context.Items("ChkColl") = ChkColl
-        If ChkColl = 0 Then
-            s = "<script language=""javascript"">alert('คุณไม่มีชิ้นทรัพย์ในการประเมิน');</script>"
-            Page.ClientScript.RegisterStartupScript(Me.GetType, "ข้อความเตือน", s)
-        ElseIf ChkColl = 18 Then
-            If Method_Type.Text = "1" Then
-                Server.Transfer("Appraisal_Price3_Conform_New.aspx")
-            ElseIf Method_Type.Text = "2" Then
-                Server.Transfer("Appraisal_Price3_Form_Review.aspx")
-            End If
-        ElseIf ChkColl = 50 Then
-            If Method_Type.Text = "1" Then
-                Server.Transfer("Appraisal_Price3_Conform_New.aspx")
-            ElseIf Method_Type.Text = "2" Then
-                Server.Transfer("Appraisal_Price3_Form_Review.aspx")
-            End If
-        ElseIf ChkColl = 70 Then
-            If Method_Type.Text = "1" Then
-                Server.Transfer("Appraisal_Price3_Conform_New.aspx")
-            ElseIf Method_Type.Text = "2" Then
-                Server.Transfer("Appraisal_Price3_Form_Review.aspx")
+        If Session("sGroup_Id") = 6 Then
+            Dim ObjW4A As Integer = GET_WAIT_FOR_APPROVE_BY_REQ_ID(Req_Id.Text, Hub_Id.Text, Approved1_Id.Value, Approved2_Id.Value, Approved3_Id.Value)
+            If ObjW4A <> 3 Then
+                'อนุกรรมกรรมการเซ็นต์ไม่ครบ 3 คน
+                StrPath = Request.ApplicationPath & "/ListOfAppraisal_Approve.aspx?Req_Id=" & Req_Id.Text & "&Hub_Id=" & Hub_Id.Text
+                s1 = "<script language=""javascript"">window.open('" + StrPath + "','window','toolbar=no, menubar=no, scrollbars=yes, resizable=no,location=no, directories=no, status=yes,height=400px,width=780px');</script>"
+                Page.ClientScript.RegisterStartupScript(Me.GetType, "Notice1", s1)
+            Else
+                Context.Items("ChkColl") = ChkColl
+                If ChkColl = 0 Then
+                    s = "<script language=""javascript"">alert('คุณไม่มีชิ้นทรัพย์ในการประเมิน');</script>"
+                    Page.ClientScript.RegisterStartupScript(Me.GetType, "ข้อความเตือน", s)
+                ElseIf ChkColl = 18 Then
+                    If Method_Type.Text = "1" Then
+                        Server.Transfer("Appraisal_Price3_Conform_New.aspx")
+                    ElseIf Method_Type.Text = "2" Then
+                        Server.Transfer("Appraisal_Price3_Form_Review.aspx")
+                    End If
+                ElseIf ChkColl = 50 Then
+                    If Method_Type.Text = "1" Then
+                        Server.Transfer("Appraisal_Price3_Conform_New.aspx")
+                    ElseIf Method_Type.Text = "2" Then
+                        Server.Transfer("Appraisal_Price3_Form_Review.aspx")
+                    End If
+                ElseIf ChkColl = 70 Then
+                    If Method_Type.Text = "1" Then
+                        Server.Transfer("Appraisal_Price3_Conform_New.aspx")
+                    ElseIf Method_Type.Text = "2" Then
+                        Server.Transfer("Appraisal_Price3_Form_Review.aspx")
+                    End If
+                Else
+                End If
             End If
         Else
+            Context.Items("ChkColl") = ChkColl
+            If ChkColl = 0 Then
+                s = "<script language=""javascript"">alert('คุณไม่มีชิ้นทรัพย์ในการประเมิน');</script>"
+                Page.ClientScript.RegisterStartupScript(Me.GetType, "ข้อความเตือน", s)
+            ElseIf ChkColl = 18 Then
+                If Method_Type.Text = "1" Then
+                    Server.Transfer("Appraisal_Price3_Conform_New.aspx")
+                ElseIf Method_Type.Text = "2" Then
+                    Server.Transfer("Appraisal_Price3_Form_Review.aspx")
+                End If
+            ElseIf ChkColl = 50 Then
+                If Method_Type.Text = "1" Then
+                    Server.Transfer("Appraisal_Price3_Conform_New.aspx")
+                ElseIf Method_Type.Text = "2" Then
+                    Server.Transfer("Appraisal_Price3_Form_Review.aspx")
+                End If
+            ElseIf ChkColl = 70 Then
+                If Method_Type.Text = "1" Then
+                    Server.Transfer("Appraisal_Price3_Conform_New.aspx")
+                ElseIf Method_Type.Text = "2" Then
+                    Server.Transfer("Appraisal_Price3_Form_Review.aspx")
+                End If
+            Else
+            End If
         End If
+
+
         'Else
         ''อนุกรรมกรรมการเซ็นต์ไม่ครบ 3 คน
         'StrPath = Request.ApplicationPath & "/ListOfAppraisal_Approve.aspx?Req_Id=" & Req_Id.Text & "&Hub_Id=" & Hub_Id.Text
@@ -152,11 +189,11 @@ Partial Class Appraisal_For_Wait_Approve
         Dim Temp_AID As Label = imgApprove.Parent.FindControl("lblTemp_AID")
         Dim lbluserid As Label = TryCast(Me.Form.FindControl("lblUserID"), Label)
 
-        If Lng.Text = "0" Or Lat.Text = "0" Then
-            StrNotice = "<Script language=""javascript"">alert('คุณไม่ได้กำหนดพิกัด Lat Lng');</Script>"
-            Page.ClientScript.RegisterStartupScript(Me.GetType, "Notice", StrNotice)
-            'Exit Sub
-        End If
+        'If Lng.Text = "0" Or Lat.Text = "0" Then
+        '    StrNotice = "<Script language=""javascript"">alert('คุณไม่ได้กำหนดพิกัด Lat Lng');</Script>"
+        '    Page.ClientScript.RegisterStartupScript(Me.GetType, "Notice", StrNotice)
+        '    'Exit Sub
+        'End If
 
         Dim ObjW4A As Integer = GET_WAIT_FOR_APPROVE_BY_REQ_ID(Req_Id.Text, Hub_Id.Text, Approved1_Id.Value, Approved2_Id.Value, Approved3_Id.Value)
         If ObjW4A = 3 Then
@@ -165,6 +202,7 @@ Partial Class Appraisal_For_Wait_Approve
                     StrNotice = "<Script language=""javascript"">alert('คุณยังไม่เลข AID ใส่ข้อมูล AID ก่อนจะทำการอนุมัติ');</Script>"
                     Page.ClientScript.RegisterStartupScript(Me.GetType, "Notice", StrNotice)
                 Else
+                    'Update Field Approved ในตาราง Prive3_Master เป็น ค่า 1 จากเดิมคือค่า 0
                     UPDATE_PRICE3_MASTER_APPROVE(Req_Id.Text, AID.Text, Temp_AID.Text, Cif.Text)
                     UPDATE_Status_Appraisal_Request(Req_Id.Text, Hub_Id.Text, 12)
                     GridView1.DataBind()
@@ -218,6 +256,26 @@ Partial Class Appraisal_For_Wait_Approve
         'End If
 
 
+    End Sub
+
+    Sub gvHighlight(ByVal s As Object, ByVal e As EventArgs)
+        For Each gr As GridViewRow In s.Rows
+            If gr.Cells(14).Text <> "3" Then
+                MsgBox(gr.Cells(14).Text)
+                gr.BackColor = Drawing.Color.NavajoWhite
+            End If
+        Next
+    End Sub
+
+    Protected Sub GridView1_RowDataBound(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.GridViewRowEventArgs) Handles GridView1.RowDataBound
+        If e.Row.RowType = DataControlRowType.DataRow Then
+            'MsgBox((Convert.ToString(DataBinder.Eval(e.Row.DataItem, "Cnt_Item"))))
+            If (Convert.ToString(DataBinder.Eval(e.Row.DataItem, "Cnt_Item")) = "3") Then
+                'e.Row.BackColor = System.Drawing.Color.Yellow
+            Else
+                e.Row.BackColor = System.Drawing.Color.DodgerBlue
+            End If
+        End If
     End Sub
 
 End Class

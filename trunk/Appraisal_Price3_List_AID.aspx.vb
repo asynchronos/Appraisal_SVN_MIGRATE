@@ -41,9 +41,9 @@ Partial Class Appraisal_Price3_List_AID
         Dim strQRY As String = ""
         Dim dsTemp As New SqlDataSource
 
-        Dim conn As String = "server=172.19.54.2;Database=Appraisal;User ID=sa;Password=sa0123"
+        Dim conn As String = ConfigurationManager.ConnectionStrings.Item("AppraisalConn").ToString  '"server=172.19.54.2;Database=Appraisal;User ID=sa;Password=sa0123"
         dsTemp.ConnectionString = conn
-        strQRY = "SELECT Id,Temp_AID, Req_Id, Cif, CIFNAME, Hub_Id, HUB_NAME, CollType_ID, MysubColl_ID, SubCollType_Name, Address_No, Tumbon, Amphur, Province,PROV_NAME, AID" _
+        strQRY = "SELECT Id,Temp_AID,Req_Id, Cif, CIFNAME, Hub_Id, HUB_NAME, CollType_ID, MysubColl_ID, SubCollType_Name, Address_No, Tumbon, Amphur, Province,PROV_NAME, AID" _
                  & " FROM View_Appraisal_Price3_Review WHERE AID = " & strAID & " AND Req_Id = " & ReqId & ""
         dsTemp.SelectCommand = strQRY
         Return dsTemp
@@ -92,7 +92,8 @@ Partial Class Appraisal_Price3_List_AID
             End If
 
         Else
-            MsgBox("ไม่มีรายการให้ทบทวนราคาประเมิน")
+            s = "<script language=""javascript"">alert('ไม่มีรายการให้ทบทวนราคาประเมิน');</script>"
+            Page.ClientScript.RegisterStartupScript(Me.GetType, "ข้อความเตือน", s)
         End If
 
 
@@ -164,6 +165,7 @@ Partial Class Appraisal_Price3_List_AID
         Dim Req_Id As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblReq_Id"), Label)
         Dim Hub_Id As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblHub_Id"), Label)
         Dim lblTemp_AID As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblTemp_AID"), Label)
+        Dim Cif As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblCif"), Label)
         Dim lblCollType_Id As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblColltype"), Label)
         Dim ID As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblID"), Label)
         Dim lblColl_type As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblColltype"), Label)
@@ -171,24 +173,42 @@ Partial Class Appraisal_Price3_List_AID
         Context.Items("Req_Id") = Req_Id.Text
         Context.Items("Hub_Id") = Hub_Id.Text
         Context.Items("Temp_AID") = lblTemp_AID.Text
+        Context.Items("Cif") = Cif.Text
         Context.Items("ID") = ID.Text
         Context.Items("Coll_Type") = lblColl_type.Text
         Context.Items("SpecialAdd") = "เพิ่มกรณีปกติ"
-        If lblColl_type.Text = 50 Then
-            'Response.Redirect("Appraisal_Price3_Add_Colltype50.aspx?Req_id=" & Req_Id.Text & "&Hub_Id=" & Hub_Id.Text & "&Coll_Type=" & lblColl_type.Text & "&Temp_AID=" & lblTemp_AID.Text & "&ID=" & ID.Text)
-            Server.Transfer("Appraisal_Price3_Add_Colltype50.aspx")
-        ElseIf lblColl_type.Text = 70 Then
-            'Response.Redirect("Appraisal_Price3_Add_Colltype70.aspx?Req_id=" & Req_Id.Text & "&Hub_Id=" & Hub_Id.Text & "&Coll_Type=" & lblColl_type.Text & "&Temp_AID=" & lblTemp_AID.Text & "&ID=" & Hid_ID.Value)
-            Context.Items("Req_Id") = Req_Id.Text
-            Context.Items("Hub_Id") = Hub_Id.Text
-            Context.Items("Temp_AID") = lblTemp_AID.Text
-            Context.Items("ID") = ID.Text
-            Context.Items("Coll_Type") = lblColl_type.Text
-            Server.Transfer("Appraisal_Price3_Add_Colltype70.aspx")
-        ElseIf lblColl_type.Text = 15 Then
 
-        ElseIf lblColl_type.Text = 18 Then
+        If Check_Appraisal_Id(Req_Id.Text) = True Then
+            If lblColl_type.Text = 50 Then
+                'Response.Redirect("Appraisal_Price3_Add_Colltype50.aspx?Req_id=" & Req_Id.Text & "&Hub_Id=" & Hub_Id.Text & "&Coll_Type=" & lblColl_type.Text & "&Temp_AID=" & lblTemp_AID.Text & "&ID=" & ID.Text)
+                'Server.Transfer("Appraisal_Price3_Add_Colltype50.aspx")
+                Server.Transfer("Appraisal_Price3_50_Review_Edit.aspx")
+            ElseIf lblColl_type.Text = 70 Then
+                'Response.Redirect("Appraisal_Price3_Add_Colltype70.aspx?Req_id=" & Req_Id.Text & "&Hub_Id=" & Hub_Id.Text & "&Coll_Type=" & lblColl_type.Text & "&Temp_AID=" & lblTemp_AID.Text & "&ID=" & Hid_ID.Value)
+                'Context.Items("Req_Id") = Req_Id.Text
+                'Context.Items("Hub_Id") = Hub_Id.Text
+                'Context.Items("Temp_AID") = lblTemp_AID.Text
+                'Context.Items("ID") = ID.Text
+                'Context.Items("Coll_Type") = lblColl_type.Text
+                'Server.Transfer("Appraisal_Price3_Add_Colltype70.aspx")
+
+                Server.Transfer("Appraisal_Price3_70_Review_Edit.aspx")
+            ElseIf lblColl_type.Text = 15 Then
+
+            ElseIf lblColl_type.Text = 18 Then
+                Context.Items("Req_Id") = Req_Id.Text
+                Context.Items("Hub_Id") = Hub_Id.Text
+                Context.Items("Temp_AID") = lblTemp_AID.Text
+                Context.Items("ID") = ID.Text
+                Context.Items("Coll_Type") = lblColl_type.Text
+                Server.Transfer("Appraisal_Price3_18.aspx")
+            End If
+        Else
+            s = "<script language=""javascript"">alert('ยังไม่ได้กำหนดผู้ประเมินราคา');</script>"
+            Page.ClientScript.RegisterStartupScript(Me.GetType, "ข้อความเตือน", s)
         End If
+
+
 
         'MsgBox("Select Index Changing")
     End Sub
@@ -220,6 +240,7 @@ Partial Class Appraisal_Price3_List_AID
         Dim Hub_Id As Label = ImgBtAdd.Parent.FindControl("lblHub_Id")
         Dim AID As Label = ImgBtAdd.Parent.FindControl("lblAID")
         Dim Cif As Label = ImgBtAdd.Parent.FindControl("lblCif")
+        Dim Appraisal_Id As Label = ImgBtAdd.Parent.FindControl("lblAppraisal_Id")
         Dim hdf_taid As HiddenField = ImgBtAdd.Parent.FindControl("hdf_taid")
         Dim hdfCollType As HiddenField = ImgBtAdd.Parent.FindControl("hdfCollType")
         'MsgBox(hdf_taid.Value)
@@ -227,9 +248,25 @@ Partial Class Appraisal_Price3_List_AID
         Context.Items("Hub_Id") = Hub_Id.Text
         Context.Items("AID") = AID.Text
         Context.Items("Cif") = Cif.Text
+        Context.Items("Appraisal_Id") = Appraisal_Id.Text
         Context.Items("Temp_AID") = hdf_taid.Value
         Context.Items("CollType") = hdfCollType.Value
-        Server.Transfer("Appraisal_Price3_Form_Review.aspx")
+
+        If Check_Appraisal_Id(Req_Id.Text) = True Then
+            Server.Transfer("Appraisal_Price3_Form_Review.aspx")
+        Else
+            s = "<script language=""javascript"">alert('ยังไม่ได้กำหนดผู้ประเมินราคา');</script>"
+            Page.ClientScript.RegisterStartupScript(Me.GetType, "ข้อความเตือน", s)
+        End If
+
+        'Dim Appraisal_Req As List(Of Appraisal_Request) = GET_APPRAISAL_REQUEST(Req_Id.Text)
+        'If Appraisal_Req.Item(0).Appraisal_Id = String.Empty Or Appraisal_Req.Item(0).Appraisal_Id = String.Empty Then
+        '    s = "<script language=""javascript"">alert('ยังไม่ได้กำหนดผู้ประเมินราคา');</script>"
+        '    Page.ClientScript.RegisterStartupScript(Me.GetType, "ข้อความเตือน", s)
+        'Else
+        '    Server.Transfer("Appraisal_Price3_Form_Review.aspx")
+        'End If
+
     End Sub
 
     Protected Sub imgaddplus_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs)
@@ -253,4 +290,14 @@ Partial Class Appraisal_Price3_List_AID
         's = "<script language=""javascript"">window.open('" + str + "','window','toolbar=no, menubar=no, scrollbars=yes, resizable=no,location=no, copyhistory=no, directories=no, status=yes,height=250px,width=350px');</script>"
         'Page.ClientScript.RegisterStartupScript(Me.GetType, "จัดกลุ่ม", s)
     End Sub
+
+    Private Function Check_Appraisal_Id(ByVal ReqId As Integer) As Boolean
+        Dim Appraisal_Req As List(Of Appraisal_Request) = GET_APPRAISAL_REQUEST(ReqId)
+        If Appraisal_Req.Item(0).Appraisal_Id = String.Empty Or Appraisal_Req.Item(0).Appraisal_Id = String.Empty Then
+            Return False
+        Else
+            Return True
+
+        End If
+    End Function
 End Class

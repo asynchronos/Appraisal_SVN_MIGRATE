@@ -25,6 +25,17 @@
             color: #6600FF;
             font-weight: bold;
         }
+        .style5
+        {
+            width: 100%;
+        }
+        .style6
+        {
+            color: #3333CC;
+            text-decoration: underline;
+            font-weight: bold;
+            text-align: left;
+        }
     </style>
 </head>
 <body style="margin-top:0px; margin-left:0px; margin-right:0px;">
@@ -43,7 +54,7 @@
             <td colspan="2" >
             
                 <table class="style1">
-                    <tr>
+                    <tr valign="top">
                         <td class="style2">
                         <table style="background-color:#ffc00e;">
                             <tr>
@@ -73,15 +84,55 @@
                             </tr>
                             <tr>
                                 <td colspan="2">
-                                    <DIV align="center">ถ้าไม่มีรหัสผ่านให้ทำการ
-										<a id="HyperLink1" href="http://svraamcnet2/AMC/Change_Password.aspx">Sign Up</a>
-									</DIV                                
+<%--                                    <div align="center">ถ้าไม่มี User ให้ทำการ
+										<a id="HyperLink1" href="http://svraamcnet2/AMC/Change_Password.aspx">R</a><a 
+                                            href="http://svraamcnet2/AMC/Change_Password.aspx">egister</a>
+									</div> --%>                              
                                 </td>
                             </tr>
                         </table>
                         </td>
                         <td valign="top">
-                            &nbsp;</td>
+                            <table class="style5">
+                                <tr>
+                                    <td class="style6">
+                                        &nbsp;ประกาศ</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p>
+                                            &nbsp;</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <ul>
+                                            <li style="color: #CC3300">แผนที่ ใน Google Map ในการกำหนดราคาที่ 1 
+                                                ยังไม่สามารถใช้ได้ ให้ใช้แผนที่จาก Longdo Map ไปก่อนชั่วคราว
+                                                <img alt="" src="Images/ani_new.gif" style="width: 30px; height: 15px" /></li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <ul>
+                                            <li style="color: #CC3300">คู่มือการใช้งานอย่างละเอียดสามารถ Download ได้ที่ เมนู&nbsp; 
+                                                Download เลือก เอกสารสำนักงานใหญ่ (ต้องทำการ Login ก่อน)<img alt="" 
+                                                    src="Images/ani_new.gif" style="width: 30px; height: 15px" /></li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <ul>
+                                            <li style="color: #CC3300">อนุกรรมการคนที่ 2 และ คนที่ 3 
+                                                ที่เซ็นต์ในการตรวจสอบราคาที่ 3 ไม่เกิน 10 ล้านบาท ไม่ต้องยืนยันการตรวจสอบแล้ว <img alt="" 
+                                                    src="Images/ani_new.gif" style="width: 30px; height: 15px" /></li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
                     </tr>
                 </table>
             </td>

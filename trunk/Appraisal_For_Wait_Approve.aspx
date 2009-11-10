@@ -1,4 +1,4 @@
-Ôªø<%@ Page Title="" Language="VB" MasterPageFile="~/MasterPage.master" AutoEventWireup="false" CodeFile="Appraisal_For_Wait_Approve.aspx.vb" Inherits="Appraisal_For_Wait_Approve" Culture="th-TH" uiCulture="th-TH" %>
+<%@ Page Title="" Language="VB" MasterPageFile="~/MasterPage.master" AutoEventWireup="false" CodeFile="Appraisal_For_Wait_Approve.aspx.vb" Inherits="Appraisal_For_Wait_Approve" Culture="th-TH" uiCulture="th-TH" %>
 
 <%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="cc1" %>
 <%@ Register assembly="Mytextbox" namespace="Mytextbox" tagprefix="cc2" %>
@@ -12,17 +12,25 @@
         }
         .style2
         {
-            width: 196px;
+            width: 199px;
             font-weight: bold;
             color: #3333CC;
         }
         .style3
         {
-            width: 131px;
-        }
-        .style4
+    }
+        .style7
+    {
+        color: #996600;
+        font-weight: bold;
+    }
+        .style8
         {
-            width: 74px;
+            width: 13px;
+        }
+        .style9
+        {
+            width: 228px;
         }
     </style>
 </asp:Content>
@@ -34,28 +42,37 @@
     <table class="style1">
         <tr>
             <td class="style2">
-                ‡∏£‡∏´‡∏±‡∏™‡∏Ñ‡∏≥‡∏Ç‡∏≠‡∏õ‡∏∞‡πÄ‡∏°‡∏¥‡∏ô ‡πÄ‡∏•‡∏Ç‡∏ó‡∏µ‡πà</td>
-            <td class="style3">
+                √À— §”¢Õª–‡¡‘π ‡≈¢∑’Ë</td>
+            <td class="style9">
                 <cc2:mytext ID="txtReq_Id" runat="server" AllowUserKey="int_Integer"></cc2:mytext>
+                <asp:Button ID="bntSearch" runat="server" Text="§ÈπÀ“" />
             </td>
-            <td class="style4">
-                <asp:Button ID="bntSearch" runat="server" Text="‡∏Ñ‡πâ‡∏ô‡∏´‡∏≤" />
-            </td>
+            <td class="style8">
+                &nbsp;</td>
             <td>
             
                 &nbsp;<asp:Label ID="lblMessage" runat="server" 
                     style="color: #3333CC; font-weight: 700"></asp:Label>
             </td>
         </tr>
+        <tr>
+            <td class="style2">
+                &nbsp;</td>
+            <td class="style3" colspan="3">
+                <span class="style7"> ’&nbsp; </span>
+                <asp:TextBox ID="TextBox8" runat="server" BackColor="#0066FF" 
+                    BorderStyle="None" CssClass="style7" Height="19px" Width="38px"></asp:TextBox>
+                <span class="style7">&nbsp; Õπÿ°√√¡°“√¬—ß‡´ÁπµÏ‰¡Ë§√∫</span></td>
+        </tr>
     </table>
-<br />
     <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" 
         BackColor="LightGoldenrodYellow" BorderColor="Tan" BorderWidth="1px" 
         CellPadding="2" DataKeyNames="Req_Id,AID,Temp_AID" DataSourceID="sdsForApprove" 
         ForeColor="Black" GridLines="None" style="font-size: small" 
-        AllowPaging="True">
+        AllowPaging="True" OnRowDataBound="GridView1_RowDataBound" 
+    PageSize="13" >
         <Columns>
-            <asp:TemplateField HeaderText="‡πÄ‡∏•‡∏Ç‡∏Ñ‡∏≥‡∏Ç‡∏≠" SortExpression="Req_Id">
+            <asp:TemplateField HeaderText="‡≈¢§”¢Õ" SortExpression="Req_Id">
                 <EditItemTemplate>
                     <asp:Label ID="Label3" runat="server" Text='<%# Eval("Req_Id") %>'></asp:Label>
                 </EditItemTemplate>
@@ -87,13 +104,13 @@
                     <asp:Label ID="lblHub_Id" runat="server" Text='<%# Bind("Hub_Id") %>'></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>            
-            <asp:TemplateField HeaderText="‡πÄ‡∏£‡∏µ‡∏¢‡∏ô" SortExpression="Inform_To">
+            <asp:TemplateField HeaderText="‡√’¬π" SortExpression="Inform_To">
                 <ItemStyle Width="150px"/>
                 <EditItemTemplate>
                     <asp:Label ID="Label6" runat="server" Text='<%# Eval("Inform_To") %>'></asp:Label>
                 </EditItemTemplate>
                 <ItemTemplate>
-                    <asp:Label ID="Label6" runat="server" Text='<%# Bind("Inform_To") %>'></asp:Label>
+                    <asp:Label ID="Label15" runat="server" Text='<%# Bind("Inform_To") %>'></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
             <asp:TemplateField HeaderText="Cif" SortExpression="Cif">
@@ -104,32 +121,26 @@
                     <asp:Label ID="lblCif" runat="server" Text='<%# Bind("Cif") %>'></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
-            <asp:TemplateField HeaderText="Lat" SortExpression="Lat">
-                <EditItemTemplate>
-                    <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("Lat") %>'></asp:TextBox>
-                </EditItemTemplate>
+<%--            <asp:TemplateField HeaderText="Lat" SortExpression="Lat">
                 <ItemTemplate>
                     <asp:Label ID="lblLat" runat="server" Text='<%# Bind("Lat") %>'></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
             <asp:TemplateField HeaderText="Lng" SortExpression="Lng">
-                <EditItemTemplate>
-                    <asp:TextBox ID="TextBox3" runat="server" Text='<%# Bind("Lng") %>'></asp:TextBox>
-                </EditItemTemplate>
                 <ItemTemplate>
                     <asp:Label ID="lblLng" runat="server" Text='<%# Bind("Lng") %>'></asp:Label>
                 </ItemTemplate>
-            </asp:TemplateField>
-            <asp:TemplateField HeaderText="‡∏ß‡∏±‡∏ô‡∏õ‡∏£‡∏∞‡πÄ‡∏°‡∏¥‡∏ô" SortExpression="Appraisal_Date">
+            </asp:TemplateField>--%>
+            <asp:TemplateField HeaderText="«—πª√–‡¡‘π" SortExpression="Appraisal_Date">
                 <EditItemTemplate>
                     <asp:Label ID="Label1" runat="server" Text='<%# string.Format( "{0:dd/MM/yyyy}", Eval("Appraisal_Date")) %>'></asp:Label>
                 </EditItemTemplate>
                 <ItemTemplate>
-                    <asp:Label ID="Label1" runat="server" 
+                    <asp:Label ID="Label16" runat="server" 
                         Text='<%# Bind("Appraisal_Date", "{0:d}") %>'></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
-            <asp:TemplateField HeaderText="‡∏£‡∏´‡∏±‡∏™‡∏ß‡∏¥‡∏ò‡∏µ‡∏Å‡∏≤‡∏£‡∏Ç‡∏≠" SortExpression="Req_Type" Visible= "false">
+            <asp:TemplateField HeaderText="√À— «‘∏’°“√¢Õ" SortExpression="Req_Type" Visible= "false">
                 <EditItemTemplate>
                     <asp:TextBox ID="txtReq_Type" runat="server" Text='<%# Bind("Req_Type") %>'></asp:TextBox>
                 </EditItemTemplate>
@@ -137,12 +148,12 @@
                     <asp:Label ID="lblReq_Type" runat="server" Text='<%# Bind("Req_Type") %>'></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>          
-            <asp:TemplateField HeaderText="‡∏ä‡∏∑‡πà‡∏≠‡∏ß‡∏¥‡∏ò‡∏µ‡∏Å‡∏≤‡∏£‡∏Ç‡∏≠">
+            <asp:TemplateField HeaderText="™◊ËÕ«‘∏’°“√¢Õ">
                 <ItemTemplate>
                     <asp:Label ID="lblMethod_Name" runat="server" Text='<%# Bind("Method_Name") %>'></asp:Label>
                 </ItemTemplate>              
             </asp:TemplateField>
-            <asp:TemplateField HeaderText="‡∏≠‡∏ô‡∏∏‡∏Å‡∏£‡∏£‡∏°‡∏Å‡∏≤‡∏£‡∏ó‡∏µ‡πà1" SortExpression="Approved1">
+            <asp:TemplateField HeaderText="Õπÿ°√√¡°“√∑’Ë1" SortExpression="Approved1">
                 <ItemStyle Width="150px" />
                 <EditItemTemplate>
                     <asp:TextBox ID="TextBox4" runat="server" Text='<%# Bind("Approve_Name1") %>'></asp:TextBox>
@@ -152,7 +163,7 @@
                     <asp:Label ID="lblApproved1" runat="server" Text='<%# Bind("Approve_Name1") %>'></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
-            <asp:TemplateField HeaderText="‡∏≠‡∏ô‡∏∏‡∏Å‡∏£‡∏£‡∏°‡∏Å‡∏≤‡∏£‡∏ó‡∏µ‡πà2" SortExpression="Approved2">
+            <asp:TemplateField HeaderText="Õπÿ°√√¡°“√∑’Ë2" SortExpression="Approved2">
             <ItemStyle Width="150px" />
                 <EditItemTemplate>
                     <asp:TextBox ID="TextBox5" runat="server" Text='<%# Bind("Approve_Name2") %>'></asp:TextBox>
@@ -162,7 +173,7 @@
                     <asp:Label ID="lblApproved2" runat="server" Text='<%# Bind("Approve_Name2") %>'></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
-            <asp:TemplateField HeaderText="‡∏≠‡∏ô‡∏∏‡∏Å‡∏£‡∏£‡∏°‡∏Å‡∏≤‡∏£‡∏ó‡∏µ‡πà3" SortExpression="Approved3">
+            <asp:TemplateField HeaderText="Õπÿ°√√¡°“√∑’Ë3" SortExpression="Approved3">
             <ItemStyle Width="150px" />
                 <EditItemTemplate>
                     <asp:TextBox ID="TextBox6" runat="server" Text='<%# Bind("Approve_Name3") %>'></asp:TextBox>
@@ -172,7 +183,7 @@
                     <asp:Label ID="lblApproved3" runat="server" Text='<%# Bind("Approve_Name3") %>'></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
-            <asp:TemplateField HeaderText="‡∏≠‡∏ô‡∏∏‡∏°‡∏±‡∏ï‡∏¥" SortExpression="Approved">
+            <asp:TemplateField HeaderText="Õπÿ¡—µ‘" SortExpression="Approved">
                 <EditItemTemplate>
                     <asp:TextBox ID="TextBox7" runat="server" Text='<%# Bind("Approved") %>'></asp:TextBox>
                 </EditItemTemplate>
@@ -180,7 +191,7 @@
                     <asp:Label ID="lblApproved" runat="server" Text='<%# Bind("Approved") %>'></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
-            <asp:TemplateField HeaderText="‡∏ù‡πà‡∏≤‡∏¢‡∏ó‡∏µ‡πà‡∏Ç‡∏≠‡∏õ‡∏£‡∏∞‡πÄ‡∏°‡∏¥‡∏ô" SortExpression="Req_Dept">
+            <asp:TemplateField HeaderText="ΩË“¬∑’Ë¢Õª√–‡¡‘π" SortExpression="Req_Dept">
                 <EditItemTemplate>
                     <asp:Label ID="Label7" runat="server" Text='<%# Eval("Req_Dept") %>'></asp:Label>
                 </EditItemTemplate>
@@ -188,7 +199,7 @@
                     <asp:Label ID="Label14" runat="server" Text='<%# Bind("Req_Dept") %>'></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
-            <asp:TemplateField HeaderText="‡∏ú‡∏π‡πâ‡∏õ‡∏£‡∏∞‡πÄ‡∏°‡∏¥‡∏ô" SortExpression="Appraisal_Id">
+            <asp:TemplateField HeaderText="ºŸÈª√–‡¡‘π" SortExpression="Appraisal_Id">
                 <EditItemTemplate>
                     <asp:Label ID="Label8" runat="server" Text='<%# Eval("Appraisal_Id") %>'></asp:Label>
                 </EditItemTemplate>
@@ -196,12 +207,18 @@
                     <asp:Label ID="lblAppraisal_Id" runat="server" Text='<%# Bind("Appraisal_Id") %>'></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
+            <asp:TemplateField HeaderText="®”π«πºŸÈÕπÿ¡—µ‘" SortExpression="Cnt_Item">
+            <ItemStyle HorizontalAlign="Center" />
+                <ItemTemplate>
+                    <asp:Label ID="lblCnt_Item" runat="server" Text='<%# Bind("Cnt_Item") %>'></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>            
             <asp:TemplateField HeaderText="">
                 <ItemStyle Width="25px" />
                 <ItemTemplate>
                     <asp:ImageButton ID="imgAttach" runat="server" 
                         ImageUrl="~/Images/ico_attachments.gif" Height="22px" Width="22px" 
-                        ToolTip="‡πÅ‡∏ô‡∏ö‡πÑ‡∏ü‡∏•‡πå‡πÄ‡∏≠‡∏Å‡∏™‡∏≤‡∏£" CommandName="Select" OnClick="imgAttach_Click" />
+                        ToolTip="·π∫‰ø≈Ï‡Õ° “√" CommandName="Select" OnClick="imgAttach_Click" />
                 </ItemTemplate>                              
             </asp:TemplateField>
             <asp:TemplateField HeaderText="">
@@ -209,7 +226,7 @@
                 <ItemTemplate>
                     <asp:ImageButton ID="imgEditData" runat="server" 
                         ImageUrl="~/Images/pencil.png" Height="22px" Width="22px" 
-                        ToolTip="‡πÅ‡∏Å‡πâ‡πÑ‡∏Ç‡∏Ç‡πâ‡∏≠‡∏°‡∏π‡∏•" CommandName="Select" OnClick="imgEditData_Click" />
+                        ToolTip="·°È‰¢¢ÈÕ¡Ÿ≈" CommandName="Select" OnClick="imgEditData_Click" />
                 </ItemTemplate>                              
             </asp:TemplateField>               
             <asp:TemplateField HeaderText="">
@@ -217,7 +234,7 @@
                 <ItemTemplate>
                     <asp:ImageButton ID="imgEditPosition" runat="server" 
                         ImageUrl="~/Images/houses.png" Height="22px" Width="22px" 
-                        ToolTip="‡πÅ‡∏Å‡πâ‡πÑ‡∏Ç‡∏û‡∏¥‡∏Å‡∏±‡∏î" CommandName="Select" OnClick="imgEditPosition_Click" />
+                        ToolTip="·°È‰¢æ‘°—¥" CommandName="Select" OnClick="imgEditPosition_Click" />
                 </ItemTemplate>                              
             </asp:TemplateField>               
             <asp:TemplateField HeaderText="">
@@ -225,7 +242,7 @@
                 <ItemTemplate>
                     <asp:ImageButton ID="imgApprove" runat="server" 
                         ImageUrl="~/Images/book_blue_preferences.png" Height="22px" Width="22px" 
-                        ToolTip="‡∏≠‡∏ô‡∏∏‡∏°‡∏±‡∏ï‡∏¥" CommandName="Select" OnClick="imgApprove_Click" />
+                        ToolTip="Õπÿ¡—µ‘" CommandName="Select" OnClick="imgApprove_Click" />
                 </ItemTemplate>                             
             </asp:TemplateField>                                         
         </Columns>
@@ -236,6 +253,7 @@
         <HeaderStyle BackColor="Tan" Font-Bold="True" />
         <AlternatingRowStyle BackColor="PaleGoldenrod" />
     </asp:GridView>
+<br />
     <asp:SqlDataSource ID="sdsForApprove" runat="server" 
         ConnectionString="<%$ ConnectionStrings:AppraisalConn %>" 
         SelectCommand="GET_PRICE3_MASTER_FOR_APPROVE" 

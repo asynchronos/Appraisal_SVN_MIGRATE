@@ -1,29 +1,34 @@
 ﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="LongDoMap.aspx.vb" Inherits="LongDoMap" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>กำหนดหมุด เพื่อให้ราคาที่ 1</title>
-<script src="Js/jquery.js" type="text/javascript"></script>
-<script src="Js/common.js" type="text/javascript"></script>    
-<script type="text/javascript" 
-	src="http://mmmap15.longdo.com/mmmap/mmmap.php?key=d9c8884535ae82504c4962ce47a4cae4">
-</script>
-<%--        <style type="text/css">
+
+    <script src="Js/clsAjax.js" type="text/javascript"></script>
+    <script src="Js/jquery.js" type="text/javascript"></script>
+    <script src="Js/common.js" type="text/javascript"></script>
+    <script src="Js/longdoMap.js" type="text/javascript"></script>
+<%--<script type="text/javascript" src="http://mmmap15.longdo.com/mmmap/mmmap.php?key=d9c8884535ae82504c4962ce47a4cae4"></script>--%>
+<%--<script type="text/javascript" src="http://mmmap15.longdo.com/mmmap/mmmap.php?key=facc727173929e3e8ead17e04f1379c7"></script>--%>
+    
+
+    <%--        <style type="text/css">
             #mmMapDiv{
                 position:absolute;
             }
         </style> --%>
-<script type="text/javascript">
+
+    <script type="text/javascript">
     var mmmap;
     var VMid;
+    var obj = new clsAjax();
+    var markArray = new Array();
+    
     function initMap() {
-        //var div_map = getEleByProperty("div", "MyClintID", "mmMapDiv");
-
-
         var mmmap_div = document.getElementById("mmMapDiv");
-        mmmap = new MMMap(mmmap_div, 13.6758888, 100.54613888, 3, "normal");
+        mmmap = new MMMap(mmmap_div, 13.6758888, 100.54613888, 8, "normal");
+        //mmmap.showOOITag("hospital");
         var canvas = mmmap.addControl("canvas");
         canvas.addButton('measure');
         canvas.addButton('poly');
@@ -38,11 +43,47 @@
         //เรียกใช้ function adJustMapSize ให้ปรับขนาดของแผนที่
         //ให้พอดีกับหน้าต่าง browser
         adJustMapSize();
-
-
-
-
+        createMarker();
     }
+    
+        function createMarker() {
+
+        //document.getElementById('mmMapDiv').innerHTML = "loading...";
+        obj.create();
+        obj.url = "Longdo_Data.aspx";
+        obj.method = "post";
+        //obj.addParam("emp_id", document.getElementById('data').value);
+        //obj.addParam("EMP_ID", "249987");
+        obj.function_name = "loaddata()";
+        obj.send();
+    }
+    
+        function loaddata() {
+        //alert(obj.responseText)
+        var jsonobj = eval(obj.responseText);
+              
+        for (i = 0; i < jsonobj.length; i++) {
+            markArray[i] = createUserDivImage(jsonobj[i].Lat, jsonobj[i].Lng,"Images/red_button_16.gif","Request Id:"+jsonobj[i].Req_Id,testclick);
+        }
+    }
+    
+    //function createUserDivImage เพื่อสร้าง user-defined div ที่มีรูปภาพอยู่ภายใน
+            function createUserDivImage(latitude, longitude, imageURL, description, onClickHandle){
+                //สร้าง div element
+                var divElement = document.createElement("div");
+                divElement.onclick = onClickHandle;
+                divElement.setAttribute("latitude",latitude);
+                divElement.setAttribute("longitude",longitude);
+                //สร้าง img element
+                var imgElement = document.createElement("img");
+                imgElement.setAttribute("src", imageURL);
+                divElement.appendChild(imgElement);
+                // **** เรียกใช้ method drawCustomDiv ของ map object (mmmap) เพื่อวาด user-defined div ลงบนแผนที่
+                //และเก็บค่า id ของ user-defined div ไว้ในตัวแปร userDivId
+                var userDivId = mmmap.drawCustomDiv(divElement,latitude, longitude,description);
+                return userDivId;
+            }
+
 
     //function สำหรับปรับขนาดของแผนที่ให้เต็มหน้าต่าง browser โดยอัตโนมัติ
     function adJustMapSize() {
@@ -59,7 +100,9 @@
         mmmap.rePaint();
 
         //mmmap.setMouseMoveHandler(f);
-        mmmap.setMouseDownHandler(f);
+        mmmap.setMouseMoveHandlerNoDelay(f);
+        //mmmap.setMouseDownHandler(f);
+        
     }
 
     function btnAddMark_onclick() {
@@ -81,6 +124,35 @@
         mmmap.deleteMarker(VMid);
         mmmap.clearCustomDivs();
     }
+
+
+
+
+
+    function AddMark(lat,lng) {
+                   // alert(lat);
+                    //alert(lng);
+                    //mmmap.moveTo(lat, lng);
+        var truck = document.createElement('div');
+        truck.innerHTML = '<img src="Images/red_button_16.gif">';
+        //mmmap.drawCustomDiv(truck, mmmap.centerLat(), mmmap.centerLong(), "Current Position");
+        //VMid = mmmap.createMarker(mmmap.centerLat(), mmmap.centerLong(), '', '');
+        mmmap.drawCustomDiv(truck, lat, lng, "Current Position");
+        truck.onclick = testclick;
+        VMid = mmmap.createMarker(lat, lng, '', '');
+    }
+    
+    function testclick()​
+    {
+        var popup_params = {
+                link : "http://longdo.com", 
+                width : 350, 
+                height: 300,
+                fixpopupsize : true 
+                // if true, the width and height will be exactly as given, otherwise they will be LESS THAN OR EQUAL to the given values
+        };
+      mmmap.showPopUp(this.latitude, this.longitude, "what is this?", "this is a pop-up",popup_params);
+    }
     
     function f() {
         //alert(mmmap.centerLat());
@@ -91,21 +163,21 @@
         txtlng.value = mmmap.centerLong();
         //alert("Current location is " + latitude + ", " + longitude);
     };
-</script>   
+    </script>
 
 </head>
-<body onload="initMap();" style="margin-left:0;margin-top:0;">
+<body onload="initMap();" style="margin-left: 0; margin-top: 0;">
     <form id="form1" runat="server">
     <div id="mmMapDiv">
     </div>
     Lat :&nbsp;
     <asp:TextBox ID="TxtLat" runat="server" MyClintID="TxtLat"></asp:TextBox>
     <br />
-    Lng :     <asp:TextBox ID="TxtLng" runat="server" MyClintID="TxtLng"></asp:TextBox>
+    Lng :
+    <asp:TextBox ID="TxtLng" runat="server" MyClintID="TxtLng"></asp:TextBox>
     <br />
     <input type="button" id="btnAddMark" value="Create New Marker" onclick="btnAddMark_onclick()" />
-    <input type="button" id="btnAddMark0" value="Delete Marker" 
-        onclick="removeMarker()" />
+    <input type="button" id="btnAddMark0" value="Delete Marker" onclick="removeMarker()" />
     <asp:Button ID="BtnOk" runat="server" Text="Ok" />
     </form>
 </body>

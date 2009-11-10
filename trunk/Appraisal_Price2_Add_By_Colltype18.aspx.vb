@@ -112,4 +112,47 @@ Partial Class Appraisal_Price2_Add_By_Colltype18
         End If
 
     End Sub
+
+    Protected Sub ImageButton_Verify_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs) Handles ImageButton_Verify.Click
+        Dim ObjP2_18 As List(Of PRICE2_18) = GET_PRICE2_18_FIND_ADDRESSNO(txtRegister_No.Text, txtBuild_Number.Text, txtAddressNo.Text)
+        If ObjP2_18.Count > 0 Then
+            DDLSubCollType.SelectedValue = ObjP2_18.Item(0).MysubColl_ID
+            txtFloors.Text = ObjP2_18.Item(0).Floors_All
+            txtelevator_No.Text = ObjP2_18.Item(0).Elevator
+            txtAddressNo.Text = ObjP2_18.Item(0).Address_No
+            txtArea.Text = ObjP2_18.Item(0).Room_Area
+            txtHeight.Text = ObjP2_18.Item(0).Room_Height
+            txtBuildingName.Text = ObjP2_18.Item(0).Building_Name
+            txtFloorsAt.Text = ObjP2_18.Item(0).Floors
+            txtBuild_Number.Text = ObjP2_18.Item(0).Building_No
+            txtRegister_No.Text = ObjP2_18.Item(0).Building_Reg_No
+            txtTumbon.Text = ObjP2_18.Item(0).Tumbon
+            txtAmphur.Text = ObjP2_18.Item(0).Amphur
+            ddlProvince.SelectedValue = ObjP2_18.Item(0).Province
+            txtRoad.Text = ObjP2_18.Item(0).Road
+            ddlRoad_Detail.SelectedValue = ObjP2_18.Item(0).Road_Detail
+            txtRoadAccress.Text = ObjP2_18.Item(0).Road_Access
+            ddlRoad_Forntoff.SelectedValue = ObjP2_18.Item(0).Road_Frontoff
+            txtRoadWidth.Text = ObjP2_18.Item(0).RoadWidth
+            ddlSite.SelectedValue = ObjP2_18.Item(0).Site
+            txtSite_Detail.Text = ObjP2_18.Item(0).Site_Detail
+            ddlPublic_Utility.SelectedValue = ObjP2_18.Item(0).Public_Utility
+            txtPublic_Utility_Detail.Text = ObjP2_18.Item(0).Public_Utility_Detail
+            ddlBinifit.SelectedValue = ObjP2_18.Item(0).Binifit
+            txtBinifit.Text = ObjP2_18.Item(0).Binifit_Detail
+            ddlTendency.SelectedValue = ObjP2_18.Item(0).Tendency
+            ddlBuySale_State.SelectedValue = ObjP2_18.Item(0).BuySale_State
+            ddlBuild_Construct.SelectedValue = ObjP2_18.Item(0).Building_Construc
+            ddlInteriorState.SelectedValue = ObjP2_18.Item(0).InteriorState_Id
+            ddlCharacter_Room.SelectedValue = ObjP2_18.Item(0).Character_Room_Id
+            txtRoomWidth_BehideSiteWalk.Text = ObjP2_18.Item(0).RoomWidth_BehideSiteWalk
+            txtRoomdeep.Text = ObjP2_18.Item(0).Roomdeep
+            txtBackside_Width.Text = ObjP2_18.Item(0).Backside_Width
+            ddlFloors.SelectedValue = ObjP2_18.Item(0).SideWalk_Is
+            txtSideWalk_Width.Text = ObjP2_18.Item(0).SideWalk_Width
+            txtUnitPrice.Text = ObjP2_18.Item(0).Unit_Price 'String.Format("{0:N2}", ObjP2_18.Item(0).Unit_Price)
+            txtCondoPrice.Text = String.Format("{0:N2}", ObjP2_18.Item(0).PriceTotal)
+        End If
+    End Sub
+
 End Class

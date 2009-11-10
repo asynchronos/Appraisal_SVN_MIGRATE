@@ -10,16 +10,16 @@
 </head>
 <body onunload="GUnload()">
   <form id="form1">
-   <table class="style3">
+   <table>
        <tr>
-           <td class="style4">
+           <td>
                <input type="button" id="btnAddMark" value="Create New Marker" onclick="btnAddMark_onclick()" />
              </td>
            <td>
                &nbsp;</td>
        </tr>
        <tr>
-           <td class="style4">
+           <td>
                  <div id="map" style="width: 800px; height: 600px" ></div>
                      </td>
            <td valign="top"> <div id="formMark">

@@ -102,8 +102,8 @@
                 <td class="style2" valign="top">
                     Comment</td>
                 <td class="style3">
-                    <asp:TextBox ID="txtComment" runat="server" Height="45px" TextMode="MultiLine" 
-                        Width="497px" ReadOnly="True"></asp:TextBox>
+                    <asp:TextBox ID="txtComment" runat="server" Height="22px" TextMode="MultiLine" 
+                        Width="800px" ReadOnly="True"></asp:TextBox>
                 </td>
             </tr>
             <tr>
@@ -120,8 +120,8 @@
                 <td class="style4" valign="top">
                     หมายเหตุ</td>
                 <td class="style3">
-                    <asp:TextBox ID="txtNote" runat="server" Height="51px" TextMode="MultiLine" 
-                        Width="497px" ReadOnly="True"></asp:TextBox>
+                    <asp:TextBox ID="txtNote" runat="server" Height="65px" TextMode="MultiLine" 
+                        Width="799px" ReadOnly="True"></asp:TextBox>
                 </td>
             </tr>
             <tr>

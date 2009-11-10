@@ -150,7 +150,7 @@ Partial Class Appraisal_Price3_18
                               txtRoomdeep.Text, txtBackside_Width.Text, ddlFloors.SelectedValue, txtSideWalk_Width.Text, txtPartake.Text, txtOwnership.Text, _
                               txtObligation.Text, txtOtherDetail.Text, txtTumbon1.Text, txtAmphur1.Text, ddlProvince1.SelectedValue, CheckBox1.Checked, _
                               CheckBox2.Checked, CheckBox3.Checked, CheckBox4.Checked, CheckBox5.Checked, txtUtilityOther_Detail.Text, txtAdjust_Condo.Text, txtUnitPrice.Text, txtCondoPrice.Text, lbluserid.Text, Now())
-            UPDATE_Status_Appraisal_Request(lblReq_Id.Text, lblHub_Id.Text, 6)
+            UPDATE_Status_Appraisal_Request(lblReq_Id.Text, lblHub_Id.Text, 10)
             s = "<script language=""javascript"">alert('บันทึกเสร็จสมบูรณ์');</script>"
             Page.ClientScript.RegisterStartupScript(Me.GetType, "ข้อความเตือน", s)
         Else
@@ -163,7 +163,7 @@ Partial Class Appraisal_Price3_18
                               txtRoomdeep.Text, txtBackside_Width.Text, ddlFloors.SelectedValue, txtSideWalk_Width.Text, txtPartake.Text, txtOwnership.Text, _
                               txtObligation.Text, txtOtherDetail.Text, txtTumbon1.Text, txtAmphur1.Text, ddlProvince1.SelectedValue, CheckBox1.Checked, _
                               CheckBox2.Checked, CheckBox3.Checked, CheckBox4.Checked, CheckBox5.Checked, txtUtilityOther_Detail.Text, txtAdjust_Condo.Text, txtUnitPrice.Text, txtCondoPrice.Text, lbluserid.Text, Now())
-            UPDATE_Status_Appraisal_Request(lblReq_Id.Text, lblHub_Id.Text, 6)
+            UPDATE_Status_Appraisal_Request(lblReq_Id.Text, lblHub_Id.Text, 10)
             s = "<script language=""javascript"">alert('บันทึกเสร็จสมบูรณ์');</script>"
             Page.ClientScript.RegisterStartupScript(Me.GetType, "ข้อความเตือน", s)
         End If

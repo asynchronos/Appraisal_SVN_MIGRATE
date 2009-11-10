@@ -74,7 +74,7 @@
                                   พื้นที่ส่วนควบ</td>
                               <td class="style8">
                                   <cc1:mytext ID="txtPartakeArea" runat="server" AllowUserKey="num_Numeric" 
-                        EnableTextAlignRight="True" MaxLength="4" Width="35px" BackColor="#FFFF66" 
+                        EnableTextAlignRight="True" MaxLength="7" Width="35px" BackColor="#FFFF66" 
                                       AutoPostBack="True">0</cc1:mytext>
                                   ตรม.</td>
                               <td class="style5">

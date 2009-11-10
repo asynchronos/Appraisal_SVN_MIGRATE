@@ -525,7 +525,7 @@ function ConfirmOnSave(reqid,item) {
             </tr>
             <tr>
                 <td class="style22">
-                    เปอร์เซ็นต์สิ่งปลูกสร้างสร้างเสร็จ</td>
+                    เปอร์เซ็นต์สร้างเสร็จ</td>
                 <td class="style8">
                     <cc1:mytext ID="txtFinishPercent" runat="server" AllowUserKey="num_Numeric" 
                         Width="35px" BackColor="#FFFF66" MaxLength="3" 
@@ -753,7 +753,7 @@ function ConfirmOnSave(reqid,item) {
             </tr>
             <tr>
                 <td class="style22">
-                    รายละเอียด&nbsp;</td>
+                    รายละเอียดขนาด</td>
                 <td class="style8" colspan="5">
                     <asp:TextBox ID="txtBuildingDetail" runat="server" Height="70px" 
                         TextMode="MultiLine" Width="600px" BackColor="#FFFF66"></asp:TextBox>

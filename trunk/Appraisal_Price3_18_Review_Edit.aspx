@@ -3,9 +3,25 @@
 <%@ Register Assembly="Mytextbox" Namespace="Mytextbox" TagPrefix="cc1" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+<script src="Js/jquery.js" type="text/javascript"></script>
+<script src="Js/common.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            function CalSection_Building(sender, e) {
+                //ต้องกำหนด ชนิด input type MyClintID ที่ตัว Control ของแต่ละตัวที่จะส่ง และชื่อ Property  Name ของ Control นั้น ๆ ก่อน
+                var building_area = getEleByProperty("input", "MyClintID", "txtArea");
+                var price_per_unit = getEleByProperty("input", "MyClintID", "txtUnitPrice");
+                var txtCondoPrice = getEleByProperty("input", "MyClintID", "txtCondoPrice");
+                var b_area = Number(building_area.value);
+                //alert(b_area);
+                var pp_unit = Number(price_per_unit.value);
+                //alert(pp_unit);
+                var building_price = b_area * pp_unit;
+                txtCondoPrice.value = addCommas(building_price);
+            }
+        </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-    <br />
+<br />
 <br />
     <asp:HiddenField ID="hhdfSubCollType" runat="server" />
     <asp:HiddenField ID="hdfId" runat="server" />
@@ -64,6 +80,65 @@
         </tr>    
         <tr>
             <td class="style26">
+                                        ทะเบียนอาคารชุดเลขที่</td>
+            <td class="style31">
+
+                    <cc1:mytext ID="txtRegister_No" runat="server" AllowUserKey="txt_Text" 
+                        Width="130px"></cc1:mytext>
+            </td>
+            <td>
+                ชื่ออาคารชุด</td>
+            <td class="style27">
+
+                <asp:TextBox ID="txtBuildingName" runat="server" Width="270px"></asp:TextBox>
+            </td>
+            <td class="style29">
+                &nbsp;</td>
+            <td>
+                &nbsp;</td>
+        </tr>
+        <tr>
+            <td class="style26">
+                เลขที่อาคาร</td>
+            <td class="style31">
+
+                    <cc1:mytext ID="txtBuild_Number" runat="server" AllowUserKey="int_Integer" AutoCurrencyFormatOnKeyUp="True"
+                        EnableTextAlignRight="True" Width="50px"></cc1:mytext>
+            </td>
+            <td>
+                อยู่ชั้นที่</td>
+            <td class="style27">
+
+                    <cc1:mytext ID="txtFloorsAt" runat="server" AllowUserKey="int_Integer" AutoCurrencyFormatOnKeyUp="True"
+                        EnableTextAlignRight="True" Width="50px"></cc1:mytext>
+            </td>
+            <td class="style29">
+                &nbsp;</td>
+            <td>
+                &nbsp;</td>
+        </tr>
+        <tr>
+            <td class="style26">
+                เลขที่ห้อง</td>
+            <td class="style31">
+
+                <asp:TextBox ID="txtAddressNo" runat="server" Width="222px"></asp:TextBox>
+                <asp:ImageButton ID="ImageButton_Verify" runat="server" 
+                            ImageUrl="~/Images/page_accept.ico" Width="20px" Height="20px" 
+                            ToolTip="ตรวสอบเลขที่ห้องชุด" />
+                </td>
+            <td>
+                    &nbsp;</td>
+            <td class="style27">
+
+                    &nbsp;</td>
+            <td class="style29">
+                &nbsp;</td>
+            <td>
+                &nbsp;</td>
+        </tr>
+        <tr>
+            <td class="style26">
                 ชนิดหลักประกัน</td>
             <td class="style31">
                 <asp:DropDownList ID="DDLSubCollType" runat="server" 
@@ -89,59 +164,22 @@
         </tr>
         <tr>
             <td class="style26">
-                ชื่ออาคารชุด</td>
-            <td class="style31">
-                <asp:TextBox ID="txtBuildingName" runat="server" Width="270px"></asp:TextBox>
-            </td>
-            <td>
-                                        ทะเบียนอาคารชุดเลขที่</td>
-            <td class="style27">
-
-                    <cc1:mytext ID="txtRegister_No" runat="server" AllowUserKey="txt_Text" 
-                        Width="130px"></cc1:mytext>
-            </td>
-            <td class="style29">
-                &nbsp;</td>
-            <td>
-                &nbsp;</td>
-        </tr>
-        <tr>
-            <td class="style26">
-                อาคารเลขที่</td>
-            <td class="style31">
-
-                    <cc1:mytext ID="txtBuild_Number" runat="server" AllowUserKey="int_Integer" AutoCurrencyFormatOnKeyUp="True"
-                        EnableTextAlignRight="True" Width="50px"></cc1:mytext>
-            </td>
-            <td>
-                อยู่ชั้นที่</td>
-            <td class="style27">
-
-                    <cc1:mytext ID="txtFloorsAt" runat="server" AllowUserKey="int_Integer" AutoCurrencyFormatOnKeyUp="True"
-                        EnableTextAlignRight="True" Width="50px"></cc1:mytext>
-            </td>
-            <td class="style29">
-                &nbsp;</td>
-            <td>
-                &nbsp;</td>
-        </tr>
-        <tr>
-            <td class="style26">
-                    ึประกอบด้วยเลขที่</td>
-            <td class="style31">
-
-                <asp:TextBox ID="txtAddressNo" runat="server" Width="222px"></asp:TextBox>
-            </td>
-            <td class="style5">
                     เนื้อที่</td>
-            <td class="style27">
+            <td class="style31">
 
                     <cc1:mytext ID="txtArea" runat="server" AllowUserKey="num_Numeric" AutoCurrencyFormatOnKeyUp="True"
-                        EnableTextAlignRight="True" Width="50px" AutoPostBack="True">0</cc1:mytext>
+                        EnableTextAlignRight="True" Width="50px" AutoPostBack="True" MyClintID="txtArea" onkeyup="CalSection_Building(this,event);" >0</cc1:mytext>
                     &nbsp;ตรม.&nbsp; สูง
                     <cc1:mytext ID="txtHeight" runat="server" AllowUserKey="num_Numeric" EnableTextAlignRight="True"
                         MaxLength="5" Width="50px">0</cc1:mytext>
-                    &nbsp;เมตร</td>
+                    &nbsp;&nbsp;เมตร</td>
+            <td>
+                    อายุอาคาร</td>
+            <td class="style27">
+
+                    <cc1:mytext ID="txtBuilding_Age" runat="server" AllowUserKey="int_Integer" AutoCurrencyFormatOnKeyUp="True"
+                        EnableTextAlignRight="True" Width="50px"></cc1:mytext>
+                    ปี</td>
             <td class="style29">
                 &nbsp;</td>
             <td>
@@ -149,18 +187,16 @@
         </tr>
         <tr>
             <td class="style26">
-                    อายุอาคาร</td>
-            <td class="style31">
-
-                    <cc1:mytext ID="txtBuilding_Age" runat="server" AllowUserKey="int_Integer" AutoCurrencyFormatOnKeyUp="True"
-                        EnableTextAlignRight="True" Width="50px"></cc1:mytext>
-            &nbsp;ปี</td>
-            <td class="style5">
                     รายละเอียดเพิ่มเติม</td>
-            <td class="style27">
+            <td class="style31">
 
                 <asp:TextBox ID="txtOtherDetail" runat="server" Width="240px" BackColor="#FFFF66"></asp:TextBox>
                 </td>
+            <td class="style5">
+                    &nbsp;</td>
+            <td class="style27">
+
+                &nbsp;</td>
             <td class="style29">
                 &nbsp;</td>
             <td>
@@ -528,14 +564,15 @@
             <td class="style31">
                 <cc1:mytext id="txtUnitPrice" runat="server" allowuserkey="num_Numeric" width="120px"
                         autocurrencyformatonkeyup="True" EnableTextAlignRight="True" 
-                    AutoPostBack="True">0</cc1:mytext>
+                    AutoPostBack="True" MyClintID="txtUnitPrice"
+                        onkeyup="CalSection_Building(this,event);" >0</cc1:mytext>
             &nbsp;บาท</td>
             <td class="style5">
                     เป็นเงิน</td>
             <td class="style27">
                 <cc1:mytext ID="txtCondoPrice" runat="server" AllowUserKey="num_Numeric" Width="120px"
                         AutoCurrencyFormatOnKeyUp="True" EnableTextAlignRight="True" 
-                    ReadOnly="True">0</cc1:mytext>
+                    MyClintID="txtCondoPrice" >0</cc1:mytext>
             &nbsp;บาท</td>
             <td class="style29">
                     &nbsp;

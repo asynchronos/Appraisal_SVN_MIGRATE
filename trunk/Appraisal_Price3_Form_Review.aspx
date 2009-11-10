@@ -362,6 +362,7 @@
             <td>
                 </td>
             <td>
+                <asp:Label ID="lblUserId" runat="server"></asp:Label>
             </td>
             <td class="style78">
                 <asp:Label ID="Label87" runat="server" Text="ทบทวนตามบันทึกลงวันที่" 
@@ -437,7 +438,7 @@
     
             </td>
             <td colspan="2">
-                <asp:Label ID="lblChanode" runat="server" Width="420px"></asp:Label>
+                <asp:Label ID="lblChanode" runat="server" Width="500px"></asp:Label>
             </td>
             <td colspan="3">
     <asp:Label ID="Label83" runat="server" Text="เนื้อที่รวม"></asp:Label>
@@ -459,7 +460,7 @@
             </td>
             <td>
                 <asp:RadioButtonList ID="RadioButtonList1" runat="server" 
-                    RepeatDirection="Horizontal" AutoPostBack="True">
+                    RepeatDirection="Horizontal">
                     <asp:ListItem Selected="True" Value="0">ไม่เปลี่ยนแปลง</asp:ListItem>
                     <asp:ListItem Value="1">เปลี่ยนแปลง</asp:ListItem>
                 </asp:RadioButtonList>
@@ -476,7 +477,7 @@
             </td>
             <td>
                 <asp:RadioButtonList ID="RadioButtonList2" runat="server" 
-                    RepeatDirection="Horizontal" AutoPostBack="True">
+                    RepeatDirection="Horizontal">
                     <asp:ListItem Selected="True" Value="0">ไม่เปลี่ยนแปลง</asp:ListItem>
                     <asp:ListItem Value="1">เปลี่ยนแปลง</asp:ListItem>
                 </asp:RadioButtonList>
@@ -493,7 +494,7 @@
             </td>
             <td>
                 <asp:RadioButtonList ID="RadioButtonList3" runat="server" 
-                    RepeatDirection="Horizontal" AutoPostBack="True">
+                    RepeatDirection="Horizontal">
                     <asp:ListItem Selected="True" Value="0">ไม่เปลี่ยนแปลง</asp:ListItem>
                     <asp:ListItem Value="1">เปลี่ยนแปลง</asp:ListItem>
                 </asp:RadioButtonList>
@@ -511,11 +512,11 @@
             <td colspan="5">
                 ที่ดินอยู่ในเขตพื้นที่สี
                 <asp:Label ID="lblAreaColour" runat="server"></asp:Label>
-            &nbsp;<asp:Label ID="Label85" runat="server" Text="อายุอาคาร"></asp:Label>
+            &nbsp;<asp:Label ID="lblBuildingAge" runat="server" Text="อายุอาคาร"></asp:Label>
                 &nbsp;<cc1:mytext ID="txtBuilding_Age" runat="server" AllowUserKey="num_Numeric" 
                         EnableTextAlignRight="True" Width="30px" BackColor="#FFFF66" AutoPostBack="True" 
                                       AutoCurrencyFormatOnKeyUp="True">0</cc1:mytext>
-                &nbsp;<asp:Label ID="Label86" runat="server" Text="ปี"></asp:Label>
+                &nbsp;<asp:Label ID="lblYear" runat="server" Text="ปี"></asp:Label>
             </td>
         </tr>
         <tr>
@@ -533,7 +534,7 @@
             </td>
             <td class="style81">
                 <asp:Button ID="btnChangeLand" runat="server" Text="     แก้ไขที่ดิน     " 
-                    CssClass="NotshowOnPrint" Width="150px" />
+                    CssClass="NotshowOnPrint" Width="150px" Visible="False" />
             </td>
             <td class="style60">
     <asp:Label ID="Label81" runat="server" Text="สภาพการซื้อ-ขาย"></asp:Label>
@@ -552,14 +553,14 @@
             </td>
             <td>
                 <asp:RadioButtonList ID="RadioButtonList5" runat="server" 
-                    RepeatDirection="Horizontal" AutoPostBack="True">
+                    RepeatDirection="Horizontal">
                     <asp:ListItem Selected="True" Value="0">ไม่เปลี่ยนแปลง</asp:ListItem>
                     <asp:ListItem Value="1">เปลี่ยนแปลง</asp:ListItem>
                 </asp:RadioButtonList>
             </td>
             <td colspan="4" class="style49">
                 <asp:Button ID="btnChangeBuilding" runat="server" Text="แก้ไขสิ่งปลูกสร้าง" 
-                    CssClass="NotshowOnPrint" Width="150px" />
+                    CssClass="NotshowOnPrint" Width="150px" Visible="False" />
                 <asp:TextBox ID="txtBuilding" runat="server" Width="450px"></asp:TextBox>
             </td>
         </tr>
@@ -569,12 +570,14 @@
                     Width="150px"></asp:Label>
             </td>
             <td>
-                แขวงตำบล
-                <asp:Label ID="lblDistrict" runat="server"></asp:Label>
+                แขวง/ตำบล
+                    
+                <asp:TextBox ID="txtDistrict" runat="server" Width="150px"></asp:TextBox>
             </td>
             <td colspan="2">
                 เขต/อำเภอ
-                <asp:Label ID="lblAmphur" runat="server"></asp:Label>
+                    
+                <asp:TextBox ID="txtAmphur" runat="server" Width="150px"></asp:TextBox>
             </td>
             <td colspan="2">
                 จังหวัด
@@ -784,20 +787,20 @@
             </td>
         </tr>
         <tr>
-            <td class="style2">
+            <td class="style2" valign="top">
     <asp:Label ID="Label18" runat="server" Text="การประเมินราคา" 
                     style="font-weight: 700; font-size: large;" Width="180px"></asp:Label>
     &nbsp;ข้อมูลซื้อขาย</td>
             <td class="style6" colspan="5">
-                <asp:TextBox ID="txtBuy_Sale_Comment" runat="server" Height="64px" TextMode="MultiLine"
-                    Width="716px" BackColor="#FFFF66"></asp:TextBox>
-            </td>
+                <asp:TextBox ID="txtBuy_Sale_Comment" runat="server" Height="100px" TextMode="MultiLine"
+                    Width="800px" BackColor="#FFFF66"></asp:TextBox>
+                </td>
         </tr>
         <tr>
-            <td class="style2">
+            <td class="style2" valign="top">
                 <asp:Label ID="Label52" runat="server" Font-Bold="True" Text="วิธีการประเมินราคา"></asp:Label>
             </td>
-            <td class="style13" colspan="5">
+            <td class="style13" colspan="5" valign="top">
                 <asp:DropDownList ID="ddlAppraisal_Type" runat="server" CssClass="txtDoPrint" 
                     DataSourceID="SDSAppraisal_Type" DataTextField="App_Type_Name" 
                     DataValueField="App_Type_ID" BackColor="#FFFF66" AutoPostBack="True">
@@ -808,7 +811,7 @@
             <td class="style5" colspan="6">
                 <table style="width: 695%; height: 132px;">
         <tr>
-            <td class="style92">
+            <td class="style92" valign="top">
                 <asp:Label ID="lblCollName" runat="server"></asp:Label>
 &nbsp;<asp:Label ID="Label53" runat="server" Text="เนื้อที่"></asp:Label>
             </td>
@@ -1123,12 +1126,12 @@
                             <asp:ImageButton ID="ImageSave" runat="server" Height="35px" 
                                 ImageUrl="~/Images/Save.jpg" Width="35px" ToolTip="Save Data" />
                         </td>
-                        <td>
-                            <b>SAVE</b>                         
+                        <td style="font-weight: 700">
+                            ยืนยัน                         
                         </td>
                         <td>
                             <asp:ImageButton ID="ImageEditPosition" runat="server" Height="35px" 
-                                ImageUrl="~/Images/pawn.png" Width="35px" ToolTip="Save Data" />
+                                ImageUrl="~/Images/viewmap.jpg" Width="35px" ToolTip="Save Data" />
                         </td>
                         <td style="width:100px"><b>กำหนดพิกัด</b></td>
                         <td>

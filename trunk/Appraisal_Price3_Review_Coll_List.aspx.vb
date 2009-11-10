@@ -18,6 +18,8 @@ Partial Class Appraisal_Price3_Review_Coll_List
         Dim Id As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblID"), Label)
         Dim Req_Id As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblReq_Id"), Label)
         Dim Hub_Id As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblHub_Id"), Label)
+        Dim AID As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblAID"), Label)
+        Dim Temp_AID As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblTemp_AID"), Label)
         Dim CollType As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblCollType_Id"), Label)
         Dim Cif As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblCif"), Label)
         Context.Items("Id") = Id.Text
@@ -25,9 +27,11 @@ Partial Class Appraisal_Price3_Review_Coll_List
         Context.Items("Hub_Id") = Hub_Id.Text
         Context.Items("Coll_Type") = CollType.Text
         Context.Items("Cif") = Cif.Text
-        Context.Items("AID") = hdfAID.Value
+        Context.Items("AID") = AID.Text
+        Context.Items("Temp_AID") = Temp_AID.Text
         If CollType.Text = "50" Then
             Server.Transfer("Appraisal_Price3_50_Review_Edit.Aspx")
+            'Server.Transfer("Appraisal_Price3_Add_Colltype50.aspx")
         ElseIf CollType.Text = "70" Then
             Server.Transfer("Appraisal_Price3_70_Review_Edit.Aspx")
         ElseIf CollType.Text = "18" Then

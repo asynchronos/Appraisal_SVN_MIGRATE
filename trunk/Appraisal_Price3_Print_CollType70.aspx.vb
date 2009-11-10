@@ -5,6 +5,7 @@ Partial Class Appraisal_Price3_Print_CollType70
     Inherits System.Web.UI.Page
     Dim total As Decimal
     Dim total1 As Decimal
+
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not Page.IsPostBack Then
             '********* Data Test **************
@@ -46,7 +47,7 @@ Partial Class Appraisal_Price3_Print_CollType70
             End If
             lblAddressNo.Text = Obj_GetP70.Item(0).Build_No
             lbChanodeNo.Text = Obj_GetP70.Item(0).Put_On_Chanode
-            If Obj_GetP70.Item(0).MysubColl_ID = 6 Or Obj_GetP70.Item(0).MysubColl_ID = 7 Then
+            If Obj_GetP70.Item(0).MysubColl_ID = 6 Then 'Or Obj_GetP70.Item(0).MysubColl_ID = 7 Then
                 CheckBox3.Checked = True
 
             ElseIf Obj_GetP70.Item(0).MysubColl_ID = 8 Then
@@ -75,7 +76,8 @@ Partial Class Appraisal_Price3_Print_CollType70
                 lblFloors.Text = Obj_GetP70.Item(0).Floors
                 'lblBuildingFloors.Text = CheckBox3.Text & " " & lblFloors.Text
             ElseIf CheckBox4.Checked = True Then
-
+                Dim collTypeName As List(Of Cls_SubCollType) = GET_SUBCOLLTYPE(Obj_GetP70.Item(0).MysubColl_ID)
+                lblOther.Text = collTypeName.Item(0).SubCollType_Name & " " & Obj_GetP70.Item(0).Floors & " " & " ชั้น"
             End If
 
             CheckBox5.Checked = False

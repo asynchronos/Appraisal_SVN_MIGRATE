@@ -5,7 +5,8 @@
 
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
-<script src="Js/jquery.js" type="text/javascript"></script>
+
+    <script src="Js/jquery.js" type="text/javascript"></script>
 <script src="Js/common.js" type="text/javascript"></script>
     <style type="text/css">
 
@@ -63,19 +64,25 @@
 <script type="text/javascript">
     function CalSection_Land(sender, e) {
         //ต้องกำหนด ชนิด input type MyClintID ที่ตัว Control ของแต่ละตัวที่จะส่ง และชื่อ Property  Name ของ Control นั้น ๆ ก่อน
+        var subunit_array = [0, 1, 1, 400, 1];  //คำอธิบาย 400 คือ 400 ตรว., 1 คือ 1 ตรว.
         var txtrai = getEleByProperty("input", "MyClintID", "txtRai");
         var txtngan = getEleByProperty("input", "MyClintID", "txtNgan");
         var txtwah = getEleByProperty("input", "MyClintID", "txtWah");
+        var txtsubunit = getEleByProperty("select", "MyClintID", "ddlSubUnit");  //dropdownlist
         var txtpricewah = getEleByProperty("input", "MyClintID", "txtPriceWah");
         var txtland_Price = getEleByProperty("input", "MyClintID", "txtTotal");
 
+        var unitdiv = subunit_array[txtsubunit.options[txtsubunit.selectedIndex].value];
+        //alert(unitdiv);
         var wah_rai = Number(txtrai.value) * 400;
         //alert(wah_rai);
         var wah_ngan = Number(txtngan.value) * 100;
         var wah = Number(txtwah.value);
         var totalwar = wah_rai + wah_ngan + wah;
+        
         var unit_price = Number(txtpricewah.value);
-        var land_price = (totalwar * unit_price);
+
+        var land_price = (totalwar * unit_price) / unitdiv;
 
         //ส่งแสดงผลกลับให้กับ Textbox ที่อยู่หน้า Design
         txtland_Price.value = addCommas(land_price);
@@ -145,7 +152,7 @@
                     <asp:TextBox ID="txtCID" runat="server"></asp:TextBox>
                 <asp:ImageButton ID="imSearchAID" runat="server" 
                         ImageUrl="~/Images/find1.jpg" Height="22px" Width="22px" 
-                        ToolTip="ค้นหา"/>
+                        ToolTip="ค้นหา" Visible="False"/>
             </td>
             <td class="style29">
                 &nbsp;</td>
@@ -162,9 +169,12 @@
                 </asp:DropDownList>
             </td>
             <td>
-                ประกอบด้วยเลขที่</td>
+                เลขที่โฉนด</td>
             <td class="style27">
-                <asp:TextBox ID="txtChanode" runat="server" Width="222px"></asp:TextBox>
+                <asp:TextBox ID="txtChanode" runat="server" Width="180px"></asp:TextBox>
+            &nbsp;<asp:ImageButton ID="ImageButton_Verify" runat="server" 
+                            ImageUrl="~/Images/page_accept.ico" Width="20px" Height="20px" 
+                            ToolTip="ตรวสอบเลขที่โฉนด" />
             </td>
             <td class="style29">
                 &nbsp;</td>
@@ -380,7 +390,8 @@
                     ราคาต่อหน่วย</td>
             <td class="style22">
                 <asp:DropDownList ID="ddlSubUnit" runat="server" DataSourceID="SDSSubUnit" 
-                        DataTextField="SubUnit_Name" DataValueField="SubUnit_Id">
+                        DataTextField="SubUnit_Name" DataValueField="SubUnit_Id" 
+                    MyClintID="ddlSubUnit" onkeyup="CalSection_Land(this,event);">
                 </asp:DropDownList>
                 <cc1:mytext id="txtPriceWah" runat="server" allowuserkey="num_Numeric" 
                     width="120px" EnableTextAlignRight="True"
@@ -455,7 +466,7 @@
     </asp:SqlDataSource>
     <asp:SqlDataSource ID="SDSProvince" runat="server" ConnectionString="<%$ ConnectionStrings:AppraisalConn %>"
         SelectCommand="SELECT PROV_CODE, PROV_NAME FROM Bay01.dbo.TB_PROVINCE
-Order by prov_code">
+Order by PROV_NAME">
     </asp:SqlDataSource>
     
     <asp:SqlDataSource ID="SDSSubUnit" runat="server" ConnectionString="<%$ ConnectionStrings:AppraisalConn %>"

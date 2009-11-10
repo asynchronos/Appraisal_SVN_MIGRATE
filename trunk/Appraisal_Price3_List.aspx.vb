@@ -51,7 +51,8 @@ Partial Class Appraisal_Price3_List
         Dim strQRY As String = ""
         Dim dsTemp As New SqlDataSource
 
-        Dim conn As String = "server=172.19.54.2;Database=Appraisal;User ID=sa;Password=sa0123"
+        'Dim conn As String = "server=172.19.54.2;Database=Appraisal;User ID=sa;Password=sa0123"
+        Dim conn As String = ConfigurationManager.ConnectionStrings.Item("AppraisalConn").ToString '"server=172.19.54.2;Database=Appraisal_Test;User ID=sa;Password=sa0123"
         dsTemp.ConnectionString = conn
         strQRY = "SELECT ID, Req_Id, Cif, CIFNAME, Hub_Id, HUB_NAME, Temp_AID, CollType_ID, MysubColl_ID, SubCollType_Name, Address_No, Tumbon, Amphur, Province,PROV_NAME FROM View_Appraisal_Price3_ListDetail WHERE Temp_AID = " & strTemp_AID & ""
         dsTemp.SelectCommand = strQRY
@@ -170,16 +171,22 @@ Partial Class Appraisal_Price3_List
         Context.Items("Coll_Type") = lblColl_type.Text
         Context.Items("SpecialAdd") = "เพิ่มกรณีปกติ"
 
-        If lblColl_type.Text = 50 Then
-            'Response.Redirect("Appraisal_Price3_Add_Colltype50.aspx?Req_id=" & Req_Id.Text & "&Hub_Id=" & Hub_Id.Text & "&Coll_Type=" & lblColl_type.Text & "&Temp_AID=" & lblTemp_AID.Text & "&ID=" & Hid_ID.Value)
-            Server.Transfer("Appraisal_Price3_Add_Colltype50.aspx")
-        ElseIf lblColl_type.Text = 70 Then
-            'Response.Redirect("Appraisal_Price3_Add_Colltype70.aspx?Req_id=" & Req_Id.Text & "&Hub_Id=" & Hub_Id.Text & "&Coll_Type=" & lblColl_type.Text & "&Temp_AID=" & lblTemp_AID.Text & "&ID=" & Hid_ID.Value)
-            Server.Transfer("Appraisal_Price3_Add_Colltype70.aspx")
-        ElseIf lblColl_type.Text = 15 Then
+        Dim Obj_Price2 As List(Of Appraisal_Request) = GET_APPRAISAL_REQUEST(Req_Id.Text)
+        If Obj_Price2.Item(0).Status_ID < 8 Then
+            s = "<script language=""javascript"">alert('หัวหน้ายังไม่ยืนยันการกำหนดราคาที่ 2');</script>"
+            Page.ClientScript.RegisterStartupScript(Me.GetType, "ข้อความเตือน", s)
+        Else
+            If lblColl_type.Text = 50 Then
+                'Response.Redirect("Appraisal_Price3_Add_Colltype50.aspx?Req_id=" & Req_Id.Text & "&Hub_Id=" & Hub_Id.Text & "&Coll_Type=" & lblColl_type.Text & "&Temp_AID=" & lblTemp_AID.Text & "&ID=" & Hid_ID.Value)
+                Server.Transfer("Appraisal_Price3_Add_Colltype50.aspx")
+            ElseIf lblColl_type.Text = 70 Then
+                'Response.Redirect("Appraisal_Price3_Add_Colltype70.aspx?Req_id=" & Req_Id.Text & "&Hub_Id=" & Hub_Id.Text & "&Coll_Type=" & lblColl_type.Text & "&Temp_AID=" & lblTemp_AID.Text & "&ID=" & Hid_ID.Value)
+                Server.Transfer("Appraisal_Price3_Add_Colltype70.aspx")
+            ElseIf lblColl_type.Text = 15 Then
 
-        ElseIf lblColl_type.Text = 18 Then
-            Server.Transfer("Appraisal_Price3_18.aspx")
+            ElseIf lblColl_type.Text = 18 Then
+                Server.Transfer("Appraisal_Price3_18.aspx")
+            End If
         End If
 
         'MsgBox("Select Index Changing")
@@ -257,61 +264,70 @@ Partial Class Appraisal_Price3_List
         Context.Items("Appraisal_Id") = Appraisal_Id.Text
 
         Dim ChkColl As Integer = 0
-
-        Dim Obj_GetP18 As List(Of Price3_18) = GET_PRICE3_18(Req_Id.Text, Hub_Id.Text, Temp_AID.Text)
-        If Obj_GetP18.Count > 0 Then
-            ChkColl = 18
+        Dim P2Master As List(Of Price2_Master) = GET_PRICE2_MASTER(Req_Id.Text, Hub_Id.Text)
+        If P2Master.Item(0).Approve2_Id = String.Empty Then
+            s = "<script language=""javascript"">alert('หัวหน้ายังไม่ยืนยันการกำหนดราคาที่ 2');</script>"
+            Page.ClientScript.RegisterStartupScript(Me.GetType, "ข้อความเตือน", s)
         Else
-            Dim Obj_GetP50 As List(Of Price3_50) = GET_PRICE3_CONFORM(Req_Id.Text, Hub_Id.Text, Temp_AID.Text)
-            If Obj_GetP50.Count > 0 Then
-                ChkColl = 50
+            Dim Obj_GetP18 As List(Of Price3_18) = GET_PRICE3_18(Req_Id.Text, Hub_Id.Text, Temp_AID.Text)
+            If Obj_GetP18.Count > 0 Then
+                ChkColl = 18
             Else
-                ChkColl = 0
-                s = "<script language=""javascript"">alert('คุณยังไม่ได้กำหนดรายละเอียดในที่ดิน');</script>"
-                Page.ClientScript.RegisterStartupScript(Me.GetType, "ข้อความเตือน", s)
-            End If
-            'มีทรัพย์หลักประกันเป็นที่ดิน หาว่ามีสิ่งปลูกสร้างหรือไม่
-            If ChkColl = 50 Then
-                Dim P2_70G As List(Of Price2_70_New) = GET_PRICE2_70_NEW_BY_REQID_HUBID(Req_Id.Text, Hub_Id.Text, Temp_AID.Text)
-                If P2_70G.Count > 0 Then  ' มีสิ่งปลูกสร้างในราคาที่ 2
-                    Dim Obj_GetP70G As DataSet = GET_PRICE3_70_GROUP(Req_Id.Text, Hub_Id.Text, Temp_AID.Text)
-                    If P2_70G.Count = Obj_GetP70G.Tables(0).Rows.Count Then ' มีสิ่งปลูกสร้างในราคาที่ 2 เท่ากับ ปลูกสร้างในราคาที่ 3
-                        ChkColl = 70
-                    Else ' มีสิ่งปลูกสร้างในราคาที่ 2 ไม่เท่ากับ ปลูกสร้างในราคาที่ 3
-                        s = "<script language=""javascript"">alert('รายละเอียดในที่สิ่งปลูกสร้างในราคาที่ 3 ยังไม่สมบูรณ์');</script>"
-                        Page.ClientScript.RegisterStartupScript(Me.GetType, "ข้อความเตือน", s)
-                        Exit Sub
-                    End If
-                Else 'ไม่มีสิ่งปลูกสร้างในราคาที่ 2
+                Dim Obj_GetP50 As List(Of Price3_50) = GET_PRICE3_CONFORM(Req_Id.Text, Hub_Id.Text, Temp_AID.Text)
+                If Obj_GetP50.Count > 0 Then
                     ChkColl = 50
+                Else
+                    ChkColl = 0
+                    s = "<script language=""javascript"">alert('คุณยังไม่ได้กำหนดรายละเอียดในที่ดิน');</script>"
+                    Page.ClientScript.RegisterStartupScript(Me.GetType, "ข้อความเตือน", s)
+                End If
+                'มีทรัพย์หลักประกันเป็นที่ดิน หาว่ามีสิ่งปลูกสร้างหรือไม่
+                If ChkColl = 50 Then
+                    Dim P2_70G As List(Of Price2_70_New) = GET_PRICE2_70_NEW_BY_REQID_HUBID(Req_Id.Text, Hub_Id.Text, Temp_AID.Text)
+                    If P2_70G.Count > 0 Then  ' มีสิ่งปลูกสร้างในราคาที่ 2
+                        'Dim Obj_GetP70G As DataSet = GET_PRICE3_70_GROUP(Req_Id.Text, Hub_Id.Text, Temp_AID.Text)
+                        Dim Cnt As Integer = GET_BUILDING_ITEMS_PRICE3(Req_Id.Text, Hub_Id.Text)
+                        'MsgBox(Obj_GetP70G.Tables(0).Rows.Count)
+                        If P2_70G.Count = Cnt Then ' มีสิ่งปลูกสร้างในราคาที่ 2 เท่ากับ ปลูกสร้างในราคาที่ 3
+                            ChkColl = 70
+                        Else ' มีสิ่งปลูกสร้างในราคาที่ 2 ไม่เท่ากับ ปลูกสร้างในราคาที่ 3
+                            s = "<script language=""javascript"">alert('รายละเอียดในที่สิ่งปลูกสร้างในราคาที่ 3 ยังไม่สมบูรณ์');</script>"
+                            Page.ClientScript.RegisterStartupScript(Me.GetType, "ข้อความเตือน", s)
+                            Exit Sub
+                        End If
+                    Else 'ไม่มีสิ่งปลูกสร้างในราคาที่ 2
+                        ChkColl = 50
+                    End If
                 End If
             End If
+
+            Context.Items("ChkColl") = ChkColl
+            If ChkColl = 0 Then
+                s = "<script language=""javascript"">alert('คุณไม่มีชิ้นทรัพย์ในการประเมิน');</script>"
+                Page.ClientScript.RegisterStartupScript(Me.GetType, "ข้อความเตือน", s)
+            ElseIf ChkColl = 18 Then
+                If MethodNo.Text = "1" Then
+                    Server.Transfer("Appraisal_Price3_Conform_New.aspx")
+                ElseIf MethodNo.Text = "2" Then
+                    Server.Transfer("Appraisal_Price3_Form_Review.aspx")
+                End If
+            ElseIf ChkColl = 50 Then
+                If MethodNo.Text = "1" Then
+                    Server.Transfer("Appraisal_Price3_Conform_New.aspx")
+                ElseIf MethodNo.Text = "2" Then
+                    Server.Transfer("Appraisal_Price3_Form_Review.aspx")
+                End If
+            ElseIf ChkColl = 70 Then
+                If MethodNo.Text = "1" Then
+                    Server.Transfer("Appraisal_Price3_Conform_New.aspx")
+                ElseIf MethodNo.Text = "2" Then
+                    Server.Transfer("Appraisal_Price3_Form_Review.aspx")
+                End If
+            Else
+            End If
         End If
 
-        Context.Items("ChkColl") = ChkColl
-        If ChkColl = 0 Then
-            s = "<script language=""javascript"">alert('คุณไม่มีชิ้นทรัพย์ในการประเมิน');</script>"
-            Page.ClientScript.RegisterStartupScript(Me.GetType, "ข้อความเตือน", s)
-        ElseIf ChkColl = 18 Then
-            If MethodNo.Text = "1" Then
-                Server.Transfer("Appraisal_Price3_Conform_New.aspx")
-            ElseIf MethodNo.Text = "2" Then
-                Server.Transfer("Appraisal_Price3_Form_Review.aspx")
-            End If
-        ElseIf ChkColl = 50 Then
-            If MethodNo.Text = "1" Then
-                Server.Transfer("Appraisal_Price3_Conform_New.aspx")
-            ElseIf MethodNo.Text = "2" Then
-                Server.Transfer("Appraisal_Price3_Form_Review.aspx")
-            End If
-        ElseIf ChkColl = 70 Then
-            If MethodNo.Text = "1" Then
-                Server.Transfer("Appraisal_Price3_Conform_New.aspx")
-            ElseIf MethodNo.Text = "2" Then
-                Server.Transfer("Appraisal_Price3_Form_Review.aspx")
-            End If
-        Else
-        End If
+
 
     End Sub
 

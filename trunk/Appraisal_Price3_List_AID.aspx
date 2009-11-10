@@ -79,7 +79,7 @@
         DataSourceID="sdsPriceList3_Review" EmptyDataText="There are no data records to display."
         Width='100%' BackColor="LightGoldenrodYellow" BorderColor="Tan" BorderWidth="1px"
         CellPadding="2" ForeColor="Black" GridLines="None" ShowFooter="True" PageSize="15"
-        Font-Size="Medium" style="font-size: small">
+        Font-Size="Medium" style="font-size: small" AllowPaging="True">
         <FooterStyle BackColor="Tan" />
         <Columns>
             <asp:TemplateField>
@@ -135,6 +135,11 @@
                     <asp:Label ID="LabelStatus_Name" runat="server" Text='<%# Bind("Status_Name") %>'></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
+            <asp:TemplateField HeaderText="รหัสผู้ประเมิน">
+                <ItemTemplate>
+                    <asp:Label ID="lblAppraisal_Id" runat="server" Text='<%# Bind("Appraisal_Id") %>'></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>            
             <asp:TemplateField HeaderText="วันที่ส่งประเมิน">
                 <ItemTemplate>
                     <asp:Label ID="LabelCreate_Date" runat="server" Text='<%# Bind("Create_Date") %>'></asp:Label>
@@ -201,6 +206,7 @@
                                         <asp:TemplateField HeaderText="cif name">
                                             <ItemStyle VerticalAlign="Middle" Width="250px" />
                                             <ItemTemplate>
+                                                <asp:Label ID="lblCif" runat="server" Text='<%# Eval("cif") %>'></asp:Label>
                                                 <asp:Label ID="lblcifname" runat="server" Text='<%# Eval("cifname") %>'></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>

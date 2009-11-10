@@ -12,8 +12,9 @@ Partial Class LongDoMap
         S += "window.opener.document.getElementById('" & Request.QueryString("lat") & "').value  ='" & lat & "';"
         S += "window.opener.document.getElementById('" & Request.QueryString("lng") & "').value  ='" & lng & "';"
         S += "window.close();</script>"
-        'Page.ClientScript.RegisterStartupScript(Me.GetType, "test", S, True)
+        'Page.ClientScript.RegisterStartupScript(Me.GetType, "Longdo", S, True)
 
         Response.Write(S)
+        'ScriptManager.RegisterStartupScript(Page, GetType(), "MyScript", alert(" + DateTime.Now.Millisecond + ");", true);
     End Sub
 End Class

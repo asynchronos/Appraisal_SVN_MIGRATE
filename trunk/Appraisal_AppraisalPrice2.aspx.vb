@@ -41,11 +41,12 @@ Partial Class Appraisal_AppraisalPrice2
     End Sub
 
     Protected Sub ImageOk_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs) Handles ImageOk.Click
+        Dim lblApprove_id As Label = TryCast(Me.Form.FindControl("lblUserID"), Label)
         If lblPrice2.Text = String.Empty Then
             s = "<script language=""javascript"">alert('ไม่พบการกำหนดราคาที่ 2 ของเลขคำขอนี้ในระบบ');</script>"
             Page.ClientScript.RegisterStartupScript(Me.GetType, "รับเรื่องประเมิน", s)
         Else
-            UPDATE_PRICE2_MASTER(lblReq_Id.Text, lblHub_Id.Text, lblPrice2.Text, txtNote.Text)
+            UPDATE_PRICE2_MASTER(lblReq_Id.Text, lblHub_Id.Text, lblPrice2.Text, txtNote.Text, lblApprove_id.Text)
             UPDATE_Status_Appraisal_Request(lblReq_Id.Text, lblHub_Id.Text, rdbAccept.SelectedValue)
 
             s = "<script language=""javascript"">alert('ยืนยันการกำหนดราคาที่ 2 แล้ว');</script>"

@@ -2,6 +2,7 @@
     Inherits="Appraisal_Price2_Information" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
+<%@ Register assembly="Mytextbox" namespace="Mytextbox" tagprefix="cc1" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
@@ -164,7 +165,7 @@
                                 </asp:BoundField>
                                 <asp:TemplateField HeaderText="ภาพถ่ายหลักประกันจากสถานที่จริง">
                                     <ItemTemplate>
-                                        <asp:HyperLink ID="linkPath0" runat="server" NavigateUrl='<%#  "UploadedFiles/Pic_Price2/" &  EVAL("Picture_Path") %>'
+                                        <asp:HyperLink ID="linkPath1" runat="server" NavigateUrl='<%#  "UploadedFiles/Pic_Price2/" &  EVAL("Picture_Path") %>'
                                             Target="_blank" Text='<%#EVAL("Picture_Path") %>'>HyperLink</asp:HyperLink>
                                     </ItemTemplate>
                                 </asp:TemplateField>
