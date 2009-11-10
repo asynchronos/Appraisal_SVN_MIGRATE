@@ -50,11 +50,26 @@ Partial Class Appraisal_AppraisalPrice2New
     End Sub
 
     Protected Sub ImageOk_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs) Handles ImageOk.Click
+        Dim A1 As String
+        Dim i As Integer
+        Dim lblApprove_id As Label = TryCast(Me.Form.FindControl("lblUserID"), Label)
+        Dim ApprroveID As String
         If lblPrice2.Text = String.Empty Then
             s = "<script language=""javascript"">alert('ไม่พบการกำหนดราคาที่ 2 ของเลขคำขอนี้ในระบบ');</script>"
             Page.ClientScript.RegisterStartupScript(Me.GetType, "รับเรื่องประเมิน", s)
         Else
-            UPDATE_PRICE2_MASTER(lblReq_Id.Text, lblHub_Id.Text, lblPrice2.Text, txtNote.Text)
+            A1 = lblApprove_id.Text
+            i = A1.IndexOf("_")
+            If i > 0 Then
+                'MsgBox(i)
+                'TextBox1.Text = Left(s, i)
+                'ddlApprove1.SelectedValue = P2Master.Item(0).Approve2_Id  'ผู่อนุมัติราคาที่ 2
+                ApprroveID = Left(A1, i)
+            Else
+                'ddlApprove1.SelectedValue = P2Master.Item(0).Approve2_Id
+                ApprroveID = lblApprove_id.Text
+            End If
+            UPDATE_PRICE2_MASTER(lblReq_Id.Text, lblHub_Id.Text, lblPrice2.Text, txtNote.Text, ApprroveID)
             UPDATE_Status_Appraisal_Request(lblReq_Id.Text, lblHub_Id.Text, rdbAccept.SelectedValue)
 
             s = "<script language=""javascript"">alert('ยืนยันการกำหนดราคาที่ 2 แล้ว');</script>"

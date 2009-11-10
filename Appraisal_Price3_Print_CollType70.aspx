@@ -106,7 +106,8 @@
                 <asp:CheckBox ID="CheckBox4" runat="server" Text="อื่น ๆ" />
             </td>
             <td>
-                &nbsp;</td>
+                <asp:Label ID="lblOther" runat="server"></asp:Label>
+            </td>
         </tr>
         <tr>
             <td class="style5">
@@ -504,7 +505,7 @@
                     </tr>
                 </AlternatingItemTemplate>
                <FooterTemplate>
-                    <tr style ="background-color:Gray; border-color:Black;" >
+                    <tr style ="border-color:Black;" >
                         <td style="width:200px"></td>
                         <td></td>
                         <td></td>
@@ -517,10 +518,10 @@
                         <td style="width:60px"></td>
                         <td></td>
                         <td style="width:50px"></td>
-                        <td align="right">
+                        <td align="right" style="font-weight:bold">
                             <%#String.Format("{0:N2}", (Get_Total()))%>
                         </td>
-                        <td align="right">
+                        <td align="right" style="font-weight:bold">
                             <%#String.Format("{0:N2}", (Get_Total1()))%>
                         </td>                        
                     </tr>

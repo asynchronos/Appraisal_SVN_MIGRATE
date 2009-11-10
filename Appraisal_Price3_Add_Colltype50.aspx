@@ -3,6 +3,8 @@
 <%@ Register assembly="Mytextbox" namespace="Mytextbox" tagprefix="cc1" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+<script src="Js/jquery.js" type="text/javascript"></script>
+<script src="Js/common.js" type="text/javascript"></script>
     <style type="text/css">
             .style26
         {
@@ -55,6 +57,46 @@
             width: 338px;
         }
             </style>
+<script type="text/javascript">
+    function CalSection_Land(sender, e) {
+        //ต้องกำหนด ชนิด input type MyClintID ที่ตัว Control ของแต่ละตัวที่จะส่ง และชื่อ Property  Name ของ Control นั้น ๆ ก่อน
+        //var subunit_array = [0, 400, 1, 400, 1];
+        var subunit_array = [0, 1, 1, 400, 1];  //คำอธิบาย 400 คือ 400 ตรว., 1 คือ 1 ตรว.
+        var txtrai = getEleByProperty("input", "MyClintID", "txtRai");
+        var txtngan = getEleByProperty("input", "MyClintID", "txtNgan");
+        var txtwah = getEleByProperty("input", "MyClintID", "txtWah");
+        var txtsubunit = getEleByProperty("select", "MyClintID", "ddlSubUnit");  //dropdownlist ส่งค่ามา
+        var txtpricewah = getEleByProperty("input", "MyClintID", "txtPriceWah");
+        var txtland_Price = getEleByProperty("input", "MyClintID", "txtTotal");
+
+        var unitdiv = subunit_array[txtsubunit.options[txtsubunit.selectedIndex].value];   //หาค่าว่าแล้วจำมาแมปกับค่า Array ที่กำหนดไว้
+        //alert(unitdiv);
+        var wah_rai = Number(txtrai.value) * 400;
+        //alert(wah_rai);
+        var wah_ngan = Number(txtngan.value) * 100;
+        var wah = Number(txtwah.value);
+        var totalwar = wah_rai + wah_ngan + wah;
+        
+        var unit_price = Number(txtpricewah.value);
+
+        var land_price = (totalwar * unit_price) / unitdiv;
+
+        //ส่งแสดงผลกลับให้กับ Textbox ที่อยู่หน้า Design
+        txtland_Price.value = addCommas(land_price);
+    }
+
+    function addCommas(nStr) {
+        nStr += '';
+        x = nStr.split('.');
+        x1 = x[0];
+        x2 = x.length > 1 ? '.' + x[1] : '';
+        var rgx = /(\d+)(\d{3})/;
+        while (rgx.test(x1)) {
+            x1 = x1.replace(rgx, '$1' + ',' + '$2');
+        }
+        return x1 + x2;
+    }
+</script>                       
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <asp:ScriptManager ID="ScriptManager1" runat="server">
@@ -95,6 +137,24 @@
                 &nbsp;</td>
             <td>
             </td>
+        </tr>
+        <tr>
+            <td class="style26">
+                AID</td>
+            <td class="style31">
+                <asp:Label ID="lblAID" runat="server" 
+                    style="font-weight: 700; color: #FF0000;"></asp:Label>
+            </td>
+            <td>
+                CID</td>
+            <td class="style27">
+                <asp:Label ID="lblCID" runat="server" 
+                    style="font-weight: 700; color: #FF0000;"></asp:Label>
+            </td>
+            <td class="style29">
+                &nbsp;</td>
+            <td>
+                &nbsp;</td>
         </tr>
         <tr>
             <td class="style26">
@@ -220,13 +280,16 @@
                 </td>
             <td class="style31">
                 <cc1:mytext ID="txtRai" runat="server" AllowUserKey="int_Integer"
-                        EnableTextAlignRight="True" Width="50px" AutoPostBack="True">0</cc1:mytext>
+                        EnableTextAlignRight="True" Width="50px" MyClintID="txtRai"
+                        onkeyup="CalSection_Land(this,event);" >0</cc1:mytext>
                     &nbsp;ไร่
                     <cc1:mytext ID="txtNgan" runat="server" AllowUserKey="int_Integer" EnableTextAlignRight="True"
-                        MaxLength="1" Width="50px" AutoPostBack="True">0</cc1:mytext>
+                        MaxLength="1" Width="50px" MyClintID="txtNgan"
+                        onkeyup="CalSection_Land(this,event);" >0</cc1:mytext>
                     &nbsp;งาน
                    <cc1:mytext ID="txtWah" runat="server" AllowUserKey="num_Numeric" EnableTextAlignRight="True"
-                        MaxLength="5" Width="50px" AutoPostBack="True">0</cc1:mytext>
+                        MaxLength="5" Width="50px" MyClintID="txtWah"
+                        onkeyup="CalSection_Land(this,event);" >0</cc1:mytext>
                     &nbsp;ตรว.</td>
             <td class="style5">
                                 ผู้ถือกรรมสิทธิ์ที่ดิน</td>
@@ -437,18 +500,18 @@
                     ราคาต่อหน่วย</td>
             <td class="style31">
                 <asp:DropDownList ID="ddlSubUnit" runat="server" DataSourceID="SDSSubUnit" 
-                        DataTextField="SubUnit_Name" DataValueField="SubUnit_Id">
+                        DataTextField="SubUnit_Name" DataValueField="SubUnit_Id" MyClintID="ddlSubUnit" onkeyup="CalSection_Land(this,event);">
                 </asp:DropDownList>
-            &nbsp;<cc1:mytext id="txtPriceWah" runat="server" allowuserkey="num_Numeric" width="120px"
-                        autocurrencyformatonkeyup="True" EnableTextAlignRight="True" 
-                    AutoPostBack="True">0</cc1:mytext>
+            &nbsp;<cc1:mytext id="txtPriceWah" runat="server" allowuserkey="num_Numeric" 
+                    width="120px" EnableTextAlignRight="True" MyClintID="txtPriceWah"
+                    onkeyup="CalSection_Land(this,event);" >0</cc1:mytext>
             &nbsp;บาท</td>
             <td class="style5">
                     เป็นเงิน</td>
             <td class="style27">
                 <cc1:mytext ID="txtTotal" runat="server" AllowUserKey="num_Numeric" Width="120px"
                         AutoCurrencyFormatOnKeyUp="True" EnableTextAlignRight="True" 
-                    ReadOnly="True">0</cc1:mytext>
+                    ReadOnly="True" MyClintID="txtTotal">0</cc1:mytext>
             &nbsp;บาท</td>
             <td class="style29">
                     &nbsp;
@@ -482,8 +545,8 @@
                             <asp:ImageButton ID="ImageSave" runat="server" ImageUrl="~/Images/Save.jpg" Width="35px" Height="35px" />
                         </td>
                         <td>
-                            SAVE
-                        </td>
+                            <asp:Label ID="lblSave" runat="server" style="font-weight: 700" Text="SAVE"></asp:Label>
+&nbsp;</td>
                     </tr>
                </table>
            </td>    

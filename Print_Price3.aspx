@@ -520,23 +520,27 @@ borderwidth="0" ></asp:TextBox>
                 </td>
             </tr>
             <tr>
+                <td align="center">
+                    &nbsp;</td>
+            </tr>
+            <tr>
                 <td>
-                <table width="100%">
+                <table width="100%" >
                     <tr>
-                        <td class="style22">
+                        <td class="style22" >
                             <asp:Label ID="Label70" runat="server" Text="1.)"></asp:Label>
                         </td>
-                        <td class="style28">
+                        <td width="30%">
                             &nbsp;</td>
                         <td class="style29">
                             <asp:Label ID="Label71" runat="server" Text="2.)"></asp:Label>
                         </td>
-                        <td class="style27">
+                        <td width="30%">
                             &nbsp;</td>
                         <td class="style26">
                             <asp:Label ID="Label72" runat="server" Text="3.)"></asp:Label>
                         </td>
-                        <td class="style23">
+                        <td width="30%">
                             &nbsp;</td>
                     </tr>
                     <tr>
@@ -559,25 +563,20 @@ borderwidth="0" ></asp:TextBox>
                     </tr>                    
                     <tr>
                         <td class="style22">
-                            .</td>
-                        <td class="style28" 
+                            &nbsp;</td>
+                        <td 
+                            
                             
                             
                             style="border-bottom-style: dotted; border-bottom-width: thin; border-bottom-color: #000000;">
                             &nbsp;</td>
                         <td class="style29">
-                            .</td>
-                        <td class="style27" 
-                            
-                            
-                            style="border-bottom-style: dotted; border-bottom-width: thin; border-bottom-color: #000000;">
+                            &nbsp;</td>
+                        <td style="border-bottom-style: dotted; border-bottom-width: thin; border-bottom-color: #000000;">
                             &nbsp;</td>
                         <td class="style26">
-                            .</td>
-                        <td class="style23" 
-                            
-                            
-                            style="border-bottom-style: dotted; border-bottom-width: thin; border-bottom-color: #000000;">
+                            &nbsp;</td>
+                        <td style="border-bottom-style: dotted; border-bottom-width: thin; border-bottom-color: #000000;">
                             &nbsp;</td>
                     </tr>
                     <tr>

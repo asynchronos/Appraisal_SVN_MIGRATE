@@ -5,6 +5,7 @@ Imports Appraisal_Manager
 Partial Class MasterPage_MasterPage
     Inherits System.Web.UI.MasterPage
     Dim s As String
+
     Protected Sub form1_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles form1.Load
         'If Not Page.IsPostBack Then
         'MsgBox(Session("sEmpId").ToString)
@@ -15,8 +16,9 @@ Partial Class MasterPage_MasterPage
             Try
                 'MsgBox(Session("sEmpId"))
                 Emp_class = SV.GetEmployee_Info(Session("sEmpId"))(0)
+
                 'ถ้า emp_id ที่ส่งมาไม่เท่ากับ 0 ให้ใส่ข้อมูลลูกค้าใส่ในคอนโทรลที่กำหนดให้
-                If Emp_class.EmpId.ToString <> 0 Then
+                If Emp_class.EmpId.ToString <> String.Empty Then
                     lblUserID.Text = Session("sUserId")
                     lblUserName.Text = Emp_class.EmpName
                     'lblDepartment.Text = Emp_class.EmpDept
@@ -44,7 +46,9 @@ Partial Class MasterPage_MasterPage
             Catch ex As Exception
                 Page.ClientScript.RegisterStartupScript(Me.GetType, "Notice", s)
             End Try
-
+        Else
+            'Server.Transfer("Login.aspx")
+            Server.Transfer(Page.ResolveUrl("Index.aspx"))
         End If
         'End If
     End Sub

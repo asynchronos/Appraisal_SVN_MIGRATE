@@ -28,7 +28,9 @@ Partial Class Appraisal_Price3_Conform_New
             Dim P2Master As List(Of Price2_Master) = GET_PRICE2_MASTER(HiddenField1.Value, HiddenField2.Value)
             If P2Master.Count > 0 Then
                 'Dim xx As String = P2Master.Item(0).Comment
+
                 ddlAppraisal_Type.SelectedValue = P2Master.Item(0).Appraisal_Type
+                ddlApprove1.SelectedValue = P2Master.Item(0).Approve2_Id
                 ViewState("Comment") = P2Master.Item(0).Comment
             End If
             If hdfChkColl.Value = 18 Then
@@ -50,6 +52,11 @@ Partial Class Appraisal_Price3_Conform_New
             End If
 
             Try
+                If txtGrandTotal.Text >= 10000000 Then
+                    ddlApprove1.Enabled = True
+                Else
+                    ddlApprove1.Enabled = False
+                End If
                 lblThaiBaht.Text = ThaiBahtFun(CDec(txtGrandTotal.Text))
             Catch ex As Exception
 
@@ -213,7 +220,6 @@ Partial Class Appraisal_Price3_Conform_New
                 Dim Obj_Provinceas As List(Of Cls_PROVINCE) = GET_PROVINCE_INFO(Obj_GetP50.Item(0).Province)
                 Obligation = Obj_GetP50.Item(0).Obligation
                 lblDetail3.Text = Replace(Space(10), " ", "&nbsp;") & "ตำบล" & Replace(Space(5), " ", "&nbsp;") & Obj_GetP50.Item(0).Tumbon & Replace(Space(5), " ", "&nbsp;") & "อำเภอ" & Replace(Space(5), " ", "&nbsp;") & Obj_GetP50.Item(0).Amphur & Replace(Space(5), " ", "&nbsp;") & "จังหวัด" & Replace(Space(5), " ", "&nbsp;") & Obj_Provinceas.Item(0).PROV_NAME & Replace(Space(5), " ", "&nbsp;") & "เนื้อที่" & Replace(Space(5), " ", "&nbsp;") & Obj_GetP50.Item(0).Rai & " ไร่  " & Obj_GetP50.Item(0).Ngan & Replace(Space(5), " ", "&nbsp;") & "งาน " & Obj_GetP50.Item(0).Wah & " วา"
-                'lblDetail4.Text = Replace(Space(10), " ", "&nbsp;") & "ผู้ถือกรรมสิทธิ์ที่ดิน  " & Replace(Space(5), " ", "&nbsp;") & Obj_GetP50.Item(0).Ownership & Replace(Space(5), " ", "&nbsp;") & "สิ่งปลูกสร้างของ" & Replace(Space(5), " ", "&nbsp;") & "-" & Replace(Space(5), " ", "&nbsp;") & "ภาระผูกพัน" & Replace(Space(5), " ", "&nbsp;") & Obj_GetP50.Item(0).Obligation & Replace(Space(5), " ", "&nbsp;")
                 lblDetail4.Text = Replace(Space(10), " ", "&nbsp;") & "ผู้ถือกรรมสิทธิ์ที่ดิน  " & Replace(Space(5), " ", "&nbsp;") & Obj_GetP50.Item(0).Ownership & Replace(Space(5), " ", "&nbsp;")
                 'ตรวจสอบราคาของราคา Price 3 Master ที่จะแสดง
                 If CInt(Cnt_P3M) = 0 Then
@@ -229,14 +235,20 @@ Partial Class Appraisal_Price3_Conform_New
                 lblSize.Text = Obj_GetP50.Item(0).Rai & "-" & Obj_GetP50.Item(0).Ngan & "-" & Obj_GetP50.Item(0).Wah
             Else
                 'ถ้ามีที่ดินมากกว่า 1 ชิ้น
+                Obligation = Obj_GetP50.Item(0).Obligation
                 Dim DS As DataSet = GET_PRICE3_50_GROUP(HiddenField1.Value, HiddenField2.Value, HiddenField3.Value)
                 lblDetail1.Text = Replace(Space(10), " ", "&nbsp;") & "โฉนดที่ดินที่ เลขที่" & Replace(Space(5), " ", "&nbsp;") & DS.Tables(0).Rows(0).Item("Address_no") & "ระวาง" & Replace(Space(3), " ", "&nbsp;") & Obj_GetP50.Item(0).Rawang & Replace(Space(3), " ", "&nbsp;") & "เลขที่ดิน" & Replace(Space(3), " ", "&nbsp;") & DS.Tables(0).Rows(0).Item("LandNumber")
                 lblDetail2.Text = Replace(Space(10), " ", "&nbsp;") & "หน้าสำรวจ " & Replace(Space(5), " ", "&nbsp;") & "ตามเอกสารแนบ"
                 Dim Obj_Provinceas As List(Of Cls_PROVINCE) = GET_PROVINCE_INFO(Obj_GetP50.Item(0).Province)
                 lblDetail3.Text = Replace(Space(10), " ", "&nbsp;") & "ตำบล" & Replace(Space(5), " ", "&nbsp;") & Obj_GetP50.Item(0).Tumbon & Replace(Space(5), " ", "&nbsp;") & "อำเภอ" & Replace(Space(5), " ", "&nbsp;") & Obj_GetP50.Item(0).Amphur & Replace(Space(5), " ", "&nbsp;") & "จังหวัด" & Replace(Space(5), " ", "&nbsp;") & Obj_Provinceas.Item(0).PROV_NAME
-
+                lblDetail4.Text = Replace(Space(10), " ", "&nbsp;") & "ผู้ถือกรรมสิทธิ์ที่ดิน  " & Replace(Space(5), " ", "&nbsp;") & Obj_GetP50.Item(0).Ownership & Replace(Space(5), " ", "&nbsp;")
                 txtLandTotal.Text = Format(SumP3.Tables(0).Rows(0).Item("PriceTotal1"), "#,##0.00")
-                lblSize.Text = SumP3.Tables(0).Rows(0).Item("Rai") & "-" & SumP3.Tables(0).Rows(0).Item("Ngan") & "-" & SumP3.Tables(0).Rows(0).Item("Wah")
+                If SumP3.Tables(0).Rows(0).Item("TotalWah") <= 100 Then
+                    lblSize.Text = "0" & "-" & "0" & "-" & SumP3.Tables(0).Rows(0).Item("TotalWah")
+                Else
+                    lblSize.Text = SumP3.Tables(0).Rows(0).Item("Rai") & "-" & SumP3.Tables(0).Rows(0).Item("Ngan") & "-" & SumP3.Tables(0).Rows(0).Item("Wah")
+                End If
+                'lblSize.Text = SumP3.Tables(0).Rows(0).Item("Rai") & "-" & SumP3.Tables(0).Rows(0).Item("Ngan") & "-" & SumP3.Tables(0).Rows(0).Item("Wah")
                 lblPriceWah.Text = Obj_GetP50.Item(0).PriceWah  '"0.00"
                 txtGrandTotal.Text = String.Format("{0:N2}", CDec(txtLandTotal.Text))
             End If
@@ -291,9 +303,11 @@ Partial Class Appraisal_Price3_Conform_New
                 'txtBuildingPrice.Text = Round(Obj_GetP70G.Tables(0).Rows(0).Item("Deteriorate"), System.MidpointRounding.AwayFromZero)
                 Dim P2Master As List(Of Price2_Master) = GET_PRICE2_MASTER(HiddenField1.Value, HiddenField2.Value)
                 If P2Master.Item(0).Appraisal_Type = 1 Then
+                    'วิธีตลาด
                     txtBuildingPrice.Text = String.Format("{0:N2}", ((Obj_GetP70G.Tables(0).Rows(0).Item("Deteriorate"))))
                     txtSubTotal.Text = String.Format("{0:N2}", ((Obj_GetP70G.Tables(0).Rows(0).Item("PriceTotal1"))))
                 Else
+                    'วิธีทุน
                     txtBuildingPrice.Text = String.Format("{0:N2}", ((Obj_GetP70G.Tables(0).Rows(0).Item("Deteriorate"))))
                     txtSubTotal.Text = String.Format("{0:N2}", CDec(txtLandTotal.Text) + CDec(txtBuildingPrice.Text)) 'String.Format("{0:N2}", Obj_GetP70G.Tables(0).Rows(0).Item("Deteriorate"))
                 End If
@@ -355,7 +369,7 @@ Partial Class Appraisal_Price3_Conform_New
         Dim lbluserid As Label = TryCast(Me.Form.FindControl("lblUserID"), Label) 'หา Control จาก Master Page ที่ control ไม่อยู่ใน  ContentPlaceHolder1 ของ Master Page
         Dim s As String
         Dim cif As Integer = 0
-        Dim AID As Integer = 0
+        Dim AID As String = "0"
         Dim Lat As Double
         Dim Lng As Double
         If txtCif.Text <> String.Empty Then
@@ -396,7 +410,7 @@ Partial Class Appraisal_Price3_Conform_New
             Exit Sub
         End If
         'ตรวจสอบราคาที่ 2 กับราคาที่ 2 ว่าตรงกันหรือไม่
-        Dim Obj_P2 As DataSet = GET_APPRAISAL_PRICE2(HiddenField1.Value, HiddenField2.Value)
+        Dim Obj_P2 As DataSet = GET_APPRAISAL_PRICE2(HiddenField1.Value, HiddenField2.Value) 'GET_APPRAISAL_PRICE2
         Dim Price2 As Decimal = 0.0
         If Obj_P2.Tables(0).Rows.Count > 0 Then
             If Obj_P2.Tables(0).Rows(0).Item("Appraisal_Type") = 1 Then
@@ -459,60 +473,66 @@ Partial Class Appraisal_Price3_Conform_New
                 If CDec(txtGrandTotal.Text) >= 10000000 Then  'ตรวจสอบว่าราคาประเมินเกิน 20 ล้านหรือไม่
                     'อนุมัติคนที่ 1
                     AddWait_For_Approve(1, HiddenField1.Value, HiddenField2.Value, txtAID.Text, HiddenField3.Value, ddlApprove1.SelectedValue, txtCif.Text, hdfChkColl.Value, ddlUserAppraisal.SelectedValue, 0, Now(), Now(), Now(), lbluserid.Text, Now())
+                    'อนุมัติคนที่ 2
+                    AddWait_For_Approve(2, HiddenField1.Value, HiddenField2.Value, txtAID.Text, HiddenField3.Value, ddlApprove2.SelectedValue, txtCif.Text, hdfChkColl.Value, ddlUserAppraisal.SelectedValue, 0, Now(), Now(), Now(), lbluserid.Text, Now())
+                    'อนุมัติคนที่ 3
+                    AddWait_For_Approve(3, HiddenField1.Value, HiddenField2.Value, txtAID.Text, HiddenField3.Value, ddlApprove3.SelectedValue, txtCif.Text, hdfChkColl.Value, ddlUserAppraisal.SelectedValue, 0, Now(), Now(), Now(), lbluserid.Text, Now())
                 Else
                     'อนุมัติคนที่ 1
                     AddWait_For_Approve(1, HiddenField1.Value, HiddenField2.Value, txtAID.Text, HiddenField3.Value, ddlApprove1.SelectedValue, txtCif.Text, hdfChkColl.Value, ddlUserAppraisal.SelectedValue, 1, Now(), Now(), Now(), lbluserid.Text, Now())
+                    'อนุมัติคนที่ 2
+                    AddWait_For_Approve(2, HiddenField1.Value, HiddenField2.Value, txtAID.Text, HiddenField3.Value, ddlApprove2.SelectedValue, txtCif.Text, hdfChkColl.Value, ddlUserAppraisal.SelectedValue, 1, Now(), Now(), Now(), lbluserid.Text, Now())
+                    'อนุมัติคนที่ 3
+                    AddWait_For_Approve(3, HiddenField1.Value, HiddenField2.Value, txtAID.Text, HiddenField3.Value, ddlApprove3.SelectedValue, txtCif.Text, hdfChkColl.Value, ddlUserAppraisal.SelectedValue, 1, Now(), Now(), Now(), lbluserid.Text, Now())
                 End If
 
-                'อนุมัติคนที่ 2
-                AddWait_For_Approve(2, HiddenField1.Value, HiddenField2.Value, txtAID.Text, HiddenField3.Value, ddlApprove2.SelectedValue, txtCif.Text, hdfChkColl.Value, ddlUserAppraisal.SelectedValue, 0, Now(), Now(), Now(), lbluserid.Text, Now())
-                'อนุมัติคนที่ 3
-                AddWait_For_Approve(3, HiddenField1.Value, HiddenField2.Value, txtAID.Text, HiddenField3.Value, ddlApprove3.SelectedValue, txtCif.Text, hdfChkColl.Value, ddlUserAppraisal.SelectedValue, 0, Now(), Now(), Now(), lbluserid.Text, Now())
+
                 s = "<script language=""javascript"">alert('บันทึกเสร็จสมบูรณ์');</script>"
                 Page.ClientScript.RegisterStartupScript(Me.GetType, "ข้อความเตือน", s)
             Else  'มีข้อมูลแล้วต้องการแก้ไข
+
+                UPDATE_PRICE3_MASTER(HiddenField1.Value, _
+                 AID, _
+                 HiddenField3.Value, _
+                 txtInform_To.Text, _
+                 cif, _
+                 Lat, _
+                 Lng, _
+                 AppraisalDate, _
+                 ReceiveDate, _
+                 CDec(lblPriceWah.Text), _
+                 CDec(txtLandTotal.Text), _
+                 CDec(txtBuildingPrice.Text), _
+                 CDec(txtSubTotal.Text), _
+                 ddlApprove1.SelectedValue, _
+                 ddlApprove2.SelectedValue, _
+                 ddlApprove3.SelectedValue, _
+                 0, _
+                 ddlProblem.SelectedValue, _
+                 txtProblem_Detail.Text, _
+                 txtBuy_Sale_Comment.Text, _
+                 ddlAppraisal_Type.SelectedValue, _
+                 ddlComment.SelectedValue, _
+                 ddlWarning.SelectedValue, _
+                 txtWarning_Detail.Text, _
+                 ddlBranch.SelectedValue, _
+                 ddlUserAppraisal.SelectedValue, _
+                 lbluserid.Text, _
+                 Now())
+                UPDATE_Status_Appraisal_Request(HiddenField1.Value, HiddenField2.Value, 11)
                 If lbluserid.Text = ddlUserAppraisal.SelectedValue Then 'ตรวจสอบก่อนว่าผู้แก้ไขเป็นผู้ประเมินหรือไม่ ถ้าใช่ถึงจะแก้ไขอนุกรรมการได้
-                    UPDATE_PRICE3_MASTER(HiddenField1.Value, _
-                     AID, _
-                     HiddenField3.Value, _
-                     txtInform_To.Text, _
-                     cif, _
-                     Lat, _
-                     Lng, _
-                     AppraisalDate, _
-                     ReceiveDate, _
-                     CDec(lblPriceWah.Text), _
-                     CDec(txtLandTotal.Text), _
-                     CDec(txtBuildingPrice.Text), _
-                     CDec(txtSubTotal.Text), _
-                     ddlApprove1.SelectedValue, _
-                     ddlApprove2.SelectedValue, _
-                     ddlApprove3.SelectedValue, _
-                     0, _
-                     ddlProblem.SelectedValue, _
-                     txtProblem_Detail.Text, _
-                     txtBuy_Sale_Comment.Text, _
-                     ddlAppraisal_Type.SelectedValue, _
-                     ddlComment.SelectedValue, _
-                     ddlWarning.SelectedValue, _
-                     txtWarning_Detail.Text, _
-                     ddlBranch.SelectedValue, _
-                     ddlUserAppraisal.SelectedValue, _
-                     lbluserid.Text, _
-                     Now())
-                    UPDATE_Status_Appraisal_Request(HiddenField1.Value, HiddenField2.Value, 11)
                     For i = 1 To 3
                         If i = 1 Then
                             'ผู้อนุมัติคนที่1 ไม่สามารถแก้ไขได้
                         ElseIf i = 2 Then
                             'แก้ไขผู้อนุมัติคนที่2 และ 3 
-                            UPDATE_WAIT_FOR_APPROVE_COMMITTEE(HiddenField1.Value, HiddenField2.Value, i, txtAID.Text, HiddenField3.Value, ddlApprove2.SelectedValue, txtCif.Text, hdfChkColl.Value, ddlUserAppraisal.SelectedValue, 0, Now(), Now(), Now(), lbluserid.Text, Now())
+                            UPDATE_WAIT_FOR_APPROVE_COMMITTEE(HiddenField1.Value, HiddenField2.Value, i, txtAID.Text, HiddenField3.Value, ddlApprove2.SelectedValue, txtCif.Text, hdfChkColl.Value, ddlUserAppraisal.SelectedValue, 1, Now(), Now(), Now(), lbluserid.Text, Now())
                         ElseIf i = 3 Then
-                            UPDATE_WAIT_FOR_APPROVE_COMMITTEE(HiddenField1.Value, HiddenField2.Value, i, txtAID.Text, HiddenField3.Value, ddlApprove3.SelectedValue, txtCif.Text, hdfChkColl.Value, ddlUserAppraisal.SelectedValue, 0, Now(), Now(), Now(), lbluserid.Text, Now())
+                            UPDATE_WAIT_FOR_APPROVE_COMMITTEE(HiddenField1.Value, HiddenField2.Value, i, txtAID.Text, HiddenField3.Value, ddlApprove3.SelectedValue, txtCif.Text, hdfChkColl.Value, ddlUserAppraisal.SelectedValue, 1, Now(), Now(), Now(), lbluserid.Text, Now())
                         End If
                     Next
                 Else
-                    UpdateWait_For_Approve(HiddenField1.Value, HiddenField2.Value, txtAID.Text, HiddenField3.Value, ddlApprove3.SelectedValue, txtCif.Text, hdfChkColl.Value, ddlUserAppraisal.SelectedValue, 0, Now(), Now(), Now(), lbluserid.Text, Now())
+                    UpdateWait_For_Approve(HiddenField1.Value, HiddenField2.Value, txtAID.Text, HiddenField3.Value, ddlApprove3.SelectedValue, txtCif.Text, hdfChkColl.Value, ddlUserAppraisal.SelectedValue, 1, Now(), Now(), Now(), lbluserid.Text, Now())
                 End If
 
                 s = "<script language=""javascript"">alert('บันทึกเสร็จสมบูรณ์');</script>"

@@ -9,10 +9,12 @@
         .style1
         {
             width: 100%;
+            font-weight: 700;
+            color: #CC3300;
         }
         .style2
         {
-            width: 366px;
+            width: 669px;
         }
     </style>
 </head>
@@ -30,6 +32,9 @@
 </p>
 
 <input id="AddFile" type="button" value="Add file" onclick="addFileUploadBox()" onclick="return AddFile_onclick()" />
+                        <br />
+    <p class="style1">ไฟล์ที่จะทำการ Upload ต้องเป็นนามสกุล .gif,.png,.jpeg,.jpg,.bmp 
+        และ .tiff เท่านั้น</p>
 <p><asp:Button ID="btnSubmit" runat="server" Text="Upload Now"  OnClick="btnSubmit_Click" /></p>
 
 </div>
@@ -38,7 +43,7 @@
             AutoGenerateColumns="False" CellPadding="4" 
             DataKeyNames="Req_ID,Hub_ID,Picture_Path" 
             DataSourceID="Appraisal_Request_PicturePath" ForeColor="#333333" 
-            GridLines="None">
+            GridLines="None" Width="577px">
             <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
             <RowStyle BackColor="#EFF3FB" />
             <Columns>
@@ -127,46 +132,7 @@ function AddFile_onclick() {
                 </td>
                 <td valign="top">
     
-        <asp:GridView ID="GridView_HubList" runat="server" AutoGenerateColumns="False" 
-            CellPadding="2" DataKeyNames="HUB_ID" DataSourceID="sdsHub" 
-            ForeColor="Black" GridLines="Horizontal" BackColor="LightGoldenrodYellow" 
-            BorderColor="Tan" BorderWidth="1px" ShowFooter="True">
-            <FooterStyle BackColor="Tan" />
-            <Columns>
-                            <asp:TemplateField>
-                    <HeaderTemplate>
-                        <asp:CheckBox runat="server" ID="cb1" AutoPostBack="true" 
-                            OnCheckedChanged="cb1_Checked"/> 
-                    </HeaderTemplate>
-                   <ItemTemplate>
-                     <asp:CheckBox runat="server" ID="cb2"/>  
-                   </ItemTemplate> 
-                <ItemStyle HorizontalAlign="Center" />
-                <HeaderStyle HorizontalAlign="Center" />
-             </asp:TemplateField> 
-                            <asp:TemplateField HeaderText="รหัส HUB" SortExpression="HUB_ID">
-                                <ItemTemplate>
-                                    <asp:Label ID="lblHub_Id" runat="server" Text='<%# Bind("HUB_ID") %>'></asp:Label>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText=" ชื่อ HUB" SortExpression="HUB_NAME">
-                                <ItemStyle Width="300px" />
-                                <ItemTemplate>
-                                    <asp:Label ID="lblHUB_NAME" runat="server" Text='<%# Bind("HUB_NAME") %>'></asp:Label>
-                                </ItemTemplate>
-                            </asp:TemplateField>              							
-            </Columns>
-            <PagerStyle BackColor="PaleGoldenrod" ForeColor="DarkSlateBlue" 
-                HorizontalAlign="Center" />
-            <SelectedRowStyle BackColor="DarkSlateBlue" ForeColor="GhostWhite" />
-            <HeaderStyle BackColor="Tan" Font-Bold="True" />
-            <AlternatingRowStyle BackColor="PaleGoldenrod" />
-        </asp:GridView>
-	<asp:SqlDataSource ID="sdsHub" runat="server" 
-		ConnectionString="<%$ ConnectionStrings:AppraisalConn %>" 
-		SelectCommand="SELECT [HUB_ID], [HUB_NAME] FROM [TB_HUB]">
-	</asp:SqlDataSource>
-                </td>
+                    &nbsp;</td>
             </tr>
         </table>
     

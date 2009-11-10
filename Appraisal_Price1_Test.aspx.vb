@@ -195,7 +195,7 @@ Partial Class Test_Appraisal_Price1_Test
 
     Protected Sub BtnLatLng_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles BtnLatLng.Click
         Dim myScript As String
-        myScript = "<script>" + "window.open('LongDoMap.aspx?lat=" & TxtLat.ClientID & "&lng=" & TxtLng.ClientID & "','window','toolbar=no, menubar=no, scrollbars=yes, resizable=no,location=no, directories=no, status=yes');</script>"
-        Page.ClientScript.RegisterStartupScript(Me.GetType, "Search", myScript)
+        myScript = "<script>" + "window.open('LongDoMap.aspx?lat=" & TxtLat.ClientID & "&lng=" & TxtLng.ClientID & "','window','toolbar=no, menubar=no, scrollbars=yes, resizable=yes,location=no, directories=no, status=yes');</script>"
+        Page.ClientScript.RegisterStartupScript(Me.GetType, "Longdo", myScript)
     End Sub
 End Class

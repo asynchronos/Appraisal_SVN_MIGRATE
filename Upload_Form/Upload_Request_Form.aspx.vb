@@ -55,8 +55,8 @@ Partial Class Upload_Form_Upload_Request_Form
         '*********************** Sample Code Resize *************************
         'กำหนดขนาดไฟล์ภาพที่สามารถส่งได้ใน  Web.Config ด้วยนะ
         Dim uploads As HttpFileCollection = HttpContext.Current.Request.Files
-        Dim bmpW As Integer = 800 'New image canvas width
-        Dim bmpH As Integer = 600 'New Image canvas height 
+        Dim bmpW As Integer = 1024 '2340 'New image canvas width
+        Dim bmpH As Integer = 786 '1065 'New Image canvas height 
         For i = 0 To uploads.Count - 1
             Dim FileToUpload As HttpPostedFile = uploads(i)
             Dim Filename As String = hdfReq_Id.Value & "_" & hdfReq_Id.Value & "_" & System.IO.Path.GetFileName(FileToUpload.FileName)

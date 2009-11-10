@@ -76,7 +76,6 @@ Partial Class Appraisal_Price3_18_Review_Edit
                     txtAdjust_Condo.Text = ObjP3_18.Item(0).Adjust_Condo
                     txtUnitPrice.Text = String.Format("{0:N2}", ObjP3_18.Item(0).Unit_Price)
                     txtCondoPrice.Text = String.Format("{0:N2}", ObjP3_18.Item(0).PriceTotal)
-
                 Else
                     'PRICE2_18()
                 End If
@@ -99,4 +98,65 @@ Partial Class Appraisal_Price3_18_Review_Edit
         s = "<script language=""javascript"">alert('บันทึกเสร็จสมบูรณ์');</script>"
         Page.ClientScript.RegisterStartupScript(Me.GetType, "ข้อความเตือน", s)
     End Sub
+
+    Protected Sub ImageButton_Verify_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs) Handles ImageButton_Verify.Click
+        Dim ObjP3_18 As List(Of Price3_18) = GET_PRICE3_18_FIND_ADDRESSNO(txtRegister_No.Text, txtBuild_Number.Text, txtAddressNo.Text)
+        If ObjP3_18.Count > 0 Then
+            DDLSubCollType.SelectedValue = ObjP3_18.Item(0).MysubColl_ID
+            txtFloors.Text = ObjP3_18.Item(0).Floors_All
+            txtelevator_No.Text = ObjP3_18.Item(0).Elevator
+            txtAddressNo.Text = ObjP3_18.Item(0).Address_No
+            txtArea.Text = ObjP3_18.Item(0).Room_Area
+            txtHeight.Text = ObjP3_18.Item(0).Room_Height
+            txtPartake.Text = ObjP3_18.Item(0).Partake_Detail
+            txtBuildingName.Text = ObjP3_18.Item(0).Building_Name
+            txtFloorsAt.Text = ObjP3_18.Item(0).Floors
+            txtBuild_Number.Text = ObjP3_18.Item(0).Building_No
+            txtRegister_No.Text = ObjP3_18.Item(0).Building_Reg_No
+            txtBuilding_Age.Text = ObjP3_18.Item(0).Building_Age
+            txtTumbon.Text = ObjP3_18.Item(0).Tumbon
+            txtAmphur.Text = ObjP3_18.Item(0).Amphur
+            ddlProvince.SelectedValue = ObjP3_18.Item(0).Province
+            txtOwnership.Text = ObjP3_18.Item(0).Ownership
+            txtObligation.Text = ObjP3_18.Item(0).Obligation
+            txtRoad.Text = ObjP3_18.Item(0).Road
+            ddlRoad_Detail.SelectedValue = ObjP3_18.Item(0).Road_Detail
+            txtRoadAccress.Text = ObjP3_18.Item(0).Road_Access
+            ddlRoad_Forntoff.SelectedValue = ObjP3_18.Item(0).Road_Frontoff
+            txtRoadWidth.Text = ObjP3_18.Item(0).RoadWidth
+            ddlSite.SelectedValue = ObjP3_18.Item(0).Site
+            txtSite_Detail.Text = ObjP3_18.Item(0).Site_Detail
+            ddlPublic_Utility.SelectedValue = ObjP3_18.Item(0).Public_Utility
+            txtPublic_Utility_Detail.Text = ObjP3_18.Item(0).Public_Utility_Detail
+            ddlBinifit.SelectedValue = ObjP3_18.Item(0).Binifit
+            txtBinifit.Text = ObjP3_18.Item(0).Binifit_Detail
+            ddlTendency.SelectedValue = ObjP3_18.Item(0).Tendency
+            ddlBuySale_State.SelectedValue = ObjP3_18.Item(0).BuySale_State
+            ddlBuild_Construct.SelectedValue = ObjP3_18.Item(0).Building_Construc
+            ddlInteriorState.SelectedValue = ObjP3_18.Item(0).InteriorState_Id
+            ddlCharacter_Room.SelectedValue = ObjP3_18.Item(0).Character_Room_Id
+            txtRoomWidth_BehideSiteWalk.Text = ObjP3_18.Item(0).RoomWidth_BehideSiteWalk
+            txtRoomdeep.Text = ObjP3_18.Item(0).Roomdeep
+            txtBackside_Width.Text = ObjP3_18.Item(0).Backside_Width
+            ddlFloors.SelectedValue = ObjP3_18.Item(0).SideWalk_Is
+            txtSideWalk_Width.Text = ObjP3_18.Item(0).SideWalk_Width
+            txtPartake.Text = ObjP3_18.Item(0).Partake_Detail
+            txtOwnership.Text = ObjP3_18.Item(0).Ownership
+            txtObligation.Text = ObjP3_18.Item(0).Obligation
+            txtOtherDetail.Text = ObjP3_18.Item(0).Other_Detail
+            txtTumbon1.Text = ObjP3_18.Item(0).Tumbon1
+            txtAmphur1.Text = ObjP3_18.Item(0).Amphur1
+            ddlProvince1.SelectedValue = ObjP3_18.Item(0).Province1
+            CheckBox1.Checked = ObjP3_18.Item(0).Elevator_Util
+            CheckBox2.Checked = ObjP3_18.Item(0).Parking_Util
+            CheckBox3.Checked = ObjP3_18.Item(0).Pool_Util
+            CheckBox4.Checked = ObjP3_18.Item(0).Fitness_Util
+            CheckBox5.Checked = ObjP3_18.Item(0).Other_Util
+            txtUtilityOther_Detail.Text = ObjP3_18.Item(0).Other_Util_Detail
+            txtAdjust_Condo.Text = ObjP3_18.Item(0).Adjust_Condo
+            txtUnitPrice.Text = String.Format("{0:N2}", ObjP3_18.Item(0).Unit_Price)
+            txtCondoPrice.Text = String.Format("{0:N2}", ObjP3_18.Item(0).PriceTotal)
+        End If
+    End Sub
+
 End Class

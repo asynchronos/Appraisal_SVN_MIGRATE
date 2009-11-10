@@ -45,7 +45,13 @@
                     <asp:Label ID="lblHub_Name" runat="server" Text='<%# Bind("Hub_Name") %>'></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
-            <asp:TemplateField HeaderText="Temp_AID">
+            <asp:TemplateField HeaderText="AID">
+            <ItemStyle HorizontalAlign="Left" />
+                <ItemTemplate>
+                    <asp:Label ID="lblAID" runat="server" Text='<%# Bind("AID") %>'></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>            
+            <asp:TemplateField HeaderText="Temp AID">
             <ItemStyle HorizontalAlign="Center" />
                 <ItemTemplate>
                     <asp:Label ID="lblTemp_AID" runat="server" Text='<%# Bind("Temp_AID") %>'></asp:Label>

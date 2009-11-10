@@ -17,9 +17,27 @@ Partial Class Appraisal_Price2_Group
 
     Protected Sub cb1_Checked(ByVal sender As Object, ByVal e As System.EventArgs)
         Dim cb1 As CheckBox = sender
+        Dim ReqId As Integer
+        Dim ReqId2 As Integer
+        Dim cnt As Integer = 0
         For Each gdi As GridViewRow In GridView1.Rows
+            cnt = cnt + 1
             If gdi.RowType = DataControlRowType.DataRow Then
                 Dim cb2 As CheckBox = gdi.Cells(0).FindControl("cb2")
+                Dim keepReq_id As Label = gdi.Cells(1).FindControl("lblReq_Id")
+
+                ReqId = CInt(keepReq_id.Text)
+                If cnt = 1 Then
+                    ReqId2 = CInt(keepReq_id.Text)
+                Else
+                    If ReqId2 <> ReqId Then
+                        s = "<script language=""javascript"">alert('คุณเลือกคำขอประเมินหลายเลขคำขอ'); </script>"
+                        Page.ClientScript.RegisterStartupScript(Me.GetType, "ประเมิน", s)
+                        Exit For
+                    Else
+                        ReqId2 = ReqId
+                    End If
+                End If
                 cb2.Checked = cb1.Checked
             End If
         Next
@@ -27,7 +45,6 @@ Partial Class Appraisal_Price2_Group
 
     Protected Sub cb2_Checked(ByVal sender As Object, ByVal e As System.EventArgs)
         Dim cb2 As CheckBox = sender
-
         If cb2.Checked Then
             Dim Appraisal_Id As Label = cb2.Parent.Parent.FindControl("lblAppraisal_Id")
             Dim Req_Id As Label = cb2.Parent.Parent.FindControl("lblReq_Id")
@@ -38,6 +55,17 @@ Partial Class Appraisal_Price2_Group
                 cb2.Checked = False
                 s = "<script language=""javascript"">alert('คุณกำหนดกลุ่มประเมินแล้ว'); </script>"
                 Page.ClientScript.RegisterStartupScript(Me.GetType, "กำหนดกลุ่มประเมิน", s)
+            Else
+                For Each gdi As GridViewRow In GridView1.Rows
+                    Dim ReqId As Label = gdi.Cells(1).FindControl("lblReq_Id")
+                    If gdi.RowType = DataControlRowType.DataRow Then
+                        If Req_Id.Text = ReqId.Text Then
+                            Dim cb_2 As CheckBox = gdi.Cells(0).FindControl("cb2")
+                            cb_2.Checked = cb2.Checked
+                        End If
+
+                    End If
+                Next
             End If
         Else
             HiddenReq_No.Value = Nothing
@@ -48,11 +76,34 @@ Partial Class Appraisal_Price2_Group
         Dim lbluserid As Label = TryCast(Me.Form.FindControl("lblUserID"), Label)
         Dim lblHub As Label = TryCast(Me.Form.FindControl("lblHub_Id"), Label)
         Dim Cnt As Integer = 0
+        Dim Cnt1 As Integer = 0
         Dim cph As ContentPlaceHolder = TryCast(Me.Form.FindControl("ContentPlaceHolder1"), ContentPlaceHolder)
         Dim GV As GridView = DirectCast(cph.FindControl("GridView1"), GridView)
         Dim TEMPAID As Integer
-        'Dim GV As GridView = FindControl("gvPrice2_GroupList")
+        Dim ReqId As Integer
+        Dim ReqId2 As Integer
         Dim gvr_master As GridViewRow
+
+        'เช็คเลขคำขอเดียวกันหรือไม่
+        For Each gvr_master In GV.Rows
+            Dim chk2 As CheckBox = gvr_master.FindControl("cb2")
+            Dim keepReq_id As Label = gvr_master.FindControl("lblReq_Id")
+            If chk2.Checked = True Then
+                Cnt1 = Cnt1 + 1
+                ReqId = CInt(keepReq_id.Text)
+                If Cnt1 = 1 Then
+                    ReqId2 = CInt(keepReq_id.Text)
+                Else
+                    If ReqId2 <> ReqId Then
+                        s = "<script language=""javascript"">alert('คุณเลือกคำขอประเมินหลายเลขคำขอ'); </script>"
+                        Page.ClientScript.RegisterStartupScript(Me.GetType, "ประเมิน", s)
+                        Exit For
+                    Else
+                        ReqId2 = ReqId
+                    End If
+                End If
+            End If
+        Next
 
         If ddlUserAppraisal.SelectedValue = "" Then
             s = "<script language=""javascript"">alert('คุณไม่ได้เลือกผู้ประเมิน'); </script>"
@@ -71,11 +122,6 @@ Partial Class Appraisal_Price2_Group
             Page.ClientScript.RegisterStartupScript(Me.GetType, "ให้ความคิดเห็น", s)
             Exit Sub
         End If
-        'If txtComment.Text = String.Empty Then
-        '    s = "<script language=""javascript"">alert('คุณไม่ได้ใส่ Comment ของการให้ราคาที่ 2'); </script>"
-        '    Page.ClientScript.RegisterStartupScript(Me.GetType, "ให้ความคิดเห็น", s)
-        '    Exit Sub
-        'End If
 
         If GV.Rows.Count > 0 Then
             If txtTemp_AID.Text = String.Empty Then
@@ -323,7 +369,36 @@ Partial Class Appraisal_Price2_Group
 
     End Sub
 
-    'Protected Sub Button1_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles Button1.Click
-    '    MsgBox(rdbAppraisal_Type.SelectedValue)
+    'Protected Sub ImageSave0_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs) Handles ImageSave0.Click
+    '    Dim lbluserid As Label = TryCast(Me.Form.FindControl("lblUserID"), Label)
+    '    Dim lblHub As Label = TryCast(Me.Form.FindControl("lblHub_Id"), Label)
+    '    Dim Cnt As Integer = 0
+    '    Dim Cnt1 As Integer = 0
+    '    Dim cph As ContentPlaceHolder = TryCast(Me.Form.FindControl("ContentPlaceHolder1"), ContentPlaceHolder)
+    '    Dim GV As GridView = DirectCast(cph.FindControl("GridView1"), GridView)
+    '    Dim ReqId As Integer
+    '    Dim ReqId2 As Integer
+    '    Dim gvr_master As GridViewRow
+
+    '    'เช็คเลขคำขอเดียวกันหรือไม่
+    '    For Each gvr_master In GV.Rows
+    '        Dim chk2 As CheckBox = gvr_master.FindControl("cb2")
+    '        Dim keepReq_id As Label = gvr_master.FindControl("lblReq_Id")
+    '        If chk2.Checked = True Then
+    '            Cnt1 = Cnt1 + 1
+    '            ReqId = CInt(keepReq_id.Text)
+    '            If Cnt1 = 1 Then
+    '                ReqId2 = CInt(keepReq_id.Text)
+    '            Else
+    '                If ReqId2 <> ReqId Then
+    '                    s = "<script language=""javascript"">alert('คุณเลือกคำขอประเมินหลายเลขคำขอ'); </script>"
+    '                    Page.ClientScript.RegisterStartupScript(Me.GetType, "ประเมิน", s)
+    '                    Exit For
+    '                Else
+    '                    ReqId2 = ReqId
+    '                End If
+    '            End If
+    '        End If
+    '    Next
     'End Sub
 End Class

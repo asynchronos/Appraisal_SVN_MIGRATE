@@ -15,6 +15,6 @@
 <div style="text-align:center;">
     <img alt="Error Page" src="Images/error_page.jpg" 
         style="width: 380px; height: 428px" /><br />
-    <span class="style1">ติดต่อเจ้าหน้าที่ดูแล 02-2965044</span></div>
+    <span class="style1">ติดต่อเจ้าหน้าที่ดูแล 02-2965044,02-2965450,02-2965718</span></div>
 </asp:Content>
 

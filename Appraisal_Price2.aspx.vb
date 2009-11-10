@@ -24,11 +24,11 @@ Partial Class Appraisal_Price2
             D1.DataBind()
         End If
     End Sub
+
     Protected Sub DDL_Click(ByVal sender As Object, ByVal e As System.EventArgs)
         Dim D1 As DropDownList = DirectCast(sender, DropDownList)
         'LblNotice.Text = D1.SelectedValue
     End Sub
-
 
     Protected Sub GridView1_SelectedIndexChanging(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.GridViewSelectEventArgs) Handles GridView1.SelectedIndexChanging
         Dim str As String = ""
@@ -44,21 +44,20 @@ Partial Class Appraisal_Price2
         Context.Items("Coll_Type") = ddlOperation.SelectedValue
         Context.Items("AID") = AID.Text
         Context.Items("Cif") = Cif.Text
+        'Page.Response.Redirect("Modal_Popup.aspx")
+        'Server.Transfer("Modal_Popup.aspx")
 
-        If ddlOperation.SelectedValue = 50 Then
-            'Response.Redirect("Appraisal_Price2_Add_By_Colltype.aspx?Req_id=" & Req_Id.Text & "&Hub_Id=" & Hub_Id.Text & "&Coll_Type=" & ddlOperation.SelectedValue & "&Cif=" & Cif.Text & "&AID=" & AID.Text)
-            Server.Transfer("Appraisal_Price2_Add_By_Colltype.aspx")
-        ElseIf ddlOperation.SelectedValue = 70 Then
-            'ลิงค์ที่ใช้เดิม
-            'Response.Redirect("Appraisal_Price2_Add_By_Colltype70.aspx?Req_id=" & Req_Id.Text & "&Hub_Id=" & Hub_Id.Text & "&Coll_Type=" & ddlOperation.SelectedValue & "&Cif=" & Cif.Text & "&AID=" & AID.Text)
+        Response.Redirect("Appraisal_Price2_new.aspx?Req_Id=" + Trim(Req_Id.Text) + "&Hub_Id=" + Trim(Hub_Id.Text) + "&Cif=" + Trim(Cif.Text) + "&CollType=" + Trim(ddlOperation.SelectedValue))
 
-            'Link ใหม่
-            Server.Transfer("Appraisal_Price2_Add_By_Colltype70_New.aspx")
-        ElseIf ddlOperation.SelectedValue = 15 Then
-        ElseIf ddlOperation.SelectedValue = 18 Then
-            'Response.Redirect("Appraisal_Price2_Add_By_Colltype18.aspx?Req_id=" & Req_Id.Text & "&Hub_Id=" & Hub_Id.Text & "&Coll_Type=" & ddlOperation.SelectedValue)
-            Server.Transfer("Appraisal_Price2_Add_By_Colltype18.aspx")
-        End If
+
+        'If ddlOperation.SelectedValue = 50 Then
+        '    Server.Transfer("Appraisal_Price2_Add_By_Colltype.aspx")
+        'ElseIf ddlOperation.SelectedValue = 70 Then
+        '    Server.Transfer("Appraisal_Price2_Add_By_Colltype70_New.aspx")
+        'ElseIf ddlOperation.SelectedValue = 15 Then
+        'ElseIf ddlOperation.SelectedValue = 18 Then
+        '    Server.Transfer("Appraisal_Price2_Add_By_Colltype18.aspx")
+        'End If
     End Sub
 
     Protected Sub Page_PreRender(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.PreRender
@@ -68,4 +67,5 @@ Partial Class Appraisal_Price2
         Session("Status_Id") = 5
         Dim ReqId As Label = DirectCast(cph.FindControl("lblRequestID"), Label) 'Me.FindControl("lblRequestID")
     End Sub
+
 End Class

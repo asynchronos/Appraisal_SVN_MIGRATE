@@ -11,7 +11,7 @@
 
 
     <asp:SqlDataSource ID="sdsAssignJob" runat="server" 
-        ConnectionString="<%$ ConnectionStrings:AppraisalConnectionString %>" 
+        ConnectionString="<%$ ConnectionStrings:AppraisalConn %>" 
         
         
         SelectCommand="SELECT Req_ID, Hub_ID, Cif, Title, Name, Lastname, Req_Type, Status_ID, CASE WHEN Appraisal_Id IS NULL THEN '0' WHEN Appraisal_Id = '' THEN '0' ELSE Appraisal_Id END AS Appraisal_Id FROM Appraisal_Request WHERE (Req_ID = @Req_ID) AND (Hub_ID = @Hub_Id)" 
@@ -59,7 +59,7 @@
                             SelectedValue='<%# Bind("Hub_ID") %>' Enabled="False">
                         </asp:DropDownList>
                         <asp:SqlDataSource ID="sdsHub" runat="server" 
-                            ConnectionString="<%$ ConnectionStrings:AppraisalConnectionString %>" 
+                            ConnectionString="<%$ ConnectionStrings:AppraisalConn %>" 
                             
                             SelectCommand="SELECT [HUB_ID], [HUB_NAME] FROM [TB_HUB]">
                         </asp:SqlDataSource>
@@ -90,7 +90,7 @@
                             SelectedValue='<%# Bind("Title") %>' Enabled="False">
                         </asp:DropDownList>
                         <asp:SqlDataSource ID="sdsTitle" runat="server" 
-                            ConnectionString="<%$ ConnectionStrings:AppraisalConnectionString %>" 
+                            ConnectionString="<%$ ConnectionStrings:AppraisalConn %>" 
                             SelectCommand="SELECT [TITLE_CODE], [TITLE_NAME] FROM [TB_TITLE]">
                         </asp:SqlDataSource>
                     </EditItemTemplate>
@@ -132,7 +132,7 @@
                             SelectedValue='<%# Bind("Req_Type") %>' Enabled="False">
                         </asp:DropDownList>
                         <asp:SqlDataSource ID="sdsReq_Type" runat="server" 
-                            ConnectionString="<%$ ConnectionStrings:AppraisalConnectionString %>" 
+                            ConnectionString="<%$ ConnectionStrings:AppraisalConn %>" 
                             SelectCommand="SELECT [Method_ID], [Method_Name] FROM [Appraisal_Method]">
                         </asp:SqlDataSource>
                     </EditItemTemplate>

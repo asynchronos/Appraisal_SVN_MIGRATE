@@ -7,6 +7,14 @@
     <title>
         แนบรูปภาพจากสถานที่จริง
     </title>
+    <style type="text/css">
+
+        .style1
+        {
+            color: #993300;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
 <form id="form1" runat="server" enctype="multipart/form-data">
@@ -17,6 +25,9 @@
 </p>
 
 <input id="AddFile" type="button" value="Add file" onclick="addFileUploadBox()" />
+    <br />
+    <p class="style1">ไฟล์ที่จะทำการ Upload ต้องเป็นนามสกุล .gif,.png,.jpeg,.jpg,.bmp 
+        และ .tiff เท่านั้น</p>
 <p><asp:Button ID="btnSubmit" runat="server" Text="Upload Now"  OnClick="btnSubmit_Click" /></p>
 
 </div>

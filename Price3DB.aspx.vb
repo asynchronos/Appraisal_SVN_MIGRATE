@@ -19,6 +19,7 @@ Partial Class Price3DB
         'MsgBox(b)
         'End If
 
+        'If Not Page.IsPostBack Then
         Select Case Request("action")
             Case "1"
                 showAll()
@@ -37,6 +38,8 @@ Partial Class Price3DB
             Case "8"
                 showMarkPrice1()
         End Select
+        ' End If
+
     End Sub
     Public Function FormatXMLToHTML(ByVal sXML As String) As String
         sXML = sXML.Replace("<", "<").Replace(">", ">").Replace(vbNewLine, "<br />")
@@ -128,7 +131,7 @@ Partial Class Price3DB
         'If Session("sEmpId") Is Nothing Then
         '    Session("sEmpId") = "Admin"
         'End If
-        obj.Create_User = Request("userid")
+        'obj.Create_User = Request("userid")
         obj.Create_Date = Now()
         dal.updatePrice3Master(obj)
     End Sub

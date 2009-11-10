@@ -25,11 +25,12 @@ Partial Class Index
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         Session.Clear()
-        Session("sUserId") = Nothing
-        Session("sPwd") = Nothing
-        Session("sEmpId") = Nothing
-        Session("sHub_Id") = Nothing
-        Session("sGroup_Id") = Nothing
+        Session.RemoveAll()
+        'Session("sUserId") = Nothing
+        'Session("sPwd") = Nothing
+        'Session("sEmpId") = Nothing
+        'Session("sHub_Id") = Nothing
+        'Session("sGroup_Id") = Nothing
 
     End Sub
 End Class

@@ -147,6 +147,12 @@
                     <asp:Label ID="lblApp_Name" runat="server" Text='<%# Bind("App_Name") %>'></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
+            <asp:TemplateField HeaderText="ราคาประเมินราคาที่ 2">
+            <ItemStyle Width="80px" HorizontalAlign="Right" ForeColor="Red" Font-Bold="true" />
+                <ItemTemplate>
+                    <asp:Label ID="lblPrice2" runat="server" Text='<%# Bind("Price2", "{0:N}") %>'></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>            
             <asp:TemplateField HeaderText="">
                 <ItemStyle Width="25px" />
                 <ItemTemplate>

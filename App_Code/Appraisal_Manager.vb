@@ -693,6 +693,62 @@ Public Class Appraisal_Manager
 
 #Region "PRICE2-MASTER"
 
+    Public Shared Sub ADD_PRICE2_MASTER_NEW(ByVal Req_Id As Integer, _
+ ByVal Hub_Id As Integer, _
+ ByVal Cif As String, _
+ ByVal Temp_AID As Integer, _
+ ByVal Land As Decimal, _
+ ByVal Building As Decimal, _
+ ByVal Condo As Decimal, _
+ ByVal Machine As Decimal, _
+ ByVal Leasehold As Decimal, _
+ ByVal Ship As Decimal, _
+ ByVal Comment As String, _
+ ByVal Warning As String, _
+ ByVal Note As String, _
+ ByVal Appraisal_Id As String, _
+ ByVal Approve_Id As String, _
+ ByVal Create_User As String, _
+ ByVal Create_Date As Date)
+
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("ADD_PRICE2_MASTER_NEW", connection)
+                connection.Open()
+                command.Connection = connection
+                Dim myTrans As SqlTransaction
+                myTrans = connection.BeginTransaction()
+                command.Transaction = myTrans
+                Try
+                    command.CommandType = CommandType.StoredProcedure
+                    command.Parameters.Add(New SqlParameter("@Req_Id", Req_Id))
+                    command.Parameters.Add(New SqlParameter("@Hub_Id", Hub_Id))
+                    command.Parameters.Add(New SqlParameter("@Cif", Cif))
+                    command.Parameters.Add(New SqlParameter("@Temp_AID", Temp_AID))
+                    command.Parameters.Add(New SqlParameter("@Land", Land))
+                    command.Parameters.Add(New SqlParameter("@Building", Building))
+                    command.Parameters.Add(New SqlParameter("@Condo", Condo))
+                    command.Parameters.Add(New SqlParameter("@Machine", Machine))
+                    command.Parameters.Add(New SqlParameter("@Leasehold", Leasehold))
+                    command.Parameters.Add(New SqlParameter("@Ship", Ship))
+                    command.Parameters.Add(New SqlParameter("@Comment", Comment))
+                    command.Parameters.Add(New SqlParameter("@Warning", Warning))
+                    command.Parameters.Add(New SqlParameter("@Note", Note))
+                    command.Parameters.Add(New SqlParameter("@Appraisal_Id", Appraisal_Id))
+                    command.Parameters.Add(New SqlParameter("@Approve_Id", Approve_Id))
+                    command.Parameters.Add(New SqlParameter("@Create_User", Create_User))
+                    command.Parameters.Add(New SqlParameter("@Create_Date", Create_Date))
+                    command.ExecuteNonQuery()
+                    myTrans.Commit()
+                Catch ex As Exception
+                    myTrans.Rollback()
+                    Throw New Exception(ex.Message & " : " & ex.StackTrace)
+                Finally
+                    connection.Close()
+                End Try
+            End Using
+        End Using
+    End Sub
+
     Public Shared Sub AddPRICE2_Master(ByVal Temp_AID As Integer, _
      ByVal Req_Id As Integer, _
      ByVal Hub_Id As Integer, _
@@ -1134,7 +1190,7 @@ Public Class Appraisal_Manager
                 command.CommandType = CommandType.StoredProcedure
                 command.CommandTimeout = 60
                 command.Parameters.Add(New SqlParameter("@Building_Reg_No", Building_Reg_No))
-                command.Parameters.Add(New SqlParameter("@Building_N", Building_No))
+                command.Parameters.Add(New SqlParameter("@Building_No", Building_No))
                 command.Parameters.Add(New SqlParameter("@Address_No", Address_No))
                 connection.Open()
                 Dim list As New Generic.List(Of PRICE2_18)()
@@ -1165,7 +1221,7 @@ Public Class Appraisal_Manager
                                                 CDec(reader("Road_Access")), _
                                                 CInt(reader("Road_Frontoff")), _
                                                 CDec(reader("Roadwidth")), _
-                                                CInt(reader("Sited")), _
+                                                CInt(reader("Site")), _
                                                 CStr(reader("Site_Detail")), _
                                                 CInt(reader("Public_Utility")), _
                                                 CStr(reader("Public_Utility_Detail")), _
@@ -1685,6 +1741,30 @@ ByVal Hub_Id As Integer)
                 Try
                     command.CommandType = CommandType.StoredProcedure
                     command.Parameters.Add(New SqlParameter("@Id", Id))
+                    command.Parameters.Add(New SqlParameter("@Req_Id", Req_Id))
+                    command.Parameters.Add(New SqlParameter("@Hub_Id", Hub_Id))
+                    command.ExecuteNonQuery()
+                    myTrans.Commit()
+                Catch ex As Exception
+                    myTrans.Rollback()
+                Finally
+                    connection.Close()
+                End Try
+            End Using
+        End Using
+    End Sub
+
+    Public Shared Sub DELETE_PRICE2_50_BY_REQ_ID(ByVal Req_Id As Integer, ByVal Hub_Id As Integer)
+
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("DELETE_PRICE2_50_BY_REQ_ID", connection)
+                connection.Open()
+                command.Connection = connection
+                Dim myTrans As SqlTransaction
+                myTrans = connection.BeginTransaction()
+                command.Transaction = myTrans
+                Try
+                    command.CommandType = CommandType.StoredProcedure
                     command.Parameters.Add(New SqlParameter("@Req_Id", Req_Id))
                     command.Parameters.Add(New SqlParameter("@Hub_Id", Hub_Id))
                     command.ExecuteNonQuery()
@@ -2225,6 +2305,150 @@ ByVal Hub_Id As Integer)
         End Using
     End Sub
 
+    Public Shared Sub UPDATE_PRICE2_70_NEW_BUILDING(ByVal Req_Id As Integer, _
+ ByVal Hub_Id As Integer, _
+ ByVal Temp_AID As Integer, _
+ ByVal MysubColl_ID As Integer, _
+ ByVal Build_No As String, _
+ ByVal Tumbon As String, _
+ ByVal Amphur As String, _
+ ByVal Province As Integer, _
+ ByVal Build_Character As Integer, _
+ ByVal Floors As String, _
+ ByVal Item As Integer, _
+ ByVal Build_Construct As Integer, _
+ ByVal Roof As Integer, _
+ ByVal Roof_Detail As String, _
+ ByVal Build_State As Integer, _
+ ByVal Build_State_Detail As String, _
+ ByVal Building_Detail As String, _
+ ByVal PriceTotal1 As Decimal, _
+ ByVal Doc1 As Integer, _
+ ByVal Doc2 As Integer, _
+ ByVal Doc_Detail As String, _
+ ByVal Pic_path As String, _
+ ByVal Put_On_Chanode As String, _
+ ByVal Ownership As String, _
+ ByVal BuildingArea As Double, _
+ ByVal BuildingUintPrice As Double, _
+ ByVal BuildingPrice As Double, _
+ ByVal BuildingAge As Integer, _
+ ByVal BuildingPersent1 As Decimal, _
+ ByVal BuildingPersent2 As Decimal, _
+ ByVal BuildingPersent3 As Decimal, _
+ ByVal BuildingPriceTotalDeteriorate As Decimal, _
+ ByVal BuildingPercentFinish As Integer, _
+ ByVal BuildingPriceFinish As Decimal, _
+ ByVal Create_User As String, _
+ ByVal Create_Date As Date)
+
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("UPDATE_PRICE2_70_NEW_BUILDING", connection)
+                connection.Open()
+                command.Connection = connection
+                Dim myTrans As SqlTransaction
+                myTrans = connection.BeginTransaction()
+                command.Transaction = myTrans
+                Try
+                    command.CommandType = CommandType.StoredProcedure
+                    command.Parameters.Add(New SqlParameter("@Req_Id", Req_Id))
+                    command.Parameters.Add(New SqlParameter("@Hub_Id", Hub_Id))
+                    command.Parameters.Add(New SqlParameter("@Temp_AID", Temp_AID))
+                    command.Parameters.Add(New SqlParameter("@MysubColl_ID", MysubColl_ID))
+                    command.Parameters.Add(New SqlParameter("@Build_No", Build_No))
+                    command.Parameters.Add(New SqlParameter("@Tumbon", Tumbon))
+                    command.Parameters.Add(New SqlParameter("@Amphur", Amphur))
+                    command.Parameters.Add(New SqlParameter("@Province", Province))
+                    command.Parameters.Add(New SqlParameter("@Build_Character", Build_Character))
+                    command.Parameters.Add(New SqlParameter("@Floors", Floors))
+                    command.Parameters.Add(New SqlParameter("@Item", Item))
+                    command.Parameters.Add(New SqlParameter("@Build_Construct", Build_Construct))
+                    command.Parameters.Add(New SqlParameter("@Roof", Roof))
+                    command.Parameters.Add(New SqlParameter("@Roof_Detail", Roof_Detail))
+                    command.Parameters.Add(New SqlParameter("@Build_State", Build_State))
+                    command.Parameters.Add(New SqlParameter("@Build_State_Detail", Build_State_Detail))
+                    command.Parameters.Add(New SqlParameter("@Building_Detail", Building_Detail))
+                    command.Parameters.Add(New SqlParameter("@PriceTotal1", PriceTotal1))
+                    command.Parameters.Add(New SqlParameter("@Doc1", Doc1))
+                    command.Parameters.Add(New SqlParameter("@Doc2", Doc2))
+                    command.Parameters.Add(New SqlParameter("@Doc_Detail", Doc_Detail))
+                    command.Parameters.Add(New SqlParameter("@Pic_path", Pic_path))
+                    command.Parameters.Add(New SqlParameter("@Put_On_Chanode", Put_On_Chanode))
+                    command.Parameters.Add(New SqlParameter("@Ownership", Ownership))
+                    command.Parameters.Add(New SqlParameter("@BuildingArea", BuildingArea))
+                    command.Parameters.Add(New SqlParameter("@BuildingUintPrice", BuildingUintPrice))
+                    command.Parameters.Add(New SqlParameter("@BuildingPrice", BuildingPrice))
+                    command.Parameters.Add(New SqlParameter("@BuildingAge", BuildingAge))
+                    command.Parameters.Add(New SqlParameter("@BuildingPersent1", BuildingPersent1))
+                    command.Parameters.Add(New SqlParameter("@BuildingPersent2", BuildingPersent2))
+                    command.Parameters.Add(New SqlParameter("@BuildingPersent3", BuildingPersent3))
+                    command.Parameters.Add(New SqlParameter("@BuildingPriceTotalDeteriorate", BuildingPriceTotalDeteriorate))
+                    command.Parameters.Add(New SqlParameter("@BuildingPercentFinish", BuildingPercentFinish))
+                    command.Parameters.Add(New SqlParameter("@BuildingPriceFinish", BuildingPriceFinish))
+                    command.Parameters.Add(New SqlParameter("@Create_User", Create_User))
+                    command.Parameters.Add(New SqlParameter("@Create_Date", Create_Date))
+                    command.ExecuteNonQuery()
+                    myTrans.Commit()
+                Catch ex As Exception
+                    myTrans.Rollback()
+                Finally
+                    connection.Close()
+                End Try
+            End Using
+        End Using
+    End Sub
+
+    Public Shared Sub UPDATE_PRICE2_70_NEW_BUILDING_PLUS(ByVal Req_Id As Integer, _
+     ByVal Hub_Id As Integer, _
+     ByVal Building_No As String, _
+     ByVal BuildAddArea As Double, _
+     ByVal BuildAddUintPrice As Double, _
+     ByVal BuildAddPrice As Double, _
+     ByVal BuildAddAge As Integer, _
+     ByVal BuildAddPersent1 As Decimal, _
+     ByVal BuildAddPersent2 As Decimal, _
+     ByVal BuildAddPersent3 As Decimal, _
+     ByVal BuildAddPriceTotalDeteriorate As Decimal, _
+     ByVal BuildAddPercentFinish As Integer, _
+     ByVal BuildAddPriceFinish As Decimal, _
+     ByVal Create_User As String, _
+     ByVal Create_Date As Date)
+
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("UPDATE_PRICE2_70_NEW_BUILDING_PLUS", connection)
+                connection.Open()
+                command.Connection = connection
+                Dim myTrans As SqlTransaction
+                myTrans = connection.BeginTransaction()
+                command.Transaction = myTrans
+                Try
+                    command.CommandType = CommandType.StoredProcedure
+                    command.Parameters.Add(New SqlParameter("@Req_Id", Req_Id))
+                    command.Parameters.Add(New SqlParameter("@Hub_Id", Hub_Id))
+                    command.Parameters.Add(New SqlParameter("@Building_No", Building_No))
+                    command.Parameters.Add(New SqlParameter("@BuildAddArea", BuildAddArea))
+                    command.Parameters.Add(New SqlParameter("@BuildAddUintPrice", BuildAddUintPrice))
+                    command.Parameters.Add(New SqlParameter("@BuildAddPrice", BuildAddPrice))
+                    command.Parameters.Add(New SqlParameter("@BuildAddAge", BuildAddAge))
+                    command.Parameters.Add(New SqlParameter("@BuildAddPersent1", BuildAddPersent1))
+                    command.Parameters.Add(New SqlParameter("@BuildAddPersent2", BuildAddPersent2))
+                    command.Parameters.Add(New SqlParameter("@BuildAddPersent3", BuildAddPersent3))
+                    command.Parameters.Add(New SqlParameter("@BuildAddPriceTotalDeteriorate", BuildAddPriceTotalDeteriorate))
+                    command.Parameters.Add(New SqlParameter("@BuildAddPercentFinish", BuildAddPercentFinish))
+                    command.Parameters.Add(New SqlParameter("@BuildAddPriceFinish", BuildAddPriceFinish))
+                    command.Parameters.Add(New SqlParameter("@Create_User", Create_User))
+                    command.Parameters.Add(New SqlParameter("@Create_Date", Create_Date))
+                    command.ExecuteNonQuery()
+                    myTrans.Commit()
+                Catch ex As Exception
+                    myTrans.Rollback()
+                Finally
+                    connection.Close()
+                End Try
+            End Using
+        End Using
+    End Sub
+
     Public Shared Function GET_PRICE2_70_NEW(ByVal ID As Integer, ByVal Req_Id As Integer, ByVal Hub_Id As Integer) As Generic.List(Of Price2_70_New)
 
         Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
@@ -2234,6 +2458,80 @@ ByVal Hub_Id As Integer)
                 command.Parameters.Add(New SqlParameter("@ID", ID))
                 command.Parameters.Add(New SqlParameter("@Req_Id", Req_Id))
                 command.Parameters.Add(New SqlParameter("@Hub_Id", Hub_Id))
+                connection.Open()
+                Dim list As New Generic.List(Of Price2_70_New)()
+                Using reader As SqlDataReader = command.ExecuteReader()
+
+                    Do While (reader.Read())
+                        Dim temp As New Price2_70_New(CInt(reader("ID")), _
+                                                CInt(reader("Req_Id")), _
+                                                CInt(reader("Hub_Id")), _
+                                                CInt(reader("Temp_AID")), _
+                                                CInt(reader("MysubColl_ID")), _
+                                                CStr(reader("Build_No")), _
+                                                CStr(reader("Tumbon")), _
+                                                CStr(reader("Amphur")), _
+                                                CInt(reader("Province")), _
+                                                CInt(reader("Build_Character")), _
+                                                CStr(reader("Floors")), _
+                                                CInt(reader("Item")), _
+                                                CInt(reader("Build_Construct")), _
+                                                CInt(reader("Roof")), _
+                                                CStr(reader("Roof_Detail")), _
+                                                CInt(reader("Build_State")), _
+                                                CStr(reader("Build_State_Detail")), _
+                                                CStr(reader("Building_Detail")), _
+                                                CDec(reader("PriceTotal1")), _
+                                                CInt(reader("Doc1")), _
+                                                CInt(reader("Doc2")), _
+                                                CStr(reader("Doc_Detail")), _
+                                                CStr(reader("Pic_path")), _
+                                                CStr(reader("Put_On_Chanode")), _
+                                                CStr(reader("Ownership")), _
+                                                CDec(reader("BuildingArea")), _
+                                                CDec(reader("BuildingUintPrice")), _
+                                                CDec(reader("BuildingPrice")), _
+                                                CInt(reader("BuildingAge")), _
+                                                CDec(reader("BuildingPersent1")), _
+                                                CDec(reader("BuildingPersent2")), _
+                                                CDec(reader("BuildingPersent3")), _
+                                                CDec(reader("BuildingPriceTotalDeteriorate")), _
+                                                CInt(reader("BuildingPercentFinish")), _
+                                                CDec(reader("BuildingPriceFinish")), _
+                                                CDec(reader("BuildAddArea")), _
+                                                CDec(reader("BuildAddUintPrice")), _
+                                                CDec(reader("BuildAddPrice")), _
+                                                CDec(reader("BuildAddAge")), _
+                                                CDec(reader("BuildAddPersent1")), _
+                                                CDec(reader("BuildAddPersent2")), _
+                                                CDec(reader("BuildAddPersent3")), _
+                                                CDec(reader("BuildAddPriceTotalDeteriorate")), _
+                                                CInt(reader("BuildAddPercentFinish")), _
+                                                CDec(reader("BuildAddPriceFinish")), _
+                                                CStr(reader("BuildingDetail")), _
+                                                CInt(reader("Decoration")), _
+                                                CInt(reader("Standard_Id")), _
+                                                CStr(reader("Create_User")), _
+                                                CDate(reader("Create_Date")))
+                        list.Add(temp)
+                    Loop
+                End Using
+                Return list
+                connection.Close()
+            End Using
+        End Using
+
+    End Function
+
+    Public Shared Function GET_PRICE2_70_NEW_VERIFY_UPDATE(ByVal Req_Id As Integer, ByVal Hub_Id As Integer, ByVal Address_No As String) As Generic.List(Of Price2_70_New)
+
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("GET_PRICE2_70_NEW_VERIFY_UPDATE", connection)
+                command.CommandType = CommandType.StoredProcedure
+                command.CommandTimeout = 60
+                command.Parameters.Add(New SqlParameter("@Req_Id", Req_Id))
+                command.Parameters.Add(New SqlParameter("@Hub_Id", Hub_Id))
+                command.Parameters.Add(New SqlParameter("@Address_No", Address_No))
                 connection.Open()
                 Dim list As New Generic.List(Of Price2_70_New)()
                 Using reader As SqlDataReader = command.ExecuteReader()
@@ -2797,6 +3095,51 @@ ByVal Hub_Id As Integer)
 
     End Function
 
+    Public Shared Function GET_PRICE2_70_PARTAKE_CHECK(ByVal REQ_ID As Integer, ByVal Hub_Id As Integer, ByVal Building_No As String, ByVal Partake_Id As Integer) As Generic.List(Of Price2_70_Partake)
+
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("GET_PRICE2_70_PARTAKE_CHECK", connection)
+                command.CommandType = CommandType.StoredProcedure
+                command.CommandTimeout = 60
+                command.Parameters.Add(New SqlParameter("@REQ_ID", REQ_ID))
+                command.Parameters.Add(New SqlParameter("@HUB_ID", Hub_Id))
+                command.Parameters.Add(New SqlParameter("@Building_No", Building_No))
+                command.Parameters.Add(New SqlParameter("@PARTAKE_ID", Partake_Id))
+                connection.Open()
+                Dim list As New Generic.List(Of Price2_70_Partake)()
+                Using reader As SqlDataReader = command.ExecuteReader()
+
+                    Do While (reader.Read())
+                        Dim temp As New Price2_70_Partake(CInt(reader("Id")), _
+                                                CInt(reader("Req_Id")), _
+                                                CInt(reader("Hub_Id")), _
+                                                CInt(reader("Temp_AID")), _
+                                                CStr(reader("AID")), _
+                                                CInt(reader("Partake_Id")), _
+                                                CStr(reader("Building_No")), _
+                                                CDec(reader("PartakeArea")), _
+                                                CDec(reader("PartakeUintPrice")), _
+                                                CDec(reader("PartakePrice")), _
+                                                CDec(reader("PartakeAge")), _
+                                                CDec(reader("PartakePersent1")), _
+                                                CDec(reader("PartakePersent2")), _
+                                                CDec(reader("PartakePersent3")), _
+                                                CDec(reader("PartakePriceTotalDeteriorate")), _
+                                                CInt(reader("PercentFinish")), _
+                                                CDec(reader("PriceFinish")), _
+                                                CStr(reader("PartakeDetail")), _
+                                                CStr(reader("Create_User")), _
+                                                CDate(reader("Create_Date")))
+                        list.Add(temp)
+                    Loop
+                End Using
+                Return list
+                connection.Close()
+            End Using
+        End Using
+
+    End Function
+
     Public Shared Function GET_PRICE2_70_GROUP_PARTAKE(ByVal Req_Id As Integer, ByVal Hub_Id As Integer, ByVal Temp_AID As Integer) As DataSet
         Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
             Using command As New SqlCommand("GET_PRICE2_70_PARTAKE_GROUP", connection)
@@ -2872,6 +3215,34 @@ ByVal Hub_Id As Integer)
                 Try
                     command.CommandType = CommandType.StoredProcedure
                     command.Parameters.Add(New SqlParameter("@Id", Id))
+                    command.Parameters.Add(New SqlParameter("@Req_Id", Req_Id))
+                    command.Parameters.Add(New SqlParameter("@Hub_Id", Hub_Id))
+                    command.Parameters.Add(New SqlParameter("@Temp_AID", Temp_AID))
+                    command.ExecuteNonQuery()
+                    myTrans.Commit()
+                Catch ex As Exception
+                    myTrans.Rollback()
+                    'MsgBox(ex.Message)
+                Finally
+                    connection.Close()
+                End Try
+            End Using
+        End Using
+    End Sub
+
+    Public Shared Sub UPDATE_PRICE2_70_DETAIL_AND_PARTAKE_NEW(ByVal Req_Id As Integer, _
+ ByVal Hub_Id As Integer, _
+ ByVal Temp_AID As Integer)
+
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("UPDATE_PRICE2_70_DETAIL_AND_PARTAKE_NEW", connection)
+                connection.Open()
+                command.Connection = connection
+                Dim myTrans As SqlTransaction
+                myTrans = connection.BeginTransaction()
+                command.Transaction = myTrans
+                Try
+                    command.CommandType = CommandType.StoredProcedure
                     command.Parameters.Add(New SqlParameter("@Req_Id", Req_Id))
                     command.Parameters.Add(New SqlParameter("@Hub_Id", Hub_Id))
                     command.Parameters.Add(New SqlParameter("@Temp_AID", Temp_AID))

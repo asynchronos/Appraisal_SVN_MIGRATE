@@ -3,21 +3,45 @@
 <%@ Register assembly="Mytextbox" namespace="Mytextbox" tagprefix="cc1" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+
+    <script src="Js/jquery.js" type="text/javascript"></script>
+<script src="Js/common.js" type="text/javascript"></script>
     <style type="text/css">
-
-
-
-        .style8
+        .style21
         {
-            width: 180px;
+            height: 24px;
+            width: 211px;
         }
-        .style5
+        .style27
         {
-            width: 187px;
+            height: 24px;
+            width: 222px;
         }
-        .style14
+        .style25
         {
-            width: 193px;
+            height: 24px;
+            width: 168px;
+        }
+            .style17
+        {
+            height: 24px;
+        }
+        .style22
+        {
+            width: 211px;
+        }
+            .style19
+        {
+            width: 222px;
+        }
+        .style26
+        {
+            width: 168px;
+        }
+        .style23
+        {
+            height: 15px;
+            width: 211px;
         }
         .style10
         {
@@ -29,20 +53,174 @@
             height: 15px;
             width: 187px;
         }
-        .style4
+        .style20
         {
             height: 15px;
+            width: 222px;
         }
         .style16
         {
             height: 15px;
-            width: 193px;
+            width: 168px;
         }
-            .style17
+            .style4
         {
-            height: 24px;
+            height: 15px;
         }
-            </style>
+        .style28
+        {
+            color: #3333CC;
+            font-weight: bold;
+        }
+        .style24
+        {
+            width: 211px;
+            color: #000000;
+            }
+        </style>
+        <script type="text/javascript">
+<!--
+var updated="";
+
+// http://www.boutell.com/newfaq/creating/windowcenter.html
+function wopen(url, name, w, h) {
+    // Fudge factors for window decoration space.
+    // In my tests these work well on all platforms & browsers.
+    w += 32;
+    h += 96;
+    wleft = (screen.width - w) / 2;
+    wtop = (screen.height - h) / 2;
+    // IE5 and other old browsers might allow a window that is
+    // partially offscreen or wider than the screen. Fix that.
+    // (Newer browsers fix this for us, but let's be thorough.)
+    if (wleft < 0) {
+        w = screen.width;
+        wleft = 0;
+    }
+    if (wtop < 0) {
+        h = screen.height;
+        wtop = 0;
+    }
+    var win = window.open(url,
+    name,
+    'width=' + w + ', height=' + h + ', ' +
+    'left=' + wleft + ', top=' + wtop + ', ' +
+    'location=no, menubar=no, modal=yes' +
+    'status=no, toolbar=no, scrollbars=no, resizable=no', 'tite=no', 'resizable=no', 'directories=no', 'status=no');
+    // Just in case width and height are ignored
+    win.resizeTo(w, h);
+    // Just in case left and top are ignored
+    win.moveTo(wleft, wtop);
+    win.focus();
+}
+
+// -->
+
+function ConfirmOnSave(item) {
+        if (confirm("ไม่มีข้อมูลสิ่งปลูกสร้างนี้ คุณต้องการบันทึกสิ่งปลูกสร้างเลขที่: " + item + " ใช่หรือไม่ ?") == true)
+            return true;
+        else
+            return false;
+    }
+
+    function CalSection_Building(sender, e) {
+        //ต้องกำหนด ชนิด input type MyClintID ที่ตัว Control ของแต่ละตัวที่จะส่ง และชื่อ Property  Name ของ Control นั้น ๆ ก่อน
+        var building_area = getEleByProperty("input", "MyClintID", "txtBuildingArea");      
+        var price_per_unit = getEleByProperty("input", "MyClintID", "txtBuildingUnitPrice");
+        var txtbuildingPrice = getEleByProperty("input", "MyClintID", "txtBuildingPrice");
+        var txtpercent_finish = getEleByProperty("input", "MyClintID", "txtFinishPercent");
+        var txtprice_finish = getEleByProperty("input", "MyClintID", "txtPriceNotFinish");
+        var txtBuildingAge = getEleByProperty("input", "MyClintID", "txtBuildingAge");
+        var txtBuildingPersent1 = getEleByProperty("input", "MyClintID", "txtBuildingPersent1");
+        var txtBuildingPersent2 = getEleByProperty("input", "MyClintID", "txtBuildingPersent2");
+        var txtBuildingPersent3 = getEleByProperty("input", "MyClintID", "txtBuildingPersent3");
+        var txtBuildingTotalDeteriorate = getEleByProperty("input", "MyClintID", "txtBuildingTotalDeteriorate");
+        var txtBuildingPriceTotalDeteriorate = getEleByProperty("input", "MyClintID", "txtBuildingPriceTotalDeteriorate");
+
+
+        var b_area = Number(building_area.value);
+        //alert(b_area);
+        var pp_unit = Number(price_per_unit.value);
+        //alert(pp_unit);
+        var percent_finish = Number(txtpercent_finish.value);
+        //         alert(percent_finish);
+        var buildingAge = Number(txtBuildingAge.value);
+        //         alert(buildingAge);
+        var BuildingPersent1 = Number(txtBuildingPersent1.value);
+        //         alert(BuildingPersent1);
+        var BuildingPersent2 = Number(txtBuildingPersent2.value);
+        //         alert(BuildingPersent2);
+        var BuildingPersent3 = Number(txtBuildingPersent3.value);
+
+        var building_price = b_area * pp_unit;
+        var building_price2 = building_price * (percent_finish / 100);
+        txtbuildingPrice.value = addCommas(building_price);
+        txtprice_finish.value = addCommas(building_price2);
+        var percent_total = (buildingAge * BuildingPersent1) - BuildingPersent2 + BuildingPersent3;
+        txtBuildingTotalDeteriorate.value = percent_total;
+        var BuildingPriceTotalDeteriorate = addCommas(building_price2 * (percent_total / 100));
+        txtBuildingPriceTotalDeteriorate.value = addCommas(BuildingPriceTotalDeteriorate);
+    }
+
+    function CalSection_Building_Addplus(sender, e) {
+        //ต้องกำหนด ชนิด input type MyClintID ที่ตัว Control ของแต่ละตัวที่จะส่ง และชื่อ Property  Name ของ Control นั้น ๆ ก่อน
+        var building_area = getEleByProperty("input", "MyClintID", "txtBuildAddArea");
+        var price_per_unit = getEleByProperty("input", "MyClintID", "txtBuildAddUnitPrice");
+        var txtbuildAddPrice = getEleByProperty("input", "MyClintID", "txtBuildAddPrice");
+        var txtpercent_finish = getEleByProperty("input", "MyClintID", "txtFinishPercent1");
+        var txtprice_finish = getEleByProperty("input", "MyClintID", "txtPriceNotFinish1");
+        var txtBuildingAge = getEleByProperty("input", "MyClintID", "txtBuildAddAge");
+        var txtBuildingPersent1 = getEleByProperty("input", "MyClintID", "txtBuildAddPersent1");
+        var txtBuildingPersent2 = getEleByProperty("input", "MyClintID", "txtBuildAddPersent2");
+        var txtBuildingPersent3 = getEleByProperty("input", "MyClintID", "txtBuildAddPersent3");
+        var txtBuildingTotalDeteriorate = getEleByProperty("input", "MyClintID", "txtBuildAddTotalDeteriorate");
+        var txtBuildingPriceTotalDeteriorate = getEleByProperty("input", "MyClintID", "txtBuildAddPriceTotalDeteriorate");
+
+        var b_area = Number(building_area.value);
+        //alert(b_area);
+        var pp_unit = Number(price_per_unit.value);
+        //alert(pp_unit);
+        var percent_finish = Number(txtpercent_finish.value);
+        //         alert(percent_finish);
+        var buildingAge = Number(txtBuildingAge.value);
+        //         alert(buildingAge);
+        var BuildingPersent1 = Number(txtBuildingPersent1.value);
+        //         alert(BuildingPersent1);
+        var BuildingPersent2 = Number(txtBuildingPersent2.value);
+        //         alert(BuildingPersent2);
+        var BuildingPersent3 = Number(txtBuildingPersent3.value);
+        //         alert(BuildingPersent3); 
+
+
+        //        alert(b_area);
+        //        alert(BuildingPersent1);
+        //        alert(BuildingPersent2);
+        //        alert(BuildingPersent2);
+
+
+        //ส่งแสดงผลกลับให้กับ Textbox ที่อยู่หน้า Design
+        var buildAdd_price = b_area * pp_unit;
+        txtbuildAddPrice.value = addCommas(buildAdd_price);
+        var building_price2 = buildAdd_price * (percent_finish / 100);
+        txtprice_finish.value = addCommas(building_price2);
+        var percent_total = buildingAge * (BuildingPersent1) - BuildingPersent2+ BuildingPersent3;
+        txtBuildingTotalDeteriorate.value = percent_total;
+        var BuildingPriceTotalDeteriorate = addCommas(building_price2 * (percent_total / 100));
+        txtBuildingPriceTotalDeteriorate.value = addCommas(BuildingPriceTotalDeteriorate);
+    }
+
+    function addCommas(nStr) {
+        nStr += '';
+        x = nStr.split('.');
+        x1 = x[0];
+        x2 = x.length > 1 ? '.' + x[1] : '';
+        var rgx = /(\d+)(\d{3})/;
+        while (rgx.test(x1)) {
+            x1 = x1.replace(rgx, '$1' + ',' + '$2');
+        }
+        return x1 + x2;
+    }    
+        </script>        
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <asp:ScriptManager ID="ScriptManager1" runat="server">
@@ -62,11 +240,11 @@
             </td>
             <td>
                 Temp AID</td>
-            <td class="style17">
+            <td class="style27">
                 <asp:Label ID="lblTemp_AID" runat="server" 
                     style="font-weight: 700; color: #FF0000;"></asp:Label>
             </td>
-            <td class="style17">
+            <td class="style25">
                 &nbsp;</td>
             <td>
             </td>
@@ -79,13 +257,33 @@
             </td>
             <td class="style17">
                 รหัส Hub</td>
-            <td class="style18">
+            <td class="style27">
                 <asp:Label ID="lblHub_Id" runat="server" style="font-weight: 700"></asp:Label>
             </td>
+            <td class="style25">
+            </td>
             <td class="style17">
+
+            </td>
+        </tr>                  
+        <tr>
+            <td class="style21">
+                AID</td>
+            <td class="style17">
+                <asp:Label ID="lblAID" runat="server" 
+                    style="font-weight: 700; color: #FF0000;"></asp:Label>
+            </td>
+            <td class="style17">
+                CID</td>
+            <td class="style27">
+                <asp:Label ID="lblCID" runat="server" 
+                    style="font-weight: 700; color: #FF0000;"></asp:Label>
+            </td>
+            <td class="style25">
                 &nbsp;</td>
             <td class="style17">
-            </td>
+
+                &nbsp;</td>
         </tr>                  
               <tr>
                 <td class="style22">ชนิดหลักประกัน</td>
@@ -94,19 +292,19 @@
                             DataSourceID="sdsSubCollType" DataTextField="SubCollType_Name"
                             DataValueField="MysubColl_ID">
                         </asp:DropDownList>
-                        <asp:HiddenField ID="hdfSubCollType" runat="server" />
+                        <asp:HiddenField ID="hhhfSubCollType" runat="server" />
                     </td>
               </tr>
               <tr>
                 <td class="style22">ปลูกสร้างบนโฉนดเลขที่</td>
                     <td>
-                    <asp:TextBox ID="txtChanodeNo" runat="server" BackColor="#FFFF66"></asp:TextBox>
+                    <asp:TextBox ID="txtChanodeNo" runat="server" BackColor="#FFFF66" MyClintID="txtChanodeNo"></asp:TextBox>
                     </td>
                     <td>ิสิ่งปลูกสร้างกรรมสิทธิ์ของ</td>
                     <td class="style19">
                     <asp:TextBox ID="txtOwnership" runat="server" Width="222px" BackColor="#FFFF66"></asp:TextBox>
                     </td>
-                  <td>&nbsp;</td>
+                  <td class="style26">&nbsp;</td>
                   <td></td>
               </tr>              
             <tr>
@@ -114,14 +312,17 @@
                     สิ่งปลูกสร้าง บ้านเลขที่
                 </td>
                 <td class="style8">
-                    <asp:TextBox ID="txtBuild_No" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="txtBuild_No" runat="server" MyClintID="txtBuild_No"></asp:TextBox>
+                &nbsp;<asp:ImageButton ID="ImageButton_Verify" runat="server" 
+                            ImageUrl="~/Images/page_accept.ico" Width="20px" Height="20px" 
+                            ToolTip="ตรวสอบเลขที่บ้าน" />
                 </td>
                 <td class="style5">
                     ตำบล</td>
                 <td class="style19">
                 <asp:TextBox ID="txtTumbon" runat="server"></asp:TextBox>
                 </td>
-                <td class="style14">
+                <td class="style26">
                     อำเภอ</td>
                 <td>
                 <asp:TextBox ID="txtAmphur" runat="server"></asp:TextBox>
@@ -137,13 +338,13 @@
             </td>
             <td class="style17">
                     ลักษณะอาคาร</td>
-            <td class="style18">
+            <td class="style27">
                     <asp:DropDownList ID="ddlBuild_Character" runat="server" 
                         DataSourceID="SDSlBuild_Character" DataTextField="Build_Character_Name" 
                         DataValueField="Build_Character_ID">
                     </asp:DropDownList>
             </td>
-            <td class="style17">
+            <td class="style25">
                     จำนวน</td>
             <td class="style17">
                     <cc1:mytext ID="txtFloor" runat="server" AllowUserKey="num_Numeric" 
@@ -194,7 +395,7 @@
                 <td class="style19">
                     <asp:TextBox ID="txtBuild_State_Detail" runat="server"></asp:TextBox>
                 </td>
-                <td class="style14">
+                <td class="style26">
                     สิ่งปลูกสร้าง</td>
                 <td>
                     <asp:TextBox ID="txtBuilding_Detail" runat="server"></asp:TextBox>
@@ -216,34 +417,15 @@
                         DataTextField="RoofState_Name" DataValueField="RoofState_Id">
                     </asp:DropDownList>
                 </td>
-                <td class="style14">
+                <td class="style26">
                     สภาพการตกแต่ง</td>
                 <td>
                     <asp:DropDownList ID="ddlInteriorState" runat="server" 
                         DataSourceID="SDSInterior_State" DataTextField="InteriorState_Name" 
-                        DataValueField="InteriorState_Id" BackColor="#FFFF66">
+                        DataValueField="InteriorState_Id">
                     </asp:DropDownList>
                 </td>
             </tr>              
-            <tr>
-                <td class="style22">
-                    เป็นเงิน
-                </td>
-                <td class="style8">
-                    <cc1:mytext ID="txtPriceTotal1" runat="server" AllowUserKey="num_Numeric" AutoCurrencyFormatOnKeyUp="True"
-                        EnableTextAlignRight="True" onblur="GrandTotal_ActiveChanged();">0</cc1:mytext>
-                </td>
-                <td class="style5">
-                    &nbsp;
-                </td>
-                <td class="style19">
-                    &nbsp;
-                </td>
-                <td class="style14">
-                    &nbsp;</td>
-                <td>
-                    &nbsp;</td>
-            </tr>
             <tr>
                 <td class="style22">
                     &nbsp;เอกสารประกอบเพิ่มเติม
@@ -255,9 +437,8 @@
                     <asp:CheckBox ID="chkDoc2" runat="server" Text="เรื่องทางภารจำยอม" />
                 </td>
                 <td class="style19">
-                    &nbsp;
-                </td>
-                <td class="style14">
+                    &nbsp;</td>
+                <td class="style26">
                     ระบุเอกสารอื่น
                 </td>
                 <td>
@@ -268,62 +449,81 @@
                 <td class="style22">
                     &nbsp;</td>
                 <td class="style8">
-                    <asp:CheckBox ID="chkDetail" runat="server" Text="รายละเอียดเพิ่มเติม" />
-                </td>
+                    &nbsp;</td>
                 <td class="style5">
-                    <asp:Button ID="btnAddDetail" runat="server" Text="รายละเอียดเพิ่มเติม" />
-                </td>
+                    &nbsp;</td>
                 <td class="style19">
                     &nbsp;</td>
-                <td class="style14">
+                <td class="style26">
                     &nbsp;</td>
                 <td>
                     &nbsp;</td>
             </tr>              
             <tr>
-                <td class="style24">
+                <td class="style28">
                     พื้นที่สิ่งปลูกสร้างทั้งหมด</td>
                 <td class="style8">
                     <cc1:mytext ID="txtBuildingArea" runat="server" AllowUserKey="num_Numeric" 
-                        EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66" 
-                        AutoPostBack="True">0</cc1:mytext>
+                        EnableTextAlignRight="True" MaxLength="7" Width="45px" BackColor="#FFFF66" 
+                        MyClintID="txtBuildingArea" onkeyup="CalSection_Building(this,event);" >0</cc1:mytext>
                     ตรม.</td>
                 <td class="style5">
-                    ราคาต่อหน่วย</td>
+                    ตรว.ละ(สร้างเสร็จ)</td>
                 <td class="style19">
                     <cc1:mytext ID="txtBuildingUnitPrice" runat="server" AllowUserKey="num_Numeric" 
-                        EnableTextAlignRight="True" Width="110px" BackColor="#FFFF66" 
-                        AutoCurrencyFormatOnKeyUp="True" AutoPostBack="True">0.00</cc1:mytext>
+                        EnableTextAlignRight="True" Width="110px" BackColor="#FFFF66" MyClintID="txtBuildingUnitPrice"
+                        onkeyup="CalSection_Building(this,event);" >0.00</cc1:mytext>
                     บาท</td>
-                <td class="style14">
-                    มูลค่า</td>
+                <td class="style26">
+                    มูลค่า(สร้างเสร็จ)</td>
                 <td>
                     <cc1:mytext ID="txtBuildingPrice" runat="server" AllowUserKey="num_Numeric" 
                         EnableTextAlignRight="True" Width="110px" BackColor="#FFFF66" 
-                        AutoCurrencyFormatOnKeyUp="True" ReadOnly="True">0.00</cc1:mytext>
+                        ReadOnly="True" MyClintID="txtBuildingPrice" >0.00</cc1:mytext>
                     บาท</td>
+            </tr>
+            <tr>
+                <td class="style22">
+                    เปอร์เซ็นต์สิ่งปลูกสร้างสร้างเสร็จ</td>
+                <td class="style8">
+                    <cc1:mytext ID="txtFinishPercent" runat="server" AllowUserKey="num_Numeric" 
+                        Width="35px" BackColor="#FFFF66" MaxLength="3" 
+                        EnableTextAlignRight="True" MyClintID="txtFinishPercent"
+                        onkeyup="CalSection_Building(this,event);" >100</cc1:mytext>
+                    &nbsp;%</td>
+                <td class="style5">
+                                        มูลค่า</td>
+                <td class="style19">
+                    <cc1:mytext ID="txtPriceNotFinish" runat="server" AllowUserKey="num_Numeric" 
+                        EnableTextAlignRight="True" Width="110px" BackColor="#FFFF66" 
+                        ReadOnly="True" MyClintID="txtPriceNotFinish" >0.00</cc1:mytext>
+                    บาท</td>
+                <td class="style26">
+                                        &nbsp;</td>
+                <td>
+                    &nbsp;</td>
             </tr>
             <tr>
                 <td class="style22">
                     อายุการใช้งาน</td>
                 <td class="style8">
                     <cc1:mytext ID="txtBuildingAge" runat="server" AllowUserKey="num_Numeric" 
-                        EnableTextAlignRight="True" MaxLength="2" Width="35px" BackColor="#FFFF66" 
-                        AutoPostBack="True">0</cc1:mytext>
+                        EnableTextAlignRight="True" MaxLength="2" Width="35px" BackColor="#FFFF66" MyClintID="txtBuildingAge"
+                        onkeyup="CalSection_Building(this,event);" >0</cc1:mytext>
                     ปี</td>
                 <td class="style5">
                                         ค่าเสื่อมต่อปี</td>
                 <td class="style19">
                     <cc1:mytext ID="txtBuildingPersent1" runat="server" AllowUserKey="num_Numeric" 
-                        EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66" 
-                        AutoPostBack="True">0</cc1:mytext>
+                        EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66" MyClintID="txtBuildingPersent1"
+                        onkeyup="CalSection_Building(this,event);" >0</cc1:mytext>
                     %</td>
-                <td class="style14">
+                <td class="style26">
                                         ค่าเสื่อมตามสภาพปรับปรุง</td>
                 <td>
                     <cc1:mytext ID="txtBuildingPersent2" runat="server" AllowUserKey="num_Numeric" 
-                        EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66" 
-                        AutoPostBack="True">0</cc1:mytext>
+                        EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66" MyClintID="txtBuildingPersent2"
+                        onkeyup="CalSection_Building(this,event);" >0</cc1:mytext>
                     %</td>
             </tr>
             <tr>
@@ -331,45 +531,83 @@
                                         ค่าเสื่อมตามสภาพเสื่อมโทรม</td>
                 <td class="style8">
                     <cc1:mytext ID="txtBuildingPersent3" runat="server" AllowUserKey="num_Numeric" 
-                        EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66" 
-                        AutoPostBack="True">0</cc1:mytext>
+                        EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66" MyClintID="txtBuildingPersent3"
+                        onkeyup="CalSection_Building(this,event);" >0</cc1:mytext>
                     %</td>
                 <td class="style5">
                     รวมค่าเสื่อม</td>
                 <td class="style19">
                     <cc1:mytext ID="txtBuildingTotalDeteriorate" runat="server" AllowUserKey="num_Numeric" 
                         EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66" 
-                        ReadOnly="True">0</cc1:mytext>
+                        ReadOnly="True" MyClintID="txtBuildingTotalDeteriorate" 
+                        onkeyup="CalSection_Building(this,event);" >0</cc1:mytext>
                     %</td>
-                <td class="style14">
+                <td class="style26">
                     รวมค่าเสื่อมราคา</td>
                 <td>
                     <cc1:mytext ID="txtBuildingPriceTotalDeteriorate" runat="server" AllowUserKey="num_Numeric" 
                         EnableTextAlignRight="True" Width="110px" BackColor="#FFFF66" 
-                        AutoCurrencyFormatOnKeyUp="True" AutoPostBack="True" ReadOnly="True">0.00</cc1:mytext>
+                        ReadOnly="True" MyClintID="txtBuildingPriceTotalDeteriorate" >0.00</cc1:mytext>
                     บาท</td>
             </tr>
             <tr>
                 <td class="style24">
+                    &nbsp;</td>
+                <td class="style8">
+                    &nbsp;</td>
+                <td class="style5">
+                    &nbsp;</td>
+                <td class="style19">
+                    &nbsp;</td>
+                <td class="style26">
+                    &nbsp;</td>
+                <td>
+                    &nbsp;</td>
+            </tr>
+            <tr>
+                <td class="style28">
                     ส่วนต่อเติม</td>
                 <td class="style8">
                     <cc1:mytext ID="txtBuildAddArea" runat="server" AllowUserKey="num_Numeric" 
-                        EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66" 
-                        AutoPostBack="True">0</cc1:mytext>
+                        EnableTextAlignRight="True" MaxLength="7" Width="45px" BackColor="#FFFF66" MyClintID="txtBuildAddArea"
+                        onkeyup="CalSection_Building_Addplus(this,event);" >0</cc1:mytext>
                     ตรม.</td>
                 <td class="style5">
-                    ราคาต่อหน่วย</td>
+                    ตรว.ละ(สร้างเสร็จ)</td>
                 <td class="style19">
                     <cc1:mytext ID="txtBuildAddUnitPrice" runat="server" AllowUserKey="num_Numeric" 
-                        EnableTextAlignRight="True" Width="110px" BackColor="#FFFF66">0.00</cc1:mytext>
+                        EnableTextAlignRight="True" Width="110px" BackColor="#FFFF66" 
+                        MyClintID="txtBuildAddUnitPrice"
+                        onkeyup="CalSection_Building_Addplus(this,event);" >0.00</cc1:mytext>
                     บาท</td>
-                <td class="style14">
-                    มูลค่า</td>
+                <td class="style26">
+                    มูลค่า(สร้างเสร็จ)</td>
                 <td>
                     <cc1:mytext ID="txtBuildAddPrice" runat="server" AllowUserKey="num_Numeric" 
                         EnableTextAlignRight="True" Width="110px" BackColor="#FFFF66" 
-                        AutoCurrencyFormatOnKeyUp="True" AutoPostBack="True">0.00</cc1:mytext>
+                        MyClintID="txtBuildAddPrice" >0.00</cc1:mytext>
                     บาท</td>
+            </tr>
+            <tr>
+                <td class="style22">
+                    เปอร์เซ็นต์ส่วนต่อเติมสร้างเสร็จ</td>
+                <td class="style8">
+                    <cc1:mytext ID="txtFinishPercent1" runat="server" AllowUserKey="num_Numeric" 
+                        Width="35px" BackColor="#FFFF66" MaxLength="3" 
+                        EnableTextAlignRight="True" MyClintID="txtFinishPercent1"
+                        onkeyup="CalSection_Building_Addplus(this,event);" >100</cc1:mytext>
+                    %</td>
+                <td class="style5">
+                                        มูลค่า</td>
+                <td class="style19">
+                    <cc1:mytext ID="txtPriceNotFinish1" runat="server" AllowUserKey="num_Numeric" 
+                        EnableTextAlignRight="True" Width="110px" BackColor="#FFFF66" ReadOnly="True"
+                        MyClintID="txtPriceNotFinish1" >0.00</cc1:mytext>
+                    บาท</td>
+                <td class="style26">
+                    &nbsp;</td>
+                <td>
+                    &nbsp;</td>
             </tr>
             <tr>
                 <td class="style22">
@@ -377,22 +615,26 @@
                 <td class="style8">
                     <cc1:mytext ID="txtBuildAddAge" runat="server" AllowUserKey="num_Numeric" 
                         EnableTextAlignRight="True" MaxLength="2" Width="35px" BackColor="#FFFF66" 
-                        AutoPostBack="True">0</cc1:mytext>
+                        AutoPostBack="False"
+                        MyClintID="txtBuildAddAge"
+                        onkeyup="CalSection_Building_Addplus(this,event);" >0</cc1:mytext>
                     ปี</td>
                 <td class="style5">
-                                        ค่าเสื่อมต่อปี</td>
+                                       ค่าเสื่อมต่อปี</td>
                 <td class="style19">
                     <cc1:mytext ID="txtBuildAddPersent1" runat="server" AllowUserKey="num_Numeric" 
-                        EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66" 
-                        AutoPostBack="True">0</cc1:mytext>
+                        EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66"
+                        MyClintID="txtBuildAddPersent1"
+                        onkeyup="CalSection_Building_Addplus(this,event);" >0</cc1:mytext>
                     %</td>
-                <td class="style14">
+                <td class="style26">
                     ค่าเสื่อมตามสภาพปรับปรุง 
                 </td>
                 <td>
                     <cc1:mytext ID="txtBuildAddPersent2" runat="server" AllowUserKey="num_Numeric" 
-                        EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66" 
-                        AutoPostBack="True">0</cc1:mytext>
+                        EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66"
+                        MyClintID="txtBuildAddPersent2"
+                        onkeyup="CalSection_Building_Addplus(this,event);" >0</cc1:mytext>
                     %</td>
             </tr>
             <tr>
@@ -400,38 +642,67 @@
                                         ค่าเสื่อมตามสภาพเสื่อมโทรม</td>
                 <td class="style8">
                     <cc1:mytext ID="txtBuildAddPersent3" runat="server" AllowUserKey="num_Numeric" 
-                        EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66" 
-                        AutoPostBack="True">0</cc1:mytext>
+                        EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66"
+                        MyClintID="txtBuildAddPersent3"
+                        onkeyup="CalSection_Building_Addplus(this,event);" >0</cc1:mytext>
                     %</td>
                 <td class="style5">
                                         รวมค่าเสื่อม</td>
                 <td class="style19">
                     <cc1:mytext ID="txtBuildAddTotalDeteriorate" runat="server" AllowUserKey="num_Numeric" 
                         EnableTextAlignRight="True" MaxLength="5" Width="35px" BackColor="#FFFF66" 
-                        ReadOnly="True">0</cc1:mytext>
+                        ReadOnly="True"
+                        MyClintID="txtBuildAddTotalDeteriorate" >0</cc1:mytext>
                     %</td>
-                <td class="style14">
-                    รวมค่าเสื่อมราคา</td>
+                <td class="style26">
+                   รวมค่าเสื่อมราคา</td>
                 <td>
                     <cc1:mytext ID="txtBuildAddPriceTotalDeteriorate" runat="server" AllowUserKey="num_Numeric" 
                         EnableTextAlignRight="True" Width="110px" BackColor="#FFFF66" 
-                        ReadOnly="True">0.00</cc1:mytext>
+                        MyClintID="txtBuildAddPriceTotalDeteriorate" >0.00</cc1:mytext>
                     บาท</td>
             </tr>
             <tr>
                 <td class="style22">
                                         &nbsp;</td>
                 <td class="style8">
-                    <asp:Button ID="btnAddPartTake" runat="server" Text="เพิ่มส่วนควบ" />
+                    <asp:CheckBox ID="chkDetail" runat="server" Text="รายละเอียดเพิ่มเติม" />
                 </td>
                 <td class="style5">
-                                        &nbsp;</td>
+                    <asp:Button ID="btnAddDetail" runat="server" Text="พื้น/ผนัง" />
+                </td>
                 <td class="style19">
-                    &nbsp;</td>
-                <td class="style14">
+                    <asp:Button ID="btnAddPartTake" runat="server" Text="เพิ่มส่วนควบ" />
+                </td>
+                <td class="style26">
                     &nbsp;</td>
                 <td>
                     &nbsp;</td>
+            </tr>
+            <tr>
+                <td class="style22">
+                    เป็นเงิน(ราคาตลาด)</td>
+                <td class="style8">
+                    <cc1:mytext ID="txtPriceTotal1" runat="server" AllowUserKey="num_Numeric" AutoCurrencyFormatOnKeyUp="True"
+                        EnableTextAlignRight="True" onblur="GrandTotal_ActiveChanged();" 
+                        BackColor="#FFFF66">0</cc1:mytext>
+                &nbsp;บาท</td>
+                <td class="style5">
+                    &nbsp;</td>
+                <td class="style19">
+                    &nbsp;</td>
+                <td class="style26">
+                    &nbsp;</td>
+                <td>
+                    &nbsp;</td>
+            </tr>
+            <tr>
+                <td class="style28" colspan="6">
+                                        มาตรฐาน
+                 <asp:DropDownList ID="ddlStandard" runat="server" DataSourceID="sdsStandard" 
+                    DataTextField="Standard_Name" DataValueField="Standard_Id">
+                </asp:DropDownList>
+                </td>
             </tr>
             <tr>
                 <td class="style22">
@@ -455,14 +726,22 @@
                                     <asp:ImageButton ID="ImagePrint" runat="server" ImageUrl="~/Images/Printer.png" Width="35px" Height="35px" />
                                 </td>
                                 <td>
-                                    Print
-                                    Preview                                 </td>     
-                                                        <td>
-                            <asp:ImageButton ID="ImgBtnClose" runat="server" ImageUrl="~/Images/Cancel1.jpg" Width="35px" Height="35px" />
-                        </td>
-                        <td>
-                            CLOSE
-                        </td>                                
+                                    Print Preview                                 
+                                </td>     
+                                <td>
+                                    <asp:ImageButton ID="ImgBtnClose" runat="server" 
+                                        ImageUrl="~/Images/page_accept.ico" Width="35px" Height="35px" />
+                                </td>
+                                <td>
+                                    Print From Review                                 
+                                </td> 
+                                <td>
+                                    <asp:ImageButton ID="ImageButton1" runat="server" 
+                                        ImageUrl="~/Images/cancel1.jpg" Width="35px" Height="35px" />
+                                </td>
+                                <td>
+                                    Close                               
+                                </td>                                                                                             
                             </tr>
                         </table>
                     </td>
@@ -510,5 +789,9 @@ Order by prov_code">
         
         SelectCommand="SELECT [InteriorState_Id], [InteriorState_Name] FROM [Interior_State]">
     </asp:SqlDataSource>
-</asp:Content>
+    
+    <asp:SqlDataSource ID="sdsStandard" runat="server" ConnectionString="<%$ ConnectionStrings:AppraisalConn %>"
+        SelectCommand="GET_STANDARD_INFO" SelectCommandType="StoredProcedure"></asp:SqlDataSource>
+        
+    </asp:Content>
 
