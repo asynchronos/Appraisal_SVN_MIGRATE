@@ -708,6 +708,7 @@ Public Class Appraisal_Manager
  ByVal Note As String, _
  ByVal Appraisal_Id As String, _
  ByVal Approve_Id As String, _
+ ByVal Appraisal_Type As Integer, _
  ByVal Create_User As String, _
  ByVal Create_Date As Date)
 
@@ -735,6 +736,7 @@ Public Class Appraisal_Manager
                     command.Parameters.Add(New SqlParameter("@Note", Note))
                     command.Parameters.Add(New SqlParameter("@Appraisal_Id", Appraisal_Id))
                     command.Parameters.Add(New SqlParameter("@Approve_Id", Approve_Id))
+                    command.Parameters.Add(New SqlParameter("@Appraisal_Type", Appraisal_Type))
                     command.Parameters.Add(New SqlParameter("@Create_User", Create_User))
                     command.Parameters.Add(New SqlParameter("@Create_Date", Create_Date))
                     command.ExecuteNonQuery()
@@ -864,6 +866,27 @@ Public Class Appraisal_Manager
         End Using
     End Function
 
+    Public Shared Function GET_COUNT_PRICE2_MASTER_NEW(ByVal Req_Id As Integer, ByVal Hub_Id As Integer) As Integer
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("GET_COUNT_PRICE2_MASTER_NEW", connection)
+                command.CommandType = CommandType.StoredProcedure
+                command.CommandTimeout = 60
+                command.Parameters.Add(New SqlParameter("@Req_Id", Req_Id))
+                command.Parameters.Add(New SqlParameter("@Hub_Id", Hub_Id))
+                connection.Open()
+                Dim list As New Integer
+                Using reader As SqlDataReader = command.ExecuteReader()
+                    Do While (reader.Read())
+                        Dim temp As Integer = (reader("ITEMS"))
+                        list = (temp)
+                    Loop
+                End Using
+                Return list
+                connection.Close()
+            End Using
+        End Using
+    End Function
+
     Public Shared Sub UPDATE_PRICE2_MASTER(ByVal Req_Id As Integer, ByVal Hub_Id As Integer, ByVal Price As Decimal, ByVal Note As String, ByVal Approve2_Id As String)
         Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
             Using command As New SqlCommand("UPDATE_PRICE2_MASTER", connection)
@@ -880,6 +903,31 @@ Public Class Appraisal_Manager
                     command.Parameters.Add(New SqlParameter("@Price", Price))
                     command.Parameters.Add(New SqlParameter("@Note", Note))
                     command.Parameters.Add(New SqlParameter("@Approve2_Id", Approve2_Id))
+                    command.ExecuteNonQuery()
+                    myTrans.Commit()
+                Catch ex As Exception
+                    myTrans.Rollback()
+                Finally
+                    connection.Close()
+                End Try
+            End Using
+        End Using
+    End Sub
+
+    Public Shared Sub DELETE_PRICE2_MASTER_NEW(ByVal Req_Id As Integer, _
+ByVal Hub_Id As Integer)
+
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("DELETE_PRICE2_MASTER_NEW", connection)
+                connection.Open()
+                command.Connection = connection
+                Dim myTrans As SqlTransaction
+                myTrans = connection.BeginTransaction()
+                command.Transaction = myTrans
+                Try
+                    command.CommandType = CommandType.StoredProcedure
+                    command.Parameters.Add(New SqlParameter("@Req_Id", Req_Id))
+                    command.Parameters.Add(New SqlParameter("@Hub_Id", Hub_Id))
                     command.ExecuteNonQuery()
                     myTrans.Commit()
                 Catch ex As Exception
@@ -2425,7 +2473,7 @@ ByVal Hub_Id As Integer)
                     command.CommandType = CommandType.StoredProcedure
                     command.Parameters.Add(New SqlParameter("@Req_Id", Req_Id))
                     command.Parameters.Add(New SqlParameter("@Hub_Id", Hub_Id))
-                    command.Parameters.Add(New SqlParameter("@Building_No", Building_No))
+                    command.Parameters.Add(New SqlParameter("@Build_No", Building_No))
                     command.Parameters.Add(New SqlParameter("@BuildAddArea", BuildAddArea))
                     command.Parameters.Add(New SqlParameter("@BuildAddUintPrice", BuildAddUintPrice))
                     command.Parameters.Add(New SqlParameter("@BuildAddPrice", BuildAddPrice))
@@ -2436,6 +2484,8 @@ ByVal Hub_Id As Integer)
                     command.Parameters.Add(New SqlParameter("@BuildAddPriceTotalDeteriorate", BuildAddPriceTotalDeteriorate))
                     command.Parameters.Add(New SqlParameter("@BuildAddPercentFinish", BuildAddPercentFinish))
                     command.Parameters.Add(New SqlParameter("@BuildAddPriceFinish", BuildAddPriceFinish))
+                    command.Parameters.Add(New SqlParameter("@BuildingDetail", String.Empty))
+                    command.Parameters.Add(New SqlParameter("@Decoration", 0))
                     command.Parameters.Add(New SqlParameter("@Create_User", Create_User))
                     command.Parameters.Add(New SqlParameter("@Create_Date", Create_Date))
                     command.ExecuteNonQuery()
@@ -2588,6 +2638,30 @@ ByVal Hub_Id As Integer)
                                                 CStr(reader("Create_User")), _
                                                 CDate(reader("Create_Date")))
                         list.Add(temp)
+                    Loop
+                End Using
+                Return list
+                connection.Close()
+            End Using
+        End Using
+
+    End Function
+
+    Public Shared Function GET_PRICE2_70_NEW_COUNT(ByVal Req_Id As Integer, ByVal Hub_Id As Integer, ByVal Address_No As String) As Integer
+
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("GET_PRICE2_70_NEW_COUNT", connection)
+                command.CommandType = CommandType.StoredProcedure
+                command.CommandTimeout = 60
+                command.Parameters.Add(New SqlParameter("@Req_Id", Req_Id))
+                command.Parameters.Add(New SqlParameter("@Hub_Id", Hub_Id))
+                command.Parameters.Add(New SqlParameter("@Address_No", Address_No))
+                connection.Open()
+                Dim list As New Integer
+                Using reader As SqlDataReader = command.ExecuteReader()
+                    Do While (reader.Read())
+                        Dim temp As Integer = (reader("ITEMS"))
+                        list = (temp)
                     Loop
                 End Using
                 Return list
@@ -3095,6 +3169,33 @@ ByVal Hub_Id As Integer)
 
     End Function
 
+    Public Shared Sub DELETE_PRICE2_70_PARTAKE(ByVal Id As String, _
+ ByVal Req_Id As Integer, _
+ ByVal Hub_Id As Integer)
+
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("DELETE_PRICE2_70_PARTAKE", connection)
+                connection.Open()
+                command.Connection = connection
+                Dim myTrans As SqlTransaction
+                myTrans = connection.BeginTransaction()
+                command.Transaction = myTrans
+                Try
+                    command.CommandType = CommandType.StoredProcedure
+                    command.Parameters.Add(New SqlParameter("@Id", Id))
+                    command.Parameters.Add(New SqlParameter("@Req_Id", Req_Id))
+                    command.Parameters.Add(New SqlParameter("@Hub_Id", Hub_Id))
+                    command.ExecuteNonQuery()
+                    myTrans.Commit()
+                Catch ex As Exception
+                    myTrans.Rollback()
+                Finally
+                    connection.Close()
+                End Try
+            End Using
+        End Using
+    End Sub
+
     Public Shared Function GET_PRICE2_70_PARTAKE_CHECK(ByVal REQ_ID As Integer, ByVal Hub_Id As Integer, ByVal Building_No As String, ByVal Partake_Id As Integer) As Generic.List(Of Price2_70_Partake)
 
         Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
@@ -3250,7 +3351,6 @@ ByVal Hub_Id As Integer)
                     myTrans.Commit()
                 Catch ex As Exception
                     myTrans.Rollback()
-                    'MsgBox(ex.Message)
                 Finally
                     connection.Close()
                 End Try
@@ -5729,6 +5829,26 @@ ByVal Cif As Integer)
 
     End Function
 
+    Public Shared Function GET_PRICE3_70_GROUP_V1(ByVal Req_Id As Integer, ByVal Hub_Id As Integer, ByVal Temp_AID As Integer) As DataSet
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("GET_PRICE3_70_GROUP_V1", connection)
+                command.CommandType = CommandType.StoredProcedure
+                command.CommandTimeout = 60
+                command.Parameters.Add(New SqlParameter("@Req_Id", Req_Id))
+                command.Parameters.Add(New SqlParameter("@Hub_Id", Hub_Id))
+                command.Parameters.Add(New SqlParameter("@Temp_AID", Temp_AID))
+                connection.Open()
+                Dim list As New SqlDataAdapter(command)
+                'Using reader As SqlDataAdapter = command.ExecuteNonQuery()
+                Dim ds As New DataSet
+                list.Fill(ds)
+                Return ds
+            End Using
+            connection.Close()
+        End Using
+
+    End Function
+
     Public Shared Function GET_PRICE3_70_COUNT(ByVal Req_Id As Integer, ByVal Hub_Id As Integer, ByVal Temp_AID As Integer) As DataSet
         Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
             Using command As New SqlCommand("GET_PRICE3_70_COUNT", connection)
@@ -7281,6 +7401,65 @@ ByVal Cif As Integer)
         End Using
     End Sub
 
+    Public Shared Sub ADD_APPRAISAL_REQUEST_V2(ByVal Req_ID As Integer, _
+ ByVal Hub_ID As Integer, _
+ ByVal Cif As String, _
+ ByVal Title As Integer, _
+ ByVal Name As String, _
+ ByVal Lastname As String, _
+ ByVal CifColl As String, _
+ ByVal TitleColl As Integer, _
+ ByVal NameColl As String, _
+ ByVal LastnameColl As String, _
+ ByVal Req_Type As Integer, _
+ ByVal Status_ID As Integer, _
+ ByVal Appraisal_Id As String, _
+ ByVal Branch_Id As Integer, _
+ ByVal Tumbon As Integer, _
+ ByVal Amphur As Integer, _
+ ByVal Province As Integer, _
+ ByVal Create_User As String, _
+ ByVal Create_Date As Date)
+
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("ADD_APPRAISAL_REQUEST_V2", connection)
+                connection.Open()
+                command.Connection = connection
+                Dim myTrans As SqlTransaction
+                myTrans = connection.BeginTransaction()
+                command.Transaction = myTrans
+                Try
+                    command.CommandType = CommandType.StoredProcedure
+                    command.Parameters.Add(New SqlParameter("@Req_ID", Req_ID))
+                    command.Parameters.Add(New SqlParameter("@Hub_ID", Hub_ID))
+                    command.Parameters.Add(New SqlParameter("@Cif", Cif))
+                    command.Parameters.Add(New SqlParameter("@Title", Title))
+                    command.Parameters.Add(New SqlParameter("@Name", Name))
+                    command.Parameters.Add(New SqlParameter("@Lastname", Lastname))
+                    command.Parameters.Add(New SqlParameter("@CifColl", CifColl))
+                    command.Parameters.Add(New SqlParameter("@TitleColl", TitleColl))
+                    command.Parameters.Add(New SqlParameter("@NameColl", NameColl))
+                    command.Parameters.Add(New SqlParameter("@LastnameColl", LastnameColl))
+                    command.Parameters.Add(New SqlParameter("@Req_Type", Req_Type))
+                    command.Parameters.Add(New SqlParameter("@Status_ID", Status_ID))
+                    command.Parameters.Add(New SqlParameter("@Appraisal_Id", Appraisal_Id))
+                    command.Parameters.Add(New SqlParameter("@Branch_Id", Branch_Id))
+                    command.Parameters.Add(New SqlParameter("@Tumbon", Tumbon))
+                    command.Parameters.Add(New SqlParameter("@Amphur", Amphur))
+                    command.Parameters.Add(New SqlParameter("@Province", Province))
+                    command.Parameters.Add(New SqlParameter("@Create_User", Create_User))
+                    command.Parameters.Add(New SqlParameter("@Create_Date", Create_Date))
+                    command.ExecuteNonQuery()
+                    myTrans.Commit()
+                Catch ex As Exception
+                    myTrans.Rollback()
+                Finally
+                    connection.Close()
+                End Try
+            End Using
+        End Using
+    End Sub
+
     Public Shared Sub AddAppraisal_Request_Master(ByVal Req_ID As Integer, _
      ByVal Cif As String, _
      ByVal Title As Integer, _
@@ -7341,6 +7520,43 @@ ByVal Cif As Integer)
                     command.Parameters.Add(New SqlParameter("@Req_Id", Req_Id))
                     command.Parameters.Add(New SqlParameter("@Hub_Id", Hub_Id))
                     command.Parameters.Add(New SqlParameter("@Status_Id", Status_Id))
+                    command.ExecuteNonQuery()
+                    myTrans.Commit()
+                Catch ex As Exception
+                    Dim msg As String
+                    Dim title As String
+                    Dim style As MsgBoxStyle
+                    Dim response1 As MsgBoxResult
+                    myTrans.Rollback()
+                    'msg = "การบันทึกผิดพลาด"   ' Define message.
+                    msg = ex.Message
+                    style = MsgBoxStyle.DefaultButton2 Or _
+                       MsgBoxStyle.Critical Or MsgBoxStyle.YesNo
+                    title = "ผลการบันทึก"   ' Define title.
+                    ' Display message.
+                    response1 = MsgBox(msg, style, title)
+                Finally
+                    connection.Close()
+                End Try
+            End Using
+        End Using
+    End Sub
+
+    Public Shared Sub UPDATE_APPRAISAL_ID(ByVal Req_Id As Integer, ByVal Hub_Id As Integer, ByVal Status_Id As Integer, ByVal Appraisal_Id As String)
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("UPDATE_APPRAISAL_ID", connection)
+
+                connection.Open()
+                command.Connection = connection
+                Dim myTrans As SqlTransaction
+                myTrans = connection.BeginTransaction()
+                command.Transaction = myTrans
+                Try
+                    command.CommandType = CommandType.StoredProcedure
+                    command.Parameters.Add(New SqlParameter("@Req_Id", Req_Id))
+                    command.Parameters.Add(New SqlParameter("@Hub_Id", Hub_Id))
+                    command.Parameters.Add(New SqlParameter("@Status_Id", Status_Id))
+                    command.Parameters.Add(New SqlParameter("@Appraisal_Id", Appraisal_Id))
                     command.ExecuteNonQuery()
                     myTrans.Commit()
                 Catch ex As Exception
@@ -7785,10 +8001,10 @@ ByVal Cif As Integer)
 
 #Region "REQUEST ID_PICTURE PATH"
 
-
     Public Shared Sub AddAppraisal_Request_PicturePath(ByVal Req_ID As Integer, _
     ByVal Hub_ID As Integer, _
     ByVal Picture_Path As String, _
+    ByVal Picture_Group As Integer, _
     ByVal Done As Integer)
 
         Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
@@ -7803,6 +8019,7 @@ ByVal Cif As Integer)
                     command.Parameters.Add(New SqlParameter("@Req_ID", Req_ID))
                     command.Parameters.Add(New SqlParameter("@Hub_ID", Hub_ID))
                     command.Parameters.Add(New SqlParameter("@Picture_Path", Picture_Path))
+                    command.Parameters.Add(New SqlParameter("@Picture_Group", Picture_Group))
                     command.Parameters.Add(New SqlParameter("@Done", Done))
                     command.ExecuteNonQuery()
                     myTrans.Commit()
@@ -7814,6 +8031,43 @@ ByVal Cif As Integer)
             End Using
         End Using
     End Sub
+
+    Public Shared Function GET_APPRAISAL_REQUEST_PICTURE_PATH(ByVal Req_ID As Integer, ByVal Hub_ID As Integer) As DataSet
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("GET_APPRAISAL_REQUEST_PICTURE_PATH", connection)
+                command.CommandType = CommandType.StoredProcedure
+                command.CommandTimeout = 60
+                command.Parameters.Add(New SqlParameter("@Req_Id", Req_ID))
+                command.Parameters.Add(New SqlParameter("@Hub_Id", Hub_ID))
+                connection.Open()
+                Dim list As New SqlDataAdapter(command)
+                'Using reader As SqlDataAdapter = command.ExecuteNonQuery()
+                Dim ds As New DataSet
+                list.Fill(ds)
+                Return ds
+            End Using
+            connection.Close()
+        End Using
+    End Function
+
+    Public Shared Function GET_APPRAISAL_PRICE2_PICTUREPATH(ByVal Req_ID As Integer) As DataSet
+
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("GET_APPRAISAL_PRICE2_PICTUREPATH", connection)
+                command.CommandType = CommandType.StoredProcedure
+                command.CommandTimeout = 60
+                command.Parameters.Add(New SqlParameter("@Req_Id", Req_ID))
+                connection.Open()
+                Dim list As New SqlDataAdapter(command)
+                'Using reader As SqlDataAdapter = command.ExecuteNonQuery()
+                Dim ds As New DataSet
+                list.Fill(ds)
+                Return ds
+            End Using
+
+            connection.Close()
+        End Using
+    End Function
 
     Public Shared Sub DeleteAppraisal_Request_PicturePath(ByVal Req_ID As Integer, _
     ByVal Hub_ID As Integer)

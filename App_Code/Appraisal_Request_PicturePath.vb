@@ -6,6 +6,7 @@ Public Class Appraisal_Request_PicturePath
     Private _Req_ID As Integer
     Private _Hub_ID As Integer
     Private _Picture_Path As String
+    Private _Picture_Group As Integer
     Private _Done As Integer
 
 
@@ -13,11 +14,13 @@ Public Class Appraisal_Request_PicturePath
      ByVal Req_ID As Integer, _
      ByVal Hub_ID As Integer, _
      ByVal Picture_Path As String, _
+     ByVal Picture_Group As Integer, _
      ByVal Done As Integer)
         MyBase.New()
         _Req_ID = Req_ID
         _Hub_ID = Hub_ID
         _Picture_Path = Picture_Path
+        _Picture_Group = Picture_Group
         _Done = Done
     End Sub
 
@@ -45,6 +48,15 @@ Public Class Appraisal_Request_PicturePath
         End Get
         Set(ByVal Value As String)
             _Picture_Path = Value
+        End Set
+    End Property
+
+    Public Property Picture_Group() As Integer
+        Get
+            Return _Picture_Group
+        End Get
+        Set(ByVal Value As Integer)
+            _Picture_Group = Value
         End Set
     End Property
 
