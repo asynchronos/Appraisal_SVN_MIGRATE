@@ -293,6 +293,79 @@ Public Class GmapDAL_NEW
 
     End Function
 
+    Public Function getGmapBy_Price3(ByVal Req_Id As Integer) As List(Of Price3_Master)
+
+        'declare connection
+        Dim conn As SqlConnection = Nothing
+        'declare result
+        Dim result As New List(Of Price3_Master)
+
+        Try
+            conn = ConnectionUtil.getSqlConnectionFromWebConfig()
+            Dim sql As String = "SELECT " _
+                & " Req_Id, " _
+                & " AID, " _
+                & " Temp_AID, " _
+                & " Cif, " _
+                & " Lat, " _
+                & " Lng, " _
+                & " isnull(Pricewah,0) as Pricewah, " _
+                & " isnull(TotalPrice,0) as Price, " _
+                & " Create_User, " _
+                & " isnull(Create_Date,getdate()) as Create_Date " _
+             & "FROM Price3_Master " _
+             & "WHERE Req_Id=@Req_Id " _
+             & "ORDER BY Req_Id"
+
+            Dim sqlCmd As New SqlCommand(sql, conn)
+            sqlCmd.Prepare()
+
+            sqlCmd.Parameters.AddWithValue("@Req_Id", Req_Id)
+
+            Dim reader As SqlDataReader = sqlCmd.ExecuteReader()
+
+            While reader.Read()
+                result.Add(binding_Gmap_Price3(reader))
+            End While
+
+            reader.Close()
+        Catch ex As Exception
+            Throw New Exception(ex.Message & " : " & ex.StackTrace)
+        Finally
+            If (conn.State = ConnectionState.Open) Then
+                conn.Close()
+            End If
+            conn = Nothing
+        End Try
+
+        Return result
+
+    End Function
+
+    Public Function getGmapBy_Price3_By_DataSet(ByVal wherecondition As String) As DataSet
+        Dim ds As New DataSet
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Try
+                Using command As New SqlCommand("GET_APPRAISAL_SEARCH", connection)
+                    command.CommandType = CommandType.StoredProcedure
+                    command.CommandTimeout = 60
+                    command.Parameters.Add(New SqlParameter("@WhereString", wherecondition))
+                    connection.Open()
+                    Dim list As New SqlDataAdapter(command)
+                    list.Fill(ds)
+                End Using
+                'connection.Close()
+            Catch ex As Exception
+                Throw New Exception(ex.Message & " : " & ex.StackTrace)
+            Finally
+                If (connection.State = ConnectionState.Open) Then
+                    connection.Close()
+                End If
+            End Try
+            Return ds
+        End Using
+    End Function
+
     'Public Function getAllGmap() As List(Of Gmap)
 
     '    'declare connection
@@ -812,4 +885,31 @@ Public Class GmapDAL_NEW
 
         Return objPrice3_Master
     End Function
+
+    Public Function binding_Gmap_Price3_Dataset(ByVal reader As SqlDataReader) As Price3_Master
+
+        Dim objPrice3_Master As New Price3_Master
+        objPrice3_Master.Req_Id = CType(ConvertUtil.getObjectValue(reader("Req_Id"), ConvertUtil.ObjectValueEnum.StringValue), Integer)
+        objPrice3_Master.Temp_AID = CType(ConvertUtil.getObjectValue(reader("Temp_AID"), ConvertUtil.ObjectValueEnum.StringValue), Integer)
+        objPrice3_Master.Cif = CType(ConvertUtil.getObjectValue(reader("Cif"), ConvertUtil.ObjectValueEnum.StringValue), Integer)
+        If CType(ConvertUtil.getObjectValue(reader("Lat"), ConvertUtil.ObjectValueEnum.DoubleValue), Double) = 0 Then
+            objPrice3_Master.Lat = 13.677022920915366
+        Else
+            objPrice3_Master.Lat = CType(ConvertUtil.getObjectValue(reader("Lat"), ConvertUtil.ObjectValueEnum.DoubleValue), Double)
+        End If
+        If CType(ConvertUtil.getObjectValue(reader("Lng"), ConvertUtil.ObjectValueEnum.DoubleValue), Double) = 0 Then
+            objPrice3_Master.Lng = 100.54703593254089
+        Else
+            objPrice3_Master.Lng = CType(ConvertUtil.getObjectValue(reader("Lng"), ConvertUtil.ObjectValueEnum.DoubleValue), Double)
+        End If
+
+
+        objPrice3_Master.PriceWah = CType(ConvertUtil.getObjectValue(reader("PriceWah"), ConvertUtil.ObjectValueEnum.DoubleValue), Decimal)
+        objPrice3_Master.TotalPrice = CType(ConvertUtil.getObjectValue(reader("Price"), ConvertUtil.ObjectValueEnum.DoubleValue), Decimal)
+        objPrice3_Master.Create_User = CType(ConvertUtil.getObjectValue(reader("Create_User"), ConvertUtil.ObjectValueEnum.StringValue), String)
+        objPrice3_Master.Create_Date = CType(ConvertUtil.getObjectValue(reader("Create_Date"), ConvertUtil.ObjectValueEnum.StringValue), Date)
+
+        Return objPrice3_Master
+    End Function
+
 End Class
