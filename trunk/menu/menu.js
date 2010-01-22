@@ -62,12 +62,12 @@ var espace_entre_menus = 0;
 /* position du menu par rapport au haut de l'้cran ou de la page.
 	0 = le menu est tout en haut. en px */
 	/* ตำแหน่งของเมนูหลักจากบนสุดของหน้า Web Page */
-var top_menu = 134;
+var top_menu = 129;
 /* En version horizontale.
 	position des sous-menus par rapport au haut de l'้cran ou de la page. Il faut pr้voir
 	la hauteur des menus, donc ne pas mettre 0 et faire "เ tโton". en px */
 /* กำหนดความสูงของ Sub Menu */
-var top_ssmenu = top_menu + 38;
+var top_ssmenu = top_menu + 37;
 
 /* Position gauche du menu, en px. */
 var left_menu = 0;
@@ -86,7 +86,7 @@ var delai = 650; // en milliseconde
 	une quarantaine de pixel c'est pas mal. en px*/
 /* var marge_en_haut_de_page = top_menu + 40; */
 /* กำหนดส่วนอื่นของPageให้อยู่ตำแหน่งไหน */
-var marge_en_haut_de_page = top_menu-134;
+var marge_en_haut_de_page = top_menu-129;
 /* En version verticale.
 	On d้cale le document เ droite pour pas que le menu le superpose. */
 var marge_a_gauche_de_la_page = largeur_menu + 10;
