@@ -155,7 +155,8 @@ Partial Class Appraisal_Price3_Print_CollType70
                 lblFloors.Text = Obj_GetP70.Item(0).Floors
                 'lblBuildingFloors.Text = CheckBox3.Text & " " & lblFloors.Text
             ElseIf CheckBox4.Checked = True Then
-
+                Dim collTypeName As List(Of Cls_SubCollType) = GET_SUBCOLLTYPE(Obj_GetP70.Item(0).MysubColl_ID)
+                lblOther.Text = collTypeName.Item(0).SubCollType_Name & " " & Obj_GetP70.Item(0).Floors & " " & " ชั้น"
             End If
 
             CheckBox5.Checked = False
