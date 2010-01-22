@@ -103,10 +103,10 @@
         </tr>
     </table>
     <asp:SqlDataSource ID="SqlSum_In" runat="server" 
-        ConnectionString="<%$ ConnectionStrings:AppraisalConnectionString %>" 
+        ConnectionString="<%$ ConnectionStrings:AppraisalConn %>" 
         SelectCommand="SELECT [sum_in] FROM [View_sum_in]"></asp:SqlDataSource>
     <asp:SqlDataSource ID="SqlCount_Hub" runat="server" 
-        ConnectionString="<%$ ConnectionStrings:AppraisalConnectionString %>" SelectCommand="SELECT [HUB_NAME], [Count_Hub] FROM [View_Count_Hub]
+        ConnectionString="<%$ ConnectionStrings:AppraisalConn %>" SelectCommand="SELECT [HUB_NAME], [Count_Hub] FROM [View_Count_Hub]
 order by count_hub desc"></asp:SqlDataSource>
     </form>
 </body>
