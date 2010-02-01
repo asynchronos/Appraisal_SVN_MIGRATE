@@ -107,6 +107,22 @@ Partial Class Appraisal_Price3_18
             txtRegister_No.Text = ObjP2_18.Item(0).Building_Reg_No
             txtTumbon.Text = ObjP2_18.Item(0).Tumbon
             txtAmphur.Text = ObjP2_18.Item(0).Amphur
+
+            Dim Request As List(Of Appraisal_Request_v2) = GET_APPRAISAL_REQUEST_V2(lblReq_Id.Text)
+            If IsNumeric(Request.Item(0).Tumbon) Then
+                Dim Tumbon As List(Of Cls_Tumbon) = GET_TUMBON_INFO(Request.Item(0).Tumbon, Request.Item(0).Amphur, Request.Item(0).Province)
+                txtTumbon.Text = Tumbon.Item(0).tumbon_new2_name
+            Else
+                'txtTumbon.Text = Request.Tables(0).Rows(0).Item("Tumbon")
+            End If
+
+            If IsNumeric(Request.Item(0).Amphur) Then
+                Dim Amphur As List(Of Cls_Amphur) = GET_AMPHUR_INFO(Request.Item(0).Amphur, Request.Item(0).Province)
+                txtAmphur.Text = Amphur.Item(0).am_name
+            Else
+                'txtAmphur.Text = Obj_GetP50.Item(0).Amphur
+            End If
+
             ddlProvince.SelectedValue = ObjP2_18.Item(0).Province
             txtTumbon1.Text = ObjP2_18.Item(0).Tumbon
             txtAmphur1.Text = ObjP2_18.Item(0).Amphur
