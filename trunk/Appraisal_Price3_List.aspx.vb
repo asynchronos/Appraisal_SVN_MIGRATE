@@ -355,7 +355,7 @@ Partial Class Appraisal_Price3_List
         Dim str As String
         'str = "Server.Transfer" & ("FileUpload_Price2.aspx")
 
-        str = "FileUpload_Price2.aspx?Req_Id=" & Req_Id.Text & "&Hub_Id=" & Hub_Id.Text & "&Temp_AID=" & lblTemp_AID.Text & "&User_Id=" & lblUser_Id.Text
+        str = "FileUpload_Price2.aspx?Req_Id=" & Req_Id.Text & "&Hub_Id=" & Hub_Id.Text & "&User_Id=" & lblUser_Id.Text
         s = "<script language=""javascript"">window.open('" + str + "','window','toolbar=no, menubar=no, scrollbars=yes, resizable=no,location=no, copyhistory=no, directories=no, status=yes,height=350px,width=550px');</script>"
         Page.ClientScript.RegisterStartupScript(Me.GetType, "จัดกลุ่ม", s)
 
