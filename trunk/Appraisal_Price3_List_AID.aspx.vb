@@ -207,9 +207,6 @@ Partial Class Appraisal_Price3_List_AID
             s = "<script language=""javascript"">alert('ยังไม่ได้กำหนดผู้ประเมินราคา');</script>"
             Page.ClientScript.RegisterStartupScript(Me.GetType, "ข้อความเตือน", s)
         End If
-
-
-
         'MsgBox("Select Index Changing")
     End Sub
 

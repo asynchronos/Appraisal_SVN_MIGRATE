@@ -384,13 +384,13 @@
         </tr>
         <tr>
             <td class="style17" colspan="6">
-                <asp:Label ID="lblLandDetail11" runat="server" style="margin-left: 0px" 
+                <asp:Label ID="lblLandDetail10" runat="server" style="margin-left: 0px" 
                     Width="1100px"></asp:Label>
             </td>
         </tr>
         <tr>
             <td class="style17" colspan="6">
-                <asp:Label ID="lblLandDetail10" runat="server" style="margin-left: 0px" 
+                <asp:Label ID="lblLandDetail11" runat="server" style="margin-left: 0px" 
                     Width="1100px"></asp:Label>
             </td>
         </tr>
@@ -477,7 +477,8 @@
                 <asp:Label ID="lblSubUnit0" runat="server" Width="135px"></asp:Label>
             </td>
             <td class="style30">
-                &nbsp;</td>
+                <asp:Label ID="lblUnit_Price_Condo" runat="server" Style="color: #FF0000"></asp:Label>
+            </td>
             <td class="style7">
                 <asp:Label ID="Label57" runat="server" Text="เป็นเงิน"></asp:Label>
             </td>
