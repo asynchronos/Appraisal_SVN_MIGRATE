@@ -439,7 +439,7 @@ Public Class GmapDAL_NEW
                 & " Create_User, " _
                 & " isnull(Create_Date,getdate()) as Create_Date " _
                 & " FROM Price3_Master " _
-                & "ORDER BY Req_Id"
+                & " WHERE Approved = 1"
 
             Dim sqlCmd As New SqlCommand(sql, conn)
             sqlCmd.Prepare()
