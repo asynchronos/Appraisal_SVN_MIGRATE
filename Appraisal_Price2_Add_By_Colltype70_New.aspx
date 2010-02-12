@@ -715,7 +715,7 @@ function ConfirmOnSave(reqid,item) {
                 <td class="style8">
                     <asp:CheckBox ID="chkDetail" runat="server" Text="รายละเอียดเพิ่มเติม" />
                 </td>
-                <td class="style5" id="z">
+                <td class="style5">
                     <asp:Button ID="btnAddDetail" runat="server" Text="พื้น/ผนัง" />
                 </td>
                 <td class="style19">

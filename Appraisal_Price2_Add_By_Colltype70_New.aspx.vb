@@ -1,4 +1,6 @@
 ﻿Imports Appraisal_Manager
+Imports System.Data
+
 Partial Class Appraisal_Price2_Add_By_Colltype70_New
     Inherits System.Web.UI.Page
     Dim s As String
@@ -6,6 +8,7 @@ Partial Class Appraisal_Price2_Add_By_Colltype70_New
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         If Not Page.IsPostBack Then
+            lblId.Text = Context.Items("ID")
             lblReq_Id.Text = Context.Items("Req_Id")
             lblHub_Id.Text = Context.Items("Hub_Id")
             hhhfSubCollType.Value = Context.Items("Coll_Type")
@@ -57,7 +60,7 @@ Partial Class Appraisal_Price2_Add_By_Colltype70_New
                 CDec(txtBuildingPrice.Text), txtBuildingAge.Text, CDec(txtBuildingPersent1.Text), CDec(txtBuildingPersent2.Text), CDec(txtBuildingPersent3.Text), _
                 CDec(txtBuildingPriceTotalDeteriorate.Text), CInt(txtFinishPercent.Text), CDec(txtPriceNotFinish.Text), txtBuildAddArea.Text, CDec(txtBuildAddUnitPrice.Text), CDec(txtBuildAddPrice.Text), _
                 txtBuildAddAge.Text, CDec(txtBuildAddPersent1.Text), CDec(txtBuildAddPersent2.Text), CDec(txtBuildAddPersent3.Text), CDec(txtBuildAddPriceTotalDeteriorate.Text), CInt(txtFinishPercent1.Text), CDec(txtPriceNotFinish1.Text), _
-                txtBuildingDetail.Text, ddlInteriorState.SelectedValue, ddlStandard.SelectedValue, lbluserid.Text, Now())
+                txtBuildingDetail.Text, ddlInteriorState.SelectedValue, ddlStandard.SelectedValue, ddlRoofConstructure.SelectedValue, ddlRoofState.SelectedValue, lbluserid.Text, Now())
         If lblId.Text = String.Empty Then
             UPDATE_Status_Appraisal_Request(lblReq_Id.Text, lblHub_Id.Text, 5)
         End If
@@ -80,6 +83,8 @@ Partial Class Appraisal_Price2_Add_By_Colltype70_New
     End Sub
 
     Private Sub GET_DATA(ByVal P2_70New As List(Of Price2_70_New))
+
+
         lblId.Text = P2_70New.Item(0).ID
         lblReq_Id.Text = P2_70New.Item(0).Req_Id
         lblHub_Id.Text = P2_70New.Item(0).Hub_Id
@@ -312,8 +317,14 @@ Partial Class Appraisal_Price2_Add_By_Colltype70_New
     Private Sub Get_Price2_50_Info()
         Dim Obj_GetP50 As List(Of PRICE2_50) = GET_PRICE2_50(0, lblReq_Id.Text, lblHub_Id.Text)
         If Obj_GetP50.Count > 0 Then
-            txtTumbon.Text = Obj_GetP50.Item(0).Tumbon
-            txtAmphur.Text = Obj_GetP50.Item(0).Amphur
+            Dim AR As List(Of Appraisal_Request_v2) = GET_APPRAISAL_REQUEST_V2(lblReq_Id.Text)
+            Dim tumbonN As List(Of Cls_Tumbon) = GET_TUMBON_INFO(AR.Item(0).Tumbon, AR.Item(0).Amphur, AR.Item(0).Province)
+            Dim amphurN As List(Of Cls_Amphur) = GET_AMPHUR_INFO(AR.Item(0).Amphur, AR.Item(0).Province)
+
+            'txtTumbon.Text = Obj_GetP50.Item(0).Tumbon
+            'txtAmphur.Text = Obj_GetP50.Item(0).Amphur
+            txtTumbon.Text = tumbonN.Item(0).tumbon_new2_name
+            txtAmphur.Text = amphurN.Item(0).am_name
             ddlProvince.SelectedValue = Obj_GetP50.Item(0).Province
             txtChanodeNo.Text = Obj_GetP50.Item(0).Address_No
         End If

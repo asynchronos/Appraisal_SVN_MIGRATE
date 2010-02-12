@@ -200,7 +200,10 @@
             <td>
                 ประกอบด้วยเลขที่</td>
             <td class="style27">
-                <asp:TextBox ID="txtChanode" runat="server" Width="222px"></asp:TextBox>
+                <asp:TextBox ID="txtChanode" runat="server" Width="190px"></asp:TextBox>
+                <asp:ImageButton ID="imgSearchChanode" runat="server" 
+                        ImageUrl="~/Images/find1.jpg" Height="22px" Width="22px" 
+                        ToolTip="ค้นหา"/>
             </td>
             <td class="style29">
                 &nbsp;</td>

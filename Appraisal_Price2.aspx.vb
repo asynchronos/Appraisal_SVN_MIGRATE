@@ -42,12 +42,18 @@ Partial Class Appraisal_Price2
         Context.Items("Req_Id") = Req_Id.Text
         Context.Items("Hub_Id") = Hub_Id.Text
         Context.Items("Coll_Type") = ddlOperation.SelectedValue
+        Context.Items("CollType_Name") = ddlOperation.SelectedItem.Text
+        'MsgBox(Context.Items("CollType_Name"))
         Context.Items("AID") = AID.Text
         Context.Items("Cif") = Cif.Text
         'Page.Response.Redirect("Modal_Popup.aspx")
         'Server.Transfer("Modal_Popup.aspx")
 
-        Response.Redirect("Appraisal_Price2_new.aspx?Req_Id=" + Trim(Req_Id.Text) + "&Hub_Id=" + Trim(Hub_Id.Text) + "&Cif=" + Trim(Cif.Text) + "&CollType=" + Trim(ddlOperation.SelectedValue))
+        If ddlOperation.SelectedValue <> 0 Then
+            Response.Redirect("Appraisal_Price2_new.aspx?Req_Id=" + Trim(Req_Id.Text) + "&Hub_Id=" + Trim(Hub_Id.Text) + "&Cif=" + Trim(Cif.Text) + "&CollType=" + Trim(ddlOperation.SelectedValue) + "&CollType_Name=" + Trim(ddlOperation.SelectedItem.Text))
+        Else
+
+        End If
 
 
         'If ddlOperation.SelectedValue = 50 Then

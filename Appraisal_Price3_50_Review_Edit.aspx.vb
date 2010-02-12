@@ -77,15 +77,6 @@ Partial Class Appraisal_Price3_50_Review_Edit
 
     Protected Sub ImageSave_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs) Handles ImageSave.Click
         Dim lbluserid As Label = TryCast(Me.Form.FindControl("lblUserID"), Label) 'หา Control จาก Master Page ที่ control ไม่อยู่ใน  ContentPlaceHolder1 ของ Master Page
-        'UPDATE_PRICE3_50_REVIEW(lblId.Text, CInt(lblReq_Id.Text), CInt(lblHub_Id.Text), lblTemp_AID.Text, CInt(DDLSubCollType.SelectedValue), txtChanode.Text, String.Empty, txtTumbon.Text, txtAmphur.Text, _
-        '                                              ddlProvince.SelectedValue, CInt(txtRai.Text), CInt(txtNgan.Text), CDec(txtWah.Text), _
-        '                                              txtRoad.Text, CInt(ddlRoad_Detail.SelectedValue), CDec(txtMeter.Text), CInt(ddlRoad_Forntoff.SelectedValue), _
-        '                                              CDec(txtRoadWidth.Text), CInt(ddlSite.SelectedValue), CStr(txtSite_Detail.Text), CInt(ddlLand_State.SelectedValue), _
-        '                                              txtLand_State_Detail.Text, CInt(ddlPublic_Utility.SelectedValue), txtPublic_Utility_Detail.Text, CInt(ddlBinifit.SelectedValue), _
-        '                                              txtBinifit.Text, CInt(ddlTendency.SelectedValue), CInt(ddlBuySale_State.SelectedValue), ddlSubUnit.SelectedValue, _
-        '                                              CInt(txtPriceWah.Text), CInt(txtTotal.Text), txtRaWang.Text, txtLandNumber.Text, txtSurway.Text, txtDocNo.Text, txtPage.Text, txtOwnerShip.Text, _
-        '                                              txtObligation.Text, txtLand_Closeto_RoadWidth.Text, txtDeepWidth.Text, txtBehindWidth.Text, ddlAreaColur.SelectedValue, lbluserid.Text, Now())
-
         'เป็นการเพิ่มข้อมูลที่ดินเข้าไปในตาราง Price3_50 ถ้าหากตรวจสอบแล้วว่ามีชิ้นทรัยพ์ ID ที่ส่งไปแล้วจะทำการ Update แทนการ Save
         AddPRICE3_50(lblId.Text, CInt(lblReq_Id.Text), CInt(lblHub_Id.Text), lblTemp_AID.Text, lblAID.Text, lblCID.Text, CInt(DDLSubCollType.SelectedValue), txtChanode.Text, String.Empty, txtTumbon.Text, txtAmphur.Text, _
                      ddlProvince.SelectedValue, CInt(txtRai.Text), CInt(txtNgan.Text), CDec(txtWah.Text), _
@@ -95,6 +86,14 @@ Partial Class Appraisal_Price3_50_Review_Edit
                      txtBinifit.Text, CInt(ddlTendency.SelectedValue), CInt(ddlBuySale_State.SelectedValue), ddlSubUnit.SelectedValue, _
                      CDec(txtPriceWah.Text), CDec(txtTotal.Text), txtRaWang.Text, txtLandNumber.Text, txtSurway.Text, txtDocNo.Text, txtPage.Text, txtOwnerShip.Text, _
                      txtObligation.Text, txtLand_Closeto_RoadWidth.Text, txtDeepWidth.Text, txtBehindWidth.Text, ddlAreaColur.SelectedValue, lbluserid.Text, Now())
+
+        'ตรวจสอบว่ามีข้อมูลในตาราง Price3_50   แล้วหรือไม่ ถ้ามีแล้วไม่ต้องแก้ไขสถานะ แต่ถ้ายังไม่มีให้มีการแก้ไขสถานะ
+        Dim Obj_GetP50_Review As List(Of Price3_50) = GET_PRICE3_50(lblId.Text, lblReq_Id.Text, lblHub_Id.Text, lblTemp_AID.Text)
+        If Obj_GetP50_Review.Count > 0 Then
+        Else
+            UPDATE_Status_Appraisal_Request(lblReq_Id.Text, lblHub_Id.Text, 10)
+        End If
+
         's = "<script language=""javascript"">alert('บันทึกเสร็จสมบูรณ์');</script>"
         'Page.ClientScript.RegisterStartupScript(Me.GetType, "รับเรื่องประเมิน", s)
     End Sub

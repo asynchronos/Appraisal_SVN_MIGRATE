@@ -308,6 +308,10 @@ function ConfirmOnSave(item) {
                 <td class="style22">ปลูกสร้างบนโฉนดเลขที่</td>
                     <td>
                     <asp:TextBox ID="txtChanodeNo" runat="server" BackColor="#FFFF66" MyClintID="txtChanodeNo"></asp:TextBox>
+                <asp:ImageButton ID="imgSearchChanode" runat="server" 
+                        ImageUrl="~/Images/find1.jpg" Height="22px" Width="22px" 
+                        
+                            ToolTip="ค้นหา สิ่งที่จำเป็นคือ เลขโฉนด เลขที่สิ่งปลูกสร้างและจังหวัดที่ตั้งหลักประกัน"/>
                     </td>
                     <td>ิสิ่งปลูกสร้างกรรมสิทธิ์ของ</td>
                     <td class="style19">
