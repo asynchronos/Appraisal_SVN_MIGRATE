@@ -336,6 +336,7 @@ Partial Class Appraisal_Price3_70_Review_Edit
 
     Private Sub SAVE_DATA()
         Dim lbluserid As Label = TryCast(Me.Form.FindControl("lblUserID"), Label) 'หา Control จาก Master Page ที่ control ไม่อยู่ใน  ContentPlaceHolder1 ของ Master Page
+
         AddPRICE3_70(lblId.Text, CInt(lblReq_Id.Text), CInt(lblHub_Id.Text), lblTemp_AID.Text, lblAID.Text, lblCID.Text, _
         CInt(DDLSubCollType.SelectedValue), txtBuild_No.Text, txtTumbon.Text, txtAmphur.Text, _
         ddlProvince.SelectedValue, ddlBuild_Character.SelectedValue, _
@@ -346,11 +347,17 @@ Partial Class Appraisal_Price3_70_Review_Edit
         CDec(txtBuildingPrice.Text), txtBuildingAge.Text, txtBuildingPersent1.Text, txtBuildingPersent2.Text, txtBuildingPersent3.Text, _
         CDec(txtBuildingPriceTotalDeteriorate.Text), CInt(txtFinishPercent.Text), CDec(txtPriceNotFinish.Text), txtBuildAddArea.Text, CDec(txtBuildAddUnitPrice.Text), CDec(txtBuildAddPrice.Text), _
         txtBuildAddAge.Text, txtBuildAddPersent1.Text, txtBuildAddPersent2.Text, txtBuildAddPersent3.Text, CDec(txtBuildAddPriceTotalDeteriorate.Text), CInt(txtFinishPercent1.Text), CDec(txtPriceNotFinish1.Text), _
-        txtBuildingDetail.Text, ddlInteriorState.SelectedValue, ddlStandard.SelectedValue, lbluserid.Text, Now())
+        txtBuildingDetail.Text, ddlInteriorState.SelectedValue, ddlStandard.SelectedValue, ddlRoofConstructure.SelectedValue, ddlRoofState.SelectedValue, lbluserid.Text, Now())
 
         'Save Data Price3 Detail and Partake
         'ADD_PRICE3_DETAIL_AND_PARTAKE(lblReq_Id.Text, lblHub_Id.Text, lblTemp_AID.Text)
-        UPDATE_Status_Appraisal_Request(lblReq_Id.Text, lblHub_Id.Text, 10)
+
+        Dim Obj_GetP70_Review As List(Of Price3_70) = GET_PRICE3_70(lblId.Text, lblReq_Id.Text, lblHub_Id.Text, lblTemp_AID.Text)
+        If Obj_GetP70_Review.Count > 0 Then
+        Else
+            UPDATE_Status_Appraisal_Request(lblReq_Id.Text, lblHub_Id.Text, 10)
+        End If
+
     End Sub
 
     Protected Sub ImageButton1_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs) Handles ImageButton1.Click

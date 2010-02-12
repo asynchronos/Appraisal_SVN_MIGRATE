@@ -257,4 +257,63 @@ Partial Class Appraisal_Price3_Add_Colltype50
             txtTotal.Text = String.Format("{0:N2}", TotalWah * CDec(txtPriceWah.Text))
         End If
     End Sub
+
+    Protected Sub imgSearchChanode_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs) Handles imgSearchChanode.Click
+        Dim Obj_GetP50 As List(Of Price3_50) = GET_PRICE3_50_CHANODE(txtChanode.Text, ddlProvince.SelectedValue)
+        If Obj_GetP50.Count > 0 Then
+            s = "<script language=""javascript"">alert('พบเลขที่โฉนดดังกล่าวระบบจะแสดงรายละเอียดดังกล่าว'); </script>"
+            Page.ClientScript.RegisterStartupScript(Me.GetType, "รับเรื่องประเมิน", s)
+            lblAID.Text = Obj_GetP50.Item(0).AID
+            lblCID.Text = Obj_GetP50.Item(0).CID
+            DDLSubCollType.SelectedValue = Obj_GetP50.Item(0).MysubColl_ID
+            txtChanode.Text = Obj_GetP50.Item(0).Address_No
+            txtRai.Text = Obj_GetP50.Item(0).Rai
+            txtNgan.Text = Obj_GetP50.Item(0).Ngan
+            txtWah.Text = Obj_GetP50.Item(0).Wah
+            txtRoad.Text = Obj_GetP50.Item(0).Road
+            ddlRoad_Detail.SelectedValue = Obj_GetP50.Item(0).Road_Detail
+            txtMeter.Text = Obj_GetP50.Item(0).Road_Access
+            txtTumbon.Text = Obj_GetP50.Item(0).Tumbon
+            txtAmphur.Text = Obj_GetP50.Item(0).Amphur
+            ddlProvince.SelectedValue = Obj_GetP50.Item(0).Province
+            ddlLand_State.SelectedValue = Obj_GetP50.Item(0).Land_State
+            txtLand_State_Detail.Text = Obj_GetP50.Item(0).Land_State_Detail
+            ddlRoad_Forntoff.SelectedValue = Obj_GetP50.Item(0).Road_Frontoff
+            txtRoadWidth.Text = Obj_GetP50.Item(0).RoadWidth
+            ddlSite.Text = Obj_GetP50.Item(0).Sited
+            txtSite_Detail.Text = Obj_GetP50.Item(0).Site_Detail
+            ddlPublic_Utility.SelectedValue = Obj_GetP50.Item(0).Public_Utility
+            txtPublic_Utility_Detail.Text = Obj_GetP50.Item(0).Public_Utility_Detail
+            ddlBinifit.SelectedValue = Obj_GetP50.Item(0).Binifit
+            txtBinifit.Text = Obj_GetP50.Item(0).Binifit_Detail
+            ddlTendency.SelectedValue = Obj_GetP50.Item(0).Tendency
+            ddlBuySale_State.SelectedValue = Obj_GetP50.Item(0).BuySale_State
+            ddlSubUnit.SelectedValue = Obj_GetP50.Item(0).SubUnit
+            txtPriceWah.Text = Obj_GetP50.Item(0).PriceWah
+            txtTotal.Text = String.Format("{0:N2}", Obj_GetP50.Item(0).PriceTotal1)
+        Else
+            s = "<script language=""javascript"">alert('ไม่พบเลขที่โฉนดดังกล่าว'); </script>"
+            Page.ClientScript.RegisterStartupScript(Me.GetType, "รับเรื่องประเมิน", s)
+            txtRai.Text = "0"
+            txtNgan.Text = "0"
+            txtWah.Text = "0"
+            txtRoad.Text = ""
+            txtMeter.Text = "0"
+            txtTumbon.Text = ""
+            txtAmphur.Text = ""
+            txtLand_State_Detail.Text = ""
+            txtRoadWidth.Text = "0"
+            txtSite_Detail.Text = ""
+            txtPublic_Utility_Detail.Text = ""
+            txtBinifit.Text = ""
+            txtPriceWah.Text = "0"
+            txtTotal.Text = "0"
+            Dim Objp1 As List(Of ClsPrice1_Master) = GetPrice1_Master(lblReq_Id.Text, lblHub_Id.Text)
+            If Objp1.Count > 0 Then
+                txtPriceWah.Text = Objp1.Item(0).Pricewah
+                txtTotal.Text = String.Format("{0:N2}", Objp1.Item(0).Price)
+            Else
+            End If
+        End If
+    End Sub
 End Class

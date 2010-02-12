@@ -34,13 +34,19 @@ Partial Class Appraisal_Price2_Add_By_Colltype
 
             'ตรวจสอบ ID ว่าเป็นการแก้ไข หรือ กำหนดไอดีใหม่
             If lblId.Text Is Nothing Or lblId.Text = String.Empty Then
-                Dim Objp1 As List(Of ClsPrice1_Master) = GetPrice1_Master(lblReq_Id.Text, lblHub_Id.Text)
-                If Objp1.Count > 0 Then
-                    txtPriceWah.Text = Objp1.Item(0).Pricewah
-                    txtTotal.Text = String.Format("{0:N2}", Objp1.Item(0).Price)
-                Else
+                If lblReq_Id.Text <> String.Empty Then
+                    Dim Objp1 As List(Of ClsPrice1_Master) = GetPrice1_Master(lblReq_Id.Text, lblHub_Id.Text)
+                    If Objp1.Count > 0 Then
+                        txtPriceWah.Text = Objp1.Item(0).Pricewah
+                        txtTotal.Text = String.Format("{0:N2}", Objp1.Item(0).Price)
+                    Else
+                    End If
                 End If
+
             Else
+                Dim AR As List(Of Appraisal_Request_v2) = GET_APPRAISAL_REQUEST_V2(lblReq_Id.Text)
+                Dim tumbonN As List(Of Cls_Tumbon) = GET_TUMBON_INFO(AR.Item(0).Tumbon, AR.Item(0).Amphur, AR.Item(0).Province)
+                Dim amphurN As List(Of Cls_Amphur) = GET_AMPHUR_INFO(AR.Item(0).Amphur, AR.Item(0).Province)
                 Dim Obj_GetP50 As List(Of PRICE2_50) = GET_PRICE2_50(lblId.Text, lblReq_Id.Text, lblHub_Id.Text)
                 If Obj_GetP50.Count > 0 Then
                     lblId.Text = Obj_GetP50.Item(0).ID
@@ -56,8 +62,8 @@ Partial Class Appraisal_Price2_Add_By_Colltype
                     txtRoad.Text = Obj_GetP50.Item(0).Road
                     ddlRoad_Detail.SelectedValue = Obj_GetP50.Item(0).Road_Detail
                     txtMeter.Text = Obj_GetP50.Item(0).Road_Access
-                    txtTumbon.Text = Obj_GetP50.Item(0).Tumbon
-                    txtAmphur.Text = Obj_GetP50.Item(0).Amphur
+                    txtTumbon.Text = tumbonN.Item(0).tumbon_new2_name 'Obj_GetP50.Item(0).Tumbon
+                    txtAmphur.Text = amphurN.Item(0).am_name 'Obj_GetP50.Item(0).Amphur
                     ddlProvince.SelectedValue = Obj_GetP50.Item(0).Province
                     ddlLand_State.SelectedValue = Obj_GetP50.Item(0).Land_State
                     txtLand_State_Detail.Text = Obj_GetP50.Item(0).Land_State_Detail
@@ -289,6 +295,22 @@ Partial Class Appraisal_Price2_Add_By_Colltype
             End If
         End If
 
+    End Sub
+
+    Protected Sub Page_PreRender(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.PreRender
+        If Request.QueryString("Req_Id") Is Nothing Then
+            lblReq_Id.Text = Context.Items("Req_Id")
+            lblHub_Id.Text = Context.Items("Hub_Id")
+            lblId.Text = Context.Items("ID")
+            txtAID.Text = Context.Items("AID")
+            hdfColltype.Value = Context.Items("Coll_Type")
+        Else
+            lblReq_Id.Text = Request.QueryString("Req_Id")
+            lblHub_Id.Text = Request.QueryString("Hub_Id")
+            lblId.Text = Request.QueryString("ID")
+            txtAID.Text = Request.QueryString("AID")
+            hdfColltype.Value = Request.QueryString("Coll_Type")
+        End If
     End Sub
 
 End Class

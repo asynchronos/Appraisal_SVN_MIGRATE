@@ -53,10 +53,9 @@
             font-family:Trebuchet MS; 
             font-size:small; 
             vertical-align: middle;
-        }        
-        .style1
-        {
-        }
+        }  
+        .style1{
+        }      
         .style2
         {
             font-weight: bold;
@@ -76,6 +75,8 @@
         var _popup;
         var _land;
         var _building;
+        var _SubCollType;
+        var _ProvinceCode;
         var _radiobutton;
         var _land_row;
         var _build_row;
@@ -83,53 +84,116 @@
         var _reqId;
         var _hubId;
         var _create_user;
-            function onOk() {
-                document.getElementById('<%=lit_Status.ClientID%>').value = 'You clicked Ok.';
-                var approveId = document.getElementById('<%=lblApprove_Id.ClientID%>').innerHTML;
-                var oJSON_DataTable_DataHolder = document.getElementById('<%=JSON_DataTable_Land.ClientID%>');
-                var oJSON = eval("(" + oJSON_DataTable_DataHolder.value + ")");
-                var oHTMLTABLE = document.createElement("table");
-                var MyArray = new Array();
-                oHTMLTABLE.border = 1;
-                
-                for (var i = 0; i < oJSON.TABLE[0].ROW.length; i++) {
-                    var oTR = oHTMLTABLE.insertRow(i);
 
-                    for (var j = 0; j < oJSON.TABLE[0].ROW[i].COL.length; j++) {
-                        var oTD = oTR.insertCell(j);
+        function saveLand() {
+            var approveId = document.getElementById('<%=HiddenField_ApproveId.ClientID%>').value;
+            var oJSON_DataTable_DataHolder = document.getElementById('<%=JSON_DataTable_Land.ClientID%>');
+            var oJSON = eval("(" + oJSON_DataTable_DataHolder.value + ")");
+            var oHTMLTABLE = document.createElement("table");
+            var MyArray = new Array();
+            oHTMLTABLE.border = 1;
 
-                        oTD.innerHTML = oJSON.TABLE[0].ROW[i].COL[j].DATA;
-                        MyArray[j] = oTD.innerHTML
-                        //alert(MyArray[j]);
-                    }
-//                    alert('Req_Id = '+ MyArray[0]);
-//                    alert('Hub_Id = ' + MyArray[1]);
-//                    alert('Colltype_Id = ' + MyArray[2]);
-//                    alert('Colltype_Name = ' + MyArray[3]);
-//                    alert('ProvinceCode = ' + MyArray[4]);
-//                    alert('ProvinceName = ' + MyArray[5]);
-//                    alert('โฉนดเลขที่ = ' + MyArray[6]);
-//                    alert('Rai = ' + MyArray[7]);
-//                    alert('Ngan = ' + MyArray[8]);
-//                    alert('Wah = ' + MyArray[9]);
-//                    alert('Sub Unit ID = ' + MyArray[10]);
-//                    alert('Sub Unit Name= ' + MyArray[11]);
-//                    alert('ราคาต่อหน่วย = ' + MyArray[12]);
-//                    alert('ราคารวม = ' + MyArray[13]);
-                    PageMethods.ValidateSaveLand(MyArray[0], MyArray[1], MyArray[2], MyArray[6], MyArray[4], MyArray[7], MyArray[8], MyArray[9], MyArray[10], MyArray[12], MyArray[13], approveId, this.callback);
+            for (var i = 0; i < oJSON.TABLE[0].ROW.length; i++) {
+                var oTR = oHTMLTABLE.insertRow(i);
+
+                for (var j = 0; j < oJSON.TABLE[0].ROW[i].COL.length; j++) {
+                    var oTD = oTR.insertCell(j);
+
+                    oTD.innerHTML = oJSON.TABLE[0].ROW[i].COL[j].DATA;
+                    MyArray[j] = oTD.innerHTML
+                    //alert(MyArray[j]);
                 }
+                //                    alert('Req_Id = '+ MyArray[0]);
+                //                    alert('Hub_Id = ' + MyArray[1]);
+                //                    alert('Colltype_Id = ' + MyArray[2]);
+                //                    alert('Colltype_Name = ' + MyArray[3]);
+                //                    alert('ProvinceCode = ' + MyArray[4]);
+                //                    alert('ProvinceName = ' + MyArray[5]);
+                //                    alert('โฉนดเลขที่ = ' + MyArray[6]);
+                //                    alert('Rai = ' + MyArray[7]);
+                //                    alert('Ngan = ' + MyArray[8]);
+                //                    alert('Wah = ' + MyArray[9]);
+                //                    alert('Sub Unit ID = ' + MyArray[10]);
+                //                    alert('Sub Unit Name= ' + MyArray[11]);
+                //                    alert('ราคาต่อหน่วย = ' + MyArray[12]);
+                //                    alert('ราคารวม = ' + MyArray[13]);
+                PageMethods.ValidateSaveLand(MyArray[0], MyArray[1], MyArray[2], MyArray[6], MyArray[4], MyArray[7], MyArray[8], MyArray[9], MyArray[10], MyArray[12], MyArray[13], approveId, this.callback_asset);
             }
-            
-            function onOk_Building() {
-                document.getElementById('<%=lit_Status.ClientID%>').value = 'You clicked Ok.';
+        }
+
+        function saveBuilding() {
+            //alert('Begin save building');
+            _build_row = document.getElementById('<%=lblBuildingRow.ClientID%>').innerHTML;
+            if (_build_row == '0') {
+                //alert('No Building Data to save');
+            }
+            else {
+                    _reqId = document.getElementById('<%=lblReq_Id.ClientID%>').innerHTML;
+                    //alert(_reqId);
+                    _hubId = document.getElementById('<%=lblHub_Id.ClientID%>').innerHTML;
+                    //alert(_hubId);
+                    _SubCollType = document.getElementById('<%=DDLSubCollType.ClientID%>').value;
+                    //alert(_SubCollType);
+                    _ProvinceCode = document.getElementById('<%=ddlProvince.ClientID%>').value;
+                    var approveId = document.getElementById('<%=HiddenField_ApproveId.ClientID%>').value;
+                    var oJSON_DataTable_DataHolder = document.getElementById('<%=JSON_DataTable_Building.ClientID%>');
+                    //alert(oJSON_DataTable_DataHolder);
+                    var oJSON = eval("(" + oJSON_DataTable_DataHolder.value + ")");
+                    //alert(oJSON).value;           
+                    var oHTMLTABLE = document.createElement("table");
+                    //alert(oHTMLTABLE);
+                    var MyArray = new Array();
+
+                    oHTMLTABLE.border = 1;
+                    //alert('Before Start Loop save building');
+                    //alert(oJSON.TABLE[0].ROW[i].COL.length);
+                    for (var i = 0; i < oJSON.TABLE[0].ROW.length; i++) {
+                        //alert(i);
+                        var oTR = oHTMLTABLE.insertRow(i);
+
+                        for (var j = 0; j < oJSON.TABLE[0].ROW[i].COL.length; j++) {
+                            var oTD = oTR.insertCell(j);
+
+                            oTD.innerHTML = oJSON.TABLE[0].ROW[i].COL[j].DATA;
+                            //alert(oTD.innerHTML);
+                            MyArray[j] = oTD.innerHTML;
+                        }
+//                                            alert('Colltype_Id ' + MyArray[0]);
+//                                            alert('Colltype_Name ' + MyArray[1]);
+//                                            alert('Chanode ' + MyArray[2]);
+//                                            alert('Build_No ' + MyArray[3]);
+//                                            alert('Area ' + MyArray[4]);
+//                                            alert('Unit_Price ' + MyArray[5]);
+//                                            alert('Value_Price ' + MyArray[6]);
+//                                            alert('Percent_Finish ' + MyArray[7]);
+//                                            alert('Finish_Price ' + MyArray[8]);
+//                                            alert('Age ' + MyArray[9]);
+                        //                    alert('Percent1 ' + MyArray[10]);
+                        //                    alert('Percent2 ' + MyArray[11]);
+                        //                    alert('Percent3 ' + MyArray[12]);
+                        //                    alert('Total_Percent ' + MyArray[13]);
+                        //                    alert('Deteriorate ' + MyArray[14]);
+                        //                    alert('Total_Building ' + MyArray[15]);
+                                                PageMethods.ValidateSaveDataBuilding(_reqId, _hubId, MyArray[0], MyArray[3], _ProvinceCode, MyArray[2], MyArray[4], MyArray[5], MyArray[6], MyArray[9], MyArray[10], MyArray[11], MyArray[12], MyArray[14], MyArray[7], MyArray[8], approveId, this.callback_asset);
+                    }
+                    alert('end save building');
+                    }
+        }
+
+        function saveCondo() {
+            _condo_row = document.getElementById('<%=lblCondoRow.ClientID%>').innerHTML;
+            if (_condo_row == '0') {
+                alert('No Condo Data to save');
+            }
+            else {
                 _reqId = document.getElementById('<%=lblReq_Id.ClientID%>').innerHTML;
                 _hubId = document.getElementById('<%=lblHub_Id.ClientID%>').innerHTML;
-                var approveId = document.getElementById('<%=lblApprove_Id.ClientID%>').innerHTML;
-                var oJSON_DataTable_DataHolder = document.getElementById('<%=JSON_DataTable_Building.ClientID%>');
+                _create_user = document.getElementById('<%=HiddenField_ApproveId.ClientID%>').value;
+                var oJSON_DataTable_DataHolder = document.getElementById('<%=JSON_DataTable_Condo.ClientID%>');
                 var oJSON = eval("(" + oJSON_DataTable_DataHolder.value + ")");
                 var oHTMLTABLE = document.createElement("table");
                 var MyArray = new Array();
-                
+
                 oHTMLTABLE.border = 1;
 
                 for (var i = 0; i < oJSON.TABLE[0].ROW.length; i++) {
@@ -140,8 +204,40 @@
 
                         oTD.innerHTML = oJSON.TABLE[0].ROW[i].COL[j].DATA;
                         //alert(oTD.innerHTML);
-                        MyArray[j] = oTD.innerHTML 
+                        MyArray[j] = oTD.innerHTML;
                     }
+                    PageMethods.ValidateSaveDataCondo(_reqId, _hubId, MyArray[0], MyArray[1], MyArray[2], MyArray[3], MyArray[4], MyArray[5], MyArray[6], MyArray[7], _create_user, this.callback_asset);
+                }
+            } 
+        } 
+
+            function onOk() {
+                document.getElementById('<%=lit_Status.ClientID%>').value = 'You clicked Ok.';
+                document.getElementById('<%=lblMessageNotice_Building.ClientID%>').innerHTML = '';
+            }
+
+            function onOk_Building() {
+                document.getElementById('<%=lit_Status.ClientID%>').value = 'You clicked Ok.';
+//                _reqId = document.getElementById('<%=lblReq_Id.ClientID%>').innerHTML;
+//                _hubId = document.getElementById('<%=lblHub_Id.ClientID%>').innerHTML;
+//                var approveId = document.getElementById('<%=lblApprove_Id.ClientID%>').innerHTML;
+//                var oJSON_DataTable_DataHolder = document.getElementById('<%=JSON_DataTable_Building.ClientID%>');
+//                var oJSON = eval("(" + oJSON_DataTable_DataHolder.value + ")");
+//                var oHTMLTABLE = document.createElement("table");
+//                var MyArray = new Array();
+//                
+//                oHTMLTABLE.border = 1;
+
+//                for (var i = 0; i < oJSON.TABLE[0].ROW.length; i++) {
+//                    var oTR = oHTMLTABLE.insertRow(i);
+
+//                    for (var j = 0; j < oJSON.TABLE[0].ROW[i].COL.length; j++) {
+//                        var oTD = oTR.insertCell(j);
+
+//                        oTD.innerHTML = oJSON.TABLE[0].ROW[i].COL[j].DATA;
+//                        //alert(oTD.innerHTML);
+//                        MyArray[j] = oTD.innerHTML 
+//                    }
 //                    alert('Colltype_Id ' + MyArray[0]);
 //                    alert('Colltype_Name ' + MyArray[1]);
 //                    alert('Chanode ' + MyArray[2]);
@@ -158,43 +254,46 @@
 //                    alert('Total_Percent ' + MyArray[13]);
 //                    alert('Deteriorate ' + MyArray[14]);
 //                    alert('Total_Building ' + MyArray[15]);
-                    PageMethods.ValidateSaveDataBuilding(_reqId, _hubId, MyArray[0], MyArray[2], MyArray[4], MyArray[7], MyArray[8], MyArray[9], MyArray[10], MyArray[12], MyArray[13], approveId, this.callback);
-                }
+//                    PageMethods.ValidateSaveDataBuilding(_reqId, _hubId, MyArray[0], MyArray[2], MyArray[4], MyArray[7], MyArray[8], MyArray[9], MyArray[10], MyArray[12], MyArray[13], approveId, this.callback_asset);
+//                }
             }
 
             function onOk_Condo() {
                 document.getElementById('<%=lit_Status.ClientID%>').value = 'You clicked Ok.';
-                _reqId = document.getElementById('<%=lblReq_Id.ClientID%>').innerHTML;
-                _hubId = document.getElementById('<%=lblHub_Id.ClientID%>').innerHTML;
-                _create_user = document.getElementById('<%=lblApprove_Id.ClientID%>').innerHTML;
-                var oJSON_DataTable_DataHolder = document.getElementById('<%=JSON_DataTable_Condo.ClientID%>');
-                var oJSON = eval("(" + oJSON_DataTable_DataHolder.value + ")");
-                var oHTMLTABLE = document.createElement("table");
-                var MyArray = new Array();
+//                _reqId = document.getElementById('<%=lblReq_Id.ClientID%>').innerHTML;
+//                _hubId = document.getElementById('<%=lblHub_Id.ClientID%>').innerHTML;
+//                _create_user = document.getElementById('<%=lblApprove_Id.ClientID%>').innerHTML;
+//                var oJSON_DataTable_DataHolder = document.getElementById('<%=JSON_DataTable_Condo.ClientID%>');
+//                var oJSON = eval("(" + oJSON_DataTable_DataHolder.value + ")");
+//                var oHTMLTABLE = document.createElement("table");
+//                var MyArray = new Array();
 
-                oHTMLTABLE.border = 1;
+//                oHTMLTABLE.border = 1;
 
-                for (var i = 0; i < oJSON.TABLE[0].ROW.length; i++) {
-                    var oTR = oHTMLTABLE.insertRow(i);
+//                for (var i = 0; i < oJSON.TABLE[0].ROW.length; i++) {
+//                    var oTR = oHTMLTABLE.insertRow(i);
 
-                    for (var j = 0; j < oJSON.TABLE[0].ROW[i].COL.length; j++) {
-                        var oTD = oTR.insertCell(j);
+//                    for (var j = 0; j < oJSON.TABLE[0].ROW[i].COL.length; j++) {
+//                        var oTD = oTR.insertCell(j);
 
-                        oTD.innerHTML = oJSON.TABLE[0].ROW[i].COL[j].DATA;
-                        //alert(oTD.innerHTML);
-                        MyArray[j] = oTD.innerHTML
-                    }
-                    PageMethods.ValidateSaveDataCondo(_reqId, _hubId, MyArray[0], MyArray[1], MyArray[2], MyArray[3], MyArray[4], MyArray[5], MyArray[6], MyArray[7], _create_user, this.callback);
-
-                }
+//                        oTD.innerHTML = oJSON.TABLE[0].ROW[i].COL[j].DATA;
+//                        //alert(oTD.innerHTML);
+//                        MyArray[j] = oTD.innerHTML
+//                    }
+//                    PageMethods.ValidateSaveDataCondo(_reqId, _hubId, MyArray[0], MyArray[1], MyArray[2], MyArray[3], MyArray[4], MyArray[5], MyArray[6], MyArray[7], _create_user, this.callback_asset);
+//                }
             }              
                         
-            function onCancel() { 
-            document.getElementById('<%=lit_Status.ClientID%>').value = 'You clicked Cancel.';
+            function onCancel() {
+                document.getElementById('<%=lit_Status.ClientID%>').value = 'You clicked Cancel.';
+                document.getElementById('<%=lblMessageNotice_Building.ClientID%>').innerHTML = '';
         }
             
             function validate() {
                 //  find the popup behavior
+                var _data = new Array();
+                var _appraisal_type;
+                //var colltype = document.getElementById('<%=lblCollType.ClientID%>').innerHTML;
                 _popup = $find('mdlPopupBehavior');                
                 if (document.getElementsByName("ctl00$ContentPlaceHolder1$rdbAppraisal_Type")[0].checked == true) {
                     alert('ทุน'); 
@@ -203,6 +302,7 @@
                     // _land = $get('txtLandBehavior');
                     _land_row = document.getElementById('<%=lblLandRow.ClientID%>').innerHTML;
                     _build_row = document.getElementById('<%=lblBuildingRow.ClientID%>').innerHTML;
+                    _appraisal_type = '2';
                     
                     if (_land_row == '0' || _build_row == '0') {
                         //ตรวจสอบว่ามีข้อมูลของที่ดิน และ สิ่งปลูกสร้าง หรือไม่
@@ -211,65 +311,81 @@
                     }
                     else {
                         //ส่งข้อมูลไป Save
+                        //******************Call Function ************************************
+                        //saveLand();
+                        //saveBuilding()
+                        //********************************************************************
+
                         _data[0] = document.getElementById('<%=lblReq_Id.ClientID%>').innerHTML;
-                        _data[1] = document.getElementById('<%=lblHub_Id.ClientID%>').innerHTML;
+                        //alert('Req_Id ' + _data[0]);
+                        _data[1] = document.getElementById('<%=lblHub_Id.ClientID%>').innerHTML; 
+                        //alert('Hub_Id ' + _data[1]);
                         _data[2] = document.getElementById('<%=lblCif.ClientID%>').innerHTML;
+                        //alert('Cif ' + _data[2]);
                         _data[3] = document.getElementById('<%=txtLand.ClientID%>').value;
+                        //alert('Land ' + _data[3]);
                         _data[4] = document.getElementById('<%=txtBuilding.ClientID%>').value;
+                        //alert('Building ' + _data[4]);
                         _data[5] = document.getElementById('<%=txtCondo.ClientID%>').value;
-                        _data[6] = document.getElementById('<%=lblApprove_Id.ClientID%>').innerHTML;
+                        //alert('Condo ' + _data[5]);
+                        _data[6] = document.getElementById('<%=HiddenField_ApproveId.ClientID%>').value;
+                        //alert('User Create ' + _data[6]);
+                        //alert('Appraisal_type ' + _appraisal_type);                          
+                        var IndexValueComment = $get('<%=ddlComment.ClientID %>').selectedIndex;
+                        _data[7] = $get('<%=ddlComment.ClientID %>').options[IndexValueComment].value;
 
-                        //Call Code behind Web Method                      
-                        PageMethods.ValidateSaveData(_data[0], _data[1], _data[2], _data[3], _data[4], _data[5], _data[6], this.callback); 
+                        //alert('Comment ' + _data[7]);                        
+                        var IndexValueWarning = $get('<%=ddlWarning.ClientID %>').selectedIndex;
+                        _data[8] = $get('<%=ddlWarning.ClientID %>').options[IndexValueWarning].value;
+                        //alert('Warning ' + _data[8]);
 
+                        
+                        //Call Code behind Web Method
+                        PageMethods.ValidateSaveData(_data[0], _data[1], _data[2], _data[3], _data[4], _data[5], _appraisal_type, _data[7], _data[8], _data[6],  this.callback); 
                     }
                 }
                 else if (document.getElementsByName("ctl00$ContentPlaceHolder1$rdbAppraisal_Type")[1].checked == true) {
-                alert('กำหนดราคาวิธีตลาด ระบบจะทำการปรับ ราคาที่ดินเป็น 0 ');
-                document.getElementById('<%=txtLand.ClientID%>').value = '0.00';
+                alert('กำหนดราคาวิธีตลาด ');
+                //document.getElementById('<%=txtLand.ClientID%>').value = '0.00';
                     // show the popup
                     this._popup.show();
                     _land_row = document.getElementById('<%=lblLandRow.ClientID%>').innerHTML;
                     _build_row = document.getElementById('<%=lblBuildingRow.ClientID%>').innerHTML;
                     _condo_row = document.getElementById('<%=lblCondoRow.ClientID%>').innerHTML;
-                    
-                    //_land = document.getElementById('<%=txtLand.ClientID%>').value;
+                    _appraisal_type = '1';
+                    //******************Call Function ************************************
+                    //saveLand();
+                    //saveBuilding();
+                    //saveCondo();
+                    //********************************************************************
+
                     _data[0] = document.getElementById('<%=lblReq_Id.ClientID%>').innerHTML;
                     _data[1] = document.getElementById('<%=lblHub_Id.ClientID%>').innerHTML;
                     _data[2] = document.getElementById('<%=lblCif.ClientID%>').innerHTML;
                     _data[3] = document.getElementById('<%=txtLand.ClientID%>').value;
                     _data[4] = document.getElementById('<%=txtBuilding.ClientID%>').value;
                     _data[5] = document.getElementById('<%=txtCondo.ClientID%>').value;
-                    _data[6] = document.getElementById('<%=lblApprove_Id.ClientID%>').innerHTML;
-                    //Call Code behind                  
-                    PageMethods.ValidateSaveData(_data[0], _data[1], _data[2], _data[3], _data[4], _data[5], _data[6], this.callback);
-                    if (_land_row == '0') {
-                    }
-                    else {
+                    _data[6] = document.getElementById('<%=HiddenField_ApproveId.ClientID%>').value;
+                    var IndexValueComment = $get('<%=ddlComment.ClientID %>').selectedIndex;
+                    _data[7] = $get('<%=ddlComment.ClientID %>').options[IndexValueComment].value;
+                    var IndexValueWarning = $get('<%=ddlWarning.ClientID %>').selectedIndex;
+                    _data[8] = $get('<%=ddlWarning.ClientID %>').options[IndexValueWarning].value;
 
-                    }
-                    if (_build_row == '0') {
-                    }
-                    else {
-
-                    }
-                    if (_condo_row == '0') {
-                    }
-                    else {
-
-                    }                 
+                                        //alert('Req_Id ' + _data[0]);
+                                        //alert('Hub_Id ' + _data[1]);
+                                        //alert('Cif ' + _data[2]);
+                                        //alert('Land ' + _data[3]);
+                                        //alert('Building ' + _data[4]);
+                                        //alert('Condo ' + _data[5]);
+                                        //alert('User Create ' + _data[6]);
+                                        //alert('Appraisal_type ' + _appraisal_type);                                      
+                    //Call Code behind
+                    PageMethods.ValidateSaveData(_data[0], _data[1], _data[2], _data[3], _data[4], _data[5], _appraisal_type, _data[7], _data[8], _data[6], this.callback);         
                 }
                 else {
                     alert('คุณไม่ได้เลือกวิธีการให้ราคา');
                     PageMethods.Cancel(this.callback);
                  }
-
-                //alert(_popup);
-                //alert(_land);
-                //  kick-off the webservice, registering our callback
-                //PageMethods.ValidateSave('0', callback);
-                //PageMethods.ValidateCreditCard(document.getElementById('<%=txtLand.ClientID%>').value, this.callback);
-                //Service.Validate('', callback, callback, '');
             }
 
             function callback(result) {
@@ -282,6 +398,19 @@
                 }
                 else {
                     alert('Warning, Save not compleate!');
+                }
+            }
+
+            function callback_asset(result) {
+                //  hide the popup
+                this._popup.hide();
+
+                //  let the user know if their credit card was validated
+                if (result) {
+                    //alert('Save data compleate!');
+                }
+                else {
+                    //alert('Warning, Save not compleate!');
                 }
             }
 
@@ -347,6 +476,7 @@
                 var BuildingPriceTotalDeteriorate = addCommas(building_price2 * (percent_total / 100));
                 txtBuildingPriceTotalDeteriorate.value = addCommas(BuildingPriceTotalDeteriorate);
             }
+            
             function CalSection_Condo(sender, e) {
                 //ต้องกำหนด ชนิด input type MyClintID ที่ตัว Control ของแต่ละตัวที่จะส่ง และชื่อ Property  Name ของ Control นั้น ๆ ก่อน
                 var building_area = getEleByProperty("input", "MyClintID", "txtArea");
@@ -370,27 +500,39 @@
                     x1 = x1.replace(rgx, '$1' + ',' + '$2');
                 }
                 return x1 + x2;
-            }   
-            function openlink() {
-                window.open('FileUpload_Price2.aspx', 'window', 'toolbar=no', 'menubar = no', 'scrollbars = yes');
-            }         
-    </script> 
-<%--    <script runat="server">
-        <System.Web.Script.Services.ScriptMethod()> _
-        <System.Web.Services.WebMethod()> _
-        Public Shared Function ValidateCreditCard(ByVal creditCardNumber As String) As Boolean
-            ' simulate a longer operation ... 
-            System.Threading.Thread.Sleep(3000)
-            MsgBox(creditCardNumber)
-            Dim isValid As Boolean = False
-            Try
-                isValid = True
-            Catch
-            End Try
+            }
 
-            Return isValid
-        End Function
-    </script>--%>
+            function openlink() {
+                var reqid = document.getElementById('<%=lblReq_Id.ClientID%>').innerHTML;
+                //alert(reqid);
+                var hubid = document.getElementById('<%=lblHub_Id.ClientID%>').innerHTML;
+                //alert(hubid);
+                var approve_id = document.getElementById('<%=HiddenField_ApproveId.ClientID%>').value;
+                //alert(approve_id);                
+                var temp_aid = 0;
+                
+                
+
+                window.open('FileUpload_Price2.aspx?Req_Id=' + reqid + '&Hub_Id=' + hubid + '&User_Id=' + approve_id + '&Temp_AID=' + temp_aid, 'window', 'toolbar=no', 'menubar = no', 'scrollbars = yes');
+            }   
+            
+            function MessageNotice(msg) {
+                alert(msg);
+            }
+            
+            function getDropDownListvalue() {
+                var IndexValue = $get('<%=ddlComment.ClientID %>').selectedIndex;
+                var SelectedVal = $get('<%=ddlComment.ClientID %>').options[IndexValue].value;
+                alert(SelectedVal);
+                var IndexValue1 = $get('<%=ddlWarning.ClientID %>').selectedIndex;
+                var SelectedVal1 = $get('<%=ddlWarning.ClientID %>').options[IndexValue1].value;
+                alert(SelectedVal1);
+                var approve_id = document.getElementById('<%=HiddenField_ApproveId.ClientID%>').value;
+                alert(approve_id);             
+            }
+              
+    </script> 
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="true">
@@ -416,7 +558,7 @@
                 <td>
                     <asp:Label ID="lblReq_Id" runat="server" MyClintID="lblReq_Id" 
                         style="font-weight: 700"></asp:Label>
-                    <asp:Label ID="lblApprove_Id" runat="server"></asp:Label>
+                    <asp:Label ID="lblApprove_Id" runat="server" Visible="False"></asp:Label>
                 </td>
             </tr>
             <tr>
@@ -435,15 +577,24 @@
             </tr>
             <tr>
                 <td>
-                    วิธีการให้ราคา</td>
+                    ชนิดหลักประกัน</td>
                 <td>
-                    <asp:RadioButtonList ID="rdbAppraisal_Type" runat="server" 
-                        RepeatDirection="Horizontal" BehaviorID="rdbAppraisal_TypeBehavior" MyClintID="rdbAppraisal_Type">
-                        <asp:ListItem Value="2">วิธีต้นทุน</asp:ListItem>
-                        <asp:ListItem Value="1">วิธีตลาด</asp:ListItem>
-                    </asp:RadioButtonList>
+                    <asp:Label ID="lblCollType" runat="server" style="font-weight: 700"></asp:Label>
+                    <asp:Label ID="lblCollType_Name" runat="server" style="font-weight: 700"></asp:Label>
                 </td>
             </tr>
+              <tr>
+                  <td>
+                      วิธีการให้ราคา</td>
+                  <td>
+                      <asp:RadioButtonList ID="rdbAppraisal_Type" runat="server" 
+                          BehaviorID="rdbAppraisal_TypeBehavior" MyClintID="rdbAppraisal_Type" 
+                          RepeatDirection="Horizontal">
+                          <asp:ListItem Value="2">วิธีต้นทุน</asp:ListItem>
+                          <asp:ListItem Value="1">วิธีตลาด</asp:ListItem>
+                      </asp:RadioButtonList>
+                  </td>
+              </tr>
             <tr>
                 <td>
                     ราคาที่ดิน</td>
@@ -451,13 +602,15 @@
                     <cc1:mytext ID="txtLand" runat="server" 
                         AllowUserKey="num_Numeric" BackColor="#FFFF66" EnableTextAlignRight="True" 
                         Width="110px">0.00</cc1:mytext>
+                    &nbsp;จำนวน
+                    <asp:Label ID="lblLandRow" runat="server">0</asp:Label>
+                    &nbsp;รายการ
                     <asp:Button ID="btn_Land" runat="server" Text="รายละเอียดที่ดิน" Height="25px" 
                         Width="190px" />
                     <cc1:ModalPopupExtender ID="btn_Land_ModalPopupExtender" runat="server" 
                         BackgroundCssClass="GrayedOut" CancelControlID="btn_Cancel" 
                         OkControlID="btn_Ok" OnCancelScript="onCancel()" OnOkScript="onOk()" 
                         PopupControlID="panel_Popup" TargetControlID="btn_Land" />
-                    <asp:Label ID="lblLandRow" runat="server">0</asp:Label>
                 </td>
             </tr>
             <tr>
@@ -467,13 +620,15 @@
                     <cc1:mytext ID="txtBuilding" runat="server" AllowUserKey="num_Numeric" 
                         BackColor="#FFFF66" EnableTextAlignRight="True" 
                         Width="110px">0.00</cc1:mytext>
+                    &nbsp;จำนวน
+                    <asp:Label ID="lblBuildingRow" runat="server" Text="0"></asp:Label>
+                    &nbsp;รายการ
                     <asp:Button ID="btn_Building" runat="server" Text="รายละเอียดสิ่งปลูกสร้าง" 
                         Width="190px" />
                     <cc1:ModalPopupExtender ID="btn_Building_ModalPopupExtender" runat="server" 
                         BackgroundCssClass="GrayedOut" CancelControlID="btn_Cancel_Building" 
                         OkControlID="btn_Ok_Building" OnCancelScript="onCancel()" OnOkScript="onOk_Building()" 
                         PopupControlID="panel_Building" TargetControlID="btn_Building" />
-                    <asp:Label ID="lblBuildingRow" runat="server" Text="0"></asp:Label>
                 </td>
             </tr>
             <tr>
@@ -483,13 +638,15 @@
                     <cc1:mytext ID="txtCondo" runat="server" AllowUserKey="num_Numeric" 
                         BackColor="#FFFF66" EnableTextAlignRight="True" 
                         Width="110px">0.00</cc1:mytext>
+                    &nbsp;จำนวน
+                    <asp:Label ID="lblCondoRow" runat="server" Text="0" ></asp:Label>
+                    &nbsp;รายการ
                     <asp:Button ID="btn_Condo" runat="server" Text="รายละเอียดคอนโด" 
                         Width="190px" />
                     <cc1:ModalPopupExtender ID="btn_Condo_ModalPopupExtender" runat="server" 
                         BackgroundCssClass="GrayedOut" CancelControlID="btn_Cancel_Condo" 
                         OkControlID="btn_Ok_Condo" OnCancelScript="onCancel()" OnOkScript="onOk_Condo()" 
                         PopupControlID="panel_Condo" TargetControlID="btn_Condo" />
-                    <asp:Label ID="lblCondoRow" runat="server" Text="0"></asp:Label>
                 </td>
             </tr>
             <tr>
@@ -501,9 +658,32 @@
                         Width="110px">0.00</cc1:mytext>
                     บาท</td>
             </tr>
+              <tr>
+                  <td>
+                      Comment</td>
+                  <td>
+                      <asp:DropDownList ID="ddlComment" runat="server" DataSourceID="SDSComment" 
+                          DataTextField="Comment_Name" DataValueField="Comment_ID" 
+                          BackColor="Yellow">
+                      </asp:DropDownList>
+                  </td>
+              </tr>
+              <tr>
+                  <td>
+                      Warning</td>
+                  <td>
+                      <asp:DropDownList ID="ddlWarning" runat="server" BackColor="#FFFF66" 
+                          DataSourceID="SDSWarning" DataTextField="Warning_Name" 
+                          DataValueField="Warning_ID">
+                      </asp:DropDownList>
+                  </td>
+              </tr>
             <tr>
                 <td bgcolor="Yellow">
-                    &nbsp;</td>
+                    <asp:ImageButton ID="btnSave0" runat="server" Font-Bold="True" Height="30px" 
+                        ImageUrl="~/Images/save.jpg" OnClientClick="getDropDownListvalue(); return false;" 
+                        Width="30px" />
+                </td>
                 <td bgcolor="Yellow">
                     <%--<asp:Button ID="btnSave" runat="server" Text="บันทึก" Font-Bold="True" OnClientClick=" return ConfirmOnUpdate();" />--%>
            <asp:ImageButton 
@@ -522,6 +702,15 @@
                 </td>
             </tr>
     </table>              
+                    <asp:HiddenField ID="HiddenField_ApproveId" runat="server" />
+                    <asp:SqlDataSource ID="SDSComment" runat="server" 
+                        ConnectionString="<%$ ConnectionStrings:AppraisalConn %>" 
+                        SelectCommand="SELECT [Comment_ID], [Comment_Name] FROM [Comment]">
+                    </asp:SqlDataSource>
+                    <asp:SqlDataSource ID="SDSWarning" runat="server" 
+                        ConnectionString="<%$ ConnectionStrings:AppraisalConn %>" 
+                        SelectCommand="SELECT [Warning_ID], [Warning_Name] FROM [Warning]">
+                    </asp:SqlDataSource>
                 </div>
 
 
@@ -625,17 +814,27 @@
                                         <ItemStyle HorizontalAlign="Center" />
                                         <HeaderStyle HorizontalAlign="Center" />
                                     </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="ID">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblID" runat="server" Text='<%# Bind("ID") %>'></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>                                       
                                     <asp:BoundField DataField="Req_Id" HeaderText="Req ID" />
                                     <asp:BoundField DataField="Hub_Id" HeaderText="Hub ID" />
                                     <asp:BoundField DataField="Colltype_Id" HeaderText="รหัสหลักประกัน" />
                                     <asp:BoundField DataField="Colltype_Name" HeaderText="ชื่อหลักประกัน" />
                                     <asp:BoundField DataField="ProvinceCode" HeaderText="จังหวัด" />
                                     <asp:BoundField DataField="ProvinceName" HeaderText="ชื่อจังหวัด" />
-                                    <asp:BoundField DataField="Chanode" HeaderText="เลขที่โฉนด" />
+                                    <asp:TemplateField HeaderText="เลขที่โฉนด">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblChanode" runat="server" Text='<%# Bind("Chanode") %>'></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>                                    
+<%--                                    <asp:BoundField DataField="Chanode" HeaderText="เลขที่โฉนด" />--%>
                                     <asp:BoundField DataField="Rai" HeaderText="ไร่" />
                                     <asp:BoundField DataField="Ngan" HeaderText="งาน" />
                                     <asp:BoundField DataField="Wah" HeaderText="วา" />
-                                    <asp:BoundField DataField="SubUnit" HeaderText="หน่วย" />
+                                    <asp:BoundField DataField="SubUnit_Name" HeaderText="หน่วย" />
                                     <asp:BoundField DataField="Unitprice" HeaderText="ราคาต่อหน่วย">
                                         <ItemStyle HorizontalAlign="Right" />
                                     </asp:BoundField>
@@ -694,8 +893,13 @@
                     SelectCommand="SELECT SubCollType_Name, MysubColl_ID FROM CollType_All WHERE (CollType_ID = 50)">
                 </asp:SqlDataSource>
                 <asp:SqlDataSource ID="SDSProvince" runat="server" 
-                    ConnectionString="<%$ ConnectionStrings:AppraisalConn %>" SelectCommand="SELECT PROV_CODE, PROV_NAME FROM Bay01.dbo.TB_PROVINCE
-Order by PROV_NAME"></asp:SqlDataSource>
+                    ConnectionString="<%$ ConnectionStrings:AppraisalConn %>" 
+                    
+                    SelectCommand="SELECT Appraisal_Request.province as PROV_CODE, Bay01.dbo.TB_PROVINCE.PROV_NAME FROM Appraisal_Request LEFT OUTER JOIN Bay01.dbo.TB_PROVINCE ON Appraisal_Request.province = Bay01.dbo.TB_PROVINCE.PROV_CODE WHERE (Appraisal_Request.Req_ID = @Req_Id)">
+                    <SelectParameters>
+                        <asp:ControlParameter ControlID="lblReq_Id" Name="Req_Id" PropertyName="Text" />
+                    </SelectParameters>
+                </asp:SqlDataSource>
             </asp:Panel>
             
             <asp:Panel ID="panel_Building" runat="server"> 
@@ -848,9 +1052,14 @@ Order by PROV_NAME"></asp:SqlDataSource>
             </tr>                
                     <tr>
                         <td>
-                            &nbsp;</td>
+                            <asp:Label ID="lblMarketPrice" runat="server" Text="ราคาตลาด"></asp:Label>
+                        </td>
                         <td>
-                            &nbsp;</td>
+                            <cc1:mytext ID="txtMarketPrice" runat="server" AllowUserKey="num_Numeric" 
+                                BackColor="#FFFF66" EnableTextAlignRight="True" 
+                                MyClintID="txtBuildingPrice" Width="110px" 
+                                AutoCurrencyFormatOnKeyUp="True">0.00</cc1:mytext>
+                        </td>
                         <td>
                             &nbsp;</td>
                         <td>
@@ -875,8 +1084,14 @@ Order by PROV_NAME"></asp:SqlDataSource>
                                         <ItemStyle HorizontalAlign="Center" />
                                         <HeaderStyle HorizontalAlign="Center" />
                                     </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="ID">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblID_building" runat="server" Text='<%# Bind("ID") %>'></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>                                     
                                     <asp:TemplateField HeaderText="ชื่อหลักประกัน">
                                         <ItemTemplate>
+                                            <asp:HiddenField ID="hdfColltype_Id" runat="server" Value='<%# Bind("Colltype_Id") %>' />
                                             <asp:Label ID="lblColltype_Name" runat="server" Text='<%# Bind("Colltype_Name") %>'></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
@@ -952,6 +1167,12 @@ Order by PROV_NAME"></asp:SqlDataSource>
                                         </ItemTemplate>
                                         <ItemStyle HorizontalAlign="Right" />
                                     </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="รวมเงินราคาตลาด">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblMarketPrice" runat="server" Text='<%# Bind("MarketPrice", "{0:N}") %>'></asp:Label>
+                                        </ItemTemplate>
+                                        <ItemStyle HorizontalAlign="Right" />
+                                    </asp:TemplateField>                                    
 <%--                                    <asp:TemplateField ShowHeader="False">
                                         <ItemTemplate>
                                             <asp:Button ID="btnMove_Building" runat="server" CausesValidation="false" 
@@ -983,6 +1204,11 @@ Order by PROV_NAME"></asp:SqlDataSource>
                                 EnableTextAlignRight="True" MyClintID="txtTotal" ReadOnly="True" 
                                 style="text-align: left" Width="120px">0</cc11:mytext>
                             &nbsp;<b>บาท</b></td>
+                    </tr>
+                    <tr>
+                        <td align="center" bgcolor="Yellow" colspan="6">
+                            <asp:Label ID="lblMessageNotice_Building" runat="server"></asp:Label>
+                        </td>
                     </tr>
                     <tr>
                         <td align="center" bgcolor="Yellow" colspan="6">
@@ -1078,7 +1304,7 @@ Order by PROV_NAME"></asp:SqlDataSource>
                                 onkeyup="CalSection_Condo(this,event);" Width="50px">0</cc11:mytext>
                             ตรว.</td>
                         <td>
-                            ตรว.ละ</td>
+                            ตรม.ละ</td>
                         <td>
                             <cc11:mytext ID="txtUnitPrice" runat="server" allowuserkey="num_Numeric" 
                                 EnableTextAlignRight="True" MyClintID="txtUnitPrice" 
@@ -1097,8 +1323,8 @@ Order by PROV_NAME"></asp:SqlDataSource>
                         AutoCurrencyFormatOnKeyUp="True" EnableTextAlignRight="True" 
                         MyClintID="txtCondoPrice" Width="120px">0</cc11:mytext>
                     บาท</td>
-                <td class="style5">
-                                        &nbsp;</td>
+                <td >
+                </td>
                 <td>
                     <asp:Button ID="btn_Add_Condo" runat="server" BackColor="#CC3300" 
                         Text="ADD" Width="150px" />
@@ -1114,6 +1340,18 @@ Order by PROV_NAME"></asp:SqlDataSource>
                                 BackColor="LightGoldenrodYellow" BorderColor="Tan" BorderWidth="1px" 
                                 CellPadding="2" ForeColor="Black" GridLines="None" style="font-size: small">
                                 <Columns>
+                                    <asp:TemplateField>
+                                        <ItemTemplate>
+                                            <asp:CheckBox ID="cb_Condo" runat="server" />
+                                        </ItemTemplate>
+                                        <ItemStyle HorizontalAlign="Center" />
+                                        <HeaderStyle HorizontalAlign="Center" />
+                                    </asp:TemplateField>                                
+                                    <asp:TemplateField HeaderText="ID">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblID_Condo" runat="server" Text='<%# Bind("ID") %>'></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>                                 
                                     <asp:TemplateField HeaderText="เลขที่ทะเบียนอาคารชุด">
                                         <ItemTemplate>
                                             <asp:Label ID="lblRegister_No" runat="server" Text='<%# Bind("Register_No") %>'></asp:Label>

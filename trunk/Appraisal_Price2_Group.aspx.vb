@@ -8,6 +8,7 @@ Imports System.Web.UI
 Partial Class Appraisal_Price2_Group
     Inherits System.Web.UI.Page
     Dim s As String
+
 #Region "Variables"
     Dim gvUniqueID As String = String.Empty
     Dim gvNewPageIndex As Integer = 0
@@ -154,7 +155,7 @@ Partial Class Appraisal_Price2_Group
 
                         If chk2.Checked = True Then
                             'ส่งค่าไป Insert และท ำการ Update สถานะการประเมิน
-                            AddPRICE2_Master(txtTemp_AID.Text, Req_id.Text, Hub_id.Text, Id.Text, Cif.Text, ddlUserAppraisal.SelectedValue, CollType.Text, ddlComment.SelectedItem.Text, String.Empty, 0, rdbAppraisal_Type.SelectedValue, txtNote.Text, lbluserid.Text, Now())
+                            ADD_PRICE2_MASTER_NEW(Req_id.Text, Hub_id.Text, Cif.Text, txtTemp_AID.Text, 0, 0, 0, 0, 0, 0, ddlComment.SelectedValue, String.Empty, txtNote.Text, ddlUserAppraisal.SelectedValue, lbluserid.Text, CollType.Text, ddlUserAppraisal.SelectedValue, Now())
                             UPDATE_PRICE2_70_DETAIL_AND_PARTAKE(Id.Text, Req_id.Text, Hub_id.Text, txtTemp_AID.Text)
                         End If
 

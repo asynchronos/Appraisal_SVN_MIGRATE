@@ -20,7 +20,6 @@ Partial Class Appraisal_Price2_New
     Dim dt, dt_building, dt_condo As DataTable
     Dim gvUniqueID As String = String.Empty
     Dim ClassG_his As String
-    '======
     Dim sumSubloan, condoSubTotal As Double
     Dim sumGrandloan, sumGrandcondo As Double
     Dim sumSubPercentclassg As Single
@@ -101,23 +100,33 @@ Public Shared Function ValidateCreditCard(ByVal creditCardNumber As String) As B
 
     <System.Web.Script.Services.ScriptMethod()> _
 <System.Web.Services.WebMethod()> _
-Public Shared Function ValidateSaveData(ByVal ReqId As String, ByVal HubId As String, ByVal Cif As String, ByVal Land As String, ByVal Building As String, ByVal Condo As String, ByVal CreateUser As String) As Boolean
+Public Shared Function ValidateSaveData(ByVal ReqId As String, ByVal HubId As String, ByVal Cif As String, ByVal Land As String, ByVal Building As String, ByVal Condo As String, ByVal Appraisal_Type As String, ByVal Comment As String, ByVal Warning As String, ByVal CreateUser As String) As Boolean
         ' simulate a longer operation ... 
         System.Threading.Thread.Sleep(2000)
 
         Dim isValid As Boolean = False
         Dim TEMPAID As Integer
         Try
+            Dim Itm As Integer = GET_COUNT_PRICE2_MASTER_NEW(ReqId, HubId)
+            If Itm = 0 Then
+                TEMPAID = Appraisal_Manager.GET_TEMP_AID()
+                UPDATE_TEMP_AID()
 
-            TEMPAID = Appraisal_Manager.GET_TEMP_AID()
-            UPDATE_TEMP_AID()
-            ADD_PRICE2_MASTER_NEW(ReqId, HubId, Cif, TEMPAID, CDec(Land), CDec(Building), CDec(Condo), 0, 0, 0, 0, 0, "", CreateUser, "", CreateUser, Now())
-            UPDATE_PRICE2_70_DETAIL_AND_PARTAKE_NEW(ReqId, HubId, TEMPAID)
-            isValid = True
+                ADD_PRICE2_MASTER_NEW(ReqId, HubId, Cif, TEMPAID, CDec(Land), CDec(Building), CDec(Condo), 0, 0, 0, Comment, Warning, "", CreateUser, "", Appraisal_Type, CreateUser, Now())
+                UPDATE_PRICE2_70_DETAIL_AND_PARTAKE_NEW(ReqId, HubId, TEMPAID)
+                isValid = True
+            Else
+                DELETE_PRICE2_MASTER_NEW(ReqId, HubId)
+                TEMPAID = Appraisal_Manager.GET_TEMP_AID()
+                UPDATE_TEMP_AID()
+                ADD_PRICE2_MASTER_NEW(ReqId, HubId, Cif, TEMPAID, CDec(Land), CDec(Building), CDec(Condo), 0, 0, 0, Comment, Warning, "", CreateUser, "", Appraisal_Type, CreateUser, Now())
+                'Update Teamp ID ใหม่ให้กับ ตาราง PRICE2_50_NEW,PRICE2_50_PARTAKE,PRICE2_50_DETAIL ด้วยเงื่อนไข ReqId, HubId ที่ตรงกันกับฐานข้อมูล
+                UPDATE_PRICE2_70_DETAIL_AND_PARTAKE_NEW(ReqId, HubId, TEMPAID)
+                isValid = True
+            End If
         Catch
             isValid = False
         End Try
-
         Return isValid
     End Function
 
@@ -174,19 +183,20 @@ ByVal Persent3 As String, _
 ByVal Deteriorate As String, _
 ByVal Percent_Finish As String, _
 ByVal Finish_Price As String, _
-ByVal LandPrice As String, _
 ByVal CreateUser As String) As Boolean
         ' simulate a longer operation ... 
         System.Threading.Thread.Sleep(2000)
 
         Dim isValid As Boolean = False
+        Dim ID As Integer
         Try
-            Dim Cnt_Verify_Address As List(Of Price2_70_New) = GET_PRICE2_70_NEW_VERIFY_UPDATE(ReqId, HubId, Build_No)
+            Dim Cnt_Verify_Address As Integer = GET_PRICE2_70_NEW_COUNT(ReqId, HubId, Build_No)
             If SubCollType <= 45 Or SubCollType = 50 Then
+                ID = GET_ID_18_50_70("70")
+
                 'สิ่งปลูกสร้าง
-                If Cnt_Verify_Address.Count = 0 Then
-                    Dim ID As Integer = GET_ID_18_50_70("70")
-                    UPDATE_ID_70()
+                If Cnt_Verify_Address = 0 Then
+                    UPDATE_ID_70()  'Update ID CollType 70
                     ADD_PRICE2_70_NEW(ID, ReqId, HubId, 0, _
                         SubCollType, Build_No, String.Empty, String.Empty, _
                         ProvinceCode, 0, String.Empty, 0, 0, 0, String.Empty, 0, _
@@ -195,7 +205,7 @@ ByVal CreateUser As String) As Boolean
                         CDec(Value_Price), Age, CDec(Persent1), CDec(Persent2), CDec(Persent3), _
                         CDec(Deteriorate), CInt(Percent_Finish), CDec(Finish_Price), 0, 0, 0, _
                         0, 0, 0, 0, 0, 0, 0, _
-                        String.Empty, 0, 0, CreateUser, Now())
+                        String.Empty, 0, 0, 1, 1, CreateUser, Now())
                 Else
                     'Update ข้อมูลเฉพาะสิ่งปลูกสร้างถ้าหากมีการเพิ่มส่วนต่อเติมก่อน
                     UPDATE_PRICE2_70_NEW_BUILDING(ReqId, HubId, 0, _
@@ -205,11 +215,12 @@ ByVal CreateUser As String) As Boolean
                         0, 0, String.Empty, String.Empty, Chanode, String.Empty, Area, CDec(Unit_Price), _
                         CDec(Value_Price), Age, CDec(Persent1), CDec(Persent2), CDec(Persent3), _
                         CDec(Deteriorate), CInt(Percent_Finish), CDec(Finish_Price), CreateUser, Now())
+
                 End If
             ElseIf SubCollType = 53 Then
                 'ต่อเติม
-                If Cnt_Verify_Address.Count = 0 Then
-                    Dim ID As Integer = GET_ID_18_50_70("70")
+                If Cnt_Verify_Address = 0 Then
+                    'Dim ID As Integer = GET_ID_18_50_70("70")
                     UPDATE_ID_70()
                     ADD_PRICE2_70_NEW(ID, ReqId, HubId, 0, _
                         SubCollType, Build_No, String.Empty, String.Empty, _
@@ -219,21 +230,22 @@ ByVal CreateUser As String) As Boolean
                         0, 0, 0, 0, 0, _
                         0, 0, 0, Area, CDec(Unit_Price), CDec(Value_Price), _
                         Age, CDec(Persent1), CDec(Persent2), CDec(Persent3), CDec(Deteriorate), CInt(Percent_Finish), CDec(Finish_Price), _
-                        String.Empty, 0, 0, CreateUser, Now())
+                        String.Empty, 0, 0, 1, 1, CreateUser, Now())
                 Else
                     'Update ข้อมูลเฉพาะส่วนต่อเติม
                     UPDATE_PRICE2_70_NEW_BUILDING_PLUS(ReqId, HubId, Build_No, Area, CDec(Unit_Price), CDec(Value_Price), _
                         Age, CDec(Persent1), CDec(Persent2), CDec(Persent3), CDec(Deteriorate), CInt(Percent_Finish), CDec(Finish_Price), _
-                        CreateUser, Now())
+                        CDec(Finish_Price), CreateUser, Now())
                 End If
             ElseIf SubCollType >= 54 And SubCollType <= 61 Then
                 'ส่วนควบ
                 'ตรวจเช็คว่ามีส่วนควบ ที่มีเลขคำขอ เลข Hub และ เลขที่บ้าน ที่ส่งมาแล้วในตารางแล้วหรือไม่ 
 
-                Dim Price2_70 As List(Of Price2_70_New) = GET_PRICE2_70_NEW_VERIFY_UPDATE(ReqId, HubId, Build_No)
+                Dim Price2_70 As Integer = GET_PRICE2_70_NEW_COUNT(ReqId, HubId, Build_No)
                 Dim ID_Building As Integer
-                If Price2_70.Count > 0 Then 'หาเลข Id ของสิ่งปลูกสร้างที่มีเลขคำขอ เลข Hub และ เลขที่บ้าน ตรงกัน
-                    ID_Building = Price2_70.Item(0).ID
+                If Price2_70 > 0 Then 'หาเลข Id ของสิ่งปลูกสร้างที่มีเลขคำขอ เลข Hub และ เลขที่บ้าน ตรงกัน
+                    Dim p2_70new As List(Of Price2_70_New) = GET_PRICE2_70_NEW_VERIFY_UPDATE(ReqId, HubId, Build_No)
+                    ID_Building = p2_70new.Item(0).ID
                     Dim Obj_P2_70_Partake As List(Of Price2_70_Partake) = GET_PRICE2_70_PARTAKE_CHECK(ReqId, HubId, Build_No, SubCollType)
                     If Obj_P2_70_Partake.Count = 0 Then  'ถ้าไม่มี
                         ADD_PRICE2_70_PARTAKE(ID_Building, ReqId, HubId, 0, "", SubCollType, Build_No, _
@@ -251,8 +263,11 @@ ByVal CreateUser As String) As Boolean
                     End If
                 Else
                     'ID_Building = 0
+                    ADD_PRICE2_70_PARTAKE(ID_Building, ReqId, HubId, 0, "", SubCollType, Build_No, _
+                     Area, CDec(Unit_Price), CDec(Value_Price), Age, _
+                     CDec(Persent1), CDec(Persent2), CDec(Persent3), CDec(Deteriorate), _
+                     CInt(Percent_Finish), CDec(Value_Price) * (CInt(Percent_Finish) / 100), String.Empty, CreateUser, Now())
                 End If
-
 
             End If
 
@@ -321,18 +336,24 @@ Public Shared Function Cancel() As Boolean
         lblCif.Text = Request.QueryString("Cif")
         Approve_Id = TryCast(Me.Form.FindControl("lblUserID"), Label)
         lblApprove_Id.Text = Approve_Id.Text
-
+        HiddenField_ApproveId.Value = Approve_Id.Text
     End Sub
 
+
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+
         If Not Page.IsPostBack Then
+            lblCollType.Text = Request.QueryString("CollType")
+            lblCollType_Name.Text = Request.QueryString("CollType_Name")
             If Request.QueryString("CollType") = 50 Then
+                'lblCollType.Text = Request.QueryString("CollType")
                 txtBuilding.Enabled = False
                 btn_Building.Enabled = False
                 txtCondo.Enabled = False
                 btn_Condo.Enabled = False
                 If (Session("land") Is Nothing) Then
                     dt = New DataTable
+                    dt.Columns.Add(New DataColumn("ID"))
                     dt.Columns.Add(New DataColumn("Req_Id"))
                     dt.Columns.Add(New DataColumn("Hub_Id"))
                     dt.Columns.Add(New DataColumn("Colltype_Id"))
@@ -347,6 +368,7 @@ Public Shared Function Cancel() As Boolean
                     dt.Columns.Add(New DataColumn("SubUnit_Name"))
                     dt.Columns.Add(New DataColumn("Unitprice"))
                     dt.Columns.Add(New DataColumn("Total"))
+
                     Me.Session("land") = dt
                 Else
                     dt = Session("land")
@@ -354,10 +376,12 @@ Public Shared Function Cancel() As Boolean
                 End If
 
             ElseIf Request.QueryString("CollType") = 70 Then
+                'lblCollType.Text = Request.QueryString("CollType")
                 txtCondo.Enabled = False
                 btn_Condo.Enabled = False
                 If (Session("land") Is Nothing) Then
                     dt = New DataTable
+                    dt.Columns.Add(New DataColumn("ID"))
                     dt.Columns.Add(New DataColumn("Req_Id"))
                     dt.Columns.Add(New DataColumn("Hub_Id"))
                     dt.Columns.Add(New DataColumn("Colltype_Id"))
@@ -372,6 +396,7 @@ Public Shared Function Cancel() As Boolean
                     dt.Columns.Add(New DataColumn("SubUnit_Name"))
                     dt.Columns.Add(New DataColumn("Unitprice"))
                     dt.Columns.Add(New DataColumn("Total"))
+
                     Me.Session("land") = dt
 
                 Else
@@ -381,6 +406,7 @@ Public Shared Function Cancel() As Boolean
 
                 If (Session("building") Is Nothing) Then
                     dt_building = New DataTable
+                    dt_building.Columns.Add(New DataColumn("ID"))
                     'dt_building.Columns.Add(New DataColumn("Req_Id"))
                     'dt_building.Columns.Add(New DataColumn("Hub_Id"))
                     dt_building.Columns.Add(New DataColumn("Colltype_Id"))
@@ -399,18 +425,21 @@ Public Shared Function Cancel() As Boolean
                     dt_building.Columns.Add(New DataColumn("Total_Percent"))
                     dt_building.Columns.Add(New DataColumn("Deteriorate"))
                     dt_building.Columns.Add(New DataColumn("Total_Building"))
+                    dt_building.Columns.Add(New DataColumn("MarketPrice"))
                     Me.Session("building") = dt_building
                 Else
                     dt_building = Session("building")
                     dt_building.Clear()
                 End If
             ElseIf Request.QueryString("CollType") = 18 Then
+                'lblCollType.Text = Request.QueryString("CollType")
                 txtLand.Enabled = False
                 btn_Land.Enabled = False
                 txtBuilding.Enabled = False
                 btn_Building.Enabled = False
                 If (Session("Condo") Is Nothing) Then
                     dt_condo = New DataTable
+                    dt_condo.Columns.Add(New DataColumn("ID"))
                     dt_condo.Columns.Add(New DataColumn("Register_No"))
                     dt_condo.Columns.Add(New DataColumn("Building_Number"))
                     dt_condo.Columns.Add(New DataColumn("AddressNo"))
@@ -432,51 +461,70 @@ Public Shared Function Cancel() As Boolean
             dt_condo = Session("Condo")
         End If
 
-
-        'dt.Clear()
-        'dt_building.Clear()
-        'dt_condo.Clear()
-
-
     End Sub
 
     Protected Sub btn_ADD_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btn_ADD.Click
 
-        Dim dr As DataRow = dt.NewRow()
-        dr("Req_Id") = lblReq_Id.Text
-        dr("Hub_Id") = lblHub_Id.Text
-        dr("Colltype_Id") = DDLSubCollTypeLand.SelectedValue
-        dr("Colltype_Name") = DDLSubCollTypeLand.SelectedItem
-        dr("ProvinceCode") = ddlProvince.SelectedValue
-        dr("ProvinceName") = ddlProvince.SelectedItem
-        dr("Chanode") = txtChanode.Text
-        dr("Rai") = txtRai.Text
-        dr("Ngan") = txtNgan.Text
-        dr("Wah") = txtWah.Text
-        dr("SubUnit") = ddlSubUnit.SelectedValue
-        dr("SubUnit_Name") = ddlSubUnit.SelectedItem
-        dr("Unitprice") = txtPriceWah.Text
-        dr("Total") = txtTotal0.Text
-        dt.Rows.Add(dr)
-        Dim Object_JSON_Class As JSON_Class = New JSON_Class()
-        JSON_DataTable_Land.Value = Object_JSON_Class.JSON_DataTable(dt)
-        GridView_Land.DataSource = dt
-        GridView_Land.DataBind()
+        'Save Data to Database
+        If Check_Appraisal_Type() = True Then
+            Dim ID As Integer
+            'ส่งค่าไปขอ Id จาก ตาราง ID_50
+            ID = GET_ID_18_50_70(50)
+            UPDATE_ID_50()
+            Dim LandPriceAdjust As Double
+            If rdbAppraisal_Type.SelectedValue = 1 Then
+                'รวมราคาตลาด
+                LandPriceAdjust = 0
+            ElseIf rdbAppraisal_Type.SelectedValue = 2 Then
+                'รวมราคาทุน
+                LandPriceAdjust = CDec(txtTotal0.Text)
+            End If
+            AddPRICE2_50(ID, CInt(lblReq_Id.Text), CInt(lblHub_Id.Text), "", "", 0, CInt(DDLSubCollTypeLand.SelectedValue), txtChanode.Text, String.Empty, String.Empty, String.Empty, _
+                         ddlProvince.SelectedValue, CInt(txtRai.Text), CInt(txtNgan.Text), CDec(txtWah.Text), String.Empty, 0, 0, 0, 0, 0, 0, 0, String.Empty, 0, String.Empty, 0, _
+                         String.Empty, 0, 0, ddlSubUnit.SelectedValue, CDec(txtPriceWah.Text), LandPriceAdjust, lblApprove_Id.Text, Now())
 
-        Dim cph As ContentPlaceHolder = TryCast(Me.Form.FindControl("ContentPlaceHolder1"), ContentPlaceHolder)
-        Dim dg As GridView = DirectCast(cph.FindControl("GridView_Land"), GridView) 'FindControl("GridView_Land")
-        lblLandRow.Text = dg.Rows.Count
-        Dim gvr_master As GridViewRow
-        Dim LandTotal As Double
-        For Each gvr_master In dg.Rows
-            Dim Item As Label = gvr_master.FindControl("lblItem")
-            Dim LandPrice As Label = gvr_master.FindControl("lblTotal")
-            LandTotal = LandTotal + CDec(LandPrice.Text)
-        Next
-        txtLandTotal.Text = String.Format("{0:N2}", LandTotal)
-        txtLand.Text = String.Format("{0:N2}", txtLandTotal.Text)
-        GrandTotal()
-        btn_Land_ModalPopupExtender.Show()
+            Dim dr As DataRow = dt.NewRow()
+            dr("ID") = ID
+            dr("Req_Id") = lblReq_Id.Text
+            dr("Hub_Id") = lblHub_Id.Text
+            dr("Colltype_Id") = DDLSubCollTypeLand.SelectedValue
+            dr("Colltype_Name") = DDLSubCollTypeLand.SelectedItem
+            dr("ProvinceCode") = ddlProvince.SelectedValue
+            dr("ProvinceName") = ddlProvince.SelectedItem
+            dr("Chanode") = txtChanode.Text
+            dr("Rai") = txtRai.Text
+            dr("Ngan") = txtNgan.Text
+            dr("Wah") = txtWah.Text
+            dr("SubUnit") = ddlSubUnit.SelectedValue
+            dr("SubUnit_Name") = ddlSubUnit.SelectedItem.ToString
+            dr("Unitprice") = txtPriceWah.Text
+            dr("Total") = txtTotal0.Text
+            dt.Rows.Add(dr)
+
+            Dim Object_JSON_Class As JSON_Class = New JSON_Class()
+            JSON_DataTable_Land.Value = Object_JSON_Class.JSON_DataTable(dt)
+            GridView_Land.DataSource = dt
+            GridView_Land.DataBind()
+
+            Dim cph As ContentPlaceHolder = TryCast(Me.Form.FindControl("ContentPlaceHolder1"), ContentPlaceHolder)
+            Dim dg As GridView = DirectCast(cph.FindControl("GridView_Land"), GridView) 'FindControl("GridView_Land")
+            lblLandRow.Text = dg.Rows.Count
+            Dim gvr_master As GridViewRow
+            Dim LandTotal As Double
+            For Each gvr_master In dg.Rows
+                Dim Item As Label = gvr_master.FindControl("lblItem")
+                Dim LandPrice As Label = gvr_master.FindControl("lblTotal")
+                LandTotal = LandTotal + CDec(LandPrice.Text)
+            Next
+            txtLandTotal.Text = String.Format("{0:N2}", LandTotal)
+            txtLand.Text = String.Format("{0:N2}", txtLandTotal.Text)
+            GrandTotal()
+            btn_Land_ModalPopupExtender.Show()
+        Else
+            lit_Status.Text = "คุณไม่ได้เลือกวิธีการให้ราคา"
+        End If
+
+
     End Sub
 
     Protected Sub btnMove_Click(ByVal sender As Object, ByVal e As System.EventArgs)
@@ -487,10 +535,12 @@ Public Shared Function Cancel() As Boolean
 
         For Each gvr_master In dg.Rows
             Dim chk1 As CheckBox = gvr_master.FindControl("cb2")
-            Dim Item As Label = gvr_master.FindControl("lblItem")
+            Dim lblChanode As Label = gvr_master.FindControl("lblChanode")
+            Dim lblID As Label = gvr_master.FindControl("lblID")
             Dim btn As Button = gvr_master.FindControl("btnMove")
             If chk1.Checked = True Then
                 Try
+                    DELETE_PRICE2_50(lblID.Text, lblReq_Id.Text, lblHub_Id.Text)
                     dt.Rows.RemoveAt(gvr_master.DataItemIndex)
                     dt.AcceptChanges()
                     Dim Object_JSON_Class As JSON_Class = New JSON_Class()
@@ -518,50 +568,221 @@ Public Shared Function Cancel() As Boolean
 
 
     Protected Sub btn_Add_Building_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btn_Add_Building.Click
+        'Dim dr As DataRow = dt_building.NewRow()
+        'Dim ID As Integer
+        ''ระบบออก ID ให้สิ่งปลูกสร้าง
+        'ID = GET_ID_18_50_70("70")
+        'UPDATE_ID_70()  'Update ID CollType 70
+        'If Check_Appraisal_Type() = True Then
+        '    dr("ID") = ID
+        '    dr("Colltype_Id") = DDLSubCollType.SelectedValue
+        '    dr("Colltype_Name") = DDLSubCollType.SelectedItem
+        '    dr("Chanode") = txtChanodeNo.Text
+        '    dr("Build_No") = txtBuild_No.Text
+        '    dr("Area") = txtBuildingArea.Text
+        '    dr("Unit_Price") = String.Format("{0:N2}", txtBuildingUnitPrice.Text)
+        '    dr("Value_Price") = String.Format("{0:N2}", txtBuildingPrice.Text)
+        '    dr("Percent_Finish") = txtFinishPercent.Text
+        '    dr("Finish_Price") = String.Format("{0:N2}", txtPriceNotFinish.Text)
+        '    dr("Age") = txtBuildingAge.Text
+        '    dr("Percent1") = txtBuildingPersent1.Text
+        '    dr("Percent2") = txtBuildingPersent2.Text
+        '    dr("Percent3") = txtBuildingPersent3.Text
+        '    dr("Total_Percent") = String.Format("{0:N2}", txtBuildingTotalDeteriorate.Text)
+        '    dr("Deteriorate") = String.Format("{0:N2}", txtBuildingPriceTotalDeteriorate.Text)
+        '    dr("Total_Building") = String.Format("{0:N2}", (CDec(txtPriceNotFinish.Text) - CDec(txtBuildingPriceTotalDeteriorate.Text)))
+        '    dr("MarketPrice") = String.Format("{0:N2}", CDec(txtMarketPrice.Text))
+        '    dt_building.Rows.Add(dr)
+        '    btn_Building_ModalPopupExtender.Show()
+
+        '    Dim Object_JSON_Class As JSON_Class = New JSON_Class()
+        '    JSON_DataTable_Building.Value = Object_JSON_Class.JSON_DataTable(dt_building)
+
+        '    GridView_Building.DataSource = dt_building
+        '    GridView_Building.DataBind()
+
+        '    Dim cph As ContentPlaceHolder = TryCast(Me.Form.FindControl("ContentPlaceHolder1"), ContentPlaceHolder)
+        '    Dim dg As GridView = DirectCast(cph.FindControl("GridView_Building"), GridView)
+        '    lblBuildingRow.Text = dg.Rows.Count
+        '    Dim gvr_master As GridViewRow
+        '    Dim BuildingTotalPrice As Double
+        '    For Each gvr_master In dg.Rows
+        '        Dim BuildingPrice As Label
+        '        If rdbAppraisal_Type.SelectedValue = 1 Then
+        '            'รวมราคาตลาด
+        '            BuildingPrice = gvr_master.FindControl("lblMarketPrice")
+        '            BuildingTotalPrice = String.Format("{0:N2}", (BuildingTotalPrice + CDec(BuildingPrice.Text)))
+        '        ElseIf rdbAppraisal_Type.SelectedValue = 2 Then
+        '            'รวมราคาทุน
+        '            BuildingPrice = gvr_master.FindControl("lblTotal_Building")
+        '            BuildingTotalPrice = String.Format("{0:N2}", (BuildingTotalPrice + CDec(BuildingPrice.Text)))
+        '        End If
+        '    Next
+
+        '    txtBuilding.Text = String.Format("{0:N2}", CDec(txtBuildingTotal_Price1.Text))
+        '    GrandTotal()
+        '    btn_Building_ModalPopupExtender.Show()
+        'Else
+        '    'lit_Status.Text = "คุณไม่ได้เลือกวิธีการให้ราคา"
+        '    btn_Building_ModalPopupExtender.Show()
+        '    lblMessageNotice_Building.Text = "คุณยังไม่ได้เลือกวิธีการให้ราคาหลักประกัน"
+        'End If
+
+
+        '***********************************************************************************************************************
 
         Dim dr As DataRow = dt_building.NewRow()
-        dr("Colltype_Id") = DDLSubCollType.SelectedValue
-        dr("Colltype_Name") = DDLSubCollType.SelectedItem
-        dr("Chanode") = txtChanodeNo.Text
-        dr("Build_No") = txtBuild_No.Text
-        dr("Area") = txtBuildingArea.Text
-        dr("Unit_Price") = String.Format("{0:N2}", txtBuildingUnitPrice.Text)
-        dr("Value_Price") = String.Format("{0:N2}", txtBuildingPrice.Text)
-        dr("Percent_Finish") = txtFinishPercent.Text
-        dr("Finish_Price") = String.Format("{0:N2}", txtPriceNotFinish.Text)
-        dr("Age") = txtBuildingAge.Text
-        dr("Percent1") = txtBuildingPersent1.Text
-        dr("Percent2") = txtBuildingPersent2.Text
-        dr("Percent3") = txtBuildingPersent3.Text
-        dr("Total_Percent") = String.Format("{0:N2}", txtBuildingTotalDeteriorate.Text)
-        dr("Deteriorate") = String.Format("{0:N2}", txtBuildingPriceTotalDeteriorate.Text)
-        dr("Total_Building") = String.Format("{0:N2}", (CDec(txtPriceNotFinish.Text) - CDec(txtBuildingPriceTotalDeteriorate.Text)))
-        dt_building.Rows.Add(dr)
+        If Check_Appraisal_Type() = True Then
+            'เช็คว่ามี เลขคำขอประเมิน(Req_Id),รหัสศูนย์ประเมิน(Hub_Id),และ เลขที่สิ่งปลูกสร้าง(Building_No) มีอยู่ตาราง Price2_70_New หรือไม่
+            Dim ID As Integer
+            Dim Price2_70 As Integer = GET_PRICE2_70_NEW_COUNT(lblReq_Id.Text, lblHub_Id.Text, txtBuild_No.Text)
+            If Price2_70 = 0 Then
+                'ระบบออก ID ให้สิ่งปลูกสร้าง
+                ID = GET_ID_18_50_70("70")
+                UPDATE_ID_70()  'Update ID CollType 70
 
-        Dim Object_JSON_Class As JSON_Class = New JSON_Class()
-        JSON_DataTable_Building.Value = Object_JSON_Class.JSON_DataTable(dt_building)
+                'ถ้าไม่มีอยู่ตาราง Price2_70_New
+                If DDLSubCollType.SelectedValue <= 45 Or DDLSubCollType.SelectedValue = 50 Then
+                    'เป็นสิ่งปลูกสร้าง
+                    If rdbAppraisal_Type.SelectedValue = 1 Then
 
-        GridView_Building.DataSource = dt_building
-        GridView_Building.DataBind()
+                    Else
+                        txtMarketPrice.Text = "0"
+                    End If
 
-        Dim cph As ContentPlaceHolder = TryCast(Me.Form.FindControl("ContentPlaceHolder1"), ContentPlaceHolder)
-        Dim dg As GridView = DirectCast(cph.FindControl("GridView_Building"), GridView)
-        lblBuildingRow.Text = dg.Rows.Count
-        Dim gvr_master As GridViewRow
-        Dim BuildingTotalPrice As Double
-        For Each gvr_master In dg.Rows
+                    ADD_PRICE2_70_NEW(ID, lblReq_Id.Text, lblHub_Id.Text, 0, _
+                        DDLSubCollType.SelectedValue, txtBuild_No.Text, String.Empty, String.Empty, _
+                        ddlProvince.SelectedValue, 0, String.Empty, 0, 0, 0, String.Empty, 0, _
+                        String.Empty, String.Empty, CDec(txtMarketPrice.Text), _
+                        0, 0, String.Empty, String.Empty, txtChanodeNo.Text, String.Empty, txtBuildingArea.Text, CDec(txtBuildingUnitPrice.Text), _
+                        CDec(txtBuildingPrice.Text), txtBuildingAge.Text, CDec(txtBuildingPersent1.Text), CDec(txtBuildingPersent2.Text), CDec(txtBuildingPersent3.Text), _
+                        CDec(txtBuildingPriceTotalDeteriorate.Text), CInt(txtFinishPercent.Text), CDec(txtPriceNotFinish.Text), 0, 0, 0, _
+                        0, 0, 0, 0, 0, 0, 0, _
+                        String.Empty, 0, 0, 1, 1, HiddenField_ApproveId.Value, Now())
 
-            Dim BuildingPrice As Label = gvr_master.FindControl("lblTotal_Building")
-            BuildingTotalPrice = String.Format("{0:N2}", (BuildingTotalPrice + CDec(BuildingPrice.Text)))
 
-        Next
-        'txtBuildingTotal_Price.Text = String.Format("{0:N2}", CDec(BuildingTotalPrice))
-        'txtBuildingTotal_Price1.Text = String.Format("{0:N2}", Round((BuildingTotalPrice / 1000), System.MidpointRounding.AwayFromZero) * 1000)
-        'txtBuilding.Text = String.Format("{0:N2}", txtBuildingTotal_Price1.Text)
-        txtBuilding.Text = String.Format("{0:N2}", CDec(txtBuildingTotal_Price1.Text))
-        GrandTotal()
-        btn_Building_ModalPopupExtender.Show()
+                    dr("ID") = ID
+                    dr("Colltype_Id") = DDLSubCollType.SelectedValue
+                    dr("Colltype_Name") = DDLSubCollType.SelectedItem
+                    dr("Chanode") = txtChanodeNo.Text
+                    dr("Build_No") = txtBuild_No.Text
+                    dr("Area") = txtBuildingArea.Text
+                    dr("Unit_Price") = String.Format("{0:N2}", txtBuildingUnitPrice.Text)
+                    dr("Value_Price") = String.Format("{0:N2}", txtBuildingPrice.Text)
+                    dr("Percent_Finish") = txtFinishPercent.Text
+                    dr("Finish_Price") = String.Format("{0:N2}", txtPriceNotFinish.Text)
+                    dr("Age") = txtBuildingAge.Text
+                    dr("Percent1") = txtBuildingPersent1.Text
+                    dr("Percent2") = txtBuildingPersent2.Text
+                    dr("Percent3") = txtBuildingPersent3.Text
+                    dr("Total_Percent") = String.Format("{0:N2}", txtBuildingTotalDeteriorate.Text)
+                    dr("Deteriorate") = String.Format("{0:N2}", txtBuildingPriceTotalDeteriorate.Text)
+                    dr("Total_Building") = String.Format("{0:N2}", (CDec(txtPriceNotFinish.Text) - CDec(txtBuildingPriceTotalDeteriorate.Text)))
+                    dr("MarketPrice") = String.Format("{0:N2}", CDec(txtMarketPrice.Text))
+                    dt_building.Rows.Add(dr)
+                    btn_Building_ModalPopupExtender.Show()
+                ElseIf DDLSubCollType.SelectedValue = 53 Then
+                    'เป็นส่วนต่อเติมสิ่งปลูกสร้าง
+                    lblMessageNotice_Building.Text = "คุณไม่สามารถเพิ่มส่วนต่อเติมได้เพราะยังไม่มีสิ่งปลูกสร้างหลัก"
 
+                ElseIf DDLSubCollType.SelectedValue >= 54 Then 'And DDLSubCollType.SelectedValue <= 61 Then
+                    'เป็นส่วนควบ
+                    's = "<Script language=""javascript"">alert('คุณไม่สามารถเพิ่มควบได้เพราะยังไม่มีสิ่งปลูกสร้างหลัก');</Script>"
+                    'Page.ClientScript.RegisterStartupScript(Me.GetType, "Noticeส่วนต่อเติม", s)
+                    lblMessageNotice_Building.Text = "คุณไม่สามารถเพิ่มควบได้เพราะยังไม่มีสิ่งปลูกสร้างหลัก"
+                End If
+            Else
+                'ถ้ามีอยู่ตาราง(Price2_70_New)
+
+                Dim ID_Building As Integer
+                Dim p2_70new As List(Of Price2_70_New) = GET_PRICE2_70_NEW_VERIFY_UPDATE(lblReq_Id.Text, lblHub_Id.Text, txtBuild_No.Text)
+                ID_Building = p2_70new.Item(0).ID
+
+                If DDLSubCollType.SelectedValue <= 45 Or DDLSubCollType.SelectedValue = 50 Then
+                    'เป็นสิ่งปลูกสร้าง
+
+                    'ระบบออก ID ให้สิ่งปลูกสร้าง
+                    ID = GET_ID_18_50_70("70")
+                    UPDATE_ID_70()  'Update ID CollType 70
+
+                    ADD_PRICE2_70_NEW(ID, lblReq_Id.Text, lblHub_Id.Text, 0, _
+                    DDLSubCollType.SelectedValue, txtBuild_No.Text, String.Empty, String.Empty, _
+                    ddlProvince.SelectedValue, 0, String.Empty, 0, 0, 0, String.Empty, 0, _
+                    String.Empty, String.Empty, CDec(txtMarketPrice.Text), _
+                    0, 0, String.Empty, String.Empty, txtChanodeNo.Text, String.Empty, txtBuildingArea.Text, CDec(txtBuildingUnitPrice.Text), _
+                    CDec(txtBuildingPrice.Text), txtBuildingAge.Text, CDec(txtBuildingPersent1.Text), CDec(txtBuildingPersent2.Text), CDec(txtBuildingPersent3.Text), _
+                    CDec(txtBuildingPriceTotalDeteriorate.Text), CInt(txtFinishPercent.Text), CDec(txtPriceNotFinish.Text), 0, 0, 0, _
+                    0, 0, 0, 0, 0, 0, 0, _
+                    String.Empty, 0, 0, 1, 1, HiddenField_ApproveId.Value, Now())
+
+                ElseIf DDLSubCollType.SelectedValue = 53 Then
+                    'เป็นส่วนต่อเติมสิ่งปลูกสร้าง
+                    UPDATE_PRICE2_70_NEW_BUILDING_PLUS(lblReq_Id.Text, lblHub_Id.Text, txtBuild_No.Text, txtBuildingArea.Text, CDec(txtBuildingUnitPrice.Text), _
+                        CDec(txtBuildingPrice.Text), txtBuildingAge.Text, CDec(txtBuildingPersent1.Text), CDec(txtBuildingPersent2.Text), CDec(txtBuildingPersent3.Text), _
+                        CDec(txtBuildingPriceTotalDeteriorate.Text), CInt(txtFinishPercent.Text), CDec(txtPriceNotFinish.Text), CDec(txtBuildingTotal_Price1.Text), HiddenField_ApproveId.Value, Now())
+                ElseIf DDLSubCollType.SelectedValue >= 54 Then 'And DDLSubCollType.SelectedValue <= 61 Then
+                    'เป็นส่วนควบ
+                    Dim Partake_Id As Integer
+                    Partake_Id = DDLSubCollType.SelectedValue - 53
+                    ADD_PRICE2_70_PARTAKE(ID_Building, lblReq_Id.Text, lblHub_Id.Text, 0, "", Partake_Id, txtBuild_No.Text, _
+                     txtBuildingArea.Text, CDec(txtBuildingUnitPrice.Text), CDec(txtBuildingPrice.Text), txtBuildingAge.Text, _
+                     CDec(txtBuildingPersent1.Text), CDec(txtBuildingPersent2.Text), CDec(txtBuildingPersent3.Text), CDec(txtBuildingPriceTotalDeteriorate.Text), _
+                     CInt(txtFinishPercent.Text), CDec(txtPriceNotFinish.Text) * (CInt(txtFinishPercent.Text) / 100), String.Empty, HiddenField_ApproveId.Value, Now())
+                End If
+                dr("ID") = ID_Building
+                dr("Colltype_Id") = DDLSubCollType.SelectedValue
+                dr("Colltype_Name") = DDLSubCollType.SelectedItem
+                dr("Chanode") = txtChanodeNo.Text
+                dr("Build_No") = txtBuild_No.Text
+                dr("Area") = txtBuildingArea.Text
+                dr("Unit_Price") = String.Format("{0:N2}", txtBuildingUnitPrice.Text)
+                dr("Value_Price") = String.Format("{0:N2}", txtBuildingPrice.Text)
+                dr("Percent_Finish") = txtFinishPercent.Text
+                dr("Finish_Price") = String.Format("{0:N2}", txtPriceNotFinish.Text)
+                dr("Age") = txtBuildingAge.Text
+                dr("Percent1") = txtBuildingPersent1.Text
+                dr("Percent2") = txtBuildingPersent2.Text
+                dr("Percent3") = txtBuildingPersent3.Text
+                dr("Total_Percent") = String.Format("{0:N2}", txtBuildingTotalDeteriorate.Text)
+                dr("Deteriorate") = String.Format("{0:N2}", txtBuildingPriceTotalDeteriorate.Text)
+                dr("Total_Building") = String.Format("{0:N2}", (CDec(txtPriceNotFinish.Text) - CDec(txtBuildingPriceTotalDeteriorate.Text)))
+                dr("MarketPrice") = String.Format("{0:N2}", txtMarketPrice.Text)
+                dt_building.Rows.Add(dr)
+            End If
+
+            Dim Object_JSON_Class As JSON_Class = New JSON_Class()
+            JSON_DataTable_Building.Value = Object_JSON_Class.JSON_DataTable(dt_building)
+
+            GridView_Building.DataSource = dt_building
+            GridView_Building.DataBind()
+
+            Dim cph As ContentPlaceHolder = TryCast(Me.Form.FindControl("ContentPlaceHolder1"), ContentPlaceHolder)
+            Dim dg As GridView = DirectCast(cph.FindControl("GridView_Building"), GridView)
+            lblBuildingRow.Text = dg.Rows.Count
+            Dim gvr_master As GridViewRow
+            Dim BuildingTotalPrice As Double
+            For Each gvr_master In dg.Rows
+                Dim BuildingPrice As Label
+                If rdbAppraisal_Type.SelectedValue = 1 Then
+                    'รวมราคาตลาด
+                    BuildingPrice = gvr_master.FindControl("lblMarketPrice")
+                    BuildingTotalPrice = String.Format("{0:N2}", (BuildingTotalPrice + CDec(BuildingPrice.Text)))
+                ElseIf rdbAppraisal_Type.SelectedValue = 2 Then
+                    'รวมราคาทุน
+                    BuildingPrice = gvr_master.FindControl("lblTotal_Building")
+                    BuildingTotalPrice = String.Format("{0:N2}", (BuildingTotalPrice + CDec(BuildingPrice.Text)))
+                End If
+            Next
+
+            txtBuilding.Text = String.Format("{0:N2}", CDec(txtBuildingTotal_Price1.Text))
+            GrandTotal()
+            btn_Building_ModalPopupExtender.Show()
+        Else
+            'lit_Status.Text = "คุณไม่ได้เลือกวิธีการให้ราคา"
+            btn_Building_ModalPopupExtender.Show()
+            lblMessageNotice_Building.Text = "คุณยังไม่ได้เลือกวิธีการให้ราคาหลักประกัน"
+        End If
+        '***********************************************************************************************************************
     End Sub
 
     Protected Sub btnMove_Building_Click(ByVal sender As Object, ByVal e As System.EventArgs)
@@ -572,10 +793,20 @@ Public Shared Function Cancel() As Boolean
 
         For Each gvr_master In dg.Rows
             Dim chk1 As CheckBox = gvr_master.FindControl("cb_building")
-            'Dim Item As Label = gvr_master.FindControl("lblItem")
+            Dim lblID As Label = gvr_master.FindControl("lblID_building")
+            Dim hdfColltypeId As HiddenField = gvr_master.FindControl("hdfColltype_Id")
             Dim btn As Button = gvr_master.FindControl("btnMove_Building")
             If chk1.Checked = True Then
                 Try
+                    If hdfColltypeId.Value <= 45 Or hdfColltypeId.Value = 50 Then
+                        DELETE_PRICE2_70(lblID.Text, lblReq_Id.Text, lblHub_Id.Text)
+                        DELETE_PRICE2_70_PARTAKE(lblID.Text, lblReq_Id.Text, lblHub_Id.Text, hdfColltypeId.Value - 53)
+                    ElseIf hdfColltypeId.Value = 53 Then
+                        DELETE_PRICE2_18(lblID.Text, lblReq_Id.Text, lblHub_Id.Text)
+                    ElseIf hdfColltypeId.Value >= 54 And hdfColltypeId.Value <= 61 Then
+                        DELETE_PRICE2_70_PARTAKE(lblID.Text, lblReq_Id.Text, lblHub_Id.Text, hdfColltypeId.Value - 53)
+                    End If
+
                     dt_building.Rows.RemoveAt(gvr_master.DataItemIndex)
                 Catch ex As Exception
                     s = "<Script language=""javascript"">alert('ที่สิ่งปลูกสร้างออกได้ที่ละ 1 สิ่งปลูกสร้าง');</Script>"
@@ -660,15 +891,6 @@ Public Shared Function Cancel() As Boolean
             sumSubloan = 0
             newRow.ForeColor = Drawing.Color.Blue
             oGridView.Controls(0).Controls.Add(newRow)
-            'MsgBox(sumGrandloan)
-            ' สร้าง Grand Total
-            'Dim gRow = New GridViewRow(0, 0, DataControlRowType.DataRow, DataControlRowState.Normal)
-            'gRow.Cells.Add(CreateNewCell("&nbsp"))
-            'gRow.Cells.Add(CreateNewCell(" Grand Total "))
-            'gRow.Cells.Add(CreateNewCell(sumGrandloan))
-            'gRow.ForeColor = Drawing.Color.Red
-            ''oGridView.Controls(0).Controls.Add(oGridViewRow)
-            'oGridView.Controls(0).Controls.Add(gRow)
         Else
             txtBuildingTotal_Price1.Text = "0.00"
         End If
@@ -706,8 +928,17 @@ Public Shared Function Cancel() As Boolean
                     sumRow += 1
                 End If
             End If
-            sumSubloan += String.Format("{0:N2}", DirectCast(e.Row.DataItem, DataRowView)(15)) 'e.Row.Cells(2).Text                    
-            txtBuildingTotal_Price1.Text = String.Format("{0:N2}", CDec(txtBuildingTotal_Price1.Text) + sumGrandloan)
+
+            If rdbAppraisal_Type.SelectedValue = 1 Then
+                'รวมราคาตลาด
+                sumSubloan += String.Format("{0:N2}", DirectCast(e.Row.DataItem, DataRowView)(17)) 'e.Row.Cells(2).Text                    
+                txtBuildingTotal_Price1.Text = String.Format("{0:N2}", CDec(txtBuildingTotal_Price1.Text) + sumGrandloan)
+            ElseIf rdbAppraisal_Type.SelectedValue = 2 Then
+                'รวมราคาทุน
+                sumSubloan += String.Format("{0:N2}", DirectCast(e.Row.DataItem, DataRowView)(16)) 'e.Row.Cells(2).Text                    
+                txtBuildingTotal_Price1.Text = String.Format("{0:N2}", CDec(txtBuildingTotal_Price1.Text) + sumGrandloan)
+            End If
+
             GrandTotal()
         End If
     End Sub
@@ -716,9 +947,21 @@ Public Shared Function Cancel() As Boolean
         'MsgBox(e.RowIndex)
         Dim gvTemp As GridView = DirectCast(sender, GridView)
         Dim item As Integer = gvTemp.Rows.Count - 1
-        'MsgBox(item)
+        Dim hdfColltypeId As HiddenField = DirectCast(gvTemp.Rows.Item(e.RowIndex).FindControl("hdfColltype_Id"), HiddenField)
+        Dim lblID As Label = DirectCast(gvTemp.Rows.Item(e.RowIndex).FindControl("lblID_building"), Label)
+
         If e.RowIndex = item Then
             'MsgBox("Equeal")
+
+            If hdfColltypeId.Value <= 45 Or hdfColltypeId.Value = 50 Then
+                DELETE_PRICE2_70(lblID.Text, lblReq_Id.Text, lblHub_Id.Text)
+                DELETE_PRICE2_70_PARTAKE(lblID.Text, lblReq_Id.Text, lblHub_Id.Text, hdfColltypeId.Value - 53)
+            ElseIf hdfColltypeId.Value = 53 Then
+                DELETE_PRICE2_18(lblID.Text, lblReq_Id.Text, lblHub_Id.Text)
+            ElseIf hdfColltypeId.Value >= 54 And hdfColltypeId.Value <= 61 Then
+                DELETE_PRICE2_70_PARTAKE(lblID.Text, lblReq_Id.Text, lblHub_Id.Text, hdfColltypeId.Value - 53)
+            End If
+
             dt_building.Rows.RemoveAt(e.RowIndex)
             btn_Building_ModalPopupExtender.Show()
             GridView_Building.DataSource = dt_building
@@ -728,6 +971,15 @@ Public Shared Function Cancel() As Boolean
             JSON_DataTable_Building.Value = Object_JSON_Class.JSON_DataTable(dt_building)
             lblBuildingRow.Text = gvTemp.Rows.Count
         Else
+            If hdfColltypeId.Value <= 45 Or hdfColltypeId.Value = 50 Then
+                DELETE_PRICE2_70(lblID.Text, lblReq_Id.Text, lblHub_Id.Text)
+                DELETE_PRICE2_70_PARTAKE(lblID.Text, lblReq_Id.Text, lblHub_Id.Text, hdfColltypeId.Value - 53)
+            ElseIf hdfColltypeId.Value = 53 Then
+                DELETE_PRICE2_18(lblID.Text, lblReq_Id.Text, lblHub_Id.Text)
+            ElseIf hdfColltypeId.Value >= 54 And hdfColltypeId.Value <= 61 Then
+                DELETE_PRICE2_70_PARTAKE(lblID.Text, lblReq_Id.Text, lblHub_Id.Text, hdfColltypeId.Value - 53)
+            End If
+
             dt_building.Rows.RemoveAt(e.RowIndex)
             btn_Building_ModalPopupExtender.Show()
             GridView_Building.DataSource = dt_building
@@ -757,6 +1009,13 @@ Public Shared Function Cancel() As Boolean
     'End Sub
 
     Protected Sub btn_Add_Condo_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btn_Add_Condo.Click
+        Dim ID As Integer = GET_ID_18_50_70("18")
+        UPDATE_ID_18()
+        ADD_PRICE2_18(ID, lblReq_Id.Text, lblHub_Id.Text, String.Empty, String.Empty, 0, 46, 0, 0, _
+           txtAddressNo.Text, txtArea.Text, 0, txtBuildingName.Text, 0, txtBuild_Number.Text, txtRegister_No.Text, _
+          String.Empty, String.Empty, ddlProvinceCondo.SelectedValue, String.Empty, 0, 0, _
+          0, 0, 0, String.Empty, 0, String.Empty, 0, String.Empty, 0, 0, _
+          0, 0, 0, 0, 0, 0, 0, 0, txtUnitPrice.Text, txtCondoPrice.Text, lblApprove_Id.Text, Now())
 
         Dim dr As DataRow = dt_condo.NewRow()
         dr("Register_No") = txtRegister_No.Text
@@ -819,7 +1078,7 @@ Public Shared Function Cancel() As Boolean
                     sumRow += 1
                 End If
             End If
-            condoSubTotal += String.Format("{0:N2}", DirectCast(e.Row.DataItem, DataRowView)(8))
+            condoSubTotal += String.Format("{0:N2}", DirectCast(e.Row.DataItem, DataRowView)(9))
             txtCondoTotal_Price.Text = String.Format("{0:N2}", CDec(txtCondoTotal_Price.Text) + condoSubTotal)
             GrandTotal()
         End If
@@ -830,8 +1089,11 @@ Public Shared Function Cancel() As Boolean
         Dim gvTemp As GridView = DirectCast(sender, GridView)
         Dim item As Integer = gvTemp.Rows.Count - 1
         'MsgBox(item)
+        Dim lblID As Label = DirectCast(gvTemp.Rows.Item(e.RowIndex).FindControl("lblID_Condo"), Label)
+
         If e.RowIndex = item Then
             'MsgBox("Equeal")
+            DELETE_PRICE2_18(lblID.Text, lblReq_Id.Text, lblHub_Id.Text)
             dt_condo.Rows.RemoveAt(e.RowIndex)
             dt_condo.AcceptChanges()
             Dim Object_JSON_Class As JSON_Class = New JSON_Class()
@@ -840,6 +1102,7 @@ Public Shared Function Cancel() As Boolean
             GridView_Condo.DataBind()
             btn_Condo_ModalPopupExtender.Show()
         Else
+            DELETE_PRICE2_18(lblID.Text, lblReq_Id.Text, lblHub_Id.Text)
             dt_condo.Rows.RemoveAt(e.RowIndex)
             GridView_Condo.DataSource = dt_condo
             dt_condo.AcceptChanges()
@@ -852,5 +1115,40 @@ Public Shared Function Cancel() As Boolean
         txtCondo.Text = String.Format("{0:N2}", txtCondoTotal_Price.Text)
         GrandTotal()
     End Sub
+
+    Protected Sub Page_Unload(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Unload
+        'เช็คข้อมูลจากตาราง Price2_Master_New ว่ามีการบันทึกข้อมูลแล้วหรือยัง
+        'เพราะถ้าหากมีข้อมูลใน ตาราง Price2_50 หรือ Price2_70_New หรือ Price2_18 มีข้อมูลแต่ไม่มีส่วนหัว(Price2_Master_New)จะทำให้ข้อมูลที่มีอยู่เป็นข้อมูลขยะ
+    End Sub
+
+    Protected Function Check_Appraisal_Type() As Boolean
+
+        Dim cph As ContentPlaceHolder = TryCast(Me.Form.FindControl("ContentPlaceHolder1"), ContentPlaceHolder)
+        Dim chk_string As String = ""
+        Dim rdo1 As RadioButtonList = DirectCast(cph.FindControl("rdbAppraisal_Type"), RadioButtonList)
+        'MsgBox(rdo1.Items.ToString)
+        For Each li As ListItem In rdo1.Items
+            If li.Selected = True Then
+                chk_string = li.Text
+            Else
+                chk_string = chk_string & ""
+            End If
+        Next
+
+        If chk_string = "" Then
+            lit_Status.Text = "คุณไม่ได้เลือกวิธีการให้ราคา"
+            Return False
+        ElseIf chk_string = "วิธีตลาด" Then
+            lit_Status.Text = ""
+            txtLand.Text = "0.00"
+            txtChanodeNo.Text = txtChanode.Text
+            Return True
+        Else
+            'ต้องตรวจสอบว่ามีการให้รายละเอียดสิ่งปลูกสร้างหรือยัง
+            lit_Status.Text = ""
+            txtChanodeNo.Text = String.Empty
+            Return True
+        End If
+    End Function
 
 End Class

@@ -250,7 +250,7 @@
     </asp:SqlDataSource>
     <br />
     <div style="text-align: center">
-        <table bgcolor="#00FFCC">
+        <table bgcolor="#00FFCC" style="display:none">
             <tr align="left">
                 <td>รหัสกลุ่มประเมิน</td>
                 <td>

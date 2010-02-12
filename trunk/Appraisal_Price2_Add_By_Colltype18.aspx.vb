@@ -20,6 +20,10 @@ Partial Class Appraisal_Price2_Add_By_Colltype18
             Else
                 Dim ObjP2_18 As List(Of PRICE2_18) = GET_PRICE2_18(hdfId.Value, lblReq_Id.Text, lblHub_Id.Text)
                 If ObjP2_18.Count > 0 Then
+                    Dim AR As List(Of Appraisal_Request_v2) = GET_APPRAISAL_REQUEST_V2(lblReq_Id.Text)
+                    Dim tumbonN As List(Of Cls_Tumbon) = GET_TUMBON_INFO(AR.Item(0).Tumbon, AR.Item(0).Amphur, AR.Item(0).Province)
+                    Dim amphurN As List(Of Cls_Amphur) = GET_AMPHUR_INFO(AR.Item(0).Amphur, AR.Item(0).Province)
+
                     lblId.Text = ObjP2_18.Item(0).ID
                     lblReq_Id.Text = ObjP2_18.Item(0).Req_Id
                     lblHub_Id.Text = ObjP2_18.Item(0).Hub_Id
@@ -35,8 +39,10 @@ Partial Class Appraisal_Price2_Add_By_Colltype18
                     txtFloorsAt.Text = ObjP2_18.Item(0).Floors
                     txtBuild_Number.Text = ObjP2_18.Item(0).Building_No
                     txtRegister_No.Text = ObjP2_18.Item(0).Building_Reg_No
-                    txtTumbon.Text = ObjP2_18.Item(0).Tumbon
-                    txtAmphur.Text = ObjP2_18.Item(0).Amphur
+                    txtTumbon.Text = tumbonN.Item(0).tumbon_new2_name
+                    txtAmphur.Text = amphurN.Item(0).am_name
+                    'txtTumbon.Text = ObjP2_18.Item(0).Tumbon
+                    'txtAmphur.Text = ObjP2_18.Item(0).Amphur
                     ddlProvince.SelectedValue = ObjP2_18.Item(0).Province
                     txtRoad.Text = ObjP2_18.Item(0).Road
                     ddlRoad_Detail.SelectedValue = ObjP2_18.Item(0).Road_Detail
