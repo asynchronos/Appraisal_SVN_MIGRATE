@@ -24,6 +24,10 @@ Partial Class Appraisal_Price3_Conform_New
             txtCif.Text = Context.Items("Cif")
             hdfChkColl.Value = Context.Items("ChkColl")
             ddlUserAppraisal.SelectedValue = Context.Items("Appraisal_Id")
+            Dim ar As List(Of Appraisal_Request_v2) = GET_APPRAISAL_REQUEST_V2(HiddenField1.Value)
+            If ar.Count > 0 Then
+                ddlBranch.SelectedValue = ar.Item(0).Branch_Id
+            End If
 
             Dim P2Master As List(Of Price2_Master) = GET_PRICE2_MASTER(HiddenField1.Value, HiddenField2.Value)
             If P2Master.Count > 0 Then

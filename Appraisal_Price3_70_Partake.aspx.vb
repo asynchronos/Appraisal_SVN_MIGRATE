@@ -139,7 +139,6 @@ Partial Class Appraisal_Price3_70_Partake
         Dim lblPartakeDetail As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblPartakeDetail"), Label)
 
         ddlPartaked.SelectedValue = lblPartake_Id.Text
-        ddlPartaked.Enabled = False
         txtFinishPercent.Text = lblPercentFinish.Text
         txtPartakeArea.Text = lblPartakeArea.Text
         txtPartakeUnitPrice.Text = lblPartakeUintPrice.Text
@@ -149,6 +148,20 @@ Partial Class Appraisal_Price3_70_Partake
         txtPartakePersent3.Text = lblPartakePersent3.Text
         txtPartakePriceTotalDeteriorate.Text = lblPartakePriceTotalDeteriorate.Text
         txtPartake_Detail.Text = lblPartakeDetail.Text
+
+        ddlPartaked.Enabled = False
+        txtFinishPercent.ReadOnly = False
+        txtPartakeArea.ReadOnly = False
+        txtPartakeUnitPrice.ReadOnly = False
+        txtPartakeAge.ReadOnly = False
+        txtPartakePersent1.ReadOnly = False
+        txtPartakePersent2.ReadOnly = False
+        txtPartakePersent3.ReadOnly = False
+
+
+        txtPartakePrice.ReadOnly = True
+        txtPriceNotFinish.ReadOnly = True
+        txtPartakePriceTotalDeteriorate.ReadOnly = True
 
         btnCal_Click(sender, Nothing)
         CalPartakeNotFinish()
@@ -180,6 +193,16 @@ Partial Class Appraisal_Price3_70_Partake
         txtPartakePersent3.Text = lblPartakePersent3.Text
         txtPartakePriceTotalDeteriorate.Text = lblPartakePriceTotalDeteriorate.Text
         txtPartake_Detail.Text = lblPartakeDetail.Text
+
+        ddlPartaked.Enabled = False
+        txtFinishPercent.ReadOnly = True
+        txtPartakeArea.ReadOnly = True
+        txtPartakeUnitPrice.ReadOnly = True
+        txtPartakeAge.ReadOnly = True
+        txtPartakePersent1.ReadOnly = True
+        txtPartakePersent2.ReadOnly = True
+        txtPartakePersent3.ReadOnly = True
+        txtPartakePriceTotalDeteriorate.ReadOnly = True
 
         btnCal_Click(sender, Nothing)
         CalPartakeNotFinish()
@@ -238,6 +261,12 @@ Partial Class Appraisal_Price3_70_Partake
         'Context.Items("Hub_Id") = lblHub_Id.Text
         'Context.Items("Coll_Type") = "70"
         'Server.Transfer("Appraisal_Price3_Add_Colltype70.aspx")
-        Response.Redirect("Appraisal_Price3_List.aspx")
+        Dim ar As List(Of Appraisal_Request) = GET_APPRAISAL_REQUEST(lblReq_Id.Text)
+        If ar.Item(0).Req_Type = 1 Then
+            Response.Redirect("Appraisal_Price3_List.aspx")
+        ElseIf ar.Item(0).Req_Type = 2 Then
+            Response.Redirect("Appraisal_Price3_List_AID.aspx")
+        End If
+
     End Sub
 End Class
