@@ -5552,6 +5552,35 @@ ByVal Cif As Integer)
         End Using
     End Sub
 
+    Public Shared Sub DELETE_PRICE3_70_REVIEW(ByVal Id As String, _
+    ByVal Req_Id As Integer, _
+    ByVal Hub_Id As Integer, _
+    ByVal Temp_AID As Integer)
+
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("DELETE_PRICE3_70_REVIEW", connection)
+                connection.Open()
+                command.Connection = connection
+                Dim myTrans As SqlTransaction
+                myTrans = connection.BeginTransaction()
+                command.Transaction = myTrans
+                Try
+                    command.CommandType = CommandType.StoredProcedure
+                    command.Parameters.Add(New SqlParameter("@Id", Id))
+                    command.Parameters.Add(New SqlParameter("@Req_Id", Req_Id))
+                    command.Parameters.Add(New SqlParameter("@Hub_Id", Hub_Id))
+                    command.Parameters.Add(New SqlParameter("@Temp_AID", Temp_AID))
+                    command.ExecuteNonQuery()
+                    myTrans.Commit()
+                Catch ex As Exception
+                    myTrans.Rollback()
+                Finally
+                    connection.Close()
+                End Try
+            End Using
+        End Using
+    End Sub
+
     Public Shared Sub ADD_PRICE3_70_PARTAKE(ByVal Id As Integer, _
      ByVal Req_Id As Integer, _
      ByVal Hub_Id As Integer, _
@@ -6398,6 +6427,7 @@ ByVal Cif As Integer)
   ByVal Building_Chg As Integer, _
   ByVal Building_Chg_Detail As String, _
   ByVal Appraisal_Last_Detail As String, _
+  ByVal BuildingStartDate As String, _
   ByVal Create_User As String, _
   ByVal Create_Date As Date)
 
@@ -6429,13 +6459,14 @@ ByVal Cif As Integer)
                     command.Parameters.Add(New SqlParameter("@Building_Chg", Building_Chg))
                     command.Parameters.Add(New SqlParameter("@Building_Chg_Detail", Building_Chg_Detail))
                     command.Parameters.Add(New SqlParameter("@Appraisal_Last_Detail", Appraisal_Last_Detail))
+                    command.Parameters.Add(New SqlParameter("@BuildingStartDate", BuildingStartDate))
                     command.Parameters.Add(New SqlParameter("@Create_User", Create_User))
                     command.Parameters.Add(New SqlParameter("@Create_Date", Create_Date))
                     command.ExecuteNonQuery()
                     myTrans.Commit()
                 Catch ex As Exception
                     myTrans.Rollback()
-                    MsgBox(ex.Message)
+                    'MsgBox(ex.Message)
                 Finally
                     connection.Close()
                 End Try
@@ -6462,6 +6493,7 @@ ByVal Cif As Integer)
   ByVal Building_Chg As Integer, _
   ByVal Building_Chg_Detail As String, _
   ByVal Appraisal_Last_Detail As String, _
+  ByVal BuildingStartDate As String, _
   ByVal Create_User As String, _
   ByVal Create_Date As Date)
 
@@ -6493,6 +6525,7 @@ ByVal Cif As Integer)
                     command.Parameters.Add(New SqlParameter("@Building_Chg", Building_Chg))
                     command.Parameters.Add(New SqlParameter("@Building_Chg_Detail", Building_Chg_Detail))
                     command.Parameters.Add(New SqlParameter("@Appraisal_Last_Detail", Appraisal_Last_Detail))
+                    command.Parameters.Add(New SqlParameter("@BuildingStartDate", BuildingStartDate))
                     command.Parameters.Add(New SqlParameter("@Create_User", Create_User))
                     'command.Parameters.Add(New SqlParameter("@Create_Date", Create_Date))
                     command.ExecuteNonQuery()
@@ -6540,6 +6573,7 @@ ByVal Cif As Integer)
                                                 CInt(reader("Building_Chg")), _
                                                 CStr(reader("Building_Chg_Detail")), _
                                                 CStr(reader("Appraisal_Last_Detail")), _
+                                                CStr(reader("BuildingStartDate")), _
                                                 CStr(reader("Create_User")), _
                                                 CDate(reader("Create_Date")))
                         list.Add(temp)
@@ -7463,6 +7497,9 @@ ByVal Cif As Integer)
  ByVal Tumbon As Integer, _
  ByVal Amphur As Integer, _
  ByVal Province As Integer, _
+ ByVal App_Type_Id As Integer, _
+ ByVal CollOfNumber As String, _
+ ByVal Flag As Integer, _
  ByVal Create_User As String, _
  ByVal Create_Date As Date)
 
@@ -7492,6 +7529,9 @@ ByVal Cif As Integer)
                     command.Parameters.Add(New SqlParameter("@Tumbon", Tumbon))
                     command.Parameters.Add(New SqlParameter("@Amphur", Amphur))
                     command.Parameters.Add(New SqlParameter("@Province", Province))
+                    command.Parameters.Add(New SqlParameter("@APP_TYPE_ID", App_Type_Id))
+                    command.Parameters.Add(New SqlParameter("@CollOfNumber", CollOfNumber))
+                    command.Parameters.Add(New SqlParameter("@Flag", Flag))
                     command.Parameters.Add(New SqlParameter("@Create_User", Create_User))
                     command.Parameters.Add(New SqlParameter("@Create_Date", Create_Date))
                     command.ExecuteNonQuery()
@@ -7679,6 +7719,9 @@ ByVal Cif As Integer)
                                                 CInt(reader("Tumbon")), _
                                                 CInt(reader("Amphur")), _
                                                 CInt(reader("Province")), _
+                                                CInt(reader("APP_TYPE_ID")), _
+                                                CStr(reader("CollOfNumber")), _
+                                                CInt(reader("Flag")), _
                                                 CStr(reader("Create_User")), _
                                                 CDate(reader("Create_Date")))
                         list.Add(temp)
@@ -8595,6 +8638,32 @@ ByVal Cif As Integer)
 #End Region
 
 #Region "Other Info"
+
+    Public Shared Function GET_BRANCH_BY_KEY(ByVal BRANCH_ID As Integer) As Generic.List(Of Class_Branch)
+
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("GET_BRANCH_BY_KEY", connection)
+                command.CommandType = CommandType.StoredProcedure
+                command.CommandTimeout = 60
+
+                command.Parameters.Add(New SqlParameter("@ID_BRANCH", BRANCH_ID))
+                connection.Open()
+                Dim list As New Generic.List(Of Class_Branch)()
+                Using reader As SqlDataReader = command.ExecuteReader()
+
+                    Do While (reader.Read())
+                        Dim temp As New Class_Branch(CInt(reader("ID_BRANCH")), _
+                                                CStr(reader("BRANCH_NAME")))
+                        list.Add(temp)
+                    Loop
+                End Using
+                Return list
+            End Using
+            connection.Close()
+        End Using
+
+    End Function
+
     Public Shared Function GET_SITE_INFO(ByVal SITE_ID As Integer) As Generic.List(Of Cls_SITE)
 
         Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
@@ -9119,8 +9188,102 @@ ByVal Cif As Integer)
             connection.Close()
         End Using
     End Function
+
+    Public Shared Function GET_PROBLEM_INFO(ByVal PROBLEM_ID As Integer) As DataSet
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("GET_PROBLEM_INFO", connection)
+                command.CommandType = CommandType.StoredProcedure
+                command.CommandTimeout = 60
+                command.Parameters.Add(New SqlParameter("@PROBLEM_ID", PROBLEM_ID))
+                connection.Open()
+                Dim list As New SqlDataAdapter(command)
+                Dim ds As New DataSet
+                list.Fill(ds)
+                Return ds
+            End Using
+            connection.Close()
+        End Using
+    End Function
+
+    Public Shared Function GET_COMMENT_INFO(ByVal COMMENT_ID As Integer) As DataSet
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("GET_COMMENT_INFO", connection)
+                command.CommandType = CommandType.StoredProcedure
+                command.CommandTimeout = 60
+                command.Parameters.Add(New SqlParameter("@COMMENT_ID", COMMENT_ID))
+                connection.Open()
+                Dim list As New SqlDataAdapter(command)
+                Dim ds As New DataSet
+                list.Fill(ds)
+                Return ds
+            End Using
+            connection.Close()
+        End Using
+    End Function
+
+    Public Shared Function GET_WARNING_INFO(ByVal WARNING_ID As Integer) As DataSet
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("GET_WARNING_INFO", connection)
+                command.CommandType = CommandType.StoredProcedure
+                command.CommandTimeout = 60
+                command.Parameters.Add(New SqlParameter("@WARNING_ID", WARNING_ID))
+                connection.Open()
+                Dim list As New SqlDataAdapter(command)
+                Dim ds As New DataSet
+                list.Fill(ds)
+                Return ds
+            End Using
+            connection.Close()
+        End Using
+    End Function
+
+    Public Shared Function GET_APPRAISAL_TYPE_INFO(ByVal APP_TYPE_ID As Integer) As DataSet
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("GET_APPRAISAL_TYPE_INFO", connection)
+                command.CommandType = CommandType.StoredProcedure
+                command.CommandTimeout = 60
+                command.Parameters.Add(New SqlParameter("@APP_TYPE_ID", APP_TYPE_ID))
+                connection.Open()
+                Dim list As New SqlDataAdapter(command)
+                Dim ds As New DataSet
+                list.Fill(ds)
+                Return ds
+            End Using
+            connection.Close()
+        End Using
+    End Function
+
+    Public Shared Function GET_POSITION_INFO(ByVal POSITION_ID As Integer) As DataSet
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("GET_POSITION_INFO", connection)
+                command.CommandType = CommandType.StoredProcedure
+                command.CommandTimeout = 60
+                command.Parameters.Add(New SqlParameter("@POSITION_ID", POSITION_ID))
+                connection.Open()
+                Dim list As New SqlDataAdapter(command)
+                Dim ds As New DataSet
+                list.Fill(ds)
+                Return ds
+            End Using
+            connection.Close()
+        End Using
+    End Function
+
 #End Region
 
+    'Public Shared Sub CreateMessageAlert(ByRef aspxPage As System.Web.UI.Page, ByVal strMessage As String, ByVal strKey As String)
 
+    '    Dim strScript As String = "<script language=JavaScript>alert('" _
+    '                                        & strMessage & "')</script>"
+
+    '    If (Not aspxPage.ClientScript.IsStartupScriptRegistered(strKey)) Then
+    '        aspxPage.RegisterStartupScript(strKey, strScript)
+    '    End If
+    'End Sub
+
+    Public Shared Sub CreateConfirmBox(ByRef btn As WebControls.ImageButton, _
+                                   ByVal strMessage As String)
+        btn.Attributes.Add("onclick", "return confirm('" & strMessage & "');")
+    End Sub
 
 End Class
