@@ -19,6 +19,9 @@ Public Class Appraisal_Request_v2
     Private _Tumbon As Integer
     Private _Amphur As Integer
     Private _Province As Integer
+    Private _APP_TYPE_ID As Integer
+    Private _CollOfNumber As String
+    Private _Flag As Integer
     Private _Create_User As String
     Private _Create_Date As Date
 
@@ -41,6 +44,9 @@ Public Class Appraisal_Request_v2
      ByVal Tumbon As Integer, _
      ByVal Amphur As Integer, _
      ByVal Province As Integer, _
+     ByVal APP_TYPE_ID As Integer, _
+     ByVal CollOfNumber As String, _
+     ByVal Flag As Integer, _
      ByVal Create_User As String, _
      ByVal Create_Date As Date)
         MyBase.New()
@@ -61,6 +67,9 @@ Public Class Appraisal_Request_v2
         _Tumbon = Tumbon
         _Amphur = Amphur
         _Province = Province
+        _APP_TYPE_ID = APP_TYPE_ID
+        _CollOfNumber = CollOfNumber
+        _Flag = Flag
         _Create_User = Create_User
         _Create_Date = Create_Date
     End Sub
@@ -215,6 +224,33 @@ Public Class Appraisal_Request_v2
         End Get
         Set(ByVal Value As String)
             _Branch_Id = Value
+        End Set
+    End Property
+
+    Public Property APP_TYPE_ID() As Integer
+        Get
+            Return _APP_TYPE_ID
+        End Get
+        Set(ByVal Value As Integer)
+            _APP_TYPE_ID = Value
+        End Set
+    End Property
+
+    Public Property CollOfNumber() As String
+        Get
+            Return _CollOfNumber
+        End Get
+        Set(ByVal Value As String)
+            _CollOfNumber = Value
+        End Set
+    End Property
+
+    Public Property Flag() As Integer
+        Get
+            Return _Flag
+        End Get
+        Set(ByVal Value As Integer)
+            _Flag = Value
         End Set
     End Property
 
