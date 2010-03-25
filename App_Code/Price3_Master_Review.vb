@@ -20,6 +20,7 @@ Public Class Price3_Master_Review
     Private _Building_Chg As Integer
     Private _Building_Chg_Detail As String
     Private _Appraisal_Last_Detail As String
+    Private _BuildingStartDate As String
     Private _Create_User As String
     Private _Create_Date As Date
 
@@ -44,6 +45,7 @@ Public Class Price3_Master_Review
      ByVal Building_Chg As Integer, _
      ByVal Building_Chg_Detail As String, _
      ByVal Appraisal_Last_Detail As String, _
+     ByVal BuildingStartDate As String, _
      ByVal Create_User As String, _
      ByVal Create_Date As Date)
         MyBase.New()
@@ -66,6 +68,7 @@ Public Class Price3_Master_Review
         _Building_Chg = Building_Chg
         _Building_Chg_Detail = Building_Chg_Detail
         _Appraisal_Last_Detail = Appraisal_Last_Detail
+        _BuildingStartDate = BuildingStartDate
         _Create_User = Create_User
         _Create_Date = Create_Date
     End Sub
@@ -238,6 +241,15 @@ Public Class Price3_Master_Review
         End Get
         Set(ByVal Value As String)
             _Appraisal_Last_Detail = Value
+        End Set
+    End Property
+
+    Public Property BuildingStartDate() As String
+        Get
+            Return _BuildingStartDate
+        End Get
+        Set(ByVal Value As String)
+            _BuildingStartDate = Value
         End Set
     End Property
 
