@@ -89,10 +89,37 @@ Partial Class Appraisal_Price3_Add_Colltype70
             txtBuildAddPriceTotalDeteriorate.Text = String.Format("{0:N2}", (CDec(txtPriceNotFinish1.Text) * CDec(txtBuildAddTotalDeteriorate.Text)) / 100)
             txtBuildingDetail.Text = P2_70New.Item(0).BuildingDetail
             ddlInteriorState.SelectedValue = P2_70New.Item(0).Decoration
+            ddlStandard.SelectedValue = P2_70New.Item(0).Standard_Id
             Dim Obj_P2_70D As List(Of Cls_Price2_70_Detail) = GET_PRICE2_70_DETAIL(lblId.Text, lblReq_Id.Text, lblHub_Id.Text, lblTemp_AID.Text, 0)
             If Obj_P2_70D.Count > 0 Then
                 chkDetail.Checked = True
             End If
+
+
+            '**************** ไม่ให้แก้ไขข้อมูลเมื่อได้ ยืนยันราคาที่ 2 แล้ว ************************
+            txtBuildingArea.ReadOnly = True
+            txtBuildingUnitPrice.ReadOnly = True
+            txtBuildingPrice.ReadOnly = True
+            txtBuildingAge.ReadOnly = True
+            txtBuildingPersent1.ReadOnly = True
+            txtBuildingPersent2.ReadOnly = True
+            txtBuildingPersent3.ReadOnly = True
+            txtBuildingTotalDeteriorate.ReadOnly = True
+            txtFinishPercent.ReadOnly = True
+            txtPriceNotFinish.ReadOnly = True
+            txtBuildingPriceTotalDeteriorate.ReadOnly = True
+            txtBuildAddArea.ReadOnly = True
+            txtBuildAddUnitPrice.ReadOnly = True
+            txtBuildAddPrice.ReadOnly = True
+            txtBuildAddAge.ReadOnly = True
+            txtBuildAddPersent1.ReadOnly = True
+            txtBuildAddPersent2.ReadOnly = True
+            txtBuildAddPersent3.ReadOnly = True
+            txtFinishPercent1.ReadOnly = True
+            txtPriceNotFinish1.ReadOnly = True
+            txtBuildAddTotalDeteriorate.ReadOnly = True
+            txtBuildAddPriceTotalDeteriorate.ReadOnly = True
+            '************************************************************************
         End If
 
 
@@ -152,6 +179,32 @@ Partial Class Appraisal_Price3_Add_Colltype70
             txtBuildingDetail.Text = Obj_GetP70.Item(0).BuildingDetail
             ddlInteriorState.SelectedValue = Obj_GetP70.Item(0).Decoration
             ddlStandard.SelectedValue = Obj_GetP70.Item(0).Standard_Id
+
+            '**************** ไม่ให้แก้ไขข้อมูลเมื่อได้ ยืนยันราคาที่ 2 แล้ว ************************
+            txtBuildingArea.ReadOnly = True
+            txtBuildingUnitPrice.ReadOnly = True
+            txtBuildingPrice.ReadOnly = True
+            txtBuildingAge.ReadOnly = True
+            txtBuildingPersent1.ReadOnly = True
+            txtBuildingPersent2.ReadOnly = True
+            txtBuildingPersent3.ReadOnly = True
+            txtBuildingTotalDeteriorate.ReadOnly = True
+            txtFinishPercent.ReadOnly = True
+            txtPriceNotFinish.ReadOnly = True
+            txtBuildingPriceTotalDeteriorate.ReadOnly = True
+            txtBuildAddArea.ReadOnly = True
+            txtBuildAddUnitPrice.ReadOnly = True
+            txtBuildAddPrice.ReadOnly = True
+            txtBuildAddAge.ReadOnly = True
+            txtBuildAddPersent1.ReadOnly = True
+            txtBuildAddPersent2.ReadOnly = True
+            txtBuildAddPersent3.ReadOnly = True
+            txtFinishPercent1.ReadOnly = True
+            txtPriceNotFinish1.ReadOnly = True
+            txtBuildAddTotalDeteriorate.ReadOnly = True
+            txtBuildAddPriceTotalDeteriorate.ReadOnly = True
+            '************************************************************************
+
             Dim Obj_P3_70D As List(Of ClsPrice3_70_Detail) = GET_PRICE3_70_DETAIL(lblId.Text, lblReq_Id.Text, lblHub_Id.Text, lblTemp_AID.Text, 0)
             If Obj_P3_70D.Count > 0 Then
                 chkDetail.Checked = True
