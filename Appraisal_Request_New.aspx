@@ -6,6 +6,10 @@
         {
          background-color: Silver;
         }
+        .expleanColour1
+        {
+         background-color: red;
+        }        
 		.headDetail
         {
          font-weight:bold;
@@ -136,7 +140,7 @@
                                     CIF</td>
                                 <td style="text-align:left;">
                                     <asp:TextBox ID="TxtCif" runat="server" MaxLength="9" Width="90px"></asp:TextBox>
-                                    &nbsp;<asp:ImageButton ID="ImgBtFindCif" runat="server" ImageUrl="~/Images/book_blue_view.png" 
+                                    &nbsp;<asp:ImageButton ID="ImgBtFindCif" runat="server" ImageUrl="~/Images/find1.jpg" 
 							Height="25px" Width="28px" ToolTip="ค้นหารหัสลูกค้า" ValidationGroup="1" />
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator_Cif" 
                                         runat="server" ControlToValidate="TxtCif" Display="Dynamic" 
@@ -186,6 +190,8 @@
                                     CIF</td>
                                 <td style="text-align:left;">
                                     <asp:TextBox ID="TxtCifColl" runat="server" MaxLength="9" Width="90px"></asp:TextBox>
+                                    <asp:ImageButton ID="ImgBtFindCollOwner" runat="server" ImageUrl="~/Images/find1.jpg" 
+							Height="25px" Width="28px" ToolTip="ค้นหารหัสลูกค้า" ValidationGroup="1" />
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator_CifColl" runat="server" 
                                         ControlToValidate="TxtCifColl" Display="Dynamic" 
                                         ErrorMessage="ใส่รหัสเจ้าของหลักประกัน" ValidationGroup="3"></asp:RequiredFieldValidator>
@@ -340,36 +346,42 @@
                                                         <td class="headDetail" colspan="2">
                                                             แนบไฟล์</td>
                                                     </tr>
-                                                    <tr>
-                                                        <td class="expleanColour">
+                                                    <tr class="expleanColour1">
+                                                        <td class="expleanColour1">
                                                             แนบใบคำขอประเมิน</td>
                                                         <td>
                                                             <asp:Button ID="BtnAttach1" runat="server" Text="แนบไฟล์" 
                                         OnClientClick="call_url_attach1(); return false;" />
                                                         </td>
                                                     </tr>
-                                                    <tr>
-                                                        <td class="expleanColour">
+                                                    <tr class="expleanColour1">
+                                                        <td class="expleanColour1">
                                                             แนบแผนที่</td>
                                                         <td>
                                                             <asp:Button ID="BtnAttach2" runat="server" Text="แนบไฟล์" 
                                         OnClientClick="call_url_attach2(); return false;" />
                                                         </td>
                                                     </tr>
-                                                    <tr>
-                                                        <td class="expleanColour">
+                                                    <tr class="expleanColour1"> 
+                                                        <td class="expleanColour1">
                                                             แนบหน้าโฉนด/ใบกรรมสิทธิห้องชุด</td>
                                                         <td>
                                                             <asp:Button ID="BtnAttach3" runat="server" Text="แนบไฟล์" 
                                         OnClientClick="call_url_attach3(); return false;" />
                                                         </td>
                                                     </tr>
-                                                    <tr>
+                                                    <tr class="expleanColour">
                                                         <td class="expleanColour">
                                                             อื่น ๆ</td>
                                                         <td>
                                                             <asp:Button ID="BtnAttach4" runat="server" Text="แนบไฟล์" 
                                         OnClientClick="call_url_attach4(); return false;" />
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2" align="center">
+                                                            <asp:Button ID="btnFinish" runat="server" Height="50px" 
+                                                                Text="ออกเลขคำขอเสร็จสมบูรณ์" />
                                                         </td>
                                                     </tr>
                                                 </table>

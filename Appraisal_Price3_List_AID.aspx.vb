@@ -129,33 +129,43 @@ Partial Class Appraisal_Price3_List_AID
 
     Protected Sub GridView2_RowCommand(ByVal sender As Object, ByVal e As GridViewCommandEventArgs)
         Dim gvTemp As GridView = DirectCast(sender, GridView)
-        Dim gvRow As GridViewRow
+        'Dim gvRow As GridViewRow
         Dim lblcollid As Label = DirectCast(gvTemp.Rows.Item(0).FindControl("lblcoll_id"), Label)
         Dim lblUserid As Label = TryCast(Me.Form.FindControl("lblUserID"), Label)
         If e.CommandName = "ViewPicture" Then
             gvUniqueID = gvTemp.UniqueID
             Response.Redirect("View_Picture_Appraisal.aspx")
         ElseIf e.CommandName = "AddReview" Then
-            'MsgBox("Add Review")
-            For Each gvRow In gvTemp.Rows
-                Dim chk1 As CheckBox = gvRow.FindControl("cb2")
-                If chk1.Checked = True Then
-                    Dim Req_Id As Label = gvRow.FindControl("lblReq_Id")
-                    Dim Id As Label = gvRow.FindControl("lblID")
-                    Dim Temp_AID As Label = gvRow.FindControl("lblTemp_AID")
-                    Dim Hub_Id As Label = gvRow.FindControl("lblHub_Id")
-                    Dim CollType_Id As Label = gvRow.FindControl("lblColltype")
-                    Try
-                        'ADD_PRICE3_MASTER_REVIEW()
+            'If gvTemp.Rows.Item(0).RowType = DataControlRowType.Footer Then
+            '    gvRow = gvTemp.FooterRow
+            '    Dim ddl As DropDownList = gvRow.FindControl("DropDownListCollType")
+            '    MsgBox(ddl.SelectedValue)
+            'End If
+            Dim ddl As DropDownList = gvTemp.FooterRow.FindControl("DropDownListCollType")
+            'MsgBox(ddl.SelectedValue)
+            Dim Req_Id As Label = gvTemp.Rows.Item(0).FindControl("lblReq_Id")
+            Dim Id As Label = gvTemp.Rows.Item(0).FindControl("lblID")
+            Dim AID As Label = gvTemp.Rows.Item(0).Parent.Parent.Parent.Parent.FindControl("lblAID")
+            'Dim AID As Label = gvTemp.Rows.Item(0).FindControl("lblAID")
+            Dim Temp_AID As Label = gvTemp.Rows.Item(0).FindControl("lblTemp_AID")
+            Dim Hub_Id As Label = gvTemp.Rows.Item(0).FindControl("lblHub_Id")
+            '        Dim CollType_Id As Label = gvRow.FindControl("lblColltype")
 
-                        ADD_PRICE3_REVIEW_ALL_TYPE(Id.Text, Req_Id.Text, Hub_Id.Text, Temp_AID.Text, CollType_Id.Text, lblUserid.Text)
-                    Catch ex As Exception
-                        s = "<script language=""javascript"">alert('บันทึกล้มเหลว');</script>"
-                        Page.ClientScript.RegisterStartupScript(Me.GetType, "Notice", s)
-                    End Try
-
-                End If
-            Next
+            Context.Items("ID") = "0" 'Id.Text
+            Context.Items("Req_Id") = Req_Id.Text
+            Context.Items("Hub_Id") = Hub_Id.Text
+            Context.Items("AID") = AID.Text
+            Context.Items("CID") = "0"
+            Context.Items("Temp_AID") = Temp_AID.Text
+            Context.Items("Coll_Type") = "70"
+            Select Case ddl.SelectedValue
+                Case 50
+                    Server.Transfer("Appraisal_Price3_50_Review_Edit.aspx")
+                Case 70
+                    Server.Transfer("Appraisal_Price3_70_Review_Edit.aspx")
+                Case 18
+                    Server.Transfer("Appraisal_Price3_18_Review_Edit.aspx")
+            End Select
         End If
     End Sub
 
@@ -169,6 +179,7 @@ Partial Class Appraisal_Price3_List_AID
         Dim lblCollType_Id As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblColltype"), Label)
         Dim ID As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblID"), Label)
         Dim lblColl_type As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblColltype"), Label)
+
 
         Context.Items("Req_Id") = Req_Id.Text
         Context.Items("Hub_Id") = Hub_Id.Text
@@ -210,6 +221,19 @@ Partial Class Appraisal_Price3_List_AID
         'MsgBox("Select Index Changing")
     End Sub
 
+    'Protected Sub GridView2_RowDeleted(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.GridViewDeletedEventArgs)
+    '    If e.Exception IsNot Nothing Then
+    '        ClientScript.RegisterStartupScript([GetType](), "Message", "<SCRIPT LANGUAGE='javascript'>alert('" & e.Exception.Message.ToString().Replace("'", "") & "');</script>")
+    '        e.ExceptionHandled = True
+    '    Else
+    '        MsgBox("Not Deleted")
+    '    End If
+    'End Sub
+
+    'Protected Sub GridView2_RowDeleting(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.GridViewDeleteEventArgs)
+
+    'End Sub
+
 #End Region
 
     Protected Sub cb1_Checked(ByVal sender As Object, ByVal e As System.EventArgs)
@@ -240,6 +264,7 @@ Partial Class Appraisal_Price3_List_AID
         Dim Appraisal_Id As Label = ImgBtAdd.Parent.FindControl("lblAppraisal_Id")
         Dim hdf_taid As HiddenField = ImgBtAdd.Parent.FindControl("hdf_taid")
         Dim hdfCollType As HiddenField = ImgBtAdd.Parent.FindControl("hdfCollType")
+        Dim HiddenFieldStatus_ID As HiddenField = ImgBtAdd.Parent.FindControl("HiddenFieldStatus_ID")
         'MsgBox(hdf_taid.Value)
         Context.Items("Req_Id") = Req_Id.Text
         Context.Items("Hub_Id") = Hub_Id.Text
@@ -249,20 +274,30 @@ Partial Class Appraisal_Price3_List_AID
         Context.Items("Temp_AID") = hdf_taid.Value
         Context.Items("CollType") = hdfCollType.Value
 
-        If Check_Appraisal_Id(Req_Id.Text) = True Then
-            Server.Transfer("Appraisal_Price3_Form_Review.aspx")
-        Else
-            s = "<script language=""javascript"">alert('ยังไม่ได้กำหนดผู้ประเมินราคา');</script>"
-            Page.ClientScript.RegisterStartupScript(Me.GetType, "ข้อความเตือน", s)
-        End If
-
-        'Dim Appraisal_Req As List(Of Appraisal_Request) = GET_APPRAISAL_REQUEST(Req_Id.Text)
-        'If Appraisal_Req.Item(0).Appraisal_Id = String.Empty Or Appraisal_Req.Item(0).Appraisal_Id = String.Empty Then
-        '    s = "<script language=""javascript"">alert('ยังไม่ได้กำหนดผู้ประเมินราคา');</script>"
-        '    Page.ClientScript.RegisterStartupScript(Me.GetType, "ข้อความเตือน", s)
+        'If HiddenFieldStatus_ID.Value > 3 Then
+        '    If Check_Appraisal_Id(Req_Id.Text) = True Then
+        '        Server.Transfer("Appraisal_Price3_Form_Review.aspx")
+        '    Else
+        '        s = "<script language=""javascript"">alert('ยังไม่ได้กำหนดผู้ประเมินราคา');</script>"
+        '        Page.ClientScript.RegisterStartupScript(Me.GetType, "ข้อความเตือน", s)
+        '    End If
         'Else
-        '    Server.Transfer("Appraisal_Price3_Form_Review.aspx")
+        '    s = "<script language=""javascript"">alert('ไม่มีเจ้าหน้าที่ประเมิน กรุณากำหนดผู้ประเมินก่อน!!!');</script>"
+        '    Page.ClientScript.RegisterStartupScript(Me.GetType, "ข้อความเตือน", s)
         'End If
+
+        If HiddenFieldStatus_ID.Value < 3 Then
+            s = "<script language=""javascript"">alert('ไม่มีเจ้าหน้าที่ประเมิน กรุณากำหนดผู้ประเมินก่อน!!!');</script>"
+            Page.ClientScript.RegisterStartupScript(Me.GetType, "ข้อความเตือน", s)
+        ElseIf HiddenFieldStatus_ID.Value = 3 Then
+            s = "<script language=""javascript"">alert('ยังไม่มีชิ้นทรัพย์ ที่จะทบทวน กรุณาเพิ่มชิ้นทรัพย์ก่อน !!!');</script>"
+            Page.ClientScript.RegisterStartupScript(Me.GetType, "ข้อความเตือน", s)
+            'ElseIf HiddenFieldStatus_ID.Value > 3 And HiddenFieldStatus_ID.Value <= 10 Then
+            '    s = "<script language=""javascript"">alert('อยู่ระหว่างให้รายละเอียดราคาที่ 3 !!!');</script>"
+            '    Page.ClientScript.RegisterStartupScript(Me.GetType, "ข้อความเตือน", s)
+        ElseIf HiddenFieldStatus_ID.Value >= 10 Then
+            Server.Transfer("Appraisal_Price3_Form_Review.aspx")
+        End If
 
     End Sub
 
@@ -272,20 +307,71 @@ Partial Class Appraisal_Price3_List_AID
         Dim Hub_Id As Label = ImgBtAdd.Parent.FindControl("lblHub_Id")
         Dim lblAID As Label = ImgBtAdd.Parent.FindControl("lblAID")
         Dim lblCif As Label = ImgBtAdd.Parent.FindControl("lblCif")
-
+        Dim HiddenFieldStatus_ID As HiddenField = ImgBtAdd.Parent.FindControl("HiddenFieldStatus_ID")
         Context.Items("Req_Id") = Req_Id.Text
         Context.Items("Hub_Id") = Hub_Id.Text
         Context.Items("Cif") = lblCif.Text
         Context.Items("AID") = lblAID.Text
         'Context.Items("Aid") = "50"
+        If HiddenFieldStatus_ID.Value >= 3 Then
+            Server.Transfer("Appraisal_GetData_DWS.aspx")
+        Else
+            s = "<script language=""javascript"">alert('ไม่มีเจ้าหน้าที่ประเมิน กรุณากำหนดผู้ประเมินก่อน!!!');</script>"
+            Page.ClientScript.RegisterStartupScript(Me.GetType, "ข้อความเตือน", s)
+        End If
 
-        Server.Transfer("Appraisal_GetData_DWS.aspx")
-        'Server.Transfer("Appraisal_CheckCollType_Add.aspx")
 
-        'Dim str As String
-        'str = "Appraisal_CheckCollType_Add.aspx?Req_Id=" & Req_Id.Text & "&Hub_Id=" & Hub_Id.Text & "&Aid=" & lblAID.Text & "&Cif=" & lblCif.Text
-        's = "<script language=""javascript"">window.open('" + str + "','window','toolbar=no, menubar=no, scrollbars=yes, resizable=no,location=no, copyhistory=no, directories=no, status=yes,height=250px,width=350px');</script>"
-        'Page.ClientScript.RegisterStartupScript(Me.GetType, "จัดกลุ่ม", s)
+    End Sub
+
+    Protected Sub imgaddplusNew_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs)
+        Dim ImgBtAdd As ImageButton = DirectCast(sender, ImageButton)
+        Dim Req_Id As Label = ImgBtAdd.Parent.FindControl("lblReq_Id")
+        Dim Hub_Id As Label = ImgBtAdd.Parent.FindControl("lblHub_Id")
+        Dim lblAID As Label = ImgBtAdd.Parent.FindControl("lblAID")
+        Dim lblCif As Label = ImgBtAdd.Parent.FindControl("lblCif")
+        Dim HiddenFieldStatus_ID As HiddenField = ImgBtAdd.Parent.FindControl("HiddenFieldStatus_ID")
+        Context.Items("Req_Id") = Req_Id.Text
+        Context.Items("Hub_Id") = Hub_Id.Text
+        Context.Items("Cif") = lblCif.Text
+        Context.Items("AID") = lblAID.Text
+        'Context.Items("Aid") = "50"
+        If HiddenFieldStatus_ID.Value >= 3 Then
+            Server.Transfer("Appraisal_Price3_50_Review_Edit.aspx")
+        Else
+            s = "<script language=""javascript"">alert('ไม่มีเจ้าหน้าที่ประเมิน กรุณากำหนดผู้ประเมินก่อน!!!');</script>"
+            Page.ClientScript.RegisterStartupScript(Me.GetType, "ข้อความเตือน", s)
+        End If
+
+
+    End Sub
+
+    Protected Sub ImageDelete_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs)
+        Dim ImgBtDelete As ImageButton = DirectCast(sender, ImageButton)
+        'ImgBtDelete.Attributes.Add("onClick", "aa")
+        Dim Req_Id As Label = ImgBtDelete.Parent.FindControl("lblReq_Id")
+        Dim Hub_Id As Label = ImgBtDelete.Parent.FindControl("lblHub_Id")
+        Dim ID As Label = ImgBtDelete.Parent.FindControl("lblID")
+        Dim TempAID As Label = ImgBtDelete.Parent.FindControl("lblTemp_AID")
+        Dim CollType As Label = ImgBtDelete.Parent.FindControl("lblColltype")
+        'MsgBox(Req_Id.Text)
+        'MsgBox(Hub_Id.Text)
+        'MsgBox(ID.Text)
+        'MsgBox(CollType.Text)
+
+        'CreateMessageAlert(Me, "Do you want to Delete data? ", "strKey1")
+        'CreateConfirmBox(sender, "Do you want to Delete data? ")
+        Select Case CollType.Text
+            Case "18"
+                DELETE_PRICE3_18(ID.Text, Req_Id.Text, Hub_Id.Text, TempAID.Text)
+            Case "50"
+                DELETE_PRICE3_50(ID.Text, Req_Id.Text, Hub_Id.Text, TempAID.Text)
+            Case "70"
+                'ใช้สำหรับการลบหลักประกันที่เป็นสิ่งปลูกสร้าง รวมทั้งส่วนควบ และรายละเอียดของสิ่งปลูกสร้าง
+                DELETE_PRICE3_70_REVIEW(ID.Text, Req_Id.Text, Hub_Id.Text, TempAID.Text)
+        End Select
+        GridView1.DataBind()
+        s = "<script language=""javascript"">alert('ลบข้อมูลเสร็จสมบูรณ์!!!');</script>"
+        Page.ClientScript.RegisterStartupScript(Me.GetType, "ข้อความเตือนการลบ", s)
     End Sub
 
     Private Function Check_Appraisal_Id(ByVal ReqId As Integer) As Boolean
@@ -297,4 +383,7 @@ Partial Class Appraisal_Price3_List_AID
 
         End If
     End Function
+
+
+
 End Class

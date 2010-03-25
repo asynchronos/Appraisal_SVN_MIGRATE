@@ -125,13 +125,13 @@
             //alert("1");
             var full_url = create_url(url, regId, hubId);
 
-            wopen_checked(full_url, name, w, h, ctl);
+            wopen_checked(full_url, name, w, h);
         }
 
-        function wopen_checked(url, name, w, h, ctl) {
-            var myCheck = document.getElementById(ctl);
+        function wopen_checked(url, name, w, h) {
+            //var myCheck = document.getElementById(ctl);
             //alert(myCheck.id);
-            myCheck.checked = true
+            //myCheck.checked = true
             // Fudge factors for window decoration space.
             // In my tests these work well on all platforms & browsers.
             w += 32;

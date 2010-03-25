@@ -13,7 +13,7 @@ Partial Class Appraisal_Price3_Form_Review
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         Dim cus_class As Customer_Class
         Dim SV As New SME_SERVICE.Service
-        Dim lbluserid As Label = Nothing '= TryCast(Me.Form.FindControl("lblUserID"), Label)
+        Dim lbluserid As Label = TryCast(Me.Form.FindControl("lblUserID"), Label)
         If Not Page.IsPostBack Then
             'ตรวจสอบว่าเคยมีข้อมูลอยู่แล้วในระบบหรือไม่ตรวจสอบจาก AID ถ้าตรวจพบแสดงว่ามีการประเมินอยู่ ถ้าไม่พบแสดงว่ายังไม่มีข้อมูลอยู่
             'ถ้าพบแจ้งให้ทราบว่าเคยประเมินแล้ว ต้องการนำข้อมูลเดิมมาเลยหรือไม่
@@ -30,7 +30,7 @@ Partial Class Appraisal_Price3_Form_Review
             hdfHub_Id.Value = Context.Items("Hub_Id")
             hdfReq_Id.Value = Context.Items("Req_Id")
             ddlUserAppraisal.SelectedValue = Context.Items("Appraisal_Id")
-            'lbluserid.Text = Context.Items("Appraisal_Id")
+            'ddlUserAppraisal.SelectedValue = Context.Items("Appraisal_Id")
             hdfTemp_AID.Value = Context.Items("Temp_AID")
             hdfCollType.Value = Context.Items("CollType")
             Show_Price3_50_Find_Chanode(hdfReq_Id.Value, hdfHub_Id.Value, hdfTemp_AID.Value)
@@ -45,12 +45,18 @@ Partial Class Appraisal_Price3_Form_Review
                 l.Text = SV.MSb("ค้นหาข้อมูลลูกค้าไม่พบ ")
                 Page.Controls.Add(l)
             End If
+            Dim ar As List(Of Appraisal_Request_v2) = GET_APPRAISAL_REQUEST_V2(hdfReq_Id.Value)
 
+            If ar.Count > 0 Then
+                ddlBranch.SelectedValue = ar.Item(0).Branch_Id
+            End If
             'หาหมายเลขโฉนด
             'Dim ObjP3_Review As List(Of Price3_50_Review) = GET_PRICE3_50_REVIEW(hdfReq_Id.Value, hdfHub_Id.Value, 0)
             Dim ObjP3_Review As List(Of Price3_50) = GET_PRICE3_CONFORM(hdfReq_Id.Value, hdfHub_Id.Value, hdfTemp_AID.Value)
             If ObjP3_Review.Count > 0 Then
                 hdfTemp_AID.Value = ObjP3_Review.Item(0).Temp_AID
+                lblSize.Text = ObjP3_Review.Item(0).Rai & "-" & ObjP3_Review.Item(0).Ngan & "-" & ObjP3_Review.Item(0).Wah
+                lblLandArea.Text = ObjP3_Review.Item(0).Rai & "-" & ObjP3_Review.Item(0).Ngan & "-" & ObjP3_Review.Item(0).Wah
                 For i = 0 To ObjP3_Review.Count - 1
                     If i <= 1 Then
                         Dim ObjSubColl As List(Of Cls_SubCollType) = GET_SUBCOLLTYPE(ObjP3_Review.Item(i).MysubColl_ID)
@@ -75,13 +81,13 @@ Partial Class Appraisal_Price3_Form_Review
 
 
 
-            'Dim s1 As String = Nothing
-            's1 += "window.open('CollDetail_Edit_Position_Price3.aspx"
-            's1 += "?Req_Id=" & hdfReq_Id.Value
-            's1 += "&Hub_Id=" & hdfHub_Id.Value
-            's1 += "&UserId=" & lbluserid.Text
-            's1 += "&Temp_AID=" & hdfTemp_AID.Value
-            'ImageEditPosition.Attributes.Add("onclick", s1 & "','showMap', 'width=820, height=780');")
+            Dim s1 As String = Nothing
+            s1 += "window.open('CollDetail_Edit_Position_Price3.aspx"
+            s1 += "?Req_Id=" & hdfReq_Id.Value
+            s1 += "&Hub_Id=" & hdfHub_Id.Value
+            s1 += "&UserId=" & lbluserid.Text
+            s1 += "&Temp_AID=" & hdfTemp_AID.Value
+            ImageEditPosition.Attributes.Add("onclick", s1 & "','showMap', 'width=820, height=780');")
         End If
 
 
@@ -234,7 +240,7 @@ Partial Class Appraisal_Price3_Form_Review
             'MsgBox(RadioButtonList1.SelectedValue)
             UPDATE_PRICE3_MASTER_REVIEW(hdfReq_Id.Value, txtAID.Text, hdfTemp_AID.Value, lblCif.Text, txtDistrict.Text, txtAmphur.Text, txtBuilding_Age.Text, Memodate, txtSequence.Text, RadioButtonList1.SelectedValue, txtLandDetail.Text, _
                                      RadioButtonList2.SelectedValue, txtObligation.Text, RadioButtonList3.SelectedValue, txtLandAddress.Text, RadioButtonList4.SelectedValue, _
-                                     RadioButtonList5.SelectedValue, txtBuilding.Text, txtLast_Appraisal_Detail.Text, lbluserid.Text, Now())
+                                     RadioButtonList5.SelectedValue, txtBuilding.Text, txtLast_Appraisal_Detail.Text, txtBuildingStartDate.Text, lbluserid.Text, Now())
 
             If lbluserid.Text = ddlUserAppraisal.SelectedValue Then 'ตรวจสอบก่อนว่าผู้แก้ไขเป็นผู้ประเมินหรือไม่ ถ้าใช่ถึงจะแก้ไขอนุกรรมการได้
                 For i = 1 To 3
@@ -293,7 +299,7 @@ Partial Class Appraisal_Price3_Form_Review
                  Now())
             ADD_PRICE3_MASTER_REVIEW(hdfReq_Id.Value, txtAID.Text, hdfTemp_AID.Value, lblCif.Text, txtDistrict.Text, txtAmphur.Text, txtBuilding_Age.Text, Memodate, txtSequence.Text, RadioButtonList1.SelectedValue, txtLandDetail.Text, _
                                      RadioButtonList2.SelectedValue, txtObligation.Text, RadioButtonList3.SelectedValue, txtLandAddress.Text, RadioButtonList4.SelectedValue, _
-                                     RadioButtonList5.SelectedValue, txtBuilding.Text, txtLast_Appraisal_Detail.Text, lbluserid.Text, Now())
+                                     RadioButtonList5.SelectedValue, txtBuilding.Text, txtLast_Appraisal_Detail.Text, txtBuildingStartDate.Text, lbluserid.Text, Now())
 
             If CDec(txtGrandTotal.Text) >= 10000000 Then  'ตรวจสอบว่าราคาประเมินเกิน 20 ล้านหรือไม่
                 'อนุมัติคนที่ 1
@@ -336,8 +342,11 @@ Partial Class Appraisal_Price3_Form_Review
             ddlWarning.SelectedValue = Obj_P3M.Item(0).Warning_ID
             txtWarning_Detail.Text = Obj_P3M.Item(0).Warning_Detail
             ddlApprove1.SelectedValue = Obj_P3M.Item(0).Approved1
+            ddlPos_Approve1.SelectedValue = Obj_P3M.Item(0).Position_Approved1
             ddlApprove2.SelectedValue = Obj_P3M.Item(0).Approved2
+            ddlPos_Approve2.SelectedValue = Obj_P3M.Item(0).Position_Approved2
             ddlApprove3.SelectedValue = Obj_P3M.Item(0).Approved3
+            ddlPos_Approve3.SelectedValue = Obj_P3M.Item(0).Position_Approved3
             ddlAppraisal_Type.SelectedValue = Obj_P3M.Item(0).Appraisal_Type_ID
             txtLandTotal.Text = String.Format("{0:N2}", Obj_P3M.Item(0).TotalPrice)
             txtBuildingPrice.Text = String.Format("{0:N2}", Obj_P3M.Item(0).BuildingPrice)
@@ -542,11 +551,11 @@ Partial Class Appraisal_Price3_Form_Review
         If DS.Tables(0).Rows.Item(0).Item("CntID") > 0 Then
             hdfTemp_AID.Value = DS.Tables(0).Rows.Item(0).Item("Temp_AID")
             If DS.Tables(0).Rows.Item(0).Item("Rai") = 0 And DS.Tables(0).Rows.Item(0).Item("Ngan") = 0 Then
-                lblLandArea.Text = "0" & "-" & "0" & "-" & DS.Tables(0).Rows.Item(0).Item("TotalWah")
-                lblSize.Text = "0" & "-" & "0" & "-" & DS.Tables(0).Rows.Item(0).Item("TotalWah")
+                'lblLandArea.Text = "0" & "-" & "0" & "-" & DS.Tables(0).Rows.Item(0).Item("TotalWah")
+                'lblSize.Text = "0" & "-" & "0" & "-" & DS.Tables(0).Rows.Item(0).Item("TotalWah")
             Else
-                lblLandArea.Text = DS.Tables(0).Rows.Item(0).Item("Rai") & "-" & DS.Tables(0).Rows.Item(0).Item("Ngan") & "-" & DS.Tables(0).Rows.Item(0).Item("Wah")
-                lblSize.Text = DS.Tables(0).Rows.Item(0).Item("Rai") & "-" & DS.Tables(0).Rows.Item(0).Item("Ngan") & "-" & DS.Tables(0).Rows.Item(0).Item("Wah")
+                'lblLandArea.Text = DS.Tables(0).Rows.Item(0).Item("Rai") & "-" & DS.Tables(0).Rows.Item(0).Item("Ngan") & "-" & DS.Tables(0).Rows.Item(0).Item("Wah")
+                'lblSize.Text = DS.Tables(0).Rows.Item(0).Item("Rai") & "-" & DS.Tables(0).Rows.Item(0).Item("Ngan") & "-" & DS.Tables(0).Rows.Item(0).Item("Wah")
             End If
 
             Dim Obj_SubUnit As List(Of Cls_SubUnit) = GET_SubUnit_Info(DS.Tables(0).Rows.Item(0).Item("SubUnit_Id"))
@@ -569,7 +578,7 @@ Partial Class Appraisal_Price3_Form_Review
             Dim OjbColour As List(Of Cls_Area_Colour) = GET_AREA_COLOUR_INFO(DS.Tables(0).Rows.Item(0).Item("AreaColour_No"))
             lblAreaColour.Text = OjbColour.Item(0).AreaColour_Name
             Dim Obj_BuysaleState As List(Of Cls_Buy_Sale_State) = GET_BUYSALE_STATE_INFO(DS.Tables(0).Rows.Item(0).Item("AreaColour_No"))
-            lblBuySaleState_Name.Text = Obj_BuysaleState.Item(0).BuySale_State_Name
+            'lblBuySaleState_Name.Text = Obj_BuysaleState.Item(0).BuySale_State_Name
         Else
 
         End If
@@ -589,6 +598,7 @@ Partial Class Appraisal_Price3_Form_Review
                 'lblProvinceName.Text = Obj_province.Item(0).PROV_NAME
                 Province(DS.Tables(0).Rows.Item(0).Item("Province"))
                 ddlInteriorState.SelectedValue = DS.Tables(0).Rows.Item(0).Item("Decoration")
+                ddlStandard.SelectedValue = DS.Tables(0).Rows(0).Item("Standard_Id")
             End If
             If Appraisal_Type_ID = 1 Then
                 txtSubTotal.Text = String.Format("{0:N2}", DS.Tables(0).Rows.Item(0).Item("PriceTotal1"))
@@ -629,8 +639,11 @@ Partial Class Appraisal_Price3_Form_Review
             ddlWarning.SelectedValue = Obj_P3M.Item(0).Warning_ID
             txtWarning_Detail.Text = Obj_P3M.Item(0).Warning_Detail
             ddlApprove1.SelectedValue = Obj_P3M.Item(0).Approved1
+            ddlPos_Approve1.SelectedValue = Obj_P3M.Item(0).Position_Approved1
             ddlApprove2.SelectedValue = Obj_P3M.Item(0).Approved2
+            ddlPos_Approve2.SelectedValue = Obj_P3M.Item(0).Position_Approved2
             ddlApprove3.SelectedValue = Obj_P3M.Item(0).Approved3
+            ddlPos_Approve3.SelectedValue = Obj_P3M.Item(0).Position_Approved3
             ddlAppraisal_Type.SelectedValue = Obj_P3M.Item(0).Appraisal_Type_ID
             If Obj_P3M.Item(0).Appraisal_Type_ID = 1 Then
                 txtGrandTotal.Text = String.Format("{0:N2}", CDec(txtSubTotal.Text))
@@ -664,6 +677,7 @@ Partial Class Appraisal_Price3_Form_Review
             Else
                 txtLandDetail.Enabled = True
             End If
+
             txtLandDetail.Text = Obj_P3M_Reveiw.Item(0).Land_Chg_Detail
             RadioButtonList2.SelectedValue = Obj_P3M_Reveiw.Item(0).Obligation_Chg
             If Obj_P3M_Reveiw.Item(0).Obligation_Chg = 0 Then
@@ -688,8 +702,7 @@ Partial Class Appraisal_Price3_Form_Review
             End If
             txtBuilding.Text = Obj_P3M_Reveiw.Item(0).Building_Chg_Detail
             txtLast_Appraisal_Detail.Text = Obj_P3M_Reveiw.Item(0).Appraisal_Last_Detail
-            'txtLandTotal.Text = Format(DS.Tables(0).Rows.Item(0).Item("PriceTotal1"), "#,##0.00")
-            'txtGrandTotal.Text = String.Format("{0:N2}", CDec(txtLandTotal.Text) + CDec(txtBuildingPrice.Text))
+            txtBuildingStartDate.Text = Obj_P3M_Reveiw.Item(0).BuildingStartDate
         Else
             txtSequence.Text = 1
         End If
@@ -737,8 +750,14 @@ Partial Class Appraisal_Price3_Form_Review
             Price_Land = DS_Land.Tables(0).Rows(0).Item("PriceTotal")
             txtLandTotal.Text = String.Format("{0:N2}", Price_Land)
             Dim DS_Building As DataSet = GET_PRICE3_BUILDING_BY_ID(hdfReq_Id.Value)
-            Price_Building = DS_Building.Tables(0).Rows(0).Item("PriceTotal")
-            txtBuildingPrice.Text = String.Format("{0:N2}", Price_Building)
+            If DS_Building.Tables(0).Rows.Count = 0 Then
+                Price_Building = 0
+                txtBuildingPrice.Text = 0
+            Else
+                Price_Building = DS_Building.Tables(0).Rows(0).Item("PriceTotal")
+                txtBuildingPrice.Text = String.Format("{0:N2}", Price_Building)
+            End If
+
 
             If Price_Land = 0 Then
                 Sub_Total = DS_Building.Tables(0).Rows(0).Item("PriceMarket")
@@ -758,20 +777,20 @@ Partial Class Appraisal_Price3_Form_Review
         lbluserid.Text = lbluserid.Text
     End Sub
 
-    Protected Sub ImageEditPosition_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs) Handles ImageEditPosition.Click
-        Dim Obj_P3M As List(Of clsPrice3_Master) = GET_PRICE3_MASTER(hdfReq_Id.Value, hdfTemp_AID.Value)
-        If Obj_P3M.Count = 0 Then
-            s = "<script language=""javascript"">alert('คุณต้องบันทึกข้อมูลก่อนทำการกำหนดพิกัดหลักประกัน');</script>"
-            Page.ClientScript.RegisterStartupScript(Me.GetType, "ข้อความเตือน", s)
-        Else
-            Dim s1 As String = Nothing
-            s1 += "window.open('CollDetail_Edit_Position_Price3.aspx"
-            s1 += "?Req_Id=" & hdfReq_Id.Value
-            s1 += "&Hub_Id=" & hdfHub_Id.Value
-            s1 += "&Temp_AID=" & hdfTemp_AID.Value
-            ImageEditPosition.Attributes.Add("onclick", s1 & "','showMap', 'width=820, height=680');")
-        End If
-    End Sub
+    'Protected Sub ImageEditPosition_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs) Handles ImageEditPosition.Click
+    '    Dim Obj_P3M As List(Of clsPrice3_Master) = GET_PRICE3_MASTER(hdfReq_Id.Value, hdfTemp_AID.Value)
+    '    If Obj_P3M.Count = 0 Then
+    '        s = "<script language=""javascript"">alert('คุณต้องบันทึกข้อมูลก่อนทำการกำหนดพิกัดหลักประกัน');</script>"
+    '        Page.ClientScript.RegisterStartupScript(Me.GetType, "ข้อความเตือน", s)
+    '    Else
+    '        Dim s1 As String = Nothing
+    '        s1 += "window.open('CollDetail_Edit_Position_Price3.aspx"
+    '        s1 += "?Req_Id=" & hdfReq_Id.Value
+    '        s1 += "&Hub_Id=" & hdfHub_Id.Value
+    '        s1 += "&Temp_AID=" & hdfTemp_AID.Value
+    '        ImageEditPosition.Attributes.Add("onclick", s1 & "','showMap', 'width=820, height=680');")
+    '    End If
+    'End Sub
 
     Private Sub Show_Price3_50_Find_Chanode(ByVal Req_id As Integer, ByVal Hub_id As Integer, ByVal Temp_AID As Integer)
         Dim Get_Cnt_70 As DataSet = GET_PRICE3_70_COUNT(Req_id, Hub_id, Temp_AID) 'GET_PRICE3_50_FIND_CHANODE(Req_id, Hub_id, Temp_AID)
@@ -779,6 +798,21 @@ Partial Class Appraisal_Price3_Form_Review
             hdfCollType.Value = "70"
             'MsgBox(hdfCollType.Value)
             lblBuilding_Detail.Text = Get_Cnt_70.Tables(0).Rows.Item(0).Item("Cnt_Building") & " รายการ"
+        End If
+    End Sub
+
+    Protected Sub ImageButtonPrintPreview_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs) Handles ImageButtonPrintPreview.Click
+        Dim Obj_P3M As List(Of clsPrice3_Master) = GET_PRICE3_MASTER(hdfReq_Id.Value, hdfTemp_AID.Value)
+        If Obj_P3M.Count > 0 Then
+            Context.Items("Req_Id") = hdfReq_Id.Value
+            Context.Items("Hub_Id") = hdfHub_Id.Value
+            Context.Items("UserId") = lblUserId.Text
+            Context.Items("Temp_AID") = hdfTemp_AID.Value
+            Context.Items("Cif") = lblCif.Text
+            Server.Transfer("PrintPreviewPrice3Review.aspx")
+        Else
+            s = "<script language=""javascript"">alert('คุณต้องบันทึกข้อมูลก่อนทำการพิมพ์รายละเอียดแบบฟอร์ม');</script>"
+            Page.ClientScript.RegisterStartupScript(Me.GetType, "ข้อความเตือนการพิมพ์", s)
         End If
     End Sub
 End Class

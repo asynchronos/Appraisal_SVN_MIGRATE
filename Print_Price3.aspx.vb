@@ -4,8 +4,7 @@ Partial Class Print_Price3
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not Page.IsPostBack Then
-            'hdfReq_Id.Value = Context.Items("Req_Id")
-            'hdfTemp_AID.Value = Context.Items("Temp_AID")
+
             'Dim Obj_P3M As List(Of clsPrice3_Master) = GET_PRICE3_MASTER(hdfReq_Id.Value, hdfTemp_AID.Value)
             'If Obj_P3M.Count > 0 Then
             lblYear.Text = Year(Now)
@@ -30,6 +29,7 @@ Partial Class Print_Price3
             lblLandDetail8.Text = Context.Items("lblLandDetail8")
             lblLandDetail9.Text = Context.Items("lblLandDetail9")
             lblLandDetail10.Text = Context.Items("lblLandDetail10")
+            lblLandDetail11.Text = Context.Items("lblLandDetail11")
             lblProblem.Text = Context.Items("Problem")
             txtBuy_Sale_Comment.Text = Context.Items("Buy_Sale_Comment")
             lblAppraisal_Type.Text = Context.Items("Appraisal_Type")
@@ -61,5 +61,23 @@ Partial Class Print_Price3
             'End If
         End If
 
+    End Sub
+
+    Protected Sub ImageButtonReturn_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs) Handles ImageButtonReturn.Click
+        Server.Transfer("Appraisal_Price3_List.aspx")
+    End Sub
+
+    Protected Sub ImageButtonLandAttach_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs) Handles ImageButtonLandAttach.Click
+        'Context.Items("Hub_Id") = hdfHub_Id.Value
+        Context.Items("Req_Id") = LabelReqIdValue.Text
+        Context.Items("Cif") = lblCif.Text
+        Context.Items("CifName") = lblCifName.Text
+        Server.Transfer("LandFileAttach.aspx")
+
+    End Sub
+
+    Protected Sub Page_PreRender(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.PreRender
+        LabelReqIdValue.Text = Context.Items("Req_Id")
+        'hdfTemp_AID.Value = Context.Items("Temp_AID")
     End Sub
 End Class

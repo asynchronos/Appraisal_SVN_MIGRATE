@@ -73,10 +73,6 @@ Partial Class Appraisal_Request_New
     End Sub
 
     Private Sub GET_AID_BY_CIFNEW()
-        'Dim oradb As String = "Data Source=(DESCRIPTION=" _
-        '    + "(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.32.52)(PORT=1521)))" _
-        '    + "(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=edw)));" _
-        '    + "User Id=cpr214361;Password=newyear2009;"
         Dim oradb As String = ConfigurationManager.ConnectionStrings.Item("EDW_Connectionstring").ToString
         Dim conn As New OracleConnection(oradb)
         conn.Open()
@@ -137,31 +133,63 @@ Partial Class Appraisal_Request_New
             If TxtSender.Text = "000000" Then
                 'MsgBox("Please find Sender id ")
             Else
-                'MsgBox("Processing")
+
 
                 Dim lbluser_create As Label = TryCast(Me.Form.FindControl("lblUserID"), Label)
+                If ddlAppraisal_Method.SelectedValue = 1 Then
+                    'ประเมินใหม่               
+                    '******* ออกเลขคำขอประเมิน ****************
+                    ds = GET_RequestID()
+                    lblRequestID.Text = ds.Tables(0).Rows.Item(0).Item("Req_ID")
+                    '***************************************
 
-                '******* ออกเลขคำขอประเมิน ****************
-                ds = GET_RequestID()
-                lblRequestID.Text = ds.Tables(0).Rows.Item(0).Item("Req_ID")
-                '***************************************
+                    '***************************************** SAVE DATA ****************************************
+                    AddAppraisal_Request_Master(lblRequestID.Text, TxtCif.Text, ddlTitle.SelectedValue, TxtCifName.Text, TxtCifLastName.Text, ddlAppraisal_Method.SelectedValue, ddlAID.SelectedValue, 0, TxtSender.Text, TxtAppraisalName.Text, lbluser_create.Text, Now())
+                    ADD_APPRAISAL_REQUEST_V2(lblRequestID.Text, ddlHub.SelectedValue, TxtCif.Text, ddlTitle.SelectedValue, _
+                                             TxtCifName.Text, TxtCifLastName.Text, TxtCifColl.Text, ddlTitleColl.SelectedValue, _
+                                             TxtCifNameColl.Text, TxtCifLastNameColl.Text, ddlAppraisal_Method.SelectedValue, _
+                                             0, 0, ddlBranch_Dept.SelectedValue, ddlTumbon.SelectedValue, _
+                                             ddlAmphur.SelectedValue, ddlProvince.SelectedValue, 1, "", 1, lbluser_create.Text, Now())
+                    '*************************************** END OF SAVE DATA ************************************
+                    '                                         TextBoxAmphurCode.Text, TextBoxProvinceCode.Text, ddlAPPLICATION_TYPE.SelectedValue, TextBoxChanode.Text, TextBoxFlag.Text, lbluser_create.Text, Now())
+                    '************* Update เลขคำขอประเมิน **********************
+                    UPDATE_REQUEST_ID()
+                    '******************************************************
+                    strMessage = "<script language=""javascript"">alert('คำขอประเมิน บันทึกเสร็จสมบูรณ์ กรุณาแนบไฟล์ด้านล่างเพื่อประกอบการประเมิน');</script>"
+                    Page.ClientScript.RegisterStartupScript(Me.GetType, "Message", strMessage)
+                    lblMessage.Text = "กรุณาแนบไฟล์ด้านล่างเพื่อประกอบการประเมิน"
+                    UpdatePanel1.Visible = True
+                    bntRequest_ID.Enabled = False
+                Else
+                    'ทบทวนประเมิน
+                    If ddlAID.SelectedValue = String.Empty Then
+                        lblMessage.Text = "ไม่มีเลข AID"
+                    Else
+                        '******* ออกเลขคำขอประเมิน ****************
+                        ds = GET_RequestID()
+                        lblRequestID.Text = ds.Tables(0).Rows.Item(0).Item("Req_ID")
+                        '***************************************
 
-                '***************************************** SAVE DATA ****************************************
-                AddAppraisal_Request_Master(lblRequestID.Text, TxtCif.Text, ddlTitle.SelectedValue, TxtCifName.Text, TxtCifLastName.Text, ddlAppraisal_Method.SelectedValue, ddlAID.SelectedValue, 0, TxtSender.Text, TxtAppraisalName.Text, lbluser_create.Text, Now())
-                ADD_APPRAISAL_REQUEST_V2(lblRequestID.Text, ddlHub.SelectedValue, TxtCif.Text, ddlTitle.SelectedValue, _
-                                         TxtCifName.Text, TxtCifLastName.Text, TxtCifColl.Text, ddlTitleColl.SelectedValue, _
-                                         TxtCifNameColl.Text, TxtCifLastNameColl.Text, ddlAppraisal_Method.SelectedValue, _
-                                         0, String.Empty, ddlBranch_Dept.SelectedValue, ddlTumbon.SelectedValue, _
-                                         ddlAmphur.SelectedValue, ddlProvince.SelectedValue, lbluser_create.Text, Now())
-                '*************************************** END OF SAVE DATA ************************************
+                        '***************************************** SAVE DATA ****************************************
+                        AddAppraisal_Request_Master(lblRequestID.Text, TxtCif.Text, ddlTitle.SelectedValue, TxtCifName.Text, TxtCifLastName.Text, ddlAppraisal_Method.SelectedValue, ddlAID.SelectedValue, 0, TxtSender.Text, TxtAppraisalName.Text, lbluser_create.Text, Now())
+                        ADD_APPRAISAL_REQUEST_V2(lblRequestID.Text, ddlHub.SelectedValue, TxtCif.Text, ddlTitle.SelectedValue, _
+                                                 TxtCifName.Text, TxtCifLastName.Text, TxtCifColl.Text, ddlTitleColl.SelectedValue, _
+                                                 TxtCifNameColl.Text, TxtCifLastNameColl.Text, ddlAppraisal_Method.SelectedValue, _
+                                                 0, 0, ddlBranch_Dept.SelectedValue, ddlTumbon.SelectedValue, _
+                                                 ddlAmphur.SelectedValue, ddlProvince.SelectedValue, 1, "", 1, lbluser_create.Text, Now())
+                        '*************************************** END OF SAVE DATA ************************************
 
-                '************* Update เลขคำขอประเมิน **********************
-                UPDATE_REQUEST_ID()
-                '******************************************************
-                strMessage = "<script language=""javascript"">alert('คำขอประเมิน บันทึกเสร็จสมบูรณ์ กรุณาแนบไฟล์ด้านล่างเพื่อประกอบการประเมิน');</script>"
-                Page.ClientScript.RegisterStartupScript(Me.GetType, "Message", strMessage)
-                lblMessage.Text = "กรุณาแนบไฟล์ด้านล่างเพื่อประกอบการประเมิน"
-                UpdatePanel1.Visible = True
+                        '************* Update เลขคำขอประเมิน **********************
+                        UPDATE_REQUEST_ID()
+                        '******************************************************
+                        strMessage = "<script language=""javascript"">alert('คำขอประเมิน บันทึกเสร็จสมบูรณ์ กรุณาแนบไฟล์ด้านล่างเพื่อประกอบการประเมิน');</script>"
+                        Page.ClientScript.RegisterStartupScript(Me.GetType, "Message", strMessage)
+                        lblMessage.Text = "กรุณาแนบไฟล์ด้านล่างเพื่อประกอบการประเมิน"
+                        UpdatePanel1.Visible = True
+                        bntRequest_ID.Enabled = False
+                    End If
+                End If
+
             End If
         Else
             'MsgBox("Require Some Data")
@@ -189,4 +217,47 @@ Partial Class Appraisal_Request_New
 
     End Function
 
+    Protected Sub btnFinish_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnFinish.Click
+        Response.Redirect("Appraisal_Request_New.aspx")
+    End Sub
+
+    Protected Sub ImgBtFindCollOwner_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs) Handles ImgBtFindCollOwner.Click
+        Dim cus_class As Customer_Class
+        Dim SV As New SME_SERVICE.Service
+        'Dim cif As Integer
+        Try
+            If SV.GetCifInfo(TxtCifColl.Text)(0) Is Nothing Then
+
+            Else
+                cus_class = SV.GetCifInfo(TxtCifColl.Text)(0)
+
+                'ถ้า cif ที่ส่งมาไม่เท่ากับ 0 ให้ใส่ข้อมูลลูกค้าใส่ในคอนโทรลที่กำหนดให้
+                If cus_class.Cif.ToString <> 0 Then
+                    'ใช้คำนำหน้าชื่อที่ได้จาก Customer มาหา ID Title
+                    ddlTitle.SelectedIndex = ddlTitle.Items.IndexOf(ddlTitle.Items.FindByText(cus_class.Cus_Title))
+                    TxtCifNameColl.Text = cus_class.cus_first
+                    TxtCifLastNameColl.Text = cus_class.cus_last
+                    'Get_AID_BY_CIF()
+                    If ddlAppraisal_Method.SelectedValue = 2 Then
+                        GET_AID_BY_CIFNEW()
+                    End If
+                Else
+                    'ถ้า cif ที่ส่งมาเท่ากับ 0 ให้ Clear ค่า  ในคอนโทรล
+                    Dim l As New Label
+                    'MessageBox("Format Exception: " & ex.Message)
+                    l.Text = SV.MSb("ค้นหาข้อมูลลูกค้าไม่พบ ")
+                    Page.Controls.Add(l)
+
+                    TxtCifNameColl.Text = ""
+                    TxtCifLastNameColl.Text = ""
+                End If
+            End If
+        Catch ex As Exception
+            Beep()
+            lblMessage.Text = "ไม่มี รหัสลูกหนี้นี้อยู่บนระบบ"
+            TxtCifName.Text = ""
+            TxtCifLastName.Text = ""
+        End Try
+
+    End Sub
 End Class

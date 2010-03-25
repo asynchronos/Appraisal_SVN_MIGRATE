@@ -112,10 +112,6 @@ Partial Class Appraisal_Price3_70_Review_Pastake
         btnCal_Click(sender, Nothing)
     End Sub
 
-    Protected Sub GridView1_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles GridView1.SelectedIndexChanged
-
-    End Sub
-
     Protected Sub GridView1_SelectedIndexChanging(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.GridViewSelectEventArgs) Handles GridView1.SelectedIndexChanging
         Dim gvTemp As GridView = DirectCast(sender, GridView)
         Dim lblPartake_Id As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblPartake_Id"), Label)
@@ -131,12 +127,19 @@ Partial Class Appraisal_Price3_70_Review_Pastake
 
         ddlPartaked.SelectedValue = lblPartake_Id.Text
         ddlPartaked.Enabled = False
+
         txtPartakeArea.Text = lblPartakeArea.Text
+        txtPartakeArea.Enabled = True
         txtPartakeUnitPrice.Text = lblPartakeUintPrice.Text
+        txtPartakeUnitPrice.Enabled = True
         txtPartakeAge.Text = lblPartakeAge.Text
+        txtPartakeAge.Enabled = True
         txtPartakePersent1.Text = lblPartakePersent1.Text
+        txtPartakePersent1.Enabled = True
         txtPartakePersent2.Text = lblPartakePersent2.Text
+        txtPartakePersent2.Enabled = True
         txtPartakePersent3.Text = lblPartakePersent3.Text
+        txtPartakePersent3.Enabled = True
         txtPartakePriceTotalDeteriorate.Text = lblPartakePriceTotalDeteriorate.Text
         txtPartake_Detail.Text = lblPartakeDetail.Text
         btnCal_Click(sender, Nothing)
@@ -153,4 +156,5 @@ Partial Class Appraisal_Price3_70_Review_Pastake
         txtPartakePersent3.Text = "0"
         btnCal_Click(sender, Nothing)
     End Sub
+
 End Class

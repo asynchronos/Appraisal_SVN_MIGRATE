@@ -163,13 +163,23 @@
                             Text='<%# Bind("Create_Date", "{0:d}") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Edit">
+                    <asp:TemplateField HeaderText="มอบหมาย/ยกเลิก">
                         <ItemStyle HorizontalAlign="Center" Width="25px" />
                         <ItemTemplate>
                             <asp:ImageButton ID="imgEdit" runat="server" ImageUrl="~/Images/pencil.png"
                         Height="22px" Width="22px" ToolTip="มอบหมายงานให้เจ้าหน้าที่ประเมิน" OnClick="btnEditPerson_Click"/>
                         </ItemTemplate>
+                        <ItemStyle Width="110px"/>
                     </asp:TemplateField>
+                    <asp:TemplateField HeaderText="ยืนยันราคา">
+                    <ItemStyle HorizontalAlign="Center" Width="25px" />
+                        <ItemTemplate>
+                            <asp:ImageButton ID="imgPrint2View" runat="server" 
+                                ImageUrl="~/Images/dollar.jpg" Height="22px" Width="22px" 
+                                ToolTip="รายละเอียดการกำหนดราคา" />
+                        </ItemTemplate>
+                        <ItemStyle Width="80px"/>
+                    </asp:TemplateField>                    
                     <asp:TemplateField>
                         <ItemTemplate>
                             <tr>
@@ -250,11 +260,13 @@
                         ForeColor="Red"></asp:Label>                   
 				</div>
 				<div class="clearer">
-				</div>				
-				<div style="white-space: nowrap; text-align: center;">
-					<asp:Button ID="btnSavePerson" runat="server" Text="Save" OnClick="btnSavePerson_Click" CausesValidation="true"/>
-					<asp:Button ID="btnCancelPerson" runat="server" CausesValidation="false" Text="Cancel"/>
-				</div>
+				</div>	
+				<div class="divCol">
+				</div>							
+            <div style="white-space: nowrap; text-align: center;">
+                <asp:Button ID="btnSave" runat="server" Text="Save" Width="50px" />
+                <asp:Button ID="btnClose" runat="server" Text="Close" Width="50px" />
+            </div>
 			</asp:Panel>   
 			<asp:Button ID="btnShowAttachFile" runat="Server" Style="display: none" />
             <cc1:ModalPopupExtender ID="mpeAttachFile" runat="server" TargetControlID="btnShowAttachFile" PopupControlID="pnlAttachFile"

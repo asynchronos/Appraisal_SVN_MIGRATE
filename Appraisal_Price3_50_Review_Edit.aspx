@@ -143,14 +143,12 @@
             <td>
                 AID</td>
             <td class="style31">
-                <asp:Label ID="lblAID" runat="server" 
-                    style="font-weight: 700; color: #FF0000;"></asp:Label>
+                <asp:TextBox ID="TextBoxAID" runat="server"></asp:TextBox>
             </td>
             <td>
                 CID</td>
             <td class="style27">
-                <asp:Label ID="lblCID" runat="server" 
-                    style="font-weight: 700; color: #FF0000;"></asp:Label>
+                <asp:TextBox ID="TextBoxCID" runat="server"></asp:TextBox>
             </td>
             <td class="style29">
                 &nbsp;</td>

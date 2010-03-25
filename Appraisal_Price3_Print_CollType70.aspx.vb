@@ -35,7 +35,11 @@ Partial Class Appraisal_Price3_Print_CollType70
         Dim Obj_GetP70 As List(Of Price2_70_New) = GET_PRICE2_70_NEW(HiddenField1.Value, HiddenField2.Value, HiddenField3.Value)
         If Obj_GetP70.Count > 0 Then
             Dim Obj_AR As List(Of Appraisal_Request) = GET_APPRAISAL_REQUEST(HiddenField2.Value)
+
             If Obj_AR.Count > 0 Then
+
+                'Dim Subcolltype As List(Of Cls_SubCollType) = GET_SUBCOLLTYPE(Obj_GetP70.Item(0).MysubColl_ID)
+                'lblSubCollType.Text = Subcolltype.Item(0).SubCollType_Name
                 lblCif.Text = Obj_AR.Item(0).Cif
                 Dim Obj_Title As List(Of Cls_Title) = GET_TITLE_INFO(Obj_AR.Item(0).Title)
                 If Obj_Title.Count > 0 Then
@@ -47,6 +51,7 @@ Partial Class Appraisal_Price3_Print_CollType70
             End If
             lblAddressNo.Text = Obj_GetP70.Item(0).Build_No
             lbChanodeNo.Text = Obj_GetP70.Item(0).Put_On_Chanode
+
             If Obj_GetP70.Item(0).MysubColl_ID = 6 Then 'Or Obj_GetP70.Item(0).MysubColl_ID = 7 Then
                 CheckBox3.Checked = True
 
@@ -78,6 +83,15 @@ Partial Class Appraisal_Price3_Print_CollType70
             ElseIf CheckBox4.Checked = True Then
                 Dim collTypeName As List(Of Cls_SubCollType) = GET_SUBCOLLTYPE(Obj_GetP70.Item(0).MysubColl_ID)
                 lblOther.Text = collTypeName.Item(0).SubCollType_Name & " " & Obj_GetP70.Item(0).Floors & " " & " ชั้น"
+            End If
+
+
+            Dim Get_Chanode As List(Of PRICE2_50) = GET_PRICE2_50_CHANODE(lbChanodeNo.Text, Obj_GetP70.Item(0).Province)
+            Dim Subcolltype As List(Of Cls_SubCollType) = GET_SUBCOLLTYPE(Get_Chanode.Item(0).MysubColl_ID)
+            If Subcolltype.Count > 0 Then
+                lblSubCollType.Text = Subcolltype.Item(0).SubCollType_Name
+            Else
+                lblSubCollType.Text = "โฉนด"
             End If
 
             CheckBox5.Checked = False
@@ -115,6 +129,8 @@ Partial Class Appraisal_Price3_Print_CollType70
         If Obj_GetP70.Count > 0 Then
             Dim Obj_AR As List(Of Appraisal_Request) = GET_APPRAISAL_REQUEST(HiddenField2.Value)
             If Obj_AR.Count > 0 Then
+                'Dim Subcolltype As List(Of Cls_SubCollType) = GET_SUBCOLLTYPE(Obj_GetP70.Item(0).MysubColl_ID)
+                'lblSubCollType.Text = Subcolltype.Item(0).SubCollType_Name
                 lblCif.Text = Obj_AR.Item(0).Cif
                 Dim Obj_Title As List(Of Cls_Title) = GET_TITLE_INFO(Obj_AR.Item(0).Title)
                 If Obj_Title.Count > 0 Then
@@ -126,6 +142,7 @@ Partial Class Appraisal_Price3_Print_CollType70
             End If
             lblAddressNo.Text = Obj_GetP70.Item(0).Build_No
             lbChanodeNo.Text = Obj_GetP70.Item(0).Put_On_Chanode
+
             If Obj_GetP70.Item(0).MysubColl_ID = 6 Or Obj_GetP70.Item(0).MysubColl_ID = 7 Then
                 CheckBox3.Checked = True
 
@@ -158,6 +175,15 @@ Partial Class Appraisal_Price3_Print_CollType70
                 Dim collTypeName As List(Of Cls_SubCollType) = GET_SUBCOLLTYPE(Obj_GetP70.Item(0).MysubColl_ID)
                 lblOther.Text = collTypeName.Item(0).SubCollType_Name & " " & Obj_GetP70.Item(0).Floors & " " & " ชั้น"
             End If
+
+            Dim Get_Chanode As List(Of PRICE2_50) = GET_PRICE2_50_CHANODE(lbChanodeNo.Text, Obj_GetP70.Item(0).Province)
+            Dim Subcolltype As List(Of Cls_SubCollType) = GET_SUBCOLLTYPE(Get_Chanode.Item(0).MysubColl_ID)
+            If Subcolltype.Count > 0 Then
+                lblSubCollType.Text = Subcolltype.Item(0).SubCollType_Name
+            Else
+                lblSubCollType.Text = "โฉนด"
+            End If
+
 
             CheckBox5.Checked = False
             CheckBox6.Checked = False

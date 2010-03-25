@@ -101,6 +101,8 @@ Partial Class PrintPreviewPrice3Review
             Dim ObjP3_Review As List(Of Price3_50) = GET_PRICE3_CONFORM(hdfReq_Id.Value, hdfHub_Id.Value, hdfTemp_AID.Value)
             If ObjP3_Review.Count > 0 Then
                 hdfTemp_AID.Value = ObjP3_Review.Item(0).Temp_AID
+                lblSize.Text = ObjP3_Review.Item(0).Rai & "-" & ObjP3_Review.Item(0).Ngan & "-" & ObjP3_Review.Item(0).Wah
+                LabelSizeTotalValue.Text = ObjP3_Review.Item(0).Rai & "-" & ObjP3_Review.Item(0).Ngan & "-" & ObjP3_Review.Item(0).Wah
                 For i = 0 To ObjP3_Review.Count - 1
                     If i <= 1 Then
                         Dim ObjSubColl As List(Of Cls_SubCollType) = GET_SUBCOLLTYPE(ObjP3_Review.Item(i).MysubColl_ID)
@@ -150,6 +152,7 @@ Partial Class PrintPreviewPrice3Review
         Dim DSComment As DataSet
         Dim DSWarning As DataSet
         Dim DSAppraisalType As DataSet
+        Dim DSPosition As DataSet
         Dim Op3_50r As List(Of Price3_50) = GET_PRICE3_CONFORM(hdfReq_Id.Value, hdfHub_Id.Value, hdfTemp_AID.Value)
         If Op3_50r.Count > 0 Then
             hdfTemp_AID.Value = Op3_50r.Item(0).Temp_AID
@@ -181,18 +184,23 @@ Partial Class PrintPreviewPrice3Review
             LabelWarningValue.Text = DSWarning.Tables(0).Rows(0).Item("Warning_Name") 'Obj_P3M.Item(0).Warning_ID
             txtWarning_Detail.Text = Obj_P3M.Item(0).Warning_Detail
             Emp_class = SV.GetEmployee_Info(Obj_P3M.Item(0).Approved1)(0)
-            lblApprove1.Text = Emp_class.EmpName 'Obj_P3M.Item(0).Approved1
+            lblApprove1.Text = "(" & Emp_class.EmpName & ")" 'Obj_P3M.Item(0).Approved1
             Emp_class = SV.GetEmployee_Info(Obj_P3M.Item(0).Approved2)(0)
-            lblApprove2.Text = Emp_class.EmpName  ' Obj_P3M.Item(0).Approved2
+            lblApprove2.Text = "(" & Emp_class.EmpName & ")"  ' Obj_P3M.Item(0).Approved2
             Emp_class = SV.GetEmployee_Info(Obj_P3M.Item(0).Approved3)(0)
-            lblApprove3.Text = Emp_class.EmpName 'Obj_P3M.Item(0).Approved3
+            lblApprove3.Text = "(" & Emp_class.EmpName & ")" 'Obj_P3M.Item(0).Approved3
             'ddlAppraisal_Type.SelectedValue = Obj_P3M.Item(0).Appraisal_Type_ID
             DSAppraisalType = GET_APPRAISAL_TYPE_INFO(Obj_P3M.Item(0).Appraisal_Type_ID)
             LabelAppraisalTypeName.Text = DSAppraisalType.Tables(0).Rows(0).Item("App_Type_Name")
             txtLandTotal.Text = String.Format("{0:N2}", Obj_P3M.Item(0).TotalPrice)
             txtBuildingPrice.Text = String.Format("{0:N2}", Obj_P3M.Item(0).BuildingPrice)
             txtSubTotal.Text = String.Format("{0:N2}", Obj_P3M.Item(0).Land_Building_Price)
-            'MsgBox(Obj_P3M.Item(0).Appraisal_Type_ID)
+            DSPosition = GET_POSITION_INFO(Obj_P3M.Item(0).Position_Approved1)
+            lblPos_Approve1.Text = DSPosition.Tables(0).Rows(0).Item("Position_Name")
+            DSPosition = GET_POSITION_INFO(Obj_P3M.Item(0).Position_Approved2)
+            lblPos_Approve2.Text = DSPosition.Tables(0).Rows(0).Item("Position_Name")
+            DSPosition = GET_POSITION_INFO(Obj_P3M.Item(0).Position_Approved3)
+            lblPos_Approve3.Text = DSPosition.Tables(0).Rows(0).Item("Position_Name")
             If Obj_P3M.Item(0).Appraisal_Type_ID = 1 Then
                 'วิธีตลาด
                 txtGrandTotal.Text = String.Format("{0:N2}", CDec(txtSubTotal.Text))
@@ -254,8 +262,7 @@ Partial Class PrintPreviewPrice3Review
             RadioButtonList5.SelectedValue = Obj_P3M_Reveiw.Item(0).Building_Chg
             LabelBuilding.Text = Obj_P3M_Reveiw.Item(0).Building_Chg_Detail
             LabelLast_Appraisal_Detail.Text = Obj_P3M_Reveiw.Item(0).Appraisal_Last_Detail
-            'txtLandTotal.Text = Format(DS.Tables(0).Rows.Item(0).Item("PriceTotal1"), "#,##0.00")
-            'txtGrandTotal.Text = String.Format("{0:N2}", CDec(txtLandTotal.Text) + CDec(txtBuildingPrice.Text))
+            LabelBuildingStartDate.Text = Obj_P3M_Reveiw.Item(0).BuildingStartDate
         Else
             LabelSeqValue.Text = 1
         End If
@@ -312,11 +319,11 @@ Partial Class PrintPreviewPrice3Review
         If DS.Tables(0).Rows.Item(0).Item("CntID") > 0 Then
             hdfTemp_AID.Value = DS.Tables(0).Rows.Item(0).Item("Temp_AID")
             If DS.Tables(0).Rows.Item(0).Item("Rai") = 0 And DS.Tables(0).Rows.Item(0).Item("Ngan") = 0 Then
-                LabelSizeTotalValue.Text = "0" & "-" & "0" & "-" & DS.Tables(0).Rows.Item(0).Item("TotalWah")
-                lblSize.Text = "0" & "-" & "0" & "-" & DS.Tables(0).Rows.Item(0).Item("TotalWah")
+                'LabelSizeTotalValue.Text = "0" & "-" & "0" & "-" & DS.Tables(0).Rows.Item(0).Item("TotalWah")
+                'lblSize.Text = "0" & "-" & "0" & "-" & DS.Tables(0).Rows.Item(0).Item("TotalWah")
             Else
-                LabelSizeTotalValue.Text = DS.Tables(0).Rows.Item(0).Item("Rai") & "-" & DS.Tables(0).Rows.Item(0).Item("Ngan") & "-" & DS.Tables(0).Rows.Item(0).Item("Wah")
-                lblSize.Text = DS.Tables(0).Rows.Item(0).Item("Rai") & "-" & DS.Tables(0).Rows.Item(0).Item("Ngan") & "-" & DS.Tables(0).Rows.Item(0).Item("Wah")
+                'LabelSizeTotalValue.Text = DS.Tables(0).Rows.Item(0).Item("Rai") & "-" & DS.Tables(0).Rows.Item(0).Item("Ngan") & "-" & DS.Tables(0).Rows.Item(0).Item("Wah")
+                'lblSize.Text = DS.Tables(0).Rows.Item(0).Item("Rai") & "-" & DS.Tables(0).Rows.Item(0).Item("Ngan") & "-" & DS.Tables(0).Rows.Item(0).Item("Wah")
             End If
 
             Dim Obj_SubUnit As List(Of Cls_SubUnit) = GET_SubUnit_Info(DS.Tables(0).Rows.Item(0).Item("SubUnit_Id"))
@@ -362,6 +369,8 @@ Partial Class PrintPreviewPrice3Review
                 'LabelDecoration.Text = DS.Tables(0).Rows.Item(0).Item("Decoration")
                 Dim decor As List(Of Cls_Interior) = GET_INTERIOR_INFO(DS.Tables(0).Rows.Item(0).Item("Decoration"))
                 LabelDecoration.Text = decor.Item(0).InteriorState_Name
+                Dim Std As List(Of Cls_Standard) = GET_STANDARD_INFO_BY_ID(DS.Tables(0).Rows.Item(0).Item("Standard_Id"))
+                LabelStrandardValue.Text = Std.Item(0).STANDARD_NAME
             End If
             If Appraisal_Type_ID = 1 Then
                 txtSubTotal.Text = String.Format("{0:N2}", DS.Tables(0).Rows.Item(0).Item("PriceTotal1"))
@@ -393,6 +402,9 @@ Partial Class PrintPreviewPrice3Review
             LabelInform_To.Text = Obj_P3M.Item(0).Inform_To
             LabelReceive_Date.Text = Obj_P3M.Item(0).Receive_Date
             LabelAppraisalDateValue.Text = Obj_P3M.Item(0).Appraisal_Date
+            lblPos_Approve1.Text = Obj_P3M.Item(0).Position_Approved1
+            lblPos_Approve2.Text = Obj_P3M.Item(0).Position_Approved2
+            lblPos_Approve3.Text = Obj_P3M.Item(0).Position_Approved3
             '        ddlBranch.SelectedValue = Obj_P3M.Item(0).Req_Dept
             '        ddlUserAppraisal.SelectedValue = Obj_P3M.Item(0).Appraisal_ID
             '        ddlProblem.SelectedValue = Obj_P3M.Item(0).Env_Effect
@@ -494,4 +506,13 @@ Partial Class PrintPreviewPrice3Review
         End If
     End Sub
 
+    'Protected Sub ImageButtonPrint_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs) Handles ImageButtonPrint.Click
+    '    Session("ctrl") = PanelPrint
+    '    'ClientScript.RegisterStartupScript(Me.GetType(), "onclick", "<script language=javascript>window.open('Testprint.aspx','PrintMe','scrollbars=1');</script>")
+    '    'ClientScript.RegisterStartupScript(Me.GetType(), "onclick", "<script language=javascript>window.open('Testprint.aspx','PrintMe','height=768px,width=1024px,scrollbars=1,resizable=yes');</script>")
+    'End Sub
+
+    'Protected Sub Page_LoadComplete(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.LoadComplete
+    '    Session("ctrl") = PanelPrint
+    'End Sub
 End Class

@@ -2,6 +2,7 @@
 Partial Class Appraisal_Price3_18_Review_Edit
     Inherits System.Web.UI.Page
     Dim s As String
+
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not Page.IsPostBack Then
             lblReq_Id.Text = Context.Items("Req_Id")
@@ -86,15 +87,31 @@ Partial Class Appraisal_Price3_18_Review_Edit
 
     Protected Sub ImageSave_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs) Handles ImageSave.Click
         Dim lbluserid As Label = TryCast(Me.Form.FindControl("lblUserID"), Label)
-        UPDATE_PRICE3_18_REVIEW(lblId.Text, lblReq_Id.Text, lblHub_Id.Text, txtAID.Text, txtCID.Text, lblTemp_AID.Text, DDLSubCollType.SelectedValue, txtFloors.Text, txtelevator_No.Text, _
-                  txtAddressNo.Text, txtArea.Text, txtHeight.Text, txtBuildingName.Text, txtFloorsAt.Text, txtBuild_Number.Text, txtRegister_No.Text, txtBuilding_Age.Text, _
-                  txtTumbon.Text, txtAmphur.Text, ddlProvince.SelectedValue, txtRoad.Text, ddlRoad_Detail.SelectedValue, txtRoadAccress.Text, _
-                  ddlRoad_Forntoff.SelectedValue, txtRoadWidth.Text, ddlSite.SelectedValue, txtSite_Detail.Text, ddlPublic_Utility.SelectedValue, _
-                  txtPublic_Utility_Detail.Text, ddlBinifit.SelectedValue, txtBinifit.Text, ddlTendency.SelectedValue, ddlBuySale_State.SelectedValue, _
-                  ddlBuild_Construct.SelectedValue, ddlInteriorState.SelectedValue, ddlCharacter_Room.SelectedValue, txtRoomWidth_BehideSiteWalk.Text, _
-                  txtRoomdeep.Text, txtBackside_Width.Text, ddlFloors.SelectedValue, txtSideWalk_Width.Text, txtPartake.Text, txtOwnership.Text, _
-                  txtObligation.Text, txtOtherDetail.Text, txtTumbon1.Text, txtAmphur1.Text, ddlProvince1.SelectedValue, CheckBox1.Checked, _
-                  CheckBox2.Checked, CheckBox3.Checked, CheckBox4.Checked, CheckBox5.Checked, txtUtilityOther_Detail.Text, txtAdjust_Condo.Text, txtUnitPrice.Text, txtCondoPrice.Text, lbluserid.Text, Now())
+        If lblId.Text = "" Or lblId.Text = String.Empty Or lblId.Text = "0" Then
+            'เหตุการณ์นี้เกิดจากการทบทวนประเมิน กรณีเพิ่มหลักประกันที่ดินใหม่ผูกเข้ากับ เลข AID เดิม จึงจำเป็นต้องออกเลข ID ใหม่ ให้กับที่ดิน
+            lblId.Text = GET_ID_18_50_70(70)
+            UPDATE_ID_70()
+            ADD_PRICE3_18(lblId.Text, lblReq_Id.Text, lblHub_Id.Text, txtAID.Text, txtCID.Text, lblTemp_AID.Text, DDLSubCollType.SelectedValue, txtFloors.Text, txtelevator_No.Text, _
+                      txtAddressNo.Text, txtArea.Text, txtHeight.Text, txtBuildingName.Text, txtFloorsAt.Text, txtBuild_Number.Text, txtRegister_No.Text, txtBuilding_Age.Text, _
+                      txtTumbon.Text, txtAmphur.Text, ddlProvince.SelectedValue, txtRoad.Text, ddlRoad_Detail.SelectedValue, txtRoadAccress.Text, _
+                      ddlRoad_Forntoff.SelectedValue, txtRoadWidth.Text, ddlSite.SelectedValue, txtSite_Detail.Text, ddlPublic_Utility.SelectedValue, _
+                      txtPublic_Utility_Detail.Text, ddlBinifit.SelectedValue, txtBinifit.Text, ddlTendency.SelectedValue, ddlBuySale_State.SelectedValue, _
+                      ddlBuild_Construct.SelectedValue, ddlInteriorState.SelectedValue, ddlCharacter_Room.SelectedValue, txtRoomWidth_BehideSiteWalk.Text, _
+                      txtRoomdeep.Text, txtBackside_Width.Text, ddlFloors.SelectedValue, txtSideWalk_Width.Text, txtPartake.Text, txtOwnership.Text, _
+                      txtObligation.Text, txtOtherDetail.Text, txtTumbon1.Text, txtAmphur1.Text, ddlProvince1.SelectedValue, CheckBox1.Checked, _
+                      CheckBox2.Checked, CheckBox3.Checked, CheckBox4.Checked, CheckBox5.Checked, txtUtilityOther_Detail.Text, txtAdjust_Condo.Text, txtUnitPrice.Text, txtCondoPrice.Text, lbluserid.Text, Now())
+        Else
+            UPDATE_PRICE3_18_REVIEW(lblId.Text, lblReq_Id.Text, lblHub_Id.Text, txtAID.Text, txtCID.Text, lblTemp_AID.Text, DDLSubCollType.SelectedValue, txtFloors.Text, txtelevator_No.Text, _
+                      txtAddressNo.Text, txtArea.Text, txtHeight.Text, txtBuildingName.Text, txtFloorsAt.Text, txtBuild_Number.Text, txtRegister_No.Text, txtBuilding_Age.Text, _
+                      txtTumbon.Text, txtAmphur.Text, ddlProvince.SelectedValue, txtRoad.Text, ddlRoad_Detail.SelectedValue, txtRoadAccress.Text, _
+                      ddlRoad_Forntoff.SelectedValue, txtRoadWidth.Text, ddlSite.SelectedValue, txtSite_Detail.Text, ddlPublic_Utility.SelectedValue, _
+                      txtPublic_Utility_Detail.Text, ddlBinifit.SelectedValue, txtBinifit.Text, ddlTendency.SelectedValue, ddlBuySale_State.SelectedValue, _
+                      ddlBuild_Construct.SelectedValue, ddlInteriorState.SelectedValue, ddlCharacter_Room.SelectedValue, txtRoomWidth_BehideSiteWalk.Text, _
+                      txtRoomdeep.Text, txtBackside_Width.Text, ddlFloors.SelectedValue, txtSideWalk_Width.Text, txtPartake.Text, txtOwnership.Text, _
+                      txtObligation.Text, txtOtherDetail.Text, txtTumbon1.Text, txtAmphur1.Text, ddlProvince1.SelectedValue, CheckBox1.Checked, _
+                      CheckBox2.Checked, CheckBox3.Checked, CheckBox4.Checked, CheckBox5.Checked, txtUtilityOther_Detail.Text, txtAdjust_Condo.Text, txtUnitPrice.Text, txtCondoPrice.Text, lbluserid.Text, Now())
+        End If
+
         s = "<script language=""javascript"">alert('บันทึกเสร็จสมบูรณ์');</script>"
         Page.ClientScript.RegisterStartupScript(Me.GetType, "ข้อความเตือน", s)
     End Sub

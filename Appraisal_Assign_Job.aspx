@@ -171,12 +171,6 @@
                         Height="22px" Width="22px" ToolTip="แก้ไขเปลี่ยนแปลง" OnClick="imgEdit_Click" />               
                 </ItemTemplate>
             </asp:TemplateField>                  
-<%--                <asp:TemplateField HeaderText="EDIT">
-                    <ItemTemplate>
-                        <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" 
-                            CommandName="Select" Text="EDIT"></asp:LinkButton>
-                    </ItemTemplate>
-                </asp:TemplateField>--%>
                 <asp:TemplateField>
                     <ItemTemplate>
                         <tr>

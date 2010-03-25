@@ -107,7 +107,7 @@
         {
             width: 124px;
         }
-                .NotshowOnPrint
+        .NotshowOnPrint
         {
             display:none;
         }
@@ -172,7 +172,7 @@
         }
         .NotshowOnPrint
         {
-            width: 357px;
+            width: 469px;
         }
         .style42
         {
@@ -594,6 +594,10 @@
                         DataSourceID="SDSInterior_State" DataTextField="InteriorState_Name" 
                         DataValueField="InteriorState_Id">
                     </asp:DropDownList>
+            &nbsp;<asp:Label ID="Label88" runat="server" Text="วันที่เริ่มต้นนับอายุสิ่งปลูกสร้าง"></asp:Label>
+            &nbsp;
+                    
+                <asp:TextBox ID="txtBuildingStartDate" runat="server" Width="200px"></asp:TextBox>
             </td>
         </tr>
         <tr>
@@ -744,7 +748,11 @@
         </tr>
         <tr>
             <td colspan="6">
-                <asp:DropDownList ID="ddlDrecription" runat="server" 
+                &nbsp;&nbsp; มาตรฐาน&nbsp;</td>
+        </tr>
+        <tr>
+            <td colspan="6">
+                <asp:DropDownList ID="ddlStandard" runat="server" 
                     DataSourceID="sdsDecription" DataTextField="Standard_Name" 
                     DataValueField="Standard_Id">
                 </asp:DropDownList>
@@ -1131,7 +1139,7 @@
                         </td>
                         <td>
                             <asp:ImageButton ID="ImageEditPosition" runat="server" Height="35px" 
-                                ImageUrl="~/Images/viewmap.jpg" Width="35px" ToolTip="Save Data" />
+                                ImageUrl="~/Images/viewmap.jpg" Width="35px" ToolTip="กำหนดที่ตั้ง" />
                         </td>
                         <td style="width:100px"><b>กำหนดพิกัด</b></td>
                         <td>
@@ -1139,7 +1147,15 @@
                                 ImageUrl="~/Images/attachment.ico" Width="35px" Height="35px" />
                         </td>
                         <td>
-                            <b>ไฟล์แนบ</b>                         </td>                            
+                            <b>ไฟล์แนบ</b>                         
+                        </td>
+                        <td>
+                            <asp:ImageButton ID="ImageButtonPrintPreview" runat="server" 
+                                ImageUrl="~/Images/printer.png" Width="35px" Height="35px" />
+                        </td>
+                        <td>
+                            <b>พิมพ์</b>                         
+                        </td>                                                      
                     </tr>                  
                 </table>
             </td>
@@ -1197,7 +1213,7 @@
     </asp:SqlDataSource>
     
     <asp:SqlDataSource ID="SDSUserAppraisal" runat="server" ConnectionString="<%$ ConnectionStrings:AppraisalConn %>"
-        SelectCommand="SELECT Emp_id, Title + Name + '  ' + Lastname AS UserAppraisal FROM Tb_UserAppraisal">
+        SelectCommand="SELECT Emp_id, Title + Name + '  ' + Lastname AS UserAppraisal FROM Tb_UserAppraisal Order By Name">
     </asp:SqlDataSource>
         
     <asp:SqlDataSource ID="sdsBuilding_Partake_List" runat="server" 

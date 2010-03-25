@@ -251,6 +251,18 @@
                     <asp:Label ID="lblArea" runat="server"></asp:Label>
                 </td>
             </tr>
+            <tr>
+                <td class="style2">
+                    ราคาต่อหน่วย&nbsp;</td>
+                <td class="style3">
+                    <asp:Label ID="lblPerUnit" runat="server"></asp:Label>
+                </td>
+                <td class="style4">
+                    รวมราคา</td>
+                <td>
+                    <asp:Label ID="lblTotalPrice" runat="server"></asp:Label>
+                </td>
+            </tr>
         </table>
         
 </asp:Content>

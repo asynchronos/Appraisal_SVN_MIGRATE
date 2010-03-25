@@ -68,7 +68,9 @@
                 <asp:Label ID="lblAddressNo" runat="server"></asp:Label>
             </td>
             <td>
-                <b>ปลูกสร้างบนโฉนดเลขที่</b></td>
+                <b>ปลูกสร้างบน
+                <asp:Label ID="lblSubCollType" runat="server"></asp:Label>
+            &nbsp;เลขที่</b></td>
             <td>
                 <asp:Label ID="lbChanodeNo" runat="server"></asp:Label>
             </td>
