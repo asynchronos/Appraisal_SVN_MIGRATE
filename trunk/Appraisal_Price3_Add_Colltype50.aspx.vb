@@ -83,6 +83,13 @@ Partial Class Appraisal_Price3_Add_Colltype50
             ddlSubUnit.SelectedValue = Obj_GetP50.Item(0).SubUnit
             txtPriceWah.Text = Obj_GetP50.Item(0).PriceWah
             txtTotal.Text = Obj_GetP50.Item(0).PriceTotal1
+            '*******************ห้ามแก้ไขเมื่อ ราคาที่ 2 ยืนยันแล้ว ************************
+            txtRai.ReadOnly = True
+            txtNgan.ReadOnly = True
+            txtWah.ReadOnly = True
+            txtPriceWah.ReadOnly = True
+            ddlSubUnit.Enabled = False
+            '********************************************************************
         End If
     End Sub
 
@@ -132,6 +139,14 @@ Partial Class Appraisal_Price3_Add_Colltype50
             txtDeepWidth.Text = Obj_GetP50.Item(0).DeepWidth
             txtBehindWidth.Text = Obj_GetP50.Item(0).BehindWidth
             ddlAreaColur.SelectedValue = Obj_GetP50.Item(0).AreaColour_No
+
+            '*******************ห้ามแก้ไขเมื่อ ราคาที่ 2 ยืนยันแล้ว ************************
+            txtRai.ReadOnly = True
+            txtNgan.ReadOnly = True
+            txtWah.ReadOnly = True
+            txtPriceWah.ReadOnly = True
+            ddlSubUnit.Enabled = False
+            '********************************************************************
         End If
     End Sub
 

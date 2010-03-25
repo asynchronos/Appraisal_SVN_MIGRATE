@@ -682,7 +682,7 @@
                 <td bgcolor="Yellow">
                     <asp:ImageButton ID="btnSave0" runat="server" Font-Bold="True" Height="30px" 
                         ImageUrl="~/Images/save.jpg" OnClientClick="getDropDownListvalue(); return false;" 
-                        Width="30px" />
+                        Width="30px" Visible="False" />
                 </td>
                 <td bgcolor="Yellow">
                     <%--<asp:Button ID="btnSave" runat="server" Text="บันทึก" Font-Bold="True" OnClientClick=" return ConfirmOnUpdate();" />--%>

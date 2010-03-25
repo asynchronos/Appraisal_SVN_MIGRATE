@@ -10,8 +10,8 @@ Partial Class Appraisal_Price3_50_Review_Edit
             lblId.Text = Obj_GetP50_Review.Item(0).ID
             lblReq_Id.Text = Obj_GetP50_Review.Item(0).Req_Id
             lblHub_Id.Text = Obj_GetP50_Review.Item(0).Hub_Id
-            lblAID.Text = Obj_GetP50_Review.Item(0).AID
-            lblCID.Text = Obj_GetP50_Review.Item(0).CID
+            TextBoxAID.Text = Obj_GetP50_Review.Item(0).AID
+            TextBoxCID.Text = Obj_GetP50_Review.Item(0).CID
             lblTemp_AID.Text = Obj_GetP50_Review.Item(0).Temp_AID
             DDLSubCollType.SelectedValue = Obj_GetP50_Review.Item(0).MysubColl_ID
             txtChanode.Text = Obj_GetP50_Review.Item(0).Address_No
@@ -50,6 +50,17 @@ Partial Class Appraisal_Price3_50_Review_Edit
             txtDeepWidth.Text = Obj_GetP50_Review.Item(0).DeepWidth
             txtBehindWidth.Text = Obj_GetP50_Review.Item(0).BehindWidth
             ddlAreaColur.SelectedValue = Obj_GetP50_Review.Item(0).AreaColour_No
+
+        Else
+            Dim AR As List(Of Appraisal_Request_v2) = GET_APPRAISAL_REQUEST_V2(lblReq_Id.Text)
+            Dim tumbonN As List(Of Cls_Tumbon) = GET_TUMBON_INFO(AR.Item(0).Tumbon, AR.Item(0).Amphur, AR.Item(0).Province)
+            Dim amphurN As List(Of Cls_Amphur) = GET_AMPHUR_INFO(AR.Item(0).Amphur, AR.Item(0).Province)
+            TextBoxAID.Text = hdfAID.Value
+            TextBoxCID.Text = "0"
+            lblId.Text = ""
+            txtTumbon.Text = tumbonN.Item(0).tumbon_new2_name
+            txtAmphur.Text = amphurN.Item(0).am_name
+            ddlProvince.SelectedValue = AR.Item(0).Province
         End If
     End Sub
 
@@ -78,7 +89,12 @@ Partial Class Appraisal_Price3_50_Review_Edit
     Protected Sub ImageSave_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs) Handles ImageSave.Click
         Dim lbluserid As Label = TryCast(Me.Form.FindControl("lblUserID"), Label) 'หา Control จาก Master Page ที่ control ไม่อยู่ใน  ContentPlaceHolder1 ของ Master Page
         'เป็นการเพิ่มข้อมูลที่ดินเข้าไปในตาราง Price3_50 ถ้าหากตรวจสอบแล้วว่ามีชิ้นทรัยพ์ ID ที่ส่งไปแล้วจะทำการ Update แทนการ Save
-        AddPRICE3_50(lblId.Text, CInt(lblReq_Id.Text), CInt(lblHub_Id.Text), lblTemp_AID.Text, lblAID.Text, lblCID.Text, CInt(DDLSubCollType.SelectedValue), txtChanode.Text, String.Empty, txtTumbon.Text, txtAmphur.Text, _
+        If lblId.Text = "" Or lblId.Text = String.Empty Or lblId.Text = "0" Then
+            'เหตุการณ์นี้เกิดจากการทบทวนประเมิน กรณีเพิ่มหลักประกันที่ดินใหม่ผูกเข้ากับ เลข AID เดิม จึงจำเป็นต้องออกเลข ID ใหม่ ให้กับที่ดิน
+            lblId.Text = GET_ID_18_50_70(50)
+            UPDATE_ID_50()
+        End If
+        AddPRICE3_50(lblId.Text, CInt(lblReq_Id.Text), CInt(lblHub_Id.Text), lblTemp_AID.Text, TextBoxAID.Text, TextBoxCID.Text, CInt(DDLSubCollType.SelectedValue), txtChanode.Text, String.Empty, txtTumbon.Text, txtAmphur.Text, _
                      ddlProvince.SelectedValue, CInt(txtRai.Text), CInt(txtNgan.Text), CDec(txtWah.Text), _
                      txtRoad.Text, CInt(ddlRoad_Detail.SelectedValue), CDec(txtMeter.Text), txtSoi.Text, CInt(ddlRoad_Forntoff.SelectedValue), _
                      CDec(txtRoadWidth.Text), CInt(ddlSite.SelectedValue), CStr(txtSite_Detail.Text), CInt(ddlLand_State.SelectedValue), _
@@ -202,8 +218,8 @@ Partial Class Appraisal_Price3_50_Review_Edit
             s = "<script language=""javascript"">alert('พบเลขที่โฉนดดังกล่าวระบบจะแสดงรายละเอียดดังกล่าว'); </script>"
             Page.ClientScript.RegisterStartupScript(Me.GetType, "รับเรื่องประเมิน", s)
             'lblId.Text = Obj_GetP50.Item(0).ID
-            lblReq_Id.Text = Obj_GetP50.Item(0).Req_Id
-            lblHub_Id.Text = Obj_GetP50.Item(0).Hub_Id
+            'lblReq_Id.Text = Obj_GetP50.Item(0).Req_Id
+            'lblHub_Id.Text = Obj_GetP50.Item(0).Hub_Id
             'lblAID.Text = Obj_GetP50.Item(0).AID
             'lblCID.Text = Obj_GetP50.Item(0).CID
             DDLSubCollType.SelectedValue = Obj_GetP50.Item(0).MysubColl_ID

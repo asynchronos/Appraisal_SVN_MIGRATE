@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="VB" MasterPageFile="~/MasterPage.master" AutoEventWireup="false" CodeFile="Appraisal_List_By_Hub.aspx.vb" Inherits="Appraisal_List_By_Hub" %>
+﻿<%@ Page Title="" Language="VB" MasterPageFile="~/MasterPage.master" AutoEventWireup="false" CodeFile="Appraisal_List_By_Hub.aspx.vb" Inherits="Appraisal_List_By_Hub" Culture="th-TH" UICulture="th-TH" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
@@ -51,14 +51,14 @@
         style="font-size: small" AllowPaging="True">
             <FooterStyle BackColor="Tan" />
             <Columns>
-                <asp:TemplateField>
+<%--                <asp:TemplateField>
                     <ItemTemplate>
                         <a href="javascript:expandcollapse('div<%# Eval("Req_Id") %>', 'one');">
                             <img id="imgdiv<%# Eval("Req_Id") %>" alt="Click to show/hide Queue for Appraisal <%# Eval("Req_Id") %>"
                                 width="9px" src="Images/plus.gif" />
                         </a>
                     </ItemTemplate>
-                </asp:TemplateField>  
+                </asp:TemplateField>  --%>
                 <asp:TemplateField HeaderText="Req No.">
                     <ItemTemplate>
                         <asp:Label ID="lblReq_id" runat="server" Text='<%# Bind("Req_Id") %>'></asp:Label>
@@ -89,7 +89,7 @@
                         <asp:Label ID="LabelEmp_Name" runat="server" Text='<%# Bind("Emp_Name") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="รหัสวิธีส่งประเมิน">
+                <asp:TemplateField HeaderText="รหัสวิธีประเมิน">
                     <ItemTemplate>
                         <asp:Label ID="lblReq_Type" runat="server" Text='<%# Bind("Req_Type") %>'></asp:Label>
                     </ItemTemplate>
@@ -106,9 +106,19 @@
                 </asp:TemplateField> 
                 <asp:TemplateField HeaderText="วันที่ส่งประเมิน">
                     <ItemTemplate>
-                        <asp:Label ID="LabelCreate_Date" runat="server" Text='<%# Bind("Create_Date") %>'></asp:Label>
+                        <asp:Label ID="LabelCreate_Date" runat="server" Text='<%# Bind("Create_Date", "{0:d}") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
+                <asp:TemplateField HeaderText="">
+                    <ItemTemplate>
+                        <asp:Label ID="lblAppraisalId" runat="server" Text='<%# Bind("Appraisal_Id") %>'></asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>                     
+                <asp:TemplateField HeaderText="ผู้ประประเมิน">
+                    <ItemTemplate>
+                        <asp:Label ID="lblAppraisalName" runat="server" Text='<%# Bind("AppraisalName") %>'></asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>                
 <%--                <asp:TemplateField HeaderText="รายละเอียดการดำเนินการ">
                     <ItemTemplate>
                         <asp:DropDownList ID="ddlOperation" runat="server" OnPreRender="DDL_Load" ></asp:DropDownList>

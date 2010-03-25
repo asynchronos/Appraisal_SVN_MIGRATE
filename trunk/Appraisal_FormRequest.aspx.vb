@@ -15,9 +15,11 @@ Imports System.Collections.Generic
 Imports System.Globalization
 Imports System.Globalization.CultureInfo
 Imports SME_SERVICE
+
 Partial Class Appraisal_Form_Appraisal_FormRequest
     Inherits System.Web.UI.Page
     Dim s, StrNotice As String
+
 #Region "Variables"
     Dim gvUniqueID As String = String.Empty
     Dim gvNewPageIndex As Integer = 0
@@ -269,7 +271,7 @@ Partial Class Appraisal_Form_Appraisal_FormRequest
         If Not Page.IsPostBack Then
             If lblRequestID.Text = String.Empty Or lblRequestID.Text = "" Then
                 lblMessage.Text = "คุณยังไม่มีเลขคำขอประเมิน"
-                GridView_HubList.Enabled = False
+                'GridView_HubList.Enabled = False
             Else
                 lblMessage.Text = ""
             End If
@@ -487,5 +489,6 @@ Partial Class Appraisal_Form_Appraisal_FormRequest
             'หน้าแสดงรายการประเมินในระบบที่เคยประเมินแล้ว(ประวัติการประเมิน)
             Server.Transfer("Appraisal_List_Review.aspx")
     End Sub
+
 End Class
 

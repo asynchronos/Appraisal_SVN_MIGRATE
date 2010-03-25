@@ -153,14 +153,14 @@
                     <asp:Label ID="lblPrice2" runat="server" Text='<%# Bind("Price2", "{0:N}") %>'></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>            
-            <asp:TemplateField HeaderText="">
+<%--            <asp:TemplateField HeaderText="">
                 <ItemStyle Width="25px" />
                 <ItemTemplate>
                     <asp:ImageButton ID="imgPrint2View" runat="server" 
                         ImageUrl="~/Images/search.ico" Height="22px" Width="22px" 
                         ToolTip="ฟอร์มอย่างย่อราคาที่ 2" CommandName="Select" OnClick="imgPrint2View_Click" />
                 </ItemTemplate>
-            </asp:TemplateField>              
+            </asp:TemplateField> --%>             
             <asp:TemplateField HeaderText="">
             <ItemStyle Width="25px" />
                 <ItemTemplate>

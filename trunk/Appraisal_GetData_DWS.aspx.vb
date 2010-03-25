@@ -33,7 +33,7 @@ Partial Class Appraisal_GetData_DWS
                       & " DWHADMIN.CUS_PLED ON DWHADMIN.PLEDGE_MASTER.PLEDGE_KEY = DWHADMIN.CUS_PLED.PLEDGE_KEY LEFT OUTER JOIN " _
                       & " DWHADMIN.COLLATERAL_MASTER ON " _
                       & " DWHADMIN.COLLATERAL_PLEDGE.COLLATERAL_KEY = DWHADMIN.COLLATERAL_MASTER.COLLATERAL_KEY " _
-                      & " WHERE (DWHADMIN.CUS_PLED.CIF_NO =" & CIF & ")" _
+                      & " WHERE (DWHADMIN.CUS_PLED.CIF_NO =" & CIF & " AND DWHADMIN.APPRAISAL_MASTER.APPRAISAL_ID =" & lblAID.Text & ")" _
                       & " GROUP BY DWHADMIN.APPRAISAL_MASTER.APPRAISAL_ID, DWHADMIN.COLLATERAL_MASTER.COLLATERAL_ID "
 
         Dim command As OracleCommand = New OracleCommand(Sqlstring)
@@ -61,13 +61,38 @@ Partial Class Appraisal_GetData_DWS
     Private Sub GET_CID_DETAIL_BYKEY(ByVal CID_KEY As String, ByVal CID As String, ByVal COLLTYPE As String)
         ' Create the connection object
         Dim con As OracleConnection = New OracleConnection(ConfigurationManager.ConnectionStrings("EDW_Connectionstring").ConnectionString)
-        Dim Sqlstring As String = "SELECT *" _
-                      & " FROM DWHADMIN.COLLATERAL_MASTER" _
-                      & " WHERE (DWHADMIN.COLLATERAL_MASTER.COLLATERAL_KEY =" & CID_KEY & ") "
+        'Dim Sqlstring As String = "SELECT *" _
+        '              & " FROM DWHADMIN.COLLATERAL_MASTER" _
+        '              & " WHERE (DWHADMIN.COLLATERAL_MASTER.COLLATERAL_KEY =" & CID_KEY & ") "
+
+        Dim Sqlstring As String = "SELECT DWHADMIN.COLLATERAL_MASTER.COLLATERAL_KEY,DWHADMIN.COLLATERAL_MASTER.COLLATERAL_ID," _
+                                & " DWHADMIN.COLLATERAL_MASTER.ADDRESS_NO,DWHADMIN.COLLATERAL_MASTER.BUILDING_NAME,DWHADMIN.COLLATERAL_MASTER.SOI,DWHADMIN.COLLATERAL_MASTER.ROAD," _
+                                & " DWHADMIN.COLLATERAL_MASTER.DISTRICT,DWHADMIN.COLLATERAL_MASTER.AMPHUR," _
+                                & " DWHADMIN.COLLATERAL_MASTER.PROVINCE,DWHADMIN.COLLATERAL_MASTER.PROVINCE_DESC," _
+                                & " DWHADMIN.COLLATERAL_MASTER.ASSET_TYPE_DESC_1,DWHADMIN.COLLATERAL_MASTER.ASSET_TYPE_CODE_1," _
+                                & " DWHADMIN.COLLATERAL_MASTER.COLLATERAL_REG_NO_1,DWHADMIN.COLLATERAL_MASTER.COLLATERAL_REG_NO_2,DWHADMIN.COLLATERAL_MASTER.COLLATERAL_REG_NO_3," _
+                                & " DWHADMIN.COLLATERAL_MASTER.AREA_RAI,DWHADMIN.COLLATERAL_MASTER.AREA_NGAN,DWHADMIN.COLLATERAL_MASTER.AREA_WAH," _
+                                & " DWHADMIN.COLLATERAL_MASTER.AREA,PRICE_BY_COLLKEY.APPRAISAL_VALUE_P_UNIT,PRICE_BY_COLLKEY.APPRAISAL_DATE," _
+                                & " PRICE_BY_COLLKEY.APPRAISAL_BY_TYPE, PRICE_BY_COLLKEY.APPRAISAL_BY_TYPE_DESC" _
+        & " FROM (SELECT DWHADMIN.COLLATERAL_APPRAISAL.COLLATERAL_KEY,DWHADMIN.COLLATERAL_APPRAISAL.APPRAISAL_KEY,DWHADMIN.COLLATERAL_APPRAISAL.APPRAISAL_DATE," _
+        & " DWHADMIN.COLLATERAL_APPRAISAL.APPRAISAL_VALUE_P_UNIT,DWHADMIN.COLLATERAL_APPRAISAL.APPRAISAL_BY_TYPE," _
+        & " DWHADMIN.COLLATERAL_APPRAISAL.APPRAISAL_BY_TYPE_DESC" _
+        & " FROM (SELECT DWHADMIN.COLLATERAL_APPRAISAL.COLLATERAL_KEY,MAX(DWHADMIN.COLLATERAL_APPRAISAL.APPRAISAL_KEY)AS APPRAISAL_KEY," _
+        & " MAX(DWHADMIN.COLLATERAL_APPRAISAL.APPRAISAL_DATE) AS APPRAISAL_DATE" _
+        & " FROM (DWHADMIN.COLLATERAL_APPRAISAL)" _
+        & " WHERE (DWHADMIN.COLLATERAL_APPRAISAL.COLLATERAL_KEY =" & CID_KEY & ")" _
+        & " GROUP BY  DWHADMIN.COLLATERAL_APPRAISAL.COLLATERAL_KEY) MAXDATE_BY_COLLKEY INNER JOIN DWHADMIN.COLLATERAL_APPRAISAL " _
+        & " ON MAXDATE_BY_COLLKEY.COLLATERAL_KEY = DWHADMIN.COLLATERAL_APPRAISAL.COLLATERAL_KEY " _
+        & " AND MAXDATE_BY_COLLKEY.APPRAISAL_DATE = DWHADMIN.COLLATERAL_APPRAISAL.APPRAISAL_DATE) PRICE_BY_COLLKEY INNER JOIN DWHADMIN.COLLATERAL_MASTER" _
+        & " ON PRICE_BY_COLLKEY.COLLATERAL_KEY = DWHADMIN.COLLATERAL_MASTER.COLLATERAL_KEY"
 
         Dim command As OracleCommand = New OracleCommand(Sqlstring)
         command.Connection = con
         con.Open()
+        lblRai.Text = "0"
+        lblNgan.Text = "0"
+        lblWah.Text = "0"
+        lblArea.Text = "0"
         Dim rdr As OracleDataReader = command.ExecuteReader(CommandBehavior.CloseConnection)
         If rdr.HasRows Then
             'read the first row
@@ -111,9 +136,21 @@ Partial Class Appraisal_GetData_DWS
                 Else
                     lblWah.Text = ""
                 End If
-                lblArea.Text = rdr("Area_Rai") & "-" & rdr("Area_Ngan") & "-" & rdr("Area_Wah") & "ไร่"
 
+                lblArea.Text = rdr("Area_Rai") & "-" & rdr("Area_Ngan") & "-" & rdr("Area_Wah") & " ไร่"
+
+                If CDec(rdr("Area_Rai")) + CDec(rdr("Area_Ngan")) + CDec(rdr("Area_Wah")) > 0 Then
+                    lblPerUnit.Text = String.Format("{0:N2}", (rdr("APPRAISAL_VALUE_P_UNIT") / CDec(((rdr("Area_Rai") * 400) + (rdr("Area_Ngan") * 100) + rdr("Area_Wah")))))
+                Else
+                    lblPerUnit.Text = rdr("APPRAISAL_VALUE_P_UNIT")
+                End If
+
+                Dim area As Decimal = 0
+                area = CDec(rdr("Area_Rai")) * 400 + CDec(rdr("Area_Ngan")) * 100 + CDec(rdr("Area_Wah"))
+
+                lblTotalPrice.Text = String.Format("{0:N2}", CDec(rdr("APPRAISAL_VALUE_P_UNIT")) * area)
             ElseIf Left(COLLTYPE, 3) = "070" Then
+                lblAdd_No.Text = "เลขที่"
                 If Not IsDBNull(rdr("Asset_Type_code_1")) Then
                     'บวก 5 เพราะว่าในฐานข้อมูลไม่ได้แยกชนิดของแต่ละประเภทหลักประกัน ถ้าเป็นสิ่งปลูกสร้างเริ่มที่ 6 จึงต้องเอาค่าที่ได้ + 5
                     lblSubCollTypeNo.Text = CInt(rdr("Asset_Type_code_1")) + 5
@@ -126,8 +163,16 @@ Partial Class Appraisal_GetData_DWS
                     lblChanode.Text = ""
                 End If
                 lblArea.Text = rdr("Area") & "ตรม."
+                Dim area As Decimal = 0
+                area = CDec(rdr("Area"))
+                If area > 0 Then
+                    lblPerUnit.Text = String.Format("{0:N2}", (rdr("APPRAISAL_VALUE_P_UNIT") / area))
+                Else
+                    lblPerUnit.Text = "0.00"
+                End If
+                lblTotalPrice.Text = String.Format("{0:N2}", rdr("APPRAISAL_VALUE_P_UNIT"))
             ElseIf Left(COLLTYPE, 3) = "180" Then
-                lblAdd_No.Text = "เลขที่"
+                lblAdd_No.Text = "เลขที่ "
                 If Not IsDBNull(rdr("Asset_Type_code_1")) Then
                     lblSubCollTypeNo.Text = CInt(rdr("Asset_Type_code_1"))
                 Else
@@ -143,10 +188,17 @@ Partial Class Appraisal_GetData_DWS
 
                 If Not IsDBNull(rdr("Collateral_Reg_No_2")) Then
                     lblArea.Text = rdr("Area") & "ตรว."
+                    If rdr("Area") > 0 Then
+                        lblPerUnit.Text = String.Format("{0:N2}", (rdr("APPRAISAL_VALUE_P_UNIT") / CDec(rdr("Area"))))
+                    Else
+                        lblPerUnit.Text = "0"
+                    End If
+
                 Else
                     lblArea.Text = "0"
                 End If
 
+                lblTotalPrice.Text = String.Format("{0:N2}", rdr("APPRAISAL_VALUE_P_UNIT"))
             End If
 
             If Not IsDBNull(rdr("Road")) Then
@@ -230,6 +282,7 @@ Partial Class Appraisal_GetData_DWS
             Dim Tendency As Integer = 0
             Dim BuySaleState As Integer = 0
             Dim PriceWah As Double = 0
+            Dim PriceMeter As Double = 0
             Dim Total As Double = 0
             Dim Ds As DataSet = GETDATA(CollKey.Text)
 
@@ -243,9 +296,18 @@ Partial Class Appraisal_GetData_DWS
                 'SubCollType = Ds.Tables(0).Rows(0).Item("Asset_Type_code_1")
                 If CollType1 <> "180" Then
                     If Not IsDBNull(Ds.Tables(0).Rows(0).Item("Collateral_Reg_No_1")) Then
-                        AddNo = Ds.Tables(0).Rows(0).Item("Collateral_Reg_No_1")
+                        If CollType1 = "070" Then
+                            AddNo = Ds.Tables(0).Rows(0).Item("ADDRESS_NO")
+                        Else
+                            AddNo = Ds.Tables(0).Rows(0).Item("Collateral_Reg_No_1")
+                        End If
+
                     Else
-                        AddNo = ""
+                        If CollType1 = "070" Then
+                            AddNo = Ds.Tables(0).Rows(0).Item("ADDRESS_NO")
+                        Else
+                            AddNo = Ds.Tables(0).Rows(0).Item("Collateral_Reg_No_1")
+                        End If
                     End If
                 Else
                     If Not IsDBNull(Ds.Tables(0).Rows(0).Item("Collateral_Reg_No_2")) Then
@@ -294,8 +356,18 @@ Partial Class Appraisal_GetData_DWS
                 If CollType1 = "050" Then  'ถ้าเป็นที่ดิน
                     ID = GET_ID_18_50_70(50)
                     UPDATE_ID_50()
+                    Dim DivValue As Double = 0
 
+                    DivValue = ((Rai) * 400) + ((Ngan) * 100) + (Wah)
+                    If DivValue > 0 Then
+                        PriceWah = String.Format("{0:N2}", (Ds.Tables(0).Rows(0).Item("APPRAISAL_VALUE_P_UNIT") / DivValue))
+                    Else
+                        PriceWah = 0
+                    End If
                     'ส่งตัวแปรไปที่ Function  AddPRICE3_50 เพื่อทำการเพิ่มหรือแก้ไขข้อมูล
+
+                    Total = String.Format("{0:N2}", Ds.Tables(0).Rows(0).Item("APPRAISAL_VALUE_P_UNIT"))
+
                     AddPRICE3_50(ID, CInt(lblReq_Id.Text), CInt(lblHub_Id.Text), TEMPAID, lblAID.Text, CID.Text, SubCollType, AddNo, String.Empty, District, Amphur, _
                                 ProvinceCode, CInt(Rai), CInt(Ngan), CDec(Wah), _
                                 Road, CInt(RoadDetail), CDec(RoadAcress), String.Empty, CInt(RoadFornoff), _
@@ -304,7 +376,7 @@ Partial Class Appraisal_GetData_DWS
                                 BinifitDetail, CInt(Tendency), CInt(BuySaleState), 1, _
                                 CDec(PriceWah), CDec(Total), String.Empty, String.Empty, String.Empty, String.Empty, String.Empty, String.Empty, _
                                 String.Empty, 0, String.Empty, 0, 1, lbluserid.Text, Now())
-                    UPDATE_Status_Appraisal_Request(lblReq_Id.Text, lblHub_Id.Text, 2)
+                    UPDATE_Status_Appraisal_Request(lblReq_Id.Text, lblHub_Id.Text, 10)
                 ElseIf CollType1 = "070" Then 'ถ้าเป็นสิ่งปลูกสร้าง
                     ID = GET_ID_18_50_70(70)
                     UPDATE_ID_70()
@@ -312,30 +384,36 @@ Partial Class Appraisal_GetData_DWS
                         SubCollType = SubCollType + 5
                     End If
                     'MsgBox("Building")
+
+                    PriceMeter = String.Format("{0:N2}", (Ds.Tables(0).Rows(0).Item("APPRAISAL_VALUE_P_UNIT") / Area))
+                    Total = String.Format("{0:N2}", Ds.Tables(0).Rows(0).Item("APPRAISAL_VALUE_P_UNIT"))
+
                     AddPRICE3_70(ID, CInt(lblReq_Id.Text), CInt(lblHub_Id.Text), TEMPAID, lblAID.Text, CID.Text, _
                     SubCollType, AddNo, District, Amphur, _
                     ProvinceCode, 1, _
                     String.Empty, 0, 0, _
                     0, String.Empty, 0, _
                     String.Empty, String.Empty, 0, _
-                    0, 0, String.Empty, String.Empty, String.Empty, String.Empty, 0, 0, _
-                    0, 0, 0, 0, 0, _
+                    0, 0, String.Empty, String.Empty, String.Empty, String.Empty, Area, 0, _
+                    Total, 0, 0, 0, 0, _
                     0, 100, 0, 0, 0, 0, _
                     0, 0, 0, 0, 0, 100, 0, _
-                    String.Empty, 1, 1, lbluserid.Text, Now())
-                    UPDATE_Status_Appraisal_Request(lblReq_Id.Text, lblHub_Id.Text, 2)
+                    String.Empty, 1, 0, 1, 1, lbluserid.Text, Now())
+                    UPDATE_Status_Appraisal_Request(lblReq_Id.Text, lblHub_Id.Text, 10)
 
                 ElseIf CollType1 = "180" Then 'ถ้าเป็นCondo
                     ID = GET_ID_18_50_70(18)
                     UPDATE_ID_18()
-
+                    PriceMeter = String.Format("{0:N2}", (Ds.Tables(0).Rows(0).Item("APPRAISAL_VALUE_P_UNIT") / Area))
+                    Total = String.Format("{0:N2}", Ds.Tables(0).Rows(0).Item("APPRAISAL_VALUE_P_UNIT"))
                     ADD_PRICE3_18(ID, lblReq_Id.Text, lblHub_Id.Text, lblAID.Text, CID.Text, TEMPAID, 46, 0, 0, _
                                   AddNo, Area, 0, BuildingName, Floors, String.Empty, String.Empty, 0, _
                                   District, Amphur, ProvinceCode, Road, CInt(RoadDetail), CDec(RoadAcress), _
                                   CInt(RoadFornoff), CDec(RoadWidth), CInt(Site), CStr(SiteDetail), CInt(PublicUtility), _
                                   PublicUtilityDetail, CInt(Binifit), BinifitDetail, CInt(Tendency), CInt(BuySaleState), _
                                   0, 0, 0, 0, 0, 0, 0, 0, 0, String.Empty, String.Empty, String.Empty, District, Amphur, ProvinceCode, _
-                                  0, 0, 0, 0, 0, String.Empty, String.Empty, 0, 0, lbluserid.Text, Now())
+                                  0, 0, 0, 0, 0, String.Empty, String.Empty, PriceMeter, Total, lbluserid.Text, Now())
+                    UPDATE_Status_Appraisal_Request(lblReq_Id.Text, lblHub_Id.Text, 10)
                 Else
                     'MsgBox("Other")
                 End If
@@ -352,9 +430,30 @@ Partial Class Appraisal_GetData_DWS
         Dim DsColl As New DataSet
 
         Dim con As OracleConnection = New OracleConnection(ConfigurationManager.ConnectionStrings("EDW_Connectionstring").ConnectionString)
-        Dim Sqlstring As String = "SELECT *" _
-                      & " FROM DWHADMIN.COLLATERAL_MASTER" _
-                      & " WHERE (DWHADMIN.COLLATERAL_MASTER.COLLATERAL_KEY =" & COLLKEY & ") "
+        'Dim Sqlstring As String = "SELECT *" _
+        '              & " FROM DWHADMIN.COLLATERAL_MASTER" _
+        '              & " WHERE (DWHADMIN.COLLATERAL_MASTER.COLLATERAL_KEY =" & COLLKEY & ") "
+
+        Dim Sqlstring As String = "SELECT DWHADMIN.COLLATERAL_MASTER.COLLATERAL_KEY,DWHADMIN.COLLATERAL_MASTER.COLLATERAL_ID," _
+                                & " DWHADMIN.COLLATERAL_MASTER.ADDRESS_NO,DWHADMIN.COLLATERAL_MASTER.BUILDING_NAME,DWHADMIN.COLLATERAL_MASTER.SOI,DWHADMIN.COLLATERAL_MASTER.ROAD," _
+                                & " DWHADMIN.COLLATERAL_MASTER.DISTRICT,DWHADMIN.COLLATERAL_MASTER.AMPHUR," _
+                                & " DWHADMIN.COLLATERAL_MASTER.PROVINCE,DWHADMIN.COLLATERAL_MASTER.PROVINCE_DESC," _
+                                & " DWHADMIN.COLLATERAL_MASTER.ASSET_TYPE_DESC_1,DWHADMIN.COLLATERAL_MASTER.ASSET_TYPE_CODE_1," _
+                                & " DWHADMIN.COLLATERAL_MASTER.COLLATERAL_REG_NO_1,DWHADMIN.COLLATERAL_MASTER.COLLATERAL_REG_NO_2,DWHADMIN.COLLATERAL_MASTER.COLLATERAL_REG_NO_3," _
+                                & " DWHADMIN.COLLATERAL_MASTER.AREA_RAI,DWHADMIN.COLLATERAL_MASTER.AREA_NGAN,DWHADMIN.COLLATERAL_MASTER.AREA_WAH," _
+                                & " DWHADMIN.COLLATERAL_MASTER.AREA,PRICE_BY_COLLKEY.APPRAISAL_VALUE_P_UNIT,PRICE_BY_COLLKEY.APPRAISAL_DATE," _
+                                & " PRICE_BY_COLLKEY.APPRAISAL_BY_TYPE, PRICE_BY_COLLKEY.APPRAISAL_BY_TYPE_DESC" _
+        & " FROM (SELECT DWHADMIN.COLLATERAL_APPRAISAL.COLLATERAL_KEY,DWHADMIN.COLLATERAL_APPRAISAL.APPRAISAL_KEY,DWHADMIN.COLLATERAL_APPRAISAL.APPRAISAL_DATE," _
+        & " DWHADMIN.COLLATERAL_APPRAISAL.APPRAISAL_VALUE_P_UNIT,DWHADMIN.COLLATERAL_APPRAISAL.APPRAISAL_BY_TYPE," _
+        & " DWHADMIN.COLLATERAL_APPRAISAL.APPRAISAL_BY_TYPE_DESC" _
+        & " FROM (SELECT DWHADMIN.COLLATERAL_APPRAISAL.COLLATERAL_KEY,MAX(DWHADMIN.COLLATERAL_APPRAISAL.APPRAISAL_KEY)AS APPRAISAL_KEY," _
+        & " MAX(DWHADMIN.COLLATERAL_APPRAISAL.APPRAISAL_DATE) AS APPRAISAL_DATE" _
+        & " FROM (DWHADMIN.COLLATERAL_APPRAISAL)" _
+        & " WHERE (DWHADMIN.COLLATERAL_APPRAISAL.COLLATERAL_KEY =" & COLLKEY & ")" _
+        & " GROUP BY  DWHADMIN.COLLATERAL_APPRAISAL.COLLATERAL_KEY) MAXDATE_BY_COLLKEY INNER JOIN DWHADMIN.COLLATERAL_APPRAISAL " _
+        & " ON MAXDATE_BY_COLLKEY.COLLATERAL_KEY = DWHADMIN.COLLATERAL_APPRAISAL.COLLATERAL_KEY " _
+        & " AND MAXDATE_BY_COLLKEY.APPRAISAL_DATE = DWHADMIN.COLLATERAL_APPRAISAL.APPRAISAL_DATE) PRICE_BY_COLLKEY INNER JOIN DWHADMIN.COLLATERAL_MASTER" _
+        & " ON PRICE_BY_COLLKEY.COLLATERAL_KEY = DWHADMIN.COLLATERAL_MASTER.COLLATERAL_KEY"
 
         Dim command As OracleCommand = New OracleCommand(Sqlstring)
         command.Connection = con

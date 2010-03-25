@@ -4,12 +4,13 @@ Partial Class Appraisal_Price3_70_Review_Edit
     Dim s As String
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        'hdfColl_Type.Value = 70
         If Not Page.IsPostBack Then
             lblId.Text = Context.Items("ID")
             lblReq_Id.Text = Context.Items("Req_Id")
             lblHub_Id.Text = Context.Items("Hub_Id")
             hdfAID.Value = Context.Items("AID")
-            lblAID.Text = Context.Items("AID")
+            TextBoxAID.Text = Context.Items("AID")
             lblTemp_AID.Text = Context.Items("Temp_AID")
             hdfColl_Type.Value = Context.Items("Coll_Type")
             lblHub_Id.Text = Context.Items("Hub_Id")
@@ -40,8 +41,8 @@ Partial Class Appraisal_Price3_70_Review_Edit
             lblId.Text = Obj_GetP70.Item(0).ID
             lblReq_Id.Text = Obj_GetP70.Item(0).Req_Id
             lblHub_Id.Text = Obj_GetP70.Item(0).Hub_Id
-            lblAID.Text = Obj_GetP70.Item(0).AID
-            lblCID.Text = Obj_GetP70.Item(0).CID
+            TextBoxAID.Text = Obj_GetP70.Item(0).AID
+            TextBoxCID.Text = Obj_GetP70.Item(0).CID
             DDLSubCollType.SelectedValue = Obj_GetP70.Item(0).MysubColl_ID
             If Obj_GetP70.Item(0).Build_No <> String.Empty Or Obj_GetP70.Item(0).Build_No <> Nothing Then
                 txtChanodeNo.Text = Obj_GetP70.Item(0).Put_On_Chanode
@@ -92,6 +93,8 @@ Partial Class Appraisal_Price3_70_Review_Edit
             txtBuildingDetail.Text = Obj_GetP70.Item(0).BuildingDetail
             ddlInteriorState.SelectedValue = Obj_GetP70.Item(0).Decoration
             ddlStandard.SelectedValue = Obj_GetP70.Item(0).Standard_Id
+            ddlRoofConstructure.SelectedValue = Obj_GetP70.Item(0).RoofStructure_Id
+            ddlRoofState.SelectedValue = Obj_GetP70.Item(0).RoofState_Id
             Dim Obj_P3_70D As List(Of ClsPrice3_70_Detail) = GET_PRICE3_70_DETAIL(lblId.Text, lblReq_Id.Text, lblHub_Id.Text, lblTemp_AID.Text, 0)
             If Obj_P3_70D.Count > 0 Then
                 chkDetail.Checked = True
@@ -134,7 +137,7 @@ Partial Class Appraisal_Price3_70_Review_Edit
         Context.Items("Req_Id") = lblReq_Id.Text
         Context.Items("Hub_Id") = lblHub_Id.Text
         Context.Items("Coll_Type") = hdfColl_Type.Value
-        Context.Items("AID") = hdfAID.Value
+        Context.Items("AID") = TextBoxAID.Text
         Context.Items("Temp_AID") = lblTemp_AID.Text
         Context.Items("Cif") = hdfCif.Value
         Server.Transfer("Appraisal_Price3_Form_Review.Aspx")
@@ -336,8 +339,13 @@ Partial Class Appraisal_Price3_70_Review_Edit
 
     Private Sub SAVE_DATA()
         Dim lbluserid As Label = TryCast(Me.Form.FindControl("lblUserID"), Label) 'หา Control จาก Master Page ที่ control ไม่อยู่ใน  ContentPlaceHolder1 ของ Master Page
+        If lblId.Text = "" Or lblId.Text = String.Empty Or lblId.Text = "0" Then
+            'เหตุการณ์นี้เกิดจากการทบทวนประเมิน กรณีเพิ่มหลักประกันที่ดินใหม่ผูกเข้ากับ เลข AID เดิม จึงจำเป็นต้องออกเลข ID ใหม่ ให้กับที่ดิน
+            lblId.Text = GET_ID_18_50_70(70)
+            UPDATE_ID_70()
+        End If
 
-        AddPRICE3_70(lblId.Text, CInt(lblReq_Id.Text), CInt(lblHub_Id.Text), lblTemp_AID.Text, lblAID.Text, lblCID.Text, _
+        AddPRICE3_70(lblId.Text, CInt(lblReq_Id.Text), CInt(lblHub_Id.Text), lblTemp_AID.Text, TextBoxAID.Text, TextBoxCID.Text, _
         CInt(DDLSubCollType.SelectedValue), txtBuild_No.Text, txtTumbon.Text, txtAmphur.Text, _
         ddlProvince.SelectedValue, ddlBuild_Character.SelectedValue, _
         txtFloor.Text, txtItem.Text, ddlBuild_Construct.SelectedValue, _

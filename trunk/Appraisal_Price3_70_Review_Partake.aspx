@@ -17,7 +17,7 @@
                       <table width="100%" 
         style="background-color: #B5C7DE; font-size: small;">
                           <tr>
-                              <td class="style21">
+                              <td>
                                   เลขลำดับ</td>
                               <td>
                                   <asp:Label ID="lblId" runat="server" style="font-weight: 700; color: #FF0000;"></asp:Label>
@@ -77,14 +77,14 @@
                         EnableTextAlignRight="True" MaxLength="7" Width="35px" BackColor="#FFFF66" 
                                       AutoPostBack="True">0</cc1:mytext>
                                   ตรม.</td>
-                              <td class="style5">
+                              <td>
                                   ราคาต่อหน่วย</td>
-                              <td class="style19">
+                              <td>
                                   <cc1:mytext ID="txtPartakeUnitPrice" runat="server" AllowUserKey="num_Numeric" 
                         EnableTextAlignRight="True" Width="110px" BackColor="#FFFF66" AutoPostBack="True" 
                                       AutoCurrencyFormatOnKeyUp="True">0.00</cc1:mytext>
                                   บาท</td>
-                              <td class="style14">
+                              <td>
                                   มูลค่า</td>
                               <td>
                                   <cc1:mytext ID="txtPartakePrice" runat="server" AllowUserKey="num_Numeric" 

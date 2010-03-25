@@ -17,6 +17,7 @@ Partial Class Appraisal_List_By_Hub
         Dim Req_Id As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblReq_id"), Label)
         Dim Hub_Id As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblHub_id"), Label)
         Dim Cif As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblCif"), Label)
+        Dim AppraisalId As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblAppraisalId"), Label)
         If Cif.Text <> String.Empty Then
 
         Else
@@ -30,17 +31,23 @@ Partial Class Appraisal_List_By_Hub
         'MsgBox(gvTemp.SelectedRow.FindControl("ddlOperation"))
         Dim ddlOperation As DropDownList = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("ddlOperation"), DropDownList)
 
-        'หากขอสิทธิได้จาก Google Map ได้ ให้ใช้โค็ดด้านล่างนี้
-        'str = Request.ApplicationPath & "/colldetail_new.aspx?Req_Id=" & Req_Id.Text & "&Hub_Id=" & Hub_Id.Text & "&User_Id=" & lbluserid.Text & "&cif=" & Cif.Text
-        's = "<script language=""javascript"">window.open('" + str + "','window','toolbar=no, menubar=no, scrollbars=yes, resizable=no,location=no, directories=no, status=yes,height=700px,width=830px');</script>"
-        'Page.ClientScript.RegisterStartupScript(Me.GetType, "รับเรื่องประเมิน", s)
+        If AppraisalId.Text = lbluserid.Text Then
+            'หากขอสิทธิได้จาก Google Map ได้ ให้ใช้โค็ดด้านล่างนี้
+            str = Request.ApplicationPath & "/colldetail_new.aspx?Req_Id=" & Req_Id.Text & "&Hub_Id=" & Hub_Id.Text & "&User_Id=" & lbluserid.Text & "&cif=" & Cif.Text
+            s = "<script language=""javascript"">window.open('" + str + "','window','toolbar=no, menubar=no, scrollbars=yes, resizable=yes,location=no, directories=no, status=yes,height=750px,width=830px');</script>"
+            Page.ClientScript.RegisterStartupScript(Me.GetType, "รับเรื่องประเมิน", s)
+        Else
+            s = "<script language=""javascript"">alert('คุณไม่สามารถให้ราคาที่ 1 ได้ เนื่องจากไม่ใช่ผู้ประเมินราคา');</script>"
+            Page.ClientScript.RegisterStartupScript(Me.GetType, "ข้อความเตือนไม่มีสิทธิ", s)
+        End If
 
 
-        Context.Items("Req_Id") = Req_Id.Text
-        Context.Items("Hub_Id") = Hub_Id.Text
-        Context.Items("Cif") = Cif.Text
-        'Server.Transfer("Appraisal_Price1.aspx")
-        Server.Transfer("Appraisal_Price1_Test.aspx")
+
+        'Context.Items("Req_Id") = Req_Id.Text
+        'Context.Items("Hub_Id") = Hub_Id.Text
+        'Context.Items("Cif") = Cif.Text
+        ''Server.Transfer("Appraisal_Price1.aspx")
+        'Server.Transfer("Appraisal_Price1_Test.aspx")
     End Sub
 
     Protected Sub Page_PreRender(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.PreRender

@@ -121,34 +121,57 @@
             display:none;
         }
         </style>
-
+        
+    <script type="text/javascript" language="javascript">
+        function windowSize() {
+            if (parseInt(navigator.appVersion) > 3) {
+                if (navigator.appName == "Netscape") {
+                    winW = window.innerWidth - 16;
+                    winH = window.innerHeight - 16;
+                }
+                if (navigator.appName.indexOf("Microsoft") != -1) {
+                    winW = document.body.offsetWidth - 20;
+                    winH = document.body.offsetHeight - 20;
+                }
+            }
+            //alert(winW);
+            //alert(winH);
+            window.open('Testprint.aspx', 'PrintMe', 'height=' + winH + ',' + 'width='+ winH + ',scrollbars=1,resizable=yes');
+        }
+        function windowPrint() {
+            window.print();
+        }   
+    </script>
 </head>
 <body class="StyleBody">
     <form id="form1" runat="server">
     <div>
+        <asp:Panel ID="PanelPrint" runat="server">
         <table class="MainTable">
             <tr>
-                <td>
+                <td align="right">
                     <table>
                         <tr>
                             <td align="right" class="NotshowOnPrint">
-                                <asp:ImageButton ID="ImageButtonReturn" runat="server" Height="35px" 
-                                            ImageUrl="~/Images/repeat.ico" Width="35px" ToolTip="กลับไปหน้ารายการทบทวนประเมิน" />
+                                <asp:ImageButton ID="ImageButtonReturn" runat="server" Height="25px" 
+                                    ImageUrl="~/Images/repeat.ico" ToolTip="กลับไปหน้ารายการทบทวนประเมิน" 
+                                    Width="25px" />
                             </td>
-                            <td></td>
+                            <td>
+                            </td>
                             <td class="NotshowOnPrint">
-                                <asp:ImageButton ID="ImageButtonPrint" runat="server" Height="35px" 
-                                            ImageUrl="~/Images/printer.png" Width="35px" 
-                                    ToolTip="พิมพ์หน้านี้" />                
-                            </td>  
+                                <asp:ImageButton ID="ImageButtonPrint" runat="server" Height="25px" 
+                                    ImageUrl="~/Images/printer.png" OnClientClick="windowPrint();" 
+                                    ToolTip="พิมพ์หน้านี้" Width="25px" />
+                            </td>
                         </tr>
                     </table>
-                </td>              
+                </td>
             </tr>
             <tr>
                 <td align="center">
                     <img alt="BayLogo" src="Images/logo_bank.jpg" 
-                        style="width: 344px; height: 89px" />
+                        style="width: 250px; height: 60px" />
                 </td>
             </tr>
             <tr class="Center">
@@ -157,10 +180,6 @@
                     Text="รายงานทบทวนการประเมินราคาหลักประกัน" 
                     style="font-weight: 700; font-size: x-large"></asp:Label>
                 </td>
-            </tr>            
-            <tr class="Center">
-                <td>
-                    &nbsp;</td>
             </tr>            
             <tr class="Center">
                 <td>
@@ -368,6 +387,9 @@
                 <td>
     <asp:Label ID="Label14" runat="server" Text="สภาพการตกแต่ง"></asp:Label>
             &nbsp;<asp:Label ID="LabelDecoration" runat="server"></asp:Label>
+                &nbsp;<asp:Label ID="Label90" runat="server" 
+                        Text="วันที่เริ่มต้นนับอายุสิ่งปลูกสร้าง"></asp:Label>
+            &nbsp;<asp:Label ID="LabelBuildingStartDate" runat="server"></asp:Label>
                 </td>
             </tr>            
             <tr>
@@ -926,33 +948,12 @@ borderwidth="0" ></asp:TextBox>
                                 ></asp:Label>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="style22">
-                        
-                        </td>
-                        <td class="style28">
-                        
-                            &nbsp;</td>
-                        <td class="style29">
-                        
-                        </td>
-                        <td class="style27">
-                            &nbsp;</td>
-                        <td class="style26">
-                        </td>
-                        <td class="style23">
-
-                            &nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td colspan="6"  align="center">
-                        
-                            &nbsp;</td>
-                    </tr>
                 </table>
                 </td>
             </tr>            
-        </table>
+        </table>        
+        </asp:Panel>
+
     </div>
     <asp:HiddenField ID="hdfReq_Id" runat="server" />
     <asp:HiddenField ID="hdfHub_Id" runat="server" />

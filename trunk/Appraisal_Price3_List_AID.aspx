@@ -75,6 +75,7 @@
     <asp:HiddenField ID="hdfHub_ID" runat="server" />
     <asp:HiddenField ID="hdfAppraisal_Method" runat="server" />
     <asp:HiddenField ID="hdfTemp_AID" runat="server" />
+
     <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="AID,Req_ID"
         DataSourceID="sdsPriceList3_Review" EmptyDataText="There are no data records to display."
         Width='100%' BackColor="LightGoldenrodYellow" BorderColor="Tan" BorderWidth="1px"
@@ -132,6 +133,7 @@
             </asp:TemplateField>
             <asp:TemplateField HeaderText="สถานะการประเมิน">
                 <ItemTemplate>
+                    <asp:HiddenField ID="HiddenFieldStatus_ID" runat ="server" Value='<%# Bind("Status_ID") %>' />
                     <asp:Label ID="LabelStatus_Name" runat="server" Text='<%# Bind("Status_Name") %>'></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
@@ -158,9 +160,16 @@
                 <ItemStyle Width="25px" />
                 <ItemTemplate>
                     <asp:ImageButton ID="imgaddplus" runat="server" ImageUrl="~/Images/add_plus2.jpg"
-                        Height="22px" Width="22px" ToolTip="เพิ่มหลักประกัน" CommandName="View" OnClick="imgaddplus_Click" />
+                        Height="22px" Width="22px" ToolTip="เพิ่มหลักประกันจาก COS" CommandName="View" OnClick="imgaddplus_Click" />
                 </ItemTemplate>
             </asp:TemplateField>
+<%--            <asp:TemplateField HeaderText="">
+                <ItemStyle Width="25px" />
+                <ItemTemplate>
+                    <asp:ImageButton ID="imgaddplusNew" runat="server" ImageUrl="~/Images/add_plus.jpg"
+                        Height="22px" Width="22px" ToolTip="เพิ่มที่ดินใหม่" CommandName="View" OnClick="imgaddplusNew_Click" />
+                </ItemTemplate>
+            </asp:TemplateField>   --%>         
             <asp:TemplateField>
                 <ItemTemplate>
                     <tr>
@@ -175,7 +184,7 @@
                                     <HeaderStyle BackColor="#0083C1" ForeColor="White" />
                                     <FooterStyle BackColor="White" />
                                     <Columns>
-                                        <asp:TemplateField>
+                                        <%--<asp:TemplateField>
                                             <HeaderTemplate>
                                                 <asp:CheckBox runat="server" ID="cb1" AutoPostBack="true" OnCheckedChanged="cb1_Checked" />
                                             </HeaderTemplate>
@@ -184,7 +193,7 @@
                                             </ItemTemplate>
                                             <ItemStyle HorizontalAlign="Center" />
                                             <HeaderStyle HorizontalAlign="Center" />
-                                        </asp:TemplateField>
+                                        </asp:TemplateField>--%>
                                         <asp:TemplateField HeaderText="ID">
                                             <ItemStyle VerticalAlign="Middle" Width="80px" />
                                             <ItemTemplate>
@@ -211,21 +220,22 @@
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="HUB ID">
-                                            <ItemStyle VerticalAlign="Middle" Width="50px" />
+                                            <ItemStyle VerticalAlign="Middle" Width="80px" />
                                             <ItemTemplate>
                                                 <asp:Label ID="lblHub_Id" runat="server" Text='<%# Eval("Hub_Id") %>'></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="HUB_NAME">
+<%--                                        <asp:TemplateField HeaderText="HUB_NAME">
                                             <ItemStyle VerticalAlign="Middle" Width="350px" />
                                             <ItemTemplate>
                                                 <asp:Label ID="lblHUB_NAME" runat="server" Text='<%# Eval("HUB_NAME") %>'></asp:Label>
-                                            </ItemTemplate>
-                                        </asp:TemplateField>
+                                            </ItemTemplate>                                         
+                                        </asp:TemplateField>--%>
                                         <asp:TemplateField HeaderText="ชนิดหลักประกัน">
-                                            <ItemStyle VerticalAlign="Middle" Width="100px" />
+                                            <ItemStyle VerticalAlign="Middle" Width="350px" />
                                             <ItemTemplate>
                                                 <asp:Label ID="lblColltype" runat="server" Text='<%# Eval("CollType_ID") %>'></asp:Label>
+                                                <asp:Label ID="lblCollName" runat="server" Text='<%# Eval("SubCollType_Name") %>'></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="Address_No">
@@ -233,37 +243,54 @@
                                             <ItemTemplate>
                                                 <asp:Label ID="lblAddress_No" runat="server" Text='<%# Eval("Address_No") %>'></asp:Label>
                                             </ItemTemplate>
-                                        </asp:TemplateField>
+                                        </asp:TemplateField>                                                                            
                                         <asp:TemplateField HeaderText="Tumbon">
                                             <ItemStyle VerticalAlign="Middle" Width="200px" />
                                             <ItemTemplate>
                                                 <asp:Label ID="lblTumbon" runat="server" Text='<%# Eval("Tumbon") %>'></asp:Label>
                                             </ItemTemplate>
+                                            <FooterTemplate>
+                                                <asp:Label ID="LabelMessage" runat="server" Font-Bold="true" ForeColor="Red" Font-Underline="true">เพิ่มใหม่กรณีไม่มีอยู่ใน AID เดิม</asp:Label>
+                                            </FooterTemplate>                                               
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="อำเภอ">
                                             <ItemStyle VerticalAlign="Middle" Width="200px" />
                                             <ItemTemplate>
                                                 <asp:Label ID="lblAmphur" runat="server" Text='<%# Eval("Amphur") %>'></asp:Label>
                                             </ItemTemplate>
-                                        </asp:TemplateField>
+                                            <FooterTemplate>
+                                                    <asp:DropDownList ID="DropDownListCollType" runat="server">
+                                                        <asp:ListItem Value="0">โปรดเลือกหลักประกัน</asp:ListItem>
+                                                        <asp:ListItem Value="50">ที่ดิน</asp:ListItem>
+                                                        <asp:ListItem Value="70">สิ่งปลูกสร้าง</asp:ListItem>
+                                                        <asp:ListItem Value="18">คอนโด/อพาร์ทเม็นท์</asp:ListItem>
+                                                        <asp:ListItem Value="15">เครื่องจักร</asp:ListItem>
+                                                    </asp:DropDownList>
+                                            </FooterTemplate>                                            
+                                        </asp:TemplateField>                                                                                
                                         <asp:TemplateField HeaderText="จังหวัด">
                                             <ItemStyle VerticalAlign="Middle" Width="200px" />
                                             <ItemTemplate>
                                                 <asp:Label ID="lblProvince_Name" runat="server" Text='<%# Eval("PROV_NAME") %>'></asp:Label>
                                             </ItemTemplate>
+                                            <FooterTemplate>
+                                                <asp:Button ID="ADDREVIEW" runat="server" Text="เพิ่มชิ้นใหม่" CommandName="AddReview" />
+                                            </FooterTemplate>
+                                        </asp:TemplateField>                                                                                                    
+                                        <asp:TemplateField HeaderText="">
+                                            <ItemStyle VerticalAlign="Middle" Width="30px" />
+                                            <ItemTemplate>
+                                                <asp:ImageButton ID="ImageButton2" runat="server" ImageUrl="~/Images/edit.gif" ToolTip="ดูรายละเอียด"
+                                                    Width="22px" Height="22px" CommandName="Select" />
+                                            </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="">
                                             <ItemStyle VerticalAlign="Middle" Width="30px" />
                                             <ItemTemplate>
-                                                <asp:ImageButton ID="ImageButton2" runat="server" ImageUrl="~/Images/edit.gif" ToolTip="Select"
-                                                    Width="22px" Height="22px" CommandName="Select" />
+                                                <asp:ImageButton ID="ImageButtonDelete" runat="server" ImageUrl="~/Images/cancel1.jpg" ToolTip="Delete"
+                                                    Width="22px" Height="22px" OnClick="ImageDelete_Click" />
                                             </ItemTemplate>
                                         </asp:TemplateField>
-			    <asp:TemplateField HeaderText="ADD">
-                    <FooterTemplate>
-                        <asp:Button ID="ADDREVIEW" runat="server" Text="ADD REVIEW" CommandName="AddReview" />
-                    </FooterTemplate>
-                </asp:TemplateField>                                        
                                     </Columns>
                                 </asp:GridView>
                             </div>

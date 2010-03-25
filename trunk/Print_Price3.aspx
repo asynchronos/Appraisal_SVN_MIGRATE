@@ -91,12 +91,62 @@
             font-size:medium;
         }
         </style>
+        <style type="text/css" media="print">
+        .NotshowOnPrint
+            {
+                display:none;
+            }
+        </style>
+        
+            <script type="text/javascript" language="javascript">
+        function windowSize() {
+            if (parseInt(navigator.appVersion) > 3) {
+                if (navigator.appName == "Netscape") {
+                    winW = window.innerWidth - 16;
+                    winH = window.innerHeight - 16;
+                }
+                if (navigator.appName.indexOf("Microsoft") != -1) {
+                    winW = document.body.offsetWidth - 20;
+                    winH = document.body.offsetHeight - 20;
+                }
+            }
+            //alert(winW);
+            //alert(winH);
+            window.open('Testprint.aspx', 'PrintMe', 'height=' + winH + ',' + 'width='+ winH + ',scrollbars=1,resizable=yes');
+        }
+        function windowPrint() {
+            window.print();
+        }   
+    </script>
 </head>
 <body style=" font-family:Tahoma; font-size:medium;">
     <form id="form1" runat="server">
     <div>
     
         <table class="style1">
+            <tr>
+                <td align="right">
+                    <table>
+                        <tr >
+                            <td align="right" class="NotshowOnPrint">
+                                <asp:ImageButton ID="ImageButtonReturn" runat="server" Height="25px" 
+                                    ImageUrl="~/Images/repeat.ico" ToolTip="กลับไปหน้ารายการทบทวนประเมิน" 
+                                    Width="25px" />
+                            </td>
+                            <td>
+                                <asp:ImageButton ID="ImageButtonLandAttach" runat="server" Height="25px" 
+                                    ImageUrl="~/Images/attachment.png" ToolTip="รายละเอียดแนบ" 
+                                    Width="25px" />
+                            </td>
+                            <td class="NotshowOnPrint">
+                                <asp:ImageButton ID="ImageButtonPrint" runat="server" Height="25px" 
+                                    ImageUrl="~/Images/printer.png" OnClientClick="windowPrint();" 
+                                    ToolTip="พิมพ์หน้านี้" Width="25px" />
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
             <tr>
                 <td align="center">
                 <img alt="BayLogo" src="Images/logo_bank.jpg" 
@@ -262,6 +312,11 @@
             <tr>
                 <td>
                     <asp:Label ID="lblLandDetail10" runat="server" Width="1100px"></asp:Label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblLandDetail11" runat="server" Width="1100px"></asp:Label>
                 </td>
             </tr>
             <tr>
@@ -669,6 +724,7 @@ borderwidth="0" ></asp:TextBox>
                 <td>
     
     <asp:HiddenField ID="hdfReq_Id" runat="server" />
+                    <asp:Label ID="LabelReqIdValue" runat="server" Visible="False"></asp:Label>
     <asp:HiddenField ID="hdfTemp_AID" runat="server" />
                 </td>
             </tr>            
