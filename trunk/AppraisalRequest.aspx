@@ -54,7 +54,40 @@
 	        border-style: solid;
 	        border-color: Blue;
 	        padding: 3px;
-        }        
+        }   
+        .modalBackground
+        {
+          background-color:#CCCCFF;
+          filter:alpha(opacity=40);
+          opacity:0.5;
+        }
+
+        .ModalWindow
+        {
+          border: solid1px#c0c0c0;
+          background:#f0f0f0;
+          padding: 0px10px10px10px;
+          position:absolute;
+          top:-1000px;
+        }  
+        
+        .outerPopup 
+        {
+            background-color:transparent;  
+            padding:1em 6px;
+        }
+
+        .innerPopup
+        {
+            background-color:#fff;
+        }
+
+        .modalBackground1
+        {
+             background-color:#000;
+             filter:alpha(opacity=70);
+             opacity:0.7;
+        }                  
     </style>
 
     <script type="text/javascript">
@@ -433,7 +466,9 @@
                                     </td>
                                     <td style="text-align: left;">
                                         <asp:TextBox ID="TxtCif" runat="server" MaxLength="9" Width="90px" myId="TxtCif"></asp:TextBox>
-                                        <asp:Button ID="ButtonSearchCif" runat="server" Text="...." OnClientClick="changeIframeSrcById('myIframe','Search_Cif.aspx','Cif=TxtCif&Title=ddlTitle&CifName=TxtCifName&CifLastname=TxtCifLastName&PopupModal=mpeBehaviorSearchCif'); return false;" />
+                                        <asp:Button ID="ButtonSearchCif" runat="server" Text="...." 
+                                            
+                                            OnClientClick="changeIframeSrcById('myIframe','Search_Cif.aspx','Cif=TxtCif&Title=ddlTitle&CifName=TxtCifName&CifLastname=TxtCifLastName&PopupModal=mpeBehaviorSearchCif'); return false;" />
                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator_Cif" runat="server" ControlToValidate="TxtCif"
                                             Display="Dynamic" ErrorMessage="ใส่ รหัสลูกค้า" ValidationGroup="1"></asp:RequiredFieldValidator>
                                     </td>
@@ -644,7 +679,6 @@
                                 </tr>
                                 <tr>
                                     <td style="text-align: left; text-align: center;" class="headDetail" colspan="2">
-                                        &nbsp;
                                     </td>
                                 </tr>
                             </table>
@@ -742,33 +776,34 @@
             </td>
         </tr>
     </table>
+    
     <%-- ค้นหา Cif และ  Cif เจ้าของหลักประกัน--%>
     <cc1:ModalPopupExtender ID="btn_SearchCif" runat="server" BackgroundCssClass="GrayedOut"
         OnOkScript="onOk()" PopupControlID="panel_SearchCif" TargetControlID="ButtonSearchCif"
         BehaviorID="mpeBehaviorSearchCif" />    
-       <asp:Panel ID="panel_SearchCif" runat="server" Style="display: none;" CssClass="modalBox" width="600" height="200">
+       <asp:Panel ID="panel_SearchCif" runat="server" Style="display: none;" CssClass="modalBox" width="600" height="225">
             <iframe id="myIframe" src="" width="600" height="200" frameborder="0" scrolling="no">
             </iframe>
             <div style="white-space: nowrap; text-align: center; background-color: White;">
                 <asp:Button ID="btnCloseIframe" runat="server" Text="Close" Width="50px" myId="btnCloseIframe" />
             </div>
-        </asp:Panel>        
-      
-
+        </asp:Panel>    
+            
     
     <%-- ค้นหา จังหวัด --%>
     <cc1:ModalPopupExtender ID="ModalPopupExtenderSearchProvince" runat="server" BackgroundCssClass="GrayedOut"
         OnOkScript="onOk()" PopupControlID="panelSearchProvince" TargetControlID="ButtonSearchProvince"
         BehaviorID="mpeBehaviorSearchProvince" />
-    <asp:Panel ID="panelSearchProvince" runat="server" Style="display: none;" CssClass="modalBox">
-        <iframe id="IframeSearchProvince" src="" width="600" height="200" frameborder="0"
-            scrolling="no"></iframe>
-        <div style="white-space: nowrap; text-align: center; background-color: White;">
-            <asp:Button ID="ButtonCloseSearchProvince" runat="server" Text="Close" Width="50px"
-                myId="ButtonCloseSearchProvince" />
-        </div>
-    </asp:Panel>
-    
+
+                <asp:Panel ID="panelSearchProvince" runat="server" Style="display: none;" CssClass="modalBox">
+                    <iframe id="IframeSearchProvince" src="" width="600" height="200" frameborder="0"
+                        scrolling="no"></iframe>
+                    <div style="white-space: nowrap; text-align: center; background-color: White;">
+                        <asp:Button ID="ButtonCloseSearchProvince" runat="server" Text="Close" Width="50px"
+                            myId="ButtonCloseSearchProvince" />
+                    </div>
+                </asp:Panel>
+
     <%-- ค้นหา อำเภอ --%>
     <cc1:ModalPopupExtender ID="ModalPopupExtenderSearchAmphur" runat="server" BackgroundCssClass="GrayedOut"
         OnOkScript="onOk()" PopupControlID="panelSearchAmphur" TargetControlID="ButtonSearchAmphur"
