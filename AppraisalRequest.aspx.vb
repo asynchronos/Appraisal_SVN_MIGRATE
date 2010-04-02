@@ -98,4 +98,8 @@ Partial Class AppraisalRequest
         Return DS
 
     End Function
+
+    Protected Sub btnFinish_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnFinish.Click
+        Response.Redirect("Appraisal_Request_New.aspx")
+    End Sub
 End Class
