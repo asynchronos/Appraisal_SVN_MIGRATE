@@ -151,9 +151,9 @@ Partial Class Search_Collateral
         Condition_Search()
     End Sub
 
-
     'Find the control that caused the postback.
     'I got this code from http://www.ryanfarley.com/blog/archive/2005/03/11/1886.aspx
+
     Public Function GetPostBackControl(ByVal page As Page) As Control
         Dim control As Control = Nothing
 
@@ -259,21 +259,21 @@ Partial Class Search_Collateral
                 ElseIf ddl1.SelectedValue = "CIF" Then
                     where_condition = "Appraisal_Request.cif"
                 ElseIf ddl1.SelectedValue = "ตำบล/แขวง" Then
-                    where_condition = "Tumbon"
+                    where_condition = "View_Address_Groupby_Req_Id.Tumbon"
                 ElseIf ddl1.SelectedValue = "อำเภอ/เขต" Then
-                    where_condition = "Amphur"
+                    where_condition = "View_Address_Groupby_Req_Id.Amphur"
                 ElseIf ddl1.SelectedValue = "จังหวัด" Then
                     where_condition = "Prov_Name"
                 End If
 
                 If Cnt = 1 Then
-                    If where_condition = "Tumbon" Or where_condition = "Amphur" Or where_condition = "Prov_Name" Then
+                    If where_condition = "View_Address_Groupby_Req_Id.Tumbon" Or where_condition = "View_Address_Groupby_Req_Id.Amphur" Or where_condition = "Prov_Name" Then
                         sb.Append(where_condition & " Like " & "\'" & tbx1.Text & "%\'")
                     Else
                         sb.Append(where_condition & " = " & tbx1.Text)
                     End If
                 Else
-                    If where_condition = "Tumbon" Or where_condition = "Amphur" Or where_condition = "Prov_Name" Then
+                    If where_condition = "View_Address_Groupby_Req_Id.Tumbon" Or where_condition = "View_Address_Groupby_Req_Id.Amphur" Or where_condition = "Prov_Name" Then
                         sb.Append(" AND " & where_condition & " Like " & "\'" & tbx1.Text & "%\'")
                     Else
                         sb.Append(" AND " & where_condition & " = " & tbx1.Text)
@@ -338,4 +338,5 @@ Partial Class Search_Collateral
     Protected Sub ddlPrice_Length_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles ddlPrice_Length.SelectedIndexChanged
         Condition_Search()
     End Sub
+
 End Class
