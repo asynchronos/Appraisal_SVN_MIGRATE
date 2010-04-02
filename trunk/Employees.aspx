@@ -36,9 +36,9 @@
             GridLines="Vertical">
             <RowStyle BackColor="#F7F7DE" />
             <Columns>
-                <asp:BoundField DataField="EMP_ID" HeaderText="รหัสพนักงาน" ReadOnly="True" ItemStyle-Width="100"
+                <asp:BoundField DataField="EMP_ID" HeaderText="รหัสพนักงาน" ReadOnly="True" ItemStyle-Width="180"
                     SortExpression="EMP_ID">
-                    <ItemStyle Width="100px"></ItemStyle>
+                    <ItemStyle Width="180px"></ItemStyle>
                 </asp:BoundField>
                 <asp:BoundField DataField="TITLE_NAME" HeaderText="คำนำหน้า" ItemStyle-Width="100"
                     SortExpression="TITLE_NAME">

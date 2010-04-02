@@ -1,6 +1,10 @@
-﻿
+﻿Imports System.Data
+Imports System.Data.SqlClient
+
 Partial Class Employees
     Inherits System.Web.UI.Page
+
+    Private conn As String = ConfigurationManager.ConnectionStrings.Item("BAYConn").ToString
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not Page.IsPostBack Then
@@ -28,7 +32,8 @@ Partial Class Employees
 
             End If
 
-            SqlDataSource1.ConnectionString = "Data Source=172.19.54.2;Initial Catalog=Bay01;User ID=Appraisal;Password=sa0123"
+
+            SqlDataSource1.ConnectionString = conn
             SqlDataSource1.SelectCommand = sql
         Catch ex As Exception
 
@@ -36,6 +41,10 @@ Partial Class Employees
     End Sub
 
     Protected Sub Button1_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles Button1.Click
+        Showdata()
+    End Sub
+
+    Protected Sub GridView1_PageIndexChanging(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.GridViewPageEventArgs) Handles GridView1.PageIndexChanging
         Showdata()
     End Sub
 End Class
