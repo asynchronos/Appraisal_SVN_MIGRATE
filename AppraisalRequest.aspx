@@ -2,12 +2,11 @@
     CodeFile="AppraisalRequest.aspx.vb" Inherits="AppraisalRequest" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 
     <script src="Js/jquery-1.4.2.min.js" type="text/javascript"></script>
-
     <script src="Js/common.js" type="text/javascript"></script>
-
     <style type="text/css">
         .TableWidth
         {
@@ -688,7 +687,13 @@
                                 <tr>
                                     <td align="center">
                                         <asp:Button ID="bntRequest_ID" runat="server" Text="ออกเลขคำขอประเมิน" Style="font-weight: 700"
-                                            Height="50px" ValidationGroup="1,2" />
+                                            Height="50px" ValidationGroup="1,2" Width="200px" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center">
+                                                <asp:Button ID="btnJobList" runat="server" Height="50px" 
+                                                    Text="ทะเบียนงานออก" Font-Bold="True" Width="200px" />
                                     </td>
                                 </tr>
                                 <tr>
@@ -749,8 +754,13 @@
                                         </tr>
                                         <tr>
                                             <td colspan="2" align="center">
-                                                <asp:Button ID="btnFinish" runat="server" Height="50px" Text="ออกเลขคำขอเสร็จสมบูรณ์" />
+                                                <asp:Button ID="btnFinish" runat="server" Height="50px" 
+                                                    Text="ออกเลขคำขอเสร็จสมบูรณ์" Font-Bold="True" />
                                             </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="center" colspan="2">
+                                                &nbsp;</td>
                                         </tr>
                                     </table>
                                 </ContentTemplate>

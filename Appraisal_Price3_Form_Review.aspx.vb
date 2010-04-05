@@ -249,17 +249,20 @@ Partial Class Appraisal_Price3_Form_Review
                         'ผู้อนุมัติคนที่1 ไม่สามารถแก้ไขได้
                     ElseIf i = 2 Then
                         'แก้ไขผู้อนุมัติคนที่2 และ 3 
-                        UPDATE_WAIT_FOR_APPROVE_COMMITTEE(hdfReq_Id.Value, hdfHub_Id.Value, i, txtAID.Text, hdfTemp_AID.Value, ddlApprove2.SelectedValue, lblCif.Text, hdfCollType.Value, ddlUserAppraisal.SelectedValue, 0, Now(), Now(), Now(), lbluserid.Text, Now())
+                        UPDATE_WAIT_FOR_APPROVE_COMMITTEE(hdfReq_Id.Value, hdfHub_Id.Value, i, txtAID.Text, hdfTemp_AID.Value, ddlApprove2.SelectedValue, lblCif.Text, hdfCollType.Value, ddlUserAppraisal.SelectedValue, 1, Now(), Now(), Now(), lbluserid.Text, Now())
                     ElseIf i = 3 Then
-                        UPDATE_WAIT_FOR_APPROVE_COMMITTEE(hdfReq_Id.Value, hdfHub_Id.Value, i, txtAID.Text, hdfTemp_AID.Value, ddlApprove3.SelectedValue, lblCif.Text, hdfCollType.Value, ddlUserAppraisal.SelectedValue, 0, Now(), Now(), Now(), lbluserid.Text, Now())
+                        UPDATE_WAIT_FOR_APPROVE_COMMITTEE(hdfReq_Id.Value, hdfHub_Id.Value, i, txtAID.Text, hdfTemp_AID.Value, ddlApprove3.SelectedValue, lblCif.Text, hdfCollType.Value, ddlUserAppraisal.SelectedValue, 1, Now(), Now(), Now(), lbluserid.Text, Now())
                     End If
                 Next
+                s = "<script language=""javascript"">alert('บันทึกเสร็จสมบูรณ์');</script>"
+                Page.ClientScript.RegisterStartupScript(Me.GetType, "ข้อความเตือน", s)
             Else
-                UpdateWait_For_Approve(hdfReq_Id.Value, hdfHub_Id.Value, txtAID.Text, hdfTemp_AID.Value, ddlApprove3.SelectedValue, lblCif.Text, hdfCollType.Value, ddlUserAppraisal.SelectedValue, 0, Now(), Now(), Now(), lbluserid.Text, Now())
+                'UpdateWait_For_Approve(hdfReq_Id.Value, hdfHub_Id.Value, txtAID.Text, hdfTemp_AID.Value, ddlApprove3.SelectedValue, lblCif.Text, hdfCollType.Value, ddlUserAppraisal.SelectedValue, 0, Now(), Now(), Now(), lbluserid.Text, Now())
+                s = "<script language=""javascript"">alert('คุณไม่ใช่เจ้าหน้าที่ประเมินที่ได้รับมอบหมาย คุณไม่สามารถแก้ไขข้อมูลได้');</script>"
+                Page.ClientScript.RegisterStartupScript(Me.GetType, "ข้อความเตือนUpdate", s)
             End If
 
-            s = "<script language=""javascript"">alert('บันทึกเสร็จสมบูรณ์');</script>"
-            Page.ClientScript.RegisterStartupScript(Me.GetType, "ข้อความเตือน", s)
+
         Else 'ยังไม่มีข้อมูลให้ Insert
             Dim wah As Decimal
             Lat = 0
@@ -302,18 +305,29 @@ Partial Class Appraisal_Price3_Form_Review
                                      RadioButtonList2.SelectedValue, txtObligation.Text, RadioButtonList3.SelectedValue, txtLandAddress.Text, RadioButtonList4.SelectedValue, _
                                      RadioButtonList5.SelectedValue, txtBuilding.Text, txtLast_Appraisal_Detail.Text, txtBuildingStartDate.Text, lbluserid.Text, Now())
 
-            If CDec(txtGrandTotal.Text) >= 10000000 Then  'ตรวจสอบว่าราคาประเมินเกิน 20 ล้านหรือไม่
+            'If CDec(txtGrandTotal.Text) >= 10000000 Then  'ตรวจสอบว่าราคาประเมินเกิน 20 ล้านหรือไม่
+            '    'อนุมัติคนที่ 1
+            '    AddWait_For_Approve(1, hdfReq_Id.Value, hdfHub_Id.Value, txtAID.Text, hdfTemp_AID.Value, ddlApprove1.SelectedValue, lblCif.Text, hdfCollType.Value, ddlUserAppraisal.SelectedValue, 0, Now(), Now(), Now(), lbluserid.Text, Now())
+            'Else
+            '    'อนุมัติคนที่ 1
+            '    AddWait_For_Approve(1, hdfReq_Id.Value, hdfHub_Id.Value, txtAID.Text, hdfTemp_AID.Value, ddlApprove1.SelectedValue, lblCif.Text, hdfCollType.Value, ddlUserAppraisal.SelectedValue, 1, Now(), Now(), Now(), lbluserid.Text, Now())
+            'End If
+
+            If CDec(txtGrandTotal.Text) >= 10000000 Then  'ตรวจสอบว่าราคาประเมินเกิน 10 ล้านหรือไม่
                 'อนุมัติคนที่ 1
-                AddWait_For_Approve(1, hdfReq_Id.Value, hdfHub_Id.Value, txtAID.Text, hdfTemp_AID.Value, ddlApprove1.SelectedValue, lblCif.Text, hdfCollType.Value, ddlUserAppraisal.SelectedValue, 0, Now(), Now(), Now(), lbluserid.Text, Now())
+                AddWait_For_Approve(1, HiddenField1.Value, HiddenField2.Value, txtAID.Text, HiddenField3.Value, ddlApprove1.SelectedValue, lblCif.Text, hdfCollType.Value, ddlUserAppraisal.SelectedValue, 0, Now(), Now(), Now(), lbluserid.Text, Now())
+                'อนุมัติคนที่ 2
+                AddWait_For_Approve(2, HiddenField1.Value, HiddenField2.Value, txtAID.Text, HiddenField3.Value, ddlApprove2.SelectedValue, lblCif.Text, hdfCollType.Value, ddlUserAppraisal.SelectedValue, 0, Now(), Now(), Now(), lbluserid.Text, Now())
+                'อนุมัติคนที่ 3
+                AddWait_For_Approve(3, HiddenField1.Value, HiddenField2.Value, txtAID.Text, HiddenField3.Value, ddlApprove3.SelectedValue, lblCif.Text, hdfCollType.Value, ddlUserAppraisal.SelectedValue, 0, Now(), Now(), Now(), lbluserid.Text, Now())
             Else
                 'อนุมัติคนที่ 1
-                AddWait_For_Approve(1, hdfReq_Id.Value, hdfHub_Id.Value, txtAID.Text, hdfTemp_AID.Value, ddlApprove1.SelectedValue, lblCif.Text, hdfCollType.Value, ddlUserAppraisal.SelectedValue, 1, Now(), Now(), Now(), lbluserid.Text, Now())
+                AddWait_For_Approve(1, HiddenField1.Value, HiddenField2.Value, txtAID.Text, HiddenField3.Value, ddlApprove1.SelectedValue, lblCif.Text, hdfCollType.Value, ddlUserAppraisal.SelectedValue, 1, Now(), Now(), Now(), lbluserid.Text, Now())
+                'อนุมัติคนที่ 2
+                AddWait_For_Approve(2, HiddenField1.Value, HiddenField2.Value, txtAID.Text, HiddenField3.Value, ddlApprove2.SelectedValue, lblCif.Text, hdfCollType.Value, ddlUserAppraisal.SelectedValue, 1, Now(), Now(), Now(), lbluserid.Text, Now())
+                'อนุมัติคนที่ 3
+                AddWait_For_Approve(3, HiddenField1.Value, HiddenField2.Value, txtAID.Text, HiddenField3.Value, ddlApprove3.SelectedValue, lblCif.Text, hdfCollType.Value, ddlUserAppraisal.SelectedValue, 1, Now(), Now(), Now(), lbluserid.Text, Now())
             End If
-
-            'อนุมัติคนที่ 2
-            AddWait_For_Approve(2, hdfReq_Id.Value, hdfHub_Id.Value, txtAID.Text, hdfTemp_AID.Value, ddlApprove2.SelectedValue, lblCif.Text, hdfCollType.Value, ddlUserAppraisal.SelectedValue, 0, Now(), Now(), Now(), lbluserid.Text, Now())
-            'อนุมัติคนที่ 3
-            AddWait_For_Approve(3, hdfReq_Id.Value, hdfHub_Id.Value, txtAID.Text, hdfTemp_AID.Value, ddlApprove3.SelectedValue, lblCif.Text, hdfCollType.Value, ddlUserAppraisal.SelectedValue, 0, Now(), Now(), Now(), lbluserid.Text, Now())
 
             s = "<script language=""javascript"">alert('บันทึกเสร็จสมบูรณ์');</script>"
             Page.ClientScript.RegisterStartupScript(Me.GetType, "ข้อความเตือน", s)
