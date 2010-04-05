@@ -64,12 +64,11 @@
         <asp:SqlDataSource ID="Appraisal_Request_PicturePath" runat="server" 
             ConnectionString="<%$ ConnectionStrings:AppraisalConn %>" 
             
-    SelectCommand="SELECT Appraisal_Price2_PicturePath.Req_ID, Appraisal_Price2_PicturePath.Hub_ID, Appraisal_Price2_PicturePath.Temp_AID, TB_HUB.HUB_NAME, Appraisal_Price2_PicturePath.Picture_Path FROM Appraisal_Price2_PicturePath INNER JOIN TB_HUB ON Appraisal_Price2_PicturePath.Hub_ID = TB_HUB.HUB_ID WHERE (Appraisal_Price2_PicturePath.Req_ID = @Req_Id) AND (Appraisal_Price2_PicturePath.Hub_ID = @Hub_Id) AND (Appraisal_Price2_PicturePath.Temp_AID = @Temp_AID)">
+    
+    SelectCommand="SELECT Appraisal_Price2_PicturePath.Req_ID, Appraisal_Price2_PicturePath.Hub_ID, Appraisal_Price2_PicturePath.Temp_AID, TB_HUB.HUB_NAME, Appraisal_Price2_PicturePath.Picture_Path FROM Appraisal_Price2_PicturePath INNER JOIN TB_HUB ON Appraisal_Price2_PicturePath.Hub_ID = TB_HUB.HUB_ID WHERE (Appraisal_Price2_PicturePath.Req_ID = @Req_Id) AND (Appraisal_Price2_PicturePath.Hub_ID = @Hub_Id)">
             <SelectParameters>
                 <asp:ControlParameter ControlID="lblReq_Id" Name="Req_Id" PropertyName="Text" />
                 <asp:ControlParameter ControlID="lblHub_Id" Name="Hub_Id" PropertyName="Text" />
-                <asp:ControlParameter ControlID="lblTemp_AID" Name="Temp_AID" 
-                    PropertyName="Text" />
             </SelectParameters>
         </asp:SqlDataSource>
         <br />
