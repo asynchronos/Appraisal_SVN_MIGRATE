@@ -4,6 +4,9 @@ Imports System.Collections.Generic
 Imports System.Xml
 Imports System.Xml.Serialization
 Imports Appraisal_Manager
+Imports System.Data.SqlClient
+Imports System.Globalization
+Imports System.Globalization.CultureInfo
 
 Partial Class Price3DB
     Inherits System.Web.UI.Page
@@ -19,6 +22,7 @@ Partial Class Price3DB
         'MsgBox(b)
         'End If
 
+        'MsgBox(Session("Condition"))
         'If Not Page.IsPostBack Then
         Select Case Request("action")
             Case "1"
@@ -37,6 +41,10 @@ Partial Class Price3DB
                 updateMark_Price3()
             Case "8"
                 showMarkPrice1()
+            Case "9"
+                ShowMark_Price3()
+            Case "10"
+                ShowMark_Price3_By_Dataset()
         End Select
         ' End If
 
@@ -192,4 +200,47 @@ Partial Class Price3DB
         Response.Write(sXML)
         Response.End()
     End Sub
+
+    Private Sub ShowMark_Price3()
+        Dim oStrW As New StringWriter()
+        Dim sXML As String
+        Dim dalmap As New GmapDAL_NEW
+        Dim lmap As New List(Of Price3_Master)
+
+        lmap = dalmap.getGmapBy_Price3(Request("Req_Id"))
+
+        Dim oXS As XmlSerializer = New XmlSerializer(lmap.GetType)
+        oXS.Serialize(oStrW, lmap)
+        sXML = oStrW.ToString()
+        oStrW.Close()
+        Response.Clear()
+        Response.Expires = -1
+        Response.CacheControl = "no-cache"
+        Response.ContentType = "text/xml"
+        Response.Write(sXML)
+        Response.End()
+    End Sub
+
+    Private Sub ShowMark_Price3_By_Dataset()
+        Dim oStrW As New StringWriter()
+        Dim sXML As String
+        Dim dalmap As New GmapDAL_NEW
+        Dim lmap As New DataSet
+        'Dim request_condition As String = Mid(Request("where_condition"), 2, Len(Request("where_condition")) - 1)
+        'MsgBox(Request("where_condition").ToString)
+        lmap = dalmap.getGmapBy_Price3_By_DataSet(Session("Condition"))
+        'lmap = dalmap.getGmapBy_Price3_By_DataSet(request_condition)
+        Dim oXS As XmlSerializer = New XmlSerializer(lmap.GetType)
+        oXS.Serialize(oStrW, lmap)
+        sXML = oStrW.ToString()
+        oStrW.Close()
+        Response.Clear()
+        Response.Expires = -1
+        Response.CacheControl = "no-cache"
+        Response.ContentType = "text/xml"
+        Response.Write(sXML)
+        Response.End()
+        Session("Condition") = Nothing
+    End Sub
+
 End Class
