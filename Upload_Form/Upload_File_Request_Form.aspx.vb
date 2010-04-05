@@ -11,6 +11,7 @@ Partial Class Upload_Form_Upload_File_Request_Form
         Image_progress.Visible = True
         btnSubmit.Enabled = False
         Dim FileName As String
+        Dim FileNameGen As String = String.Empty
         Dim popupname As String = String.Empty
         Dim uploads As HttpFileCollection = HttpContext.Current.Request.Files
 
@@ -25,16 +26,21 @@ Partial Class Upload_Form_Upload_File_Request_Form
                     FileName = hdfReq_Id.Value & "_" & hdfHub_Id.Value & "_" & System.IO.Path.GetFileName(FileToUpload.FileName)
                     Try
                         If hdfReq_form.Value = 1 Then
-                            FileToUpload.SaveAs(Server.MapPath("../UploadedFiles/Pic_RegID/Pic_Request_Form/") + FileName)
+                            FileToUpload.SaveAs(Server.MapPath("../UploadedFiles/Pic_RegID/Pic_Request_Form/") + "Form_" & FileName)
+                            FileNameGen = "Form_" & FileName
                         ElseIf hdfReq_form.Value = 2 Then
-                            FileToUpload.SaveAs(Server.MapPath("../UploadedFiles/Pic_RegID/Pic_Collateral_Map/") + FileName)
+                            FileToUpload.SaveAs(Server.MapPath("../UploadedFiles/Pic_RegID/Pic_Collateral_Map/") + "Map_" & FileName)
+                            FileNameGen = "Map_" & FileName
                         ElseIf hdfReq_form.Value = 3 Then
-                            FileToUpload.SaveAs(Server.MapPath("../UploadedFiles/Pic_RegID/Pic_Document_Imortant/") + FileName)
+                            FileToUpload.SaveAs(Server.MapPath("../UploadedFiles/Pic_RegID/Pic_Document_Imortant/") + "Doc_" & FileName)
+                            FileNameGen = "Doc_" & FileName
                         ElseIf hdfReq_form.Value = 4 Then
-                            FileToUpload.SaveAs(Server.MapPath("../UploadedFiles/Pic_RegID/Pic_Other/") + FileName)
+                            FileToUpload.SaveAs(Server.MapPath("../UploadedFiles/Pic_RegID/Pic_Other/") + "Oth_" & FileName)
+                            FileNameGen = "Oth_" & FileName
                         End If
+
                         'FileToUpload.SaveAs(Server.MapPath("../UploadedFiles/Pic_RegID/") + FileName)
-                        Appraisal_Manager.AddAppraisal_Request_PicturePath(hdfReq_Id.Value, hdfHub_Id.Value, FileName, hdfReq_form.Value, 0)
+                        Appraisal_Manager.AddAppraisal_Request_PicturePath(hdfReq_Id.Value, hdfHub_Id.Value, FileNameGen, hdfReq_form.Value, 0)
                         Server.Transfer(Page.ResolveUrl("~/Upload_Form/UploadCompleat_Form.aspx"))
                     Catch ex As Exception
                         ' Error Handling
