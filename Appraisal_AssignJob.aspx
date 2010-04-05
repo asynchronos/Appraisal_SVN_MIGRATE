@@ -114,7 +114,7 @@
             //alert(SelectedValStatus);                   
             var IndexValue = $get('<%=ddlAppraisal2.ClientID %>').selectedIndex;
             var SelectedVal = $get('<%=ddlAppraisal2.ClientID %>').options[IndexValue].value;
-            alert(SelectedVal);
+            //alert(SelectedVal);
             PageMethods.SaveAssignJob(req_id, hub_id, SelectedValStatus, SelectedVal, this.callback);
         }
         
@@ -280,7 +280,7 @@
                             <ItemStyle Width="25px" />
                             <ItemTemplate>
                                 <asp:ImageButton ID="imgLocation" runat="server" ImageUrl="~/Images/viewmap.jpg"
-                                    Height="22px" Width="22px" ToolTip="แผนที่หลักประกัน" OnClientClick='<%# "openMap("+Eval("Req_Id").toString()+","+EVAL("Hub_Id").toString()+","+EVAL("Req_Type").toString()+")" %>' />
+                                    Height="22px" Width="22px" ToolTip="แผนที่หลักประกัน" OnClientClick='<%# "openMap("+Eval("Req_Id").toString()+","+EVAL("Hub_Id").toString()+","+EVAL("Req_Type").toString()+"); return false;" %>' />
                             </ItemTemplate>
                         </asp:TemplateField>   
             <asp:TemplateField HeaderText="">
