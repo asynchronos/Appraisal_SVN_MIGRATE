@@ -101,8 +101,9 @@ Partial Class PrintPreviewPrice3Review
             Dim ObjP3_Review As List(Of Price3_50) = GET_PRICE3_CONFORM(hdfReq_Id.Value, hdfHub_Id.Value, hdfTemp_AID.Value)
             If ObjP3_Review.Count > 0 Then
                 hdfTemp_AID.Value = ObjP3_Review.Item(0).Temp_AID
-                lblSize.Text = ObjP3_Review.Item(0).Rai & "-" & ObjP3_Review.Item(0).Ngan & "-" & ObjP3_Review.Item(0).Wah
-                LabelSizeTotalValue.Text = ObjP3_Review.Item(0).Rai & "-" & ObjP3_Review.Item(0).Ngan & "-" & ObjP3_Review.Item(0).Wah
+                Dim SumP3 As DataSet = GET_SUM_PRICE3_50(hdfReq_Id.Value, hdfHub_Id.Value, hdfTemp_AID.Value)
+                lblSize.Text = SumP3.Tables(0).Rows(0).Item("Rai") & "-" & SumP3.Tables(0).Rows(0).Item("Ngan") & "-" & SumP3.Tables(0).Rows(0).Item("Wah")
+                LabelSizeTotalValue.Text = SumP3.Tables(0).Rows(0).Item("Rai") & "-" & SumP3.Tables(0).Rows(0).Item("Ngan") & "-" & SumP3.Tables(0).Rows(0).Item("Wah")
                 For i = 0 To ObjP3_Review.Count - 1
                     If i <= 1 Then
                         Dim ObjSubColl As List(Of Cls_SubCollType) = GET_SUBCOLLTYPE(ObjP3_Review.Item(i).MysubColl_ID)
@@ -506,6 +507,15 @@ Partial Class PrintPreviewPrice3Review
         End If
     End Sub
 
+    Protected Sub ImageButtonLandAttach_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs) Handles ImageButtonLandAttach.Click
+        'Context.Items("Hub_Id") = hdfHub_Id.Value
+        Context.Items("Req_Id") = hdfReq_Id.Value
+        Context.Items("Cif") = LabelCif.Text
+        Context.Items("CifName") = lblCifName.Text
+        Server.Transfer("LandFileAttach.aspx")
+
+    End Sub
+
     'Protected Sub ImageButtonPrint_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs) Handles ImageButtonPrint.Click
     '    Session("ctrl") = PanelPrint
     '    'ClientScript.RegisterStartupScript(Me.GetType(), "onclick", "<script language=javascript>window.open('Testprint.aspx','PrintMe','scrollbars=1');</script>")
@@ -515,4 +525,6 @@ Partial Class PrintPreviewPrice3Review
     'Protected Sub Page_LoadComplete(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.LoadComplete
     '    Session("ctrl") = PanelPrint
     'End Sub
+
+
 End Class

@@ -158,6 +158,8 @@
                                     Width="25px" />
                             </td>
                             <td>
+                                <asp:ImageButton ID="ImageButtonLandAttach" runat="server" Height="25px" 
+                                    ImageUrl="~/Images/attachment.png" ToolTip="รายละเอียดแนบ" Width="25px" />
                             </td>
                             <td class="NotshowOnPrint">
                                 <asp:ImageButton ID="ImageButtonPrint" runat="server" Height="25px" 

@@ -124,12 +124,13 @@ Partial Class Appraisal_AssignJob
         Dim StatusId As HiddenField = btnEdit.Parent.FindControl("hdfStatus_Id")
         Dim lblReq_Type As Label = btnEdit.Parent.FindControl("lblReq_Type")
         Dim request As List(Of Appraisal_Request_v2) = GET_APPRAISAL_REQUEST_V2(Req_Id.Text)
-
+        ddlAppraisal2.SelectedValue = 0
+        btnSaveAssignJob.Enabled = True
         txtReqId.Text = Req_Id.Text
         txtMiddleName.Text = Cusname.Text
         txtSenderName.Text = SenderName.Text
         lblSent_Date.Text = DateSent.Text
-
+        'MsgBox(StatusId.Value)
         'If CInt(StatusId.Value) = 6 Then
         '    'HdfStatus.Value = 6
         '    If request.Item(0).Appraisal_Id = 0 Then
@@ -192,7 +193,15 @@ Partial Class Appraisal_AssignJob
             End If
         Else
             'วิธีทบทวนประเมิน
-            mdlPopup.Show()
+            If CInt(StatusId.Value) >= 3 Then
+                ddlAppraisal2.SelectedValue = request.Item(0).Appraisal_Id
+                btnSaveAssignJob.Enabled = False
+                mdlPopup.Show()
+            Else
+                ddlAppraisal2.SelectedValue = 0
+                mdlPopup.Hide()
+            End If
+
         End If
     End Sub
 
@@ -297,12 +306,7 @@ Public Shared Function SaveAssignJob(ByVal ReqId As String, ByVal HubId As Strin
                 lblNotice.Text = "ไม่มีรูปภาพหลักประกัน"
                 mdlNotice.Show()
             End If
-
-
         End If
-
-
-
     End Sub
 
     Protected Sub imgCollPic_Price1_Click(ByVal sender As Object, ByVal e As EventArgs)

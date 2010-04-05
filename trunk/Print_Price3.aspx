@@ -133,7 +133,7 @@
                                     ImageUrl="~/Images/repeat.ico" ToolTip="กลับไปหน้ารายการทบทวนประเมิน" 
                                     Width="25px" />
                             </td>
-                            <td>
+                            <td class="NotshowOnPrint">
                                 <asp:ImageButton ID="ImageButtonLandAttach" runat="server" Height="25px" 
                                     ImageUrl="~/Images/attachment.png" ToolTip="รายละเอียดแนบ" 
                                     Width="25px" />

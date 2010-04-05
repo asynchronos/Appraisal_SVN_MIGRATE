@@ -53,10 +53,11 @@ Partial Class Appraisal_Price3_Form_Review
             'หาหมายเลขโฉนด
             'Dim ObjP3_Review As List(Of Price3_50_Review) = GET_PRICE3_50_REVIEW(hdfReq_Id.Value, hdfHub_Id.Value, 0)
             Dim ObjP3_Review As List(Of Price3_50) = GET_PRICE3_CONFORM(hdfReq_Id.Value, hdfHub_Id.Value, hdfTemp_AID.Value)
+            Dim SumP3 As DataSet = GET_SUM_PRICE3_50(hdfReq_Id.Value, hdfHub_Id.Value, hdfTemp_AID.Value)
             If ObjP3_Review.Count > 0 Then
                 hdfTemp_AID.Value = ObjP3_Review.Item(0).Temp_AID
-                lblSize.Text = ObjP3_Review.Item(0).Rai & "-" & ObjP3_Review.Item(0).Ngan & "-" & ObjP3_Review.Item(0).Wah
-                lblLandArea.Text = ObjP3_Review.Item(0).Rai & "-" & ObjP3_Review.Item(0).Ngan & "-" & ObjP3_Review.Item(0).Wah
+                lblSize.Text = SumP3.Tables(0).Rows(0).Item("Rai") & "-" & SumP3.Tables(0).Rows(0).Item("Ngan") & "-" & SumP3.Tables(0).Rows(0).Item("Wah") 'ObjP3_Review.Item(0).Rai & "-" & ObjP3_Review.Item(0).Ngan & "-" & ObjP3_Review.Item(0).Wah
+                lblLandArea.Text = SumP3.Tables(0).Rows(0).Item("Rai") & "-" & SumP3.Tables(0).Rows(0).Item("Ngan") & "-" & SumP3.Tables(0).Rows(0).Item("Wah") 'ObjP3_Review.Item(0).Rai & "-" & ObjP3_Review.Item(0).Ngan & "-" & ObjP3_Review.Item(0).Wah
                 For i = 0 To ObjP3_Review.Count - 1
                     If i <= 1 Then
                         Dim ObjSubColl As List(Of Cls_SubCollType) = GET_SUBCOLLTYPE(ObjP3_Review.Item(i).MysubColl_ID)
@@ -549,6 +550,8 @@ Partial Class Appraisal_Price3_Form_Review
         'DS = CreateDataset(50, "PRICE3_50_REVIEW")
         DS = CreateDataset(50, "PRICE3_50")
         If DS.Tables(0).Rows.Item(0).Item("CntID") > 0 Then
+            'Dim Obj_BuysaleState As List(Of Cls_Buy_Sale_State) = GET_BUYSALE_STATE_INFO(DS.Tables(0).Rows.Item(0).Item("BuySale_State"))
+
             hdfTemp_AID.Value = DS.Tables(0).Rows.Item(0).Item("Temp_AID")
             If DS.Tables(0).Rows.Item(0).Item("Rai") = 0 And DS.Tables(0).Rows.Item(0).Item("Ngan") = 0 Then
                 'lblLandArea.Text = "0" & "-" & "0" & "-" & DS.Tables(0).Rows.Item(0).Item("TotalWah")
@@ -577,8 +580,8 @@ Partial Class Appraisal_Price3_Form_Review
             'txtLandTotal.Text = Format(DS.Tables(0).Rows.Item(0).Item("PriceTotal1"), "#,##0.00")
             Dim OjbColour As List(Of Cls_Area_Colour) = GET_AREA_COLOUR_INFO(DS.Tables(0).Rows.Item(0).Item("AreaColour_No"))
             lblAreaColour.Text = OjbColour.Item(0).AreaColour_Name
-            Dim Obj_BuysaleState As List(Of Cls_Buy_Sale_State) = GET_BUYSALE_STATE_INFO(DS.Tables(0).Rows.Item(0).Item("AreaColour_No"))
-            'lblBuySaleState_Name.Text = Obj_BuysaleState.Item(0).BuySale_State_Name
+            Dim Obj_BuysaleState As List(Of Cls_Buy_Sale_State) = GET_BUYSALE_STATE_INFO(DS.Tables(0).Rows.Item(0).Item("BuySale_State"))
+            lblBuySaleState_Name.Text = Obj_BuysaleState.Item(0).BuySale_State_Name
         Else
 
         End If

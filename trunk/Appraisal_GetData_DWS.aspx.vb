@@ -304,7 +304,11 @@ Partial Class Appraisal_GetData_DWS
 
                     Else
                         If CollType1 = "070" Then
-                            AddNo = Ds.Tables(0).Rows(0).Item("ADDRESS_NO")
+                            If Not IsDBNull(Ds.Tables(0).Rows(0).Item("ADDRESS_NO")) Then
+                                AddNo = Ds.Tables(0).Rows(0).Item("ADDRESS_NO")
+                            Else
+                                AddNo = String.Empty
+                            End If
                         Else
                             AddNo = Ds.Tables(0).Rows(0).Item("Collateral_Reg_No_1")
                         End If
