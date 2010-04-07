@@ -38,13 +38,17 @@ Partial Class Appraisal_AssignJob
         Return gvSortDir
     End Function
 
-    Private Function ChildDataSource(ByVal strReq_Id As Integer, ByVal strSort As String) As SqlDataSource
+    Private Function ChildDataSource(ByVal strReq_Id As Integer, ByVal ReqType As Integer, ByVal strSort As String) As SqlDataSource
         Dim strQRY As String = ""
         Dim dsTemp As New SqlDataSource
 
         Dim conn As String = ConfigurationManager.ConnectionStrings.Item("AppraisalConn").ToString
         dsTemp.ConnectionString = conn
+        'If reqType = "1" Then
         strQRY = "SELECT ID, Req_Id, Cif, CIFNAME, Hub_Id, HUB_NAME, Temp_AID, CollType_ID, MysubColl_ID, SubCollType_Name, Address_No, Tumbon, Amphur, Province,PROV_NAME FROM View_Appraisal_Price3_ListDetail WHERE Req_Id = " & strReq_Id & ""
+        'Else
+        'strQRY = "SELECT ID, Req_Id, Cif, CIFNAME, Hub_Id, HUB_NAME, Temp_AID, CollType_ID, MysubColl_ID, SubCollType_Name, Address_No, Tumbon, Amphur, Province,PROV_NAME FROM View_Appraisal_Price3_ReviewNew WHERE Req_Id = " & strReq_Id & ""
+        'End If
         dsTemp.SelectCommand = strQRY
         Return dsTemp
     End Function
@@ -93,7 +97,7 @@ Partial Class Appraisal_AssignJob
         End If
 
         'Prepare the query for Child GridView by passing the Customer ID of the parent row 
-        gv.DataSource = ChildDataSource(DirectCast(e.Row.DataItem, DataRowView)("Req_Id"), strSort)
+        gv.DataSource = ChildDataSource(DirectCast(e.Row.DataItem, DataRowView)("Req_Id"), DirectCast(e.Row.DataItem, DataRowView)("Req_Type"), strSort)
         gv.DataBind()
     End Sub
 
@@ -130,6 +134,7 @@ Partial Class Appraisal_AssignJob
         txtMiddleName.Text = Cusname.Text
         txtSenderName.Text = SenderName.Text
         lblSent_Date.Text = DateSent.Text
+
         'MsgBox(StatusId.Value)
         'If CInt(StatusId.Value) = 6 Then
         '    'HdfStatus.Value = 6
@@ -457,6 +462,7 @@ Public Shared Function SaveAssignJob(ByVal ReqId As String, ByVal HubId As Strin
         Dim Status_Id As HiddenField = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("HiddenStatus_Id"), HiddenField)
         Dim Hub_Id As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblHub_id"), Label)
         Dim ID As HiddenField = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("H_ID"), HiddenField)
+        Dim Cif As HiddenField = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("H_CIF"), HiddenField)
         Dim CollType As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblColltype"), Label)
         Dim TempAid As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblTemp_AID"), Label)
         up1.Update()
@@ -469,12 +475,33 @@ Public Shared Function SaveAssignJob(ByVal ReqId As String, ByVal HubId As Strin
         Session("id") = ID.Value
         Session("tempAid") = TempAid.Text
 
+        'Dim request As List(Of Appraisal_Request_v2) = GET_APPRAISAL_REQUEST_V2(Req_Id.Text)
+        'If request.Item(0).Req_Type = 1 Then
         If CollType.Text = "50" Then
             mdlCollDetail.Show()
         ElseIf CollType.Text = "70" Then
             mdlCollDetail70.Show()
         ElseIf CollType.Text = "18" Then
+            'ยังไม่ได้ทำ
+            'mdlCollDetail18.Show()
         End If
+        'Else
+        '    Context.Items("Req_Id") = Req_Id.Text
+        '    Context.Items("Hub_Id") = Hub_Id.Text
+        '    Context.Items("Temp_AID") = TempAid.Text
+        '    Context.Items("Cif") = Cif.Value
+        '    Context.Items("ID") = ID.Value
+        '    Context.Items("Coll_Type") = CollType.Text
+        '    Context.Items("SpecialAdd") = "เพิ่มกรณีปกติ"
+        '    If CollType.Text = "50" Then
+        '        Server.Transfer("Appraisal_Price3_50_Review_Edit.aspx")
+        '    ElseIf CollType.Text = "70" Then
+        '        Server.Transfer("Appraisal_Price3_70_Review_Edit.aspx")
+        '    ElseIf CollType.Text = "18" Then
+        '        Server.Transfer("Appraisal_Price3_18.aspx")
+        '    End If
+        'End If
+
 
 
         'End If
