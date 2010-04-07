@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="VB" MasterPageFile="~/MasterPage.master" AutoEventWireup="false" CodeFile="Apprisal_Request_JobList.aspx.vb" Inherits="Apprisal_Request_JobList" %>
+﻿<%@ Page Title="" Language="VB" MasterPageFile="~/MasterPage.master" AutoEventWireup="false" CodeFile="Apprisal_Request_JobList.aspx.vb" Inherits="Apprisal_Request_JobList" UICulture="th-TH" Culture="th-TH" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register src="ExportControl/ExportControl.ascx" tagname="ExportControl" tagprefix="uc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
@@ -12,7 +12,7 @@
     <table width="100%">
                         
                 <tr>
-                    <td align="center" style="font-size: x-large; font-weight: bold" class="style1">
+                    <td align="center" style="font-size: x-large; font-weight: bold" >
                         ทะเบียนงานออก
                         <asp:DropDownList ID="DropDownList1" runat="server" AutoPostBack="True" 
                             DataSourceID="SqlHubList" DataTextField="HUB_NAME" DataValueField="HUB_ID">

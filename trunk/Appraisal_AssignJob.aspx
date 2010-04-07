@@ -71,12 +71,12 @@
     <link href="CSS/popupstyle.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript">
         function openMap(reqid, hubid, reqType) {
-
-            if (reqType <= 1) {
+            //alert(reqType);
+            if (reqType == 1) {
                 window.open('CollDetail_Show_Position.aspx?Req_Id=' + reqid + '&Hub_Id=' + hubid, 'mapLocation', 'toolbar=no,menubar=no,scrollbars=yes,target = _blank,height=680px,width=840px');
             }
             else {
-                alert('ตำแหน่งที่ตั้งแผนที่ยังไม่ได้กำหนด');
+                alert('การทบทวนราคาประเมิน ไม่ได้กำหนดจุดที่ตั้งหลักประกัน ของการกำหนดราคาที่ 1 ');
 
                 //popup = $find('mdlCollDetailbeh').show();
                 //myIFrame = document.getElementById("frameCollDetail");
@@ -176,7 +176,6 @@
     
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-    <br />
     <br />
     <br />
     <asp:ScriptManager ID="sm1" runat="server" EnablePageMethods="true"/>
@@ -342,6 +341,7 @@
                                             <asp:TemplateField HeaderText="cif name">
                                                 <ItemStyle VerticalAlign="Middle" Width="250px" />
                                                 <ItemTemplate>
+                                                    <asp:HiddenField ID="H_CIF" runat="server" Value='<%# Eval("Cif") %>' />
                                                     <asp:Label ID="lblcifname" runat="server" Text='<%# Eval("cifname") %>'  ></asp:Label>
                                                 </ItemTemplate>
                                             </asp:TemplateField>

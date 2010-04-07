@@ -43,11 +43,11 @@
     <div>
         <table border="0" cellspacing="0" cellpadding="0" width="100%" style="height: 80px;">
         <tr>
-	        <td align="left" style="background-color:#FFCE40" class="style1">
-        	        <img alt="" src="Images/logo_bay.gif" 
+	        <td align="left" style="background-color:#FFC20E" class="style1">
+        	        <img alt="" src="Images/logo.jpg" 
                         style="" /><br />
             </td>
-	        <td style="height: 50px; background-color:#FFCE40;" valign="top">
+	        <td style="height: 50px; background-color:#FFC20E;" valign="top">
                 &nbsp;</td>
         </tr>
         <tr>
@@ -56,7 +56,7 @@
                 <table class="style1">
                     <tr valign="top">
                         <td class="style2">
-                        <table style="background-color:#ffc00e;">
+                        <table style="background-color:#ffc20e;">
                             <tr>
                                 <td>
                                     <table>
@@ -107,15 +107,6 @@
                                 <tr>
                                     <td>
                                         <ul>
-                                            <li style="color: #CC3300">แผนที่ ใน Google Map ในการกำหนดราคาที่ 1 
-                                                ยังไม่สามารถใช้ได้ ให้ใช้แผนที่จาก Longdo Map ไปก่อนชั่วคราว
-                                                <img alt="" src="Images/ani_new.gif" style="width: 30px; height: 15px" /></li>
-                                        </ul>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <ul>
                                             <li style="color: #CC3300">คู่มือการใช้งานอย่างละเอียดสามารถ Download ได้ที่ เมนู&nbsp; 
                                                 Download เลือก เอกสารสำนักงานใหญ่ (ต้องทำการ Login ก่อน)<img alt="" 
                                                     src="Images/ani_new.gif" style="width: 30px; height: 15px" /></li>
@@ -127,6 +118,23 @@
                                         <ul>
                                             <li style="color: #CC3300">อนุกรรมการคนที่ 2 และ คนที่ 3 
                                                 ที่เซ็นต์ในการตรวจสอบราคาที่ 3 ไม่เกิน 10 ล้านบาท ไม่ต้องยืนยันการตรวจสอบแล้ว <img alt="" 
+                                                    src="Images/ani_new.gif" style="width: 30px; height: 15px" /></li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <ul>
+                                            <li style="color: #CC3300">การกำหนดราคาที่ 1 ได้ใช้แผนที่&nbsp; Google Map แล้ว <img alt="" 
+                                                    src="Images/ani_new.gif" style="width: 30px; height: 15px" /></li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <ul>
+                                            <li style="color: #CC3300">วิธีทุน หากสิ่งปลูกสร้างได้สร้างเสร็จ ตั้งแต่ 50 % 
+                                                ระบบได้ออกราคาให้ได้แล้ว <img alt="" 
                                                     src="Images/ani_new.gif" style="width: 30px; height: 15px" /></li>
                                         </ul>
                                     </td>

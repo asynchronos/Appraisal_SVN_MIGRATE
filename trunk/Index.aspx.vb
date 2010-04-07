@@ -3,6 +3,12 @@ Partial Class Index
     Inherits System.Web.UI.Page
     Dim s As String
     Protected Sub ImageBtLogin_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs) Handles ImageBtLogin.Click
+        'If Txtusername.Text = txtPassword.Text Then
+        '    s = "<script language=""javascript"">alert('User ID และ Password เหมือนกัน กรุณาเปลี่ยนรหัสผ่านก่อน');</script>"
+        '    Page.ClientScript.RegisterStartupScript(Me.GetType, "Notice", s)
+        '    'Server.Transfer("ChangePass.aspx")
+        'Else
+        'End If
         Dim Obj_systemUser As List(Of SystemUser) = GET_SYSTEM_USER(Txtusername.Text, txtPassword.Text)
         Session.Clear()
         If Obj_systemUser.Count > 0 Then
@@ -19,6 +25,8 @@ Partial Class Index
             s = "<script language=""javascript"">alert('User ID หรือ Password  ไม่ถูกต้อง');</script>"
             Page.ClientScript.RegisterStartupScript(Me.GetType, "Notice", s)
         End If
+
+
 
     End Sub
 
