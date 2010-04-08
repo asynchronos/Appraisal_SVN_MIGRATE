@@ -135,76 +135,80 @@ Partial Class Appraisal_AssignJob
         txtSenderName.Text = SenderName.Text
         lblSent_Date.Text = DateSent.Text
 
-        'MsgBox(StatusId.Value)
-        'If CInt(StatusId.Value) = 6 Then
-        '    'HdfStatus.Value = 6
-        '    If request.Item(0).Appraisal_Id = 0 Then
-        '        ddlAppraisal2.SelectedValue = request.Item(0).Appraisal_Id
-        '        UPDATE_APPRAISAL_ID(Req_Id.Text, Hub_Id.Text, ddlStatus.SelectedValue, ddlAppraisal2.SelectedValue)
-        '    Else
-
-        '        ddlAppraisal2.SelectedValue = request.Item(0).Appraisal_Id
-        '        UPDATE_APPRAISAL_ID(Req_Id.Text, Hub_Id.Text, ddlStatus.SelectedValue, ddlAppraisal2.SelectedValue)
-        '    End If
-
-        '    up1.Update()
-        '    GridView1.DataBind()
-        '    mdlPopup.Show()
-        'ElseIf CInt(StatusId.Value) >= 97 Then
-        '    UPDATE_APPRAISAL_ID(Req_Id.Text, Hub_Id.Text, ddlStatus.SelectedValue, ddlAppraisal2.SelectedValue)
-        '    GridView1.DataBind()
-        '    mdlPopup.Hide()
-        'Else
 
         If lblReq_Type.Text = 1 Then  'วิธีส่งประเมินใหม่
-            Dim ChkDoc As DataSet = GET_APPRAISAL_REQUEST_PICTURE_PATH(Req_Id.Text, HdfHub_Id.Value)
-            'ตรวจสอบเอกสารที่แนบว่ามีหรือไม่
+            'Dim ChkDoc As DataSet = GET_APPRAISAL_REQUEST_PICTURE_PATH(Req_Id.Text, HdfHub_Id.Value)
+            ''ตรวจสอบเอกสารที่แนบว่ามีหรือไม่
+            'If ChkDoc.Tables(0).Rows.Count = 0 Then
+            '    txtAppraisalForm.Text = "ยังไม่ได้แนบไฟล์"
+            '    txtPicMap.Text = "ยังไม่ได้แนบไฟล์"
+            '    txtPicChanode.Text = "ยังไม่ได้แนบไฟล์"
+            '    mpeAttachFile.Show()
+            'Else
+            '    If ChkDoc.Tables(0).Rows(0).Item("Req_Form") = 0 Or ChkDoc.Tables(0).Rows(0).Item("Map") = 0 Or ChkDoc.Tables(0).Rows(0).Item("Chanode") = 0 Then
+            '        If ChkDoc.Tables(0).Rows(0).Item("Req_Form") <> 0 Then
+            '            txtAppraisalForm.Text = "แนบไฟล์แล้ว"
+            '        Else
+            '            txtAppraisalForm.Text = "ยังไม่ได้แนบไฟล์"
+            '        End If
+            '        If ChkDoc.Tables(0).Rows(0).Item("Map") <> 0 Then
+            '            txtPicMap.Text = "แนบไฟล์แล้ว"
+            '        Else
+            '            txtPicMap.Text = "ยังไม่ได้แนบไฟล์"
+            '        End If
+            '        If ChkDoc.Tables(0).Rows(0).Item("Chanode") <> 0 Then
+            '            txtPicChanode.Text = "แนบไฟล์แล้ว"
+            '        Else
+            '            txtPicChanode.Text = "ยังไม่ได้แนบไฟล์"
+            '        End If
+            '        mpeAttachFile.Show()
+            '    Else
+            '        If ChkDoc.Tables(0).Rows.Count > 0 Then
+            '            mdlPopup.Show()
+            '            If request.Item(0).Appraisal_Id = 0 Then
+            '                'If ddlAppraisal2.SelectedValue = 0 Then
+            '                'Else
+            '                '    UPDATE_APPRAISAL_ID(Req_Id.Text, Hub_Id.Text, ddlStatus.SelectedValue, ddlAppraisal2.SelectedValue)
+            '                '    'up1.Update()
+            '                '    GridView1.DataBind()
+            '                'End If
 
-            If ChkDoc.Tables(0).Rows(0).Item("Req_Form") = 0 Or ChkDoc.Tables(0).Rows(0).Item("Map") = 0 Or ChkDoc.Tables(0).Rows(0).Item("Chanode") = 0 Then
-                If ChkDoc.Tables(0).Rows(0).Item("Req_Form") <> 0 Then
-                    txtAppraisalForm.Text = "แนบไฟล์แล้ว"
-                Else
-                    txtAppraisalForm.Text = "ยังไม่ได้แนบไฟล์"
-                End If
-                If ChkDoc.Tables(0).Rows(0).Item("Map") <> 0 Then
-                    txtPicMap.Text = "แนบไฟล์แล้ว"
-                Else
-                    txtPicMap.Text = "ยังไม่ได้แนบไฟล์"
-                End If
-                If ChkDoc.Tables(0).Rows(0).Item("Chanode") <> 0 Then
-                    txtPicChanode.Text = "แนบไฟล์แล้ว"
-                Else
-                    txtPicChanode.Text = "ยังไม่ได้แนบไฟล์"
-                End If
-                mpeAttachFile.Show()
+            '            Else
+            '                'UPDATE_APPRAISAL_ID(Req_Id.Text, Hub_Id.Text, ddlStatus.SelectedValue, ddlAppraisal2.SelectedValue)
+            '                ddlAppraisal2.SelectedValue = request.Item(0).Appraisal_Id
+            '                'up1.Update()
+            '                'GridView1.DataBind()
+            '            End If
+            '        End If
+            '    End If
+            'End If
+
+            mdlPopup.Show()
+            If request.Item(0).Appraisal_Id = 0 Then
+                'If ddlAppraisal2.SelectedValue = 0 Then
+                'Else
+                '    UPDATE_APPRAISAL_ID(Req_Id.Text, Hub_Id.Text, ddlStatus.SelectedValue, ddlAppraisal2.SelectedValue)
+                '    'up1.Update()
+                '    GridView1.DataBind()
+                'End If
+
             Else
-                If ChkDoc.Tables(0).Rows.Count > 0 Then
-                    mdlPopup.Show()
-                    If request.Item(0).Appraisal_Id = 0 Then
-                        'If ddlAppraisal2.SelectedValue = 0 Then
-                        'Else
-                        '    UPDATE_APPRAISAL_ID(Req_Id.Text, Hub_Id.Text, ddlStatus.SelectedValue, ddlAppraisal2.SelectedValue)
-                        '    'up1.Update()
-                        '    GridView1.DataBind()
-                        'End If
-
-                    Else
-                        'UPDATE_APPRAISAL_ID(Req_Id.Text, Hub_Id.Text, ddlStatus.SelectedValue, ddlAppraisal2.SelectedValue)
-                        ddlAppraisal2.SelectedValue = request.Item(0).Appraisal_Id
-                        'up1.Update()
-                        'GridView1.DataBind()
-                    End If
-                End If
+                'UPDATE_APPRAISAL_ID(Req_Id.Text, Hub_Id.Text, ddlStatus.SelectedValue, ddlAppraisal2.SelectedValue)
+                ddlAppraisal2.SelectedValue = request.Item(0).Appraisal_Id
+                'up1.Update()
+                'GridView1.DataBind()
             End If
         Else
             'วิธีทบทวนประเมิน
+            '093328
             If CInt(StatusId.Value) >= 3 Then
                 ddlAppraisal2.SelectedValue = request.Item(0).Appraisal_Id
                 btnSaveAssignJob.Enabled = False
                 mdlPopup.Show()
             Else
                 ddlAppraisal2.SelectedValue = 0
-                mdlPopup.Hide()
+                mdlPopup.Show()
+                'mdlPopup.Hide()
             End If
 
         End If
