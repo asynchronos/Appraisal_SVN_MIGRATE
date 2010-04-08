@@ -70,15 +70,17 @@
           top:-1000px;
         }  
         
-        .outerPopup 
+        .outerPopup
         {
-            background-color:transparent;  
-            padding:1em 6px;
+            background-color: Gray;
+            padding: 1em 16px;
+            border-style: solid;
+            border-color: Yellow;
+            border-width: 1px;
         }
-
         .innerPopup
         {
-            background-color:#fff;
+            background-color: #fff;
         }
 
         .modalBackground1
@@ -521,7 +523,7 @@
                                         <asp:TextBox ID="TxtCifColl" runat="server" MaxLength="9" Width="90px" myId="TxtCifColl"></asp:TextBox>
                                         <asp:Button ID="ButtonSearchCifColl" runat="server" Text="...." OnClientClick="changeIframeSrcById('myIframe','Search_Cif.aspx','Cif=TxtCifColl&Title=ddlTitleColl&CifName=TxtCifNameColl&CifLastname=TxtCifLastNameColl&PopupModal=mpeBehaviorSearchCifColl'); return false;" />
                                         <cc1:ModalPopupExtender ID="ButtonSearchCifColl_ModalPopupExtender" runat="server"
-                                            BackgroundCssClass="GrayedOut" OnOkScript="onOk()" PopupControlID="panel_SearchCif"
+                                            BackgroundCssClass="modalBackground1" CancelControlID="btnCloseIframe" PopupControlID="panel_SearchCif"
                                             TargetControlID="ButtonSearchCifColl" BehaviorID="mpeBehaviorSearchCifColl" />
                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator_CifColl" runat="server" ControlToValidate="TxtCifColl"
                                             Display="Dynamic" ErrorMessage="ใส่รหัสเจ้าของหลักประกัน" ValidationGroup="3"></asp:RequiredFieldValidator>
@@ -788,7 +790,7 @@
     </table>
     
     <%-- ค้นหา Cif และ  Cif เจ้าของหลักประกัน--%>
-    <cc1:ModalPopupExtender ID="btn_SearchCif" runat="server" BackgroundCssClass="GrayedOut"
+<%--    <cc1:ModalPopupExtender ID="btn_SearchCif" runat="server" BackgroundCssClass="GrayedOut"
         OnOkScript="onOk()" PopupControlID="panel_SearchCif" TargetControlID="ButtonSearchCif"
         BehaviorID="mpeBehaviorSearchCif" />    
        <asp:Panel ID="panel_SearchCif" runat="server" Style="display: none;" CssClass="modalBox" width="600" height="225">
@@ -797,11 +799,29 @@
             <div style="white-space: nowrap; text-align: center; background-color: White;">
                 <asp:Button ID="btnCloseIframe" runat="server" Text="Close" Width="50px" myId="btnCloseIframe" />
             </div>
-        </asp:Panel>    
+        </asp:Panel>   --%>    
+        
+    <asp:Panel ID="panel_SearchCif" runat="server" CssClass="outerPopup" Style="display: none;">
+        <asp:Panel ID="pnlInnerPopup" runat="server" Width="600px" CssClass="innerPopup">
+            <iframe id="myIframe" src="" width="600" height="200" frameborder="0" scrolling="no">
+            </iframe>
+        </asp:Panel>
+        <br />
+        <div style="white-space: nowrap; text-align: center;">
+            <asp:Button ID="btnCloseIframe" runat="server" Text="Close" Width="65px"  myId="btnCloseIframe"/>
+        </div>
+    </asp:Panel>
             
+    <cc1:ModalPopupExtender ID="btn_SearchCif" runat="server" TargetControlID="ButtonSearchCif"
+        PopupControlID="panel_SearchCif" CancelControlID="btnCloseIframe" BackgroundCssClass="modalBackground1"
+        BehaviorID="mpeBehaviorSearchCif">
+    </cc1:ModalPopupExtender>
+    <cc1:RoundedCornersExtender ID="RoundedCornersExtender1" runat="server" TargetControlID="pnlInnerPopup"
+        BorderColor="black" Radius="6">
+    </cc1:RoundedCornersExtender>
     
     <%-- ค้นหา จังหวัด --%>
-    <cc1:ModalPopupExtender ID="ModalPopupExtenderSearchProvince" runat="server" BackgroundCssClass="GrayedOut"
+<%--    <cc1:ModalPopupExtender ID="ModalPopupExtenderSearchProvince" runat="server" BackgroundCssClass="GrayedOut"
         OnOkScript="onOk()" PopupControlID="panelSearchProvince" TargetControlID="ButtonSearchProvince"
         BehaviorID="mpeBehaviorSearchProvince" />
 
@@ -812,10 +832,29 @@
                         <asp:Button ID="ButtonCloseSearchProvince" runat="server" Text="Close" Width="50px"
                             myId="ButtonCloseSearchProvince" />
                     </div>
-                </asp:Panel>
+                </asp:Panel>--%>
 
+    <cc1:ModalPopupExtender ID="ModalPopupExtenderSearchProvince" runat="server" TargetControlID="ButtonSearchProvince"
+        PopupControlID="panelSearchProvince" CancelControlID="ButtonCloseSearchProvince" BackgroundCssClass="modalBackground1"
+        BehaviorID="mpeBehaviorSearchProvince">
+    </cc1:ModalPopupExtender>
+    <cc1:RoundedCornersExtender ID="RoundedCornersExtender2" runat="server" TargetControlID="pnlInnerPopupSearchProvince"
+        BorderColor="black" Radius="6">
+    </cc1:RoundedCornersExtender>
+    <asp:Panel ID="panelSearchProvince" runat="server" CssClass="outerPopup" Style="display: none;">
+        <asp:Panel ID="pnlInnerPopupSearchProvince" runat="server" Width="600px" CssClass="innerPopup">
+            <iframe id="IframeSearchProvince" src="" width="600" height="200" frameborder="0" scrolling="no">
+            </iframe>
+        </asp:Panel>
+        <br />
+        <div style="white-space: nowrap; text-align: center;">
+            <asp:Button ID="ButtonCloseSearchProvince" runat="server" Text="Close" Width="65px"  myId="ButtonCloseSearchProvince"/>
+        </div>
+    </asp:Panel>
+    
     <%-- ค้นหา อำเภอ --%>
-    <cc1:ModalPopupExtender ID="ModalPopupExtenderSearchAmphur" runat="server" BackgroundCssClass="GrayedOut"
+    
+<%--    <cc1:ModalPopupExtender ID="ModalPopupExtenderSearchAmphur" runat="server" BackgroundCssClass="GrayedOut"
         OnOkScript="onOk()" PopupControlID="panelSearchAmphur" TargetControlID="ButtonSearchAmphur"
         BehaviorID="mpeBehaviorSearchAmphur" />
     <asp:Panel ID="panelSearchAmphur" runat="server" Style="display: none;" CssClass="modalBox">
@@ -825,10 +864,28 @@
             <asp:Button ID="ButtonCloseSearchAmphur" runat="server" Text="Close" Width="50px"
                 myId="ButtonCloseSearchAmphur" />
         </div>
-    </asp:Panel>
+    </asp:Panel>--%>
+    
+    <cc1:ModalPopupExtender ID="ModalPopupExtenderSearchAmphur" runat="server" TargetControlID="ButtonSearchAmphur"
+        PopupControlID="panelSearchAmphur" CancelControlID="ButtonCloseSearchAmphur" BackgroundCssClass="modalBackground1"
+        BehaviorID="mpeBehaviorSearchAmphur">
+    </cc1:ModalPopupExtender>
+    <cc1:RoundedCornersExtender ID="RoundedCornersExtender3" runat="server" TargetControlID="pnlInnerPopupSearchAmphur"
+        BorderColor="black" Radius="6">
+    </cc1:RoundedCornersExtender>
+    <asp:Panel ID="panelSearchAmphur" runat="server" CssClass="outerPopup" Style="display: none;">
+        <asp:Panel ID="pnlInnerPopupSearchAmphur" runat="server" Width="600px" CssClass="innerPopup">
+            <iframe id="IframeSearchAmphur" src="" width="600" height="250" frameborder="0" scrolling="no">
+            </iframe>
+        </asp:Panel>
+        <br />
+        <div style="white-space: nowrap; text-align: center;">
+            <asp:Button ID="ButtonCloseSearchAmphur" runat="server" Text="Close" Width="65px"  myId="ButtonCloseSearchAmphur"/>
+        </div>
+    </asp:Panel>    
     
     <%-- ค้นหา ตำบล--%>
-    <cc1:ModalPopupExtender ID="ModalPopupExtenderSearchTambon" runat="server" BackgroundCssClass="GrayedOut"
+<%--    <cc1:ModalPopupExtender ID="ModalPopupExtenderSearchTambon" runat="server" BackgroundCssClass="GrayedOut"
         OnOkScript="onOk()" PopupControlID="panelSearchTambon" TargetControlID="ButtonSearchTambon"
         BehaviorID="mpeBehaviorSearchTambon" />
     <asp:Panel ID="panelSearchTambon" runat="server" Style="display: none;" CssClass="modalBox">
@@ -838,10 +895,28 @@
             <asp:Button ID="ButtonClossSearchTambon" runat="server" Text="Close" Width="50px"
                 myId="ButtonCloseSearchTambon" />
         </div>
-    </asp:Panel>
+    </asp:Panel>--%>
+    
+    <cc1:ModalPopupExtender ID="ModalPopupExtenderSearchTambon" runat="server" TargetControlID="ButtonSearchTambon"
+        PopupControlID="panelSearchTambon" CancelControlID="ButtonCloseSearchAmphur" BackgroundCssClass="modalBackground1"
+        BehaviorID="mpeBehaviorSearchTambon">
+    </cc1:ModalPopupExtender>
+    <cc1:RoundedCornersExtender ID="RoundedCornersExtender4" runat="server" TargetControlID="pnlInnerPopupSearchTambon"
+        BorderColor="black" Radius="6">
+    </cc1:RoundedCornersExtender>
+    <asp:Panel ID="panelSearchTambon" runat="server" CssClass="outerPopup" Style="display: none;">
+        <asp:Panel ID="pnlInnerPopupSearchTambon" runat="server" Width="600px" CssClass="innerPopup">
+            <iframe id="IframeSearchTambon" src="" width="540" height="300" frameborder="0" scrolling="no">
+            </iframe>
+        </asp:Panel>
+        <br />
+        <div style="white-space: nowrap; text-align: center;">
+            <asp:Button ID="ButtonCloseSearchTambon" runat="server" Text="Close" Width="65px"  myId="ButtonCloseSearchTambon"/>
+        </div>
+    </asp:Panel>   
     
     <%-- ค้นหา Hub --%>
-    <cc1:ModalPopupExtender ID="ModalPopupSearchHub" runat="server" BackgroundCssClass="GrayedOut"
+<%--    <cc1:ModalPopupExtender ID="ModalPopupSearchHub" runat="server" BackgroundCssClass="GrayedOut"
         OnOkScript="onOk()" PopupControlID="panelSearchHub" TargetControlID="ButtonSearchHub"
         BehaviorID="mpeBehaviorSearchHub" />
     <asp:Panel ID="panelSearchHub" runat="server" Style="display: none;" CssClass="modalBox">
@@ -850,11 +925,30 @@
         <div style="white-space: nowrap; text-align: center; background-color: White;">
             <asp:Button ID="ButtonCloseSearchHub" runat="server" Text="Close" Width="50px" myId="ButtonCloseSearchHub" />
         </div>
-    </asp:Panel>
+    </asp:Panel>--%>
+    
+    <cc1:ModalPopupExtender ID="ModalPopupSearchHub" runat="server" TargetControlID="ButtonSearchHub"
+        PopupControlID="panelSearchHub" CancelControlID="ButtonCloseSearchHub" BackgroundCssClass="modalBackground1"
+        BehaviorID="mpeBehaviorSearchHub">
+    </cc1:ModalPopupExtender>
+    <cc1:RoundedCornersExtender ID="RoundedCornersExtender5" runat="server" TargetControlID="pnlInnerPopupSearchHub"
+        BorderColor="black" Radius="6">
+    </cc1:RoundedCornersExtender>
+    <asp:Panel ID="panelSearchHub" runat="server" CssClass="outerPopup" Style="display: none;">
+        <asp:Panel ID="pnlInnerPopupSearchHub" runat="server" Width="600px" CssClass="innerPopup">
+            <iframe id="IframeSearchHub" src="" width="540" height="300" frameborder="0" scrolling="no">
+            </iframe>
+        </asp:Panel>
+        <br />
+        <div style="white-space: nowrap; text-align: center;">
+            <asp:Button ID="ButtonCloseSearchHub" runat="server" Text="Close" Width="65px"  myId="ButtonCloseSearchHub"/>
+        </div>
+    </asp:Panel>  
+        
     
     <%-- ค้นหา AID --%>
     <asp:Button ID="tempSearchAID" runat="server" Style="display: none;" />
-    <cc1:ModalPopupExtender ID="ModalPopupExtenderSearchAID" runat="server" BackgroundCssClass="GrayedOut"
+<%--    <cc1:ModalPopupExtender ID="ModalPopupExtenderSearchAID" runat="server" BackgroundCssClass="GrayedOut"
         OnOkScript="onOk()" PopupControlID="panelSearchAID" TargetControlID="tempSearchAID"
         BehaviorID="mpeBehaviorSearchAID" />
     <asp:Panel ID="panelSearchAID" runat="server" Style="display: none;" CssClass="modalBox">
@@ -863,10 +957,29 @@
         <div style="white-space: nowrap; text-align: center; background-color: White;">
             <asp:Button ID="ButtonCloseSearchAID" runat="server" Text="Close" Width="50px" myId="ButtonCloseSearchAID" />
         </div>
-    </asp:Panel>
+    </asp:Panel>--%>
+    
+    <cc1:ModalPopupExtender ID="ModalPopupExtenderSearchAID" runat="server" TargetControlID="tempSearchAID"
+        PopupControlID="panelSearchAID" CancelControlID="ButtonCloseSearchAID" BackgroundCssClass="modalBackground1"
+        BehaviorID="mpeBehaviorSearchAID">
+    </cc1:ModalPopupExtender>
+    <cc1:RoundedCornersExtender ID="RoundedCornersExtender6" runat="server" TargetControlID="pnlInnerPopupSearchAID"
+        BorderColor="black" Radius="6">
+    </cc1:RoundedCornersExtender>
+    <asp:Panel ID="panelSearchAID" runat="server" CssClass="outerPopup" Style="display: none;">
+        <asp:Panel ID="pnlInnerPopupSearchAID" runat="server" Width="600px" CssClass="innerPopup">
+            <iframe id="IframeSearchAID" src="" width="540" height="300" frameborder="0" scrolling="no">
+            </iframe>
+        </asp:Panel>
+        <br />
+        <div style="white-space: nowrap; text-align: center;">
+            <asp:Button ID="ButtonCloseSearchAID" runat="server" Text="Close" Width="65px"  myId="ButtonCloseSearchAID"/>
+        </div>
+    </asp:Panel> 
+    
     
     <%-- ค้นหา พนักงานที่ส่งประเมิน --%>
-    <cc1:ModalPopupExtender ID="ModalPopupExtenderSearchEmp" runat="server" BackgroundCssClass="GrayedOut"
+<%--    <cc1:ModalPopupExtender ID="ModalPopupExtenderSearchEmp" runat="server" BackgroundCssClass="GrayedOut"
         OnOkScript="onOk()" PopupControlID="panelSearchEmp" TargetControlID="ButtonSearchEmp"
         BehaviorID="mpeBehaviorSearchEmp" />
     <asp:Panel ID="panelSearchEmp" runat="server" Style="display: none;" CssClass="modalBox">
@@ -875,10 +988,29 @@
         <div style="white-space: nowrap; text-align: center; background-color: White;">
             <asp:Button ID="ButtonCloseSearchEmp" runat="server" Text="Close" Width="50px" myId="ButtonCloseSearchEmp" />
         </div>
-    </asp:Panel>
+    </asp:Panel>--%>
+    
+    <cc1:ModalPopupExtender ID="ModalPopupExtenderSearchEmp" runat="server" TargetControlID="ButtonSearchEmp"
+        PopupControlID="panelSearchEmp" CancelControlID="ButtonCloseSearchEmp" BackgroundCssClass="modalBackground1"
+        BehaviorID="mpeBehaviorSearchEmp">
+    </cc1:ModalPopupExtender>
+    <cc1:RoundedCornersExtender ID="RoundedCornersExtender7" runat="server" TargetControlID="pnlInnerPopupSearchEmp"
+        BorderColor="black" Radius="6">
+    </cc1:RoundedCornersExtender>
+    <asp:Panel ID="panelSearchEmp" runat="server" CssClass="outerPopup" Style="display: none;">
+        <asp:Panel ID="pnlInnerPopupSearchEmp" runat="server" Width="600px" CssClass="innerPopup">
+            <iframe id="IframeSearchEmp" src="" width="580" height="350" frameborder="0" scrolling="no">
+            </iframe>
+        </asp:Panel>
+        <br />
+        <div style="white-space: nowrap; text-align: center;">
+            <asp:Button ID="ButtonCloseSearchEmp" runat="server" Text="Close" Width="65px"  myId="ButtonCloseSearchEmp"/>
+        </div>
+    </asp:Panel> 
+    
     
     <%-- ค้นหา ฝ่ายงานหรือสาขา --%>
-    <cc1:ModalPopupExtender ID="ModalPopupExtenderSearchDeptBranch" runat="server" BackgroundCssClass="GrayedOut"
+<%--    <cc1:ModalPopupExtender ID="ModalPopupExtenderSearchDeptBranch" runat="server" BackgroundCssClass="GrayedOut"
         OnOkScript="onOk()" PopupControlID="panelSearchDeptBranch" TargetControlID="ButtonSearchDeptBranch"
         BehaviorID="mpeBehaviorSearchDeptBranch" />
     <asp:Panel ID="panelSearchDeptBranch" runat="server" Style="display: none;" CssClass="modalBox">
@@ -888,5 +1020,24 @@
             <asp:Button ID="ButtonCloseSearchDeptBranch" runat="server" Text="Close" Width="50px"
                 myId="ButtonCloseSearchDeptBranch" />
         </div>
-    </asp:Panel>
+    </asp:Panel>--%>
+    
+    <cc1:ModalPopupExtender ID="ModalPopupExtenderSearchDeptBranch" runat="server" TargetControlID="ButtonSearchDeptBranch"
+        PopupControlID="panelSearchDeptBranch" CancelControlID="ButtonCloseSearchDeptBranch" BackgroundCssClass="modalBackground1"
+        BehaviorID="mpeBehaviorSearchDeptBranch">
+    </cc1:ModalPopupExtender>
+    <cc1:RoundedCornersExtender ID="RoundedCornersExtender8" runat="server" TargetControlID="pnlInnerPopupSearchDeptBranch"
+        BorderColor="black" Radius="6">
+    </cc1:RoundedCornersExtender>
+    <asp:Panel ID="panelSearchDeptBranch" runat="server" CssClass="outerPopup" Style="display: none;">
+        <asp:Panel ID="pnlInnerPopupSearchDeptBranch" runat="server" Width="600px" CssClass="innerPopup">
+            <iframe id="IframeSearchDeptBranch" src="" width="540" height="300" frameborder="0" scrolling="no">
+            </iframe>
+        </asp:Panel>
+        <br />
+        <div style="white-space: nowrap; text-align: center;">
+            <asp:Button ID="ButtonCloseSearchDeptBranch" runat="server" Text="Close" Width="65px"  myId="ButtonCloseSearchDeptBranch"/>
+        </div>
+    </asp:Panel> 
+    
 </asp:Content>

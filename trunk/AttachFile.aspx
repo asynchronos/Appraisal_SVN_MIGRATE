@@ -49,7 +49,7 @@
         }
     </script>    
 </head>
-<body style="margin-left:0; margin-top:0;">
+<body style="margin-top:0;">
 <form id="form1" runat="server" enctype="multipart/form-data">
     <div id="mainDiv">
         <p id="upload-area">

@@ -100,7 +100,7 @@ Partial Class AppraisalRequest
     End Function
 
     Protected Sub btnFinish_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnFinish.Click
-        Response.Redirect("Appraisal_Request_New.aspx")
+        Response.Redirect("AppraisalRequest.aspx")
     End Sub
 
     Protected Sub btnJobList_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnJobList.Click
