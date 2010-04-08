@@ -16,4 +16,13 @@ Partial Class Apprisal_Request_JobList
 
         e.Command.Parameters.Item("@CREATE_DATE").Value = createDate
     End Sub
+
+    Protected Sub Page_PreRender(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.PreRender
+        Dim lblHub As Label = TryCast(Me.Form.FindControl("lblHub_Id"), Label)
+        If lblHub.Text = "0" Then
+        Else
+            DropDownList1.SelectedValue = lblHub.Text
+        End If
+
+    End Sub
 End Class
