@@ -42,11 +42,14 @@
                 </td>
             </tr>
         </table>
-        <asp:GridView ID="GridViewAmphur" runat="server" AutoGenerateColumns="False" 
+        <table width="100%">
+            <tr>
+                <td align="center">
+          <asp:GridView ID="GridViewAmphur" runat="server" AutoGenerateColumns="False" 
             DataKeyNames="pvcode,amcode" DataSourceID="SqlDataSourceAmphur" 
             AllowPaging="True" BackColor="LightGoldenrodYellow" BorderColor="Tan" 
             BorderWidth="1px" CellPadding="2" ForeColor="Black" GridLines="None" 
-            PageSize="5">
+            PageSize="5" >
             <Columns>
                 <asp:TemplateField HeaderText="รหัสอำเภอ" SortExpression="amcode">
                      <ItemStyle HorizontalAlign="Center" Width= "150px"/>
@@ -79,15 +82,22 @@
             <SelectedRowStyle BackColor="DarkSlateBlue" ForeColor="GhostWhite" />
             <HeaderStyle BackColor="Tan" Font-Bold="True" />
             <AlternatingRowStyle BackColor="PaleGoldenrod" />
-        </asp:GridView>        
+        </asp:GridView>                     
+                </td>
+            </tr>
+        </table>
+         
+
     <asp:SqlDataSource ID="SqlDataSourceAmphur" runat="server" 
             ConnectionString="<%$ ConnectionStrings:AppraisalConn %>" 
             SelectCommand="GET_AMPHUR_INFO_BY_PROCODE" SelectCommandType="StoredProcedure">
         <SelectParameters>
             <asp:QueryStringParameter Name="PROVINCE_CODE" QueryStringField="ProCode" 
                 Type="Int32" />
+            <asp:ControlParameter ControlID="TextBoxProvinceName" DefaultValue=" " 
+                Name="AM_NAME" PropertyName="Text" Type="String" />
         </SelectParameters>
-                    </asp:SqlDataSource>
+    </asp:SqlDataSource>
 
     </div>
     </form>

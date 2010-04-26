@@ -40,43 +40,50 @@
                 </td>
             </tr>
         </table>
-                <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" 
-                    BackColor="LightGoldenrodYellow" BorderColor="Tan" BorderWidth="1px" 
-                    CellPadding="2" DataSourceID="SqlDataSourceProvince" ForeColor="Black" 
-                    GridLines="None">
-                    <Columns>
-                        <asp:TemplateField HeaderText="รหัสจังหวัด" SortExpression="PROV_CODE">
-                            <ItemStyle  HorizontalAlign="Center"/>
-                            <EditItemTemplate>
-                                <asp:TextBox ID="TextBoxPROV_CODE" runat="server" Text='<%# Bind("PROV_CODE") %>'></asp:TextBox>
-                            </EditItemTemplate>
-                            <ItemTemplate>
-                                <asp:Label ID="LabelPROV_CODE" runat="server" Text='<%# Bind("PROV_CODE") %>'></asp:Label>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="ชื่อจังหวัด" SortExpression="PROV_NAME">
-                            <ItemStyle  Width="250px"/>
-                            <EditItemTemplate>
-                                <asp:TextBox ID="TextBoxPROV_NAME" runat="server" Text='<%# Bind("PROV_NAME") %>'></asp:TextBox>
-                            </EditItemTemplate>
-                            <ItemTemplate>
-                                <asp:Label ID="LabelPROV_NAME" runat="server" Text='<%# Bind("PROV_NAME") %>'></asp:Label>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                            <asp:TemplateField ShowHeader="False">
+        <table width="100%">
+            <tr align="center">
+                <td>
+                    <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" 
+                        BackColor="LightGoldenrodYellow" BorderColor="Tan" BorderWidth="1px" 
+                        CellPadding="2" DataSourceID="SqlDataSourceProvince" ForeColor="Black" 
+                        GridLines="None" Width="500px">
+                        <Columns>
+                            <asp:TemplateField HeaderText="รหัสจังหวัด" SortExpression="PROV_CODE">
+                                <ItemStyle  HorizontalAlign="Center"/>
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="TextBoxPROV_CODE" runat="server" Text='<%# Bind("PROV_CODE") %>'></asp:TextBox>
+                                </EditItemTemplate>
                                 <ItemTemplate>
-                                    <asp:ImageButton ID="imgLocation" runat="server" ImageUrl="~/Images/Select_user.png"
-                                        Height="22px" Width="22px" ToolTip="เลือกลูกค้า" OnClientClick='<%# "returnValue(" +Eval("PROV_CODE").toString() +","""+Eval("PROV_NAME").toString()+"""); return false;" %>' />
+                                    <asp:Label ID="LabelPROV_CODE" runat="server" Text='<%# Bind("PROV_CODE") %>'></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                    </Columns>
-                    <FooterStyle BackColor="Tan" />
-                    <PagerStyle BackColor="PaleGoldenrod" ForeColor="DarkSlateBlue" 
-                        HorizontalAlign="Center" />
-                    <SelectedRowStyle BackColor="DarkSlateBlue" ForeColor="GhostWhite" />
-                    <HeaderStyle BackColor="Tan" Font-Bold="True" />
-                    <AlternatingRowStyle BackColor="PaleGoldenrod" />
-                </asp:GridView>
+                            <asp:TemplateField HeaderText="ชื่อจังหวัด" SortExpression="PROV_NAME">
+                                <ItemStyle  Width="250px"/>
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="TextBoxPROV_NAME" runat="server" Text='<%# Bind("PROV_NAME") %>'></asp:TextBox>
+                                </EditItemTemplate>
+                                <ItemTemplate>
+                                    <asp:Label ID="LabelPROV_NAME" runat="server" Text='<%# Bind("PROV_NAME") %>'></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                                <asp:TemplateField ShowHeader="False">
+                                    <ItemTemplate>
+                                        <asp:ImageButton ID="imgLocation" runat="server" ImageUrl="~/Images/Select_user.png"
+                                            Height="22px" Width="22px" ToolTip="เลือกลูกค้า" OnClientClick='<%# "returnValue(" +Eval("PROV_CODE").toString() +","""+Eval("PROV_NAME").toString()+"""); return false;" %>' />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                        </Columns>
+                        <FooterStyle BackColor="Tan" />
+                        <PagerStyle BackColor="PaleGoldenrod" ForeColor="DarkSlateBlue" 
+                            HorizontalAlign="Center" />
+                        <SelectedRowStyle BackColor="DarkSlateBlue" ForeColor="GhostWhite" />
+                        <HeaderStyle BackColor="Tan" Font-Bold="True" />
+                        <AlternatingRowStyle BackColor="PaleGoldenrod" />
+                    </asp:GridView>                
+                </td>
+            </tr>
+        </table>
+
                 <asp:SqlDataSource ID="SqlDataSourceProvince" runat="server" 
                     ConnectionString="<%$ ConnectionStrings:AppraisalConn %>" 
                     SelectCommand="GET_PROVINCE_INFO_BY_NAME" SelectCommandType="StoredProcedure">

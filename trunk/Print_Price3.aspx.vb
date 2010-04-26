@@ -1,6 +1,10 @@
 ﻿Imports Appraisal_Manager
+Imports System.Data
+
 Partial Class Print_Price3
     Inherits System.Web.UI.Page
+
+    Dim Cnt_P3M As Object
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not Page.IsPostBack Then
@@ -19,6 +23,8 @@ Partial Class Print_Price3
             lblDetail2.Text = Context.Items("Detail2")
             lblDetail3.Text = Context.Items("Detail3")
             lblDetail4.Text = Context.Items("Detail4")
+            lblDetail5.Text = Context.Items("Detail5")
+            Label22.Text = Context.Items("Label22")
             lblLandDetail1.Text = Context.Items("lblLandDetail1")
             lblLandDetail2.Text = Context.Items("lblLandDetail2")
             lblLandDetail3.Text = Context.Items("lblLandDetail3")
@@ -80,4 +86,5 @@ Partial Class Print_Price3
         LabelReqIdValue.Text = Context.Items("Req_Id")
         'hdfTemp_AID.Value = Context.Items("Temp_AID")
     End Sub
+
 End Class
