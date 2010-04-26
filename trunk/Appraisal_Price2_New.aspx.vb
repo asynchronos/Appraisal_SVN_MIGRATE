@@ -717,6 +717,7 @@ Public Shared Function Cancel() As Boolean
 
                 ElseIf DDLSubCollType.SelectedValue = 53 Then
                     'เป็นส่วนต่อเติมสิ่งปลูกสร้าง
+                    txtMarketPrice.Text = "0"
                     UPDATE_PRICE2_70_NEW_BUILDING_PLUS(lblReq_Id.Text, lblHub_Id.Text, txtBuild_No.Text, txtBuildingArea.Text, CDec(txtBuildingUnitPrice.Text), _
                         CDec(txtBuildingPrice.Text), txtBuildingAge.Text, CDec(txtBuildingPersent1.Text), CDec(txtBuildingPersent2.Text), CDec(txtBuildingPersent3.Text), _
                         CDec(txtBuildingPriceTotalDeteriorate.Text), CInt(txtFinishPercent.Text), CDec(txtPriceNotFinish.Text), CDec(txtBuildingTotal_Price1.Text), HiddenField_ApproveId.Value, Now())
@@ -724,6 +725,7 @@ Public Shared Function Cancel() As Boolean
                     'เป็นส่วนควบ
                     Dim Partake_Id As Integer
                     Partake_Id = DDLSubCollType.SelectedValue - 53
+                    txtMarketPrice.Text = "0"
                     ADD_PRICE2_70_PARTAKE(ID_Building, lblReq_Id.Text, lblHub_Id.Text, 0, "", Partake_Id, txtBuild_No.Text, _
                      txtBuildingArea.Text, CDec(txtBuildingUnitPrice.Text), CDec(txtBuildingPrice.Text), txtBuildingAge.Text, _
                      CDec(txtBuildingPersent1.Text), CDec(txtBuildingPersent2.Text), CDec(txtBuildingPersent3.Text), CDec(txtBuildingPriceTotalDeteriorate.Text), _
