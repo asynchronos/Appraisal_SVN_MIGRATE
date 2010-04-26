@@ -12,4 +12,5 @@ Partial Class Amphur
     '        TextBoxProvinceName.Text = String.Empty
     '    End If
     'End Sub
+
 End Class
