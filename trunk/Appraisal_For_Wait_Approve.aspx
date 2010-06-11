@@ -217,7 +217,7 @@
                 <ItemStyle Width="25px" />
                 <ItemTemplate>
                     <asp:ImageButton ID="imgAttach" runat="server" 
-                        ImageUrl="~/Images/ico_attachments.gif" Height="22px" Width="22px" 
+                        ImageUrl="~/Images/attachment.png" Height="22px" Width="22px" 
                         ToolTip="á¹ºä¿ÅìàÍ¡ÊÒÃ" CommandName="Select" OnClick="imgAttach_Click" />
                 </ItemTemplate>                              
             </asp:TemplateField>

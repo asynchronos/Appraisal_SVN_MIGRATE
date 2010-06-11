@@ -5,7 +5,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 
-<script src="Js/jquery.js" type="text/javascript"></script>
+    <script src="Js/jquery.js" type="text/javascript"></script>
 <script src="Js/common.js" type="text/javascript"></script>
     <style type="text/css">
             .style17

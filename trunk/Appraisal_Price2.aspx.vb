@@ -32,11 +32,13 @@ Partial Class Appraisal_Price2
 
     Protected Sub GridView1_SelectedIndexChanging(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.GridViewSelectEventArgs) Handles GridView1.SelectedIndexChanging
         Dim str As String = ""
+        Dim lblAppraisal_Id As Label = TryCast(Me.Form.FindControl("lblUserID"), Label) 'หา Control จาก Master Page ที่ control ไม่อยู่ใน  ContentPlaceHolder1 ของ Master Page
         Dim gvTemp As GridView = DirectCast(sender, GridView)
         Dim Req_Id As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblReq_Id"), Label)
         Dim Hub_Id As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblHub_Id"), Label)
         Dim Cif As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblCif"), Label)
         Dim AID As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("lblAID"), Label)
+        Dim CifName As Label = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("LabelCifName"), Label)
 
         Dim ddlOperation As DropDownList = DirectCast(gvTemp.Rows.Item(e.NewSelectedIndex).FindControl("ddlOperation"), DropDownList)
         Context.Items("Req_Id") = Req_Id.Text
@@ -46,11 +48,13 @@ Partial Class Appraisal_Price2
         'MsgBox(Context.Items("CollType_Name"))
         Context.Items("AID") = AID.Text
         Context.Items("Cif") = Cif.Text
+        Context.Items("CifName") = CifName.Text
         'Page.Response.Redirect("Modal_Popup.aspx")
         'Server.Transfer("Modal_Popup.aspx")
 
         If ddlOperation.SelectedValue <> 0 Then
-            Response.Redirect("Appraisal_Price2_new.aspx?Req_Id=" + Trim(Req_Id.Text) + "&Hub_Id=" + Trim(Hub_Id.Text) + "&Cif=" + Trim(Cif.Text) + "&CollType=" + Trim(ddlOperation.SelectedValue) + "&CollType_Name=" + Trim(ddlOperation.SelectedItem.Text))
+            'Response.Redirect("Appraisal_Price2_New.aspx?Req_Id=" + Trim(Req_Id.Text) + "&Hub_Id=" + Trim(Hub_Id.Text) + "&Cif=" + Trim(Cif.Text) + "&CollType=" + Trim(ddlOperation.SelectedValue) + "&CollType_Name=" + Trim(ddlOperation.SelectedItem.Text))
+            Response.Redirect("Apprisal_Price2_Interface.aspx?Req_Id=" + Trim(Req_Id.Text) + "&Hub_Id=" + Trim(Hub_Id.Text) + "&Cif=" + Trim(Cif.Text) + "&CifName=" + Trim(CifName.Text) + "&Appraisal_Id=" + Trim(lblAppraisal_Id.Text) + "&CollType=" + Trim(ddlOperation.SelectedValue) + "&CollType_Name=" + Trim(ddlOperation.SelectedItem.Text))
         Else
 
         End If
