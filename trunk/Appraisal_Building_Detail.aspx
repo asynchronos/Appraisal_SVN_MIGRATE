@@ -90,7 +90,8 @@
                         <asp:HiddenField ID="HiddenField1" runat="server" />
                     </td>
                     <td>
-                        <asp:Label ID="lblId" runat="server" Style="font-weight: 700; color: #FF0000;" myId="lblId"></asp:Label>
+                        <asp:Label ID="lblId" runat="server" Style="font-weight: 700; color: #FF0000;" 
+                            myId="lblId" Visible="False"></asp:Label>
                     </td>
                     <td>
                         &nbsp;
@@ -211,7 +212,7 @@
                             <asp:Label ID="lblFloors" runat="server" Text='<%# Bind("Floors") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField HeaderText="โครงสร้างหลักสิ่งปลูกสร้าง" SortExpression="Main_Construction">
+                    <asp:TemplateField HeaderText="โครงสร้างหลัก" SortExpression="Main_Construction">
                         <EditItemTemplate>
                             <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("Main_Construction") %>'></asp:TextBox>
                         </EditItemTemplate>
@@ -317,6 +318,7 @@
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:CommandField ShowSelectButton="True" ButtonType="Button" />
+                    <asp:CommandField ButtonType="Button" ShowDeleteButton="True" />
                 </Columns>
                 <FooterStyle BackColor="Tan" />
                 <PagerStyle BackColor="PaleGoldenrod" ForeColor="DarkSlateBlue" HorizontalAlign="Center" />
@@ -324,9 +326,10 @@
                 <HeaderStyle BackColor="Tan" Font-Bold="True" />
                 <AlternatingRowStyle BackColor="PaleGoldenrod" />
             </asp:GridView>
-            <%--<asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/Add_Product.aspx">Add New</asp:HyperLink>--%>
             <asp:SqlDataSource ID="DdsPrice3_70_Detail" runat="server" ConnectionString="<%$ ConnectionStrings:AppraisalConn %>"
-                SelectCommand="GET_PRICE3_70_DETAIL" SelectCommandType="StoredProcedure">
+                SelectCommand="GET_PRICE3_70_DETAIL" SelectCommandType="StoredProcedure" 
+                DeleteCommand="DELETE_PRICE2_PRICE3_70_DETAIL" 
+                DeleteCommandType="StoredProcedure">
                 <SelectParameters>
                     <asp:ControlParameter ControlID="HiddenField4" Name="ID" PropertyName="Value" Type="Int32" />
                     <asp:ControlParameter ControlID="HiddenField1" Name="Req_Id" PropertyName="Value"
@@ -336,6 +339,13 @@
                     <asp:ControlParameter ControlID="HiddenField3" Name="Temp_AID" PropertyName="Value"
                         Type="Int32" />
                 </SelectParameters>
+                <DeleteParameters>
+                    <asp:Parameter Name="ID" Type="Int32" />
+                    <asp:Parameter Name="Req_Id" Type="Int32" />
+                    <asp:Parameter Name="Hub_Id" Type="Int32" />
+                    <asp:Parameter Name="Temp_AID" Type="Int32" />
+                    <asp:Parameter Name="Floors" Type="String" />
+                </DeleteParameters>
             </asp:SqlDataSource>
         </div>
     </div>
