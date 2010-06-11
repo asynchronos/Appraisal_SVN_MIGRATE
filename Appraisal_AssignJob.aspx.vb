@@ -8,7 +8,7 @@ Imports System.Collections
 
 Partial Class Appraisal_AssignJob
     Inherits System.Web.UI.Page
-
+    Dim StringMessage As String
 #Region "Variables"
     Dim gvUniqueID As String = String.Empty
     Dim gvNewPageIndex As Integer = 0
@@ -59,11 +59,27 @@ Partial Class Appraisal_AssignJob
 
     Protected Sub Page_PreRender(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.PreRender
         Dim cph As ContentPlaceHolder = TryCast(Me.Form.FindControl("ContentPlaceHolder1"), ContentPlaceHolder) 'หา Control จาก Master Page ที่ control อยู่ใน  ContentPlaceHolder1
+        Dim A1 As String
+        Dim i As Integer
+        Dim lblApprove_id As Label = TryCast(Me.Form.FindControl("lblUserID"), Label)
+        Dim ApprroveID As String
+
+        A1 = lblApprove_id.Text
+        i = A1.IndexOf("_")
+        If i > 0 Then
+            ApprroveID = Left(A1, i)
+        Else
+            ApprroveID = lblApprove_id.Text
+        End If
+
         If Not Page.IsPostBack Then
             Dim ReqId As Label = DirectCast(cph.FindControl("lblRequestID"), Label) 'Me.FindControl("lblRequestID")
             Dim lblHub As Label = TryCast(Me.Form.FindControl("lblHub_Id"), Label)
             HdfHub_Id.Value = lblHub.Text
+
+            HiddenField_ApproveId.Value = ApprroveID.ToString
         End If
+
 
 
     End Sub
@@ -137,51 +153,6 @@ Partial Class Appraisal_AssignJob
 
 
         If lblReq_Type.Text = 1 Then  'วิธีส่งประเมินใหม่
-            'Dim ChkDoc As DataSet = GET_APPRAISAL_REQUEST_PICTURE_PATH(Req_Id.Text, HdfHub_Id.Value)
-            ''ตรวจสอบเอกสารที่แนบว่ามีหรือไม่
-            'If ChkDoc.Tables(0).Rows.Count = 0 Then
-            '    txtAppraisalForm.Text = "ยังไม่ได้แนบไฟล์"
-            '    txtPicMap.Text = "ยังไม่ได้แนบไฟล์"
-            '    txtPicChanode.Text = "ยังไม่ได้แนบไฟล์"
-            '    mpeAttachFile.Show()
-            'Else
-            '    If ChkDoc.Tables(0).Rows(0).Item("Req_Form") = 0 Or ChkDoc.Tables(0).Rows(0).Item("Map") = 0 Or ChkDoc.Tables(0).Rows(0).Item("Chanode") = 0 Then
-            '        If ChkDoc.Tables(0).Rows(0).Item("Req_Form") <> 0 Then
-            '            txtAppraisalForm.Text = "แนบไฟล์แล้ว"
-            '        Else
-            '            txtAppraisalForm.Text = "ยังไม่ได้แนบไฟล์"
-            '        End If
-            '        If ChkDoc.Tables(0).Rows(0).Item("Map") <> 0 Then
-            '            txtPicMap.Text = "แนบไฟล์แล้ว"
-            '        Else
-            '            txtPicMap.Text = "ยังไม่ได้แนบไฟล์"
-            '        End If
-            '        If ChkDoc.Tables(0).Rows(0).Item("Chanode") <> 0 Then
-            '            txtPicChanode.Text = "แนบไฟล์แล้ว"
-            '        Else
-            '            txtPicChanode.Text = "ยังไม่ได้แนบไฟล์"
-            '        End If
-            '        mpeAttachFile.Show()
-            '    Else
-            '        If ChkDoc.Tables(0).Rows.Count > 0 Then
-            '            mdlPopup.Show()
-            '            If request.Item(0).Appraisal_Id = 0 Then
-            '                'If ddlAppraisal2.SelectedValue = 0 Then
-            '                'Else
-            '                '    UPDATE_APPRAISAL_ID(Req_Id.Text, Hub_Id.Text, ddlStatus.SelectedValue, ddlAppraisal2.SelectedValue)
-            '                '    'up1.Update()
-            '                '    GridView1.DataBind()
-            '                'End If
-
-            '            Else
-            '                'UPDATE_APPRAISAL_ID(Req_Id.Text, Hub_Id.Text, ddlStatus.SelectedValue, ddlAppraisal2.SelectedValue)
-            '                ddlAppraisal2.SelectedValue = request.Item(0).Appraisal_Id
-            '                'up1.Update()
-            '                'GridView1.DataBind()
-            '            End If
-            '        End If
-            '    End If
-            'End If
 
             mdlPopup.Show()
             If request.Item(0).Appraisal_Id = 0 Then
@@ -228,55 +199,71 @@ Public Shared Function SaveAssignJob(ByVal ReqId As String, ByVal HubId As Strin
     End Function
 
     Protected Sub imgConfirm_Click(ByVal sender As Object, ByVal e As EventArgs)
-        Dim btnEdit As ImageButton = TryCast(sender, ImageButton)
-        Dim Req_Id As Label = btnEdit.Parent.FindControl("lblReq_id")
-        Dim Hub_Id As Label = btnEdit.Parent.FindControl("lblHub_Id")
-        Dim HubName As Label = btnEdit.Parent.FindControl("lblHub_Name")
-        Dim Cif As Label = btnEdit.Parent.FindControl("lblCif")
-        Dim Cusname As Label = btnEdit.Parent.FindControl("lblCifName")
-        Dim SenderName As Label = btnEdit.Parent.FindControl("LabelEmp_Name")
-        Dim lblReq_Type As Label = btnEdit.Parent.FindControl("lblReq_Type")
-        Dim DateSent As Label = btnEdit.Parent.FindControl("LabelCreate_Date")
-        Dim StatusId As HiddenField = btnEdit.Parent.FindControl("hdfStatus_Id")
+        'Dim btnConfirm As ImageButton = TryCast(sender, ImageButton)
+        'Dim Req_Id As Label = btnConfirm.Parent.FindControl("lblReq_id")
+        'Dim Hub_Id As Label = btnConfirm.Parent.FindControl("lblHub_Id")
 
-        If lblReq_Type.Text = "1" Then
-            Dim Obj_P2 As DataSet = GET_APPRAISAL_PRICE2(Req_Id.Text, Hub_Id.Text)
-            If Obj_P2.Tables(0).Rows.Count > 0 Then
-                lblPrice1.Text = String.Format("{0:N2}", Obj_P2.Tables(0).Rows(0).Item("Price1"))
+        'Dim P3M As List(Of clsPrice3_Master) = GET_PRICE3_MASTER_FOR_CONFIRM(Req_Id.Text)
+        'If P3M.Count = 0 Then
+        '    StringMessage = "<script language=""javascript"">alert('เจ้าหน้าที่ประเมินยังไม่ได้บันทึกรายละเอียดรายงานการประเมิน'); </script>"
+        '    Page.ClientScript.RegisterStartupScript(Me.GetType, "เตือนรายงานการประเมิน", StringMessage)
+        'Else
+        '    'ออกรายงานการประเมิน
+        '    Context.Items("Req_Id") = Req_Id.Text
+        '    Context.Items("Hub_Id") = Req_Id.Text
+        '    Server.Transfer("Appraisal_Report_FullForm.aspx")
+        'End If
 
-                If Obj_P2.Tables(0).Rows(0).Item("Appraisal_Type") = 1 Then
-                    'ตรวจสอบว่าราคาที่ให้ไว้ ณ ราคาที่ 2 นั้นเป็นหลักประกันชนิดอะไร และเป็นวิธีทุน หรือ ตลาด
-                    Dim Check_Price_CollType As DataSet = GET_PRICE2_MASTER_NEW(Req_Id.Text, Hub_Id.Text)
-                    If Check_Price_CollType.Tables(0).Rows(0).Item("Condo") > 0 Then
-                        lblPrice2.Text = String.Format("{0:N2}", Obj_P2.Tables(0).Rows(0).Item("Price2"))
-                    Else
-                        lblPrice2.Text = String.Format("{0:N2}", Obj_P2.Tables(0).Rows(0).Item("PriceMarket"))
-                    End If
+        '---------------การ Confirm แบบเดิม --------------------------------
+        'Dim btnEdit As ImageButton = TryCast(sender, ImageButton)
+        'Dim Req_Id As Label = btnEdit.Parent.FindControl("lblReq_id")
+        'Dim Hub_Id As Label = btnEdit.Parent.FindControl("lblHub_Id")
+        'Dim HubName As Label = btnEdit.Parent.FindControl("lblHub_Name")
+        'Dim Cif As Label = btnEdit.Parent.FindControl("lblCif")
+        'Dim Cusname As Label = btnEdit.Parent.FindControl("lblCifName")
+        'Dim SenderName As Label = btnEdit.Parent.FindControl("LabelEmp_Name")
+        'Dim lblReq_Type As Label = btnEdit.Parent.FindControl("lblReq_Type")
+        'Dim DateSent As Label = btnEdit.Parent.FindControl("LabelCreate_Date")
+        'Dim StatusId As HiddenField = btnEdit.Parent.FindControl("hdfStatus_Id")
 
-                Else
-                    lblPrice2.Text = String.Format("{0:N2}", Obj_P2.Tables(0).Rows(0).Item("Price2"))
-                End If
-                'ddlUserAppraisal.SelectedValue = Obj_P2.Tables(0).Rows(0).Item("Appraisal_Id")
-                'ddlSender.SelectedValue = Obj_P2.Tables(0).Rows(0).Item("Sender_Id")
-                lblReq_Id_Confirm.Text = Req_Id.Text
-                lblHub_Id_Confirm.Text = Hub_Id.Text
-                lblHub_Name_Confirm.Text = HubName.Text
-                lblCif_Confirmm.Text = Cif.Text
-                lblCifName_Confirm.Text = Cusname.Text
-                lblSenderName_Confirm.Text = Obj_P2.Tables(0).Rows(0).Item("Sender_Name")
-                lblAppraisal_Name_Confirm.Text = Obj_P2.Tables(0).Rows(0).Item("AppraisalName")
-                txtComment.Text = Obj_P2.Tables(0).Rows(0).Item("Comment")
-                txtNote_Confirm.Text = Obj_P2.Tables(0).Rows(0).Item("Note")
-                'up1.Update()
-                mdlconfirm.Show()
-            Else
-                'MsgBox("No Data")
-            End If
-        Else
-            lblNotice.Text = "การทบทวนไม่มีการยืนยันราคาที่ 2"
-            mdlNotice.Show()
-        End If
+        'If lblReq_Type.Text = "1" Then
+        '    Dim Obj_P2 As DataSet = GET_APPRAISAL_PRICE2(Req_Id.Text, Hub_Id.Text)
+        '    If Obj_P2.Tables(0).Rows.Count > 0 Then
+        '        lblPrice1.Text = String.Format("{0:N2}", Obj_P2.Tables(0).Rows(0).Item("Price1"))
 
+        '        If Obj_P2.Tables(0).Rows(0).Item("Appraisal_Type") = 1 Then
+        '            'ตรวจสอบว่าราคาที่ให้ไว้ ณ ราคาที่ 2 นั้นเป็นหลักประกันชนิดอะไร และเป็นวิธีทุน หรือ ตลาด
+        '            Dim Check_Price_CollType As DataSet = GET_PRICE2_MASTER_NEW(Req_Id.Text, Hub_Id.Text)
+        '            If Check_Price_CollType.Tables(0).Rows(0).Item("Condo") > 0 Then
+        '                lblPrice2.Text = String.Format("{0:N2}", Obj_P2.Tables(0).Rows(0).Item("Price2"))
+        '            Else
+        '                lblPrice2.Text = String.Format("{0:N2}", Obj_P2.Tables(0).Rows(0).Item("PriceMarket"))
+        '            End If
+
+        '        Else
+        '            lblPrice2.Text = String.Format("{0:N2}", Obj_P2.Tables(0).Rows(0).Item("Price2"))
+        '        End If
+        '        'ddlUserAppraisal.SelectedValue = Obj_P2.Tables(0).Rows(0).Item("Appraisal_Id")
+        '        'ddlSender.SelectedValue = Obj_P2.Tables(0).Rows(0).Item("Sender_Id")
+        '        lblReq_Id_Confirm.Text = Req_Id.Text
+        '        lblHub_Id_Confirm.Text = Hub_Id.Text
+        '        lblHub_Name_Confirm.Text = HubName.Text
+        '        lblCif_Confirmm.Text = Cif.Text
+        '        lblCifName_Confirm.Text = Cusname.Text
+        '        lblSenderName_Confirm.Text = Obj_P2.Tables(0).Rows(0).Item("Sender_Name")
+        '        lblAppraisal_Name_Confirm.Text = Obj_P2.Tables(0).Rows(0).Item("AppraisalName")
+        '        txtComment.Text = Obj_P2.Tables(0).Rows(0).Item("Comment")
+        '        txtNote_Confirm.Text = Obj_P2.Tables(0).Rows(0).Item("Note")
+        '        'up1.Update()
+        '        mdlconfirm.Show()
+        '    Else
+        '        'MsgBox("No Data")
+        '    End If
+        'Else
+        '    lblNotice.Text = "การทบทวนไม่มีการยืนยันราคาที่ 2"
+        '    mdlNotice.Show()
+        'End If
+        '-----------------------------------------------------------จบการ Confirm แบบเดิม ---------------------------------------------------------------
 
     End Sub
 
@@ -374,6 +361,7 @@ Public Shared Function SaveAssignJob(ByVal ReqId As String, ByVal HubId As Strin
                 Else
                     ApprroveID = lblApprove_id.Text
                 End If
+                'Update ผู้อนุมัติราคาประเมิน
                 UPDATE_PRICE2_MASTER(lblReq_Id_Confirm.Text, lblHub_Id_Confirm.Text, lblPrice2.Text, txtNote_Confirm.Text, ApprroveID)
                 UPDATE_Status_Appraisal_Request(lblReq_Id_Confirm.Text, lblHub_Id_Confirm.Text, rdbAccept.SelectedValue)
                 GridView1.DataBind()

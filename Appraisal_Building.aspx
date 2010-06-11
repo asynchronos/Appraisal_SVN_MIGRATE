@@ -107,7 +107,7 @@
             var txtBuildingPersent3 = getEleByProperty("input", "MyClintID", "txtBuildingPersent3");
             var txtBuildingTotalDeteriorate = getEleByProperty("input", "MyClintID", "txtBuildingTotalDeteriorate");
             var txtBuildingPriceTotalDeteriorate = getEleByProperty("input", "MyClintID", "txtBuildingPriceTotalDeteriorate");
-
+            var txtNetPrice = getEleByProperty("input", "MyClintID", "txtNetPrice");
 
             var b_area = Number(building_area.value);
             //alert(b_area);
@@ -131,6 +131,9 @@
             txtBuildingTotalDeteriorate.value = percent_total;
             var BuildingPriceTotalDeteriorate = addCommas(building_price2 * (percent_total / 100));
             txtBuildingPriceTotalDeteriorate.value = addCommas(BuildingPriceTotalDeteriorate);
+            var netprice = (building_price2 - (building_price2 * (percent_total / 100)));
+            //alert(netprice);
+            txtNetPrice.value = addCommas(netprice);
         }
 
         function addCommas(nStr) {
@@ -159,19 +162,21 @@
 
         function changeBuildingDetailIframeSrc() {
             var buildingid = document.getElementById('<%=lblId.ClientID%>').innerHTML;
+            var temp_AID = document.getElementById('<%=lblTemp_AID.ClientID%>').innerHTML;
+            alert(temp_AID);
+            if (buildingid > 0) {
 
-            if (buildingid = ' ') {
-                alert('คุณต้องบันทึกรายละเอียดสิ่งปลูกสร้างก่อนเพิ่มรายละเอียดพื้นผนัง');            
-                //window.location.replace(window.location);
-            } else {
                 var myId = "IframeBuildingDetail";
                 var url = "Appraisal_Building_Detail.aspx";
-                var param = "Id=" + getValueFromQueryString("Id") + "&Req_Id=" + getValueFromQueryString("Req_Id") + "&Hub_Id=" + getValueFromQueryString("Hub_Id") + "&Temp_AID=" + getValueFromQueryString("Temp_AID") + "&PopupModal=mpeBehaviorSearchStandard";
+                var param = "Id=" + buildingid + "&Req_Id=" + getValueFromQueryString("Req_Id") + "&Hub_Id=" + getValueFromQueryString("Hub_Id") + "&Temp_AID=" + temp_AID + "&PopupModal=mpeBehaviorSearchStandard";
 
                 changeIframeSrcById(myId
                 , url
                 , param
             );
+            } else {
+                alert('คุณต้องบันทึกรายละเอียดสิ่งปลูกสร้างก่อนเพิ่มรายละเอียดพื้นผนัง');
+                //window.location.replace(window.location);
             }
         }
 
@@ -217,7 +222,21 @@
             var iframe = window.parent.document.getElementById(id);
             window.parent.$find(_PopupModal).hide();
             window.parent.location.replace(window.parent.location);
-        }                     
+        }
+
+        function makeNewOpenWindow() {
+            var windowFeatures
+            var newWindow
+            var reqId = document.getElementById('<%=lblReq_Id.ClientID%>').innerHTML;
+            var hubId = document.getElementById('<%=lblHub_Id.ClientID%>').innerHTML;
+            var id = document.getElementById('<%=lblId.ClientID%>').innerHTML;
+            var tempAID = document.getElementById('<%=lblTemp_AID.ClientID%>').innerHTML;
+
+            windowFeatures = "top=0,left=0,resizable=yes,width=" + (screen.width) + ",height=" + (screen.height);
+            newWindow = window.open("Appraisal_Price3_Print_CollType70_New.aspx?Req_Id=" + reqId + "&Hub_Id=" + hubId + "&ID=" + id + "&Temp_AID=" + tempAID, "openWindow", windowFeatures);
+            newWindow.focus();
+        }
+                          
     </script>
 
 </head>
@@ -563,16 +582,16 @@
                 </td>
                 <td>
                     <cc1:mytext ID="txtPriceTotal1" runat="server" AllowUserKey="num_Numeric" AutoCurrencyFormatOnKeyUp="True"
-                        EnableTextAlignRight="True" BackColor="#FFFF66">0</cc1:mytext>
+                        EnableTextAlignRight="True" BackColor="#FFFF66" Width="110px">0</cc1:mytext>
                     บาท
                 </td>
                 <td>
-                    &nbsp;</td>
+                    ราคาหลังหักค่าเสื่อม
+                </td>
                 <td>
-                            <cc1:mytext ID="txtMarketPrice" runat="server" AllowUserKey="num_Numeric" 
-                                BackColor="#FFFF66" EnableTextAlignRight="True" 
-                                MyClintID="txtBuildingPrice" Width="110px" 
-                                AutoCurrencyFormatOnKeyUp="True">0.00</cc1:mytext>
+                    <cc1:mytext ID="txtNetPrice" runat="server" AllowUserKey="num_Numeric" BackColor="#FFFF66"
+                        EnableTextAlignRight="True" MyClintID="txtNetPrice" Width="110px" AutoCurrencyFormatOnKeyUp="True">0.00</cc1:mytext>
+                    บาท
                 </td>
             </tr>
             <tr>
@@ -580,7 +599,7 @@
                 </td>
                 <td>
                     <asp:Button ID="ButtonBuildingDetail" runat="server" Text="รายละเอียดพื้น/ผนัง" OnClientClick="changeBuildingDetailIframeSrc(); return false;" />
-                            </td>
+                </td>
                 <td>
                     <asp:HiddenField ID="hdfAppraisal_Id" runat="server" />
                 </td>
@@ -609,17 +628,17 @@
                             </td>
                             <td>
                                 <asp:ImageButton ID="ImagePrint" runat="server" ImageUrl="~/Images/Printer.png" Width="35px"
-                                    Height="35px" />
+                                    Height="35px" OnClientClick="makeNewOpenWindow(); return false;" />
                             </td>
                             <td>
                                 <asp:Label ID="lblPrint" runat="server" Style="font-weight: 700" Text="Print Preview"></asp:Label>
                             </td>
                             <td>
                                 <asp:ImageButton ID="ImgBtnBack" runat="server" Height="35px" ImageUrl="~/Images/Button Previous.png"
-                                    Width="35px" OnClientClick="returnValue(); return false;"/>
+                                    Width="35px" OnClientClick="returnValue(); return false;" />
                             </td>
                             <td>
-                                <asp:Label ID="lblSave0" runat="server" Style="font-weight: 700" Text="BACK"></asp:Label>
+                                <asp:Label ID="lblBack" runat="server" Style="font-weight: 700" Text="BACK"></asp:Label>
                             </td>
                         </tr>
                     </table>
@@ -640,9 +659,9 @@
         </asp:Panel>
     </asp:Panel>
     <asp:Button ID="BtnBuildingDetail" runat="server" Style="display: none;" BehaviorID="BtnBuildingDetail" />
-    
     <cc1:ModalPopupExtender ID="ModalPopupExtenderBuildingDetail" runat="server" TargetControlID="ButtonBuildingDetail"
-        PopupControlID="panelBuildingDetail" CancelControlID="ButtonCloseBuilding" BackgroundCssClass="modalBackground1" BehaviorID="mpeBehaviorBuildingDetail">
+        PopupControlID="panelBuildingDetail" CancelControlID="ButtonCloseBuilding" BackgroundCssClass="modalBackground1"
+        BehaviorID="mpeBehaviorBuildingDetail">
     </cc1:ModalPopupExtender>
     <cc1:RoundedCornersExtender ID="RoundedCornersExtenderBuildingDetail" runat="server"
         TargetControlID="pnlInnerPopupBuildingDetail" BorderColor="black" Radius="4">
@@ -652,7 +671,7 @@
             <iframe id="IframeBuildingDetail" src="" width="800" height="500" frameborder="0"
                 scrolling="yes"></iframe>
         </asp:Panel>
-                <div style="white-space: nowrap; text-align: center;">
+        <div style="white-space: nowrap; text-align: center;">
             <asp:Button ID="ButtonCloseBuilding" runat="server" Text="Close" Width="65px" myId="ButtonCloseLand" />
         </div>
     </asp:Panel>
@@ -686,6 +705,7 @@ Order by prov_code"></asp:SqlDataSource>
     </asp:SqlDataSource>
     <asp:SqlDataSource ID="sdsStandard" runat="server" ConnectionString="<%$ ConnectionStrings:AppraisalConn %>"
         SelectCommand="GET_STANDARD_INFO" SelectCommandType="StoredProcedure"></asp:SqlDataSource>
+    <asp:HiddenField ID="HiddenApprisalType" runat="server" Value="104" />
     </form>
 </body>
 </html>
