@@ -7,7 +7,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <asp:ScriptManager ID="asm" runat="server">
     </asp:ScriptManager>
-    <asp:HiddenField ID="hdfield_statusid" runat="server" Value="5" />
+    <asp:HiddenField ID="hdfield_statusid" runat="server" Value="7" />
 <br />
     <div>
     <br />
@@ -90,7 +90,7 @@
                             <asp:Label ID="Label4" runat="server" Text='<%# Eval("Cifname") %>'></asp:Label>
                         </EditItemTemplate>
                         <ItemTemplate>
-                            <asp:Label ID="Label6" runat="server" Text='<%# Bind("Cifname") %>'></asp:Label>
+                            <asp:Label ID="LabelCifName" runat="server" Text='<%# Bind("Cifname") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Status_Name" SortExpression="Status_Name">

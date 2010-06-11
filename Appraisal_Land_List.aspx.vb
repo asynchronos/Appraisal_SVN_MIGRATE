@@ -41,10 +41,20 @@ Partial Class Appraisal_Land_List
 
     Function GetPrice(ByVal Count As Decimal) As Decimal
         TotalPrice += Count
-        Return Count
+        If Request.QueryString("Appraisal_Type") = 1 Then
+            Return 0
+        Else
+            Return Count
+        End If
+
     End Function
 
     Function GetTotalPrice() As Decimal
-        Return TotalPrice
+        If Request.QueryString("Appraisal_Type") = 1 Then
+            Return 0
+        Else
+            Return TotalPrice
+        End If
+
     End Function
 End Class

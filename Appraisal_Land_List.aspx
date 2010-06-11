@@ -191,7 +191,31 @@
             window.parent.$("input[myId='" + _landPrice + "']")[0].value = _pricingLand.value;
             window.parent.$("input[myId='" + _GrandTotal + "']")[0].value = _pricingLand.value;
             window.parent.$find(_PopupModal).hide();
-        }             
+        }
+
+        function deleteLand(id, subCollType) {
+
+            var _req_Id = getEleByProperty("input", "myId", "TextBoxReq_Id");
+            var _hub_Id = getEleByProperty("input", "myId", "TextBoxHub_Id");
+            //alert(id);
+            //alert(subCollType);
+            //alert(_req_Id.value);
+            //alert(_hub_Id.value);
+            //PageMethods.DeleteSubCollType(_req_Id, _hub_Id, id, subCollType, this.callback);
+
+            var myId = "IframeDelete";
+            var url = "Appraisal_Delete_Land.aspx";
+            var param = "MysubColl_ID=" + subCollType + "&LandId=" + id + "&PopupModal=mpeBehaviorDelete";
+
+            param = param + concatParam('', 'input', 'TextBoxReq_Id', 'Req_Id');
+            param = param + concatParam('', 'input', 'TextBoxHub_Id', 'Hub_Id');
+            changeIframeSrcById(myId
+                , url
+                , param
+            );
+            var popup = $find('mpeBehaviorDelete');
+            popup.show();
+        }          
     </script>
 
 </head>
@@ -258,6 +282,7 @@
                                     Width="50" OnClientClick="changeLandIframeSrc(); return false;" ToolTip="เพิ่มที่ดินแปลงใหม่" />
                                 <asp:HiddenField ID="HiddenReq_No" runat="server" />
                                 <asp:HiddenField ID="HiddenHubId" runat="server" Value="104" />
+                                <asp:HiddenField ID="HiddenBuildingPrice" runat="server" Value="104" />
                             </td>
                         </tr>
                         <tr>
@@ -330,7 +355,7 @@
                                             <ItemStyle VerticalAlign="Middle" Width="30px" />
                                             <ItemTemplate>
                                                 <asp:ImageButton ID="ImgDelete" runat="server" ImageUrl="~/Images/cancel1.jpg" ToolTip="Delete"
-                                                    Width="22px" Height="22px" CommandName="Delete" />
+                                                    Width="22px" Height="22px" OnClientClick='<%# "deleteLand("+Eval("ID").toString()+","""+Eval("MysubColl_ID").toString()+"""); return false;" %>' />
                                             </ItemTemplate>
                                             <FooterTemplate>
                                                 <asp:Button ID="ButtonOK" runat="server" Text="ยืนยัน" OnClientClick='<%# "returnValue(); return false;" %>' />
@@ -376,6 +401,7 @@
                 </iframe>
             </asp:Panel>
         </asp:Panel>
+        
         <asp:Button ID="ButtonLandEdit" runat="server" Style="display: none;" BehaviorID="ButtonLandEdit" />
         <cc1:ModalPopupExtender ID="ModalPopupExtenderLandEdit" runat="server" TargetControlID="ButtonLandEdit"
             PopupControlID="panelLandEdit" BackgroundCssClass="modalBackground1" BehaviorID="mpeBehaviorLandEdit">
@@ -389,6 +415,20 @@
                 </iframe>
             </asp:Panel>
         </asp:Panel>
+        
+        <asp:Button ID="ButtonDelete" runat="server" Style="display: none;" BehaviorID="ButtonDelete" />
+        <cc1:ModalPopupExtender ID="ModalPopupExtenderDelete" runat="server" TargetControlID="ButtonDelete"
+            PopupControlID="panelDelete" BackgroundCssClass="modalBackground1" BehaviorID="mpeBehaviorDelete">
+        </cc1:ModalPopupExtender>
+        <cc1:RoundedCornersExtender ID="RoundedCornersExtenderDelete" runat="server" TargetControlID="pnlInnerPopupDelete"
+            BorderColor="black" Radius="4">
+        </cc1:RoundedCornersExtender>
+        <asp:Panel ID="panelDelete" runat="server" CssClass="outerPopup" Style="display: none;">
+            <asp:Panel ID="pnlInnerPopupDelete" runat="server" Width="400px" CssClass="innerPopup">
+                <iframe id="IframeDelete" src="" width="400" height="100" frameborder="0" scrolling="no">
+                </iframe>
+            </asp:Panel>
+        </asp:Panel>       
     </div>
     </form>
 </body>
