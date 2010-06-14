@@ -3,7 +3,8 @@
 <%@ Register assembly="Mytextbox" namespace="Mytextbox" tagprefix="cc1" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
-<script src="Js/jquery.js" type="text/javascript"></script>
+
+    <script src="Js/jquery.js" type="text/javascript"></script>
 <script src="Js/common.js" type="text/javascript"></script>
     <style type="text/css">
             .style17
@@ -305,7 +306,7 @@ function ConfirmOnSave(item) {
                     </td>
               </tr>
               <tr>
-                <td class="style22">ปลูกสร้างบนโฉนดเลขที่</td>
+                <td class="style22">ปลูกสรปลูกสร้างบนโฉนดเลขที่</td>
                     <td>
                     <asp:TextBox ID="txtChanodeNo" runat="server" BackColor="#FFFF66" MyClintID="txtChanodeNo"></asp:TextBox>
                 <asp:ImageButton ID="imgSearchChanode" runat="server" 
@@ -737,7 +738,7 @@ function ConfirmOnSave(item) {
                                 </td>
                                 <td>
                                     Print
-                                    Preview                                 </td>                                
+                                    Preview                                                                
                             </tr>
                         </table>
                     </td>

@@ -34,7 +34,12 @@ Partial Class Appraisal_Price3_Conform_New
                 'Dim xx As String = P2Master.Item(0).Comment
 
                 ddlAppraisal_Type.SelectedValue = P2Master.Item(0).Appraisal_Type
-                ddlApprove1.SelectedValue = P2Master.Item(0).Approve2_Id
+                If P2Master.Item(0).Approve2_Id = "" Or IsDBNull(P2Master.Item(0).Approve2_Id) Then
+                    ddlApprove1.SelectedValue = 0
+                Else
+                    ddlApprove1.SelectedValue = P2Master.Item(0).Approve2_Id
+                End If
+
                 ViewState("Comment") = P2Master.Item(0).Comment
             End If
             If hdfChkColl.Value = 18 Then
@@ -50,6 +55,7 @@ Partial Class Appraisal_Price3_Conform_New
                 Show_Price3_Master(P2Master.Item(0).Appraisal_Type)
                 Show_Price3_50()
                 Show_Price3_70_GROUP()
+                GET_PRICE2_DATA()
                 'Show_Price3_70_Group_Parttake()
             Else
                 'ไม่มีชนิดหลักประกันที่จะหาข้อมูล
@@ -59,7 +65,7 @@ Partial Class Appraisal_Price3_Conform_New
                 If txtGrandTotal.Text >= 10000000 Then
                     ddlApprove1.Enabled = True
                 Else
-                    ddlApprove1.Enabled = False
+                    ddlApprove1.Enabled = True
                 End If
                 lblThaiBaht.Text = ThaiBahtFun(CDec(txtGrandTotal.Text))
             Catch ex As Exception
@@ -214,11 +220,13 @@ Partial Class Appraisal_Price3_Conform_New
                 If i = 1 Then
                     lblBuilding_Detail.Text = Replace(Space(10), " ", "&nbsp;") & Obj_GetP18.Item(i).Address_No
                     lblUnit_Price_Condo.Text = String.Format("{0:N2}", Obj_GetP18.Item(i).Unit_Price)
-                    txtBuildingPrice.Text = String.Format("{0:N2}", Round(CDec(Obj_GetP18.Item(i).PriceTotal) / 1000, System.MidpointRounding.AwayFromZero) * 1000)
+                    'txtBuildingPrice.Text = String.Format("{0:N2}", Round(CDec(Obj_GetP18.Item(i).PriceTotal) / 1000, System.MidpointRounding.AwayFromZero) * 1000)
+                    txtBuildingPrice.Text = String.Format("{0:N2}", Obj_GetP18.Item(i).PriceTotal)
                 ElseIf i = 2 Then
                     lblBuilding_Detail.Text = Replace(Space(10), " ", "&nbsp;") & Obj_GetP18.Item(i).Address_No
                     lblTotal3.Text = String.Format("{0:N2}", Obj_GetP18.Item(i).Unit_Price)
-                    txtSubTotal.Text = String.Format("{0:N2}", Round(CDec(Obj_GetP18.Item(i).PriceTotal) / 1000, System.MidpointRounding.AwayFromZero) * 1000)
+                    'txtSubTotal.Text = String.Format("{0:N2}", Round(CDec(Obj_GetP18.Item(i).PriceTotal) / 1000, System.MidpointRounding.AwayFromZero) * 1000)
+                    txtBuildingPrice.Text = String.Format("{0:N2}", Obj_GetP18.Item(i).PriceTotal)
                 Else
                     'รวมแล้วนำไปไว้ที่บรรทัดบนสุด
                 End If
@@ -522,7 +530,7 @@ Partial Class Appraisal_Price3_Conform_New
                      ddlUserAppraisal.SelectedValue, _
                      lbluserid.Text, _
                      Now())
-                    UPDATE_Status_Appraisal_Request(HiddenField1.Value, HiddenField2.Value, 11)
+                    'UPDATE_Status_Appraisal_Request(HiddenField1.Value, HiddenField2.Value, 11)
 
                     If CDec(txtGrandTotal.Text) >= 10000000 Then  'ตรวจสอบว่าราคาประเมินเกิน 10 ล้านหรือไม่
                         'อนุมัติคนที่ 1
@@ -533,11 +541,11 @@ Partial Class Appraisal_Price3_Conform_New
                         AddWait_For_Approve(3, HiddenField1.Value, HiddenField2.Value, txtAID.Text, HiddenField3.Value, ddlApprove3.SelectedValue, txtCif.Text, hdfChkColl.Value, ddlUserAppraisal.SelectedValue, 0, Now(), Now(), Now(), lbluserid.Text, Now())
                     Else
                         'อนุมัติคนที่ 1
-                        AddWait_For_Approve(1, HiddenField1.Value, HiddenField2.Value, txtAID.Text, HiddenField3.Value, ddlApprove1.SelectedValue, txtCif.Text, hdfChkColl.Value, ddlUserAppraisal.SelectedValue, 1, Now(), Now(), Now(), lbluserid.Text, Now())
+                        AddWait_For_Approve(1, HiddenField1.Value, HiddenField2.Value, txtAID.Text, HiddenField3.Value, ddlApprove1.SelectedValue, txtCif.Text, hdfChkColl.Value, ddlUserAppraisal.SelectedValue, 0, Now(), Now(), Now(), lbluserid.Text, Now())
                         'อนุมัติคนที่ 2
-                        AddWait_For_Approve(2, HiddenField1.Value, HiddenField2.Value, txtAID.Text, HiddenField3.Value, ddlApprove2.SelectedValue, txtCif.Text, hdfChkColl.Value, ddlUserAppraisal.SelectedValue, 1, Now(), Now(), Now(), lbluserid.Text, Now())
+                        AddWait_For_Approve(2, HiddenField1.Value, HiddenField2.Value, txtAID.Text, HiddenField3.Value, ddlApprove2.SelectedValue, txtCif.Text, hdfChkColl.Value, ddlUserAppraisal.SelectedValue, 0, Now(), Now(), Now(), lbluserid.Text, Now())
                         'อนุมัติคนที่ 3
-                        AddWait_For_Approve(3, HiddenField1.Value, HiddenField2.Value, txtAID.Text, HiddenField3.Value, ddlApprove3.SelectedValue, txtCif.Text, hdfChkColl.Value, ddlUserAppraisal.SelectedValue, 1, Now(), Now(), Now(), lbluserid.Text, Now())
+                        AddWait_For_Approve(3, HiddenField1.Value, HiddenField2.Value, txtAID.Text, HiddenField3.Value, ddlApprove3.SelectedValue, txtCif.Text, hdfChkColl.Value, ddlUserAppraisal.SelectedValue, 0, Now(), Now(), Now(), lbluserid.Text, Now())
                     End If
 
 
@@ -578,7 +586,7 @@ Partial Class Appraisal_Price3_Conform_New
                  ddlUserAppraisal.SelectedValue, _
                  lbluserid.Text, _
                  Now())
-                UPDATE_Status_Appraisal_Request(HiddenField1.Value, HiddenField2.Value, 11)
+                'UPDATE_Status_Appraisal_Request(HiddenField1.Value, HiddenField2.Value, 11)
 
                 If lbluserid.Text = ddlUserAppraisal.SelectedValue Then 'ตรวจสอบก่อนว่าผู้แก้ไขเป็นผู้ประเมินหรือไม่ ถ้าใช่ถึงจะแก้ไขอนุกรรมการได้
                     For i = 1 To 3
@@ -586,13 +594,13 @@ Partial Class Appraisal_Price3_Conform_New
                             'ผู้อนุมัติคนที่1 ไม่สามารถแก้ไขได้
                         ElseIf i = 2 Then
                             'แก้ไขผู้อนุมัติคนที่2 และ 3 
-                            UPDATE_WAIT_FOR_APPROVE_COMMITTEE(HiddenField1.Value, HiddenField2.Value, i, txtAID.Text, HiddenField3.Value, ddlApprove2.SelectedValue, txtCif.Text, hdfChkColl.Value, ddlUserAppraisal.SelectedValue, 1, Now(), Now(), Now(), lbluserid.Text, Now())
+                            UPDATE_WAIT_FOR_APPROVE_COMMITTEE(HiddenField1.Value, HiddenField2.Value, i, txtAID.Text, HiddenField3.Value, ddlApprove2.SelectedValue, txtCif.Text, hdfChkColl.Value, ddlUserAppraisal.SelectedValue, 0, Now(), Now(), Now(), lbluserid.Text, Now())
                         ElseIf i = 3 Then
-                            UPDATE_WAIT_FOR_APPROVE_COMMITTEE(HiddenField1.Value, HiddenField2.Value, i, txtAID.Text, HiddenField3.Value, ddlApprove3.SelectedValue, txtCif.Text, hdfChkColl.Value, ddlUserAppraisal.SelectedValue, 1, Now(), Now(), Now(), lbluserid.Text, Now())
+                            UPDATE_WAIT_FOR_APPROVE_COMMITTEE(HiddenField1.Value, HiddenField2.Value, i, txtAID.Text, HiddenField3.Value, ddlApprove3.SelectedValue, txtCif.Text, hdfChkColl.Value, ddlUserAppraisal.SelectedValue, 0, Now(), Now(), Now(), lbluserid.Text, Now())
                         End If
                     Next
                 Else
-                    UpdateWait_For_Approve(HiddenField1.Value, HiddenField2.Value, txtAID.Text, HiddenField3.Value, ddlApprove3.SelectedValue, txtCif.Text, hdfChkColl.Value, ddlUserAppraisal.SelectedValue, 1, Now(), Now(), Now(), lbluserid.Text, Now())
+                    UpdateWait_For_Approve(HiddenField1.Value, HiddenField2.Value, txtAID.Text, HiddenField3.Value, ddlApprove3.SelectedValue, txtCif.Text, hdfChkColl.Value, ddlUserAppraisal.SelectedValue, 0, Now(), Now(), Now(), lbluserid.Text, Now())
                 End If
 
                 s = "<script language=""javascript"">alert('บันทึกเสร็จสมบูรณ์');</script>"
@@ -623,7 +631,8 @@ Partial Class Appraisal_Price3_Conform_New
             Context.Items("Detail2") = lblDetail2.Text
             Context.Items("Detail3") = lblDetail3.Text
             Context.Items("Detail4") = lblDetail4.Text
-            'Context.Items("Detail5") = lblDetail5.Text
+            Context.Items("Detail5") = lblDetail5.Text
+            Context.Items("Label22") = Label22.Text
             Context.Items("lblLandDetail1") = lblLandDetail1.Text
             Context.Items("lblLandDetail2") = lblLandDetail2.Text
             Context.Items("lblLandDetail3") = lblLandDetail3.Text
@@ -737,6 +746,19 @@ Partial Class Appraisal_Price3_Conform_New
         StrPath = Request.ApplicationPath & "/FileUpload_Price3.aspx?Req_Id=" & HiddenField1.Value & "&Hub_Id=" & HiddenField2.Value & "&AID=" & txtAID.Text & "&Temp_AID=" & HiddenField3.Value & "&UserId=" & lbluserid.Text
         S1 = "<script language=""javascript"">window.open('" + StrPath + "','window','toolbar=no, menubar=no, scrollbars=yes, resizable=no,location=no, directories=no, status=yes,height=700px,width=830px');</script>"
         Page.ClientScript.RegisterStartupScript(Me.GetType, "แนบไฟล์", S1)
+    End Sub
+
+    Sub GET_PRICE2_DATA()
+        Dim PRICE2_MASTER_DATA As DataSet = GET_PRICE2_MASTER_NEW(HiddenField1.Value, HiddenField2.Value)
+        Dim P2Master As List(Of Price2_Master) = GET_PRICE2_MASTER(HiddenField1.Value, HiddenField2.Value)
+        If P2Master.Item(0).Appraisal_Type = 1 Then
+            txtLandTotal.Text = String.Format("{0:N2}", PRICE2_MASTER_DATA.Tables(0).Rows(0).Item("Land"))
+            'txtBuildingPrice.Text = String.Format("{0:N2}", PRICE2_MASTER_DATA.Tables(0).Rows(0).Item("Building"))
+        ElseIf P2Master.Item(0).Appraisal_Type = 2 Then
+            txtLandTotal.Text = String.Format("{0:N2}", PRICE2_MASTER_DATA.Tables(0).Rows(0).Item("Land"))
+            txtBuildingPrice.Text = String.Format("{0:N2}", PRICE2_MASTER_DATA.Tables(0).Rows(0).Item("Building"))
+        End If
+
     End Sub
 
 End Class

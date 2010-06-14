@@ -26,21 +26,22 @@ Partial Class AppraisalRequest
             If ddlAppraisal_Method.SelectedValue = 1 Then
                 'ประเมินใหม่               
                 '******* ออกเลขคำขอประเมิน ****************
-                ds = GET_RequestID()
-                lblRequestID.Text = ds.Tables(0).Rows.Item(0).Item("Req_ID")
+                lblRequestID.Text = String.Empty
+                'ds = GET_RequestID()
+                'lblRequestID.Text = ds.Tables(0).Rows.Item(0).Item("Req_ID")
                 '***************************************
 
                 '***************************************** SAVE DATA ****************************************
-                AddAppraisal_Request_Master(lblRequestID.Text, TxtCif.Text, ddlTitle.SelectedValue, TxtCifName.Text, TxtCifLastName.Text, ddlAppraisal_Method.SelectedValue, TextBoxAID.Text, 0, TxtSender.Text, TxtSenderName.Text, lbluser_create.Text, Now())
-                ADD_APPRAISAL_REQUEST_V2(lblRequestID.Text, TextBoxHubCode.Text, TxtCif.Text, ddlTitle.SelectedValue, _
+                'AddAppraisal_Request_Master(lblRequestID.Text, TxtCif.Text, ddlTitle.SelectedValue, TxtCifName.Text, TxtCifLastName.Text, ddlAppraisal_Method.SelectedValue, TextBoxAID.Text, 0, TxtSender.Text, TxtSenderName.Text, lbluser_create.Text, Now())
+                lblRequestID.Text = ADD_APPRAISAL_REQUEST_V2(0, TextBoxHubCode.Text, TxtCif.Text, ddlTitle.SelectedValue, _
                                          TxtCifName.Text, TxtCifLastName.Text, TxtCifColl.Text, ddlTitleColl.SelectedValue, _
                                          TxtCifNameColl.Text, TxtCifLastNameColl.Text, ddlAppraisal_Method.SelectedValue, _
                                          0, 0, TextBoxDepartmentCode.Text, TextBoxTambonCode.Text, _
-                                         TextBoxAmphurCode.Text, TextBoxProvinceCode.Text, ddlAPPLICATION_TYPE.SelectedValue, TextBoxChanode.Text, TextBoxFlag.Text, lbluser_create.Text, Now())
+                                         TextBoxAmphurCode.Text, TextBoxProvinceCode.Text, ddlAPPLICATION_TYPE.SelectedValue, TextBoxChanode.Text, TextBoxFlag.Text, TextBoxAID.Text, TxtSender.Text, TxtSenderName.Text, lbluser_create.Text, Now())
                 '*************************************** END OF SAVE DATA ************************************
 
                 '************* Update เลขคำขอประเมิน **********************
-                UPDATE_REQUEST_ID()
+                'UPDATE_REQUEST_ID()
                 '******************************************************
                 strMessage = "<script language=""javascript"">alert('คำขอประเมิน บันทึกเสร็จสมบูรณ์ กรุณาแนบไฟล์ด้านล่างเพื่อประกอบการประเมิน');</script>"
                 Page.ClientScript.RegisterStartupScript(Me.GetType, "Message", strMessage)
@@ -53,17 +54,17 @@ Partial Class AppraisalRequest
                     lblMessage.Text = "ไม่มีเลข AID"
                 Else
                     '******* ออกเลขคำขอประเมิน ****************
-                    ds = GET_RequestID()
-                    lblRequestID.Text = ds.Tables(0).Rows.Item(0).Item("Req_ID")
+                    'lblRequestID.Text = String.Empty
+                    'ds = GET_RequestID()
+                    'lblRequestID.Text = ds.Tables(0).Rows.Item(0).Item("Req_ID")
                     '***************************************
 
                     '***************************************** SAVE DATA ****************************************
-                    AddAppraisal_Request_Master(lblRequestID.Text, TxtCif.Text, ddlTitle.SelectedValue, TxtCifName.Text, TxtCifLastName.Text, ddlAppraisal_Method.SelectedValue, TextBoxAID.Text, 0, TxtSender.Text, TxtSenderName.Text, lbluser_create.Text, Now())
-                    ADD_APPRAISAL_REQUEST_V2(lblRequestID.Text, TextBoxHubCode.Text, TxtCif.Text, ddlTitle.SelectedValue, _
+                    lblRequestID.Text = ADD_APPRAISAL_REQUEST_V2(0, TextBoxHubCode.Text, TxtCif.Text, ddlTitle.SelectedValue, _
                                              TxtCifName.Text, TxtCifLastName.Text, TxtCifColl.Text, ddlTitleColl.SelectedValue, _
                                              TxtCifNameColl.Text, TxtCifLastNameColl.Text, ddlAppraisal_Method.SelectedValue, _
                                              0, 0, TextBoxDepartmentCode.Text, TextBoxTambonCode.Text, _
-                                         TextBoxAmphurCode.Text, TextBoxProvinceCode.Text, ddlAPPLICATION_TYPE.SelectedValue, TextBoxChanode.Text, TextBoxFlag.Text, lbluser_create.Text, Now())
+                                             TextBoxAmphurCode.Text, TextBoxProvinceCode.Text, ddlAPPLICATION_TYPE.SelectedValue, TextBoxChanode.Text, TextBoxFlag.Text, TextBoxAID.Text, TxtSender.Text, TxtSenderName.Text, lbluser_create.Text, Now())
                     '*************************************** END OF SAVE DATA ************************************
 
                     '************* Update เลขคำขอประเมิน **********************

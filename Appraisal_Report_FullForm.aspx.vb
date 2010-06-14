@@ -134,6 +134,12 @@ Partial Class Appraisal_Report_FullForm
             End If
             lblBuilding_Detail.Text = "จำนวน  " & Cnt & " รายการ"
             Dim P2Master As List(Of Price2_Master) = GET_PRICE2_MASTER(hdfReq_Id.Value, hdfHub_Id.Value)
+            If P2Master.Item(0).Appraisal_Type = 1 Then
+                'วิธีตลาด
+                txtBuildingPrice.Text = String.Format("{0:N2}", ((Obj_GetP70G.Tables(0).Rows(0).Item("PriceTotal1"))))
+            Else
+                'วิธีทุน
+            End If
         Else
 
         End If
@@ -242,7 +248,7 @@ Partial Class Appraisal_Report_FullForm
             If P2M.Tables(0).Rows(0).Item("Building") > 0 Then
                 hdfChkColl.Value = 70
                 txtLandTotal.Text = String.Format("{0:N2}", P2M.Tables(0).Rows(0).Item("Land"))
-                txtBuildingPrice.Text = "0.00"
+                'txtBuildingPrice.Text = "0.00"
                 txtSubTotal.Text = String.Format("{0:N2}", P2M.Tables(0).Rows(0).Item("txtBuilding"))
                 txtGrandTotal.Text = String.Format("{0:N2}", P2M.Tables(0).Rows(0).Item("txtBuilding"))
             ElseIf P2M.Tables(0).Rows(0).Item("Condo") > 0 Then
@@ -283,6 +289,8 @@ Partial Class Appraisal_Report_FullForm
         If Obj_P3M.Count > 0 Then
             'มีการกำหนดราคาที่ 3 แล้ว
 
+            Dim Obj_Branch As List(Of Class_Branch) = GET_BRANCH_BY_KEY(Obj_P3M.Item(0).Req_Dept)
+            lblBranch.Text = Obj_Branch.Item(0).BRANCH_NAME
             lblAID.Text = Obj_P3M.Item(0).AID
             lblInform_To.Text = Obj_P3M.Item(0).Inform_To
 
