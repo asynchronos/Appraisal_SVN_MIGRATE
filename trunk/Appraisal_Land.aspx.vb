@@ -71,6 +71,7 @@ Partial Class Appraisal_Land
             txtRoad.Text = Obj_GetP50.Item(0).Road
             ddlRoad_Detail.SelectedValue = Obj_GetP50.Item(0).Road_Detail
             txtMeter.Text = Obj_GetP50.Item(0).Road_Access
+            txtSoi.Text = Obj_GetP50.Item(0).Soi
             txtTumbon.Text = Obj_GetP50.Item(0).Tumbon
             txtAmphur.Text = Obj_GetP50.Item(0).Amphur
             ddlProvince.SelectedValue = Obj_GetP50.Item(0).Province
@@ -94,6 +95,12 @@ Partial Class Appraisal_Land
             ddlTendency.SelectedValue = Obj_GetP50.Item(0).Tendency
             ddlBuySale_State.SelectedValue = Obj_GetP50.Item(0).BuySale_State
             ddlSubUnit.SelectedValue = Obj_GetP50.Item(0).SubUnit
+            txtOwnerShip.Text = Obj_GetP50.Item(0).Ownership
+            txtObligation.Text = Obj_GetP50.Item(0).Obligation
+            txtLand_Closeto_RoadWidth.Text = Obj_GetP50.Item(0).Land_Closeto_RoadWidth
+            txtDeepWidth.Text = Obj_GetP50.Item(0).DeepWidth
+            txtBehindWidth.Text = Obj_GetP50.Item(0).BehindWidth
+            ddlAreaColur.SelectedValue = Obj_GetP50.Item(0).AreaColour_No
             txtPriceWah.Text = Obj_GetP50.Item(0).PriceWah
             txtTotal.Text = String.Format("{0:N2}", Obj_GetP50.Item(0).PriceTotal1)
 

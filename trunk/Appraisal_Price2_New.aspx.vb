@@ -568,69 +568,6 @@ Public Shared Function Cancel() As Boolean
 
 
     Protected Sub btn_Add_Building_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btn_Add_Building.Click
-        'Dim dr As DataRow = dt_building.NewRow()
-        'Dim ID As Integer
-        ''ระบบออก ID ให้สิ่งปลูกสร้าง
-        'ID = GET_ID_18_50_70("70")
-        'UPDATE_ID_70()  'Update ID CollType 70
-        'If Check_Appraisal_Type() = True Then
-        '    dr("ID") = ID
-        '    dr("Colltype_Id") = DDLSubCollType.SelectedValue
-        '    dr("Colltype_Name") = DDLSubCollType.SelectedItem
-        '    dr("Chanode") = txtChanodeNo.Text
-        '    dr("Build_No") = txtBuild_No.Text
-        '    dr("Area") = txtBuildingArea.Text
-        '    dr("Unit_Price") = String.Format("{0:N2}", txtBuildingUnitPrice.Text)
-        '    dr("Value_Price") = String.Format("{0:N2}", txtBuildingPrice.Text)
-        '    dr("Percent_Finish") = txtFinishPercent.Text
-        '    dr("Finish_Price") = String.Format("{0:N2}", txtPriceNotFinish.Text)
-        '    dr("Age") = txtBuildingAge.Text
-        '    dr("Percent1") = txtBuildingPersent1.Text
-        '    dr("Percent2") = txtBuildingPersent2.Text
-        '    dr("Percent3") = txtBuildingPersent3.Text
-        '    dr("Total_Percent") = String.Format("{0:N2}", txtBuildingTotalDeteriorate.Text)
-        '    dr("Deteriorate") = String.Format("{0:N2}", txtBuildingPriceTotalDeteriorate.Text)
-        '    dr("Total_Building") = String.Format("{0:N2}", (CDec(txtPriceNotFinish.Text) - CDec(txtBuildingPriceTotalDeteriorate.Text)))
-        '    dr("MarketPrice") = String.Format("{0:N2}", CDec(txtMarketPrice.Text))
-        '    dt_building.Rows.Add(dr)
-        '    btn_Building_ModalPopupExtender.Show()
-
-        '    Dim Object_JSON_Class As JSON_Class = New JSON_Class()
-        '    JSON_DataTable_Building.Value = Object_JSON_Class.JSON_DataTable(dt_building)
-
-        '    GridView_Building.DataSource = dt_building
-        '    GridView_Building.DataBind()
-
-        '    Dim cph As ContentPlaceHolder = TryCast(Me.Form.FindControl("ContentPlaceHolder1"), ContentPlaceHolder)
-        '    Dim dg As GridView = DirectCast(cph.FindControl("GridView_Building"), GridView)
-        '    lblBuildingRow.Text = dg.Rows.Count
-        '    Dim gvr_master As GridViewRow
-        '    Dim BuildingTotalPrice As Double
-        '    For Each gvr_master In dg.Rows
-        '        Dim BuildingPrice As Label
-        '        If rdbAppraisal_Type.SelectedValue = 1 Then
-        '            'รวมราคาตลาด
-        '            BuildingPrice = gvr_master.FindControl("lblMarketPrice")
-        '            BuildingTotalPrice = String.Format("{0:N2}", (BuildingTotalPrice + CDec(BuildingPrice.Text)))
-        '        ElseIf rdbAppraisal_Type.SelectedValue = 2 Then
-        '            'รวมราคาทุน
-        '            BuildingPrice = gvr_master.FindControl("lblTotal_Building")
-        '            BuildingTotalPrice = String.Format("{0:N2}", (BuildingTotalPrice + CDec(BuildingPrice.Text)))
-        '        End If
-        '    Next
-
-        '    txtBuilding.Text = String.Format("{0:N2}", CDec(txtBuildingTotal_Price1.Text))
-        '    GrandTotal()
-        '    btn_Building_ModalPopupExtender.Show()
-        'Else
-        '    'lit_Status.Text = "คุณไม่ได้เลือกวิธีการให้ราคา"
-        '    btn_Building_ModalPopupExtender.Show()
-        '    lblMessageNotice_Building.Text = "คุณยังไม่ได้เลือกวิธีการให้ราคาหลักประกัน"
-        'End If
-
-
-        '***********************************************************************************************************************
-
         Dim dr As DataRow = dt_building.NewRow()
         If Check_Appraisal_Type() = True Then
             'เช็คว่ามี เลขคำขอประเมิน(Req_Id),รหัสศูนย์ประเมิน(Hub_Id),และ เลขที่สิ่งปลูกสร้าง(Building_No) มีอยู่ตาราง Price2_70_New หรือไม่

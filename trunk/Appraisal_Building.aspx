@@ -163,7 +163,7 @@
         function changeBuildingDetailIframeSrc() {
             var buildingid = document.getElementById('<%=lblId.ClientID%>').innerHTML;
             var temp_AID = document.getElementById('<%=lblTemp_AID.ClientID%>').innerHTML;
-            alert(temp_AID);
+            //alert(temp_AID);
             if (buildingid > 0) {
 
                 var myId = "IframeBuildingDetail";
