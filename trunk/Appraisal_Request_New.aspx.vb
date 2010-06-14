@@ -144,12 +144,12 @@ Partial Class Appraisal_Request_New
                     '***************************************
 
                     '***************************************** SAVE DATA ****************************************
-                    AddAppraisal_Request_Master(lblRequestID.Text, TxtCif.Text, ddlTitle.SelectedValue, TxtCifName.Text, TxtCifLastName.Text, ddlAppraisal_Method.SelectedValue, ddlAID.SelectedValue, 0, TxtSender.Text, TxtAppraisalName.Text, lbluser_create.Text, Now())
-                    ADD_APPRAISAL_REQUEST_V2(lblRequestID.Text, ddlHub.SelectedValue, TxtCif.Text, ddlTitle.SelectedValue, _
-                                             TxtCifName.Text, TxtCifLastName.Text, TxtCifColl.Text, ddlTitleColl.SelectedValue, _
-                                             TxtCifNameColl.Text, TxtCifLastNameColl.Text, ddlAppraisal_Method.SelectedValue, _
-                                             0, 0, ddlBranch_Dept.SelectedValue, ddlTumbon.SelectedValue, _
-                                             ddlAmphur.SelectedValue, ddlProvince.SelectedValue, 1, "", 1, lbluser_create.Text, Now())
+                    'AddAppraisal_Request_Master(lblRequestID.Text, TxtCif.Text, ddlTitle.SelectedValue, TxtCifName.Text, TxtCifLastName.Text, ddlAppraisal_Method.SelectedValue, ddlAID.SelectedValue, 0, TxtSender.Text, TxtAppraisalName.Text, lbluser_create.Text, Now())
+                    'ADD_APPRAISAL_REQUEST_V2(lblRequestID.Text, ddlHub.SelectedValue, TxtCif.Text, ddlTitle.SelectedValue, _
+                    '                         TxtCifName.Text, TxtCifLastName.Text, TxtCifColl.Text, ddlTitleColl.SelectedValue, _
+                    '                         TxtCifNameColl.Text, TxtCifLastNameColl.Text, ddlAppraisal_Method.SelectedValue, _
+                    '                         0, 0, ddlBranch_Dept.SelectedValue, ddlTumbon.SelectedValue, _
+                    '                         ddlAmphur.SelectedValue, ddlProvince.SelectedValue, 1, "", TextBoxAID.Text, TxtSender.Text, TxtSenderName.Text, 1, lbluser_create.Text, Now())
                     '*************************************** END OF SAVE DATA ************************************
                     '                                         TextBoxAmphurCode.Text, TextBoxProvinceCode.Text, ddlAPPLICATION_TYPE.SelectedValue, TextBoxChanode.Text, TextBoxFlag.Text, lbluser_create.Text, Now())
                     '************* Update เลขคำขอประเมิน **********************
@@ -171,12 +171,12 @@ Partial Class Appraisal_Request_New
                         '***************************************
 
                         '***************************************** SAVE DATA ****************************************
-                        AddAppraisal_Request_Master(lblRequestID.Text, TxtCif.Text, ddlTitle.SelectedValue, TxtCifName.Text, TxtCifLastName.Text, ddlAppraisal_Method.SelectedValue, ddlAID.SelectedValue, 0, TxtSender.Text, TxtAppraisalName.Text, lbluser_create.Text, Now())
-                        ADD_APPRAISAL_REQUEST_V2(lblRequestID.Text, ddlHub.SelectedValue, TxtCif.Text, ddlTitle.SelectedValue, _
-                                                 TxtCifName.Text, TxtCifLastName.Text, TxtCifColl.Text, ddlTitleColl.SelectedValue, _
-                                                 TxtCifNameColl.Text, TxtCifLastNameColl.Text, ddlAppraisal_Method.SelectedValue, _
-                                                 0, 0, ddlBranch_Dept.SelectedValue, ddlTumbon.SelectedValue, _
-                                                 ddlAmphur.SelectedValue, ddlProvince.SelectedValue, 1, "", 1, lbluser_create.Text, Now())
+                        'AddAppraisal_Request_Master(lblRequestID.Text, TxtCif.Text, ddlTitle.SelectedValue, TxtCifName.Text, TxtCifLastName.Text, ddlAppraisal_Method.SelectedValue, ddlAID.SelectedValue, 0, TxtSender.Text, TxtAppraisalName.Text, lbluser_create.Text, Now())
+                        'ADD_APPRAISAL_REQUEST_V2(lblRequestID.Text, ddlHub.SelectedValue, TxtCif.Text, ddlTitle.SelectedValue, _
+                        '                         TxtCifName.Text, TxtCifLastName.Text, TxtCifColl.Text, ddlTitleColl.SelectedValue, _
+                        '                         TxtCifNameColl.Text, TxtCifLastNameColl.Text, ddlAppraisal_Method.SelectedValue, _
+                        '                         0, 0, ddlBranch_Dept.SelectedValue, ddlTumbon.SelectedValue, _
+                        '                         ddlAmphur.SelectedValue, ddlProvince.SelectedValue, 1, "", 1, lbluser_create.Text, Now())
                         '*************************************** END OF SAVE DATA ************************************
 
                         '************* Update เลขคำขอประเมิน **********************

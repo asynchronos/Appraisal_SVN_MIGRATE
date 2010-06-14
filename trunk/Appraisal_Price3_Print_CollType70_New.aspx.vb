@@ -14,11 +14,11 @@ Partial Class Appraisal_Price3_Print_CollType70_New
             'HiddenField4.Value = 103
             '**********************************
 
-            HiddenField1.Value = CInt(Context.Items("ID"))
-            HiddenField2.Value = CInt(Context.Items("Req_Id"))
-            HiddenField3.Value = CInt(Context.Items("Hub_Id"))
-            HiddenField4.Value = CInt(Context.Items("Temp_AID"))
-            HiddenField5.Value = CStr(Context.Items("User_ID"))
+            HiddenField1.Value = Request.QueryString("ID") 'CInt(Context.Items("ID"))
+            HiddenField2.Value = Request.QueryString("Req_Id") 'CInt(Context.Items("Req_Id"))
+            HiddenField3.Value = Request.QueryString("Hub_Id") 'CInt(Context.Items("Hub_Id"))
+            HiddenField4.Value = Request.QueryString("Temp_AID") 'CInt(Context.Items("Temp_AID"))
+            'HiddenField5.Value = Request.QueryString("") 'CStr(Context.Items("User_ID"))
             'แสดงออกเป็นฟอร์มจากราคาที่ 3 (เดิมใช้อยู่)
             Show_Price3_70()
             Show_Price3_70_Detail()

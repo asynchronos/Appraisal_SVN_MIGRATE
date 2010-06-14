@@ -309,26 +309,26 @@ Partial Class Appraisal_Price3_Add_Colltype50
         Else
             s = "<script language=""javascript"">alert('ไม่พบเลขที่โฉนดดังกล่าว'); </script>"
             Page.ClientScript.RegisterStartupScript(Me.GetType, "รับเรื่องประเมิน", s)
-            txtRai.Text = "0"
-            txtNgan.Text = "0"
-            txtWah.Text = "0"
-            txtRoad.Text = ""
-            txtMeter.Text = "0"
-            txtTumbon.Text = ""
-            txtAmphur.Text = ""
-            txtLand_State_Detail.Text = ""
-            txtRoadWidth.Text = "0"
-            txtSite_Detail.Text = ""
-            txtPublic_Utility_Detail.Text = ""
-            txtBinifit.Text = ""
-            txtPriceWah.Text = "0"
-            txtTotal.Text = "0"
-            Dim Objp1 As List(Of ClsPrice1_Master) = GetPrice1_Master(lblReq_Id.Text, lblHub_Id.Text)
-            If Objp1.Count > 0 Then
-                txtPriceWah.Text = Objp1.Item(0).Pricewah
-                txtTotal.Text = String.Format("{0:N2}", Objp1.Item(0).Price)
-            Else
-            End If
+            'txtRai.Text = "0"
+            'txtNgan.Text = "0"
+            'txtWah.Text = "0"
+            'txtRoad.Text = ""
+            'txtMeter.Text = "0"
+            'txtTumbon.Text = ""
+            'txtAmphur.Text = ""
+            'txtLand_State_Detail.Text = ""
+            'txtRoadWidth.Text = "0"
+            'txtSite_Detail.Text = ""
+            'txtPublic_Utility_Detail.Text = ""
+            'txtBinifit.Text = ""
+            'txtPriceWah.Text = "0"
+            'txtTotal.Text = "0"
+            'Dim Objp1 As List(Of ClsPrice1_Master) = GetPrice1_Master(lblReq_Id.Text, lblHub_Id.Text)
+            'If Objp1.Count > 0 Then
+            '    txtPriceWah.Text = Objp1.Item(0).Pricewah
+            '    txtTotal.Text = "0.00"
+            'Else
+            'End If
         End If
     End Sub
 End Class

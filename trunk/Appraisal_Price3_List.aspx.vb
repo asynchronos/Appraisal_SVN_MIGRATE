@@ -326,9 +326,6 @@ Partial Class Appraisal_Price3_List
             Else
             End If
         End If
-
-
-
     End Sub
 
     Protected Sub imgAddColl_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs)

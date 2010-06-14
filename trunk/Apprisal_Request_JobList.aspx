@@ -1,10 +1,10 @@
-Ôªø<%@ Page Title="" Language="VB" MasterPageFile="~/MasterPage.master" AutoEventWireup="false" CodeFile="Apprisal_Request_JobList.aspx.vb" Inherits="Apprisal_Request_JobList" UICulture="th-TH" Culture="th-TH" %>
+<%@ Page Title="" Language="VB" MasterPageFile="~/MasterPage.master" AutoEventWireup="false" CodeFile="Apprisal_Request_JobList.aspx.vb" Inherits="Apprisal_Request_JobList" UICulture="th-TH" Culture="th-TH" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register src="ExportControl/ExportControl.ascx" tagname="ExportControl" tagprefix="uc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-<br />
+    <br />
 <br />
     <asp:ScriptManager ID="ScriptManager1" runat="server" EnableScriptLocalization="true" EnableScriptGlobalization="true">
     </asp:ScriptManager>
@@ -13,17 +13,20 @@
                         
                 <tr>
                     <td align="center" style="font-size: x-large; font-weight: bold" >
-                        ‡∏ó‡∏∞‡πÄ‡∏ö‡∏µ‡∏¢‡∏ô‡∏á‡∏≤‡∏ô‡∏≠‡∏≠‡∏Å
+                        ∑–‡∫’¬πß“π‡¢È“
                         <asp:DropDownList ID="DropDownList1" runat="server" AutoPostBack="True" 
                             DataSourceID="SqlHubList" DataTextField="HUB_NAME" DataValueField="HUB_ID">
                         </asp:DropDownList>
-                        &nbsp;
-                        ‡∏õ‡∏£‡∏∞‡∏à‡∏≥‡∏ß‡∏±‡∏ô‡∏ó‡∏µ‡πà <asp:TextBox ID="TxtCalendar" runat="server"></asp:TextBox>
+                        &nbsp;<asp:Label ID="Label1" runat="server" Text="™π‘¥ß“π‡¢È“"></asp:Label>
+&nbsp;<asp:DropDownList ID="DropDownList2" runat="server" DataSourceID="SqlDataSource_APPLICATION_TYPE" 
+                            DataTextField="APP_TYPE_NAME" DataValueField="APP_TYPE_ID">
+                        </asp:DropDownList>
+                        ª√–®”«—π∑’Ë <asp:TextBox ID="TxtCalendar" runat="server"></asp:TextBox>
                         &nbsp;
                         <cc1:CalendarExtender ID="CalendarExtender1"
                             runat="server" TargetControlID="TxtCalendar" Format="dd/MM/yyyy">
                         </cc1:CalendarExtender>
-                        <asp:Button ID="Button1" runat="server" Text="‡∏Ñ‡πâ‡∏ô‡∏´‡∏≤" />
+                        <asp:Button ID="Button1" runat="server" Text="§ÈπÀ“" />
                     </td>
                 </tr>
           
@@ -39,25 +42,31 @@
                 SortExpression="Req_ID" />        
             <asp:BoundField DataField="Cif" HeaderText="Cif" 
                 SortExpression="Cif" />           
-            <asp:BoundField DataField="CustomerName" HeaderText="CustomerName" 
+            <asp:BoundField DataField="CustomerName" HeaderText="™◊ËÕ≈Ÿ°§È“" 
                 SortExpression="CustomerName" ReadOnly="True" />             
-            <asp:BoundField DataField="CollOfNumber" HeaderText="CollOfNumber" 
+            <asp:BoundField DataField="CollOfNumber" HeaderText="‡≈¢∑’ËÀ≈—°ª√–°—π" 
                 SortExpression="CollOfNumber" />
-            <asp:BoundField DataField="TambonName" HeaderText="TambonName" 
+            <asp:BoundField DataField="TambonName" HeaderText="µ”∫≈" 
                 SortExpression="TambonName" />
-            <asp:BoundField DataField="AmphurName" HeaderText="AmphurName" 
+            <asp:BoundField DataField="AmphurName" HeaderText="Õ”‡¿Õ" 
                 SortExpression="AmphurName" />
-            <asp:BoundField DataField="ProvinceName" HeaderText="ProvinceName" 
+            <asp:BoundField DataField="ProvinceName" HeaderText="®—ßÀ«—¥" 
                 SortExpression="ProvinceName" />
-            <asp:BoundField DataField="DeptSender" HeaderText="DeptSender" 
+            <asp:BoundField DataField="Branch_Id" HeaderText="√À— ΩË“¬ß“π/ “¢“" 
+            
+                SortExpression="Branch_Id" ReadOnly="True" />
+                
+            <asp:BoundField DataField="DeptSender" HeaderText="ΩË“¬ß“π/ “¢“ ∑’Ë Ëß" 
             
                 SortExpression="DeptSender" ReadOnly="True" />
-            <asp:BoundField DataField="Create_Date" HeaderText="Create_Date" 
+            <asp:BoundField DataField="Create_Date" HeaderText="«—π∑’Ë Ëß‡√◊ËÕß" 
                 SortExpression="Create_Date" />
-            <asp:BoundField DataField="Hub_ID" HeaderText="Hub_ID" 
+            <asp:BoundField DataField="Hub_ID" HeaderText="√À— »Ÿπ¬Ï" 
                 SortExpression="Hub_ID" ReadOnly="True" />
-            <asp:BoundField DataField="HUB_NAME" HeaderText="Hub Name" 
+            <asp:BoundField DataField="HUB_NAME" HeaderText="»Ÿπ¬Ïª√–‡¡‘π" 
                 SortExpression="HUB_NAME" />
+            <asp:BoundField DataField="APP_TYPE_NAME" HeaderText="ª√–‡¿∑ß“π" 
+                SortExpression="APP_TYPE_NAME" />   
         </Columns>
         <FooterStyle BackColor="Tan" />
         <PagerStyle BackColor="PaleGoldenrod" ForeColor="DarkSlateBlue" 
@@ -74,7 +83,8 @@
     </div>
     <asp:SqlDataSource ID="SqlHubList" runat="server" 
         ConnectionString="<%$ ConnectionStrings:AppraisalConn %>" 
-        SelectCommand="SELECT HUB_ID, HUB_NAME FROM TB_HUB WHERE (HUB_ID &lt;&gt; '998')">
+        
+        SelectCommand="SELECT HUB_ID, HUB_NAME FROM TB_HUB WHERE (HUB_ID &lt; '998')">
     </asp:SqlDataSource>
     
     <asp:SqlDataSource ID="SqlGridView" runat="server" 
@@ -84,9 +94,15 @@
         <SelectParameters>
             <asp:ControlParameter ControlID="DropDownList1" 
                 Name="Hub_Id" PropertyName="SelectedValue" Type="Int32" />
+            <asp:ControlParameter ControlID="DropDownList2" Name="APP_TYPE_ID" 
+                PropertyName="SelectedValue" Type="Int32" />
             <asp:ControlParameter ControlID="TxtCalendar" Name="CREATE_DATE" 
                 PropertyName="Text" Type="DateTime" />
         </SelectParameters>
+    </asp:SqlDataSource>
+    <asp:SqlDataSource ID="SqlDataSource_APPLICATION_TYPE" runat="server" 
+        ConnectionString="<%$ ConnectionStrings:AppraisalConn %>" 
+        SelectCommand="SELECT [APP_TYPE_ID], [APP_TYPE_NAME] FROM [TB_APPLICATION_TYPE]">
     </asp:SqlDataSource>
     <uc1:ExportControl ID="ExportControl1" runat="server" ControlName="GridView1" 
         Filename="ReportOut" />

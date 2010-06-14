@@ -144,9 +144,8 @@ Partial Class Appraisal_Price3_Add_Colltype70
             ddlBuild_Construct.SelectedValue = Obj_GetP70.Item(0).Build_Construct
             ddlRoof.SelectedValue = Obj_GetP70.Item(0).Roof
             txtRoof_Detail.Text = Obj_GetP70.Item(0).Roof_Detail
-            '***************ยังไม่ได้เพิ่ม field นี้*********************
-            'ddlRoofState.SelectedValue = Obj_GetP70.Item(0).Roof
-            '****************************************************
+            ddlRoofConstructure.SelectedValue = Obj_GetP70.Item(0).RoofStructure_Id
+            ddlRoofState.SelectedValue = Obj_GetP70.Item(0).RoofState_Id
             ddlBuild_State.SelectedValue = Obj_GetP70.Item(0).Build_State
             txtBuild_State_Detail.Text = Obj_GetP70.Item(0).Build_State_Detail
             txtBuilding_Detail.Text = Obj_GetP70.Item(0).Building_Detail
