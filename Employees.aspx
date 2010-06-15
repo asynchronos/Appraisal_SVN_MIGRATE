@@ -31,10 +31,9 @@
         &nbsp;<asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
         &nbsp;<asp:Button ID="Button1" runat="server" Text="ค้นหา" />
         &nbsp;<asp:GridView ID="GridView1" runat="server" AllowPaging="True" AutoGenerateColumns="False"
-            DataKeyNames="EMP_ID" DataSourceID="SqlDataSource1" Width="551px" BackColor="White"
-            BorderColor="#DEDFDE" BorderStyle="None" BorderWidth="1px" CellPadding="4" ForeColor="Black"
-            GridLines="Vertical">
-            <RowStyle BackColor="#F7F7DE" />
+            DataKeyNames="EMP_ID" DataSourceID="SqlDataSource1" Width="572px" BackColor="LightGoldenrodYellow"
+            BorderColor="Tan" BorderWidth="1px" CellPadding="2" ForeColor="Black"
+            GridLines="None" PageSize="9">
             <Columns>
                 <asp:BoundField DataField="EMP_ID" HeaderText="รหัสพนักงาน" ReadOnly="True" ItemStyle-Width="180"
                     SortExpression="EMP_ID">
@@ -59,11 +58,12 @@
                     </ItemTemplate>
                 </asp:TemplateField>
             </Columns>
-            <FooterStyle BackColor="#CCCC99" />
-            <PagerStyle BackColor="#F7F7DE" ForeColor="Black" HorizontalAlign="Right" />
-            <SelectedRowStyle BackColor="#CE5D5A" Font-Bold="True" ForeColor="White" />
-            <HeaderStyle BackColor="#6B696B" Font-Bold="True" ForeColor="White" />
-            <AlternatingRowStyle BackColor="White" />
+            <FooterStyle BackColor="Tan" />
+            <PagerStyle BackColor="PaleGoldenrod" ForeColor="DarkSlateBlue" 
+                HorizontalAlign="Center" />
+            <SelectedRowStyle BackColor="DarkSlateBlue" ForeColor="GhostWhite" />
+            <HeaderStyle BackColor="Tan" Font-Bold="True" />
+            <AlternatingRowStyle BackColor="PaleGoldenrod" />
         </asp:GridView>
     </div>
     <asp:SqlDataSource ID="SqlDataSource1" runat="server"></asp:SqlDataSource>
