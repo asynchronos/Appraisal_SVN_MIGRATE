@@ -1,6 +1,6 @@
 ﻿Imports Microsoft.VisualBasic
 Public Class CifInfo
-    Private _cif As Integer
+    Private _cif As String
     Private _cifName As String
     Private _idCard As String
     Private _cifClass As String
@@ -10,7 +10,7 @@ Public Class CifInfo
     Private _departName As String
 
     Public Sub New( _
-     ByVal cif As Integer, _
+     ByVal cif As String, _
      ByVal cifName As String, _
      ByVal idCard As String, _
      ByVal cifClass As String, _
@@ -30,11 +30,11 @@ Public Class CifInfo
         _departName = departName
     End Sub
 
-    Public Property Cif() As Integer
+    Public Property Cif() As String
         Get
             Return _cif
         End Get
-        Set(ByVal Value As Integer)
+        Set(ByVal Value As String)
             _cif = Value
         End Set
     End Property

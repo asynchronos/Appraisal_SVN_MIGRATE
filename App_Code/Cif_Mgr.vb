@@ -9,7 +9,7 @@ Imports System.Collections.Generic
 Imports System.Configuration
 
 Public Class Cif_Mgr
-    Public Shared Function GetCifInfo(ByVal Cif As Integer) As Generic.List(Of CifInfo)
+    Public Shared Function GetCifInfo(ByVal Cif As String) As Generic.List(Of CifInfo)
         Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("BAYConn").ConnectionString)
             Using command As New SqlCommand("GET_CIFINFO", connection)
                 command.CommandType = CommandType.StoredProcedure
@@ -19,7 +19,7 @@ Public Class Cif_Mgr
                 Using reader As SqlDataReader = command.ExecuteReader()
                     Do While (reader.Read())
                         'Get field in Store Procedure
-                        Dim temp As New CifInfo(CInt(reader("cif")), _
+                        Dim temp As New CifInfo(CStr(reader("cif")), _
                                                 CStr(reader("cifName")), _
                                                 CStr(reader("idCard")), _
                                                 CStr(reader("cifClass")), _
