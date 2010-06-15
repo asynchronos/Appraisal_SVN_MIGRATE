@@ -12,29 +12,7 @@ Partial Class FileUpload_Price2
     Dim User_ID As String
 
     Protected Sub btnSubmit_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnSubmit.Click
-        'Dim FileName As String
         Dim s As String
-        'Dim uploads As HttpFileCollection = HttpContext.Current.Request.Files
-
-        'For i = 0 To uploads.Count - 1
-        '    Dim FileToUpload As HttpPostedFile = uploads(i)
-
-        '    If (FileToUpload.ContentLength = 0) Then
-        '        ' Error Handling
-        '    Else
-        '        FileName = Req_Id & "_" & Hub_Id & "_" & Temp_AID & "_" & System.IO.Path.GetFileName(FileToUpload.FileName)
-        '        Try
-        '            'FileToUpload.SaveAs("C:\\UploadedUserFiles\\" + FileName)
-        '            'MsgBox(Server.MapPath("UploadedFiles/") + FileName)
-        '            FileToUpload.SaveAs(Server.MapPath("UploadedFiles/Pic_Price2/") + FileName)
-        '            AddAppraisal_Price2_PicturePath(Req_Id, Hub_Id, Temp_AID, FileName, 0, User_ID)
-        '        Catch ex As Exception
-        '            ' Error Handling
-        '            s = "<script language=""javascript"">alert('" + ex.Message + "'); </script>"
-        '            Page.ClientScript.RegisterStartupScript(Me.GetType, "ผลการบันทึก", s)
-        '        End Try
-        '    End If
-        'Next i
 
         'กำหนดขนาดไฟล์ภาพที่สามารถส่งได้ใน  Web.Config ด้วยนะ
         Dim uploads As HttpFileCollection = HttpContext.Current.Request.Files
@@ -130,17 +108,17 @@ Partial Class FileUpload_Price2
                     'Image1.Visible = True
 
                 Catch ex As Exception
-                    MsgBox(ex.ToString)
+                    'MsgBox(ex.ToString)
                 Finally
                     upBmp.Dispose()
                     newBmp.Dispose()
                     newGraphic.Dispose()
                 End Try
             Else
-                MsgBox("Please select a picture with a file format extension of either Bmp, Jpg, Jpeg, Gif or Png.")
+                'MsgBox("Please select a picture with a file format extension of either Bmp, Jpg, Jpeg, Gif or Png.")
             End If
         Next
-
+        GridView1.DataBind()
         s = "<script language=""javascript"">alert('แนบไฟล์เสร็จสมบูรณ์ ระบบจะปิดหน้าต่างนี้');  window.close();</script>"
         Page.ClientScript.RegisterStartupScript(Me.GetType, "รับเรื่องประเมิน", s)
     End Sub

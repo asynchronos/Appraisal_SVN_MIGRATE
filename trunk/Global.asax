@@ -8,7 +8,7 @@
     
     Sub Application_Start(ByVal sender As Object, ByVal e As EventArgs)
         ' Code that runs on application startup
-        'log4net.Config.XmlConfigurator.Configure()
+        log4net.Config.XmlConfigurator.Configure()
     End Sub
     
     Sub Application_End(ByVal sender As Object, ByVal e As EventArgs)
