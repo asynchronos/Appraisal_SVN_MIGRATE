@@ -10553,6 +10553,22 @@ ByVal Cif As Integer)
         End Using
     End Function
 
+    Public Shared Function GET_CHARACTER_ROOM_INFO(ByVal CHARACTER_ROOM_ID As Integer) As DataSet
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("GET_CHARACTER_ROOM_INFO", connection)
+                command.CommandType = CommandType.StoredProcedure
+                command.CommandTimeout = 60
+                command.Parameters.Add(New SqlParameter("@CHARACTER_ROOM_ID", CHARACTER_ROOM_ID))
+                connection.Open()
+                Dim list As New SqlDataAdapter(command)
+                Dim ds As New DataSet
+                list.Fill(ds)
+                Return ds
+            End Using
+            connection.Close()
+        End Using
+    End Function
+
     Public Shared Function GET_PROBLEM_INFO(ByVal PROBLEM_ID As Integer) As DataSet
         Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
             Using command As New SqlCommand("GET_PROBLEM_INFO", connection)
