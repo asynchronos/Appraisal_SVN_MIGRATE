@@ -1,14 +1,18 @@
-﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="Appraisal_Report_FullForm.aspx.vb" Inherits="Appraisal_Report_FullForm" %>
+﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="Appraisal_Report_FullForm.aspx.vb"
+    Inherits="Appraisal_Report_FullForm" UICulture="th-TH" Culture="th-TH" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register Assembly="Mytextbox" Namespace="Mytextbox" TagPrefix="cc1" %>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
+
     <script src="Js/jquery-1.4.2.min.js" type="text/javascript"></script>
+
     <script src="Js/common.js" type="text/javascript"></script>
+
     <script src="Js/jquery.js" type="text/javascript"></script>
+
     <title>รายงานการประเมิน</title>
     <style type="text/css">
         .style1
@@ -164,7 +168,7 @@
             background-color: #000;
             filter: alpha(opacity=70);
             opacity: 0.7;
-        }        
+        }
     </style>
     <style type="text/css" media="print">
         .NotshowOnPrint
@@ -194,6 +198,7 @@
             window.print();
         }
         function windowClose() {
+            window.opener.location.reload();
             window.close();
         }
 
@@ -242,6 +247,21 @@
             _popup = $find('mpeBehaviorShowPic');
             _popup.show();
         }
+
+        function changeShowMapIframeSrc() {
+            var reqid = document.getElementById('<%=hdfReq_Id.ClientID%>').value;
+            var hubid = document.getElementById('<%=hdfHub_Id.ClientID%>').value;
+            var myId = "IframeMap";
+            var url = "CollDetail_Show_Position.aspx";
+            var param = "Req_Id=" + reqid + "&Hub_Id=" + hubid + "&PopupModal=mpeBehaviorMap";
+
+            changeIframeSrcById(myId
+                , url
+                , param
+            );
+            //_popup = $find('mpeBehaviorMap');
+            //_popup.show();
+        }
         
         function callback(result) {
             //  let the user know if their credit card was validated
@@ -266,9 +286,22 @@
             if (r) {
                 PageMethods.ConfirmPrice(reqid, hubid, ApproveId, this.callbackConfirm);
             }
-            else { 
-            }                 
+            else {
+            }
         }
+        function confirmPriceCommittee() {
+            var reqid = document.getElementById('<%=hdfReq_Id.ClientID%>').value;
+            var hubid = document.getElementById('<%=hdfHub_Id.ClientID%>').value;
+            var ApproveId = document.getElementById('<%=HiddenField_ApproveId.ClientID%>').value;
+
+            var r = confirm('คุณต้องการยืนยันการให้ราคาที่ 2 และ ราคาที่ 3 ใช่หรือไม่ ?')
+            //alert('x='+ r);
+            if (r) {
+                PageMethods.ConfirmPriceCommittee(reqid, hubid, ApproveId, this.callbackConfirm);
+            }
+            else {
+            }
+        }        
         function callbackConfirm(result) {
             //  let the user know if their credit card was validated
             if (result) {
@@ -278,7 +311,42 @@
             else {
                 alert('Warning, Confirm not compleate!');
             }
-        }   
+        }
+
+        function landAttachment() {
+            var reqid = document.getElementById('<%=hdfReq_Id.ClientID%>').value;
+            var cif = document.getElementById('<%=lblCif.ClientID%>').innerHTML;
+            var cifName = document.getElementById('<%=lblCifName.ClientID%>').innerHTML;
+            if (parseInt(navigator.appVersion) > 3) {
+                if (navigator.appName == "Netscape") {
+                    winW = window.innerWidth - 16;
+                    winH = window.innerHeight - 16;
+                }
+                if (navigator.appName.indexOf("Microsoft") != -1) {
+                    winW = document.body.offsetWidth - 20;
+                    winH = document.body.offsetHeight - 20;
+                }
+            }
+
+            window.open('LandFileAttach.aspx?Req_Id=' + reqid + "&Cif=" + cif + "&CifName=" + cifName, 'PrintMe', 'height=' + winH + ',' + 'width=' + winH + ',scrollbars=1,resizable=yes');
+        }
+        function changeShowBuildingIframeSrc() {
+            var reqid = document.getElementById('<%=hdfReq_Id.ClientID%>').value;
+            var hubid = document.getElementById('<%=hdfHub_Id.ClientID%>').value;
+            var cif = document.getElementById('<%=lblCif.ClientID%>').innerHTML;
+            var cifName = document.getElementById('<%=lblCifName.ClientID%>').innerHTML;
+            var Appraisal_Id = document.getElementById('<%=HiddenField_Appraisal_Id.ClientID%>').value;
+            var Appraisal_Type = document.getElementById('<%=HiddenField_Appraisal_Type.ClientID%>').value;
+            var LandPriceValue = document.getElementById('<%=HiddenFieldLandPriceValue.ClientID%>').value;
+            var myId = "IframeBuilding";
+            var url = "Appraisal_Building_List.aspx";
+            var param = "Req_Id=" + reqid + "&Hub_id=" + hubid + "&Cif=" + cif + "&CifName=" + cifName  + "&Appraisal_Id=" + Appraisal_Id + "&Appraisal_Type=" + Appraisal_Type + "&LandPriceValue=" + LandPriceValue + "&PopupModal=mpeBehaviorBuilding";
+
+            changeIframeSrcById(myId
+                , url
+                , param
+            );
+        }
     </script>
 
 </head>
@@ -294,16 +362,21 @@
                         <tr>
                             <td align="right" class="NotshowOnPrint">
                                 <asp:ImageButton ID="ImageButtonBuilding" runat="server" Height="25px" ImageUrl="~/Images/home.ico"
-                                    ToolTip="สิ่งปลูกสร้าง" Width="25px" />
-                            </td>                        
+                                    ToolTip="สิ่งปลูกสร้าง" Width="25px" OnClientClick="changeShowBuildingIframeSrc(); return false();" />
+                            </td>
                             <td class="NotshowOnPrint">
                                 <asp:ImageButton ID="ImageButtonLandAttach" runat="server" Height="25px" ImageUrl="~/Images/attachment.png"
-                                    ToolTip="รายละเอียดที่ดินแนบ" Width="25px" />
+                                    ToolTip="รายละเอียดที่ดินแนบ" Width="25px" OnClientClick="landAttachment(); return false;" />
+                            </td>
+                            <td align="right" class="NotshowOnPrint">
+                                <asp:ImageButton ID="ImageButtonShowMap" runat="server" Height="25px" ImageUrl="~/Images/viewmap.jpg"
+                                    ToolTip="ที่ตั้งหลักประกัน" Width="25px" 
+                                    OnClientClick="changeShowMapIframeSrc(); return false;" />
                             </td>
                             <td align="right" class="NotshowOnPrint">
                                 <asp:ImageButton ID="ImageButtonShowPic" runat="server" Height="25px" ImageUrl="~/Images/camera2.png"
                                     ToolTip="ภาพถ่ายหลักประกัน" Width="25px" OnClientClick="changeShowPicIframeSrc(); return false;" />
-                            </td>                            
+                            </td>
                             <td class="NotshowOnPrint">
                                 <asp:ImageButton ID="ImageButtonPrint" runat="server" Height="25px" ImageUrl="~/Images/printer.png"
                                     OnClientClick="windowPrint(); return false;" ToolTip="พิมพ์หน้านี้" Width="25px" />
@@ -311,7 +384,7 @@
                             <td class="NotshowOnPrint">
                                 <asp:ImageButton ID="ImageButtonClose" runat="server" Height="25px" ImageUrl="~/Images/cancel1.jpg"
                                     ToolTip="ปิดหน้านี้" Width="25px" OnClientClick="windowClose(); return false;" />
-                            </td>                            
+                            </td>
                         </tr>
                     </table>
                 </td>
@@ -349,8 +422,7 @@
                             <td>
                                 <asp:Label ID="Label1" runat="server" Font-Size="Large" Style="font-weight: 700"
                                     Text="เรียน"></asp:Label>
-                                &nbsp;<asp:Label ID="lblInform_To" runat="server" 
-                                    Style="font-size: medium; font-weight: 700"></asp:Label>
+                                &nbsp;<asp:Label ID="lblInform_To" runat="server" Style="font-size: medium; font-weight: 700"></asp:Label>
                             </td>
                             <td>
                                 <asp:Label ID="lblAID_d" runat="server" Font-Size="Large" Style="font-weight: 700"
@@ -555,7 +627,7 @@
                                 <asp:Label ID="lblSubUnit0" runat="server" Width="135px"></asp:Label>
                             </td>
                             <td class="style30">
-                <asp:Label ID="lblUnit_Price_Condo" runat="server"></asp:Label>
+                                <asp:Label ID="lblUnit_Price_Condo" runat="server"></asp:Label>
                             </td>
                             <td class="style7">
                                 <asp:Label ID="Label57" runat="server" Text="เป็นเงิน"></asp:Label>
@@ -864,48 +936,49 @@
                         <tr>
                             <td class="style22">
                             </td>
-                <td align="center">
-                    <table>
-                        <tr>
-                            <td align="right" class="NotshowOnPrint">
-                                <asp:ImageButton ID="ImageButtonApproved1" runat="server" Height="25px" ImageUrl="~/Images/accept.ico"
-                                    ToolTip="ยืนยันราคาแล้ว" Width="25px" />
+                            <td align="center">
+                                <table>
+                                    <tr>
+                                        <td align="right" class="NotshowOnPrint">
+                                            <asp:ImageButton ID="ImageButtonApproved1" runat="server" Height="25px" ImageUrl="~/Images/accept.ico"
+                                                ToolTip="ยืนยันราคาแล้ว" Width="25px" />
+                                        </td>
+                                        <td class="NotshowOnPrint">
+                                            <asp:Button ID="ButtonConfirm1" runat="server" Text="Confirm" OnClientClick="confirmPrice(); return false;" />
+                                            &nbsp;
+                                        </td>
+                                    </tr>
+                                </table>
                             </td>
-                            <td class="NotshowOnPrint">
-                                <asp:Button ID="ButtonConfirm1" runat="server" Text="Confirm" OnClientClick="confirmPrice(); return false;" />
-&nbsp;</td>
-                        </tr>
-                    </table>
-                    </td>
                             <td class="style29">
                             </td>
-                                            <td align="center">
-                    <table>
-                        <tr>
-                            <td align="right" class="NotshowOnPrint">
-                                <asp:ImageButton ID="ImageButtonApproved2" runat="server" Height="25px" ImageUrl="~/Images/accept.ico"
-                                    ToolTip="ยืนยันราคาแล้ว" Width="25px" />
-                            </td>
-                            <td class="NotshowOnPrint">
-                                &nbsp;<asp:Button ID="ButtonConfirm2" runat="server" Text="Confirm" />
-                            </td>
-                        </tr>
-                    </table>
+                            <td align="center">
+                                <table>
+                                    <tr>
+                                        <td align="right" class="NotshowOnPrint">
+                                            <asp:ImageButton ID="ImageButtonApproved2" runat="server" Height="25px" ImageUrl="~/Images/accept.ico"
+                                                ToolTip="ยืนยันราคาแล้ว" Width="25px" />
+                                        </td>
+                                        <td class="NotshowOnPrint">
+                                            <asp:Button ID="ButtonConfirm2" runat="server" Text="Confirm" OnClientClick="confirmPriceCommittee(); return false;" />
+                                        </td>
+                                    </tr>
+                                </table>
                             </td>
                             <td class="style26">
                             </td>
-                                            <td align="center">
-                    <table>
-                        <tr>
-                            <td align="right" class="NotshowOnPrint">
-                                <asp:ImageButton ID="ImageButtonApproved3" runat="server" Height="25px" ImageUrl="~/Images/accept.ico"
-                                    ToolTip="ยืนยันราคาแล้ว" Width="25px" />
-                            </td>
-                            <td class="NotshowOnPrint">
-                                <asp:Button ID="ButtonConfirm3" runat="server" Text="Confirm" />
-&nbsp;</td>
-                        </tr>
-                    </table>
+                            <td align="center">
+                                <table>
+                                    <tr>
+                                        <td align="right" class="NotshowOnPrint">
+                                            <asp:ImageButton ID="ImageButtonApproved3" runat="server" Height="25px" ImageUrl="~/Images/accept.ico"
+                                                ToolTip="ยืนยันราคาแล้ว" Width="25px" />
+                                        </td>
+                                        <td class="NotshowOnPrint">
+                                            <asp:Button ID="ButtonConfirm3" runat="server" Text="Confirm" OnClientClick="confirmPriceCommittee(); return false;"/>
+                                        </td>
+                                    </tr>
+                                </table>
                             </td>
                         </tr>
                         <tr>
@@ -922,8 +995,11 @@
                     <asp:HiddenField ID="hdfHub_Id" runat="server" />
                     <asp:Label ID="LabelReqIdValue" runat="server" Visible="False"></asp:Label>
                     <asp:HiddenField ID="hdfTemp_AID" runat="server" />
-     <asp:HiddenField ID="hdfChkColl" runat="server" />
-                <asp:HiddenField ID="HiddenField_ApproveId" runat="server" />
+                    <asp:HiddenField ID="hdfChkColl" runat="server" />
+                    <asp:HiddenField ID="HiddenField_ApproveId" runat="server" />
+                    <asp:HiddenField ID="HiddenField_Appraisal_Id" runat="server" />
+                    <asp:HiddenField ID="HiddenField_Appraisal_Type" runat="server" />
+                    <asp:HiddenField ID="HiddenFieldLandPriceValue" runat="server" />
                 </td>
             </tr>
         </table>
@@ -938,10 +1014,13 @@
                 <iframe id="IframeBuilding" src="" width="1100" height="610" frameborder="0" scrolling="yes">
                 </iframe>
             </asp:Panel>
+            <div style="white-space: nowrap; text-align: center;">
+                <asp:Button ID="ButtonColseBuilding" runat="server" Text="Close" Width="65px" myId="ButtonColseBuilding" />
+            </div>            
         </asp:Panel>
-        
-        <cc1:ModalPopupExtender ID="ModalPopupExtenderShowPic" runat="server" TargetControlID="ImageButtonShowPic"
-            PopupControlID="panelShowPic" BackgroundCssClass="modalBackground1" BehaviorID="mpeBehaviorShowPic">
+        <cc1:ModalPopupExtender ID="ModalPopupExtenderShowPic" runat="server" TargetControlID="ImageButtonShowMap"
+            PopupControlID="panelShowPic" BackgroundCssClass="modalBackground1" 
+            BehaviorID="mpeBehaviorShowPic">
         </cc1:ModalPopupExtender>
         <cc1:RoundedCornersExtender ID="RoundedCornersExtenderShowPic" runat="server" TargetControlID="pnlInnerPopupShowPic"
             BorderColor="black" Radius="4">
@@ -951,12 +1030,27 @@
                 <iframe id="IframeShowPic" src="" width="800" height="510" frameborder="0" scrolling="yes">
                 </iframe>
             </asp:Panel>
-                    <div style="white-space: nowrap; text-align: center;">
-            <asp:Button ID="ButtonCloseShowPic" runat="server" Text="Close" Width="65px" myId="ButtonCloseShowPic" />
-        </div>
-        </asp:Panel>          
+            <div style="white-space: nowrap; text-align: center;">
+                <asp:Button ID="ButtonCloseShowPic" runat="server" Text="Close" Width="65px" myId="ButtonCloseShowPic" />
+            </div>
+        </asp:Panel>
+        <cc1:ModalPopupExtender ID="ModalPopupExtenderMap" runat="server" TargetControlID="ImageButtonShowMap"
+            PopupControlID="panelMap" BackgroundCssClass="modalBackground1" 
+            BehaviorID="mpeBehaviorMap">
+        </cc1:ModalPopupExtender>
+        <cc1:RoundedCornersExtender ID="RoundedCornersExtenderMap" runat="server" TargetControlID="pnlInnerPopupMap"
+            BorderColor="black" Radius="4">
+        </cc1:RoundedCornersExtender>
+        <asp:Panel ID="panelMap" runat="server" CssClass="outerPopup" Style="display: none;">
+            <asp:Panel ID="pnlInnerPopupMap" runat="server" Width="850px" CssClass="innerPopup">
+                <iframe id="IframeMap" src="" width="850" height="700" frameborder="0" scrolling="yes">
+                </iframe>
+            </asp:Panel>
+            <div style="white-space: nowrap; text-align: center;">
+                <asp:Button ID="ButtonCloseMap" runat="server" Text="Close" Width="65px" myId="ButtonCloseMap" />
+            </div>
+        </asp:Panel>
     </div>
-      
     </form>
 </body>
 </html>
