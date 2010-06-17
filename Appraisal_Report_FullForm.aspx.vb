@@ -11,6 +11,7 @@ Imports System.Web.UI.WebControls.WebParts
 Imports System.Web.UI.HtmlControls
 Imports System.Math
 Imports Appraisal_Manager
+Imports ThaiBaht
 
 Partial Class Appraisal_Report_FullForm
     Inherits System.Web.UI.Page
@@ -38,7 +39,7 @@ Partial Class Appraisal_Report_FullForm
                     Building_Info()
                     FullForm_Info(Obj_P3M)
                 End If
-
+                lblThaiBaht.Text = ThaiBahtFun(CDec(txtGrandTotal.Text))
             Else
                 'ถ้ายังไม่มีข้อมูล
                 StringMessage = "<script language=""javascript"">alert('เจ้าหน้าที่ประเมินยังไม่ได้บันทึกรายละเอียดรายงานการประเมิน'); </script>"
@@ -56,6 +57,7 @@ Partial Class Appraisal_Report_FullForm
         lblBranch.Text = Obj_Branch.Item(0).BRANCH_NAME
         'Dim Obj_Emp As List = GET_SYSTEM_USER(App_Request.Item(0).Appraisal_Id
         Dim Obj_Appraisal As DataSet = GET_APPRAISAL_APPROVAL(App_Request.Item(0).Appraisal_Id)
+        HiddenField_Appraisal_Id.Value = App_Request.Item(0).Appraisal_Id
         lblAppraisal_Name.Text = Obj_Appraisal.Tables(0).Rows(0).Item("UserAppraisal")
 
     End Sub
@@ -79,10 +81,17 @@ Partial Class Appraisal_Report_FullForm
         Else
             '            'ถ้ามีที่ดินมากกว่า 1 ชิ้น
             Obligation = Obj_GetP50.Item(0).Obligation
-            Dim DS As DataSet = GET_PRICE3_50_GROUP(hdfReq_Id.Value, hdfHub_Id.Value, hdfTemp_AID.Value)
             Dim Osubtype As List(Of Cls_SubCollType) = GET_SUBCOLLTYPE(Obj_GetP50.Item(0).MysubColl_ID)
-            lblDetail1.Text = Replace(Space(10), " ", "&nbsp;") & Osubtype.Item(0).SubCollType_Name & " เลขที่" & Replace(Space(5), " ", "&nbsp;") & Obj_GetP50.Item(0).Address_No & Replace(Space(3), " ", "&nbsp;") & "ระวาง" & Replace(Space(3), " ", "&nbsp;") & Obj_GetP50.Item(0).Rawang & Replace(Space(3), " ", "&nbsp;") & "เลขที่ดิน" & Replace(Space(3), " ", "&nbsp;") & Obj_GetP50.Item(0).LandNumber
-            lblDetail2.Text = Replace(Space(10), " ", "&nbsp;") & "หน้าสำรวจ " & Replace(Space(5), " ", "&nbsp;") & "ตามเอกสารแนบ"
+            If Obj_GetP50.Count > 1 And Obj_GetP50.Count < 4 Then
+                Dim DS As DataSet = GET_PRICE3_50_GROUP(hdfReq_Id.Value, hdfHub_Id.Value, hdfTemp_AID.Value)
+                lblDetail1.Text = Replace(Space(10), " ", "&nbsp;") & Osubtype.Item(0).SubCollType_Name & " เลขที่" & Replace(Space(5), " ", "&nbsp;") & DS.Tables(0).Rows(0).Item("Address_no") & Replace(Space(3), " ", "&nbsp;") & "ระวาง" & Replace(Space(3), " ", "&nbsp;") & DS.Tables(0).Rows(0).Item("Rawang") & Replace(Space(3), " ", "&nbsp;") & "เลขที่ดิน" & Replace(Space(3), " ", "&nbsp;") & DS.Tables(0).Rows(0).Item("LandNumber")
+                lblDetail2.Text = Replace(Space(10), " ", "&nbsp;") & "หน้าสำรวจ " & Replace(Space(5), " ", "&nbsp;") & DS.Tables(0).Rows(0).Item("Surway")
+            Else
+                lblDetail1.Text = Replace(Space(10), " ", "&nbsp;") & Osubtype.Item(0).SubCollType_Name & " เลขที่" & Replace(Space(5), " ", "&nbsp;") & "ตามเอกสารแนบ" & Replace(Space(3), " ", "&nbsp;") & "ระวาง" & Replace(Space(3), " ", "&nbsp;") & "ตามเอกสารแนบ" & Replace(Space(3), " ", "&nbsp;") & "เลขที่ดิน" & Replace(Space(3), " ", "&nbsp;") & "ตามเอกสารแนบ"
+                lblDetail2.Text = Replace(Space(10), " ", "&nbsp;") & "หน้าสำรวจ " & Replace(Space(5), " ", "&nbsp;") & "ตามเอกสารแนบ"
+            End If
+            'lblDetail1.Text = Replace(Space(10), " ", "&nbsp;") & Osubtype.Item(0).SubCollType_Name & " เลขที่" & Replace(Space(5), " ", "&nbsp;") & Obj_GetP50.Item(0).Address_No & Replace(Space(3), " ", "&nbsp;") & "ระวาง" & Replace(Space(3), " ", "&nbsp;") & Obj_GetP50.Item(0).Rawang & Replace(Space(3), " ", "&nbsp;") & "เลขที่ดิน" & Replace(Space(3), " ", "&nbsp;") & Obj_GetP50.Item(0).LandNumber
+            'lblDetail2.Text = Replace(Space(10), " ", "&nbsp;") & "หน้าสำรวจ " & Replace(Space(5), " ", "&nbsp;") & "ตามเอกสารแนบ"
             Dim Obj_Provinceas As List(Of Cls_PROVINCE) = GET_PROVINCE_INFO(Obj_GetP50.Item(0).Province)
             lblDetail3.Text = Replace(Space(10), " ", "&nbsp;") & "ตำบล" & Replace(Space(5), " ", "&nbsp;") & Obj_GetP50.Item(0).Tumbon & Replace(Space(5), " ", "&nbsp;") & "อำเภอ" & Replace(Space(5), " ", "&nbsp;") & Obj_GetP50.Item(0).Amphur & Replace(Space(5), " ", "&nbsp;") & "จังหวัด" & Replace(Space(5), " ", "&nbsp;") & Obj_Provinceas.Item(0).PROV_NAME
             lblDetail4.Text = Replace(Space(10), " ", "&nbsp;") & "ผู้ถือกรรมสิทธิ์ที่ดิน  " & Replace(Space(5), " ", "&nbsp;") & Obj_GetP50.Item(0).Ownership & Replace(Space(5), " ", "&nbsp;")
@@ -109,8 +118,7 @@ Partial Class Appraisal_Report_FullForm
         lblLandDetail1.Text = Replace(Space(10), " ", "&nbsp;") & "หลักประกัน ตั้งอยู่ที่ถนน  " & Replace(Space(5), " ", "&nbsp;") & Obj_GetP50.Item(0).Road & Replace(Space(5), " ", "&nbsp;") & Obj_RoadAccess_Detail.Item(0).Road_Detail_Name & Replace(Space(5), " ", "&nbsp;") & Obj_GetP50.Item(0).Soi & " ระยะประมาณ" & Replace(Space(5), " ", "&nbsp;") & Obj_GetP50.Item(0).Road_Access & " เมตร "
         lblLandDetail2.Text = Replace(Space(10), " ", "&nbsp;") & "ถนนหน้าหลักประกัน  " & Replace(Space(5), " ", "&nbsp;") & Obj_Road_Forntoff.Item(0).Road_Frontoff_Name & Replace(Space(5), " ", "&nbsp;") & Replace(Space(5), " ", "&nbsp;") & " กว้าง " & Obj_GetP50.Item(0).RoadWidth & Replace(Space(5), " ", "&nbsp;") & " เมตร (รายละเอียดตามรูปแผนที่สังเขป)"
         lblLandDetail3.Text = Replace(Space(10), " ", "&nbsp;") & "สภาพลักษณะรูปที่ดิน  " & Replace(Space(5), " ", "&nbsp;") & Obj_GetP50.Item(0).Binifit_Detail
-        'lblLandDetail4.Text = Replace(Space(10), " ", "&nbsp;") & "ขนาดที่ดิน กว้างติดถนน " & Replace(Space(5), " ", "&nbsp;") & Replace(Space(5), " ", "&nbsp;") & Obj_GetP50.Item(0).Land_Closeto_RoadWidth & Replace(Space(5), " ", "&nbsp;") & " เมตร  " & Replace(Space(5), " ", "&nbsp;") & " ลึก  " & Replace(Space(5), " ", "&nbsp;") & Obj_GetP50.Item(0).DeepWidth & Replace(Space(5), " ", "&nbsp;") & " เมตร  " & Replace(Space(5), " ", "&nbsp;") & " ด้านหลัง  " & Obj_GetP50.Item(0).BehindWidth & " เมตร "
-        lblLandDetail4.Text = Replace(Space(10), " ", "&nbsp;") & "ขนาดที่ดิน กว้างติดถนน " & Replace(Space(5), " ", "&nbsp;") & Replace(Space(5), " ", "&nbsp;") & SumP3.Tables(0).Rows(0).Item("Land_Closeto_RoadWidth") & Replace(Space(5), " ", "&nbsp;") & " เมตร  " & Replace(Space(5), " ", "&nbsp;") & " ลึก  " & Replace(Space(5), " ", "&nbsp;") & Obj_GetP50.Item(0).DeepWidth & Replace(Space(5), " ", "&nbsp;") & " เมตร  " & Replace(Space(5), " ", "&nbsp;") & " ด้านหลัง  " & SumP3.Tables(0).Rows(0).Item("BehindWidth") & " เมตร "
+        lblLandDetail4.Text = Replace(Space(10), " ", "&nbsp;") & "ขนาดที่ดิน กว้างติดถนน " & Replace(Space(3), " ", "&nbsp;") & Replace(Space(3), " ", "&nbsp;") & SumP3.Tables(0).Rows(0).Item("Land_Closeto_RoadWidth") & Replace(Space(3), " ", "&nbsp;") & " เมตร  " & Replace(Space(3), " ", "&nbsp;") & " ลึกซ้าย/ขวา  " & Replace(Space(3), " ", "&nbsp;") & Obj_GetP50.Item(0).DeepWidth & Replace(Space(3), " ", "&nbsp;") & " เมตร  " & Replace(Space(3), " ", "&nbsp;") & " ด้านหลัง  " & SumP3.Tables(0).Rows(0).Item("BehindWidth") & " เมตร "
         lblLandDetail5.Text = Replace(Space(10), " ", "&nbsp;") & "สภาพและการปรับปรุงระดับของที่ดินกับถนน  " & Replace(Space(5), " ", "&nbsp;") & Obj_Land_State.Item(0).Land_State_Name & Replace(Space(5), " ", "&nbsp;") & Obj_GetP50.Item(0).Land_State_Detail & Replace(Space(5), " ", "&nbsp;") & " ทำเล  " & Replace(Space(5), " ", "&nbsp;") & Obj_Site.Item(0).Site_Name
         lblLandDetail6.Text = Replace(Space(10), " ", "&nbsp;") & "ผังเมืองรวม   ที่ดินอยู่ในเขตพื้นที่สี  " & Replace(Space(5), " ", "&nbsp;") & Obj_AreaColour.Item(0).AreaColour_Name
         lblLandDetail7.Text = Replace(Space(10), " ", "&nbsp;") & "สาธารณูปโภค  " & Replace(Space(5), " ", "&nbsp;") & Obj_Public_Utility.Item(0).Public_Utility_Name & Replace(Space(5), " ", "&nbsp;") & Obj_GetP50.Item(0).Public_Utility_Detail & Replace(Space(5), " ", "&nbsp;") & "แนวโน้มความเจริญ" & Replace(Space(5), " ", "&nbsp;") & Obj_TENDENCY.Item(0).Tendency_Name
@@ -174,6 +182,7 @@ Partial Class Appraisal_Report_FullForm
             Dim Obj_BuySale_State As List(Of Cls_Buy_Sale_State) = GET_BUYSALE_STATE_INFO(Obj_GetP18.Item(0).BuySale_State)
             Dim Obj_SiteWalkIs As List(Of Cls_Floor) = GET_FLOOR_INFO(Obj_GetP18.Item(0).SideWalk_Is)
             Dim Obj_Interior As List(Of Cls_Interior) = GET_INTERIOR_INFO(Obj_GetP18.Item(0).InteriorState_Id)
+            Dim Obj_Character_Room As DataSet = GET_CHARACTER_ROOM_INFO(Obj_GetP18.Item(0).Character_Room_Id)
             Dim other As String = ""
 
             If Obj_GetP18.Item(0).Elevator_Util = -1 Then
@@ -199,7 +208,7 @@ Partial Class Appraisal_Report_FullForm
 
             lblLandDetail1.Text = Replace(Space(10), " ", "&nbsp;") & "อาคารชุด ตั้งอยู่ที่ถนน  " & Obj_GetP18.Item(0).Road & "   " & Obj_RoadAccess_Detail.Item(0).Road_Detail_Name & "  ระยะประมาณ " & Obj_GetP18.Item(0).Road_Access & " เมตร "
             lblLandDetail2.Text = Replace(Space(10), " ", "&nbsp;") & "ถนนหน้าหลักประกัน  " & Replace(Space(10), " ", "&nbsp;") & Obj_Road_Forntoff.Item(0).Road_Frontoff_Name & Replace(Space(10), " ", "&nbsp;") & " กว้าง " & Replace(Space(10), " ", "&nbsp;") & Obj_GetP18.Item(0).RoadWidth & Replace(Space(10), " ", "&nbsp;") & " เมตร (รายละเอียดตามรูปแผนที่สังเขป)"
-            lblLandDetail3.Text = Replace(Space(10), " ", "&nbsp;") & "สภาพลักษณะรูปห้องชุด  "
+            lblLandDetail3.Text = Replace(Space(10), " ", "&nbsp;") & "สภาพลักษณะรูปห้องชุด  " & Replace(Space(10), " ", "&nbsp;") & Obj_Character_Room.Tables(0).Rows(0).Item("CHARACTER_ROOM_NAME")
             lblLandDetail4.Text = Replace(Space(10), " ", "&nbsp;") & "ขนาดห้องชุด กว้างติดทางเดิน  " & Replace(Space(10), " ", "&nbsp;") & Obj_GetP18.Item(0).RoomWidth_BehideSiteWalk & Replace(Space(10), " ", "&nbsp;") & " เมตร  " & Replace(Space(10), " ", "&nbsp;") & " ลึก  " & Replace(Space(10), " ", "&nbsp;") & Obj_GetP18.Item(0).Roomdeep & " เมตร  " & Replace(Space(10), " ", "&nbsp;") & " ด้านหลัง  " & Replace(Space(10), " ", "&nbsp;") & Replace(Space(10), " ", "&nbsp;") & Obj_GetP18.Item(0).Backside_Width & Replace(Space(10), " ", "&nbsp;") & " เมตร "
             lblLandDetail5.Text = Replace(Space(10), " ", "&nbsp;") & "สภาพทางเดินในอาคารชุด  " & Obj_SiteWalkIs.Item(0).Floor_Name
             lblLandDetail6.Text = Replace(Space(10), " ", "&nbsp;") & "ทำเลใกล้เคียงอาคารชุด  " & Replace(Space(10), " ", "&nbsp;") & Obj_Binifit.Item(0).Binifit_Name
@@ -249,8 +258,8 @@ Partial Class Appraisal_Report_FullForm
                 hdfChkColl.Value = 70
                 txtLandTotal.Text = String.Format("{0:N2}", P2M.Tables(0).Rows(0).Item("Land"))
                 'txtBuildingPrice.Text = "0.00"
-                txtSubTotal.Text = String.Format("{0:N2}", P2M.Tables(0).Rows(0).Item("txtBuilding"))
-                txtGrandTotal.Text = String.Format("{0:N2}", P2M.Tables(0).Rows(0).Item("txtBuilding"))
+                txtSubTotal.Text = String.Format("{0:N2}", P2M.Tables(0).Rows(0).Item("Building"))
+                txtGrandTotal.Text = String.Format("{0:N2}", P2M.Tables(0).Rows(0).Item("Building"))
             ElseIf P2M.Tables(0).Rows(0).Item("Condo") > 0 Then
                 hdfChkColl.Value = 18
                 txtLandTotal.Text = String.Format("{0:N2}", P2M.Tables(0).Rows(0).Item("Condo"))
@@ -281,7 +290,7 @@ Partial Class Appraisal_Report_FullForm
                 txtGrandTotal.Text = String.Format("{0:N2}", P2M.Tables(0).Rows(0).Item("Land") + P2M.Tables(0).Rows(0).Item("Building"))
             End If
         End If
-
+        HiddenFieldLandPriceValue.Value = txtLandTotal.Text
     End Sub
 
     Sub FullForm_Info(ByVal Obj_P3M As List(Of clsPrice3_Master))
@@ -304,6 +313,7 @@ Partial Class Appraisal_Report_FullForm
             End If
             lblProblem_Detail.Text = Obj_P3M.Item(0).Env_Effect_Detail
             txtBuy_Sale_Comment.Text = Obj_P3M.Item(0).Appraisal_Detail
+            HiddenField_Appraisal_Type.Value = Obj_P3M.Item(0).Appraisal_Type_ID
             If Obj_P3M.Item(0).Appraisal_Type_ID = 1 Then
                 lblAppraisal_Type.Text = "วิธีเปรียบเทียบตลาด"
             ElseIf Obj_P3M.Item(0).Appraisal_Type_ID = 2 Then
@@ -320,13 +330,14 @@ Partial Class Appraisal_Report_FullForm
             lblApprove1.Text = Obj_Approve1.Tables(0).Rows(0).Item("UserAppraisal")
             Dim Obj_Position1 As DataSet = GET_POSITION_INFO(Obj_P3M.Item(0).Position_Approved1)
             lblPos_Approve1.Text = Obj_Position1.Tables(0).Rows(0).Item("POSITION_NAME")
+
+
             If HiddenField_ApproveId.Value = Obj_P3M.Item(0).Approved1 Then
                 ButtonConfirm1.Visible = True
                 ButtonConfirm2.Visible = False
                 ButtonConfirm3.Visible = False
                 Dim Check_Approve As List(Of Wait_For_Approve) = GET_CHECK_APPROVED(hdfReq_Id.Value, hdfHub_Id.Value, HiddenField_ApproveId.Value)
                 If Check_Approve.Item(0).Chk_Approve = 1 Then
-                    ImageButtonApproved1.Visible = True
                     ButtonConfirm1.Visible = False
                 Else
                     ImageButtonApproved1.Visible = False
@@ -335,6 +346,13 @@ Partial Class Appraisal_Report_FullForm
                 ImageButtonApproved2.Visible = False
                 ImageButtonApproved3.Visible = False
 
+            End If
+            'แสดงรูปว่ายืนยันแล้วคนที่ 1
+            Dim Obj_approve_check1 As DataSet = GET_WAIT_FOR_APPROVE_CHECK(hdfReq_Id.Value, hdfHub_Id.Value, Obj_P3M.Item(0).Approved1)
+            If Obj_approve_check1.Tables(0).Rows(0).Item("Chk_Approve") = 1 Then
+                ImageButtonApproved1.Visible = True
+            Else
+                ImageButtonApproved1.Visible = False
             End If
 
             Dim Obj_Approve2 As DataSet = GET_APPRAISAL_APPROVAL(Obj_P3M.Item(0).Approved2)
@@ -345,15 +363,21 @@ Partial Class Appraisal_Report_FullForm
                 ButtonConfirm1.Visible = False
                 ButtonConfirm2.Visible = True
                 ButtonConfirm3.Visible = False
-                Dim Check_Approve As List(Of Wait_For_Approve) = GET_CHECK_APPROVED(hdfReq_Id.Value, hdfHub_Id.Value, HiddenField_ApproveId.Value)
-                If Check_Approve.Item(0).Chk_Approve = 1 Then
-                    ImageButtonApproved2.Visible = True
+                Dim Check_Approve2 As List(Of Wait_For_Approve) = GET_CHECK_APPROVED(hdfReq_Id.Value, hdfHub_Id.Value, HiddenField_ApproveId.Value)
+                If Check_Approve2.Item(0).Chk_Approve = 1 Then
                     ButtonConfirm2.Visible = False
                 Else
                     ImageButtonApproved2.Visible = False
                 End If
-                ImageButtonApproved1.Visible = False
-                ImageButtonApproved3.Visible = False
+                'ImageButtonApproved1.Visible = False
+                'ImageButtonApproved3.Visible = False
+            End If
+            'แสดงรูปว่ายืนยันแล้วคนที่ 2
+            Dim Obj_approve_check2 As DataSet = GET_WAIT_FOR_APPROVE_CHECK(hdfReq_Id.Value, hdfHub_Id.Value, Obj_P3M.Item(0).Approved2)
+            If Obj_approve_check2.Tables(0).Rows(0).Item("Chk_Approve") > 0 Then
+                ImageButtonApproved2.Visible = True
+            Else
+                ImageButtonApproved2.Visible = False
             End If
 
             Dim Obj_Approve3 As DataSet = GET_APPRAISAL_APPROVAL(Obj_P3M.Item(0).Approved3)
@@ -366,13 +390,19 @@ Partial Class Appraisal_Report_FullForm
                 ButtonConfirm3.Visible = True
                 Dim Check_Approve As List(Of Wait_For_Approve) = GET_CHECK_APPROVED(hdfReq_Id.Value, hdfHub_Id.Value, HiddenField_ApproveId.Value)
                 If Check_Approve.Item(0).Chk_Approve = 1 Then
-                    ImageButtonApproved3.Visible = True
                     ButtonConfirm3.Visible = False
                 Else
                     ImageButtonApproved3.Visible = False
                 End If
-                ImageButtonApproved1.Visible = False
-                ImageButtonApproved2.Visible = False
+                'ImageButtonApproved1.Visible = False
+                'ImageButtonApproved2.Visible = False
+            End If
+            'แสดงรูปว่ายืนยันแล้วคนที่ 3
+            Dim Obj_approve_check3 As DataSet = GET_WAIT_FOR_APPROVE_CHECK(hdfReq_Id.Value, hdfHub_Id.Value, Obj_P3M.Item(0).Approved3)
+            If Obj_approve_check3.Tables(0).Rows(0).Item("Chk_Approve") > 0 Then
+                ImageButtonApproved3.Visible = True
+            Else
+                ImageButtonApproved3.Visible = False
             End If
         Else
             'มีการกำหนดราคาที่ 3 แล้ว แสดงชื่อลูกค้า
@@ -380,58 +410,8 @@ Partial Class Appraisal_Report_FullForm
             'Dim Obj_title As List(Of Cls_Title) = GET_TITLE_INFO(Obj_Cif.Item(0).Title)
             'lblCifName.Text = Obj_title.Item(0).TITLE_NAME & Obj_Cif.Item(0).Name & "  " & Obj_Cif.Item(0).Lastname
         End If
-    End Sub
 
-    'Protected Sub ButtonConfirm1_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles ButtonConfirm1.Click
-    '    Try
-    '        Update_Price2_Master_Approve_Id()
-    '        Updat_Wait_Approved()
-    '        StringMessage = "<script language=""javascript"">alert('ยืนยันการกำหนดราคาที่2 และราคาที่ 3 เสร็จเรียบร้อย'); </script>"
-    '        Page.ClientScript.RegisterStartupScript(Me.GetType, "Update Approveval1", StringMessage)
-    '    Catch ex As Exception
-    '        StringMessage = "<script language=""javascript"">alert('ไม่สามารถยืนยันราคาประเมินราคาที่ 3 ได้'); </script>"
-    '        Page.ClientScript.RegisterStartupScript(Me.GetType, "Update Approveval1", StringMessage)
-    '    End Try
 
-    'End Sub
-
-    Sub Updat_Wait_Approved()
-        UPDATE_APPROVE_ID_WAIT_FOR_APPROVE(hdfReq_Id.Value, hdfHub_Id.Value, HiddenField_ApproveId.Value)
-    End Sub
-
-    Sub Update_Price2_Master_Approve_Id()
-        UPDATE_PRICE2_APPROVED(hdfReq_Id.Value, hdfHub_Id.Value, HiddenField_ApproveId.Value)
-    End Sub
-
-    Protected Sub ButtonConfirm2_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles ButtonConfirm2.Click
-        Try
-            Updat_Wait_Approved()
-            StringMessage = "<script language=""javascript"">alert('ยืนยันการกำหนดราคาที่ 3 เสร็จเรียบร้อย'); </script>"
-            Page.ClientScript.RegisterStartupScript(Me.GetType, "Update Approveval1", StringMessage)
-        Catch ex As Exception
-            StringMessage = "<script language=""javascript"">alert('ไม่สามารถยืนยันราคาประเมินราคาที่ 3 ได้'); </script>"
-            Page.ClientScript.RegisterStartupScript(Me.GetType, "Update Approveval1", StringMessage)
-        End Try
-
-    End Sub
-
-    Protected Sub ButtonConfirm3_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles ButtonConfirm3.Click
-        Try
-            Updat_Wait_Approved()
-            StringMessage = "<script language=""javascript"">alert('ยืนยันการกำหนดราคาที่ 3 เสร็จเรียบร้อย'); </script>"
-            Page.ClientScript.RegisterStartupScript(Me.GetType, "Update Approveval3", StringMessage)
-        Catch ex As Exception
-            StringMessage = "<script language=""javascript"">alert('ไม่สามารถยืนยันราคาประเมินราคาที่ 3 ได้'); </script>"
-            Page.ClientScript.RegisterStartupScript(Me.GetType, "Update Approveval3", StringMessage)
-        End Try
-
-    End Sub
-
-    Protected Sub ImageButtonLandAttach_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs) Handles ImageButtonLandAttach.Click
-        Context.Items("Req_Id") = hdfReq_Id.Value
-        Context.Items("Cif") = lblCif.Text
-        Context.Items("CifName") = lblCifName.Text
-        Server.Transfer("LandFileAttach.aspx")
     End Sub
 
     <System.Web.Script.Services.ScriptMethod()> _
@@ -450,24 +430,24 @@ Public Shared Function ConfirmPrice(ByVal ReqId As Integer, ByVal HubId As Integ
             isValid = False
         End Try
         Return isValid
+
     End Function
 
-    '    function changeBuildingIframeSrc() {
-    '    var AppraisalType = document.getElementById('<%=HiddenApprisalType.ClientID%>').value;
-    '    var myId = "IframeBuilding";
-    '    var url = "Appraisal_Building.aspx";
-    '    var param = "ID=" + '' + "&Temp_AID=" + '' + "&Appraisal_Type=" + AppraisalType + "&PopupModal=mpeBehaviorBuilding";
-    '    //var param = "LandPrice=TextBoxLand&BuildingPrice=TextBoxBuilding&CondoPrice=TextBoxCondo&GrandTotal=TextBoxGrandTotal&PopupModal=mpeBehaviorLand";
+    <System.Web.Script.Services.ScriptMethod()> _
+<System.Web.Services.WebMethod()> _
+Public Shared Function ConfirmPriceCommittee(ByVal ReqId As Integer, ByVal HubId As Integer, ByVal AppraisalId As String) As Boolean
+        ' simulate a longer operation ... 
+        System.Threading.Thread.Sleep(1000)
 
-    '    param = param + concatParam('', 'input', 'TextBoxReq_Id', 'Req_Id');
-    '    param = param + concatParam('', 'input', 'TextBoxHub_Id', 'Hub_Id');
-    '    param = param + concatParam('', 'input', 'TextBoxCif', 'Cif');
-    '    param = param + concatParam('', 'input', 'TextBoxCifName', 'CifName');
-    '    param = param + concatParam('', 'input', 'TextBoxAppraisal_Id', 'Appraisal_Id');
-    '    //alert(param);
-    '    changeIframeSrcById(myId
-    '        , url
-    '        , param
-    '    );
-    '}
+        Dim isValid As Boolean = False
+
+        Try
+            UPDATE_APPROVE_ID_WAIT_FOR_APPROVE(ReqId, HubId, AppraisalId)
+            isValid = True
+        Catch
+            isValid = False
+        End Try
+        Return isValid
+
+    End Function
 End Class
