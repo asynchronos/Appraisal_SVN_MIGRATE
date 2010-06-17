@@ -284,10 +284,9 @@
                         </tr>
                         <tr>
                             <td colspan="2">
-                                <asp:GridView ID="GridView_Condo_List" runat="server" 
-                                    AutoGenerateColumns="False" BackColor="LightGoldenrodYellow"
-                                    BorderColor="Tan" BorderWidth="1px" CellPadding="2" ForeColor="Black" GridLines="None"
-                                    Style="font-size: small" DataSourceID="SqlDataSourceCondo" 
+                                <asp:GridView ID="GridView_Condo_List" runat="server" AutoGenerateColumns="False"
+                                    BackColor="LightGoldenrodYellow" BorderColor="Tan" BorderWidth="1px" CellPadding="2"
+                                    ForeColor="Black" GridLines="None" Style="font-size: small" DataSourceID="SqlDataSourceCondo"
                                     DataKeyNames="Req_Id,Hub_Id,Id,MysubColl_ID" ShowFooter="True">
                                     <Columns>
                                         <asp:TemplateField HeaderText="ID">
@@ -303,57 +302,58 @@
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="เลขทะเบียนอาคารชุด">
-                                        <ItemStyle HorizontalAlign="Left" Width="130px"/>
+                                            <ItemStyle HorizontalAlign="Left" Width="130px" />
                                             <ItemTemplate>
                                                 <asp:Label ID="lblRegister_No" runat="server" Text='<%# Bind("Building_Reg_No") %>'></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="ชื่อโครงการ">
-                                        <ItemStyle Width="250px" />
+                                            <ItemStyle Width="250px" />
                                             <ItemTemplate>
                                                 <asp:Label ID="lblBuildingName" runat="server" Text='<%# Bind("Building_Name") %>'></asp:Label>
                                             </ItemTemplate>
-                                        </asp:TemplateField>                                        
+                                        </asp:TemplateField>
                                         <asp:TemplateField HeaderText="เลขที่อาคาร">
-                                        <ItemStyle HorizontalAlign="Center" Width="80px"/>
+                                            <ItemStyle HorizontalAlign="Center" Width="80px" />
                                             <ItemTemplate>
                                                 <asp:Label ID="lblBuild_Number" runat="server" Text='<%# Bind("Building_No") %>'></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="เลขที่ห้อง">
-                                        <ItemStyle HorizontalAlign="Center" Width="80px"/>
+                                            <ItemStyle HorizontalAlign="Center" Width="80px" />
                                             <ItemTemplate>
                                                 <asp:Label ID="lblAddressNo" runat="server" Text='<%# Bind("Address_No") %>'></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="ชั้นที่">
-                                        <ItemStyle HorizontalAlign="Center" Width="40px"/>
+                                            <ItemStyle HorizontalAlign="Center" Width="40px" />
                                             <ItemTemplate>
                                                 <asp:Label ID="lblFloor" runat="server" Text='<%# Bind("Floors") %>'></asp:Label>
                                             </ItemTemplate>
-                                        </asp:TemplateField>   
+                                        </asp:TemplateField>
                                         <asp:TemplateField HeaderText="พื้นที่">
-                                            <ItemStyle HorizontalAlign="Right" Width="50px"/>
+                                            <ItemStyle HorizontalAlign="Right" Width="50px" />
                                             <ItemTemplate>
                                                 <asp:Label ID="lblArea" runat="server" Text='<%# eval("Room_Area", "{0:N}") %>'></asp:Label>
                                             </ItemTemplate>
-                                        </asp:TemplateField>                                                                             
+                                        </asp:TemplateField>
                                         <asp:TemplateField HeaderText="ตรม.ละ">
-                                            <ItemStyle HorizontalAlign="Right" Width="130px"/>
+                                            <ItemStyle HorizontalAlign="Right" Width="130px" />
                                             <ItemTemplate>
                                                 <asp:Label ID="lblUnit_Price" runat="server" Text='<%# eval("Unit_Price", "{0:N}") %>'></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="รวมราคา">
-                                            <ItemStyle HorizontalAlign="right" Width="130px"/>
+                                            <ItemStyle HorizontalAlign="right" Width="130px" />
                                             <ItemTemplate>
                                                 <asp:Label ID="lblTotal_Building" runat="server" Text='<%#GetPrice(Decimal.Parse(Eval("PriceTotal").ToString())).ToString("N2")%>'>
                                                 </asp:Label>
                                             </ItemTemplate>
                                             <FooterTemplate>
                                                 <cc1:mytext ID="TextBoxTotal" runat="server" AllowUserKey="num_Numeric" AutoCurrencyFormatOnKeyUp="True"
-                                                    EnableTextAlignRight="True" myId="TextBoxTotal" ReadOnly="True" Width="110px" Text='<%#GetTotalPrice().ToString("N2")%>'>0</cc1:mytext>
-                                            </FooterTemplate>                                            
+                                                    EnableTextAlignRight="True" myId="TextBoxTotal" ReadOnly="True" Width="110px"
+                                                    Text='<%#GetTotalPrice().ToString("N2")%>'>0</cc1:mytext>
+                                            </FooterTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="">
                                             <ItemStyle Width="25px" />
@@ -362,8 +362,8 @@
                                                     Width="22px" ToolTip="รายละเอียด" OnClientClick='<%# "changeEditCondoIframeSrc("+Eval("ID").toString()+","""+Eval("MysubColl_ID").toString()+"""); return false;" %>' />
                                             </ItemTemplate>
                                             <FooterTemplate>
-                                                                                            <asp:Label ID="LabelBaht" runat="server" Text=" บาท"></asp:Label>
-                                            </FooterTemplate> 
+                                                <asp:Label ID="LabelBaht" runat="server" Text=" บาท"></asp:Label>
+                                            </FooterTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="">
                                             <ItemStyle VerticalAlign="Middle" Width="30px" />
@@ -372,7 +372,7 @@
                                                     Width="22px" Height="22px" OnClientClick='<%# "deleteCondo("+Eval("ID").toString()+","""+Eval("MysubColl_ID").toString()+"""); return false;" %>' />
                                             </ItemTemplate>
                                             <FooterTemplate>
-                                            <asp:Button ID="ButtonConfirm" runat="server" Text="ยืนยัน" OnClientClick="returnValue(); return false;" />
+                                                <asp:Button ID="ButtonConfirm" runat="server" Text="ยืนยัน" OnClientClick="returnValue(); return false;" />
                                             </FooterTemplate>
                                         </asp:TemplateField>
                                     </Columns>
@@ -385,7 +385,7 @@
                                 <table class="TableWidth">
                                     <tr>
                                         <td align="right">
-                                            <asp:HiddenField ID="HiddenFieldGrandTotal" runat="server" Value="104" />       
+                                            <asp:HiddenField ID="HiddenFieldGrandTotal" runat="server" Value="104" />
                                         </td>
                                     </tr>
                                 </table>
@@ -416,21 +416,19 @@
                 </iframe>
             </asp:Panel>
         </asp:Panel>
-        
         <asp:Button ID="ButtonCondoEdit" runat="server" Style="display: none;" BehaviorID="ButtonCondoEdit" />
         <cc1:ModalPopupExtender ID="ModalPopupExtenderCondoEdit" runat="server" TargetControlID="ButtonCondoEdit"
             PopupControlID="panelCondoEdit" BackgroundCssClass="modalBackground1" BehaviorID="mpeBehaviorCondoEdit">
         </cc1:ModalPopupExtender>
-        <cc1:RoundedCornersExtender ID="RoundedCornersExtenderCondoEdit" runat="server"
-            TargetControlID="pnlInnerPopupCondoEdit" BorderColor="black" Radius="4">
+        <cc1:RoundedCornersExtender ID="RoundedCornersExtenderCondoEdit" runat="server" TargetControlID="pnlInnerPopupCondoEdit"
+            BorderColor="black" Radius="4">
         </cc1:RoundedCornersExtender>
         <asp:Panel ID="panelCondoEdit" runat="server" CssClass="outerPopup" Style="display: none;">
             <asp:Panel ID="pnlInnerPopupCondoEdit" runat="server" Width="1100px" CssClass="innerPopup">
-                <iframe id="IframeCondoEdit" src="" width="1100" height="610" frameborder="0"
-                    scrolling="yes"></iframe>
+                <iframe id="IframeCondoEdit" src="" width="1100" height="610" frameborder="0" scrolling="yes">
+                </iframe>
             </asp:Panel>
         </asp:Panel>
-        
         <asp:Button ID="ButtonDelete" runat="server" Style="display: none;" BehaviorID="ButtonDelete" />
         <cc1:ModalPopupExtender ID="ModalPopupExtenderDelete" runat="server" TargetControlID="ButtonDelete"
             PopupControlID="panelDelete" BackgroundCssClass="modalBackground1" BehaviorID="mpeBehaviorDelete">

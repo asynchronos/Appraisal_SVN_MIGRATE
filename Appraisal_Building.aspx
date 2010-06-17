@@ -471,7 +471,8 @@
                 </td>
                 <td>
                     <cc1:mytext ID="txtBuildingArea" runat="server" AllowUserKey="num_Numeric" EnableTextAlignRight="True"
-                        MaxLength="5" Width="35px" BackColor="#FFFF66" MyClintID="txtBuildingArea" onkeyup="CalSection_Building(this,event);">0</cc1:mytext>
+                        MaxLength="7" Width="35px" BackColor="#FFFF66" MyClintID="txtBuildingArea" 
+                        onkeyup="CalSection_Building(this,event);">0</cc1:mytext>
                     ตรม.
                 </td>
                 <td>

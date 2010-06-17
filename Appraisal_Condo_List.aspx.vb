@@ -1,4 +1,5 @@
-﻿
+﻿Imports System.Math
+
 Partial Class Appraisal_Condo_List
     Inherits System.Web.UI.Page
     Dim TotalPrice As Decimal = 0.0
@@ -16,20 +17,11 @@ Partial Class Appraisal_Condo_List
     End Sub
     Function GetPrice(ByVal Count As Decimal) As Decimal
         TotalPrice += Count
-        'If Request.QueryString("Appraisal_Type") = 1 Then
-        '    Return 0
-        'Else
         Return Count
-        'End If
-
     End Function
 
     Function GetTotalPrice() As Decimal
-        'If Request.QueryString("Appraisal_Type") = 1 Then
-        '    Return 0
-        'Else
+        TotalPrice = Round(TotalPrice / 1000, System.MidpointRounding.AwayFromZero) * 1000
         Return TotalPrice
-        'End If
-
     End Function
 End Class

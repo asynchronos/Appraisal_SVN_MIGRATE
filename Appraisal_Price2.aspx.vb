@@ -12,12 +12,6 @@ Partial Class Appraisal_Price2
     Protected Sub DDL_Load(ByVal sender As Object, ByVal e As System.EventArgs)
         Dim D1 As DropDownList = DirectCast(sender, DropDownList)
         If Not Page.IsPostBack Then
-            'D1.Items.Add(New ListItem("รับเรื่องการประเมิน", 0))
-            'D1.Items.Add(New ListItem("กำหนดกลุ่ม COLL ID", 1))
-            'For i = 2 To 4
-            '    'D1.Items.Add("ให้ราคาประเมินหลักประกันครั้งที่ " & i)
-            '    D1.Items.Add(New ListItem("ให้ราคาประเมินหลักประกันครั้งที่ " & i - 1, i))
-            'Next
             D1.DataSource = sdsCollType
             D1.DataTextField = "CollType_Name"
             D1.DataValueField = "CollType_ID"
@@ -46,7 +40,7 @@ Partial Class Appraisal_Price2
         Context.Items("Coll_Type") = ddlOperation.SelectedValue
         Context.Items("CollType_Name") = ddlOperation.SelectedItem.Text
         'MsgBox(Context.Items("CollType_Name"))
-        Context.Items("AID") = AID.Text
+        'Context.Items("AID") = AID.Text
         Context.Items("Cif") = Cif.Text
         Context.Items("CifName") = CifName.Text
         'Page.Response.Redirect("Modal_Popup.aspx")
