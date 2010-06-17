@@ -62,7 +62,7 @@
                             <asp:Label ID="lblHUB_NAME" runat="server" Text='<%# Bind("HUB_NAME") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
-                <asp:TemplateField HeaderText="รหัสวิธีส่งประเมิน">
+                <asp:TemplateField HeaderText="รหัสวิธี">
                     <ItemTemplate>
                         <asp:Label ID="lblReq_Type" runat="server" Text='<%# Bind("Req_Type") %>'></asp:Label>
                     </ItemTemplate>
@@ -71,36 +71,32 @@
                     <ItemTemplate>
                         <asp:Label ID="lblAppraisal_Method_Name" runat="server" Text='<%# Bind("Method_Name") %>'></asp:Label>
                     </ItemTemplate>
-                </asp:TemplateField>
-                <asp:TemplateField HeaderText="AID">
-                    <ItemTemplate>
-                        <asp:Label ID="lblAID" runat="server" Text='<%# Bind("AID") %>'></asp:Label>
-                    </ItemTemplate>
-                </asp:TemplateField>                                        
+                </asp:TemplateField>     
                     <asp:TemplateField HeaderText="Cif" SortExpression="Cif">
-                        <EditItemTemplate>
-                            <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("Cif") %>'></asp:TextBox>
-                        </EditItemTemplate>
                         <ItemTemplate>
                             <asp:Label ID="lblCif" runat="server" Text='<%# Bind("Cif") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Cifname" SortExpression="Cifname">
-                        <EditItemTemplate>
-                            <asp:Label ID="Label4" runat="server" Text='<%# Eval("Cifname") %>'></asp:Label>
-                        </EditItemTemplate>
                         <ItemTemplate>
                             <asp:Label ID="LabelCifName" runat="server" Text='<%# Bind("Cifname") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Status_Name" SortExpression="Status_Name">
-                        <EditItemTemplate>
-                            <asp:TextBox ID="TextBox3" runat="server" Text='<%# Bind("Status_Name") %>'></asp:TextBox>
-                        </EditItemTemplate>
                         <ItemTemplate>
                             <asp:Label ID="Label7" runat="server" Text='<%# Bind("Status_Name") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
+                    <asp:TemplateField HeaderText="รหัสผู้ประเมิน" SortExpression="Appraisal_Id">
+                        <ItemTemplate>
+                            <asp:Label ID="LabelAppraisal_Id" runat="server" Text='<%# Bind("Appraisal_Id") %>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="ชื่อ - สกุลผู้ประเมิน" SortExpression="AppraisalName">
+                        <ItemTemplate>
+                            <asp:Label ID="LabelAppraisalName" runat="server" Text='<%# Bind("AppraisalName") %>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>                                          
                 <asp:TemplateField HeaderText="หลักประกัน">
                     <ItemTemplate>
                         <asp:DropDownList ID="ddlOperation" runat="server" OnPreRender="DDL_Load" 

@@ -339,4 +339,5 @@ Partial Class Appraisal_Building
 
         End If
     End Sub
+
 End Class

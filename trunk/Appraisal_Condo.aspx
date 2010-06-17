@@ -134,8 +134,8 @@
                 อาคารเลขที่</td>
             <td>
 
-                    <cc1:mytext ID="txtBuild_Number" runat="server" AllowUserKey="int_Integer" AutoCurrencyFormatOnKeyUp="True"
-                        EnableTextAlignRight="True" Width="50px"></cc1:mytext>
+                    <cc1:mytext ID="txtBuild_Number" runat="server" AllowUserKey="txt_Text"
+                        Width="50px" MaxLength="8"></cc1:mytext>
             </td>
             <td>
                 อยู่ชั้นที่</td>

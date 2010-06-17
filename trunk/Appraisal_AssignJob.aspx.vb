@@ -477,26 +477,7 @@ Public Shared Function SaveAssignJob(ByVal ReqId As String, ByVal HubId As Strin
             'ยังไม่ได้ทำ
             'mdlCollDetail18.Show()
         End If
-        'Else
-        '    Context.Items("Req_Id") = Req_Id.Text
-        '    Context.Items("Hub_Id") = Hub_Id.Text
-        '    Context.Items("Temp_AID") = TempAid.Text
-        '    Context.Items("Cif") = Cif.Value
-        '    Context.Items("ID") = ID.Value
-        '    Context.Items("Coll_Type") = CollType.Text
-        '    Context.Items("SpecialAdd") = "เพิ่มกรณีปกติ"
-        '    If CollType.Text = "50" Then
-        '        Server.Transfer("Appraisal_Price3_50_Review_Edit.aspx")
-        '    ElseIf CollType.Text = "70" Then
-        '        Server.Transfer("Appraisal_Price3_70_Review_Edit.aspx")
-        '    ElseIf CollType.Text = "18" Then
-        '        Server.Transfer("Appraisal_Price3_18.aspx")
-        '    End If
-        'End If
 
-
-
-        'End If
     End Sub
 
 #End Region
