@@ -33,25 +33,25 @@
         &nbsp;<asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
         &nbsp;<asp:Button ID="Button1" runat="server" Text="ค้นหา" />
         &nbsp;<asp:GridView ID="GridView1" runat="server" AllowPaging="True" AutoGenerateColumns="False"
-            DataKeyNames="Id_DepTran" DataSourceID="SqlDataSource1" Width="551px" BackColor="White"
+            DataKeyNames="Id_DepTran" DataSourceID="SqlDataSource1" Width="100%" BackColor="White"
             BorderColor="#DEDFDE" BorderStyle="None" BorderWidth="1px" CellPadding="4" ForeColor="Black"
-            GridLines="Vertical" PageSize="6">
+            GridLines="Vertical" PageSize="6" style="font-size: small">
             <RowStyle BackColor="#F7F7DE" />
             <Columns>
                 <asp:BoundField DataField="Id_DepTran" HeaderText="รหัสสาขา/ฝ่ายงาน" ReadOnly="True" ItemStyle-Width="150"
                     SortExpression="Id_DepTran">
-                    <ItemStyle Width="150px"></ItemStyle>
+                    <ItemStyle Width="130px"></ItemStyle>
                 </asp:BoundField>
                 <asp:BoundField DataField="DepTranT" HeaderText="ชื่อ สาขา/ฝ่ายงาน" ItemStyle-Width="250" SortExpression="DepTranT">
                     <ItemStyle Width="250px"></ItemStyle>
                 </asp:BoundField>
                 <asp:BoundField DataField="Flag" HeaderText="FLAG" ItemStyle-Width="80"
                     SortExpression="Flag">
-                    <ControlStyle Width="80px"></ControlStyle>
-                    <ItemStyle Width="80px"></ItemStyle>
+                    <ControlStyle Width="60px"></ControlStyle>
+                    <ItemStyle Width="60px"></ItemStyle>
                 </asp:BoundField>
                 <asp:TemplateField ShowHeader="False">
-                    <ItemStyle Width="80px"/>
+                <ItemStyle Width="60px"></ItemStyle>
                     <ItemTemplate>
                         <asp:ImageButton ID="imgLocation" runat="server" ImageUrl="~/Images/Select_user.png"
                                         Height="22px" Width="22px" ToolTip="เลือกลูกค้า" OnClientClick='<%# "returnValue(""" +Eval("Id_DepTran").toString() +""","""+Eval("DepTranT").toString()+""","""+Eval("FLAG").toString()+"""); return false;" %>' />
