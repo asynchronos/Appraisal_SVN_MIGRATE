@@ -143,10 +143,6 @@
         .style30
         {
         }
-        .style31
-        {
-            width: 144px;
-        }
         .setdropdownlist
         {
           text-align:center;
@@ -159,6 +155,10 @@
         .style33
         {
             font-size: medium;
+        }
+        .style34
+        {
+            width: 283px;
         }
     </style>
 
@@ -418,18 +418,18 @@
             <td>
                 <asp:Label ID="Label50" runat="server" Font-Bold="True" Text="การประเมินราคา"></asp:Label>&#160;<asp:Label
                     ID="Label51" runat="server" Text="ข้อมูลการซื้อขาย"></asp:Label><br />
-                <asp:TextBox ID="txtBuy_Sale_Comment" runat="server" Height="90px" TextMode="MultiLine"
-                    Width="800px" BackColor="#FFFF66" style="font-size: large" 
+                <asp:TextBox ID="txtBuy_Sale_Comment" runat="server" Height="100px" TextMode="MultiLine"
+                    Width="900px" BackColor="#FFFF66" style="font-size: large" 
                     BorderStyle="None" ></asp:TextBox>
             </td>
         </tr>
     </table>
     <table width="100%">
         <tr>
-            <td class="style11">
+            <td>
                 <asp:Label ID="Label52" runat="server" Font-Bold="True" Text="วิธีการประเมินราคา"></asp:Label>
             </td>
-            <td class="style31">
+            <td class="style34">
                 <asp:DropDownList ID="ddlAppraisal_Type" runat="server" CssClass="txtDoPrint" 
                     DataSourceID="SDSAppraisal_Type" DataTextField="App_Type_Name" 
                     DataValueField="App_Type_ID" BackColor="#FFFF66" AutoPostBack="True">
@@ -445,33 +445,34 @@
                 &nbsp;</td>
         </tr>
         <tr>
-            <td class="style11">
+            <td>
                 <asp:Label ID="lblCollName" runat="server"></asp:Label>
-                &nbsp;</td>
-            <td class="style31">
-                <asp:Label ID="lblSize" runat="server" Style="color: #FF0000" Width="100px"></asp:Label>
             </td>
-            <td class="style32">
+            <td class="style34">
+                <asp:Label ID="lblSize" runat="server" Style="color: #FF0000" Width="300px"></asp:Label>
+            </td>
+            <td>
                 <asp:Label ID="lblSubUnit" runat="server" Width="135px"></asp:Label>&nbsp;
             </td>
-            <td class="style30">
+            <td>
                 <asp:Label ID="lblPriceWah" runat="server" Style="color: #FF0000"></asp:Label>
                 &nbsp;บาท</td>
-            <td class="style7">
+            <td>
                 <asp:Label ID="Label55" runat="server" Text="เป็นเงิน"></asp:Label>
             </td>
             <td>
                                   <cc1:mytext ID="txtLandTotal" runat="server" AllowUserKey="num_Numeric" 
                         EnableTextAlignRight="True" Width="120px" BackColor="#FFFF66" AutoPostBack="True" 
-                                      AutoCurrencyFormatOnKeyUp="True">0.00</cc1:mytext>
+                                      AutoCurrencyFormatOnKeyUp="True" onfocus="this.blur();">0.00</cc1:mytext>
                                   &nbsp;บาท</td>
         </tr>
         <tr>
-            <td class="style11">
+            <td>
                 <asp:Label ID="Label56" runat="server" Text="สิ่งปลูกสร้าง"></asp:Label>
             </td>
-            <td class="style31">
-                <asp:Label ID="lblBuilding_Detail" runat="server" Style="color: #FF0000"></asp:Label>
+            <td class="style34">
+                <asp:Label ID="lblBuilding_Detail" runat="server" Style="color: #FF0000" 
+                    Width="300px"></asp:Label>
             </td>
             <td class="style32">
                 <asp:Label ID="lblSubUnit0" runat="server" Width="135px"></asp:Label>
@@ -485,15 +486,16 @@
             <td>
                                   <cc1:mytext ID="txtBuildingPrice" runat="server" AllowUserKey="num_Numeric" 
                         EnableTextAlignRight="True" Width="120px" BackColor="#FFFF66" AutoPostBack="True" 
-                                      AutoCurrencyFormatOnKeyUp="True">0.00</cc1:mytext>
+                                      AutoCurrencyFormatOnKeyUp="True" onfocus="this.blur();">0.00</cc1:mytext>
                                   &nbsp;บาท</td>
         </tr>
         <tr>
-            <td class="style11">
+            <td>
                 <asp:Label ID="Label48" runat="server" Text="ที่ดินพร้อมสิ่งปลูกสร้าง"></asp:Label>
             </td>
-            <td class="style31">
-                <asp:Label ID="lblLand_Build" runat="server" Style="color: #FF0000"></asp:Label>
+            <td class="style34">
+                <asp:Label ID="lblLand_Build" runat="server" Style="color: #FF0000" 
+                    Width="300px"></asp:Label>
             </td>
             <td class="style32">
                 <asp:Label ID="lblSubUnit1" runat="server" Width="135px"></asp:Label>
@@ -507,13 +509,13 @@
             <td>
                                   <cc1:mytext ID="txtSubTotal" runat="server" AllowUserKey="num_Numeric" 
                         EnableTextAlignRight="True" Width="120px" BackColor="#FFFF66" AutoPostBack="True" 
-                                      AutoCurrencyFormatOnKeyUp="True">0.00</cc1:mytext>
+                                      AutoCurrencyFormatOnKeyUp="True" onfocus="this.blur();">0.00</cc1:mytext>
                                   &nbsp;บาท</td>
         </tr>
         <tr>
             <td class="style11">
                 &nbsp;</td>
-            <td class="style31">
+            <td class="style34">
                 &nbsp;</td>
             <td class="style32">
                 &nbsp;</td>
@@ -525,13 +527,13 @@
             <td>
                 <cc1:mytext ID="txtGrandTotal" runat="server" AllowUserKey="num_Numeric" 
                     AutoCurrencyFormatOnKeyUp="True" AutoPostBack="True" BackColor="#FFFF66" 
-                    EnableTextAlignRight="True" Width="120px">0.00</cc1:mytext>
+                    EnableTextAlignRight="True" Width="120px" onfocus="this.blur();">0.00</cc1:mytext>
                 &nbsp;บาท</td>
         </tr>
         <tr>
             <td class="style11">
             </td>
-            <td class="style31">
+            <td class="style34">
             </td>
             <td class="style32">
             </td>
@@ -612,7 +614,7 @@
                             &#160;&#160;
                         </td>
                         <td class="style4" align="center">
-                            &nbsp;</td>
+                        </td>
                         <td>
                         </td>
                     </tr>
@@ -841,8 +843,6 @@
     </asp:SqlDataSource>
     <asp:SqlDataSource ID="sdsSubCommittee" runat="server" 
         ConnectionString="<%$ ConnectionStrings:AppraisalConn %>" 
-        
-        
         SelectCommand="SELECT [SubCommittee_ID], [SubCommittee_Name] FROM [TB_SubCommittee] ORDER BY [SubCommittee_Name]">
     </asp:SqlDataSource>
     <asp:SqlDataSource ID="sdsProblem" runat="server" 

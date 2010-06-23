@@ -50,7 +50,7 @@
             var branchId = getValueFromQueryString("BranchId");
             //alert('branchId ' + branchId);
             var dateReceive = getEleByProperty("input", "myId", "txtReceive_Date").value;
-            alert('Date Receive : ' + dateReceive);
+            //alert('Date Receive : ' + dateReceive);
             PageMethods.Update_Appraisal_Request(reqId, hubId, cif, titleid, cifName, cifLastname, chanode, appid, branchId, dateReceive, this.callback);
         }
 
@@ -79,7 +79,7 @@
             id = "IframeEditAppraisalRequest";
             var iframe = window.parent.document.getElementById(id);
             window.parent.$find(_PopupModal).hide();
-            //window.parent.location.replace(window.parent.location);
+            window.parent.location.replace(window.parent.location);
         }        
     </script>
 
@@ -178,7 +178,7 @@
                         <asp:TextBox ID="txtReceive_Date" runat="server" Width="110px" 
                         myId="txtReceive_Date"></asp:TextBox>
                         <cc1:calendarextender ID="CalendarExtender1" runat="server" Enabled="True"
-                            Format="dd/MM/yyyy" TargetControlID="txtReceive_Date">
+                            TargetControlID="txtReceive_Date">
                         </cc1:calendarextender>
                     </span>
                 </td>
@@ -188,8 +188,10 @@
                     <table>
                         <tr>
                             <td>
+<%--                                <asp:ImageButton ID="ImageSave" runat="server" ImageUrl="~/Images/Save.jpg" Width="35px"
+                                    Height="35px" OnClientClick="updateAppraisal_Request(); return false;" />--%>
                                 <asp:ImageButton ID="ImageSave" runat="server" ImageUrl="~/Images/Save.jpg" Width="35px"
-                                    Height="35px" OnClientClick="updateAppraisal_Request(); return false;" />
+                                    Height="35px"/>                                    
                             </td>
                             <td>
                                 <asp:Label ID="lblSave" runat="server" Style="font-weight: 700" Text="Update"></asp:Label>
@@ -213,8 +215,8 @@
                 </td>
             </tr>
         </table>
-    <cc1:ModalPopupExtender 
-        ID="mdlPopup" runat="server" TargetControlID="ImageSave" 
+   <cc1:ModalPopupExtender 
+        ID="mdlPopup" runat="server" TargetControlID="ImageButtonDelete" 
         PopupControlID="pnlPopup" BackgroundCssClass="modalBackground"
         BehaviorID="mdlPopupBehavior"  />   
                  
@@ -223,7 +225,7 @@
             <img src="Images/progress.gif" alt="" />
             <span class="updateProgressMessage">Please wait will be Processing ...</span>
         </div>
-    </asp:Panel>           
+    </asp:Panel>     
     </div>
     <asp:SqlDataSource ID="SDSTitle" runat="server" ConnectionString="<%$ ConnectionStrings:AppraisalConn %>"
         SelectCommand="SELECT [TITLE_CODE], [TITLE_NAME] FROM [TB_TITLE]"></asp:SqlDataSource>

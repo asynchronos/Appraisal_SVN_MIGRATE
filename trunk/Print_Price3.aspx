@@ -15,11 +15,7 @@
         }
         .style11
         {
-            width: 290px;
-        }
-        .style31
-        {
-            width: 144px;
+            width: 242px;
         }
         .style32
         {
@@ -88,6 +84,10 @@
             overflow: auto;
             font-family: Tahoma;
             font-size: medium;
+        }
+        .style35
+        {
+            width: 190px;
         }
     </style>
     <style type="text/css" media="print">
@@ -235,27 +235,27 @@
             </tr>
             <tr>
                 <td>
-                    <asp:Label ID="lblDetail1" runat="server" Width="1100px"></asp:Label>
+                    <asp:Label ID="lblDetail1" runat="server" Width="1200px"></asp:Label>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <asp:Label ID="lblDetail2" runat="server" Width="1100px"></asp:Label>
+                    <asp:Label ID="lblDetail2" runat="server" Width="1200px"></asp:Label>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <asp:Label ID="lblDetail3" runat="server" Width="1100px"></asp:Label>
+                    <asp:Label ID="lblDetail3" runat="server" Width="1200px"></asp:Label>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <asp:Label ID="lblDetail4" runat="server" Width="1100px"></asp:Label>
+                    <asp:Label ID="lblDetail4" runat="server" Width="1200px"></asp:Label>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <asp:Label ID="lblDetail5" runat="server" Width="1100px"></asp:Label>
+                    <asp:Label ID="lblDetail5" runat="server" Width="1200px"></asp:Label>
                 </td>
             </tr>
             <tr>
@@ -265,57 +265,57 @@
             </tr>
             <tr>
                 <td>
-                    <asp:Label ID="lblLandDetail1" runat="server" Width="1100px"></asp:Label>
+                    <asp:Label ID="lblLandDetail1" runat="server" Width="1200px"></asp:Label>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <asp:Label ID="lblLandDetail2" runat="server" Width="1100px"></asp:Label>
+                    <asp:Label ID="lblLandDetail2" runat="server" Width="1200px"></asp:Label>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <asp:Label ID="lblLandDetail3" runat="server" Width="1100px"></asp:Label>
+                    <asp:Label ID="lblLandDetail3" runat="server" Width="1200px"></asp:Label>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <asp:Label ID="lblLandDetail4" runat="server" Width="1100px"></asp:Label>
+                    <asp:Label ID="lblLandDetail4" runat="server" Width="1200px"></asp:Label>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <asp:Label ID="lblLandDetail5" runat="server" Width="1100px"></asp:Label>
+                    <asp:Label ID="lblLandDetail5" runat="server" Width="1200px"></asp:Label>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <asp:Label ID="lblLandDetail6" runat="server" Width="1100px"></asp:Label>
+                    <asp:Label ID="lblLandDetail6" runat="server" Width="1200px"></asp:Label>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <asp:Label ID="lblLandDetail7" runat="server" Width="1100px"></asp:Label>
+                    <asp:Label ID="lblLandDetail7" runat="server" Width="1200px"></asp:Label>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <asp:Label ID="lblLandDetail8" runat="server" Width="1100px"></asp:Label>
+                    <asp:Label ID="lblLandDetail8" runat="server" Width="1200px"></asp:Label>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <asp:Label ID="lblLandDetail9" runat="server" Width="1100px"></asp:Label>
+                    <asp:Label ID="lblLandDetail9" runat="server" Width="1200px"></asp:Label>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <asp:Label ID="lblLandDetail10" runat="server" Width="1100px"></asp:Label>
+                    <asp:Label ID="lblLandDetail10" runat="server" Width="1200px"></asp:Label>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <asp:Label ID="lblLandDetail11" runat="server" Width="1100px"></asp:Label>
+                    <asp:Label ID="lblLandDetail11" runat="server" Width="1200px"></asp:Label>
                 </td>
             </tr>
             <tr>
@@ -358,8 +358,8 @@
                                 <asp:Label ID="lblCollName" runat="server"></asp:Label>
                                 &nbsp;
                             </td>
-                            <td class="style31">
-                                <asp:Label ID="lblSize" runat="server" Width="100px"></asp:Label>
+                            <td class="style35">
+                                <asp:Label ID="lblSize" runat="server" Width="250px"></asp:Label>
                             </td>
                             <td class="style32">
                                 <asp:Label ID="lblSubUnit" runat="server" Width="135px"></asp:Label>&nbsp;
@@ -382,14 +382,14 @@
                             <td class="style11">
                                 <asp:Label ID="Label56" runat="server" Text="สิ่งปลูกสร้าง"></asp:Label>
                             </td>
-                            <td class="style31">
-                                <asp:Label ID="lblBuilding_Detail" runat="server"></asp:Label>
+                            <td class="style35">
+                                <asp:Label ID="lblBuilding_Detail" runat="server" Width="250px"></asp:Label>
                             </td>
                             <td class="style32">
                                 <asp:Label ID="lblSubUnit0" runat="server" Width="135px"></asp:Label>
                             </td>
                             <td class="style30">
-                                &nbsp;
+                <asp:Label ID="lblUnit_Price_Condo" runat="server" Style="color: #000000"></asp:Label>
                             </td>
                             <td class="style7">
                                 <asp:Label ID="Label57" runat="server" Text="เป็นเงิน"></asp:Label>
@@ -405,8 +405,8 @@
                             <td class="style11">
                                 <asp:Label ID="Label48" runat="server" Text="ที่ดินพร้อมสิ่งปลูกสร้าง"></asp:Label>
                             </td>
-                            <td class="style31">
-                                <asp:Label ID="lblLand_Build" runat="server"></asp:Label>
+                            <td class="style35">
+                                <asp:Label ID="lblLand_Build" runat="server" Width="250px"></asp:Label>
                             </td>
                             <td class="style32">
                                 <asp:Label ID="lblSubUnit1" runat="server" Width="135px"></asp:Label>
@@ -428,7 +428,7 @@
                             <td class="style11">
                                 &nbsp;
                             </td>
-                            <td class="style31">
+                            <td class="style35">
                                 &nbsp;
                             </td>
                             <td class="style32">
@@ -450,7 +450,7 @@
                         <tr>
                             <td class="style11">
                             </td>
-                            <td class="style31">
+                            <td class="style35">
                             </td>
                             <td class="style32">
                             </td>

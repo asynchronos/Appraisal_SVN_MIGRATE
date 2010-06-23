@@ -50,6 +50,7 @@ Partial Class Print_Price3
             txtLandTotal.Text = Context.Items("LandTotal")   'ราคาที่ดิน
             txtBuildingPrice.Text = Context.Items("BuildingPrice")   'ราคาสิ่งปลูกสร้าง
             txtSubTotal.Text = Context.Items("SubTotal")   'ราคารวม
+            lblUnit_Price_Condo.Text = Context.Items("Unit_Price_Condo")
             txtGrandTotal.Text = Context.Items("GrandTotal") 'ราคารวมทั้งหมด
             lblThaiBaht.Text = Context.Items("ThaiBaht")
             lblComment.Text() = Context.Items("Comment")
