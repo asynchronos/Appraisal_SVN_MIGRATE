@@ -27,7 +27,7 @@ Partial Class Appraisal_Request_Ecit
             TextBoxChanode.Text = Request.QueryString("CollNumber")
             ddlAPPLICATION_TYPE.SelectedValue = Request.QueryString("AppId")
             ddlBranch.SelectedValue = Request.QueryString("BranchId")
-            txtReceive_Date.Text = Request.QueryString("CeateDate")
+            txtReceive_Date.Text = CDate(Request.QueryString("CeateDate"))
 
         End If
     End Sub
@@ -41,17 +41,17 @@ Public Shared Function Update_Appraisal_Request(ByVal ReqId As String, ByVal Hub
         Dim isValid As Boolean = False
         Dim createDate As DateTime = Nothing
         'Dim cul As New CultureInfo("en-US")
-        'Dim cul As New CultureInfo("th-TH")
-        'Try
-        '    createDate = DateTime.Parse(Date_Receive, cul)
-        '    'createDate = DateAdd(DateInterval.Year, -543, createDate)
-        '    'createDate = createDate
-        'Catch ex As Exception
-        '    createDate = DateTime.Now
-        'End Try
+        Dim cul As New CultureInfo("th-TH")
+        Try
+            createDate = DateTime.Parse(Date_Receive, cul)
+            '    'createDate = DateAdd(DateInterval.Year, -543, createDate)
+            '    'createDate = createDate
+        Catch ex As Exception
+            createDate = DateTime.Now
+        End Try
         'createDate = Format(CDate(Date_Receive).ToString, "MM/dd/YYYY")
         'MsgBox(CDate(Date_Receive))
-        createDate = Format(CDate(Date_Receive), "dd/MM/yyyy")
+        createDate = Format(createDate, "dd/MM/yyyy")
 
         Try
             UPDATE_APPRAISAL_REQUEST_EDIT(ReqId, HubId, Cif, Title, Cifname, CifLastname, Chanode, AppType, Branch_Id, createDate)
@@ -78,4 +78,12 @@ Public Shared Function Delete_Appraisal_Request(ByVal ReqId As String, ByVal Hub
         End Try
         Return isValid
     End Function
+
+    Protected Sub ImageSave_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs) Handles ImageSave.Click
+        Dim s As String
+        UPDATE_APPRAISAL_REQUEST_EDIT(LabelReq_Id.Text, LabelHub_Id.Text, TextBoxCif.Text, ddlTitle.SelectedValue, TxtCifName.Text, TxtCifLastName.Text, TextBoxChanode.Text, _
+                                      ddlAPPLICATION_TYPE.SelectedValue, ddlBranch.SelectedValue, txtReceive_Date.Text)
+        s = "<script language=""javascript"">alert('แก้ไขเสร็จสมบูรณ์');</script>"
+        Page.ClientScript.RegisterStartupScript(Me.GetType, "Update สมบูรณ์", s)
+    End Sub
 End Class

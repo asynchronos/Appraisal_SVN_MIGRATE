@@ -252,15 +252,13 @@
             var reqid = document.getElementById('<%=hdfReq_Id.ClientID%>').value;
             var hubid = document.getElementById('<%=hdfHub_Id.ClientID%>').value;
             var myId = "IframeMap";
-            var url = "CollDetail_Show_Position.aspx";
+            var url = "CollDetail_Edit_Position.aspx";
             var param = "Req_Id=" + reqid + "&Hub_Id=" + hubid + "&PopupModal=mpeBehaviorMap";
 
             changeIframeSrcById(myId
                 , url
                 , param
             );
-            //_popup = $find('mpeBehaviorMap');
-            //_popup.show();
         }
         
         function callback(result) {
@@ -278,11 +276,7 @@
             var reqid = document.getElementById('<%=hdfReq_Id.ClientID%>').value;
             var hubid = document.getElementById('<%=hdfHub_Id.ClientID%>').value;
             var ApproveId = document.getElementById('<%=HiddenField_ApproveId.ClientID%>').value;
-            //alert(reqid);
-            //alert(hubid);
-            //alert(ApproveId);
             var r = confirm('คุณต้องการยืนยันการให้ราคาที่ 2 และ ราคาที่ 3 ใช่หรือไม่ ?')
-            //alert('x='+ r);
             if (r) {
                 PageMethods.ConfirmPrice(reqid, hubid, ApproveId, this.callbackConfirm);
             }
@@ -857,20 +851,17 @@
                             <td class="style22">
                                 &nbsp;
                             </td>
-                            <td style="border-bottom-style: dotted; border-bottom-width: thin; border-bottom-color: #000000;">
-                                &nbsp;
+                            <td align="center" style="border-bottom-style: dotted; border-bottom-width: thin; border-bottom-color: #000000;">
                             </td>
                             <td class="style29">
                                 &nbsp;
                             </td>
-                            <td style="border-bottom-style: dotted; border-bottom-width: thin; border-bottom-color: #000000;">
-                                &nbsp;
+                            <td align="center" style="border-bottom-style: dotted; border-bottom-width: thin; border-bottom-color: #000000;">
                             </td>
                             <td class="style26">
                                 &nbsp;
                             </td>
-                            <td style="border-bottom-style: dotted; border-bottom-width: thin; border-bottom-color: #000000;">
-                                &nbsp;
+                            <td align="center" style="border-bottom-style: dotted; border-bottom-width: thin; border-bottom-color: #000000;">
                             </td>
                         </tr>
                         <tr>

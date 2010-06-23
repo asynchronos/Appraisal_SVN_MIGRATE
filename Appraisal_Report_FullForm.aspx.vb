@@ -31,6 +31,7 @@ Partial Class Appraisal_Report_FullForm
                 If hdfChkColl.Value = 18 Then
                     Condo_Info()
                     FullForm_Info(Obj_P3M)
+                    ImageButtonBuilding.Visible = False
                 ElseIf hdfChkColl.Value = 50 Then
                     Land_Info()
                     FullForm_Info(Obj_P3M)
