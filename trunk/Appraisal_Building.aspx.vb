@@ -240,7 +240,7 @@ Partial Class Appraisal_Building
                     ddlRoof.SelectedValue, txtRoof_Detail.Text, ddlBuild_State.SelectedValue, _
                     txtBuild_State_Detail.Text, txtBuilding_Detail.Text, MarketPrice, _
                     chkDoc1.Checked, chkDoc2.Checked, String.Empty, String.Empty, txtChanodeNo.Text, txtOwnership.Text, txtBuildingArea.Text, CDec(txtBuildingUnitPrice.Text), _
-                    CDec(txtBuildingPrice.Text), txtBuildingAge.Text, CDec(txtBuildingPersent1.Text), CDec(txtBuildingPersent2.Text), CDec(txtBuildingPersent3.Text), _
+                    CDec(txtBuildingArea.Text) * CDec(txtBuildingUnitPrice.Text), txtBuildingAge.Text, CDec(txtBuildingPersent1.Text), CDec(txtBuildingPersent2.Text), CDec(txtBuildingPersent3.Text), _
                     CDec(txtBuildingPriceTotalDeteriorate.Text), CInt(txtFinishPercent.Text), CDec(txtPriceNotFinish.Text), 0, 0, 0, _
                     0, 0, 0, 0, 0, 0, 0, _
                     txtBuildingDetail.Text, ddlInteriorState.SelectedValue, TextBoxStandardNo.Text, ddlRoofConstructure.SelectedValue, ddlRoofState.SelectedValue, _
@@ -303,7 +303,7 @@ Partial Class Appraisal_Building
                 'ถ้ามี  ให้ทำการ Update ข้อมูลรายละเอียดของสิ่งปลูกสร้างหลัก
 
                 UPDATE_PRICE2_PRICE3_70_BUILDING_ONLY(lblId.Text, lblReq_Id.Text, lblHub_Id.Text, txtBuild_No.Text, txtBuildingArea.Text, CDec(txtBuildingUnitPrice.Text), _
-                     CDec(txtBuildingPrice.Text), txtBuildingAge.Text, CDec(txtBuildingPersent1.Text), CDec(txtBuildingPersent2.Text), CDec(txtBuildingPersent3.Text), _
+                    CDec(txtBuildingArea.Text) * CDec(txtBuildingUnitPrice.Text), txtBuildingAge.Text, CDec(txtBuildingPersent1.Text), CDec(txtBuildingPersent2.Text), CDec(txtBuildingPersent3.Text), _
                      CDec(txtBuildingPriceTotalDeteriorate.Text), CInt(txtFinishPercent.Text), CDec(txtPriceNotFinish.Text), txtBuildingDetail.Text, _
                      CDec(txtPriceTotal1.Text), hdfAppraisal_Id.Value, Now())
             Else
@@ -315,7 +315,7 @@ Partial Class Appraisal_Building
             'เป็นส่วนต่อเติมสิ่งปลูกสร้าง
             txtNetPrice.Text = "0"
             UPDATE_PRICE2_PRICE3_70_BUILDING_PLUS(lblId.Text, lblReq_Id.Text, lblHub_Id.Text, txtBuild_No.Text, txtBuildingArea.Text, _
-                                                  CDec(txtBuildingUnitPrice.Text), CDec(txtBuildingPrice.Text), txtBuildingAge.Text, _
+                                                  CDec(txtBuildingUnitPrice.Text), CDec(txtBuildingArea.Text) * CDec(txtBuildingUnitPrice.Text), txtBuildingAge.Text, _
                                                   CDec(txtBuildingPersent1.Text), CDec(txtBuildingPersent2.Text), CDec(txtBuildingPersent3.Text), _
                                                   CDec(txtBuildingPriceTotalDeteriorate.Text), CInt(txtFinishPercent.Text), CDec(txtPriceNotFinish.Text), _
                                                   CDec(txtPriceTotal1.Text), hdfAppraisal_Id.Value, Now())
@@ -326,13 +326,13 @@ Partial Class Appraisal_Building
             If Partake.Tables(0).Rows.Count > 0 Then
                 'Update Building Partake By Partake Id
                 UPDATE_PRICE2_PRICE3_70_PARTAKE(lblId.Text, lblReq_Id.Text, lblHub_Id.Text, lblTemp_AID.Text, "", DDLSubCollType.SelectedValue, txtBuild_No.Text, _
-                                     txtBuildingArea.Text, txtBuildingUnitPrice.Text, txtBuildingPrice.Text, txtBuildingAge.Text, _
+                                     txtBuildingArea.Text, txtBuildingUnitPrice.Text, CDec(txtBuildingArea.Text) * CDec(txtBuildingUnitPrice.Text), txtBuildingAge.Text, _
                                      txtBuildingPersent1.Text, txtBuildingPersent2.Text, txtBuildingPersent3.Text, txtBuildingPriceTotalDeteriorate.Text, _
                                      txtFinishPercent.Text, txtPriceNotFinish.Text, txtBuildingDetail.Text, hdfAppraisal_Id.Value, Now())
             Else
                 'Add New Building Partake
                 ADD_PRICE2_PRICE3_70_PARTAKE(lblId.Text, lblReq_Id.Text, lblHub_Id.Text, lblTemp_AID.Text, "", DDLSubCollType.SelectedValue, txtBuild_No.Text, _
-                 txtBuildingArea.Text, CDec(txtBuildingUnitPrice.Text), CDec(txtBuildingPrice.Text), txtBuildingAge.Text, _
+                 txtBuildingArea.Text, CDec(txtBuildingUnitPrice.Text), CDec(txtBuildingArea.Text) * CDec(txtBuildingUnitPrice.Text), txtBuildingAge.Text, _
                  CDec(txtBuildingPersent1.Text), CDec(txtBuildingPersent2.Text), CDec(txtBuildingPersent3.Text), CDec(txtBuildingPriceTotalDeteriorate.Text), _
                  CInt(txtFinishPercent.Text), CDec(txtPriceNotFinish.Text) * (CInt(txtFinishPercent.Text) / 100), txtBuildingDetail.Text, hdfAppraisal_Id.Value, Now())
             End If
@@ -340,4 +340,13 @@ Partial Class Appraisal_Building
         End If
     End Sub
 
+    'Protected Sub ImagePrint_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs) Handles ImagePrint.Click
+    '    If lblId.Text = String.Empty Then
+    '        'เพิ่มชิ้นทรัพย์ใหม่       
+    '        INSERT_NEW_BUILDING()
+    '    Else
+    '        '***********ถ้ามีข้อมูลแล้วต้อง Update ข้อมูล  แก้ไขข้อมูลเดิม     *****************
+    '        UPDATE_BUILDING()
+    '    End If
+    'End Sub
 End Class
