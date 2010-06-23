@@ -69,9 +69,9 @@ Partial Class Print_Price3
 
     End Sub
 
-    Protected Sub ImageButtonReturn_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs) Handles ImageButtonReturn.Click
-        Server.Transfer("Appraisal_Price3_List.aspx")
-    End Sub
+    'Protected Sub ImageButtonReturn_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs) Handles ImageButtonReturn.Click
+    '    Server.Transfer("Appraisal_Price3_List.aspx")
+    'End Sub
 
     Protected Sub ImageButtonLandAttach_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs) Handles ImageButtonLandAttach.Click
         'Context.Items("Hub_Id") = hdfHub_Id.Value

@@ -115,7 +115,10 @@
         }
         function windowPrint() {
             window.print();
-        }   
+        }
+        function windowColsePage() {
+            window.close();
+        }     
     </script>
 
 </head>
@@ -129,7 +132,7 @@
                         <tr>
                             <td align="right" class="NotshowOnPrint">
                                 <asp:ImageButton ID="ImageButtonReturn" runat="server" Height="25px" ImageUrl="~/Images/repeat.ico"
-                                    ToolTip="กลับไปหน้ารายการทบทวนประเมิน" Width="25px" />
+                                    ToolTip="กลับไปหน้ารายการทบทวนประเมิน" Width="25px" style="display:none;" />
                             </td>
                             <td class="NotshowOnPrint">
                                 <asp:ImageButton ID="ImageButtonLandAttach" runat="server" Height="25px" ImageUrl="~/Images/attachment.png"
@@ -139,6 +142,10 @@
                                 <asp:ImageButton ID="ImageButtonPrint" runat="server" Height="25px" ImageUrl="~/Images/printer.png"
                                     OnClientClick="windowPrint();" ToolTip="พิมพ์หน้านี้" Width="25px" />
                             </td>
+                            <td class="NotshowOnPrint">
+                                <asp:ImageButton ID="ImageButtonClosePage" runat="server" Height="25px" ImageUrl="~/Images/cancel1.jpg"
+                                    OnClientClick="windowClosePage();" ToolTip="ปิดหน้านี้" Width="25px" />
+                            </td>                            
                         </tr>
                     </table>
                 </td>
@@ -332,7 +339,8 @@
             <tr>
                 <td>
                     <asp:TextBox ID="txtBuy_Sale_Comment" runat="server" CssClass="notes" ReadOnly="true"
-                        TextMode="MultiLine" BorderStyle="None" BorderWidth="0"></asp:TextBox>
+                        TextMode="MultiLine" BorderStyle="None" BorderWidth="0" Height="110px" 
+                        Width="1000px"></asp:TextBox>
                 </td>
             </tr>
             <tr>
