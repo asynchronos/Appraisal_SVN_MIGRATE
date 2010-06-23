@@ -168,7 +168,7 @@
 
                 var myId = "IframeBuildingDetail";
                 var url = "Appraisal_Building_Detail.aspx";
-                var param = "Id=" + buildingid + "&Req_Id=" + getValueFromQueryString("Req_Id") + "&Hub_Id=" + getValueFromQueryString("Hub_Id") + "&Temp_AID=" + temp_AID + "&PopupModal=mpeBehaviorSearchStandard";
+                var param = "Id=" + buildingid + "&Req_Id=" + getValueFromQueryString("Req_Id") + "&Hub_Id=" + getValueFromQueryString("Hub_Id") + "&Temp_AID=" + temp_AID + "&PopupModal=mpeBehaviorBuildingDetail";
 
                 changeIframeSrcById(myId
                 , url
@@ -232,11 +232,18 @@
             var id = document.getElementById('<%=lblId.ClientID%>').innerHTML;
             var tempAID = document.getElementById('<%=lblTemp_AID.ClientID%>').innerHTML;
 
-            windowFeatures = "top=0,left=0,resizable=yes,width=" + (screen.width) + ",height=" + (screen.height);
+            windowFeatures = "top=0,left=0,resizable=yes,scrollbars=1,width=" + (screen.width) + ",height=" + (screen.height);
             newWindow = window.open("Appraisal_Price3_Print_CollType70_New.aspx?Req_Id=" + reqId + "&Hub_Id=" + hubId + "&ID=" + id + "&Temp_AID=" + tempAID, "openWindow", windowFeatures);
             newWindow.focus();
         }
-                          
+        function checkBuild_No() {
+            var txtBuild_No = getEleByProperty("input", "MyClintID", "txtBuild_No").value;            
+            var id = document.getElementById('<%=lblId.ClientID%>').innerHTML;
+            if (id != '') {
+                //getEleByProperty("input", "MyClintID", "txtBuild_No").value = txtBuild_No;
+                alert('คุณไม่สามารถเปลี่ยนเลขที่สิ่งปลูกสร้างได้');
+            } 
+        }                  
     </script>
 
 </head>
