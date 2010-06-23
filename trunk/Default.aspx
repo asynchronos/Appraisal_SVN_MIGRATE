@@ -1,15 +1,21 @@
-﻿<%@ Page Title="" Language="VB" MasterPageFile="~/MasterPage.master" AutoEventWireup="false" CodeFile="Default.aspx.vb" Inherits="_Default" %>
+﻿<%@ Page Title="" Language="VB" MasterPageFile="~/MasterPage.master" AutoEventWireup="false" CodeFile="Default.aspx.vb" Inherits="_Default" UICulture="th-TH" Culture="th-TH" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 
 <script type="text/javascript">
-    function makeNewOpenWindow(redid, hubid) {
+    function makeNewOpenWindow(redid, hubid,appraisalId,tempAID,cif,reqType) {
         var windowFeatures;
         var newWindow;
+        
         var approveId = document.getElementById('<%=HiddenFieldUserLogin.ClientID%>').value;
-
-        windowFeatures = "top=0,left=0,resizable=yes,scrollbars=yes,width=" + (screen.width) + ",height=" + (screen.height);
-        newWindow = window.open("Appraisal_Report_FullForm.aspx?Req_Id=" + redid + "&Hub_Id=" + hubid + "&ApproveId=" + approveId, "openWindow", windowFeatures);
+        if (reqType == 1) { 
+            windowFeatures = "top=0,left=0,resizable=yes,scrollbars=yes,width=" + (screen.width) + ",height=" + (screen.height);
+            newWindow = window.open("Appraisal_Report_FullForm.aspx?Req_Id=" + redid + "&Hub_Id=" + hubid + "&ApproveId=" + approveId, "openWindow", windowFeatures);        
+        }
+        else {
+            windowFeatures = "top=0,left=0,resizable=yes,scrollbars=yes,width=" + (screen.width) + ",height=" + (screen.height);
+            newWindow = window.open("PrintPreviewPrice3Review.aspx?Req_Id=" + redid + "&Hub_Id=" + hubid + "&ApproveId=" + approveId + "&Appraisal_Id=" + appraisalId + "&Temp_AID=" + tempAID + "&Cif=" + cif, "openWindow", windowFeatures);
+        }
         newWindow.focus();
     }
 </script>
@@ -22,7 +28,7 @@
 <table width="100%">
     <tr>
         <td>
-            <asp:Label ID="Label2" runat="server" style="font-weight: 700" 
+            <asp:Label ID="Label2" runat="server" style="font-weight: 700; color: #0000FF;" 
                 Text="รายการประเมินรอยืนยันราคา"></asp:Label>
         </td>
     </tr>
@@ -31,7 +37,8 @@
             <asp:GridView ID="GridViewWait_For_Approve" runat="server" 
                 AutoGenerateColumns="False" DataSourceID="SqlDataSourceWait_For_Approve" 
                 BackColor="LightGoldenrodYellow" BorderColor="Tan" BorderWidth="1px" 
-                CellPadding="2" ForeColor="Black" GridLines="None" AllowPaging="True">
+                CellPadding="2" ForeColor="Black" GridLines="None" AllowPaging="True" 
+                style="font-size: small">
                 <Columns>
                     <asp:TemplateField HeaderText="Req_Id" SortExpression="Req_Id">
                         <EditItemTemplate>
@@ -63,11 +70,15 @@
                         ReadOnly="True" SortExpression="AppraisalName" />
                     <asp:BoundField DataField="Approve_Date" HeaderText="Approve_Date" 
                         SortExpression="Approve_Date" />
+                    <asp:BoundField DataField="Req_Type" HeaderText="Req_Type" 
+                        SortExpression="Req_Type" />     
+                    <asp:BoundField DataField="Status_Name" HeaderText="Status_Name" 
+                        SortExpression="Status_Name" />                                             
                         <asp:TemplateField HeaderText="">
                             <ItemStyle HorizontalAlign="Center" Width="25px" />
                             <ItemTemplate>
                                 <asp:ImageButton ID="imgConfirm" runat="server" Height="22px" ImageUrl="~/Images/dollar.jpg"
-                                    ToolTip="รายละเอียดการกำหนดราคา" Width="22px" OnClientClick='<%# "makeNewOpenWindow("+Eval("Req_Id").toString()+","+EVAL("Hub_Id").toString()+"); return false;" %>' />
+                                    ToolTip="รายละเอียดการกำหนดราคา" Width="22px" OnClientClick='<%# "makeNewOpenWindow("+Eval("Req_Id").toString()+","+EVAL("Hub_Id").toString()+","+EVAL("Appraisal_Id").toString()+","+EVAL("Temp_AID").toString()+","+EVAL("Cif").toString()+","+EVAL("Req_Type").toString()+"); return false;" %>' />
                             </ItemTemplate>
                         </asp:TemplateField>
                 </Columns>

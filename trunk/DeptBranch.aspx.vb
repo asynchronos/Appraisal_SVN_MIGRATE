@@ -2,7 +2,7 @@
 Partial Class DeptBranch
     Inherits System.Web.UI.Page
 
-    Private conn As String = ConfigurationManager.ConnectionStrings.Item("BAYConn").ToString
+    Private conn As String = ConfigurationManager.ConnectionStrings.Item("AppraisalConn").ToString
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not Page.IsPostBack Then
