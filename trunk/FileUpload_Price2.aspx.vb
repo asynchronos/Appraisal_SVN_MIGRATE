@@ -163,5 +163,13 @@ Partial Class FileUpload_Price2
 
     End Sub
 
+    Protected Sub GridView1_RowDeleted(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.GridViewDeletedEventArgs) Handles GridView1.RowDeleted
+        'If e.Exception IsNot Nothing Then
+        '    ClientScript.RegisterStartupScript([GetType](), "Message", "<SCRIPT LANGUAGE='javascript'>alert('" & e.Exception.Message.ToString().Replace("'", "") & "');</script>")
+        '    e.ExceptionHandled = True
+        'End If
+        'คำสั่งเมื่อ Delete เสร็จ
+        ClientScript.RegisterStartupScript([GetType](), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Deleted successfully');</script>")
+    End Sub
 
 End Class
