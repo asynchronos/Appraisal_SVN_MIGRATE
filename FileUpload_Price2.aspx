@@ -54,6 +54,8 @@
                     </ItemTemplate>
                 </asp:TemplateField>
                
+                <asp:CommandField ButtonType="Button" ShowDeleteButton="True" />
+               
             </Columns>
             <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
             <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
@@ -65,11 +67,18 @@
             ConnectionString="<%$ ConnectionStrings:AppraisalConn %>" 
             
     
-    SelectCommand="SELECT Appraisal_Price2_PicturePath.Req_ID, Appraisal_Price2_PicturePath.Hub_ID, Appraisal_Price2_PicturePath.Temp_AID, TB_HUB.HUB_NAME, Appraisal_Price2_PicturePath.Picture_Path FROM Appraisal_Price2_PicturePath INNER JOIN TB_HUB ON Appraisal_Price2_PicturePath.Hub_ID = TB_HUB.HUB_ID WHERE (Appraisal_Price2_PicturePath.Req_ID = @Req_Id) AND (Appraisal_Price2_PicturePath.Hub_ID = @Hub_Id)">
+    
+    SelectCommand="SELECT Appraisal_Price2_PicturePath.Req_ID, Appraisal_Price2_PicturePath.Hub_ID, Appraisal_Price2_PicturePath.Temp_AID, TB_HUB.HUB_NAME, Appraisal_Price2_PicturePath.Picture_Path FROM Appraisal_Price2_PicturePath INNER JOIN TB_HUB ON Appraisal_Price2_PicturePath.Hub_ID = TB_HUB.HUB_ID WHERE (Appraisal_Price2_PicturePath.Req_ID = @Req_Id) AND (Appraisal_Price2_PicturePath.Hub_ID = @Hub_Id)" 
+    DeleteCommand="DELETE FROM Appraisal_Price2_PicturePath WHERE (Req_ID = @Req_ID) AND (Hub_ID = @Hub_ID) AND (Picture_Path = @Picture_Path)">
             <SelectParameters>
                 <asp:ControlParameter ControlID="lblReq_Id" Name="Req_Id" PropertyName="Text" />
                 <asp:ControlParameter ControlID="lblHub_Id" Name="Hub_Id" PropertyName="Text" />
             </SelectParameters>
+            <DeleteParameters>
+                <asp:Parameter Name="Req_ID" />
+                <asp:Parameter Name="Hub_ID" />
+                <asp:Parameter Name="Picture_Path" />
+            </DeleteParameters>
         </asp:SqlDataSource>
         <br />
         <asp:Label ID="lblReq_Id" runat="server" Visible="False"></asp:Label>
