@@ -13,11 +13,20 @@ Partial Class Appraisal_Price3_Print_CollType70_New
             'HiddenField3.Value = 4029
             'HiddenField4.Value = 103
             '**********************************
+            If Request.QueryString("ID") Is Nothing Then
+                HiddenField1.Value = CInt(Context.Items("ID"))
+                HiddenField2.Value = CInt(Context.Items("Req_Id"))
+                HiddenField3.Value = CInt(Context.Items("Hub_Id"))
+                HiddenField4.Value = CInt(Context.Items("Temp_AID"))
+            Else
+                HiddenField1.Value = Request.QueryString("ID") 'CInt(Context.Items("ID"))
+                HiddenField2.Value = Request.QueryString("Req_Id") 'CInt(Context.Items("Req_Id"))
+                HiddenField3.Value = Request.QueryString("Hub_Id") 'CInt(Context.Items("Hub_Id"))
+                HiddenField4.Value = Request.QueryString("Temp_AID") 'CInt(Context.Items("Temp_AID"))
+            End If
 
-            HiddenField1.Value = Request.QueryString("ID") 'CInt(Context.Items("ID"))
-            HiddenField2.Value = Request.QueryString("Req_Id") 'CInt(Context.Items("Req_Id"))
-            HiddenField3.Value = Request.QueryString("Hub_Id") 'CInt(Context.Items("Hub_Id"))
-            HiddenField4.Value = Request.QueryString("Temp_AID") 'CInt(Context.Items("Temp_AID"))
+
+
             'HiddenField5.Value = Request.QueryString("") 'CStr(Context.Items("User_ID"))
             'แสดงออกเป็นฟอร์มจากราคาที่ 3 (เดิมใช้อยู่)
             Show_Price3_70()
@@ -49,6 +58,8 @@ Partial Class Appraisal_Price3_Print_CollType70_New
             'MsgBox(Obj_GetP70.Item(0).MysubColl_ID)
             If Obj_GetP70.Item(0).MysubColl_ID = 6 Then 'Or Obj_GetP70.Item(0).MysubColl_ID = 7 Then
                 CheckBox3.Checked = True
+            ElseIf Obj_GetP70.Item(0).MysubColl_ID = 7 Then
+                CheckBox4.Checked = True
             ElseIf Obj_GetP70.Item(0).MysubColl_ID = 8 Then
                 CheckBox2.Checked = True
 
@@ -137,15 +148,14 @@ Partial Class Appraisal_Price3_Print_CollType70_New
             lbChanodeNo.Text = Obj_GetP70.Item(0).Put_On_Chanode
 
 
-            If Obj_GetP70.Item(0).MysubColl_ID = 6 Or Obj_GetP70.Item(0).MysubColl_ID = 7 Then
+            If Obj_GetP70.Item(0).MysubColl_ID = 6 Then
                 CheckBox3.Checked = True
-
+            ElseIf Obj_GetP70.Item(0).MysubColl_ID = 7 Then
+                CheckBox4.Checked = True
             ElseIf Obj_GetP70.Item(0).MysubColl_ID = 8 Then
                 CheckBox2.Checked = True
-
             ElseIf Obj_GetP70.Item(0).MysubColl_ID = 9 Then
                 CheckBox1.Checked = True
-
             Else
                 CheckBox4.Checked = True
             End If
@@ -266,12 +276,14 @@ Partial Class Appraisal_Price3_Print_CollType70_New
 
     Function Get_Total() As String
         'lblGrandTotal0.Text = String.Format("{0:N2}", Round(((CDbl(total)) / 1000), 0) * 1000)
-        lblGrandTotal0.Text = String.Format("{0:N2}", Round((total / 1000), System.MidpointRounding.AwayFromZero) * 1000)
+        'ราคารวมเมื่อสร้างเสร็จ 100 %
+
+        lblGrandTotal100.Text = String.Format("{0:N2}", Round((total / 1000), System.MidpointRounding.AwayFromZero) * 1000)
         Return String.Format("{0:N2}", total)
     End Function
 
     Function Get_Total1() As String
-        'lblGrandTotal0.Text = String.Format("{0:N2}", Round(((CDbl(total1)) / 1000), 0) * 1000)
+        'ราคารวมเมื่อสร้างเสร็จตามสภาพ
         lblGrandTotal0.Text = String.Format("{0:N2}", Round((total1 / 1000), System.MidpointRounding.AwayFromZero) * 1000)
         Return String.Format("{0:N2}", total1)
     End Function

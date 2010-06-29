@@ -419,7 +419,7 @@
                 <asp:Label ID="Label50" runat="server" Font-Bold="True" Text="การประเมินราคา"></asp:Label>&#160;<asp:Label
                     ID="Label51" runat="server" Text="ข้อมูลการซื้อขาย"></asp:Label><br />
                 <asp:TextBox ID="txtBuy_Sale_Comment" runat="server" Height="100px" TextMode="MultiLine"
-                    Width="900px" BackColor="#FFFF66" style="font-size: large" 
+                    Width="1200px" BackColor="#FFFF66" style="font-size: large" 
                     BorderStyle="None" ></asp:TextBox>
             </td>
         </tr>

@@ -572,7 +572,7 @@
             <tr>
                 <td>
                     <asp:TextBox ID="txtBuy_Sale_Comment" runat="server" CssClass="notes" ReadOnly="true"
-                        TextMode="MultiLine" BorderStyle="None" BorderWidth="0"></asp:TextBox>
+                        TextMode="MultiLine" BorderStyle="None" BorderWidth="0" Width="1200px"></asp:TextBox>
                 </td>
             </tr>
             <tr>

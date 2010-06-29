@@ -3,6 +3,8 @@
 Partial Class Apprisal_Request_JobList
     Inherits System.Web.UI.Page
 
+    '*********User Control ในการ Export ต้องเพิ่ม Code EnableEventValidation="false" ในหน้า HTML ด้วยถึงจะใช้ได้**********
+
     Protected Sub SqlGridView_Selecting(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.SqlDataSourceSelectingEventArgs) Handles SqlGridView.Selecting
         Dim createDate As DateTime = Nothing
 

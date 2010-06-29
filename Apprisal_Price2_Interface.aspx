@@ -302,10 +302,11 @@
             }
         }
 
-        function savePrice2_Maseter() {
+        function savePrice2_Master() {
             _popup = $find('mdlPopupBehavior');
             var _data = new Array();
             var _appraisal_type;
+            var _CollType = document.getElementById('<%=HiddenFieldCollType.ClientID%>').value;
             if (document.getElementsByName("ctl00$ContentPlaceHolder1$rdbAppraisal_Type")[0].checked == true) {
                 _appraisal_type = 2;
                 //alert(2);
@@ -321,12 +322,31 @@
             //alert('Hub_Id ' + _data[1]);
             _data[2] = getEleByProperty("input", "myId", "TextBoxCif").value;
             //alert('Cif ' + _data[2]);
+            if (_CollType == 18) {
+                //alert(18);
+                _data[3] = 0;
+                //alert('Land ' + _data[3]);
+                _data[4] = 0;
+                //alert('Building ' + _data[4]);
+                _data[5] = getEleByProperty("input", "myId", "TextBoxCondo").value;
+                //alert('Condo ' + _data[5]);
+            }
+            else if (_CollType == 50) {
+            //alert(50);
+            _data[3] = getEleByProperty("input", "myId", "TextBoxLand").value;
+            _data[4] = 0;
+            _data[5] = 0;
+            }
+            else if (_CollType == 70) {
+            //alert(70);
             _data[3] = getEleByProperty("input", "myId", "TextBoxLand").value;
             //alert('Land ' + _data[3]);
             _data[4] = getEleByProperty("input", "myId", "TextBoxBuilding").value;
             //alert('Building ' + _data[4]);
             _data[5] = 0;
             //alert('Condo ' + _data[5]);
+            }
+
             _data[6] = getEleByProperty("input", "myId", "TextBoxAppraisal_Id").value;
             //alert('User Create ' + _data[6]);
                       
@@ -337,7 +357,8 @@
             var IndexValueWarning = $get('<%=ddlWarning.ClientID %>').selectedIndex;
             _data[8] = $get('<%=ddlWarning.ClientID %>').options[IndexValueWarning].value;
             //alert('Warning ' + _data[8]);
-            PageMethods.SavePrice2_Master(_data[0], _data[1], _data[2], _data[3], _data[4], _data[5], _appraisal_type, _data[7], _data[8], _data[6], this.callback);
+            _data[9] = getEleByProperty("textarea", "myId", "TextBoxNote").value;
+            PageMethods.SavePrice2_Master(_data[0], _data[1], _data[2], _data[3], _data[4], _data[5], _appraisal_type, _data[7], _data[8], _data[6], _data[9], this.callback);
         }
                                             
     </script>
@@ -350,7 +371,7 @@
     <br />
     <asp:Panel ID="pHeader" runat="server">
         <table align="center" border="0" cellpadding="3" cellspacing="5" style="background-color: #FFC20E;
-            width: 895px">
+            width: 915px">
             <tr>
                 <td style="width: 180px">
                     เลขคำขอประเมิน
@@ -432,7 +453,7 @@
     </asp:Panel>
     <asp:Panel ID="pLand" runat="server">
         <table align="center" border="0" cellpadding="3" cellspacing="5" style="background-color: #FFC20E;
-            width: 895px">
+            width: 915px">
             <tr>
                 <td style="width: 180px">
                     ราคาที่ดิน
@@ -449,7 +470,7 @@
     </asp:Panel>
     <asp:Panel ID="pBuilding" runat="server">
         <table align="center" border="0" cellpadding="3" cellspacing="5" style="background-color: #FFC20E;
-            width: 895px">
+            width: 915px">
             <tr>
                 <td style="width: 180px">
                     ราคาสิ่งปลูกสร้าง
@@ -467,7 +488,7 @@
     </asp:Panel>
     <asp:Panel ID="pCondo" runat="server">
         <table align="center" border="0" cellpadding="3" cellspacing="5" style="background-color: #FFC20E;
-            width: 895px">
+            width: 915px">
             <tr>
                 <td style="width: 180px">
                     ราคาคอนโด
@@ -484,7 +505,7 @@
     </asp:Panel>
     <asp:Panel ID="pFooter" runat="server">
         <table align="center" border="0" cellpadding="3" cellspacing="5" style="background-color: #FFC20E;
-            width: 895px">
+            width: 915px">
             <tr>
                 <td style="width: 180px">
                     ราคารวม
@@ -501,7 +522,7 @@
     </asp:Panel>
     <asp:Panel ID="Panel1" runat="server">
         <table align="center" border="0" cellpadding="3" cellspacing="5" style="background-color: #FFC20E;
-            width: 895px; height: 117px;">
+            width: 915px; height: 117px;">
             <tr>
                 <td style="width: 120px">
                     Comment
@@ -524,13 +545,21 @@
             </tr>
             <tr>
                 <td style="width: 120px">
+                    หมายเหตุ</td>
+                <td colspan="2">
+                    <asp:TextBox ID="TextBoxNote" runat="server" Height="65px" TextMode="MultiLine" 
+                        Width="600px" myId ="TextBoxNote"></asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 120px">
                     &nbsp;
                 </td>
                 <td align="center">
                     <asp:ImageButton ID="ImageButtonAttachment" runat="server" Height="30px" ImageUrl="~/Images/attachment.png"
                         ToolTip="แนบไฟล์" Width="30px" OnClientClick="attachFile(); return false;" />
                     &nbsp;<asp:ImageButton ID="ImageButtonSave" runat="server" Font-Bold="True" ImageUrl="~/Images/save.jpg"
-                        Width="30px" Height="30px" OnClientClick="savePrice2_Maseter(); return false;"/>
+                        Width="30px" Height="30px" OnClientClick="savePrice2_Master(); return false;"/>
                     &nbsp;<asp:ImageButton ID="ImageButtonFullForm" runat="server" Font-Bold="True" ImageUrl="~/Images/full_form.ico"
                         Width="30px" Height="30px" ToolTip="ออกรายงานการประเมิน" />                        
                 </td>
@@ -625,4 +654,5 @@
         SelectCommand="SELECT [Comment_ID], [Comment_Name] FROM [Comment]"></asp:SqlDataSource>
     <asp:SqlDataSource ID="SDSWarning" runat="server" ConnectionString="<%$ ConnectionStrings:AppraisalConn %>"
         SelectCommand="SELECT [Warning_ID], [Warning_Name] FROM [Warning]"></asp:SqlDataSource>
+    <asp:HiddenField ID="HiddenFieldCollType" runat="server" />
 </asp:Content>

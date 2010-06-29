@@ -116,7 +116,7 @@
         function windowPrint() {
             window.print();
         }
-        function windowColsePage() {
+        function windowClosePage() {
             window.close();
         }     
     </script>
