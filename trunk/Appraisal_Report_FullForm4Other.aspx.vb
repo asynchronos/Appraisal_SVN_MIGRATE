@@ -219,7 +219,7 @@ Partial Class Appraisal_Report_FullForm4Other
             lblLandDetail11.Text = Replace(Space(10), " ", "&nbsp;") & "สภาพการปรับปรุงห้องชุด" & Replace(Space(5), " ", "&nbsp;") & Obj_GetP18.Item(0).Adjust_Condo
             lblSize.Text = Replace(Space(10), " ", "&nbsp;") & Obj_GetP18.Item(0).Address_No
             lblPriceWah.Text = String.Format("{0:N2}", Obj_GetP18.Item(0).Unit_Price)
-            txtLandTotal.Text = String.Format("{0:N2}", Obj_GetP18.Item(0).PriceTotal)
+            txtLandTotal.Text = String.Format("{0:N2}", Round(CDec(Obj_GetP18.Item(0).PriceTotal) / 1000, System.MidpointRounding.AwayFromZero) * 1000)
             'txtLandTotal.Text = String.Format("{0:N2}", Round(CDec(Obj_GetP18.Item(0).PriceTotal) / 1000, System.MidpointRounding.AwayFromZero) * 1000)
             txtGrandTotal.Text = String.Format("{0:N2}", CDec(txtLandTotal.Text))
             '--------------------------------------------------------
@@ -229,13 +229,13 @@ Partial Class Appraisal_Report_FullForm4Other
                 If i = 1 Then
                     lblBuilding_Detail.Text = Replace(Space(10), " ", "&nbsp;") & Obj_GetP18.Item(i).Address_No
                     lblUnit_Price_Condo.Text = String.Format("{0:N2}", Obj_GetP18.Item(i).Unit_Price)
-                    'txtBuildingPrice.Text = String.Format("{0:N2}", Round(CDec(Obj_GetP18.Item(i).PriceTotal) / 1000, System.MidpointRounding.AwayFromZero) * 1000)
-                    txtBuildingPrice.Text = String.Format("{0:N2}", Obj_GetP18.Item(i).PriceTotal)
+                    txtBuildingPrice.Text = String.Format("{0:N2}", Round(CDec(Obj_GetP18.Item(i).PriceTotal) / 1000, System.MidpointRounding.AwayFromZero) * 1000)
+                    'txtBuildingPrice.Text = String.Format("{0:N2}", Obj_GetP18.Item(i).PriceTotal)
                 ElseIf i = 2 Then
                     lblBuilding_Detail.Text = Replace(Space(10), " ", "&nbsp;") & Obj_GetP18.Item(i).Address_No
                     lblTotal3.Text = String.Format("{0:N2}", Obj_GetP18.Item(i).Unit_Price)
-                    'txtSubTotal.Text = String.Format("{0:N2}", Round(CDec(Obj_GetP18.Item(i).PriceTotal) / 1000, System.MidpointRounding.AwayFromZero) * 1000)
-                    txtBuildingPrice.Text = String.Format("{0:N2}", Obj_GetP18.Item(i).PriceTotal)
+                    txtSubTotal.Text = String.Format("{0:N2}", Round(CDec(Obj_GetP18.Item(i).PriceTotal) / 1000, System.MidpointRounding.AwayFromZero) * 1000)
+                    'txtBuildingPrice.Text = String.Format("{0:N2}", Obj_GetP18.Item(i).PriceTotal)
                 Else
                     'รวมแล้วนำไปไว้ที่บรรทัดบนสุด
                 End If

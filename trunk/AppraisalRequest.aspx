@@ -1031,7 +1031,7 @@
     </cc1:RoundedCornersExtender>
     <asp:Panel ID="panelSearchDeptBranch" runat="server" CssClass="outerPopup" Style="display: none;">
         <asp:Panel ID="pnlInnerPopupSearchDeptBranch" runat="server" Width="600px" CssClass="innerPopup">
-            <iframe id="IframeSearchDeptBranch" src="" width="540" height="300" frameborder="0" scrolling="no">
+            <iframe id="IframeSearchDeptBranch" src="" width="600" height="350" frameborder="0" scrolling="no">
             </iframe>
         </asp:Panel>
         <br />
