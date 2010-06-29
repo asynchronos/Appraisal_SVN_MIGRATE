@@ -189,6 +189,31 @@ Public Class Appraisal_Manager
         End Using
     End Sub
 
+    Public Shared Sub UPDATE_AID(ByVal Req_Id As Integer, ByVal AID As String)
+
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("UPDATE_AID", connection)
+
+                connection.Open()
+                command.Connection = connection
+                Dim myTrans As SqlTransaction
+                myTrans = connection.BeginTransaction()
+                command.Transaction = myTrans
+                Try
+                    command.CommandType = CommandType.StoredProcedure
+                    command.Parameters.Add(New SqlParameter("@Req_Id", Req_Id))
+                    command.Parameters.Add(New SqlParameter("@AID", AID))
+                    command.ExecuteNonQuery()
+                    myTrans.Commit()
+                Catch ex As Exception
+                    myTrans.Rollback()
+                Finally
+                    connection.Close()
+                End Try
+            End Using
+        End Using
+    End Sub
+
     Public Shared Sub UPDATE_STATUS_AT_MASTER(ByVal Q_ID As Integer, _
     ByVal STATUS_ID As Integer)
 
@@ -8913,6 +8938,39 @@ ByVal Cif As Integer)
         End Using
     End Sub
 
+    Public Shared Sub UPDATE_APPRAISAL_REQUEST_EDIT(ByVal Req_Id As Integer, ByVal Hub_Id As Integer, ByVal Cif As String, ByVal Title As Integer, ByVal CifName As String, ByVal CifLastname As String, _
+                                                    ByVal Chanode As String, ByVal APP_TYPE_ID As Integer, ByVal Branch_Id As Integer, ByVal Date_Receive As DateTime)
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("UPDATE_APPRAISAL_REQUEST_EDIT", connection)
+                connection.Open()
+                command.Connection = connection
+                Dim myTrans As SqlTransaction
+                myTrans = connection.BeginTransaction()
+                command.Transaction = myTrans
+                Try
+
+                    command.CommandType = CommandType.StoredProcedure
+                    command.Parameters.Add(New SqlParameter("@Req_Id", Req_Id))
+                    command.Parameters.Add(New SqlParameter("@Hub_Id", Hub_Id))
+                    command.Parameters.Add(New SqlParameter("@Title", Title))
+                    command.Parameters.Add(New SqlParameter("@Cif", Cif))
+                    command.Parameters.Add(New SqlParameter("@Name", CifName))
+                    command.Parameters.Add(New SqlParameter("@Lastname", CifLastname))
+                    command.Parameters.Add(New SqlParameter("@CollOfNumber", Chanode))
+                    command.Parameters.Add(New SqlParameter("@APP_TYPE_ID", APP_TYPE_ID))
+                    command.Parameters.Add(New SqlParameter("@Branch_Id", Branch_Id))
+                    command.Parameters.Add(New SqlParameter("@Date_Receive", Date_Receive))
+                    command.ExecuteNonQuery()
+                    myTrans.Commit()
+                Catch ex As Exception
+
+                Finally
+                    connection.Close()
+                End Try
+            End Using
+        End Using
+    End Sub
+
     Public Shared Function GET_APPRAISAL_REQUEST(ByVal Req_Id As Integer) As Generic.List(Of Appraisal_Request)
         Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
             Using command As New SqlCommand("GET_APPRAISAL_REQUEST", connection)
@@ -8981,6 +9039,33 @@ ByVal Cif As Integer)
             connection.Close()
         End Using
     End Function
+
+    Public Shared Sub DELETE_APPRAISAL_REQUEST_V2(ByVal Req_Id As Integer, _
+     ByVal Hub_Id As Integer, _
+     ByVal Cif As String)
+
+        Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
+            Using command As New SqlCommand("DELETE_APPRAISAL_REQUEST_V2", connection)
+                connection.Open()
+                command.Connection = connection
+                Dim myTrans As SqlTransaction
+                myTrans = connection.BeginTransaction()
+                command.Transaction = myTrans
+                Try
+                    command.CommandType = CommandType.StoredProcedure
+                    command.Parameters.Add(New SqlParameter("@Req_Id", Req_Id))
+                    command.Parameters.Add(New SqlParameter("@Hub_Id", Hub_Id))
+                    command.Parameters.Add(New SqlParameter("@Cif", Cif))
+                    command.ExecuteNonQuery()
+                    myTrans.Commit()
+                Catch ex As Exception
+                    myTrans.Rollback()
+                Finally
+                    connection.Close()
+                End Try
+            End Using
+        End Using
+    End Sub
 
 #End Region
 
@@ -9320,7 +9405,7 @@ ByVal Cif As Integer)
      ByVal Create_Date As Date)
 
         Using connection As New SqlConnection(ConfigurationManager.ConnectionStrings("AppraisalConn").ConnectionString)
-            Using command As New SqlCommand("UpdateWait_For_Approve", connection)
+            Using command As New SqlCommand("DeleteWait_For_Approve", connection)
                 connection.Open()
                 command.Connection = connection
                 Dim myTrans As SqlTransaction
