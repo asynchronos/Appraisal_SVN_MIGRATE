@@ -4,24 +4,27 @@ Partial Class Appraisal_Price2
     Dim s As String = ""
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        'Session("Hub_Id") = 3
-        'Session("Status_Id") = 0
-
+        '    'Session("Hub_Id") = 3
+        '    'Session("Status_Id") = 0
     End Sub
 
     Protected Sub DDL_Load(ByVal sender As Object, ByVal e As System.EventArgs)
         Dim D1 As DropDownList = DirectCast(sender, DropDownList)
-        If Not Page.IsPostBack Then
-            D1.DataSource = sdsCollType
-            D1.DataTextField = "CollType_Name"
-            D1.DataValueField = "CollType_ID"
-            D1.DataBind()
-        End If
+        'If Not Page.IsPostBack Then
+        D1.DataSource = sdsCollType
+        D1.DataTextField = "CollType_Name"
+        D1.DataValueField = "CollType_ID"
+        D1.DataBind()
+        'End If
     End Sub
 
     Protected Sub DDL_Click(ByVal sender As Object, ByVal e As System.EventArgs)
         Dim D1 As DropDownList = DirectCast(sender, DropDownList)
         'LblNotice.Text = D1.SelectedValue
+    End Sub
+
+    Protected Sub GridView1_PageIndexChanging(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.GridViewPageEventArgs) Handles GridView1.PageIndexChanging
+        SetFilter()
     End Sub
 
     Protected Sub GridView1_SelectedIndexChanging(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.GridViewSelectEventArgs) Handles GridView1.SelectedIndexChanging
@@ -70,6 +73,24 @@ Partial Class Appraisal_Price2
         Session("Hub_Id") = lblHub.Text
         Session("Status_Id") = 5
         Dim ReqId As Label = DirectCast(cph.FindControl("lblRequestID"), Label) 'Me.FindControl("lblRequestID")
+        SetFilter()
+
+    End Sub
+
+    Protected Sub RadioButtonList1_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles RadioButtonList1.SelectedIndexChanged
+        SetFilter()
+    End Sub
+
+    Protected Sub SetFilter()
+        Dim lblAppraisal_Id As Label = TryCast(Me.Form.FindControl("lblUserID"), Label)
+        Dim filterExpression As String = String.Empty
+        If RadioButtonList1.SelectedValue = 0 Then
+            filterExpression = "Appraisal_Id = " & lblAppraisal_Id.Text
+        ElseIf RadioButtonList1.SelectedValue = 1 Then
+            filterExpression = "Appraisal_Id <> " & 0
+        End If
+
+        SqlDataSource1.FilterExpression = filterExpression
     End Sub
 
 End Class

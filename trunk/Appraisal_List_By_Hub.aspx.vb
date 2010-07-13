@@ -56,9 +56,27 @@ Partial Class Appraisal_List_By_Hub
         Session("Hub_Id") = lblHub.Text
         'Session("Status_Id") = 4
         Dim ReqId As Label = DirectCast(cph.FindControl("lblRequestID"), Label) 'Me.FindControl("lblRequestID")
+        SetFilter()
     End Sub
 
     Protected Sub imgSearch_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs)
         Server.Transfer("Appraisal_Dynamic_Search.aspx")
     End Sub
+
+    Protected Sub RadioButtonList1_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles RadioButtonList1.SelectedIndexChanged
+        SetFilter()
+    End Sub
+
+    Protected Sub SetFilter()
+        Dim lblAppraisal_Id As Label = TryCast(Me.Form.FindControl("lblUserID"), Label)
+        Dim filterExpression As String = String.Empty
+        If RadioButtonList1.SelectedValue = 0 Then
+            filterExpression = "Appraisal_Id = " & lblAppraisal_Id.Text
+        ElseIf RadioButtonList1.SelectedValue = 1 Then
+            filterExpression = "Appraisal_Id <> " & 0
+        End If
+
+        SqlDataSource1.FilterExpression = filterExpression
+    End Sub
+
 End Class
