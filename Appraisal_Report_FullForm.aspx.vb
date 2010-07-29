@@ -265,6 +265,14 @@ Partial Class Appraisal_Report_FullForm
                 hdfChkColl.Value = 18
                 txtLandTotal.Text = String.Format("{0:N2}", P2M.Tables(0).Rows(0).Item("Condo"))
                 txtGrandTotal.Text = String.Format("{0:N2}", P2M.Tables(0).Rows(0).Item("Condo"))
+            ElseIf P2M.Tables(0).Rows(0).Item("Land") > 0 Then
+                hdfChkColl.Value = 50
+                txtLandTotal.Text = String.Format("{0:N2}", P2M.Tables(0).Rows(0).Item("Land"))
+                txtGrandTotal.Text = String.Format("{0:N2}", P2M.Tables(0).Rows(0).Item("Land"))
+            Else
+                StringMessage = "<script language=""javascript"">alert('เกิดข้อผิดพลาดในการให้รายละเอียดราคาที่ 2 กรุณาแจ้งให้ผู้ประเมินตรวจสอบก่อน'); </script>"
+                Page.ClientScript.RegisterStartupScript(Me.GetType, "เตือนการประเมิน", StringMessage)
+                Exit Sub
             End If
 
         ElseIf P2M.Tables(0).Rows(0).Item("Appraisal_Type") = 2 Then
@@ -340,8 +348,19 @@ Partial Class Appraisal_Report_FullForm
                 Dim Check_Approve As List(Of Wait_For_Approve) = GET_CHECK_APPROVED(hdfReq_Id.Value, hdfHub_Id.Value, HiddenField_ApproveId.Value)
                 If Check_Approve.Item(0).Chk_Approve = 1 Then
                     ButtonConfirm1.Visible = False
+                    ImageButtonDigalSign1.Visible = True
+                    'ImageButtonDigalSign1.Width = Unit.Pixel(256)
+                    'ImageButtonDigalSign1.Height = Unit.Pixel(128)
+                    'ImageButtonDigalSign1.ImageUrl = "~/DigitalSign/" & Obj_P3M.Item(0).Approved1 & ".gif"
+                    'ImageButtonDigalSign2.Width = Unit.Pixel(256)
+                    'ImageButtonDigalSign2.Height = Unit.Pixel(128)
+                    'ImageButtonDigalSign2.ImageUrl = "~/DigitalSign/" & Obj_P3M.Item(0).Approved2 & ".gif"
+                    'ImageButtonDigalSign3.Width = Unit.Pixel(256)
+                    'ImageButtonDigalSign3.Height = Unit.Pixel(128)
+                    'ImageButtonDigalSign3.ImageUrl = "~/DigitalSign/" & Obj_P3M.Item(0).Approved3 & ".gif"
                 Else
                     ImageButtonApproved1.Visible = False
+                    'ImageButtonDigalSign1.Visible = False
                 End If
 
                 ImageButtonApproved2.Visible = False
@@ -352,8 +371,12 @@ Partial Class Appraisal_Report_FullForm
             Dim Obj_approve_check1 As DataSet = GET_WAIT_FOR_APPROVE_CHECK(hdfReq_Id.Value, hdfHub_Id.Value, Obj_P3M.Item(0).Approved1)
             If Obj_approve_check1.Tables(0).Rows(0).Item("Chk_Approve") = 1 Then
                 ImageButtonApproved1.Visible = True
+                ImageButtonDigalSign1.Width = Unit.Pixel(128)
+                ImageButtonDigalSign1.Height = Unit.Pixel(64)
+                ImageButtonDigalSign1.ImageUrl = "~/DigitalSign/" & Obj_P3M.Item(0).Approved1 & ".gif"
             Else
                 ImageButtonApproved1.Visible = False
+                ImageButtonDigalSign1.Visible = False
             End If
 
             Dim Obj_Approve2 As DataSet = GET_APPRAISAL_APPROVAL(Obj_P3M.Item(0).Approved2)
@@ -367,18 +390,24 @@ Partial Class Appraisal_Report_FullForm
                 Dim Check_Approve2 As List(Of Wait_For_Approve) = GET_CHECK_APPROVED(hdfReq_Id.Value, hdfHub_Id.Value, HiddenField_ApproveId.Value)
                 If Check_Approve2.Item(0).Chk_Approve = 1 Then
                     ButtonConfirm2.Visible = False
+                    'ImageButtonDigalSign2.Width = Unit.Pixel(256)
+                    'ImageButtonDigalSign2.Height = Unit.Pixel(128)
+                    'ImageButtonDigalSign2.ImageUrl = "~/DigitalSign/" & Obj_P3M.Item(0).Approved2 & ".gif"
                 Else
                     ImageButtonApproved2.Visible = False
                 End If
-                'ImageButtonApproved1.Visible = False
-                'ImageButtonApproved3.Visible = False
+
             End If
             'แสดงรูปว่ายืนยันแล้วคนที่ 2
             Dim Obj_approve_check2 As DataSet = GET_WAIT_FOR_APPROVE_CHECK(hdfReq_Id.Value, hdfHub_Id.Value, Obj_P3M.Item(0).Approved2)
             If Obj_approve_check2.Tables(0).Rows(0).Item("Chk_Approve") > 0 Then
                 ImageButtonApproved2.Visible = True
+                ImageButtonDigalSign2.Width = Unit.Pixel(128)
+                ImageButtonDigalSign2.Height = Unit.Pixel(64)
+                ImageButtonDigalSign2.ImageUrl = "~/DigitalSign/" & Obj_P3M.Item(0).Approved2 & ".gif"
             Else
                 ImageButtonApproved2.Visible = False
+                ImageButtonDigalSign2.Visible = False
             End If
 
             Dim Obj_Approve3 As DataSet = GET_APPRAISAL_APPROVAL(Obj_P3M.Item(0).Approved3)
@@ -392,18 +421,23 @@ Partial Class Appraisal_Report_FullForm
                 Dim Check_Approve As List(Of Wait_For_Approve) = GET_CHECK_APPROVED(hdfReq_Id.Value, hdfHub_Id.Value, HiddenField_ApproveId.Value)
                 If Check_Approve.Item(0).Chk_Approve = 1 Then
                     ButtonConfirm3.Visible = False
+                    'ImageButtonDigalSign3.Width = Unit.Pixel(256)
+                    'ImageButtonDigalSign3.Height = Unit.Pixel(128)
+                    'ImageButtonDigalSign3.ImageUrl = "~/DigitalSign/" & Obj_P3M.Item(0).Approved3 & ".gif"
                 Else
                     ImageButtonApproved3.Visible = False
                 End If
-                'ImageButtonApproved1.Visible = False
-                'ImageButtonApproved2.Visible = False
             End If
             'แสดงรูปว่ายืนยันแล้วคนที่ 3
             Dim Obj_approve_check3 As DataSet = GET_WAIT_FOR_APPROVE_CHECK(hdfReq_Id.Value, hdfHub_Id.Value, Obj_P3M.Item(0).Approved3)
             If Obj_approve_check3.Tables(0).Rows(0).Item("Chk_Approve") > 0 Then
                 ImageButtonApproved3.Visible = True
+                ImageButtonDigalSign3.Width = Unit.Pixel(128)
+                ImageButtonDigalSign3.Height = Unit.Pixel(34)
+                ImageButtonDigalSign3.ImageUrl = "~/DigitalSign/" & Obj_P3M.Item(0).Approved3 & ".gif"
             Else
                 ImageButtonApproved3.Visible = False
+                ImageButtonDigalSign3.Visible = False
             End If
         Else
             'มีการกำหนดราคาที่ 3 แล้ว แสดงชื่อลูกค้า
@@ -411,6 +445,8 @@ Partial Class Appraisal_Report_FullForm
             'Dim Obj_title As List(Of Cls_Title) = GET_TITLE_INFO(Obj_Cif.Item(0).Title)
             'lblCifName.Text = Obj_title.Item(0).TITLE_NAME & Obj_Cif.Item(0).Name & "  " & Obj_Cif.Item(0).Lastname
         End If
+
+
 
 
     End Sub
@@ -451,4 +487,8 @@ Public Shared Function ConfirmPriceCommittee(ByVal ReqId As Integer, ByVal HubId
         Return isValid
 
     End Function
+
+    Protected Sub ImageButtonApproved5_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs) Handles ImageButtonDigalSign2.Click
+
+    End Sub
 End Class

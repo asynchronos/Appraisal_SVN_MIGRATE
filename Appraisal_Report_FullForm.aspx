@@ -260,6 +260,16 @@
                 , param
             );
         }
+        function changeConfirmPassword(reqid, hubid, approveId) {
+
+            var myId = "IframeConfirmPassword";
+            var url = "Appraisal_Confirm_Approve.aspx";
+            var param = "Req_Id=" + reqid + "&Hub_Id=" + hubid + "&ApproveId=" + approveId  + "&PopupModal=mpeBehaviorConfirmPassword";
+            changeIframeSrcById(myId
+                , url
+                , param
+            );
+        }
         
         function callback(result) {
             //  let the user know if their credit card was validated
@@ -278,7 +288,10 @@
             var ApproveId = document.getElementById('<%=HiddenField_ApproveId.ClientID%>').value;
             var r = confirm('คุณต้องการยืนยันการให้ราคาที่ 2 และ ราคาที่ 3 ใช่หรือไม่ ?')
             if (r) {
-                PageMethods.ConfirmPrice(reqid, hubid, ApproveId, this.callbackConfirm);
+                //PageMethods.ConfirmPrice(reqid, hubid, ApproveId, this.callbackConfirm);
+                changeConfirmPassword(reqid, hubid, ApproveId);
+                _popup = $find('mpeBehaviorConfirmPassword');
+                _popup.show();
             }
             else {
             }
@@ -852,16 +865,25 @@
                                 &nbsp;
                             </td>
                             <td align="center" style="border-bottom-style: dotted; border-bottom-width: thin; border-bottom-color: #000000;">
+                                            <asp:ImageButton ID="ImageButtonDigalSign1" runat="server" 
+                                    Height="25px" ImageUrl=""
+                                                ToolTip="ยืนยันราคาแล้ว" Width="25px" />
                             </td>
                             <td class="style29">
                                 &nbsp;
                             </td>
                             <td align="center" style="border-bottom-style: dotted; border-bottom-width: thin; border-bottom-color: #000000;">
+                                            <asp:ImageButton ID="ImageButtonDigalSign2" runat="server" 
+                                    Height="25px" ImageUrl="~/Images/accept.ico"
+                                                ToolTip="ยืนยันราคาแล้ว" Width="25px" />
                             </td>
                             <td class="style26">
                                 &nbsp;
                             </td>
                             <td align="center" style="border-bottom-style: dotted; border-bottom-width: thin; border-bottom-color: #000000;">
+                                            <asp:ImageButton ID="ImageButtonDigalSign3" runat="server" 
+                                    Height="25px" ImageUrl="~/Images/accept.ico"
+                                                ToolTip="ยืนยันราคาแล้ว" Width="25px" />
                             </td>
                         </tr>
                         <tr>
@@ -994,6 +1016,7 @@
                 </td>
             </tr>
         </table>
+
         <cc1:ModalPopupExtender ID="ModalPopupExtenderBuilding" runat="server" TargetControlID="ImageButtonBuilding"
             PopupControlID="panelBuilding" BackgroundCssClass="modalBackground1" BehaviorID="mpeBehaviorBuilding">
         </cc1:ModalPopupExtender>
@@ -1041,6 +1064,20 @@
                 <asp:Button ID="ButtonCloseMap" runat="server" Text="Close" Width="65px" myId="ButtonCloseMap" />
             </div>
         </asp:Panel>
+        <asp:Button ID="btnConfirmPassword" runat="server" style="display:none;" />
+        <cc1:ModalPopupExtender ID="ModalPopupConfirmPassword" runat="server" TargetControlID="btnConfirmPassword"
+            PopupControlID="panelConfirmPassword" BackgroundCssClass="modalBackground1" 
+            BehaviorID="mpeBehaviorConfirmPassword">
+        </cc1:ModalPopupExtender>
+        <cc1:RoundedCornersExtender ID="RoundedCornersExtenderConfirmPassword" runat="server" TargetControlID="pnlInnerPopupConfirmPassword"
+            BorderColor="black" Radius="4">
+        </cc1:RoundedCornersExtender>
+        <asp:Panel ID="panelConfirmPassword" runat="server" CssClass="outerPopup" Style="display: none;">
+            <asp:Panel ID="pnlInnerPopupConfirmPassword" runat="server" Width="400px" CssClass="innerPopup">
+                <iframe id="IframeConfirmPassword" src="" width="400" height="100" frameborder="0" scrolling="no">
+                </iframe>
+            </asp:Panel>
+        </asp:Panel>        
     </div>
     </form>
 </body>
