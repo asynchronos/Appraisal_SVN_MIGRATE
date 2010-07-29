@@ -173,7 +173,7 @@
                 param = param + concatParam('', 'input', 'TextBoxCifName', 'CifName');
                 param = param + concatParam('', 'input', 'TextBoxAppraisal_Id', 'Appraisal_Id');
                 param = param + concatParam('', 'input', 'TextBoxLand', 'LandPriceValue');
-                param = param + concatParam('', 'input', 'TextBoxBuilding', 'BuildingPriceValue');
+                //param = param + concatParam('', 'input', 'TextBoxBuilding', 'BuildingPriceValue');
                 changeIframeSrcById(myId
                 , url
                 , param
@@ -330,6 +330,10 @@
                 //alert('Building ' + _data[4]);
                 _data[5] = getEleByProperty("input", "myId", "TextBoxCondo").value;
                 //alert('Condo ' + _data[5]);
+                if (_data[5] == 0) {
+                    alert('ราคาคอนโดไม่ควรเป็น 0');
+                    return false;
+                }
             }
             else if (_CollType == 50) {
             //alert(50);

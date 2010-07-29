@@ -22,7 +22,7 @@
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-    <div style="background-image: url('Images/imagesCAMBBQTW.jpg')"  >
+    <div style="background-image: url('Images/shiny.gif')"  >
 <br />
 <br />
 <table width="100%">
@@ -38,14 +38,11 @@
                 AutoGenerateColumns="False" DataSourceID="SqlDataSourceWait_For_Approve" 
                 BackColor="LightGoldenrodYellow" BorderColor="Tan" BorderWidth="1px" 
                 CellPadding="2" ForeColor="Black" GridLines="None" AllowPaging="True" 
-                style="font-size: small">
+                style="font-size: small" Width="100%">
                 <Columns>
                     <asp:TemplateField HeaderText="Req_Id" SortExpression="Req_Id">
-                        <EditItemTemplate>
-                            <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("Req_Id") %>'></asp:TextBox>
-                        </EditItemTemplate>
                         <ItemTemplate>
-                            <asp:Label ID="Label1" runat="server" Text='<%# Bind("Req_Id") %>'></asp:Label>
+                            <asp:Label ID="LabelReq_Id" runat="server" Text='<%# Bind("Req_Id") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:BoundField DataField="Hub_Id" HeaderText="Hub_Id" 

@@ -43,6 +43,7 @@ Partial Class Apprisal_Price2_Interface
         TextBoxCif.Text = Request.QueryString("Cif")
         TextBoxCifName.Text = Request.QueryString("CifName")
         TextBoxAppraisal_Id.Text = Request.QueryString("Appraisal_Id")
+        HiddenFieldCollType.Value = Request.QueryString("CollType")
         PRICE2_MASTER_DATA()
     End Sub
 
@@ -65,7 +66,7 @@ Partial Class Apprisal_Price2_Interface
 
     <System.Web.Script.Services.ScriptMethod()> _
 <System.Web.Services.WebMethod()> _
-Public Shared Function SavePrice2_Master(ByVal ReqId As String, ByVal HubId As String, ByVal Cif As String, ByVal Land As String, ByVal Building As String, ByVal Condo As String, ByVal Appraisal_Type As String, ByVal Comment As String, ByVal Warning As String, ByVal CreateUser As String) As String
+Public Shared Function SavePrice2_Master(ByVal ReqId As String, ByVal HubId As String, ByVal Cif As String, ByVal Land As String, ByVal Building As String, ByVal Condo As String, ByVal Appraisal_Type As String, ByVal Comment As String, ByVal Warning As String, ByVal CreateUser As String, ByVal Note As String) As String
         ' simulate a longer operation ... 
         System.Threading.Thread.Sleep(1000)
 
@@ -77,7 +78,7 @@ Public Shared Function SavePrice2_Master(ByVal ReqId As String, ByVal HubId As S
                 TEMPAID = Appraisal_Manager.GET_TEMP_AID()
                 UPDATE_TEMP_AID()
 
-                ADD_PRICE2_MASTER_AND_TEMP_AID(ReqId, HubId, Cif, TEMPAID, CDec(Land), CDec(Building), CDec(Condo), 0, 0, 0, Comment, Warning, "", CreateUser, "", Appraisal_Type, CreateUser, Now())
+                ADD_PRICE2_MASTER_AND_TEMP_AID(ReqId, HubId, Cif, TEMPAID, CDec(Land), CDec(Building), CDec(Condo), 0, 0, 0, Comment, Warning, Note.ToString, CreateUser, "", Appraisal_Type, CreateUser, Now())
 
                 'UPDATE_PRICE2_70_DETAIL_AND_PARTAKE_NEW(ReqId, HubId, TEMPAID)
                 'isValid = True
@@ -90,7 +91,7 @@ Public Shared Function SavePrice2_Master(ByVal ReqId As String, ByVal HubId As S
                 If PRICE2_MASTER_DATA.Tables(0).Rows.Count > 0 Then
                     TEMPAID = PRICE2_MASTER_DATA.Tables(0).Rows(0).Item("Temp_AID")
                 End If
-                UPDATE_PRICE2_MASTER_AND_TEMP_AID(ReqId, HubId, Cif, TEMPAID, CDec(Land), CDec(Building), CDec(Condo), 0, 0, 0, Comment, Warning, "", CreateUser, "", Appraisal_Type, CreateUser, Now())
+                UPDATE_PRICE2_MASTER_AND_TEMP_AID(ReqId, HubId, Cif, TEMPAID, CDec(Land), CDec(Building), CDec(Condo), 0, 0, 0, Comment, Warning, Note, CreateUser, "", Appraisal_Type, CreateUser, Now())
 
                 'isValid = True
 
@@ -138,6 +139,7 @@ Public Shared Function SavePrice2_Master(ByVal ReqId As String, ByVal HubId As S
             TextBoxGrandTotal.Text = String.Format("{0:N2}", PRICE2_MASTER_DATA.Tables(0).Rows(0).Item("Land") + PRICE2_MASTER_DATA.Tables(0).Rows(0).Item("Building") + PRICE2_MASTER_DATA.Tables(0).Rows(0).Item("Condo"))
             ddlComment.SelectedValue = PRICE2_MASTER_DATA.Tables(0).Rows(0).Item("Comment")
             ddlWarning.SelectedValue = PRICE2_MASTER_DATA.Tables(0).Rows(0).Item("Warning")
+            TextBoxNote.Text = PRICE2_MASTER_DATA.Tables(0).Rows(0).Item("Note")
         End If
     End Sub
 
