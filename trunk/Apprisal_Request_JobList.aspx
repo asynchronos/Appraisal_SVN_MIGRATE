@@ -243,10 +243,13 @@
                     </asp:DropDownList>
                     ประจำวันที่
                     <asp:TextBox ID="TxtCalendar" runat="server"></asp:TextBox>
-                    &nbsp;
-                    <cc1:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="TxtCalendar"
+                    &nbsp;<asp:DropDownList ID="DropDownListSearch" runat="server">
+                    </asp:DropDownList>
+                    &nbsp;<cc1:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="TxtCalendar"
                         Format="dd/MM/yyyy">
                     </cc1:CalendarExtender>
+                    <asp:TextBox ID="TxtSearch" runat="server"></asp:TextBox>
+                  
                     <asp:Button ID="Button1" runat="server" Text="ค้นหา" />
                 </td>
             </tr>

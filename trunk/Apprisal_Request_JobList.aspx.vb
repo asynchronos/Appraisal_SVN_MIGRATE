@@ -31,4 +31,35 @@ Partial Class Apprisal_Request_JobList
 
     End Sub
 
+
+    Sub BindDropDown()
+        'รายการใน DropDownList
+        DropDownListSearch.Items.Insert(0, New ListItem("", ""))
+        DropDownListSearch.Items.Insert(1, New ListItem("CIF", "CIF"))
+        DropDownListSearch.Items.Insert(2, New ListItem("รหัสพนักงาน", "Create_User"))
+    End Sub
+
+    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        If Not Page.IsPostBack Then
+            BindDropDown()
+        End If
+    End Sub
+    Protected Sub SetFilter()
+        Dim filterExpression As String = String.Empty
+        If TxtSearch.Text <> String.Empty Then
+            If DropDownListSearch.Items(DropDownListSearch.SelectedIndex).Value = "CIF" Then
+                filterExpression = "CIF = " & TxtSearch.Text
+            ElseIf DropDownListSearch.Items(DropDownListSearch.SelectedIndex).Value = "Create_User" Then
+                filterExpression = "Create_User = " & TxtSearch.Text
+            End If
+        Else
+            'filterExpression = "Hub_ID <> 0"
+        End If
+        SqlGridView.FilterExpression = filterExpression
+        'Response.Write("Filter expression in effect is: " & filterExpression)
+    End Sub
+
+    Protected Sub Button1_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles Button1.Click
+        SetFilter()
+    End Sub
 End Class
