@@ -16,6 +16,7 @@ Partial Class Appraisal_Report_FullForm4Other
     Inherits System.Web.UI.Page
     Dim Obligation As String = ""
     Dim StringMessage As String = ""
+
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not Page.IsPostBack Then
             lblYear.Text = Year(Now)
@@ -264,6 +265,14 @@ Partial Class Appraisal_Report_FullForm4Other
                 hdfChkColl.Value = 18
                 txtLandTotal.Text = String.Format("{0:N2}", P2M.Tables(0).Rows(0).Item("Condo"))
                 txtGrandTotal.Text = String.Format("{0:N2}", P2M.Tables(0).Rows(0).Item("Condo"))
+            ElseIf P2M.Tables(0).Rows(0).Item("Land") > 0 Then
+                hdfChkColl.Value = 50
+                txtLandTotal.Text = String.Format("{0:N2}", P2M.Tables(0).Rows(0).Item("Land"))
+                txtGrandTotal.Text = String.Format("{0:N2}", P2M.Tables(0).Rows(0).Item("Land"))
+            Else
+                StringMessage = "<script language=""javascript"">alert('เกิดข้อผิดพลาดในการให้รายละเอียดราคาที่ 2 กรุณาแจ้งให้ผู้ประเมินตรวจสอบก่อน'); </script>"
+                Page.ClientScript.RegisterStartupScript(Me.GetType, "เตือนการประเมิน", StringMessage)
+                Exit Sub
             End If
 
         ElseIf P2M.Tables(0).Rows(0).Item("Appraisal_Type") = 2 Then
