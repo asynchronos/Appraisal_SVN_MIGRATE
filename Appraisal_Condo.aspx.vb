@@ -120,6 +120,7 @@ Partial Class Appraisal_Condo
             txtTumbon.Text = ObjP3_18.Item(0).Tumbon
             txtAmphur.Text = ObjP3_18.Item(0).Amphur
             ddlProvince.SelectedValue = ObjP3_18.Item(0).Province
+
             txtOwnership.Text = ObjP3_18.Item(0).Ownership
             txtObligation.Text = ObjP3_18.Item(0).Obligation
             txtRoad.Text = ObjP3_18.Item(0).Road
