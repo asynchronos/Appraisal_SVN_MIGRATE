@@ -32,8 +32,8 @@
         function returnValue() {
             var _PopupModal = getValueFromQueryString("PopupModal");
             id = "IframeBuildingDetail";
-            var iframe = window.parent.document.getElementById(id);
             window.parent.$find(_PopupModal).hide();
+            var iframe = window.parent.document.getElementById(_PopupModal);
             window.parent.location.replace(window.parent.location);
         }
     </script>
