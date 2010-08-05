@@ -156,7 +156,7 @@ Partial Class Appraisal_Building
 
     Sub Update_Building_Header(ByVal SubCollType As Integer)
         Dim p2_70new As List(Of Price2_70_New) = GET_PRICE2_70_NEW_VERIFY_UPDATE(lblReq_Id.Text, lblHub_Id.Text, txtBuild_No.Text)
-        UPDATE_PRICE2_PRICE3_70_HEADER(lblId.Text, lblReq_Id.Text, lblHub_Id.Text, 0, 0, 0, _
+        UPDATE_PRICE2_PRICE3_70_HEADER(lblId.Text, lblReq_Id.Text, lblHub_Id.Text, lblTemp_AID.Text, 0, 0, _
             SubCollType, txtBuild_No.Text, txtTumbon.Text, txtAmphur.Text, _
             ddlProvince.SelectedValue, ddlBuild_Character.SelectedValue, txtFloor.Text, txtItem.Text, ddlBuild_Construct.SelectedValue, _
             ddlRoof.SelectedValue, txtRoof_Detail.Text, ddlBuild_State.SelectedValue, _
